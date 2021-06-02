@@ -1,0 +1,19 @@
+# System files & folders
+.npm
+.Spotlight-V100
+.Trashes
+.DS_Store
+.DS_Store?
+Thumbs.db
+
+# IDE
+.idea
+.phpintel
+
+# Composer
+/vendor
+composer.lock
+
+# Backups
+backups
+*.sql
