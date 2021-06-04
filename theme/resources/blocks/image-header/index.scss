@@ -37,6 +37,10 @@
 
     &__text-wrapper {
         display: inline-block;
-        min-width: 300px;
+        //width: 300px;
+    }
+
+    &__svg {
+        position: absolute;
     }
 }

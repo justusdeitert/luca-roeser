@@ -23,6 +23,7 @@ function customizer_theme_styles() {
     $custom_headline_font = get_theme_mod('custom_headline_font');
     $custom_headline_font_plus = str_replace(' ', '+', $custom_headline_font); // replace space with +
     $custom_google_font_string = 'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap';
+    $custom_font_size = get_theme_mod('custom_font_size');
 
     if ($custom_text_font !== $custom_headline_font) {
         $custom_google_font_string = 'https://fonts.googleapis.com/css2?family=' . $custom_text_font_plus .
@@ -37,10 +38,22 @@ function customizer_theme_styles() {
      */
     $custom_primary_color = get_theme_mod('custom_primary_color', '#0d6efd');
     $custom_secondary_color = get_theme_mod('custom_secondary_color', '#6c757d');
+    $custom_success_color = get_theme_mod('custom_secondary_color', '#198754');
+    $custom_danger_color = get_theme_mod('custom_secondary_color', '#dc3545');
+    $custom_warning_color = get_theme_mod('custom_secondary_color', '#ffc107');
+    $custom_info_color = get_theme_mod('custom_secondary_color', '#0dcaf0');
+    $custom_light_color = get_theme_mod('custom_secondary_color', '#f8f9fa');
+    $custom_dark_color = get_theme_mod('custom_secondary_color', '#212529');
 
     $theme_colors = [
         'primary' => $custom_primary_color,
-        'secondary' => $custom_secondary_color
+        'secondary' => $custom_secondary_color,
+        'success' => $custom_success_color,
+        'danger' => $custom_danger_color,
+        'warning' => $custom_warning_color,
+        'info' => $custom_info_color,
+        'light' => $custom_light_color,
+        'dark' => $custom_dark_color,
     ];
 
     if (is_admin()) { ?>
@@ -48,6 +61,10 @@ function customizer_theme_styles() {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="<?php echo $custom_google_font_string; ?>" rel="stylesheet">
         <style>
+
+            html {
+                font-size: <?php echo $custom_font_size; ?>px;
+            }
 
             .editor-styles-wrapper {
                 font-family: '<?php echo $custom_text_font; ?>', <?php echo $standard_google_fonts[$custom_text_font]; ?> !important;
@@ -78,6 +95,12 @@ function customizer_theme_styles() {
                 }
             <?php } ?>
 
+            :root {
+                <?php foreach ($theme_colors as $name => $value) { ?>
+                    --color-<?php echo $name; ?>: <?php echo $value; ?>;
+                <?php } ?>
+            }
+
         </style>
     <?php } else { ?>
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -98,6 +121,10 @@ function customizer_theme_styles() {
                 }
             }
 
+            html {
+                font-size: <?php echo $custom_font_size; ?>px;
+            }
+
             body {
                 font-family: '<?php echo $custom_text_font; ?>', sans-serif;
             }
@@ -106,16 +133,17 @@ function customizer_theme_styles() {
                 font-family: '<?php echo $custom_headline_font; ?>', sans-serif;
             }
 
-            :root {
-                --color-primary: <?php echo $custom_primary_color; ?>;
-                --color-secondary: <?php echo $custom_secondary_color; ?>;
-            }
-
             <?php foreach ($theme_colors as $name => $value) { ?>
                 .has-<?php echo $name; ?>-color {
                     color: <?php echo $value; ?>;
                 }
             <?php } ?>
+
+            :root {
+                <?php foreach ($theme_colors as $name => $value) { ?>
+                    --color-<?php echo $name; ?>: <?php echo $value; ?>;
+                <?php } ?>
+            }
 
         </style>
     <?php }

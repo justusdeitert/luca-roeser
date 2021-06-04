@@ -1,7 +1,11 @@
-body {
-    @apply font-sans;
-}
+//body {
+//    @apply font-sans;
+//}
 
-.brand {
-    @apply text-3xl font-medium text-indigo-500;
+//.brand {
+//    @apply text-3xl font-medium text-indigo-500;
+//}
+
+.is-style-text-shadow {
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 }

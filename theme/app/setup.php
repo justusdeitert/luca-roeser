@@ -102,7 +102,7 @@ add_action('after_setup_theme', function () {
      * Enable support for custom line heights in the editor.
      * @link https://developer.wordpress.org/block-editor/developers/themes/theme-support/#supporting-custom-line-heights
      */
-    add_theme_support('custom-line-height');
+    // add_theme_support('custom-line-height');
 
     /**
      * Enable support for custom block spacing control in the editor.
@@ -193,41 +193,6 @@ add_action('after_setup_theme', function () {
             'slug'  => 'secondary',
             'color' => get_theme_mod('custom_secondary_color', '#6c757d'),
         ],
-        [
-            'name'  => __('Dark', 'sage'),
-            'slug'  => 'dark',
-            'color' => '#0D0D0D',
-        ],
-        [
-            'name'  => __('Grey', 'sage'),
-            'slug'  => 'grey',
-            'color' => '#D0D0D0',
-        ],
-        [
-            'name'  => __('White', 'sage'),
-            'slug'  => 'white',
-            'color' => '#FFF',
-        ],
-        [
-            'name'  => __('Light', 'sage'),
-            'slug'  => 'light',
-            'color' => '#EBEBEB',
-        ],
-        [
-            'name'  => __('Light Green', 'sage'),
-            'slug'  => 'light_green',
-            'color' => '#B7EFC1',
-        ],
-        [
-            'name'  => __('Orange', 'sage'),
-            'slug'  => 'orange',
-            'color' => '#F4984F',
-        ],
-        [
-            'name'  => __('Blue', 'sage'),
-            'slug'  => 'blue',
-            'color' => '#1493A8',
-        ]
     ]);
 
     /*

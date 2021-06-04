@@ -1,22 +1,38 @@
-// Config
-@import 'config';
+// Custom Gutenberg block editor styles
+.block-editor .editor-styles-wrapper {
+    @import 'config';
+    font-size: $font-size-base;
 
-.editor-styles-wrapper > * {
-    @import "external";
-    @import "common";
-    @import "../blocks";
-    font-family: $font-family-base;
+    // wrapper to override gutenberg block library css
+    > * {
+        @import 'external';
+        @import 'common';
+        @import '../blocks';
 
-    // extends gutenberg button class
-    .button {
-        font-size: 13px;
-        line-height: 22px;
+        // extends gutenberg button class
+        .button {
+            font-size: 13px;
+            line-height: 22px;
 
-        &--image-upload {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
+            &--image-upload {
+                position: absolute;
+                bottom: 10px;
+                right: 10px;
+            }
         }
+    }
+
+    .editor-post-title {
+        font-size: 26px; // Always same size title
+    }
+
+    blockquote {
+
+    }
+
+    .wp-block {
+        margin-left: auto;
+        margin-right: auto;
     }
 }
 

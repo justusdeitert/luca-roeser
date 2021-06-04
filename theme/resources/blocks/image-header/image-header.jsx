@@ -1,7 +1,7 @@
 import {__} from '@wordpress/i18n';
 import {registerBlockType} from '@wordpress/blocks';
 import {createElement} from '@wordpress/element';
-import {RangeControl, Button} from '@wordpress/components';
+import {RangeControl, Button, ToggleControl} from '@wordpress/components';
 
 import {
     RichText,
@@ -42,10 +42,22 @@ const attributes = {
         type: 'number',
         default: 450,
     },
-    headerFontSize: {
+    fullHeight: {
+        type: 'boolean',
+        default: false,
+    },
+    headerClipPathTop: {
         type: 'number',
-        default: 16,
-    }
+        default: 0,
+    },
+    headerClipPathBottom: {
+        type: 'number',
+        default: 0,
+    },
+    hasOverlay: {
+        type: 'boolean',
+        default: false,
+    },
 }
 
 registerBlockType('custom/image-header', {
@@ -70,18 +82,6 @@ registerBlockType('custom/image-header', {
             setAttributes({headerImage: imageObject});
         };
 
-        // const onSelectIcon = (iconObject) => {
-        //     setAttributes({icon: iconObject});
-        // };
-
-        // const onChangeTitle = (value) => {
-        //     setAttributes({title: value});
-        // };
-
-        // const onChangeSubTitle = (value) => {
-        //     setAttributes({subTitle: value});
-        // };
-
         const onChangeBlur = (value) => {
             setAttributes({blur: value});
         };
@@ -90,8 +90,20 @@ registerBlockType('custom/image-header', {
             setAttributes({headerHeight: value});
         };
 
-        const onChangeHeaderFontSize = (value) => {
-            setAttributes({headerFontSize: value});
+        const onChangeHeaderClipPathTop = (value) => {
+            setAttributes({headerClipPathTop: value});
+        };
+
+        const onChangeHeaderClipPathBottom = (value) => {
+            setAttributes({headerClipPathBottom: value});
+        };
+
+        const onChangeFullHeight = (value) => {
+            setAttributes({fullHeight: value});
+        };
+
+        const onChangeHasOverlay = (value) => {
+            setAttributes({hasOverlay: value});
         };
 
         const TEMPLATE = [
@@ -99,11 +111,22 @@ registerBlockType('custom/image-header', {
             ['core/heading', {placeholder: 'This is the Subtitle...'}],
         ];
 
+        const getClipPath = () => {
+
+            let topLeft = attributes.headerClipPathTop < 0 ? 0 - attributes.headerClipPathTop : 0;
+            let topRight = attributes.headerClipPathTop > 0 ? 0 + attributes.headerClipPathTop : 0;
+
+            let bottomLeft = attributes.headerClipPathBottom < 0 ? 100 + attributes.headerClipPathBottom : 100;
+            let bottomRight = attributes.headerClipPathBottom > 0 ? 100 - attributes.headerClipPathBottom: 100;
+
+            return `polygon(0 ${topLeft}%,100% ${topRight}%,100% ${bottomLeft}%,0 ${bottomRight}%)`
+        }
+
         return (
             <div className={classNames(className, 'image-header-block')}
                  style={{
-                     height: `${attributes.headerHeight}px`,
-                     fontSize: `${attributes.headerFontSize}px`
+                     height: attributes.fullHeight ? `100vh` : `${attributes.headerHeight}px`,
+                     // fontSize: `${attributes.headerFontSize}px`
                  }}
             >
                 <InspectorControls>
@@ -117,74 +140,84 @@ registerBlockType('custom/image-header', {
                             onChange={onChangeBlur}
                         />
                         <hr />
-                        <p>{__('Adjust Header Height', 'sage')}</p>
-                        <RangeControl
-                            value={attributes.headerHeight}
-                            min={280}
-                            max={680}
-                            step={10}
-                            onChange={onChangeHeaderHeight}
+                        <ToggleControl
+                            label={__('Full Height header', 'sage')}
+                            // help={ attributes.switchContent ? 'Image is left' : 'Image is right' }
+                            checked={attributes.fullHeight}
+                            onChange={onChangeFullHeight}
                         />
+                        {!attributes.fullHeight &&
+                            <>
+                                <hr />
+                                <p>{__('Adjust Header Height', 'sage')}</p>
+                                <RangeControl
+                                    value={attributes.headerHeight}
+                                    min={280}
+                                    max={680}
+                                    step={10}
+                                    onChange={onChangeHeaderHeight}
+                                />
+                                <hr />
+                                <p>{__('Adjust Header Clip Path (Top)', 'sage')}</p>
+                                <RangeControl
+                                    value={attributes.headerClipPathTop}
+                                    min={-15}
+                                    max={+15}
+                                    step={1}
+                                    onChange={onChangeHeaderClipPathTop}
+                                />
+                                <hr />
+                                <p>{__('Adjust Header Clip Path (Bottom)', 'sage')}</p>
+                                <RangeControl
+                                    value={attributes.headerClipPathBottom}
+                                    min={-15}
+                                    max={+15}
+                                    step={1}
+                                    onChange={onChangeHeaderClipPathBottom}
+                                />
+                            </>
+                        }
                         <hr />
-                        <p>{__('Adjust Header Font Size', 'sage')}</p>
-                        <RangeControl
-                            value={attributes.headerFontSize}
-                            min={12}
-                            max={26}
-                            step={1}
-                            onChange={onChangeHeaderFontSize}
+                        <ToggleControl
+                            label={__('Image Overlay', 'sage')}
+                            checked={attributes.hasOverlay}
+                            onChange={onChangeHasOverlay}
                         />
+                        {attributes.hasOverlay &&
+                           <>
+                               <hr />
+                               <ToggleControl
+                                   label={__('Image Overlay', 'sage')}
+                                   checked={attributes.overlayColor}
+                                   onChange={onChangeHasOverlay}
+                               />
+                               <ColorPalette
+                                   colors={editorColors}
+                                   value={attributes.overlayColor}
+                                   disableCustomColors={true}
+                                   onChange={onChangeTileBackgroundColor}
+                                   clearable={false}
+                               />
+                           </>
+                        }
                     </div>
                 </InspectorControls>
                 <img className={classNames('image-header-block__image', attributes.blur > 0 ? 'is-blurred' : '')}
-                     style={{filter: `blur(${attributes.blur}px)`}}
+                     style={{
+                         filter: `blur(${attributes.blur}px)`,
+                         clipPath: attributes.fullHeight ? 'initial' : getClipPath()
+                     }}
                      src={getImage(attributes.headerImage, 'medium')}
                      alt={getImage(attributes.headerImage, 'alt')}
                      width={getImage(attributes.headerImage, 'width')}
                      height={getImage(attributes.headerImage, 'height')}
                 />
-                <div className="image-header-block__overlay"/>
+                {attributes.hasOverlay &&
+                    <div className="image-header-block__overlay"/>
+                }
                 <div className="container image-header-block__container">
                     <div className="image-header-block__text-wrapper">
-                    {/*<InnerBlocks allowedBlocks={[
-                        'core/paragraph',
-                        'core/heading',
-                    ]}/>*/}
                         <InnerBlocks templateLock='all' template={TEMPLATE} allowedBlocks={['custom/column']}/>
-                    {/*<div className="image-header-block__text-wrapper">
-                        <div className="image-header-block__title-wrapper">
-                            <RichText
-                                tagName="h2"
-                                placeholder={__('The Title...', 'sage')}
-                                keepPlaceholderOnFocus={true}
-                                value={attributes.title}
-                                onChange={onChangeTitle}
-                                className="image-header-block__title"
-                            />
-                            <MediaUpload
-                                onSelect={onSelectIcon}
-                                allowedTypes={[
-                                    'image/svg+xml',
-                                    'image/png',
-                                ]}
-                                // value={attributes.iconID}
-                                render={({open}) => (
-                                    !attributes.icon ?
-                                        <Button className={'button'} onClick={open}>{__('Upload Icon', 'sage')}</Button> :
-                                        <img src={getImage(attributes.icon)} style={{cursor: 'pointer'}} alt={__('Logo Icon','sage')} onClick={open}/>
-                                )}
-                            />
-                        </div>
-                        <RichText
-                            tagName="h3"
-                            placeholder={__('Lorem ipsum dolor sit amet.', 'sage')}
-                            keepPlaceholderOnFocus={true}
-                            allowedFormats={[]}
-                            value={attributes.subTitle}
-                            onChange={onChangeSubTitle}
-                            className="image-header-block__subtitle"
-                        />
-                    </div>*/}
                     </div>
                 </div>
                 <MediaUpload
@@ -206,35 +239,45 @@ registerBlockType('custom/image-header', {
         );
     },
     save: ({className, attributes}) => {
+
+        const getClipPath = () => {
+
+            let topLeft = attributes.headerClipPathTop < 0 ? 0 - attributes.headerClipPathTop : 0;
+            let topRight = attributes.headerClipPathTop > 0 ? 0 + attributes.headerClipPathTop : 0;
+
+            let bottomLeft = attributes.headerClipPathBottom < 0 ? 100 + attributes.headerClipPathBottom : 100;
+            let bottomRight = attributes.headerClipPathBottom > 0 ? 100 - attributes.headerClipPathBottom: 100;
+
+            return `polygon(0 ${topLeft}%,100% ${topRight}%,100% ${bottomLeft}%,0 ${bottomRight}%)`
+        }
+
         return (
             <div className={classNames(className, 'image-header-block')}
                  style={{
-                     height: `${attributes.headerHeight}px`,
-                     fontSize: `${attributes.headerFontSize}px`
+                     height: attributes.fullHeight ? `100vh` : `${attributes.headerHeight}px`,
+                     // fontSize: `${attributes.headerFontSize}px`
                  }}
             >
 
                 <img className={classNames('image-header-block__image', attributes.blur > 0 ? 'is-blurred' : '')}
-                     style={{filter: `blur(${attributes.blur}px)`}}
+                     style={{
+                         filter: `blur(${attributes.blur}px)`,
+                         clipPath: attributes.fullHeight ? 'initial' : getClipPath()
+                     }}
                      srcSet={`${getImage(attributes.headerImage, 'tiny')} 480w, ${getImage(attributes.headerImage, 'small')} 768w, ${getImage(attributes.headerImage, 'medium')} 1024w`}
                      sizes="100w"
                      src={getImage(attributes.headerImage, 'medium')}
                      alt={getImage(attributes.headerImage, 'alt')}
                 />
 
-                <div className="image-header-block__overlay"/>
+                {attributes.hasOverlay &&
+                    <div className="image-header-block__overlay"/>
+                }
 
                 <div className="container image-header-block__container">
                     <div className="image-header-block__text-wrapper">
                         <InnerBlocks.Content/>
                     </div>
-                    {/*<div className="image-header-block__text-wrapper">
-                        <div className="image-header-block__title-wrapper">
-                            <RichText.Content tagName="h2" className="image-header-block__title" value={attributes.title}/>
-                            {attributes.iconID && <img src={attributes.iconURL} alt={__('Logo Icon', 'sage')}/>}
-                        </div>
-                        <RichText.Content tagName="h3" className="image-header-block__subtitle" value={attributes.subTitle}/>
-                    </div>*/}
                 </div>
             </div>
         );

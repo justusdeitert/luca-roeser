@@ -24,4 +24,11 @@ domReady(() => {
         name: 'outline',
         label: 'Outline',
     });
+
+    registerBlockStyle('core/heading', [
+        {
+            name: 'text-shadow',
+            label: 'Text Shadow',
+        },
+    ]);
 });

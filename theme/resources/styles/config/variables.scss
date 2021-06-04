@@ -1,10 +1,12 @@
 @import "~bootstrap/scss/functions";
 
-// scss-docs-start spacer-variables-maps
-$spacer: 1em;
-
 // scss-docs-start font-variables
-$font-size-base: 1em;
+$font-size-base: 1rem;
 
-// scss-docs-start nav-variables
-$nav-link-padding-y: .5em;
+$h1-font-size: $font-size-base * 3.5;
+$h2-font-size: $font-size-base * 2;
+$h3-font-size: $font-size-base * 1.75;
+$h4-font-size: $font-size-base * 1.5;
+$h5-font-size: $font-size-base * 1.25;
+$h6-font-size: $font-size-base;
+// scss-docs-end font-variables
