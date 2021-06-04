@@ -29,3 +29,20 @@ require $composer;
 */
 
 require_once __DIR__ . '/bootstrap/app.php';
+
+/**
+ * Custom Includes
+ * TODO: Replace with PSR-4 autoloading standart
+ */
+foreach (new DirectoryIterator(locate_template('includes/')) as $file_info) {
+
+    // If is not dot & and php & does not have a underline as first letter
+    // ----------------------------->
+    if (!$file_info->isDot() && $file_info->getExtension() === 'php' && substr($file_info->getFilename(), 0, 1) !== '_') {
+        include $file_info->getPathname();
+    }
+}
+
+
+
+$max_container_width = get_theme_mod('max_container_width', '1260');
