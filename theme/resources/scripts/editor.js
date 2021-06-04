@@ -1,6 +1,6 @@
 import '@wordpress/edit-post';
 import domReady from '@wordpress/dom-ready';
-import { unregisterBlockStyle, registerBlockStyle } from '@wordpress/blocks';
+import {unregisterBlockStyle, registerBlockStyle} from '@wordpress/blocks';
 
 /**
  * External Dependencies
@@ -8,10 +8,10 @@ import { unregisterBlockStyle, registerBlockStyle } from '@wordpress/blocks';
 import './external';
 
 domReady(() => {
-  unregisterBlockStyle('core/button', 'outline');
+    unregisterBlockStyle('core/button', 'outline');
 
-  registerBlockStyle('core/button', {
-    name: 'outline',
-    label: 'Outline',
-  });
+    registerBlockStyle('core/button', {
+        name: 'outline',
+        label: 'Outline',
+    });
 });

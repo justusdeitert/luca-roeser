@@ -2,7 +2,7 @@
 @import 'config';
 
 .editor-styles-wrapper > * {
-  @import "external";
-  @import "common";
-  font-family: $font-family-base;
+    @import "external";
+    @import "common";
+    font-family: $font-family-base;
 }
