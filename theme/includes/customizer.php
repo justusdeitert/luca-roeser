@@ -1,5 +1,19 @@
 <?php
 
+$standard_google_fonts = [
+    'Montserrat' => 'sans-serif',
+    'Source Sans Pro' => 'sans-serif',
+    'Oswald' => 'sans-serif',
+    'Lato' => 'sans-serif',
+    'Open Sans' => 'sans-serif',
+    'Raleway' => 'sans-serif',
+    'Roboto' => 'sans-serif',
+    'Roboto Slab' => 'serif', // serif
+    'Barlow' => 'sans-serif',
+    'Quicksand' => 'sans-serif',
+    'Poppins' => 'sans-serif',
+];
+
 /**
  * Check out the Kirki Doc
  * Execute Kirki Functions when plugin is installed
@@ -77,33 +91,15 @@ if (class_exists('Kirki')) {
     /**
      * Select Fonts
      */
-
-    $standard_google_fonts = [
-        'Montserrat',
-        'Source Sans Pro',
-        'Oswald',
-        'Lato',
-        'Open Sans',
-        'Raleway',
-        'Roboto',
-        'Barlow',
-        'Roboto Slap',
-        'Quicksand',
-        'Poppins',
-    ];
-
     $standard_google_fonts_array = [];
-
-    foreach ($standard_google_fonts as $standard_google_font) {
-        $standard_google_fonts_array[$standard_google_font] = $standard_google_font;
+    foreach ($standard_google_fonts as $key => $value) {
+        $standard_google_fonts_array[$key] = $key;
     }
 
-    // var_dump($standard_google_fonts_array);
-
-    Kirki::add_field('custom_body_font_id', [
+    Kirki::add_field('custom_headline_font_id', [
         'type' => 'select',
-        'settings' => 'custom_body_font',
-        'label' => __('Standard Font', 'sage'),
+        'settings' => 'custom_headline_font',
+        'label' => __('Headline Font', 'sage'),
         'section' => 'theme_settings_id',
         'default' => 'Roboto',
         'placeholder' => __('Select an option...', 'sage'),
@@ -122,10 +118,10 @@ if (class_exists('Kirki')) {
         'default' => '<div class="custom-spacing" style="height: 10px;" />',
     ]);
 
-    Kirki::add_field('custom_headline_font_id', [
+    Kirki::add_field('custom_text_font_id', [
         'type' => 'select',
-        'settings' => 'custom_headline_font',
-        'label' => __('Headline Font', 'sage'),
+        'settings' => 'custom_text_font',
+        'label' => __('Text Font', 'sage'),
         'section' => 'theme_settings_id',
         'default' => 'Roboto',
         'placeholder' => __('Select an option...', 'sage'),
