@@ -1,31 +1,8 @@
-.divider-block {
-    //padding: 0;
-
-    &__hr {
-        width: 100%;
-        height: 1px;
-        background-color: rgba($dark, 0.3);
-        border-top: 0;
-        @include fluid-margin(1024px, 2000px, 50px, 120px);
-    }
-
-    &.show-mobile-only {
-        @include media-breakpoint-up(md) {
-            display: none;
-        }
-    }
-
-    &.show-desktop-only {
-        @include media-breakpoint-down(sm) {
-            display: none;
-        }
-    }
-}
-
-.has-dark-background-color {
-    .divider-block {
-        &__hr {
-            background-color: rgba($light, 0.3);
-        }
-    }
+.icon-block {
+    width: 30px;
+    height: 30px;
+    background-color: green;
+    display: inline-block;
+    background-size: contain;
+    background-repeat: no-repeat;
 }

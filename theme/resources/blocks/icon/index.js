@@ -1,1 +1,1 @@
-import './divider';
+import './icon';

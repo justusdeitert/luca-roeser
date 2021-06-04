@@ -9,19 +9,6 @@ export const cloneArray = (array) => {
 };
 
 /**
- * This is needed because by default if the image is smaller some image sizes are not
- */
-export const editorColors = [
-    {name: 'Dark', slug: 'dark', color: '#0D0D0D'},
-    {name: 'Grey', slug: 'grey', color: '#D0D0D0'},
-    {name: 'White', slug: 'white', color: '#FFF'},
-    {name: 'Light', slug: 'light', color: '#EBEBEB'},
-    {name: 'Light Green', slug: 'light-green', color: '#B7EFC1'},
-    {name: 'Orange', slug: 'orange', color: '#F4984F'},
-    {name: 'Blue', slug: 'blue', color: '#1493A8'},
-];
-
-/**
  * Helper function to print out Images in correct sizes
  * @param image
  * @param size
@@ -86,12 +73,13 @@ export const getImage = (image, size = 'full') => {
 };
 
 /**
- * Query Bootstrap Variables
- * @param breakpoint
- * @returns {number}
+ * Query CSS Variables
+ * @param variableString
+ * @returns {string}
  */
-const getCssVariable = (breakpoint) => {
-    return parseInt(getComputedStyle(document.documentElement).getPropertyValue(breakpoint))
+const getCssVariable = (variableString) => {
+    let style = getComputedStyle(document.body)
+    return style.getPropertyValue(variableString)
 }
 
 /**
@@ -105,3 +93,59 @@ export const bootstrapBreakpoints = {
     xl: getCssVariable('--breakpoint-xl'),
     xxl: getCssVariable('--breakpoint-xxl'),
 }
+
+/**
+ * This is needed because by default if the image is smaller some image sizes are not
+ */
+export const editorColors = [
+    {name: 'Primary', slug: 'primary', color: getCssVariable('--color-primary')},
+    {name: 'Secondary', slug: 'secondary', color: getCssVariable('--color-secondary')},
+    {name: 'Success', slug: 'success', color: getCssVariable('--color-success')},
+    {name: 'Danger', slug: 'danger', color: getCssVariable('--color-danger')},
+    {name: 'Warning', slug: 'warning', color: getCssVariable('--color-warning')},
+    {name: 'Info', slug: 'info', color: getCssVariable('--color-info')},
+    {name: 'Light', slug: 'light', color: getCssVariable('--color-light')},
+    {name: 'Dark', slug: 'dark', color: getCssVariable('--color-dark')},
+];
+
+export const fontAwesomeArray = [
+    {class: 'fa-check', unicode: '\\f00c'},
+    {class: 'fa-angle-up', unicode: '\\f106'},
+    {class: 'fa-angle-right', unicode: '\\f105'},
+    {class: 'fa-angle-down', unicode: '\\f107'},
+    {class: 'fa-angle-left', unicode: '\\f104'},
+    {class: 'fa-arrow-up', unicode: '\\f062'},
+    {class: 'fa-arrow-right', unicode: '\\f061'},
+    {class: 'fa-arrow-down', unicode: '\\f063'},
+    {class: 'fa-arrow-left', unicode: '\\f060'},
+    {class: 'fa-arrow-circle-up', unicode: '\\f0aa'},
+    {class: 'fa-arrow-circle-right', unicode: '\\f0a9'},
+    {class: 'fa-arrow-circle-down', unicode: '\\f0ab'},
+    {class: 'fa-arrow-circle-left', unicode: '\\f0a8'},
+    {class: 'fa-user-alt', unicode: '\\f406'},
+    {class: 'fa-user-friends', unicode: '\\f500'},
+    {class: 'fa-user-plus', unicode: '\\f234'},
+    {class: 'fa-user-check', unicode: '\\f4fc'},
+    {class: 'fa-smile', unicode: '\\f118'},
+    {class: 'fa-meh', unicode: '\\f11a'},
+    {class: 'fa-frown', unicode: '\\f119'},
+    {class: 'fa-plus', unicode: '\\f067'},
+    {class: 'fa-minus', unicode: '\\f068'},
+    {class: 'fa-play', unicode: '\\f04b'},
+    {class: 'fa-mobile-alt', unicode: '\\f3cd'},
+    {class: 'fa-phone-alt', unicode: '\\f879'},
+    {class: 'fa-microphone', unicode: '\\f130'},
+    {class: 'fa-envelope', unicode: '\\f0e0'},
+    {class: 'fa-headphones', unicode: '\\f025'},
+    {class: 'fa-reply', unicode: '\\f3e5'},
+    {class: 'fa-paper-plane', unicode: '\\f1d8'},
+    {class: 'fa-at', unicode: '\\f1fa'},
+    {class: 'fa-map-marker-alt', unicode: '\\f3c5'},
+    {class: 'fa-map-marked-alt', unicode: '\\f5a0'},
+    {class: 'fa-directions', unicode: '\\f5eb'},
+    {class: 'fa-globe', unicode: '\\f0ac'},
+    {class: 'fa-calculator', unicode: '\\f1ec'},
+    {class: 'fa-file-signature', unicode: '\\f573'},
+    {class: 'fa-file-invoice-dollar', unicode: '\\f571'},
+    {class: 'fa-shield-alt', unicode: '\\f3ed'}
+];

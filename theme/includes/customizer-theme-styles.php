@@ -93,6 +93,10 @@ function customizer_theme_styles() {
                 .has-<?php echo $name; ?>-color {
                     color: <?php echo $value; ?>;
                 }
+
+                .has-<?php echo $name; ?>-background-color {
+                    background-color: <?php echo $value; ?>;
+                }
             <?php } ?>
 
             :root {
@@ -107,14 +111,14 @@ function customizer_theme_styles() {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="<?php echo $custom_google_font_string; ?>" rel="stylesheet">
         <style>
-            .container {
+            .container, .wp-block-group__inner-container {
                 max-width: <?php echo $max_container_width + ($mobile_container_padding * 2) . 'px'; ?> !important;
                 padding-right: var(--bs-gutter-x, <?php echo $mobile_container_padding . 'px'; ?>);
                 padding-left: var(--bs-gutter-x, <?php echo $mobile_container_padding . 'px'; ?>);
             }
 
             @media (min-width: 720px) {
-                .container {
+                .container, .wp-block-group__inner-container {
                     max-width: <?php echo $max_container_width + ($tablet_container_padding * 2)  . 'px'; ?> !important;
                     padding-right: var(--bs-gutter-x, <?php echo $tablet_container_padding . 'px'; ?>);
                     padding-left: var(--bs-gutter-x, <?php echo $tablet_container_padding . 'px'; ?>);
@@ -136,6 +140,10 @@ function customizer_theme_styles() {
             <?php foreach ($theme_colors as $name => $value) { ?>
                 .has-<?php echo $name; ?>-color {
                     color: <?php echo $value; ?>;
+                }
+
+                .has-<?php echo $name; ?>-background-color {
+                    background-color: <?php echo $value; ?>;
                 }
             <?php } ?>
 

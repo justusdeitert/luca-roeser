@@ -1,10 +1,9 @@
 import {__} from '@wordpress/i18n';
 import {registerBlockType} from '@wordpress/blocks';
 import {createElement} from '@wordpress/element';
-import {RangeControl, Button, ToggleControl} from '@wordpress/components';
+import {RangeControl, Button, ToggleControl, SelectControl, ColorPalette} from '@wordpress/components';
 
 import {
-    RichText,
     MediaUpload,
     InspectorControls,
     InnerBlocks
@@ -58,6 +57,18 @@ const attributes = {
         type: 'boolean',
         default: false,
     },
+    overlayColor: {
+        type: 'string',
+        default: 'light'
+    },
+    imagePositionHorizontal: {
+        type: 'string',
+        default: 'center',
+    },
+    imagePositionVertical: {
+        type: 'string',
+        default: 'center',
+    },
 }
 
 registerBlockType('custom/image-header', {
@@ -106,47 +117,69 @@ registerBlockType('custom/image-header', {
             setAttributes({hasOverlay: value});
         };
 
+        const onChangeOverlayColor = (value) => {
+            setAttributes({overlayColor: value});
+        };
+
+        const onChangeImagePositionHorizontal = (value) => {
+            setAttributes({imagePositionHorizontal: value});
+        };
+
+        const onChangeImagePositionVertical = (value) => {
+            setAttributes({imagePositionVertical: value});
+        };
+
         const TEMPLATE = [
+            ['custom/icon', {}],
             ['core/heading', {placeholder: 'The Title...'}],
             ['core/heading', {placeholder: 'This is the Subtitle...'}],
         ];
 
         const getClipPath = () => {
-
             let topLeft = attributes.headerClipPathTop < 0 ? 0 - attributes.headerClipPathTop : 0;
             let topRight = attributes.headerClipPathTop > 0 ? 0 + attributes.headerClipPathTop : 0;
-
             let bottomLeft = attributes.headerClipPathBottom < 0 ? 100 + attributes.headerClipPathBottom : 100;
             let bottomRight = attributes.headerClipPathBottom > 0 ? 100 - attributes.headerClipPathBottom: 100;
-
             return `polygon(0 ${topLeft}%,100% ${topRight}%,100% ${bottomLeft}%,0 ${bottomRight}%)`
         }
 
+        const getOverlayColor = () => {
+            switch (attributes.overlayColor) {
+                case 'light':
+                    return `radial-gradient(at center top, rgba(255, 255, 255, 0.5) 20%, rgba(255, 255, 255, 0) 80%)`
+                case 'dark':
+                    return `radial-gradient(at center top, rgba(0, 0, 0, 0.5) 20%, rgba(0, 0, 0, 0) 80%)`
+                default:
+                    return `radial-gradient(at center top, rgba(255, 255, 255, 0.5) 20%, rgba(255, 255, 255, 0) 80%)`
+            }
+        }
+
         return (
-            <div className={classNames(className, 'image-header-block')}
-                 style={{
-                     height: attributes.fullHeight ? `100vh` : `${attributes.headerHeight}px`,
-                     // fontSize: `${attributes.headerFontSize}px`
-                 }}
-            >
-                <InspectorControls>
-                    <div className="inspector-controls-container">
-                        <hr />
-                        <p>{__('Adjust Image Blur', 'sage')}</p>
-                        <RangeControl
-                            value={attributes.blur}
-                            min={0}
-                            max={16}
-                            onChange={onChangeBlur}
-                        />
-                        <hr />
-                        <ToggleControl
-                            label={__('Full Height header', 'sage')}
-                            // help={ attributes.switchContent ? 'Image is left' : 'Image is right' }
-                            checked={attributes.fullHeight}
-                            onChange={onChangeFullHeight}
-                        />
-                        {!attributes.fullHeight &&
+            <>
+                <div className={classNames(className, 'image-header-block')}
+                     style={{
+                         height: attributes.fullHeight ? `100vh` : `${attributes.headerHeight}px`,
+                         clipPath: attributes.fullHeight ? 'initial' : getClipPath(),
+                     }}
+                >
+                    <InspectorControls>
+                        <div className="inspector-controls-container">
+                            <hr />
+                            <p>{__('Adjust Image Blur', 'sage')}</p>
+                            <RangeControl
+                                value={attributes.blur}
+                                min={0}
+                                max={16}
+                                onChange={onChangeBlur}
+                            />
+                            <hr />
+                            <ToggleControl
+                                label={__('Full Height header', 'sage')}
+                                // help={ attributes.switchContent ? 'Image is left' : 'Image is right' }
+                                checked={attributes.fullHeight}
+                                onChange={onChangeFullHeight}
+                            />
+                            {!attributes.fullHeight &&
                             <>
                                 <hr />
                                 <p>{__('Adjust Header Height', 'sage')}</p>
@@ -176,48 +209,71 @@ registerBlockType('custom/image-header', {
                                     onChange={onChangeHeaderClipPathBottom}
                                 />
                             </>
-                        }
-                        <hr />
-                        <ToggleControl
-                            label={__('Image Overlay', 'sage')}
-                            checked={attributes.hasOverlay}
-                            onChange={onChangeHasOverlay}
-                        />
-                        {attributes.hasOverlay &&
-                           <>
-                               <hr />
-                               <ToggleControl
-                                   label={__('Image Overlay', 'sage')}
-                                   checked={attributes.overlayColor}
-                                   onChange={onChangeHasOverlay}
-                               />
-                               <ColorPalette
-                                   colors={editorColors}
-                                   value={attributes.overlayColor}
-                                   disableCustomColors={true}
-                                   onChange={onChangeTileBackgroundColor}
-                                   clearable={false}
-                               />
-                           </>
-                        }
-                    </div>
-                </InspectorControls>
-                <img className={classNames('image-header-block__image', attributes.blur > 0 ? 'is-blurred' : '')}
-                     style={{
-                         filter: `blur(${attributes.blur}px)`,
-                         clipPath: attributes.fullHeight ? 'initial' : getClipPath()
-                     }}
-                     src={getImage(attributes.headerImage, 'medium')}
-                     alt={getImage(attributes.headerImage, 'alt')}
-                     width={getImage(attributes.headerImage, 'width')}
-                     height={getImage(attributes.headerImage, 'height')}
-                />
-                {attributes.hasOverlay &&
-                    <div className="image-header-block__overlay"/>
-                }
-                <div className="container image-header-block__container">
-                    <div className="image-header-block__text-wrapper">
-                        <InnerBlocks templateLock='all' template={TEMPLATE} allowedBlocks={['custom/column']}/>
+                            }
+                            <hr />
+                            <ToggleControl
+                                label={__('Image Overlay', 'sage')}
+                                checked={attributes.hasOverlay}
+                                onChange={onChangeHasOverlay}
+                            />
+                            {attributes.hasOverlay &&
+                            <>
+                                <SelectControl
+                                    label={__('Select Overlay Color', 'sage')}
+                                    value={attributes.overlayColor}
+                                    options={[
+                                        {label: __('Dark', 'sage'), value: 'dark'},
+                                        {label: __('Light', 'sage'), value: 'light'},
+                                    ]}
+                                    onChange={onChangeOverlayColor}
+                                />
+                            </>
+                            }
+                            <hr />
+                            <p>{__('Select Image Position', 'sage')}</p>
+                            <SelectControl
+                                label={__('Horizontal', 'sage')}
+                                value={attributes.imagePositionHorizontal}
+                                options={[
+                                    {label: __('Left', 'sage'), value: 'left'},
+                                    {label: __('Center', 'sage'), value: 'center'},
+                                    {label: __('Right', 'sage'), value: 'right'},
+                                ]}
+                                onChange={onChangeImagePositionHorizontal}
+                            />
+                            <SelectControl
+                                label={__('Vertical', 'sage')}
+                                value={attributes.imagePositionVertical}
+                                options={[
+                                    {label: __('Top', 'sage'), value: 'top'},
+                                    {label: __('Center', 'sage'), value: 'center'},
+                                    {label: __('Bottom', 'sage'), value: 'bottom'},
+                                ]}
+                                onChange={onChangeImagePositionVertical}
+                            />
+                        </div>
+                    </InspectorControls>
+                    <img className={classNames('image-header-block__image', attributes.blur > 0 ? 'is-blurred' : '')}
+                         style={{
+                             filter: `blur(${attributes.blur}px)`,
+                             objectPosition: `${attributes.imagePositionHorizontal} ${attributes.imagePositionVertical}`
+                         }}
+                         src={getImage(attributes.headerImage, 'medium')}
+                         alt={getImage(attributes.headerImage, 'alt')}
+                         width={getImage(attributes.headerImage, 'width')}
+                         height={getImage(attributes.headerImage, 'height')}
+                    />
+                    {attributes.hasOverlay &&
+                    <div className="image-header-block__overlay"
+                         style={{
+                             backgroundImage: getOverlayColor()
+                         }}
+                    />
+                    }
+                    <div className="container image-header-block__container">
+                        <div className="image-header-block__text-wrapper">
+                            <InnerBlocks templateLock='all' template={TEMPLATE} allowedBlocks={['custom/column']}/>
+                        </div>
                     </div>
                 </div>
                 <MediaUpload
@@ -235,45 +291,54 @@ registerBlockType('custom/image-header', {
                         </Button>
                     )}
                 />
-            </div>
+            </>
         );
     },
     save: ({className, attributes}) => {
 
         const getClipPath = () => {
-
             let topLeft = attributes.headerClipPathTop < 0 ? 0 - attributes.headerClipPathTop : 0;
             let topRight = attributes.headerClipPathTop > 0 ? 0 + attributes.headerClipPathTop : 0;
-
             let bottomLeft = attributes.headerClipPathBottom < 0 ? 100 + attributes.headerClipPathBottom : 100;
             let bottomRight = attributes.headerClipPathBottom > 0 ? 100 - attributes.headerClipPathBottom: 100;
-
             return `polygon(0 ${topLeft}%,100% ${topRight}%,100% ${bottomLeft}%,0 ${bottomRight}%)`
+        }
+
+        const getOverlayColor = () => {
+            switch (attributes.overlayColor) {
+                case 'light':
+                    return `radial-gradient(at center top, rgba(0, 0, 0, 0.5) 20%, rgba(0, 0, 0, 0) 80%)`
+                case 'dark':
+                    return `radial-gradient(at center top, rgba(0, 0, 0, 0.5) 20%, rgba(0, 0, 0, 0) 80%)`
+                default:
+                    return `radial-gradient(at center top, rgba(0, 0, 0, 0.5) 20%, rgba(0, 0, 0, 0) 80%)`
+            }
         }
 
         return (
             <div className={classNames(className, 'image-header-block')}
                  style={{
                      height: attributes.fullHeight ? `100vh` : `${attributes.headerHeight}px`,
-                     // fontSize: `${attributes.headerFontSize}px`
+                     clipPath: attributes.fullHeight ? 'initial' : getClipPath(),
                  }}
             >
-
                 <img className={classNames('image-header-block__image', attributes.blur > 0 ? 'is-blurred' : '')}
                      style={{
                          filter: `blur(${attributes.blur}px)`,
-                         clipPath: attributes.fullHeight ? 'initial' : getClipPath()
+                         objectPosition: `${attributes.imagePositionHorizontal} ${attributes.imagePositionVertical}`
                      }}
                      srcSet={`${getImage(attributes.headerImage, 'tiny')} 480w, ${getImage(attributes.headerImage, 'small')} 768w, ${getImage(attributes.headerImage, 'medium')} 1024w`}
                      sizes="100w"
                      src={getImage(attributes.headerImage, 'medium')}
                      alt={getImage(attributes.headerImage, 'alt')}
                 />
-
                 {attributes.hasOverlay &&
-                    <div className="image-header-block__overlay"/>
+                    <div className="image-header-block__overlay"
+                         style={{
+                             backgroundImage: getOverlayColor()
+                         }}
+                    />
                 }
-
                 <div className="container image-header-block__container">
                     <div className="image-header-block__text-wrapper">
                         <InnerBlocks.Content/>

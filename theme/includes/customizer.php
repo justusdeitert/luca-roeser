@@ -156,88 +156,24 @@ if (class_exists('Kirki')) {
     /**
      * Color System
      */
-    Kirki::add_field('custom_primary_color_id', [
-        'type' => 'color',
-        'settings' => 'custom_primary_color',
-        'label' => __('Primary Color', 'sage'),
-        // 'description' => __('This is a color control - without alpha channel.', 'sage'),
-        'section' => 'theme_settings_id',
-        'default' => '#0d6efd',
-    ]);
+    $theme_colors = [
+        'primary' => '#0d6efd',
+        'secondary' => '#6c757d',
+        'success' => '#198754',
+        'danger' => '#dc3545',
+        'warning' => '#ffc107',
+        'info' => '#0dcaf0',
+        'light' => '#f8f9fa',
+        'dark' => '#212529'
+    ];
 
-    Kirki::add_field('custom_secondary_color_id', [
-        'type' => 'color',
-        'settings' => 'custom_secondary_color',
-        'label' => __('Secondary Color', 'sage'),
-        // 'description' => __('This is a color control - without alpha channel.', 'sage'),
-        'section' => 'theme_settings_id',
-        'default' => '#6c757d',
-    ]);
-
-    Kirki::add_field('custom_success_color_id', [
-        'type' => 'color',
-        'settings' => 'custom_success_color',
-        'label' => __('Success Color', 'sage'),
-        // 'description' => __('This is a color control - without alpha channel.', 'sage'),
-        'section' => 'theme_settings_id',
-        'default' => '#198754',
-    ]);
-
-    Kirki::add_field('custom_danger_color_id', [
-        'type' => 'color',
-        'settings' => 'custom_danger_color',
-        'label' => __('Danger Color', 'sage'),
-        // 'description' => __('This is a color control - without alpha channel.', 'sage'),
-        'section' => 'theme_settings_id',
-        'default' => '#dc3545',
-    ]);
-
-    Kirki::add_field('custom_warning_color_id', [
-        'type' => 'color',
-        'settings' => 'custom_warning_color',
-        'label' => __('Warning Color', 'sage'),
-        // 'description' => __('This is a color control - without alpha channel.', 'sage'),
-        'section' => 'theme_settings_id',
-        'default' => '#ffc107',
-    ]);
-
-    Kirki::add_field('custom_info_color_id', [
-        'type' => 'color',
-        'settings' => 'custom_info_color',
-        'label' => __('Info Color', 'sage'),
-        // 'description' => __('This is a color control - without alpha channel.', 'sage'),
-        'section' => 'theme_settings_id',
-        'default' => '#0dcaf0',
-    ]);
-
-    Kirki::add_field('custom_light_color_id', [
-        'type' => 'color',
-        'settings' => 'custom_light_color',
-        'label' => __('Light Color', 'sage'),
-        // 'description' => __('This is a color control - without alpha channel.', 'sage'),
-        'section' => 'theme_settings_id',
-        'default' => '#f8f9fa',
-    ]);
-
-    Kirki::add_field('custom_dark_color_id', [
-        'type' => 'color',
-        'settings' => 'custom_dark_color',
-        'label' => __('Dark Color', 'sage'),
-        // 'description' => __('This is a color control - without alpha channel.', 'sage'),
-        'section' => 'theme_settings_id',
-        'default' => '#212529',
-    ]);
-
-    // Kirki::add_field('theme_config_id', [
-    //     'type' => 'code',
-    //     'settings' => 'code_setting',
-    //     'label' => esc_html__('Code Control', 'kirki'),
-    //     'description' => esc_html__('Description', 'kirki'),
-    //     'section' => 'theme_settings_id',
-    //     'default' => '',
-    //     'choices' => [
-    //         'language' => 'css',
-    //     ],
-    // ]);
-
+    foreach ($theme_colors as $color => $default_value) {
+        Kirki::add_field('custom_' . $color . '_color_id', [
+            'type' => 'color',
+            'settings' => 'custom_' . $color . '_color',
+            'label' => __(ucfirst($color) . ' Color', 'sage'),
+            'section' => 'theme_settings_id',
+            'default' => $default_value,
+        ]);
+    }
 }

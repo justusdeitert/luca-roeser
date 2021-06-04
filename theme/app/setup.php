@@ -193,6 +193,16 @@ add_action('after_setup_theme', function () {
             'slug'  => 'secondary',
             'color' => get_theme_mod('custom_secondary_color', '#6c757d'),
         ],
+        [
+            'name'  => __('Light', 'sage'),
+            'slug'  => 'light',
+            'color' => get_theme_mod('custom_light_color', '#f8f9fa'),
+        ],
+        [
+            'name'  => __('Dark', 'sage'),
+            'slug'  => 'dark',
+            'color' => get_theme_mod('custom_dark_color', '#212529'),
+        ],
     ]);
 
     /*

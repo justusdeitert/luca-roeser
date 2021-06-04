@@ -10,6 +10,9 @@
 // Import gutenberg block styles
 @import '../blocks';
 
+// Core Blocks
+@import 'core-blocks';
+
 // Wordpress align classes
 .alignwide {
     margin-left: -80px;

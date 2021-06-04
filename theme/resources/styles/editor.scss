@@ -8,6 +8,7 @@
         @import 'external';
         @import 'common';
         @import '../blocks';
+        @import 'core-blocks';
 
         // extends gutenberg button class
         .button {
@@ -40,4 +41,3 @@
 .inspector-controls-container {
     padding: 0 16px 16px 16px;
 }
-
