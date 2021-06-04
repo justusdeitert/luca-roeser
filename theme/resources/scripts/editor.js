@@ -7,6 +7,16 @@ import {unregisterBlockStyle, registerBlockStyle} from '@wordpress/blocks';
  */
 import './external';
 
+/**
+ * Gutenberg Blocks
+ */
+import '../blocks';
+
+/**
+ * Gutenberg Block Formats
+ */
+import '../block-formats';
+
 domReady(() => {
     unregisterBlockStyle('core/button', 'outline');
 

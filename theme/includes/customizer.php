@@ -45,7 +45,7 @@ if (class_exists('Kirki')) {
     /**
      * Custom Border
      */
-    Kirki::add_field('custom_border_01_id', [
+    Kirki::add_field('custom_border_id_01', [
         'type' => 'custom',
         'settings' => 'custom_border_01',
         'section' => 'theme_settings_id',
@@ -81,7 +81,7 @@ if (class_exists('Kirki')) {
     /**
      * Custom Border
      */
-    Kirki::add_field('custom_border_02_id', [
+    Kirki::add_field('custom_border_id_02', [
         'type' => 'custom',
         'settings' => 'custom_border_02',
         'section' => 'theme_settings_id',
@@ -111,7 +111,7 @@ if (class_exists('Kirki')) {
     /**
      * Custom Break
      */
-    Kirki::add_field('custom_spacing_01_id', [
+    Kirki::add_field('custom_spacing_id_01', [
         'type' => 'custom',
         'settings' => 'custom_spacing_01',
         'section' => 'theme_settings_id',
@@ -130,6 +130,33 @@ if (class_exists('Kirki')) {
         'choices' => $standard_google_fonts_array,
     ]);
 
+    /**
+     * Custom Border
+     */
+    Kirki::add_field('custom_border_id_03', [
+        'type' => 'custom',
+        'settings' => 'custom_border_03',
+        'section' => 'theme_settings_id',
+        'default' => '<hr style="border-top: 1px solid #B8B8B8; margin: 20px 0;"/>',
+    ]);
+
+    Kirki::add_field('custom_primary_color_id', [
+        'type' => 'color',
+        'settings' => 'custom_primary_color',
+        'label' => __('Primary Color', 'sage'),
+        // 'description' => __('This is a color control - without alpha channel.', 'sage'),
+        'section' => 'theme_settings_id',
+        'default' => '#0d6efd',
+    ]);
+
+    Kirki::add_field('custom_secondary_color_id', [
+        'type' => 'color',
+        'settings' => 'custom_secondary_color',
+        'label' => __('Secondary Color', 'sage'),
+        // 'description' => __('This is a color control - without alpha channel.', 'sage'),
+        'section' => 'theme_settings_id',
+        'default' => '#6c757d',
+    ]);
 
     // Kirki::add_field('theme_config_id', [
     //     'type' => 'code',

@@ -32,6 +32,17 @@ function customizer_theme_styles() {
             ':wght@300;400;500&display=swap';
     }
 
+    /**
+     * Custom theme Colors
+     */
+    $custom_primary_color = get_theme_mod('custom_primary_color', '#0d6efd');
+    $custom_secondary_color = get_theme_mod('custom_secondary_color', '#6c757d');
+
+    $theme_colors = [
+        'primary' => $custom_primary_color,
+        'secondary' => $custom_secondary_color
+    ];
+
     if (is_admin()) { ?>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,13 +53,13 @@ function customizer_theme_styles() {
                 font-family: '<?php echo $custom_text_font; ?>', <?php echo $standard_google_fonts[$custom_text_font]; ?> !important;
             }
 
-            .editor-styles-wrapper .wp-block {
-                max-width: <?php echo $max_container_width . 'px'; ?> !important;
+            .wp-block {
+                max-width: <?php echo $max_container_width . 'px'; ?>;
             }
 
             @media (min-width: 720px) {
-                .editor-styles-wrapper .wp-block {
-                    max-width: <?php echo $max_container_width . 'px'; ?> !important;
+                .wp-block {
+                    max-width: <?php echo $max_container_width . 'px'; ?>;
                 }
             }
 
@@ -60,6 +71,13 @@ function customizer_theme_styles() {
             .editor-styles-wrapper h6 {
                 font-family: '<?php echo $custom_headline_font; ?>', <?php echo $standard_google_fonts[$custom_text_font]; ?>;
             }
+
+            <?php foreach ($theme_colors as $name => $value) { ?>
+                .has-<?php echo $name; ?>-color {
+                    color: <?php echo $value; ?>;
+                }
+            <?php } ?>
+
         </style>
     <?php } else { ?>
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -87,6 +105,18 @@ function customizer_theme_styles() {
             h1, h2, h3, h4, h5, h6 {
                 font-family: '<?php echo $custom_headline_font; ?>', sans-serif;
             }
+
+            :root {
+                --color-primary: <?php echo $custom_primary_color; ?>;
+                --color-secondary: <?php echo $custom_secondary_color; ?>;
+            }
+
+            <?php foreach ($theme_colors as $name => $value) { ?>
+                .has-<?php echo $name; ?>-color {
+                    color: <?php echo $value; ?>;
+                }
+            <?php } ?>
+
         </style>
     <?php }
 }

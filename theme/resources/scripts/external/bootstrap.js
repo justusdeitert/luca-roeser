@@ -4,4 +4,4 @@
  */
 
 // You can specify which plugins you need
-import { Tooltip, Toast, Popover } from 'bootstrap';
+import Collapse from 'bootstrap/js/dist/collapse';

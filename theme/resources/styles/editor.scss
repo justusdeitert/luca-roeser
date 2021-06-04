@@ -4,5 +4,24 @@
 .editor-styles-wrapper > * {
     @import "external";
     @import "common";
+    @import "../blocks";
     font-family: $font-family-base;
+
+    // extends gutenberg button class
+    .button {
+        font-size: 13px;
+        line-height: 22px;
+
+        &--image-upload {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+        }
+    }
 }
+
+// edit-sidebar controls wrapper
+.inspector-controls-container {
+    padding: 0 16px 16px 16px;
+}
+

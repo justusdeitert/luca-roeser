@@ -177,6 +177,65 @@ add_action('after_setup_theme', function () {
      * @link https://developer.wordpress.org/themes/advanced-topics/customizer-api/#theme-support-in-sidebars
      */
     add_theme_support('customize-selective-refresh-widgets');
+
+    /**
+     * Enable theme color palette support
+     * @link https://developer.wordpress.org/block-editor/developers/themes/theme-support/#block-color-palettes
+     */
+    add_theme_support('editor-color-palette', [
+        [
+            'name'  => __('Primary', 'sage'),
+            'slug'  => 'primary',
+            'color' => get_theme_mod('custom_primary_color', '#0d6efd'),
+        ],
+        [
+            'name'  => __('Secondary', 'sage'),
+            'slug'  => 'secondary',
+            'color' => get_theme_mod('custom_secondary_color', '#6c757d'),
+        ],
+        [
+            'name'  => __('Dark', 'sage'),
+            'slug'  => 'dark',
+            'color' => '#0D0D0D',
+        ],
+        [
+            'name'  => __('Grey', 'sage'),
+            'slug'  => 'grey',
+            'color' => '#D0D0D0',
+        ],
+        [
+            'name'  => __('White', 'sage'),
+            'slug'  => 'white',
+            'color' => '#FFF',
+        ],
+        [
+            'name'  => __('Light', 'sage'),
+            'slug'  => 'light',
+            'color' => '#EBEBEB',
+        ],
+        [
+            'name'  => __('Light Green', 'sage'),
+            'slug'  => 'light_green',
+            'color' => '#B7EFC1',
+        ],
+        [
+            'name'  => __('Orange', 'sage'),
+            'slug'  => 'orange',
+            'color' => '#F4984F',
+        ],
+        [
+            'name'  => __('Blue', 'sage'),
+            'slug'  => 'blue',
+            'color' => '#1493A8',
+        ]
+    ]);
+
+    /*
+     * Remove Theme Support for Core Block Pattern
+     * @link https://developer.wordpress.org/block-editor/developers/themes/theme-support/#disabling-the-default-block-patterns
+     */
+    remove_theme_support('core-block-patterns');
+
 }, 20);
 
 /**
