@@ -1,11 +1,8 @@
-.block-editor-block-list__layout {
-  @apply font-sans;
-}
+// Config
+@import 'config';
 
-.wp-block {
-  @apply max-w-screen-md;
-
-  &.editor-post-title__block .editor-post-title__input {
-    @apply font-sans #{!important};
-  }
+.editor-styles-wrapper > * {
+  @import "external";
+  @import "common";
+  font-family: $font-family-base;
 }

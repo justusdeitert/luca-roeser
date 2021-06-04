@@ -1,12 +1,12 @@
-<div class="max-w-3xl mx-auto">
+<div class="container">
 
-  <a class="sr-only focus:not-sr-only" href="#main">
+  <a class="sr-only sr-only-focusable" href="#main">
     {{ __('Skip to content') }}
   </a>
 
   @include('partials.header')
 
-    <main id="main" class="py-8 prose main">
+    <main class="main">
       @yield('content')
     </main>
 

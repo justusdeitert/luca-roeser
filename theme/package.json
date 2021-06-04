@@ -21,7 +21,6 @@
     "translate:js": "wp i18n make-json ./resources/lang --pretty-print"
   },
   "devDependencies": {
-    "@tailwindcss/typography": "^0.4.1",
     "@tinypixelco/laravel-mix-wp-blocks": "^1.1.0",
     "@wordpress/babel-preset-default": "^6.1.0",
     "@wordpress/browserslist-config": "^4.0.0",
@@ -36,10 +35,13 @@
     "sass": "^1.34.0",
     "sass-loader": "11.1.1",
     "stylelint": "^13.13.1",
-    "stylelint-config-standard": "^22.0.0",
-    "tailwindcss": "^2.1.2"
+    "stylelint-config-standard": "^22.0.0"
   },
   "peerDependencies": {
     "jquery": "^3.5.1"
+  },
+  "dependencies": {
+    "@popperjs/core": "^2.9.2",
+    "bootstrap": "^5.0.2"
   }
 }
