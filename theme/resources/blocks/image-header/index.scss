@@ -38,9 +38,21 @@
     &__text-wrapper {
         display: inline-block;
         position: relative;
+
+        @include media-breakpoint-down(sm) {
+            transform: scale(0.8);
+        }
     }
 
-    &__svg {
+    &__logo {
         position: absolute;
+        object-fit: contain;
+        object-position: center;
+
+        &.smaller-on-mobile {
+            @include media-breakpoint-down(sm) {
+                transform: scale(0.7);
+            }
+        }
     }
 }

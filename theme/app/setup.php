@@ -188,11 +188,11 @@ add_action('after_setup_theme', function () {
             'slug'  => 'primary',
             'color' => get_theme_mod('custom_primary_color', '#0d6efd'),
         ],
-        [
-            'name'  => __('Secondary', 'sage'),
-            'slug'  => 'secondary',
-            'color' => get_theme_mod('custom_secondary_color', '#6c757d'),
-        ],
+        // [
+        //     'name'  => __('Secondary', 'sage'),
+        //     'slug'  => 'secondary',
+        //     'color' => get_theme_mod('custom_secondary_color', '#6c757d'),
+        // ],
         [
             'name'  => __('Light', 'sage'),
             'slug'  => 'light',

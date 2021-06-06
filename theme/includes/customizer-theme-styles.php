@@ -37,21 +37,21 @@ function customizer_theme_styles() {
      * Custom theme Colors
      */
     $custom_primary_color = get_theme_mod('custom_primary_color', '#0d6efd');
-    $custom_secondary_color = get_theme_mod('custom_secondary_color', '#6c757d');
-    $custom_success_color = get_theme_mod('custom_secondary_color', '#198754');
-    $custom_danger_color = get_theme_mod('custom_secondary_color', '#dc3545');
-    $custom_warning_color = get_theme_mod('custom_secondary_color', '#ffc107');
-    $custom_info_color = get_theme_mod('custom_secondary_color', '#0dcaf0');
-    $custom_light_color = get_theme_mod('custom_secondary_color', '#f8f9fa');
-    $custom_dark_color = get_theme_mod('custom_secondary_color', '#212529');
+    // $custom_secondary_color = get_theme_mod('custom_secondary_color', '#6c757d');
+    // $custom_success_color = get_theme_mod('custom_success_color', '#198754');
+    // $custom_danger_color = get_theme_mod('custom_danger_color', '#dc3545');
+    // $custom_warning_color = get_theme_mod('custom_warning_color', '#ffc107');
+    // $custom_info_color = get_theme_mod('custom_info_color', '#0dcaf0');
+    $custom_light_color = get_theme_mod('custom_light_color', '#f8f9fa');
+    $custom_dark_color = get_theme_mod('custom_dark_color', '#212529');
 
     $theme_colors = [
         'primary' => $custom_primary_color,
-        'secondary' => $custom_secondary_color,
-        'success' => $custom_success_color,
-        'danger' => $custom_danger_color,
-        'warning' => $custom_warning_color,
-        'info' => $custom_info_color,
+        // 'secondary' => $custom_secondary_color,
+        // 'success' => $custom_success_color,
+        // 'danger' => $custom_danger_color,
+        // 'warning' => $custom_warning_color,
+        // 'info' => $custom_info_color,
         'light' => $custom_light_color,
         'dark' => $custom_dark_color,
     ];
