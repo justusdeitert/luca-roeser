@@ -1,4 +1,4 @@
-// import './light-span-heading';
+import './light-span';
 // import './small-span';
 // import './tooltip';
 // import './custom-link';

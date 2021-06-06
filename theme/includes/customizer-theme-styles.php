@@ -56,6 +56,26 @@ function customizer_theme_styles() {
         'dark' => $custom_dark_color,
     ];
 
+    $gray_colors = [];
+
+    foreach (range(1, 10) as $number) {
+        $gray_colors[$number * 100] = adjustBrightness($custom_dark_color, $number * 0.1);
+    }
+
+    // var_dump($gray_colors);
+
+    // foreach ($gray_colors as $name => $value) {
+    //     echo '<div class="lolsen" style="width:20px;height:20px;background-color:' . $value . ';"></div>';
+    // }
+
+    // $gray_colors = [
+    //     100 => adjustBrightness($custom_dark_color, 10),
+    //     200 => adjustBrightness($custom_dark_color, 20),
+    //     300 => adjustBrightness($custom_dark_color, 40),
+    //     100 => adjustBrightness($custom_dark_color, 10),
+    //     100 => adjustBrightness($custom_dark_color, 10),
+    // ];
+
     if (is_admin()) { ?>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -102,6 +122,10 @@ function customizer_theme_styles() {
             :root {
                 <?php foreach ($theme_colors as $name => $value) { ?>
                     --color-<?php echo $name; ?>: <?php echo $value; ?>;
+                <?php } ?>
+
+                <?php foreach ($gray_colors as $name => $value) { ?>
+                    --color-grey-<?php echo $name; ?>: <?php echo $value; ?>;
                 <?php } ?>
             }
 
@@ -150,6 +174,10 @@ function customizer_theme_styles() {
             :root {
                 <?php foreach ($theme_colors as $name => $value) { ?>
                     --color-<?php echo $name; ?>: <?php echo $value; ?>;
+                <?php } ?>
+
+                <?php foreach ($gray_colors as $name => $value) { ?>
+                    --color-grey-<?php echo $name; ?>: <?php echo $value; ?>;
                 <?php } ?>
             }
 

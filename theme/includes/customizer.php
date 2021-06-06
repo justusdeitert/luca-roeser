@@ -164,8 +164,11 @@ if (class_exists('Kirki')) {
         // 'warning' => '#ffc107',
         // 'info' => '#0dcaf0',
         'light' => '#f8f9fa',
-        'dark' => '#212529'
+        'dark' => '#212529',
     ];
+
+    $colors = array_values($theme_colors);
+    // var_dump($colors);
 
     foreach ($theme_colors as $color => $default_value) {
         Kirki::add_field('custom_' . $color . '_color_id', [
@@ -176,4 +179,55 @@ if (class_exists('Kirki')) {
             'default' => $default_value,
         ]);
     }
+
+    /**
+     * Custom Border
+     */
+    Kirki::add_field('custom_border_id_04', [
+        'type' => 'custom',
+        'settings' => 'custom_border_04',
+        'section' => 'theme_settings_id',
+        'default' => '<hr style="border-top: 1px solid #B8B8B8; margin: 20px 0;"/>',
+    ]);
+
+    // Kirki::add_field('theme_config_id', [
+    //     'type' => 'color-palette',
+    //     'settings' => 'color_palette_setting_0',
+    //     'label' => esc_html__('Color-Palette', 'kirki'),
+    //     'description' => esc_html__('This is a color-palette control', 'kirki'),
+    //     'section' => 'theme_settings_id',
+    //     'default' => '#000000',
+    //     'choices' => [
+    //         'colors' => $colors,
+    //         'style' => 'round',
+    //     ],
+    // ]);
+
 }
+
+/**
+ * Increases or decreases the brightness of a color by a percentage of the current brightness.
+ *
+ * @param string $hexCode Supported formats: `#FFF`, `#FFFFFF`, `FFF`, `FFFFFF`
+ * @param float $adjustPercent A number between -1 and 1. E.g. 0.3 = 30% lighter; -0.4 = 40% darker.
+ * @return string
+ * @link https://stackoverflow.com/questions/3512311/how-to-generate-lighter-darker-color-with-php
+ */
+function adjustBrightness($hexCode, $adjustPercent) {
+    $hexCode = ltrim($hexCode, '#');
+
+    if (strlen($hexCode) == 3) {
+        $hexCode = $hexCode[0] . $hexCode[0] . $hexCode[1] . $hexCode[1] . $hexCode[2] . $hexCode[2];
+    }
+
+    $hexCode = array_map('hexdec', str_split($hexCode, 2));
+
+    foreach ($hexCode as & $color) {
+        $adjustableLimit = $adjustPercent < 0 ? $color : 255 - $color;
+        $adjustAmount = ceil($adjustableLimit * $adjustPercent);
+        $color = str_pad(dechex($color + $adjustAmount), 2, '0', STR_PAD_LEFT);
+    }
+
+    return '#' . implode($hexCode);
+}
+

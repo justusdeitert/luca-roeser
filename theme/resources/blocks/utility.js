@@ -99,11 +99,11 @@ export const bootstrapBreakpoints = {
  */
 export const editorColors = [
     {name: 'Primary', slug: 'primary', color: getCssVariable('--color-primary')},
-    {name: 'Secondary', slug: 'secondary', color: getCssVariable('--color-secondary')},
-    {name: 'Success', slug: 'success', color: getCssVariable('--color-success')},
-    {name: 'Danger', slug: 'danger', color: getCssVariable('--color-danger')},
-    {name: 'Warning', slug: 'warning', color: getCssVariable('--color-warning')},
-    {name: 'Info', slug: 'info', color: getCssVariable('--color-info')},
+    // {name: 'Secondary', slug: 'secondary', color: getCssVariable('--color-secondary')},
+    // {name: 'Success', slug: 'success', color: getCssVariable('--color-success')},
+    // {name: 'Danger', slug: 'danger', color: getCssVariable('--color-danger')},
+    // {name: 'Warning', slug: 'warning', color: getCssVariable('--color-warning')},
+    // {name: 'Info', slug: 'info', color: getCssVariable('--color-info')},
     {name: 'Light', slug: 'light', color: getCssVariable('--color-light')},
     {name: 'Dark', slug: 'dark', color: getCssVariable('--color-dark')},
 ];

@@ -25,9 +25,9 @@
         width: 100%;
         height: 100%;
 
-        @include media-breakpoint-up(xxl) {
-            padding: 20px 40px;
-        }
+        //@include media-breakpoint-up(xxl) {
+        //    padding: 20px 40px;
+        //}
 
         &.has-colored-background {
             padding: 40px;
