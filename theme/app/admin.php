@@ -34,3 +34,13 @@ add_action('customize_register', function (WP_Customize_Manager $wp_customize) {
 add_action('customize_preview_init', function () {
     wp_enqueue_script('sage/customizer.js', asset('scripts/customizer.js')->uri(), ['customize-preview'], null, true);
 });
+
+/**
+ * Register the theme assets within the wordpress admin area.
+ *
+ * @return void
+ */
+// add_action('admin_enqueue_scripts', function() {
+//     wp_enqueue_script('sage/admin', asset('scripts/admin.js')->uri(), false, null, true);
+//     // wp_enqueue_style('sage/admin', asset('styles/admin.css')->uri(), false, null);
+// }, 100);

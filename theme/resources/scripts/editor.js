@@ -32,3 +32,5 @@ domReady(() => {
         },
     ]);
 });
+
+console.log('editor.js');

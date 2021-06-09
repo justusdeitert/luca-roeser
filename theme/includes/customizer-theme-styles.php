@@ -37,7 +37,7 @@ function customizer_theme_styles() {
      * Custom theme Colors
      */
     $custom_primary_color = get_theme_mod('custom_primary_color', '#0d6efd');
-    // $custom_secondary_color = get_theme_mod('custom_secondary_color', '#6c757d');
+    $custom_secondary_color = get_theme_mod('custom_secondary_color', '#6c757d');
     // $custom_success_color = get_theme_mod('custom_success_color', '#198754');
     // $custom_danger_color = get_theme_mod('custom_danger_color', '#dc3545');
     // $custom_warning_color = get_theme_mod('custom_warning_color', '#ffc107');
@@ -47,7 +47,7 @@ function customizer_theme_styles() {
 
     $theme_colors = [
         'primary' => $custom_primary_color,
-        // 'secondary' => $custom_secondary_color,
+        'secondary' => $custom_secondary_color,
         // 'success' => $custom_success_color,
         // 'danger' => $custom_danger_color,
         // 'warning' => $custom_warning_color,
@@ -62,20 +62,6 @@ function customizer_theme_styles() {
         $gray_colors[$number * 100] = adjustBrightness($custom_dark_color, $number * 0.1);
     }
 
-    // var_dump($gray_colors);
-
-    // foreach ($gray_colors as $name => $value) {
-    //     echo '<div class="lolsen" style="width:20px;height:20px;background-color:' . $value . ';"></div>';
-    // }
-
-    // $gray_colors = [
-    //     100 => adjustBrightness($custom_dark_color, 10),
-    //     200 => adjustBrightness($custom_dark_color, 20),
-    //     300 => adjustBrightness($custom_dark_color, 40),
-    //     100 => adjustBrightness($custom_dark_color, 10),
-    //     100 => adjustBrightness($custom_dark_color, 10),
-    // ];
-
     if (is_admin()) { ?>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -88,6 +74,7 @@ function customizer_theme_styles() {
 
             .editor-styles-wrapper {
                 font-family: '<?php echo $custom_text_font; ?>', <?php echo $standard_google_fonts[$custom_text_font]; ?> !important;
+                color: <?php echo get_theme_mod('custom_standard_text_color', '#212529'); ?>;
             }
 
             .wp-block {
@@ -125,7 +112,7 @@ function customizer_theme_styles() {
                 <?php } ?>
 
                 <?php foreach ($gray_colors as $name => $value) { ?>
-                    --color-grey-<?php echo $name; ?>: <?php echo $value; ?>;
+                    --color-gray-<?php echo $name; ?>: <?php echo $value; ?>;
                 <?php } ?>
             }
 
@@ -155,6 +142,7 @@ function customizer_theme_styles() {
 
             body {
                 font-family: '<?php echo $custom_text_font; ?>', sans-serif;
+                color: <?php echo get_theme_mod('custom_standard_text_color', '#212529'); ?>;
             }
 
             h1, h2, h3, h4, h5, h6 {
@@ -177,7 +165,7 @@ function customizer_theme_styles() {
                 <?php } ?>
 
                 <?php foreach ($gray_colors as $name => $value) { ?>
-                    --color-grey-<?php echo $name; ?>: <?php echo $value; ?>;
+                    --color-gray-<?php echo $name; ?>: <?php echo $value; ?>;
                 <?php } ?>
             }
 

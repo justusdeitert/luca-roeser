@@ -11,7 +11,7 @@ import {
 } from '@wordpress/block-editor';
 
 import classNames from 'classnames';
-import {editorColors, getImage} from "../utility";
+import {editorColors, editorGrayColors, getImage} from "../utility";
 
 const blockIcon = createElement('svg', {width: 20, height: 20},
     createElement('path', {
@@ -318,7 +318,7 @@ registerBlockType('custom/image-header', {
                         <hr/>
                         <p>{__('Header Background Color', 'sage')}</p>
                         <ColorPalette
-                            colors={editorColors}
+                            colors={[...editorColors, ...editorGrayColors]}
                             value={attributes.headerBackgroundColor}
                             onChange={onChangeHeaderBackgroundColor}
                         />

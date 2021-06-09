@@ -99,14 +99,32 @@ export const bootstrapBreakpoints = {
  */
 export const editorColors = [
     {name: 'Primary', slug: 'primary', color: getCssVariable('--color-primary')},
-    // {name: 'Secondary', slug: 'secondary', color: getCssVariable('--color-secondary')},
+    {name: 'Secondary', slug: 'secondary', color: getCssVariable('--color-secondary')},
     // {name: 'Success', slug: 'success', color: getCssVariable('--color-success')},
     // {name: 'Danger', slug: 'danger', color: getCssVariable('--color-danger')},
     // {name: 'Warning', slug: 'warning', color: getCssVariable('--color-warning')},
     // {name: 'Info', slug: 'info', color: getCssVariable('--color-info')},
     {name: 'Light', slug: 'light', color: getCssVariable('--color-light')},
     {name: 'Dark', slug: 'dark', color: getCssVariable('--color-dark')},
+
+
 ];
+
+export const editorGrayColors = [
+    {name: 'Gray 100', slug: 'gray-100', color: getCssVariable('--color-gray-100')},
+    {name: 'Gray 200', slug: 'gray-200', color: getCssVariable('--color-gray-200')},
+    {name: 'Gray 300', slug: 'gray-300', color: getCssVariable('--color-gray-300')},
+    {name: 'Gray 400', slug: 'gray-400', color: getCssVariable('--color-gray-400')},
+    {name: 'Gray 500', slug: 'gray-500', color: getCssVariable('--color-gray-500')},
+    {name: 'Gray 600', slug: 'gray-600', color: getCssVariable('--color-gray-600')},
+    {name: 'Gray 700', slug: 'gray-700', color: getCssVariable('--color-gray-700')},
+    {name: 'Gray 800', slug: 'gray-800', color: getCssVariable('--color-gray-800')},
+    {name: 'Gray 900', slug: 'gray-900', color: getCssVariable('--color-gray-900')},
+    {name: 'Gray 1000', slug: 'gray-1000', color: getCssVariable('--color-gray-1000')},
+]
+
+
+
 
 export const fontAwesomeArray = [
     {class: 'fa-check', unicode: '\\f00c'},

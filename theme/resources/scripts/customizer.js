@@ -11,5 +11,15 @@
  * @param {string} value
  */
 wp.customize('blogname', value => {
-    value.bind(to => $('.brand').text(to));
+    value.bind(to => {
+        $('.brand').text(to)
+    });
 });
+
+/**
+ * If you wanna use transport for you kirki customizer controls look here
+ * @link https://kirki.org/docs/arguments/transport/
+ * @link https://kirki.org/docs/modules/postmessage/
+ */
+
+console.log('customizer.js')

@@ -14,16 +14,16 @@ use function Roots\asset;
  * @return void
  */
 add_action('wp_enqueue_scripts', function () {
-    wp_enqueue_script('sage/vendor.js', asset('scripts/vendor.js')->uri(), ['jquery'], null, true);
-    wp_enqueue_script('sage/app.js', asset('scripts/app.js')->uri(), ['sage/vendor.js'], null, true);
+    wp_enqueue_script('sage/vendor', asset('scripts/vendor.js')->uri(), ['jquery'], null, true);
+    wp_enqueue_script('sage/app', asset('scripts/app.js')->uri(), ['sage/vendor'], null, true);
 
-    wp_add_inline_script('sage/vendor.js', asset('scripts/manifest.js')->contents(), 'before');
+    wp_add_inline_script('sage/vendor', asset('scripts/manifest.js')->contents(), 'before');
 
     if (is_single() && comments_open() && get_option('thread_comments')) {
         wp_enqueue_script('comment-reply');
     }
 
-    wp_enqueue_style('sage/app.css', asset('styles/app.css')->uri(), false, null);
+    wp_enqueue_style('sage/app', asset('styles/app.css')->uri(), false, null);
 }, 100);
 
 /**
@@ -33,13 +33,23 @@ add_action('wp_enqueue_scripts', function () {
  */
 add_action('enqueue_block_editor_assets', function () {
     if ($manifest = asset('scripts/manifest.asset.php')->load()) {
-        wp_enqueue_script('sage/vendor.js', asset('scripts/vendor.js')->uri(), ...array_values($manifest));
-        wp_enqueue_script('sage/editor.js', asset('scripts/editor.js')->uri(), ['sage/vendor.js'], null, true);
+        wp_enqueue_script('sage/vendor', asset('scripts/vendor.js')->uri(), ...array_values($manifest));
+        wp_enqueue_script('sage/editor', asset('scripts/editor.js')->uri(), ['sage/vendor'], null, true);
 
-        wp_add_inline_script('sage/vendor.js', asset('scripts/manifest.js')->contents(), 'before');
+        wp_add_inline_script('sage/vendor', asset('scripts/manifest.js')->contents(), 'before');
     }
 
-    wp_enqueue_style('sage/editor.css', asset('styles/editor.css')->uri(), false, null);
+    wp_enqueue_style('sage/editor', asset('styles/editor.css')->uri(), false, null);
+}, 100);
+
+/**
+ * Register the theme assets within the wordpress admin area.
+ *
+ * @return void
+ */
+add_action('admin_enqueue_scripts', function() {
+    wp_enqueue_script('sage/admin', asset('scripts/admin.js')->uri(), false, null, true);
+    wp_enqueue_style('sage/admin', asset('styles/admin.css')->uri(), false, null);
 }, 100);
 
 /**

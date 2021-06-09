@@ -158,7 +158,7 @@ if (class_exists('Kirki')) {
      */
     $theme_colors = [
         'primary' => '#0d6efd',
-        // 'secondary' => '#6c757d',
+        'secondary' => '#6c757d',
         // 'success' => '#198754',
         // 'danger' => '#dc3545',
         // 'warning' => '#ffc107',
@@ -166,9 +166,6 @@ if (class_exists('Kirki')) {
         'light' => '#f8f9fa',
         'dark' => '#212529',
     ];
-
-    $colors = array_values($theme_colors);
-    // var_dump($colors);
 
     foreach ($theme_colors as $color => $default_value) {
         Kirki::add_field('custom_' . $color . '_color_id', [
@@ -179,30 +176,6 @@ if (class_exists('Kirki')) {
             'default' => $default_value,
         ]);
     }
-
-    /**
-     * Custom Border
-     */
-    Kirki::add_field('custom_border_id_04', [
-        'type' => 'custom',
-        'settings' => 'custom_border_04',
-        'section' => 'theme_settings_id',
-        'default' => '<hr style="border-top: 1px solid #B8B8B8; margin: 20px 0;"/>',
-    ]);
-
-    // Kirki::add_field('theme_config_id', [
-    //     'type' => 'color-palette',
-    //     'settings' => 'color_palette_setting_0',
-    //     'label' => esc_html__('Color-Palette', 'kirki'),
-    //     'description' => esc_html__('This is a color-palette control', 'kirki'),
-    //     'section' => 'theme_settings_id',
-    //     'default' => '#000000',
-    //     'choices' => [
-    //         'colors' => $colors,
-    //         'style' => 'round',
-    //     ],
-    // ]);
-
 }
 
 /**
