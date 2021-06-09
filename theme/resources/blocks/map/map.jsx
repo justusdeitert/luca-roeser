@@ -200,28 +200,5 @@ registerBlockType('custom/map', {
                 </div>
             </div>
         );
-    },
-    deprecated: [
-        {
-            attributes,
-            save: ({className, attributes}) => {
-
-                return (
-                    <div className={className}>
-                        <div className="map-block">
-                            <div className="map-block__wrapper">
-                                <div className="map-block__map" data-marker-url={attributes.markerImageURL} data-marker-address={attributes.address} data-zoom-level={attributes.zoom} />
-                                {attributes.googleMapsLink &&
-                                <a href={attributes.googleMapsLink} className="map-block__route-link" target="_blank" rel="noopener noreferrer">
-                                    <span>Zu Google Maps</span>
-                                    <i className="icon icon--route" />
-                                </a>
-                                }
-                            </div>
-                        </div>
-                    </div>
-                );
-            },
-        },
-    ],
+    }
 });

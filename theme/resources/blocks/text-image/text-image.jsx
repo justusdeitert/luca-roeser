@@ -1,20 +1,18 @@
 import {__} from '@wordpress/i18n';
 import {registerBlockType,} from '@wordpress/blocks';
 import {Button} from '@wordpress/components';
-import {createElement} from '@wordpress/element';
-import {ToggleControl, ColorPalette, Notice, RangeControl, SelectControl} from '@wordpress/components';
+import {createElement, Component} from '@wordpress/element';
+import {ToggleControl, ColorPalette, RangeControl} from '@wordpress/components';
 
 import {
-    RichText,
     MediaUpload,
-    BlockControls,
     InspectorControls,
     InnerBlocks,
     getColorObjectByColorValue
 } from '@wordpress/block-editor';
 
 import classNames from 'classnames';
-import {editorColors, getImage} from '../utility';
+import {editorThemeColors, getImage} from '../utility';
 
 const blockIcon = createElement('svg', {width: 20, height: 20},
     createElement('path', {
@@ -23,15 +21,8 @@ const blockIcon = createElement('svg', {width: 20, height: 20},
 );
 
 const attributes = {
-    contentImage: {
-        type: 'object',
-    },
-    // backgroundColor: {
-    //     type: 'string',
-    // },
-    notice: {
-        type: 'boolean',
-        default: false
+    contentImages: {
+        type: 'array',
     },
     switchContent: {
         type: 'boolean',
@@ -41,20 +32,15 @@ const attributes = {
         type: 'number',
         default: 7
     },
-    imageRatio: {
-        type: 'string',
-        default: ''
-    },
-    spaceBetweenContent: {
-        type: 'boolean',
-        default: false
+    imageCount: {
+        type: 'number',
+        default: 1
     },
     textColumnBackgroundColor: {
         type: 'string',
         default: ''
     },
 };
-
 
 const ALLOWED_BLOCKS = [
     'core/paragraph',
@@ -72,78 +58,71 @@ registerBlockType('custom/text-image', {
     title: __('Text Image', 'sage'),
     icon: blockIcon,
     category: 'custom',
-    transforms: [], // TODO: Find a way that Custom Blocks don't transform to core/group block
     attributes,
-    edit: ({className, attributes, setAttributes}) => {
+    // Access React Lifecycle Methods within gutenberg block
+    // https://wordpress.org/gutenberg/handbook/block-api/block-edit-save/
+    // https://dev.to/martinkr/create-a-wordpress-s-gutenberg-block-with-all-react-lifecycle-methods-in-5-minutes-213p
+    edit: class extends Component {
 
-        // const TEMPLATE = [
-        //     ['custom/column', {}, []]
-        // ];
+        //standard constructor for a component
+        constructor() {
+            super(...arguments);
+            // console.log(this.props.name, ": constructor()");
 
-        const imageNotice = () => (
-            <Notice status="error">
-                <p>An error occurred: <code>Image width must we more then 1024px</code>.</p>
-            </Notice>
-        );
+            // example how to bind `this` to the current component for our callbacks
+            this.onChangeContent = this.onChangeContent.bind(this);
 
-        const onSelectImage = (object) => {
-            if(object.width > 1024) {
-                setAttributes({
-                    contentImage: object,
-                    notice: false
-                });
-            } else {
-                setAttributes({
-                    notice: true
-                });
-            }
-        };
+            // some place for your state
+            this.state = {};
+        }
 
-        const onChangeColumnRange = (value) => {
-            setAttributes({
-                columnRange: value
-            });
-        };
+        componentDidMount() {
+            // console.log(this.props.name, ": componentDidMount()");
+        }
 
-        const onChangeSwitchContent = (value) => {
-            setAttributes({switchContent: value});
-        };
+        componentDidUpdate() {
+            // console.log(this.props.name, ": componentDidUpdate()");
+        }
 
-        const onChangeImageRatio = (value) => {
-            setAttributes({imageRatio: value});
-        };
+        componentWillUnmount() {
+            // console.log(this.props.name, ": componentWillUnmount()");
+        }
 
-        const onChangeSpaceBetweenContent = (value) => {
-            setAttributes({spaceBetweenContent: value});
-        };
+        // update attributes when content is updated
+        onChangeContent(data) {
+            // set attribute the react way
+            this.props.setAttributes({content: data});
+        }
 
-        const onChangeTextColumnBackgroundColor = (value) => {
-            setAttributes({textColumnBackgroundColor: value});
-        };
+        render() {
 
-        // TODO: Needs to be simplyfied...
-        const textColumnClass = () => {
-            if(!attributes.switchContent && attributes.spaceBetweenContent) {
-                return classNames(`col-12 col-md-6 col-xl-${12 - attributes.columnRange - 1} offset-xl-1`)
-            } else {
-                return classNames(`col-12 col-md-6 col-xl-${12 - attributes.columnRange}`)
-            }
-        };
+            let {attributes, className, setAttributes } = this.props;
 
-        const imageColumnClass = () => {
+            const onSelectImage = (object) => {
+                setAttributes({contentImages: object});
+            };
 
-            if(attributes.switchContent && attributes.spaceBetweenContent) {
-                return classNames(`col-12 col-md-6 col-xl-${attributes.columnRange - 1} offset-xl-1`);
-            } else {
-                return classNames(`col-12 col-md-6 col-xl-${attributes.columnRange}`)
-            }
-        };
+            const onChangeColumnRange = (value) => {
+                setAttributes({columnRange: value});
+            };
 
-        const imageColumn = (
-            <div className={classNames('text-image-block__image-column', imageColumnClass(), attributes.imageRatio)}>
-                <div className={classNames("text-image-block__image-wrapper")}>
+            const onChangeImageCount = (value) => {
+                setAttributes({imageCount: value});
+            };
+
+            const onChangeSwitchContent = (value) => {
+                setAttributes({switchContent: value});
+            };
+
+            const onChangeTextColumnBackgroundColor = (value) => {
+                setAttributes({textColumnBackgroundColor: value});
+            };
+
+            const imageColumn = (
+                <div className={classNames('text-image-block__image-column', `col-12 col-md-6 col-xl-${attributes.columnRange}`)}>
                     <MediaUpload
                         onSelect={onSelectImage}
+                        multiple={true}
                         allowedTypes={[
                             'image/jpeg',
                             'image/jpg',
@@ -151,136 +130,117 @@ registerBlockType('custom/text-image', {
                             'image/gif'
                         ]}
                         render={({open}) => (
-                            <Button className={'button text-image-block__image-wrapper-button'} onClick={open}>
-                                {!attributes.contentImage ? __('Upload Image', 'sage') : __('Change Image', 'sage')}
+                            <Button className={'button text-image-block__image-wrapper-button'} onClick={open}
+                                    style={{
+                                        position: 'absolute',
+                                        left: '10px',
+                                        bottom: '10px'
+                                    }}
+                            >
+                                {!attributes.contentImages ? __('Upload Images', 'sage') : __('Change Images', 'sage')}
                             </Button>
                         )}
                     />
-                    <img className="text-image-block__image" src={attributes.contentImage ? attributes.contentImage.sizes.medium.url : 'https://picsum.photos/1200/800'} alt={attributes.contentImage && attributes.contentImage.alt} />
-                </div>
-            </div>
-        );
-
-        const textColumnBackgroundColor = getColorObjectByColorValue(editorColors, attributes.textColumnBackgroundColor);
-
-        const backgroundColorClass = () => {
-            if(textColumnBackgroundColor && textColumnBackgroundColor.slug !== 'white') {
-                return 'has-colored-background'
-            }
-        };
-
-        const textColumn = (
-            <div className={classNames(`text-image-block__text-column`, textColumnClass())}>
-                <div className={classNames("text-image-block__text-column-inner", backgroundColorClass(), textColumnBackgroundColor && `has-${textColumnBackgroundColor.slug}-background-color`)}>
-                    {/*<InnerBlocks templateLock='insert' template={TEMPLATE} allowedBlocks={['custom/column']}/>*/}
-                    <InnerBlocks allowedBlocks={ALLOWED_BLOCKS}/>
-                </div>
-            </div>
-        );
-
-        return (
-            <div className={classNames(className, 'text-image-block')}>
-                {attributes.notice && imageNotice()}
-                <InspectorControls>
-                    <div className="inspector-controls-container">
-                        <hr/>
-                        <ToggleControl
-                            label={__('Switch content order', 'sage')}
-                            // help={ attributes.switchContent ? 'Image is left' : 'Image is right' }
-                            checked={attributes.switchContent}
-                            onChange={onChangeSwitchContent}
-                        />
-                        <hr />
-                        <ToggleControl
-                            label={__('Space between content', 'sage')}
-                            // help={ attributes.switchContent ? 'Image is left' : 'Image is right' }
-                            checked={attributes.spaceBetweenContent}
-                            onChange={onChangeSpaceBetweenContent}
-                        />
-                        <hr />
-                        <p>{__('Adjust Column Range', 'sage')}</p>
-                        <RangeControl
-                            value={attributes.columnRange}
-                            min={4}
-                            initialPosition={7}
-                            max={8}
-                            onChange={onChangeColumnRange}
-                        />
-                        <hr />
-                        <SelectControl
-                            label={__('Image Aspect Ratio', 'sage')}
-                            value={attributes.imageRatio}
-                            options={[
-                                {label: 'Cover & Text Height', value: 'cover'},
-                                {label: '1:1', value: 'ratio-1-1'},
-                                {label: '4:3', value: 'ratio-4-3'},
-                                {label: '3:2', value: 'ratio-3-2'},
-                                {label: '16:9', value: 'ratio-16-9'},
-                            ]}
-                            onChange={onChangeImageRatio}
-                        />
-                        <hr />
-                        <p>{__('Background Color', 'sage')}</p>
-                        <ColorPalette
-                            colors={editorColors}
-                            value={attributes.textColumnBackgroundColor}
-                            onChange={onChangeTextColumnBackgroundColor}
-                            // clearable={false}
-                        />
+                    <div className={classNames('text-image-block__image-wrapper')} data-image-count={attributes.imageCount}>
+                        {
+                            attributes.contentImages.map((contentImage, index) => {
+                                return (
+                                    <a key={index} href={getImage(contentImage, 'large')}
+                                       data-lg-size={`${getImage(contentImage, 'height-large')}-${getImage(contentImage, 'width-large')}`}
+                                       onClick={event => event.preventDefault()}
+                                    >
+                                        <img className={'custom-image'} alt={getImage(contentImage, 'alt')} src={getImage(contentImage, 'small')} />
+                                    </a>
+                                )
+                            })
+                        }
                     </div>
-                </InspectorControls>
-                <div className="text-image-block__row row">
-                    {!attributes.switchContent ? imageColumn : textColumn}
-                    {!attributes.switchContent ? textColumn : imageColumn}
                 </div>
-            </div>
-        );
+            );
+
+            const textColumnBackgroundColor = getColorObjectByColorValue(editorThemeColors, attributes.textColumnBackgroundColor);
+
+            const textColumn = (
+                <div className={classNames(`text-image-block__text-column`, `col-12 col-md-6 col-xl-${12 - attributes.columnRange}`)}>
+                    <div
+                        className={classNames("text-image-block__text-column-inner", textColumnBackgroundColor && `has-${textColumnBackgroundColor.slug}-background-color`)}>
+                        <InnerBlocks allowedBlocks={ALLOWED_BLOCKS}/>
+                    </div>
+                </div>
+            );
+
+            return (
+                <div className={classNames(className, 'text-image-block')}>
+                    <InspectorControls>
+                        <div className="inspector-controls-container">
+                            <hr/>
+                            <ToggleControl
+                                label={__('Switch content order', 'sage')}
+                                checked={attributes.switchContent}
+                                onChange={onChangeSwitchContent}
+                            />
+                            <hr/>
+                            <p>{__('Adjust Column Range', 'sage')}</p>
+                            <RangeControl
+                                value={attributes.columnRange}
+                                min={4}
+                                initialPosition={7}
+                                max={8}
+                                onChange={onChangeColumnRange}
+                            />
+                            <hr/>
+                            <p>{__('Adjust visible Images', 'sage')}</p>
+                            <RangeControl
+                                value={attributes.imageCount}
+                                min={1}
+                                initialPosition={1}
+                                max={4}
+                                step={1}
+                                onChange={onChangeImageCount}
+                            />
+                            <hr/>
+                            <p>{__('Background Color', 'sage')}</p>
+                            <ColorPalette
+                                colors={editorThemeColors}
+                                value={attributes.textColumnBackgroundColor}
+                                onChange={onChangeTextColumnBackgroundColor}
+                                // clearable={false}
+                            />
+                        </div>
+                    </InspectorControls>
+                    <div className="text-image-block__row row">
+                        {!attributes.switchContent ? imageColumn : textColumn}
+                        {!attributes.switchContent ? textColumn : imageColumn}
+                    </div>
+                </div>
+            );
+        }
     },
     save: ({className, attributes}) => {
 
-        const textColumnBackgroundColor = getColorObjectByColorValue(editorColors, attributes.textColumnBackgroundColor);
-
-        const backgroundColorClass = () => {
-            if(textColumnBackgroundColor && textColumnBackgroundColor.slug !== 'white') {
-                return 'has-colored-background'
-            }
-        };
-
-        const textColumnClass = () => {
-            if(!attributes.switchContent && attributes.spaceBetweenContent) {
-                return classNames(`col-12 col-md-6 col-xl-${12 - attributes.columnRange - 1} offset-xl-1`)
-            } else {
-                return classNames(`col-12 col-md-6 col-xl-${12 - attributes.columnRange}`)
-            }
-        };
-
-        const imageColumnClass = () => {
-            if(attributes.switchContent && attributes.spaceBetweenContent) {
-                return classNames(`col-12 col-md-6 col-xl-${attributes.columnRange - 1} offset-xl-1`);
-            } else {
-                return classNames(`col-12 col-md-6 col-xl-${attributes.columnRange}`)
-            }
-        };
+        const textColumnBackgroundColor = getColorObjectByColorValue(editorThemeColors, attributes.textColumnBackgroundColor);
 
         const imageColumn = (
-            <div className={classNames(`text-image-block__image-column`,imageColumnClass(), attributes.imageRatio)}>
-                <div className={classNames("text-image-block__image-wrapper")}>
-                    <img className='text-image-block__image lazy'
-                         data-src={getImage(attributes.contentImage, 'medium')}
-                         data-srcset={`${getImage(attributes.contentImage, 'tiny')} 480w, ${getImage(attributes.contentImage, 'small')} 768w, ${getImage(attributes.contentImage, 'medium')} 1024w`}
-                         data-sizes="100w"
-                         src={getImage(attributes.contentImage, 'placeholder')}
-                         alt={getImage(attributes.contentImage, 'alt')}
-                         width={getImage(attributes.contentImage, 'width')}
-                         height={getImage(attributes.contentImage, 'height')}
-                    />
+            <div className={classNames(`text-image-block__image-column`, `col-12 col-md-6 col-xl-${attributes.columnRange}`)}>
+                <div className={classNames("text-image-block__image-wrapper")} data-image-count={attributes.imageCount}>
+                    {
+                        attributes.contentImages.map((contentImage, index) => {
+                            return (
+                                <a key={index} href={getImage(contentImage, 'large')}
+                                   data-lg-size={`${getImage(contentImage, 'width-large')}-${getImage(contentImage, 'height-large')}`}
+                                >
+                                    <img className={'custom-image'} alt={getImage(contentImage, 'alt')} src={getImage(contentImage, 'small')} />
+                                </a>
+                            )
+                        })
+                    }
                 </div>
             </div>
         );
 
         const textColumn = (
-            <div className={classNames(`text-image-block__text-column`, textColumnClass())}>
-                <div className={classNames("text-image-block__text-column-inner", backgroundColorClass(), textColumnBackgroundColor && `has-${textColumnBackgroundColor.slug}-background-color`)}>
+            <div className={classNames(`text-image-block__text-column`, `col-12 col-md-6 col-xl-${12 - attributes.columnRange}`)}>
+                <div className={classNames("text-image-block__text-column-inner", textColumnBackgroundColor && `has-${textColumnBackgroundColor.slug}-background-color`)}>
                     <InnerBlocks.Content/>
                 </div>
             </div>
@@ -295,68 +255,4 @@ registerBlockType('custom/text-image', {
             </div>
         );
     },
-    deprecated: [
-        {
-            attributes,
-
-            // Upload 05.02.2020
-            save: ({className, attributes}) => {
-
-                const textColumnBackgroundColor = getColorObjectByColorValue(editorColors, attributes.textColumnBackgroundColor);
-
-                const backgroundColorClass = () => {
-                    if(textColumnBackgroundColor && textColumnBackgroundColor.slug !== 'white') {
-                        return 'has-colored-background'
-                    }
-                };
-
-                const textColumnClass = () => {
-                    if(!attributes.switchContent && attributes.spaceBetweenContent) {
-                        return classNames(`col-12 col-md-6 col-xl-${12 - attributes.columnRange - 1} offset-xl-1`)
-                    } else {
-                        return classNames(`col-12 col-md-6 col-xl-${12 - attributes.columnRange}`)
-                    }
-                };
-
-                const imageColumnClass = () => {
-                    if(attributes.switchContent && attributes.spaceBetweenContent) {
-                        return classNames(`col-12 col-md-6 col-xl-${attributes.columnRange - 1} offset-xl-1`);
-                    } else {
-                        return classNames(`col-12 col-md-6 col-xl-${attributes.columnRange}`)
-                    }
-                };
-
-                const imageColumn = (
-                    <div className={classNames(`text-image-block__image-column`,imageColumnClass(), attributes.imageRatio)}>
-                        <div className={classNames("text-image-block__image-wrapper")}>
-                            <img className='text-image-block__image lazy'
-                                 data-src={getImage(attributes.contentImage, 'medium')}
-                                 data-srcset={`${getImage(attributes.contentImage, 'tiny')} 480w, ${getImage(attributes.contentImage, 'small')} 768w, ${getImage(attributes.contentImage, 'medium')} 1024w`}
-                                 data-sizes="100w"
-                                 src={getImage(attributes.contentImage, 'placeholder')}
-                                 alt={getImage(attributes.contentImage, 'alt')}
-                            />
-                        </div>
-                    </div>
-                );
-
-                const textColumn = (
-                    <div className={classNames(`text-image-block__text-column`, textColumnClass())}>
-                        <div className={classNames("text-image-block__text-column-inner", backgroundColorClass(), textColumnBackgroundColor && `has-${textColumnBackgroundColor.slug}-background-color`)}>
-                            <InnerBlocks.Content/>
-                        </div>
-                    </div>
-                );
-
-                return (
-                    <div className={classNames(className, 'text-image-block')}>
-                        <div className="text-image-block__row row">
-                            {!attributes.switchContent ? imageColumn : textColumn}
-                            {!attributes.switchContent ? textColumn : imageColumn}
-                        </div>
-                    </div>
-                );
-            },
-        }
-    ]
 });

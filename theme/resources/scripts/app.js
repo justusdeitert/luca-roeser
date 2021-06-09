@@ -9,6 +9,11 @@ import 'jquery';
 import './external';
 
 /**
+ * Block Scripts & Plugins
+ */
+import './block-scripts';
+
+/**
  * jQuery Ready
  */
 $(() => {

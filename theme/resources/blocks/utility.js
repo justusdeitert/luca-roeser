@@ -22,7 +22,6 @@ export const getImage = (image, size = 'full') => {
         let medium = image.sizes && image.sizes.medium ? image.sizes.medium.url : large;
         let small = image.sizes && image.sizes.small ? image.sizes.small.url : medium;
         let tiny = image.sizes && image.sizes.tiny ? image.sizes.tiny.url : small;
-        let x_small = image.sizes && image.sizes.x_small ? image.sizes.x_small.url : small;
         let placeholder = image.sizes && image.sizes.placeholder ? image.sizes.placeholder.url : tiny;
         let thumbnail = image.sizes && image.sizes.thumbnail ? image.sizes.thumbnail.url : placeholder;
 
@@ -39,8 +38,6 @@ export const getImage = (image, size = 'full') => {
                 return small;
             case 'tiny':
                 return tiny;
-            case 'x_small':
-                return x_small;
             case 'placeholder':
                 return placeholder;
             case 'thumbnail':
@@ -49,10 +46,14 @@ export const getImage = (image, size = 'full') => {
                 return image.alt ? image.alt : '';
             case 'description':
                 return image.description ? image.description : ''
-            case 'width':
+            case 'width-small':
                 return image.sizes && image.sizes.small ? image.sizes.small.width : '';
-            case 'height':
+            case 'height-small':
                 return image.sizes && image.sizes.small ? image.sizes.small.height : '';
+            case 'width-large':
+                return image.sizes && image.sizes.large ? image.sizes.large.width : image.sizes.full.width;
+            case 'height-large':
+                return image.sizes && image.sizes.large ? image.sizes.large.height : image.sizes.full.height;
             default:
                 return original;
         }

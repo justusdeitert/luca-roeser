@@ -13,17 +13,22 @@ import './external';
 import '../blocks';
 
 /**
+ * Block Scripts & Plugins
+ */
+import './block-scripts';
+
+/**
  * Gutenberg Block Formats
  */
 import '../block-formats';
 
 domReady(() => {
-    unregisterBlockStyle('core/button', 'outline');
-
-    registerBlockStyle('core/button', {
-        name: 'outline',
-        label: 'Outline',
-    });
+    // unregisterBlockStyle('core/button', 'outline');
+    //
+    // registerBlockStyle('core/button', {
+    //     name: 'outline',
+    //     label: 'Outline',
+    // });
 
     registerBlockStyle('core/heading', [
         {

@@ -1,10 +1,14 @@
-// import './divider';
+
+
+
+
+
+import './divider';
 // import './image';
 import './accordion';
 // import './seminars';
-// import './map';
+import './map';
 // import './column';
-
 import './icon';
 import './image-header';
 import './text-image';

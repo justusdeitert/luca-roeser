@@ -12,8 +12,8 @@ function customizer_theme_styles() {
      * Container max-width & padding
      */
     $max_container_width = get_theme_mod('max_container_width', '1260');
-    $mobile_container_padding = get_theme_mod('mobile_container_padding', '30');
-    $tablet_container_padding = get_theme_mod('tablet_container_padding', '30');
+    $container_padding_mobile = get_theme_mod('container_padding_mobile', '30');
+    $container_padding_tablet = get_theme_mod('container_padding_tablet', '30');
 
     /**
      * Custom google font
@@ -78,9 +78,10 @@ function customizer_theme_styles() {
                 font-size: <?php echo $custom_font_size; ?>px;
             }
 
-            .editor-styles-wrapper {
-                font-family: '<?php echo $custom_text_font; ?>', <?php echo $standard_google_fonts[$custom_text_font]; ?> !important;
-                color: <?php echo get_theme_mod('custom_text_color', '#212529'); ?> !important;
+            .block-editor .editor-styles-wrapper {
+                font-family: '<?php echo $custom_text_font; ?>', <?php echo $standard_google_fonts[$custom_text_font]; ?>;
+                color: <?php echo get_theme_mod('custom_text_color', '#212529'); ?>;
+                font-weight: <?php echo get_theme_mod('custom_font_weight', '400'); ?>;
             }
 
             .wp-block {
@@ -99,7 +100,11 @@ function customizer_theme_styles() {
             .editor-styles-wrapper h4,
             .editor-styles-wrapper h5,
             .editor-styles-wrapper h6 {
-                font-family: '<?php echo $custom_headline_font; ?>', <?php echo $standard_google_fonts[$custom_text_font]; ?>;
+                font-family: '<?php echo $custom_headline_font; ?>', <?php echo $standard_google_fonts[$custom_headline_font]; ?>;
+            }
+
+            .block-editor .editor-styles-wrapper a, .block-editor .editor-styles-wrapper a:hover {
+                color: <?php echo get_theme_mod('custom_link_color', '#212529'); ?>;
             }
 
             <?php foreach (array_merge($theme_colors, $standard_colors) as $name => $value) { ?>
@@ -120,6 +125,20 @@ function customizer_theme_styles() {
                 <?php //foreach ($gray_colors as $name => $value) { ?>
                 /*    --color-gray-*/<?php //echo $name; ?>/*: */<?php //echo $value; ?>/*;*/
                 <?php //} ?>
+            }
+
+            .block-editor .editor-styles-wrapper .row {
+                --bs-gutter-x: <?php echo get_theme_mod('custom_gutter_width', 24) / 16; ?>rem;
+            }
+
+            .custom-image {
+                padding: <?php echo get_theme_mod('custom_image_border_width', 0); ?>px;
+                background-color: <?php echo get_theme_mod('custom_image_border_color', '#FFF'); ?>;
+                border-radius: <?php echo get_theme_mod('custom_image_border_radius', 0); ?>px;
+
+                <?php if(get_theme_mod('custom_image_border_width', 0) > 0) { ?>
+                    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 0 rgba(0, 0, 0, 0.3);
+                <?php } ?>
             }
 
         </style>
@@ -129,16 +148,16 @@ function customizer_theme_styles() {
         <link href="<?php echo $custom_google_font_string; ?>" rel="stylesheet">
         <style>
             .container, .wp-block-group__inner-container {
-                max-width: <?php echo $max_container_width + ($mobile_container_padding * 2) . 'px'; ?> !important;
-                padding-right: var(--bs-gutter-x, <?php echo $mobile_container_padding . 'px'; ?>);
-                padding-left: var(--bs-gutter-x, <?php echo $mobile_container_padding . 'px'; ?>);
+                max-width: <?php echo $max_container_width + ($container_padding_mobile * 2) . 'px'; ?> !important;
+                padding-right: var(--bs-gutter-x, <?php echo $container_padding_mobile . 'px'; ?>);
+                padding-left: var(--bs-gutter-x, <?php echo $container_padding_mobile . 'px'; ?>);
             }
 
             @media (min-width: 720px) {
                 .container, .wp-block-group__inner-container {
-                    max-width: <?php echo $max_container_width + ($tablet_container_padding * 2)  . 'px'; ?> !important;
-                    padding-right: var(--bs-gutter-x, <?php echo $tablet_container_padding . 'px'; ?>);
-                    padding-left: var(--bs-gutter-x, <?php echo $tablet_container_padding . 'px'; ?>);
+                    max-width: <?php echo $max_container_width + ($container_padding_tablet * 2)  . 'px'; ?> !important;
+                    padding-right: var(--bs-gutter-x, <?php echo $container_padding_tablet . 'px'; ?>);
+                    padding-left: var(--bs-gutter-x, <?php echo $container_padding_tablet . 'px'; ?>);
                 }
             }
 
@@ -147,13 +166,18 @@ function customizer_theme_styles() {
             }
 
             body {
-                font-family: '<?php echo $custom_text_font; ?>', sans-serif;
+                font-family: '<?php echo $custom_text_font; ?>', <?php echo $standard_google_fonts[$custom_text_font]; ?>;
                 color: <?php echo get_theme_mod('custom_text_color', '#212529'); ?>;
                 background-color: <?php echo get_theme_mod('custom_background_color', '#f8f9fa'); ?>;
+                font-weight: <?php echo get_theme_mod('custom_font_weight', '400'); ?>;
             }
 
             h1, h2, h3, h4, h5, h6 {
-                font-family: '<?php echo $custom_headline_font; ?>', sans-serif;
+                font-family: '<?php echo $custom_headline_font; ?>', <?php echo $standard_google_fonts[$custom_headline_font]; ?>;
+            }
+
+            a, a:hover {
+                color: <?php echo get_theme_mod('custom_link_color', '#212529'); ?>;
             }
 
             <?php foreach (array_merge($theme_colors, $standard_colors) as $name => $value) { ?>
@@ -174,6 +198,20 @@ function customizer_theme_styles() {
                 <?php //foreach ($gray_colors as $name => $value) { ?>
                 /*    --color-gray-*/<?php //echo $name; ?>/*: */<?php //echo $value; ?>/*;*/
                 <?php //} ?>
+            }
+
+            .row {
+                --bs-gutter-x: <?php echo get_theme_mod('custom_gutter_width', 24) / 16; ?>rem;
+            }
+
+            .custom-image {
+                padding: <?php echo get_theme_mod('custom_image_border_width', 0)?>px;
+                background-color: <?php echo get_theme_mod('custom_image_border_color', '#FFF'); ?>;
+                border-radius: <?php echo get_theme_mod('custom_image_border_radius', 0); ?>px;
+
+                <?php if(get_theme_mod('custom_image_border_width', 0) > 0) { ?>
+                    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 0 rgba(0, 0, 0, 0.3);
+                <?php } ?>
             }
 
         </style>
