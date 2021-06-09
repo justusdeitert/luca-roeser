@@ -42,9 +42,6 @@ if (class_exists('Kirki')) {
         ],
     ]);
 
-    /**
-     * Custom Border
-     */
     Kirki::add_field('custom_border_id_01', [
         'type' => 'custom',
         'settings' => 'custom_border_01',
@@ -78,9 +75,6 @@ if (class_exists('Kirki')) {
         ],
     ]);
 
-    /**
-     * Custom Border
-     */
     Kirki::add_field('custom_border_id_02', [
         'type' => 'custom',
         'settings' => 'custom_border_02',
@@ -88,9 +82,6 @@ if (class_exists('Kirki')) {
         'default' => '<hr style="border-top: 1px solid #B8B8B8; margin: 20px 0;"/>',
     ]);
 
-    /**
-     * Select Fonts
-     */
     Kirki::add_field('custom_font_size_id', [
         'type' => 'slider',
         'settings' => 'custom_font_size',
@@ -121,9 +112,6 @@ if (class_exists('Kirki')) {
         'choices' => $standard_google_fonts_array,
     ]);
 
-    /**
-     * Custom Break
-     */
     Kirki::add_field('custom_spacing_id_01', [
         'type' => 'custom',
         'settings' => 'custom_spacing_01',
@@ -143,9 +131,6 @@ if (class_exists('Kirki')) {
         'choices' => $standard_google_fonts_array,
     ]);
 
-    /**
-     * Custom Border
-     */
     Kirki::add_field('custom_border_id_03', [
         'type' => 'custom',
         'settings' => 'custom_border_03',
@@ -153,27 +138,67 @@ if (class_exists('Kirki')) {
         'default' => '<hr style="border-top: 1px solid #B8B8B8; margin: 20px 0;"/>',
     ]);
 
-    /**
-     * Color System
-     */
     $theme_colors = [
         'primary' => '#0d6efd',
         'secondary' => '#6c757d',
-        // 'success' => '#198754',
-        // 'danger' => '#dc3545',
-        // 'warning' => '#ffc107',
-        // 'info' => '#0dcaf0',
         'light' => '#f8f9fa',
         'dark' => '#212529',
     ];
 
-    foreach ($theme_colors as $color => $default_value) {
+    foreach ($theme_colors as $color => $value) {
         Kirki::add_field('custom_' . $color . '_color_id', [
             'type' => 'color',
             'settings' => 'custom_' . $color . '_color',
             'label' => __(ucfirst($color) . ' Color', 'sage'),
             'section' => 'theme_settings_id',
-            'default' => $default_value,
+            'default' => $value,
+        ]);
+    }
+
+    Kirki::add_field('custom_border_id_04', [
+        'type' => 'custom',
+        'settings' => 'custom_border_04',
+        'section' => 'theme_settings_id',
+        'default' => '<hr style="border-top: 1px solid #B8B8B8; margin: 20px 0;"/>',
+    ]);
+
+    $standard_colors = [
+        'font' => '#212529',
+        'link' => '#0d6efd',
+        'background' => '#f8f9fa',
+    ];
+
+    foreach ($standard_colors as $color => $value) {
+        Kirki::add_field('custom_' . $color . '_color_id', [
+            'type' => 'color',
+            'settings' => 'custom_' . $color . '_color',
+            'label' => __(ucfirst($color) . ' Color', 'sage'),
+            'section' => 'theme_settings_id',
+            'default' => $value,
+        ]);
+    }
+
+    Kirki::add_field('custom_border_id_05', [
+        'type' => 'custom',
+        'settings' => 'custom_border_05',
+        'section' => 'theme_settings_id',
+        'default' => '<hr style="border-top: 1px solid #B8B8B8; margin: 20px 0;"/>',
+    ]);
+
+    $alert_colors = [
+        'success' => '#198754',
+        'danger' => '#dc3545',
+        'warning' => '#ffc107',
+        'info' => '#0dcaf0',
+    ];
+
+    foreach ($alert_colors as $color => $value) {
+        Kirki::add_field('custom_' . $color . '_color_id', [
+            'type' => 'color',
+            'settings' => 'custom_' . $color . '_color',
+            'label' => __(ucfirst($color) . ' Color', 'sage'),
+            'section' => 'theme_settings_id',
+            'default' => $value,
         ]);
     }
 }

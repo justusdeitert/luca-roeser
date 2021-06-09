@@ -34,33 +34,39 @@ function customizer_theme_styles() {
     }
 
     /**
-     * Custom theme Colors
+     * Theme Colors
      */
-    $custom_primary_color = get_theme_mod('custom_primary_color', '#0d6efd');
-    $custom_secondary_color = get_theme_mod('custom_secondary_color', '#6c757d');
-    // $custom_success_color = get_theme_mod('custom_success_color', '#198754');
-    // $custom_danger_color = get_theme_mod('custom_danger_color', '#dc3545');
-    // $custom_warning_color = get_theme_mod('custom_warning_color', '#ffc107');
-    // $custom_info_color = get_theme_mod('custom_info_color', '#0dcaf0');
-    $custom_light_color = get_theme_mod('custom_light_color', '#f8f9fa');
-    $custom_dark_color = get_theme_mod('custom_dark_color', '#212529');
-
     $theme_colors = [
-        'primary' => $custom_primary_color,
-        'secondary' => $custom_secondary_color,
-        // 'success' => $custom_success_color,
-        // 'danger' => $custom_danger_color,
-        // 'warning' => $custom_warning_color,
-        // 'info' => $custom_info_color,
-        'light' => $custom_light_color,
-        'dark' => $custom_dark_color,
+        'primary' => get_theme_mod('custom_primary_color', '#0d6efd'),
+        'secondary' => get_theme_mod('custom_secondary_color', '#6c757d'),
+        'light' => get_theme_mod('custom_light_color', '#f8f9fa'),
+        'dark' => get_theme_mod('custom_dark_color', '#212529'),
     ];
 
-    $gray_colors = [];
+    /**
+     * Standard Colors
+     */
+    $standard_colors = [
+        'font' => get_theme_mod('custom_font_color', '#212529'),
+        'link' => get_theme_mod('custom_link_color', '#0d6efd'),
+        'background' => get_theme_mod('custom_background_color', '#f8f9fa'),
+    ];
 
-    foreach (range(1, 10) as $number) {
-        $gray_colors[$number * 100] = adjustBrightness($custom_dark_color, $number * 0.1);
-    }
+    /**
+     * Alert Colors
+     */
+    $alert_colors = [
+        'success' => get_theme_mod('custom_success_color', '#198754'),
+        'danger' => get_theme_mod('custom_danger_color', '#dc3545'),
+        'warning' => get_theme_mod('custom_warning_color', '#ffc107'),
+        'info' => get_theme_mod('custom_info_color', '#0dcaf0'),
+    ];
+
+    // $gray_colors = [];
+    //
+    // foreach (range(1, 10) as $number) {
+    //     $gray_colors[$number * 100] = adjustBrightness($custom_dark_color, $number * 0.1);
+    // }
 
     if (is_admin()) { ?>
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -74,7 +80,7 @@ function customizer_theme_styles() {
 
             .editor-styles-wrapper {
                 font-family: '<?php echo $custom_text_font; ?>', <?php echo $standard_google_fonts[$custom_text_font]; ?> !important;
-                color: <?php echo get_theme_mod('custom_standard_text_color', '#212529'); ?>;
+                color: <?php echo get_theme_mod('custom_text_color', '#212529'); ?>;
             }
 
             .wp-block {
@@ -96,7 +102,7 @@ function customizer_theme_styles() {
                 font-family: '<?php echo $custom_headline_font; ?>', <?php echo $standard_google_fonts[$custom_text_font]; ?>;
             }
 
-            <?php foreach ($theme_colors as $name => $value) { ?>
+            <?php foreach (array_merge($theme_colors, $standard_colors) as $name => $value) { ?>
                 .has-<?php echo $name; ?>-color {
                     color: <?php echo $value; ?>;
                 }
@@ -107,13 +113,13 @@ function customizer_theme_styles() {
             <?php } ?>
 
             :root {
-                <?php foreach ($theme_colors as $name => $value) { ?>
+                <?php foreach (array_merge($theme_colors, $standard_colors, $alert_colors) as $name => $value) { ?>
                     --color-<?php echo $name; ?>: <?php echo $value; ?>;
                 <?php } ?>
 
-                <?php foreach ($gray_colors as $name => $value) { ?>
-                    --color-gray-<?php echo $name; ?>: <?php echo $value; ?>;
-                <?php } ?>
+                <?php //foreach ($gray_colors as $name => $value) { ?>
+                /*    --color-gray-*/<?php //echo $name; ?>/*: */<?php //echo $value; ?>/*;*/
+                <?php //} ?>
             }
 
         </style>
@@ -142,14 +148,15 @@ function customizer_theme_styles() {
 
             body {
                 font-family: '<?php echo $custom_text_font; ?>', sans-serif;
-                color: <?php echo get_theme_mod('custom_standard_text_color', '#212529'); ?>;
+                color: <?php echo get_theme_mod('custom_text_color', '#212529'); ?>;
+                background-color: <?php echo get_theme_mod('custom_background_color', '#f8f9fa'); ?>;
             }
 
             h1, h2, h3, h4, h5, h6 {
                 font-family: '<?php echo $custom_headline_font; ?>', sans-serif;
             }
 
-            <?php foreach ($theme_colors as $name => $value) { ?>
+            <?php foreach (array_merge($theme_colors, $standard_colors) as $name => $value) { ?>
                 .has-<?php echo $name; ?>-color {
                     color: <?php echo $value; ?>;
                 }
@@ -160,13 +167,13 @@ function customizer_theme_styles() {
             <?php } ?>
 
             :root {
-                <?php foreach ($theme_colors as $name => $value) { ?>
+                <?php foreach (array_merge($theme_colors, $standard_colors, $alert_colors) as $name => $value) { ?>
                     --color-<?php echo $name; ?>: <?php echo $value; ?>;
                 <?php } ?>
 
-                <?php foreach ($gray_colors as $name => $value) { ?>
-                    --color-gray-<?php echo $name; ?>: <?php echo $value; ?>;
-                <?php } ?>
+                <?php //foreach ($gray_colors as $name => $value) { ?>
+                /*    --color-gray-*/<?php //echo $name; ?>/*: */<?php //echo $value; ?>/*;*/
+                <?php //} ?>
             }
 
         </style>
