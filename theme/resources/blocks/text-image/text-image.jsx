@@ -23,6 +23,7 @@ const blockIcon = createElement('svg', {width: 20, height: 20},
 const attributes = {
     contentImages: {
         type: 'array',
+        default: ['']
     },
     switchContent: {
         type: 'boolean',
@@ -107,6 +108,10 @@ registerBlockType('custom/text-image', {
             };
 
             const onChangeImageCount = (value) => {
+                // value of 2 is not possible for now..
+                if (value === 2) {
+                    value = 3;
+                }
                 setAttributes({imageCount: value});
             };
 
@@ -120,40 +125,42 @@ registerBlockType('custom/text-image', {
 
             const imageColumn = (
                 <div className={classNames('text-image-block__image-column', `col-12 col-md-6 col-xl-${attributes.columnRange}`)}>
-                    <MediaUpload
-                        onSelect={onSelectImage}
-                        multiple={true}
-                        allowedTypes={[
-                            'image/jpeg',
-                            'image/jpg',
-                            'image/png',
-                            'image/gif'
-                        ]}
-                        render={({open}) => (
-                            <Button className={'button text-image-block__image-wrapper-button'} onClick={open}
-                                    style={{
-                                        position: 'absolute',
-                                        left: '10px',
-                                        bottom: '10px'
-                                    }}
-                            >
-                                {!attributes.contentImages ? __('Upload Images', 'sage') : __('Change Images', 'sage')}
-                            </Button>
-                        )}
-                    />
-                    <div className={classNames('text-image-block__image-wrapper')} data-image-count={attributes.imageCount}>
-                        {
-                            attributes.contentImages.map((contentImage, index) => {
-                                return (
-                                    <a key={index} href={getImage(contentImage, 'large')}
-                                       data-lg-size={`${getImage(contentImage, 'height-large')}-${getImage(contentImage, 'width-large')}`}
-                                       onClick={event => event.preventDefault()}
-                                    >
-                                        <img className={'custom-image'} alt={getImage(contentImage, 'alt')} src={getImage(contentImage, 'small')} />
-                                    </a>
-                                )
-                            })
-                        }
+                    <div className="text-image-block__image-button-wrapper" style={{position: 'relative', display: 'inline-block'}}>{/*Only Save Editor View*/}
+                        <MediaUpload
+                            onSelect={onSelectImage}
+                            multiple={true}
+                            allowedTypes={[
+                                'image/jpeg',
+                                'image/jpg',
+                                'image/png',
+                                'image/gif'
+                            ]}
+                            render={({open}) => (
+                                <Button className={'button text-image-block__image-button'} onClick={open}
+                                        style={{
+                                            position: 'absolute',
+                                            left: '10px',
+                                            top: '10px'
+                                        }}
+                                >
+                                    {!attributes.contentImages ? __('Upload Images', 'sage') : __('Change Images', 'sage')}
+                                </Button>
+                            )}
+                        />
+                        <div className={classNames('text-image-block__image-wrapper')} data-image-count={attributes.imageCount}>
+                            {
+                                attributes.contentImages.map((contentImage, index) => {
+                                    return (
+                                        <a key={index} href={getImage(contentImage, 'large')}
+                                           data-lg-size={`${getImage(contentImage, 'height-large')}-${getImage(contentImage, 'width-large')}`}
+                                           onClick={event => event.preventDefault()}
+                                        >
+                                            <img className={'custom-border'} alt={getImage(contentImage, 'alt')} src={getImage(contentImage, 'small')} />
+                                        </a>
+                                    )
+                                })
+                            }
+                        </div>
                     </div>
                 </div>
             );
@@ -170,7 +177,7 @@ registerBlockType('custom/text-image', {
             );
 
             return (
-                <div className={classNames(className, 'text-image-block')}>
+                <div className={classNames(className, 'text-image-block', 'custom-spacing')}>
                     <InspectorControls>
                         <div className="inspector-controls-container">
                             <hr/>
@@ -229,7 +236,7 @@ registerBlockType('custom/text-image', {
                                 <a key={index} href={getImage(contentImage, 'large')}
                                    data-lg-size={`${getImage(contentImage, 'width-large')}-${getImage(contentImage, 'height-large')}`}
                                 >
-                                    <img className={'custom-image'} alt={getImage(contentImage, 'alt')} src={getImage(contentImage, 'small')} />
+                                    <img className={'custom-border'} alt={getImage(contentImage, 'alt')} src={getImage(contentImage, 'small')} />
                                 </a>
                             )
                         })
@@ -247,7 +254,7 @@ registerBlockType('custom/text-image', {
         );
 
         return (
-            <div className={classNames(className, 'text-image-block')}>
+            <div className={classNames(className, 'text-image-block', 'custom-spacing')}>
                 <div className="text-image-block__row row">
                     {!attributes.switchContent ? imageColumn : textColumn}
                     {!attributes.switchContent ? textColumn : imageColumn}

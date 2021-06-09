@@ -174,7 +174,7 @@ registerBlockType('custom/divider', {
                             />
                         </div>
                     </InspectorControls>
-                    <div className={classNames(className, 'divider-block')} style={{padding: `${attributes.padding}px 0px`}}>
+                    <div className={classNames(className, 'divider-block', 'custom-spacing')} style={{padding: `${attributes.padding}px 0px`}}>
                         <hr className='divider-block__hr'
                             style={{
                                 height: `${attributes.thickness}px`,
@@ -190,7 +190,7 @@ registerBlockType('custom/divider', {
     },
     save: ({className, attributes}) => {
         return (
-            <div className={classNames(className, 'divider-block')} style={{padding: `${attributes.padding}px 0px`}}>
+            <div className={classNames(className, 'divider-block', 'custom-spacing')} style={{padding: `${attributes.padding}px 0px`}}>
                 <hr className='divider-block__hr'
                     style={{
                         height: `${attributes.thickness}px`,

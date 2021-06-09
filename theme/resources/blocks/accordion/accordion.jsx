@@ -1,13 +1,12 @@
 import {__} from '@wordpress/i18n';
 import {registerBlockType} from '@wordpress/blocks';
 import {createElement} from '@wordpress/element';
-import {RangeControl, ToggleControl, Button, IconButton, Popover} from '@wordpress/components';
+import {RangeControl, ToggleControl, Button, Popover} from '@wordpress/components';
 import {MediaUpload, InspectorControls, RichText} from '@wordpress/block-editor';
 import {Component} from '@wordpress/element';
 import {withState} from '@wordpress/compose';
 import classNames from 'classnames';
-// import {getImage, cloneArray} from "../utility";
-// import {loremIpsum} from "lorem-ipsum";
+import {cloneArray} from "../utility";
 
 const blockIcon = createElement('svg', {width: 20, height: 20},
     createElement('path', {
@@ -85,9 +84,8 @@ registerBlockType('custom/accordion', {
         render() {
             let {attributes, className, setAttributes, clientId} = this.props;
 
-            setAttributes({
-                clientId: clientId, // Clone Array to fire reload in Editor
-            });
+            // Save clientId
+            setAttributes({clientId: clientId});
 
             const accordionRepeater = attributes.accordion.map((item, index) => {
 
@@ -149,7 +147,14 @@ registerBlockType('custom/accordion', {
                         setState((state) => ({isVisible: !state.isVisible}));
                     };
                     return (
-                        <IconButton className="icon-button icon-button--minus" label={__('Remove Item', 'sage')} icon={'minus'} onClick={toggleVisible}>
+                        <Button icon={'minus'}
+                                label={__('Remove Item', 'sage')}
+                                onClick={toggleVisible}
+                                style={{
+                                    position: 'absolute',
+                                    right: 0
+                                }}
+                        >
                             {isVisible && (
                                 <Popover>
                                     <div className="popover__inner">
@@ -158,38 +163,44 @@ registerBlockType('custom/accordion', {
                                     </div>
                                 </Popover>
                             )}
-                        </IconButton>
+                        </Button>
                     );
                 });
 
+                let uniqueIndex = `${attributes.clientId}-${index}`
+
                 return (
                     <div className="accordion-block__item" key={`card-${index}`}>
-                        <div className="accordion-block__item-header" id={`heading-${attributes.clientId}-${index}`}>
-                            <RemoveButtonPopover />
-                            <div className="accordion-block__item-header-inner" data-toggle="collapse" data-target={`#collapse-${attributes.clientId}-${index}`} aria-expanded="false" aria-controls={`collapse-${attributes.clientId}-${index}`}>
-                                <RichText
-                                    tagName="p"
-                                    placeholder={'Lorem Ipsum'}
-                                    keepPlaceholderOnFocus={true}
-                                    value={item.header}
-                                    allowedFormats={['core/bold', 'core/italic']}
-                                    onChange={onChangeAccordionHeader}
-                                />
-                                <div className="accordion-block__item-header-inner-icon" />
-                            </div>
-                            <IconButton className="icon-button icon-button--plus" icon={'plus'} label={__('Add Item after', 'sage')} onClick={() => {addAccordionItemAfter(index)}} />
+                        <Button icon={'plus'}
+                                label={__('Add Item after', 'sage')}
+                                onClick={() => {addAccordionItemAfter(index)}}
+                                style={{
+                                    position: 'absolute',
+                                    bottom: '-20px',
+                                    left: '50%',
+                                    transform: 'translateX(-50%)'
+                                }}
+                        />
+                        <RemoveButtonPopover />
+                        <div className="accordion-block__item-header" id={`heading-${uniqueIndex}`} data-bs-toggle="collapse" data-bs-target={`#collapse-${uniqueIndex}`} aria-expanded="true" aria-controls={`collapse-${uniqueIndex}`}>
+                            <RichText
+                                tagName="p"
+                                placeholder={'Lorem Ipsum'}
+                                keepPlaceholderOnFocus={true}
+                                value={item.header}
+                                allowedFormats={['core/bold', 'core/italic']}
+                                onChange={onChangeAccordionHeader}
+                            />
                         </div>
-                        <div id={`collapse-${attributes.clientId}-${index}`} className="collapse" aria-labelledby={`heading-${attributes.clientId}-${index}`} data-parent={`#accordion-${attributes.clientId}`}>
-                            <div className="accordion-block__item-body">
-                                <RichText
-                                    tagName="p"
-                                    placeholder={loremIpsum}
-                                    keepPlaceholderOnFocus={true}
-                                    value={item.body}
-                                    // allowedFormats={['core/bold', 'core/italic', 'core/link']}
-                                    onChange={onChangeAccordionBody}
-                                />
-                            </div>
+                        <div id={`collapse-${uniqueIndex}`} className="accordion-block__item-body collapse" aria-labelledby={`heading-${uniqueIndex}`} data-bs-parent={`#accordion-${attributes.clientId}`}>
+                            <RichText
+                                tagName="p"
+                                placeholder={loremIpsum}
+                                keepPlaceholderOnFocus={true}
+                                value={item.body}
+                                // allowedFormats={['core/bold', 'core/italic', 'core/link']}
+                                onChange={onChangeAccordionBody}
+                            />
                         </div>
                     </div>
                 )
@@ -197,7 +208,7 @@ registerBlockType('custom/accordion', {
 
             return (
                 <>
-                    <div id={`accordion-${attributes.clientId}`} className={classNames(className, 'accordion-block')}>
+                    <div id={`accordion-${attributes.clientId}`} className={classNames(className, 'accordion-block', 'custom-border', 'custom-spacing')}>
                         {accordionRepeater}
                     </div>
                 </>
@@ -207,71 +218,33 @@ registerBlockType('custom/accordion', {
     save: ({className, attributes}) => {
 
         const accordionRepeater = attributes.accordion.map((item, index) => {
+
+            let uniqueIndex = `${attributes.clientId}-${index}`
+
             return (
                 <div className="accordion-block__item" key={`card-${index}`}>
-                    <div className="accordion-block__item-header" id={`heading-${attributes.clientId}-${index}`}>
-                        <div className="accordion-block__item-header-inner" data-toggle="collapse" data-target={`#collapse-${attributes.clientId}-${index}`} aria-expanded="false" aria-controls={`collapse-${attributes.clientId}-${index}`}>
-                            <RichText.Content
-                                tagName="p"
-                                value={item.header}
-                            />
-                            <div className="accordion-block__item-header-inner-icon" />
-                        </div>
+                    <div className="accordion-block__item-header" id={`heading-${uniqueIndex}`} data-bs-toggle="collapse" data-bs-target={`#collapse-${uniqueIndex}`} aria-expanded="true" aria-controls={`collapse-${uniqueIndex}`}>
+                        <RichText.Content
+                            tagName="p"
+                            value={item.header}
+                        />
                     </div>
-                    <div id={`collapse-${attributes.clientId}-${index}`} className="collapse" aria-labelledby={`heading-${attributes.clientId}-${index}`} data-parent={`#accordion-${attributes.clientId}`}>
-                        <div className="accordion-block__item-body">
-                            <RichText.Content
-                                tagName="p"
-                                value={item.body}
-                            />
-                        </div>
+                    <div id={`collapse-${uniqueIndex}`} className="accordion-block__item-body collapse" aria-labelledby={`heading-${uniqueIndex}`} data-bs-parent={`#accordion-${attributes.clientId}`}>
+                        <RichText.Content
+                            tagName="p"
+                            value={item.body}
+                        />
                     </div>
                 </div>
             )
         });
 
         return (
-            <div id={`accordion-${attributes.clientId}`} className={classNames(className, 'accordion-block')}>
-                {accordionRepeater}
-            </div>
+            <>
+                <div id={`accordion-${attributes.clientId}`} className={classNames(className, 'accordion-block', 'custom-border', 'custom-spacing')}>
+                    {accordionRepeater}
+                </div>
+            </>
         );
-    },
-    deprecated: [
-        {
-            attributes,
-            // Upload Staging 27.10.2020
-            save: ({className, attributes}) => {
-
-                const accordionRepeater = attributes.accordion.map((item, index) => {
-                    return (
-                        <div className="accordion-block__item" key={`card-${index}`}>
-                            <div className="accordion-block__item-header" id={`heading-${index}`}>
-                                <div className="accordion-block__item-header-inner" data-toggle="collapse" data-target={`#collapse-${index}`} aria-expanded="false" aria-controls={`collapse-${index}`}>
-                                    <RichText.Content
-                                        tagName="p"
-                                        value={item.header}
-                                    />
-                                    <div className="accordion-block__item-header-inner-icon" />
-                                </div>
-                            </div>
-                            <div id={`collapse-${index}`} className="collapse" aria-labelledby={`heading-${index}`} data-parent=".accordion-block">
-                                <div className="accordion-block__item-body">
-                                    <RichText.Content
-                                        tagName="p"
-                                        value={item.body}
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    )
-                });
-
-                return (
-                    <div className={classNames(className, 'accordion-block')}>
-                        {accordionRepeater}
-                    </div>
-                );
-            },
-        },
-    ],
+    }
 });

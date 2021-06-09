@@ -9,6 +9,14 @@ export const cloneArray = (array) => {
 };
 
 /**
+ * @param max
+ * @returns {number}
+ */
+export const getRandomInt = (max) => {
+    return Math.floor(Math.random() * max);
+};
+
+/**
  * Helper function to print out Images in correct sizes
  * @param image
  * @param size

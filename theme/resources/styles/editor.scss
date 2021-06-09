@@ -2,6 +2,7 @@
 .block-editor .editor-styles-wrapper {
     @import 'config';
     font-size: $font-size-base;
+    overflow: hidden;
 
     // wrapper to override gutenberg block library css
     > * {
@@ -28,16 +29,17 @@
     }
 
     blockquote {
-
-    }
-
-    .wp-block {
-        margin-left: auto;
-        margin-right: auto;
+        // Empty for now...
     }
 }
 
 // edit-sidebar controls wrapper
 .inspector-controls-container {
     padding: 0 16px 16px 16px;
+}
+
+.wp-block {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: var(--max-container-width, 1260px);
 }

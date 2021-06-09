@@ -26,10 +26,12 @@ if (class_exists('Kirki')) {
 
     Kirki::add_section('theme_settings_id', array(
         'title' => __('Theme Settings', 'sage'),
-        // 'description' => __('Custom Theme Settings', 'sage'),
-        // 'panel'          => 'panel_id',
         'priority' => 40,
     ));
+
+    /**
+     * Content & Container Sizes
+     */
 
     Kirki::add_field('custom_headline_id_01', [
         'type' => 'custom',
@@ -78,15 +80,28 @@ if (class_exists('Kirki')) {
         ],
     ]);
 
-    Kirki::add_field('custom_gutter_width_id', [
+    Kirki::add_field('custom_gutter_size_id', [
         'type' => 'slider',
-        'settings' => 'custom_gutter_width',
-        'label' => __('Gutter Width', 'sage'),
+        'settings' => 'custom_gutter_size',
+        'label' => __('Gutter Size', 'sage'),
         'section' => 'theme_settings_id',
         'default' => 24,
         'choices' => [
             'min' => 20,
             'max' => 60,
+            'step' => 1,
+        ],
+    ]);
+
+    Kirki::add_field('custom_block_spacing_id', [
+        'type' => 'slider',
+        'settings' => 'custom_block_spacing',
+        'label' => __('Block Spacing', 'sage'),
+        'section' => 'theme_settings_id',
+        'default' => 32,
+        'choices' => [
+            'min' => 16,
+            'max' => 80,
             'step' => 1,
         ],
     ]);
@@ -97,6 +112,10 @@ if (class_exists('Kirki')) {
         'section' => 'theme_settings_id',
         'default' => '<hr style="border-top: 1px solid #B8B8B8; margin: 20px 0;"/>',
     ]);
+
+    /**
+     * Font Settings
+     */
 
     Kirki::add_field('custom_headline_id_02', [
         'type' => 'custom',
@@ -148,12 +167,12 @@ if (class_exists('Kirki')) {
         'choices' => $standard_google_fonts_array,
     ]);
 
-    Kirki::add_field('custom_spacing_id_01', [
-        'type' => 'custom',
-        'settings' => 'custom_spacing_01',
-        'section' => 'theme_settings_id',
-        'default' => '<div class="custom-spacing" style="height: 10px;" />',
-    ]);
+    // Kirki::add_field('custom_spacing_id_01', [
+    //     'type' => 'custom',
+    //     'settings' => 'custom_spacing_01',
+    //     'section' => 'theme_settings_id',
+    //     'default' => '<div class="custom-spacing" style="height: 10px;" />',
+    // ]);
 
     Kirki::add_field('custom_text_font_id', [
         'type' => 'select',
@@ -173,6 +192,10 @@ if (class_exists('Kirki')) {
         'section' => 'theme_settings_id',
         'default' => '<hr style="border-top: 1px solid #B8B8B8; margin: 20px 0;"/>',
     ]);
+
+    /**
+     * Color Settings
+     */
 
     Kirki::add_field('custom_headline_id_03', [
         'type' => 'custom',
@@ -251,6 +274,10 @@ if (class_exists('Kirki')) {
         'section' => 'theme_settings_id',
         'default' => '<hr style="border-top: 1px solid #B8B8B8; margin: 20px 0;"/>',
     ]);
+
+    /**
+     * Image Settings
+     */
 
     Kirki::add_field('custom_headline_id_04', [
         'type' => 'custom',

@@ -1,78 +1,26 @@
 .accordion-block {
-    border-top: 1px solid $primary;
-    margin: 40px 0;
-
-    p {
-        margin: 0;
-    }
 
     &__item {
-        border-bottom: 1px solid $primary;
+        border-bottom: 1px solid $gray-300;
+        position: relative;
+
+        &:last-child {
+            border-bottom: none;
+        }
     }
 
     &__item-header {
-        padding: 15px 0;
+        padding: 10px;
         cursor: pointer;
-        position: relative;
-        display: flex;
+        // background-color: green;
 
         p {
-            transition: 0.3s color ease-in-out;
-        }
-
-        @media (hover: hover) {
-            &:hover {
-                p {
-                    color: $light;
-                }
-            }
-        }
-    }
-
-    &__item-header-inner {
-        background-position: right;
-        //background-size: 30px;
-        //padding-right: 40px;
-        width: 100%;
-        display: flex;
-        align-items: center;
-
-        .accordion-block__item-header-inner-icon {
-            width: 30px;
-            height: 30px;
-            //@extend .icon;
-            margin-left: auto;
-        }
-
-        &[aria-expanded="false"] {
-            .accordion-block__item-header-inner-icon {
-                background-image: url(../images/icon-arrow-bottom-dark.svg);
-            }
-        }
-
-        &[aria-expanded="true"] {
-            .accordion-block__item-header-inner-icon {
-                background-image: url(../images/icon-arrow-top-dark.svg);
-            }
+            margin: 0;
         }
     }
 
     &__item-body {
-        padding: 10px 0 20px 0;
+        padding: 10px;
     }
 
-    .icon-button {
-
-        .dashicon {
-            width: 30px;
-            height: 30px;
-            margin: 0;
-        }
-
-        &--plus {
-            position: absolute;
-            bottom: -20px;
-            left: calc(50% - 18px);
-        }
-    }
 }

@@ -12,8 +12,6 @@ function customizer_theme_styles() {
      * Container max-width & padding
      */
     $max_container_width = get_theme_mod('max_container_width', '1260');
-    $container_padding_mobile = get_theme_mod('container_padding_mobile', '30');
-    $container_padding_tablet = get_theme_mod('container_padding_tablet', '30');
 
     /**
      * Custom google font
@@ -23,7 +21,6 @@ function customizer_theme_styles() {
     $custom_headline_font = get_theme_mod('custom_headline_font');
     $custom_headline_font_plus = str_replace(' ', '+', $custom_headline_font); // replace space with +
     $custom_google_font_string = 'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap';
-    $custom_font_size = get_theme_mod('custom_font_size');
 
     if ($custom_text_font !== $custom_headline_font) {
         $custom_google_font_string = 'https://fonts.googleapis.com/css2?family=' . $custom_text_font_plus .
@@ -75,13 +72,18 @@ function customizer_theme_styles() {
         <style>
 
             html {
-                font-size: <?php echo $custom_font_size; ?>px;
+                font-size: <?php echo get_theme_mod('custom_font_size'); ?>px;
             }
 
             .block-editor .editor-styles-wrapper {
                 font-family: '<?php echo $custom_text_font; ?>', <?php echo $standard_google_fonts[$custom_text_font]; ?>;
                 color: <?php echo get_theme_mod('custom_text_color', '#212529'); ?>;
                 font-weight: <?php echo get_theme_mod('custom_font_weight', '400'); ?>;
+
+                /* Set custom vars for block editor */
+                --container-padding-mobile: <?php echo get_theme_mod('container_padding_mobile', '15'); ?>px;
+                --container-padding-tablet: <?php echo get_theme_mod('container_padding_tablet', '30'); ?>px;
+                --max-container-width: <?php echo get_theme_mod('max_container_width', '1260'); ?>px;
             }
 
             .wp-block {
@@ -103,7 +105,8 @@ function customizer_theme_styles() {
                 font-family: '<?php echo $custom_headline_font; ?>', <?php echo $standard_google_fonts[$custom_headline_font]; ?>;
             }
 
-            .block-editor .editor-styles-wrapper a, .block-editor .editor-styles-wrapper a:hover {
+            .block-editor .editor-styles-wrapper a,
+            .block-editor .editor-styles-wrapper a:hover {
                 color: <?php echo get_theme_mod('custom_link_color', '#212529'); ?>;
             }
 
@@ -121,17 +124,14 @@ function customizer_theme_styles() {
                 <?php foreach (array_merge($theme_colors, $standard_colors, $alert_colors) as $name => $value) { ?>
                     --color-<?php echo $name; ?>: <?php echo $value; ?>;
                 <?php } ?>
-
-                <?php //foreach ($gray_colors as $name => $value) { ?>
-                /*    --color-gray-*/<?php //echo $name; ?>/*: */<?php //echo $value; ?>/*;*/
-                <?php //} ?>
             }
 
             .block-editor .editor-styles-wrapper .row {
-                --bs-gutter-x: <?php echo get_theme_mod('custom_gutter_width', 24) / 16; ?>rem;
+                --bs-gutter-x: <?php echo get_theme_mod('custom_gutter_size', 24) / 16; ?>rem;
+                --bs-gutter-y: <?php echo get_theme_mod('custom_gutter_size', 24) / 16; ?>rem;
             }
 
-            .custom-image {
+            .custom-border {
                 padding: <?php echo get_theme_mod('custom_image_border_width', 0); ?>px;
                 background-color: <?php echo get_theme_mod('custom_image_border_color', '#FFF'); ?>;
                 border-radius: <?php echo get_theme_mod('custom_image_border_radius', 0); ?>px;
@@ -141,28 +141,20 @@ function customizer_theme_styles() {
                 <?php } ?>
             }
 
+            .custom-spacing {
+                margin-top: <?php echo get_theme_mod('custom_block_spacing', 32) / 16; ?>rem;
+                margin-bottom: <?php echo get_theme_mod('custom_block_spacing', 32) / 16; ?>rem;
+            }
+
         </style>
     <?php } else { ?>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="<?php echo $custom_google_font_string; ?>" rel="stylesheet">
         <style>
-            .container, .wp-block-group__inner-container {
-                max-width: <?php echo $max_container_width + ($container_padding_mobile * 2) . 'px'; ?> !important;
-                padding-right: var(--bs-gutter-x, <?php echo $container_padding_mobile . 'px'; ?>);
-                padding-left: var(--bs-gutter-x, <?php echo $container_padding_mobile . 'px'; ?>);
-            }
-
-            @media (min-width: 720px) {
-                .container, .wp-block-group__inner-container {
-                    max-width: <?php echo $max_container_width + ($container_padding_tablet * 2)  . 'px'; ?> !important;
-                    padding-right: var(--bs-gutter-x, <?php echo $container_padding_tablet . 'px'; ?>);
-                    padding-left: var(--bs-gutter-x, <?php echo $container_padding_tablet . 'px'; ?>);
-                }
-            }
 
             html {
-                font-size: <?php echo $custom_font_size; ?>px;
+                font-size: <?php echo get_theme_mod('custom_font_size'); ?>px;
             }
 
             body {
@@ -194,17 +186,21 @@ function customizer_theme_styles() {
                 <?php foreach (array_merge($theme_colors, $standard_colors, $alert_colors) as $name => $value) { ?>
                     --color-<?php echo $name; ?>: <?php echo $value; ?>;
                 <?php } ?>
+            }
 
-                <?php //foreach ($gray_colors as $name => $value) { ?>
-                /*    --color-gray-*/<?php //echo $name; ?>/*: */<?php //echo $value; ?>/*;*/
-                <?php //} ?>
+            <?php // TODO: Have a look at different bootstrap 5 container settings ?>
+            .container {
+                --container-padding-mobile: <?php echo get_theme_mod('container_padding_mobile', '15'); ?>px;
+                --container-padding-tablet: <?php echo get_theme_mod('container_padding_tablet', '30'); ?>px;
+                --max-container-width: <?php echo get_theme_mod('max_container_width', '1260'); ?>px;
             }
 
             .row {
-                --bs-gutter-x: <?php echo get_theme_mod('custom_gutter_width', 24) / 16; ?>rem;
+                --bs-gutter-x: <?php echo get_theme_mod('custom_gutter_size', 24) / 16; ?>rem;
+                --bs-gutter-y: <?php echo get_theme_mod('custom_gutter_size', 24) / 16; ?>rem;
             }
 
-            .custom-image {
+            .custom-border {
                 padding: <?php echo get_theme_mod('custom_image_border_width', 0)?>px;
                 background-color: <?php echo get_theme_mod('custom_image_border_color', '#FFF'); ?>;
                 border-radius: <?php echo get_theme_mod('custom_image_border_radius', 0); ?>px;
@@ -212,6 +208,11 @@ function customizer_theme_styles() {
                 <?php if(get_theme_mod('custom_image_border_width', 0) > 0) { ?>
                     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 0 rgba(0, 0, 0, 0.3);
                 <?php } ?>
+            }
+
+            .custom-spacing {
+                margin-top: <?php echo get_theme_mod('custom_block_spacing', 32) / 16; ?>rem;
+                margin-bottom: <?php echo get_theme_mod('custom_block_spacing', 32) / 16; ?>rem;
             }
 
         </style>

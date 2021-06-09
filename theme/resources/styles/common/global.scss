@@ -1,15 +1,22 @@
-//body {
-//    @apply font-sans;
-//}
-
-//.brand {
-//    @apply text-3xl font-medium text-indigo-500;
-//}
-
 .is-style-text-shadow {
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 
 .light-span {
     font-weight: 300;
+}
+
+// Theme Container Settings
+.container, .wp-block-group__inner-container {
+    max-width: calc(var(--max-container-width, 1260px) + (var(--container-padding-mobile, 15px) * 2)) !important;
+    padding-left: var(--container-padding-mobile, 15px);
+    padding-right: var(--container-padding-mobile, 15px);
+}
+
+@include media-breakpoint-up(sm) {
+    .container, .wp-block-group__inner-container {
+        max-width: calc(var(--max-container-width, 1260px) + (var(--container-padding-tablet, 30px) * 2)) !important;
+        padding-left: var(--container-padding-tablet, 30px);
+        padding-right: var(--container-padding-tablet, 30px);
+    }
 }
