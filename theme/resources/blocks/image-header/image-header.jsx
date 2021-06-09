@@ -120,6 +120,17 @@ const attributes = {
     },
 }
 
+const getOverlayColor = (overlayColor) => {
+    switch (overlayColor) {
+        case 'light':
+            return `radial-gradient(at center top, rgba(255, 255, 255, 0.8) 20%, rgba(255, 255, 255, 0) 80%)`
+        case 'dark':
+            return `radial-gradient(at center top, rgba(0, 0, 0, 0.5) 20%, rgba(0, 0, 0, 0) 80%)`
+        default:
+            return `radial-gradient(at center top, rgba(255, 255, 255, 0.5) 20%, rgba(255, 255, 255, 0) 80%)`
+    }
+}
+
 registerBlockType('custom/image-header', {
     title: __('Image Header', 'sage'),
     icon: blockIcon,
@@ -249,17 +260,6 @@ registerBlockType('custom/image-header', {
             let bottomLeft = attributes.headerClipPathBottom < 0 ? 100 + attributes.headerClipPathBottom : 100;
             let bottomRight = attributes.headerClipPathBottom > 0 ? 100 - attributes.headerClipPathBottom : 100;
             return `polygon(0 ${topLeft}%,100% ${topRight}%,100% ${bottomLeft}%,0 ${bottomRight}%)`
-        }
-
-        const getOverlayColor = () => {
-            switch (attributes.headerImageOverlayColor) {
-                case 'light':
-                    return `radial-gradient(at center top, rgba(255, 255, 255, 0.5) 20%, rgba(255, 255, 255, 0) 80%)`
-                case 'dark':
-                    return `radial-gradient(at center top, rgba(0, 0, 0, 0.5) 20%, rgba(0, 0, 0, 0) 80%)`
-                default:
-                    return `radial-gradient(at center top, rgba(255, 255, 255, 0.5) 20%, rgba(255, 255, 255, 0) 80%)`
-            }
         }
 
         const headerBackgroundColor = getColorObjectByColorValue(editorColors, attributes.headerBackgroundColor);
@@ -458,24 +458,22 @@ registerBlockType('custom/image-header', {
                         clipPath: attributes.headerFullHeight ? 'initial' : getClipPath(),
                     }}
                 >
-                    {attributes.headerImage &&
-                        <img
-                            className={classNames('image-header-block__image', attributes.headerImageBlur > 0 ? 'is-blurred' : '')}
-                            style={{
-                                filter: `blur(${attributes.headerImageBlur}px)`,
-                                objectPosition: `${attributes.headerImagePositionHorizontal} ${attributes.headerImagePositionVertical}`,
-                                opacity: attributes.headerImageOpacity,
-                            }}
-                            src={getImage(attributes.headerImage, 'medium')}
-                            alt={getImage(attributes.headerImage, 'alt')}
-                            width={getImage(attributes.headerImage, 'width')}
-                            height={getImage(attributes.headerImage, 'height')}
-                        />
-                    }
+                    <img
+                        className={classNames('image-header-block__image', attributes.headerImageBlur > 0 ? 'is-blurred' : '')}
+                        style={{
+                            filter: `blur(${attributes.headerImageBlur}px)`,
+                            objectPosition: `${attributes.headerImagePositionHorizontal} ${attributes.headerImagePositionVertical}`,
+                            opacity: attributes.headerImageOpacity,
+                        }}
+                        src={getImage(attributes.headerImage, 'medium')}
+                        alt={getImage(attributes.headerImage, 'alt')}
+                        width={getImage(attributes.headerImage, 'width')}
+                        height={getImage(attributes.headerImage, 'height')}
+                    />
                     {attributes.headerImageHasOverlay &&
                         <div className="image-header-block__overlay"
                              style={{
-                                 backgroundImage: getOverlayColor()
+                                 backgroundImage: getOverlayColor(attributes.headerImageOverlayColor)
                              }}
                         />
                     }
@@ -547,17 +545,6 @@ registerBlockType('custom/image-header', {
             return `polygon(0 ${topLeft}%,100% ${topRight}%,100% ${bottomLeft}%,0 ${bottomRight}%)`
         }
 
-        const getOverlayColor = () => {
-            switch (attributes.headerImageOverlayColor) {
-                case 'light':
-                    return `radial-gradient(at center top, rgba(0, 0, 0, 0.5) 20%, rgba(0, 0, 0, 0) 80%)`
-                case 'dark':
-                    return `radial-gradient(at center top, rgba(0, 0, 0, 0.5) 20%, rgba(0, 0, 0, 0) 80%)`
-                default:
-                    return `radial-gradient(at center top, rgba(0, 0, 0, 0.5) 20%, rgba(0, 0, 0, 0) 80%)`
-            }
-        }
-
         const headerBackgroundColor = getColorObjectByColorValue(editorColors, attributes.headerBackgroundColor);
 
         return (
@@ -570,23 +557,21 @@ registerBlockType('custom/image-header', {
                     clipPath: attributes.headerFullHeight ? 'initial' : getClipPath(),
                 }}
             >
-                {attributes.headerImage &&
-                    <img className={classNames('image-header-block__image', attributes.headerImageBlur > 0 ? 'is-blurred' : '')}
-                         style={{
-                             filter: `blur(${attributes.headerImageBlur}px)`,
-                             objectPosition: `${attributes.headerImagePositionHorizontal} ${attributes.headerImagePositionVertical}`,
-                             opacity: attributes.headerImageOpacity,
-                         }}
-                         srcSet={`${getImage(attributes.headerImage, 'tiny')} 480w, ${getImage(attributes.headerImage, 'small')} 768w, ${getImage(attributes.headerImage, 'medium')} 1024w`}
-                         sizes="100w"
-                         src={getImage(attributes.headerImage, 'medium')}
-                         alt={getImage(attributes.headerImage, 'alt')}
-                    />
-                }
+                <img className={classNames('image-header-block__image', attributes.headerImageBlur > 0 ? 'is-blurred' : '')}
+                     style={{
+                         filter: `blur(${attributes.headerImageBlur}px)`,
+                         objectPosition: `${attributes.headerImagePositionHorizontal} ${attributes.headerImagePositionVertical}`,
+                         opacity: attributes.headerImageOpacity,
+                     }}
+                     srcSet={`${getImage(attributes.headerImage, 'tiny')} 480w, ${getImage(attributes.headerImage, 'small')} 768w, ${getImage(attributes.headerImage, 'medium')} 1024w`}
+                     sizes="100w"
+                     src={getImage(attributes.headerImage, 'medium')}
+                     alt={getImage(attributes.headerImage, 'alt')}
+                />
                 {attributes.headerImageHasOverlay &&
                     <div className="image-header-block__overlay"
                          style={{
-                             backgroundImage: getOverlayColor()
+                             backgroundImage: getOverlayColor(attributes.headerImageOverlayColor)
                          }}
                     />
                 }

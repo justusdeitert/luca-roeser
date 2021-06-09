@@ -18,7 +18,7 @@ function customizer_theme_styles() {
     /**
      * Custom google font
      */
-    $custom_text_font = get_theme_mod('custom_text_font');
+    $custom_text_font = get_theme_mod('custom_text_font', 'Montserrat');
     $custom_text_font_plus = str_replace(' ', '+', $custom_text_font); // replace space with +
     $custom_headline_font = get_theme_mod('custom_headline_font');
     $custom_headline_font_plus = str_replace(' ', '+', $custom_headline_font); // replace space with +
