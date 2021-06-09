@@ -97,19 +97,20 @@ export const bootstrapBreakpoints = {
 /**
  * This is needed because by default if the image is smaller some image sizes are not
  */
-export const editorColors = [
+export const editorThemeColors = [
     {name: 'Primary', slug: 'primary', color: getCssVariable('--color-primary')},
     {name: 'Secondary', slug: 'secondary', color: getCssVariable('--color-secondary')},
-    // {name: 'Success', slug: 'success', color: getCssVariable('--color-success')},
-    // {name: 'Danger', slug: 'danger', color: getCssVariable('--color-danger')},
-    // {name: 'Warning', slug: 'warning', color: getCssVariable('--color-warning')},
-    // {name: 'Info', slug: 'info', color: getCssVariable('--color-info')},
     {name: 'Light', slug: 'light', color: getCssVariable('--color-light')},
     {name: 'Dark', slug: 'dark', color: getCssVariable('--color-dark')},
-
-
 ];
 
+export const editorStandardColors = [
+    {name: 'Font', slug: 'font', color: getCssVariable('--color-font')},
+    {name: 'Link', slug: 'link', color: getCssVariable('--color-link')},
+    {name: 'Background', slug: 'light', color: getCssVariable('--color-background')},
+];
+
+// TODO Need to be integrated...
 export const editorGrayColors = [
     {name: 'Gray 100', slug: 'gray-100', color: getCssVariable('--color-gray-100')},
     {name: 'Gray 200', slug: 'gray-200', color: getCssVariable('--color-gray-200')},
@@ -122,9 +123,6 @@ export const editorGrayColors = [
     {name: 'Gray 900', slug: 'gray-900', color: getCssVariable('--color-gray-900')},
     {name: 'Gray 1000', slug: 'gray-1000', color: getCssVariable('--color-gray-1000')},
 ]
-
-
-
 
 export const fontAwesomeArray = [
     {class: 'fa-check', unicode: '\\f00c'},

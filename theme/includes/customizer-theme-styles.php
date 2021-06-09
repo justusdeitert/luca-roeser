@@ -62,8 +62,8 @@ function customizer_theme_styles() {
         'info' => get_theme_mod('custom_info_color', '#0dcaf0'),
     ];
 
+    // TODO: Color System needs to be updated with gray & text shades
     // $gray_colors = [];
-    //
     // foreach (range(1, 10) as $number) {
     //     $gray_colors[$number * 100] = adjustBrightness($custom_dark_color, $number * 0.1);
     // }
@@ -80,7 +80,7 @@ function customizer_theme_styles() {
 
             .editor-styles-wrapper {
                 font-family: '<?php echo $custom_text_font; ?>', <?php echo $standard_google_fonts[$custom_text_font]; ?> !important;
-                color: <?php echo get_theme_mod('custom_text_color', '#212529'); ?>;
+                color: <?php echo get_theme_mod('custom_text_color', '#212529'); ?> !important;
             }
 
             .wp-block {

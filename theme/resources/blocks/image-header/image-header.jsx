@@ -11,7 +11,7 @@ import {
 } from '@wordpress/block-editor';
 
 import classNames from 'classnames';
-import {editorColors, editorGrayColors, getImage} from "../utility";
+import {editorThemeColors, getImage} from "../utility";
 
 const blockIcon = createElement('svg', {width: 20, height: 20},
     createElement('path', {
@@ -262,7 +262,7 @@ registerBlockType('custom/image-header', {
             return `polygon(0 ${topLeft}%,100% ${topRight}%,100% ${bottomLeft}%,0 ${bottomRight}%)`
         }
 
-        const headerBackgroundColor = getColorObjectByColorValue(editorColors, attributes.headerBackgroundColor);
+        const headerBackgroundColor = getColorObjectByColorValue(editorThemeColors, attributes.headerBackgroundColor);
 
         return (
             <>
@@ -318,7 +318,7 @@ registerBlockType('custom/image-header', {
                         <hr/>
                         <p>{__('Header Background Color', 'sage')}</p>
                         <ColorPalette
-                            colors={[...editorColors, ...editorGrayColors]}
+                            colors={[...editorThemeColors]}
                             value={attributes.headerBackgroundColor}
                             onChange={onChangeHeaderBackgroundColor}
                         />
@@ -545,7 +545,7 @@ registerBlockType('custom/image-header', {
             return `polygon(0 ${topLeft}%,100% ${topRight}%,100% ${bottomLeft}%,0 ${bottomRight}%)`
         }
 
-        const headerBackgroundColor = getColorObjectByColorValue(editorColors, attributes.headerBackgroundColor);
+        const headerBackgroundColor = getColorObjectByColorValue(editorThemeColors, attributes.headerBackgroundColor);
 
         return (
             <div
