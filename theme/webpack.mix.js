@@ -1,6 +1,9 @@
 const mix = require('laravel-mix');
 require('@tinypixelco/laravel-mix-wp-blocks');
 
+// Require dotenv yarn add dotenv
+require('dotenv').config({path: '../bedrock/.env'});
+
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -14,7 +17,7 @@ require('@tinypixelco/laravel-mix-wp-blocks');
 
 mix
     .setPublicPath('./public')
-    .browserSync('the-theme.main');
+    .browserSync(process.env.WP_HOME);
 
 mix
     .sass('resources/styles/app.scss', 'styles')
