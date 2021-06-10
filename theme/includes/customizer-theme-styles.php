@@ -119,6 +119,16 @@ function customizer_theme_styles() {
                 }
             <?php } ?>
 
+            <?php foreach ($gray_colors as $name => $value) { ?>
+                .has-gray-<?php echo $name; ?>-color {
+                    color: <?php echo $value; ?>;
+                }
+
+                .has-gray-<?php echo $name; ?>-background-color {
+                    background-color: <?php echo $value; ?>;
+                }
+            <?php } ?>
+
             :root {
                 <?php foreach (array_merge($theme_colors, $standard_colors, $alert_colors) as $name => $value) { ?>
                     --color-<?php echo $name; ?>: <?php echo $value; ?>;
@@ -139,9 +149,11 @@ function customizer_theme_styles() {
 
             .custom-border {
                 padding: <?php echo get_theme_mod('custom_image_border_width', 0); ?>px;
-                background-color: <?php echo get_theme_mod('custom_image_border_color', '#FFF'); ?>;
+                /*background-color: */<?php //echo get_theme_mod('custom_image_border_color', '#FFF'); ?>/*;*/
                 border-radius: <?php echo get_theme_mod('custom_image_border_radius', 0); ?>px;
+            }
 
+            .custom-shadow {
                 <?php if(get_theme_mod('custom_image_border_width', 0) > 0) { ?>
                     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 0 rgba(0, 0, 0, 0.3);
                 <?php } ?>
@@ -196,6 +208,16 @@ function customizer_theme_styles() {
                 }
             <?php } ?>
 
+            <?php foreach ($gray_colors as $name => $value) { ?>
+                .has-gray-<?php echo $name; ?>-color {
+                    color: <?php echo $value; ?>;
+                }
+
+                .has-gray-<?php echo $name; ?>-background-color {
+                    background-color: <?php echo $value; ?>;
+                }
+            <?php } ?>
+
             :root {
                 <?php foreach (array_merge($theme_colors, $standard_colors, $alert_colors) as $name => $value) { ?>
                     --color-<?php echo $name; ?>: <?php echo $value; ?>;
@@ -223,9 +245,11 @@ function customizer_theme_styles() {
 
             .custom-border {
                 padding: <?php echo get_theme_mod('custom_image_border_width', 0)?>px;
-                background-color: <?php echo get_theme_mod('custom_image_border_color', '#FFF'); ?>;
+                /*background-color: */<?php //echo get_theme_mod('custom_image_border_color', '#FFF'); ?>/*;*/
                 border-radius: <?php echo get_theme_mod('custom_image_border_radius', 0); ?>px;
+            }
 
+            .custom-shadow {
                 <?php if(get_theme_mod('custom_image_border_width', 0) > 0) { ?>
                     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 0 rgba(0, 0, 0, 0.3);
                 <?php } ?>

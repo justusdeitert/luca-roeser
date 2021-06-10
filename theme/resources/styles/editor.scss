@@ -1,5 +1,6 @@
 $grid-breakpoints: (
-    xs: 0,
+    xxs: 0,
+    xs: 375px,
     sm: 576px,
     md: 768px,
     lg: 992px,
@@ -53,6 +54,10 @@ $grid-breakpoints: (
         .components-button {
             display: inline-flex;
             border-radius: 4px;
+
+            &:after {
+                border-radius: 4px;
+            }
 
             &.has-icon {
                 span {

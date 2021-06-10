@@ -2,14 +2,7 @@ import {__} from '@wordpress/i18n';
 import {registerBlockType} from '@wordpress/blocks';
 import {createElement} from '@wordpress/element';
 import {RangeControl, Button, ToggleControl, SelectControl, PanelBody, ColorPalette} from '@wordpress/components';
-
-import {
-    MediaUpload,
-    InspectorControls,
-    InnerBlocks,
-    getColorObjectByColorValue
-} from '@wordpress/block-editor';
-
+import {MediaUpload, InspectorControls, InnerBlocks, getColorObjectByColorValue} from '@wordpress/block-editor';
 import classNames from 'classnames';
 import {editorThemeColors, getImage} from "../utility";
 

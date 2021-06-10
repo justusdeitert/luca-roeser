@@ -59,6 +59,9 @@ registerBlockType('custom/text-image', {
     title: __('Text Image', 'sage'),
     icon: blockIcon,
     category: 'custom',
+    supports: {
+        align: ['wide'],
+    },
     attributes,
     // Access React Lifecycle Methods within gutenberg block
     // https://wordpress.org/gutenberg/handbook/block-api/block-edit-save/
@@ -156,7 +159,10 @@ registerBlockType('custom/text-image', {
                                            data-lg-size={`${getImage(contentImage, 'height-large')}-${getImage(contentImage, 'width-large')}`}
                                            onClick={event => event.preventDefault()}
                                         >
-                                            <img className={'custom-border'} alt={getImage(contentImage, 'alt')} src={getImage(contentImage, 'small')} />
+                                            <img className={classNames('custom-border', 'custom-shadow')}
+                                                 alt={getImage(contentImage, 'alt')}
+                                                 src={getImage(contentImage, 'small')}
+                                            />
                                         </a>
                                     )
                                 })
@@ -237,7 +243,10 @@ registerBlockType('custom/text-image', {
                                 <a key={index} href={getImage(contentImage, 'large')}
                                    data-lg-size={`${getImage(contentImage, 'width-large')}-${getImage(contentImage, 'height-large')}`}
                                 >
-                                    <img className={'custom-border'} alt={getImage(contentImage, 'alt')} src={getImage(contentImage, 'small')} />
+                                    <img className={classNames('custom-border', 'custom-shadow')}
+                                         alt={getImage(contentImage, 'alt')}
+                                         src={getImage(contentImage, 'small')}
+                                    />
                                 </a>
                             )
                         })

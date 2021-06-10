@@ -177,6 +177,7 @@ registerBlockType('custom/accordion', {
                     };
                     return (
                         <Button icon={'minus'}
+                                isSmall={true}
                                 label={__('Remove Item', 'sage')}
                                 className={'icon-only'}
                                 onClick={toggleVisible}
@@ -208,13 +209,15 @@ registerBlockType('custom/accordion', {
                     <div className={classNames("accordion-block__item", item.isOpen && 'open-on-mount')} key={`card-${index}`}>
                         <Button icon={'plus'}
                                 className={'button button--icon-only'}
+                                isSmall={true}
                                 label={__('Add Item after', 'sage')}
                                 onClick={() => {addAccordionItemAfter(index)}}
                                 style={{
                                     position: 'absolute',
                                     bottom: '-20px',
                                     left: '50%',
-                                    transform: 'translateX(-50%)'
+                                    transform: 'translateX(-50%)',
+                                    zIndex: 10
                                 }}
                         />
 
@@ -262,7 +265,7 @@ registerBlockType('custom/accordion', {
 
             return (
                 <>
-                    <div id={`accordion-${attributes.blockId}`} className={classNames(className, 'accordion-block', 'custom-border', 'custom-spacing')}>
+                    <div id={`accordion-${attributes.blockId}`} className={classNames(className, 'accordion-block', 'custom-shadow', 'custom-spacing')}>
                         {accordionRepeater}
                     </div>
                 </>
@@ -311,7 +314,7 @@ registerBlockType('custom/accordion', {
 
         return (
             <>
-                <div id={`accordion-${attributes.blockId}`} className={classNames(className, 'accordion-block', 'custom-border', 'custom-spacing')}>
+                <div id={`accordion-${attributes.blockId}`} className={classNames(className, 'accordion-block', 'custom-shadow', 'custom-spacing')}>
                     {accordionRepeater}
                 </div>
             </>

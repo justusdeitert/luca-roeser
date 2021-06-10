@@ -1,14 +1,20 @@
-// import Swiper JS
-import Swiper from 'swiper';
+// core version + navigation, pagination modules:
+import Swiper, { Navigation, Pagination } from 'swiper/core';
+
+// configure Swiper to use modules
+Swiper.use([Navigation, Pagination]);
 
 window.sliderBlockInstances = {};
 
 window.initSliderBlockInstances = () => {
-    document.querySelectorAll('.slider-block').forEach(sliderBlock => {
+    document.querySelectorAll('.sliders-block').forEach(sliderBlock => {
 
         let sliderContainer = sliderBlock.querySelector('.slider-block__container')
         let breakpoints = {};
-        let initialSlidesPerView = 2;
+        let initialSlidesPerView = 1;
+        let sliderLoop = () => {
+            return sliderBlock.dataset.sliderLoop === 'true';
+        }
 
         if (sliderBlock.dataset.slidesPerView === "1") {
             initialSlidesPerView = 1
@@ -16,6 +22,9 @@ window.initSliderBlockInstances = () => {
 
         if (sliderBlock.dataset.slidesPerView === "3") {
             breakpoints = {
+                [parseInt(window.bootstrapBreakpoints.xs)]: {
+                    slidesPerView: 2
+                },
                 [parseInt(window.bootstrapBreakpoints.md)]: {
                     slidesPerView: 3
                 }
@@ -24,6 +33,9 @@ window.initSliderBlockInstances = () => {
 
         if (sliderBlock.dataset.slidesPerView === "4") {
             breakpoints = {
+                [parseInt(window.bootstrapBreakpoints.xs)]: {
+                    slidesPerView: 2
+                },
                 [parseInt(window.bootstrapBreakpoints.md)]: {
                     slidesPerView: 3
                 },
@@ -44,7 +56,7 @@ window.initSliderBlockInstances = () => {
              * Pagination
              */
             pagination: {
-                el: '.swiper-pagination',
+                el: ".swiper-pagination",
             },
 
             /**
@@ -57,24 +69,36 @@ window.initSliderBlockInstances = () => {
 
             noSwiping: false,
             allowTouchMove: !document.body.classList.contains('block-editor-page'),
-            autoHeight: true,
+            autoHeight: false,
 
             /**
              * Breakpoints
              */
-            breakpoints
+            breakpoints,
+
+            /**
+             * Loop Slider
+             * Set to true to enable continuous loop mode
+             */
+            loop: sliderLoop(),
         });
 
         window.sliderBlockInstances[sliderBlock.dataset.sliderId] = swiperInstance;
     });
 };
 
+/**
+ * Destroy all Slider Instances
+ */
 window.destroySliderBlockInstances = () => {
     Object.values(window.sliderBlockInstances).forEach((instance) => {
         instance.destroy();
     })
 };
 
+/**
+ * Reinitialize all Slider Instances
+ */
 window.updateSliderBlockInstances = () => {
     if (!window.objectIsEmpty(window.sliderBlockInstances)) {
         window.destroySliderBlockInstances();

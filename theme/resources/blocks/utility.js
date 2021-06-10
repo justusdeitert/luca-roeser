@@ -99,6 +99,7 @@ const getCssVariable = (variableString) => {
  * Define Breakpoints
  */
 export const bootstrapBreakpoints = {
+    xs: getCssVariable('--breakpoint-xs'),
     sm: getCssVariable('--breakpoint-sm'),
     md: getCssVariable('--breakpoint-md'),
     lg: getCssVariable('--breakpoint-lg'),
