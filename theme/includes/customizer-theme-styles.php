@@ -146,6 +146,14 @@ function customizer_theme_styles() {
                 margin-bottom: <?php echo get_theme_mod('custom_block_spacing', 32) / 16; ?>rem;
             }
 
+            @font-face {
+                font-family: 'custom-icon-font';
+                src:  url('<?php echo get_stylesheet_directory_uri(); ?>/resources/fonts/icons/<?php echo get_theme_mod('custom_icons', 'bootstrap-icons')  ?>.woff2') format('woff2');
+                font-weight: normal;
+                font-style: normal;
+                font-display: block;
+            }
+
         </style>
     <?php } else { ?>
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -213,6 +221,14 @@ function customizer_theme_styles() {
             .custom-spacing {
                 margin-top: <?php echo get_theme_mod('custom_block_spacing', 32) / 16; ?>rem;
                 margin-bottom: <?php echo get_theme_mod('custom_block_spacing', 32) / 16; ?>rem;
+            }
+
+            @font-face {
+                font-family: 'custom-icon-font';
+                src:  url('<?php echo get_stylesheet_directory_uri(); ?>/resources/fonts/icons/<?php echo get_theme_mod('custom_icons', 'bootstrap-icons')  ?>.woff2') format('woff2');
+                font-weight: normal;
+                font-style: normal;
+                font-display: block;
             }
 
         </style>

@@ -321,6 +321,34 @@ if (class_exists('Kirki')) {
         'section' => 'theme_settings_id',
         'default' => '#FFFFFF',
     ]);
+
+    Kirki::add_field('custom_border_id_07', [
+        'type' => 'custom',
+        'settings' => 'custom_border_07',
+        'section' => 'theme_settings_id',
+        'default' => '<hr style="border-top: 1px solid #B8B8B8; margin: 20px 0;"/>',
+    ]);
+
+    /**
+     * Icon Settings
+     */
+    $standard_icon_sets = [
+        'bootstrap-icons' => 'Bootstrap Icons',
+        'feather-icons' => 'Feather Icons',
+        'ionicons' => 'Ionicons',
+    ];
+
+    Kirki::add_field('custom_icons_id', [
+        'type' => 'select',
+        'settings' => 'custom_icons',
+        'label' => __('Icons', 'sage'),
+        'section' => 'theme_settings_id',
+        'default' => 'bootstrap-icons',
+        'placeholder' => __('Select an option...', 'sage'),
+        'priority' => 10,
+        'multiple' => 1,
+        'choices' => $standard_icon_sets,
+    ]);
 }
 
 /**
