@@ -20,3 +20,8 @@
         padding-right: var(--container-padding-tablet, 30px);
     }
 }
+
+#wpadminbar {
+    // To be lower then light-gallery zIndex
+    z-index: 1030;
+}

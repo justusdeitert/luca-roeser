@@ -1,9 +1,9 @@
 import {__} from '@wordpress/i18n';
 import {registerBlockType} from '@wordpress/blocks';
-import {createElement} from '@wordpress/element';
+import {createElement, Component} from '@wordpress/element';
 import {RangeControl, ToggleControl, Button, Popover} from '@wordpress/components';
 import {MediaUpload, InspectorControls, RichText} from '@wordpress/block-editor';
-import {Component} from '@wordpress/element';
+import {PanelColorSettings} from '@wordpress/editor';
 import {withState} from '@wordpress/compose';
 import classNames from 'classnames';
 import {cloneArray} from "../utility";
@@ -64,6 +64,16 @@ registerBlockType('custom/accordion', {
 
         componentDidMount() {
             // console.log(this.props.name, ": componentDidMount()");
+
+            /**
+             * Open Accordion Item on Mount
+             * @type {Element}
+             */
+            let accordionItem = document.querySelector('.accordion-block__item.open-on-mount');
+            if (accordionItem) {
+                accordionItem.querySelector('.accordion-block__item-header').classList.remove('collapsed');
+                accordionItem.querySelector('.accordion-block__item-body').classList.add('show');
+            }
         }
 
         componentDidUpdate() {
@@ -85,7 +95,7 @@ registerBlockType('custom/accordion', {
             let {attributes, className, setAttributes, clientId} = this.props;
 
             // Save clientId
-            setAttributes({clientId: clientId});
+            // setAttributes({clientId: clientId});
 
             const accordionRepeater = attributes.accordion.map((item, index) => {
 
@@ -115,6 +125,25 @@ registerBlockType('custom/accordion', {
                     setAttributes({
                         accordion: cloneArray(attributes.accordion), // Clone Array to fire reload in Editor
                     });
+                };
+
+                const onChangeAccordionIsOpen = (value) => {
+
+                    if(!value.target.classList.contains('collapsed')) {
+
+                        // Iterate through slides and only change value of selected item
+                        attributes.accordion.map((innerItem, innerIndex) => {
+                            if (innerIndex === index) {
+                                innerItem.isOpen = true;
+                            } else {
+                                innerItem.isOpen = false;
+                            }
+                        });
+
+                        setAttributes({
+                            accordion: cloneArray(attributes.accordion), // Clone Array to fire reload in Editor
+                        });
+                    }
                 };
 
                 const addAccordionItemAfter = (index) => {
@@ -149,15 +178,20 @@ registerBlockType('custom/accordion', {
                     return (
                         <Button icon={'minus'}
                                 label={__('Remove Item', 'sage')}
+                                className={'icon-only'}
                                 onClick={toggleVisible}
-                                style={{
-                                    position: 'absolute',
-                                    right: 0
-                                }}
+                                // style={{marginRight: '10px'}}
                         >
                             {isVisible && (
                                 <Popover>
-                                    <div className="popover__inner">
+                                    <div className="popover__inner"
+                                         style={{
+                                             width: '200px',
+                                             display: 'flex',
+                                             padding: '5px',
+                                             zIndex: '100'
+                                         }}
+                                    >
                                         {__('Really want to remove this Item?', 'sage')}
                                         <Button className="popover__inner-button" onClick={() => {removeAccordionItem(index)}}>{__('Yes', 'sage')}</Button>
                                     </div>
@@ -168,10 +202,12 @@ registerBlockType('custom/accordion', {
                 });
 
                 let uniqueIndex = `${attributes.clientId}-${index}`
+                attributes.clientId = clientId;
 
                 return (
-                    <div className="accordion-block__item" key={`card-${index}`}>
+                    <div className={classNames("accordion-block__item", item.isOpen && 'open-on-mount')} key={`card-${index}`}>
                         <Button icon={'plus'}
+                                className={'button button--icon-only'}
                                 label={__('Add Item after', 'sage')}
                                 onClick={() => {addAccordionItemAfter(index)}}
                                 style={{
@@ -181,26 +217,44 @@ registerBlockType('custom/accordion', {
                                     transform: 'translateX(-50%)'
                                 }}
                         />
-                        <RemoveButtonPopover />
-                        <div className="accordion-block__item-header" id={`heading-${uniqueIndex}`} data-bs-toggle="collapse" data-bs-target={`#collapse-${uniqueIndex}`} aria-expanded="true" aria-controls={`collapse-${uniqueIndex}`}>
-                            <RichText
-                                tagName="p"
-                                placeholder={'Lorem Ipsum'}
-                                keepPlaceholderOnFocus={true}
-                                value={item.header}
-                                allowedFormats={['core/bold', 'core/italic']}
-                                onChange={onChangeAccordionHeader}
-                            />
+
+                        <div className="accordion-block__item-header-wrapper" style={{display: 'flex', width: '100%', alignItems: 'center'}}>{/*Only in Editor*/}
+                            <RemoveButtonPopover />
+                            <div className={classNames("accordion-block__item-header", "collapsed")}
+                                 id={`heading-${uniqueIndex}`}
+                                 data-bs-toggle="collapse"
+                                 data-bs-target={`#collapse-${uniqueIndex}`}
+                                 aria-expanded="true"
+                                 aria-controls={`collapse-${uniqueIndex}`}
+                                 onClick={onChangeAccordionIsOpen}
+                            >
+                                <RichText
+                                    tagName="p"
+                                    placeholder={'Lorem Ipsum'}
+                                    keepPlaceholderOnFocus={true}
+                                    value={item.header}
+                                    allowedFormats={['core/bold', 'core/italic']}
+                                    onChange={onChangeAccordionHeader}
+                                />
+                                <i className={'icon-chevron-down'}></i>
+                            </div>
                         </div>
-                        <div id={`collapse-${uniqueIndex}`} className="accordion-block__item-body collapse" aria-labelledby={`heading-${uniqueIndex}`} data-bs-parent={`#accordion-${attributes.clientId}`}>
-                            <RichText
-                                tagName="p"
-                                placeholder={loremIpsum}
-                                keepPlaceholderOnFocus={true}
-                                value={item.body}
-                                // allowedFormats={['core/bold', 'core/italic', 'core/link']}
-                                onChange={onChangeAccordionBody}
-                            />
+
+                        <div id={`collapse-${uniqueIndex}`}
+                             className={classNames("accordion-block__collapse",  "collapse")}
+                             aria-labelledby={`heading-${uniqueIndex}`}
+                             data-bs-parent={`#accordion-${attributes.clientId}`}
+                        >
+                            <div className="accordion-block__item-body">
+                                <RichText
+                                    tagName="p"
+                                    placeholder={loremIpsum}
+                                    keepPlaceholderOnFocus={true}
+                                    value={item.body}
+                                    // allowedFormats={['core/bold', 'core/italic', 'core/link']}
+                                    onChange={onChangeAccordionBody}
+                                />
+                            </div>
                         </div>
                     </div>
                 )
@@ -223,17 +277,33 @@ registerBlockType('custom/accordion', {
 
             return (
                 <div className="accordion-block__item" key={`card-${index}`}>
-                    <div className="accordion-block__item-header" id={`heading-${uniqueIndex}`} data-bs-toggle="collapse" data-bs-target={`#collapse-${uniqueIndex}`} aria-expanded="true" aria-controls={`collapse-${uniqueIndex}`}>
-                        <RichText.Content
-                            tagName="p"
-                            value={item.header}
-                        />
+                    <div className="accordion-block__item-header-wrapper" id={`heading-${uniqueIndex}`}>
+                        <div className={classNames("accordion-block__item-header", !item.isOpen && "collapsed")}
+                             data-bs-toggle="collapse"
+                             data-bs-target={`#collapse-${uniqueIndex}`}
+                             aria-expanded="true"
+                             aria-controls={`collapse-${uniqueIndex}`}
+                        >
+                            <RichText.Content
+                                tagName="p"
+                                value={item.header}
+                            />
+                            <i className={'icon-chevron-down'}></i>
+                        </div>
                     </div>
-                    <div id={`collapse-${uniqueIndex}`} className="accordion-block__item-body collapse" aria-labelledby={`heading-${uniqueIndex}`} data-bs-parent={`#accordion-${attributes.clientId}`}>
-                        <RichText.Content
-                            tagName="p"
-                            value={item.body}
-                        />
+
+                    <div id={`collapse-${uniqueIndex}`}
+                         className={classNames("accordion-block__collapse",  "collapse", item.isOpen && "show")}
+                         aria-labelledby={`heading-${uniqueIndex}`}
+                         data-bs-parent={`#accordion-${attributes.clientId}`}
+                    >
+                        <div className="accordion-block__item-body">
+                            <RichText.Content
+                                tagName="p"
+                                value={item.body}
+                            />
+                        </div>
+
                     </div>
                 </div>
             )

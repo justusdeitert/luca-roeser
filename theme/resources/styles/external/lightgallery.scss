@@ -1,1 +1,63 @@
-@import "~lightgallery/scss/lightgallery-bundle";
+// This files contains lightGallery and all plugins
+
+// Example For white theme
+// $lg-theme-color: #fff;
+// $lg-theme-highlight: #333;
+// $lg-thumb-bg: #fcfcfc;
+// $lg-next-prev-bg: rgba(0, 0, 0, 0.03);
+// $lg-next-prev-color: #444;
+// $lg-next-next-color: #444;
+// $lg-toolbar-icon-color: #555;
+// $lg-icon-color: #555;
+// $lg-next-prev-hover-color: #000;
+// $lg-toolbar-icon-hover-color: #000;
+// $lg-progress-bar-bg: #999;
+
+// Core variables and mixins
+@import '~lightgallery/scss/lg-variables';
+@import '~lightgallery/scss/lg-mixins';
+//@import '~lightgallery/scss/lg-fonts';
+@import '~lightgallery/scss/lg-theme-default';
+@import '~lightgallery/scss/lg-thumbnail';
+@import '~lightgallery/scss/lg-video';
+@import '~lightgallery/scss/lg-autoplay';
+@import '~lightgallery/scss/lg-zoom';
+@import '~lightgallery/scss/lg-pager';
+@import '~lightgallery/scss/lg-fullscreen';
+//@import '~lightgallery/scss/lg-share';
+@import '~lightgallery/scss/lg-comments';
+//@import '~lightgallery/scss/lg-rotate';
+@import '~lightgallery/scss/lg-medium-zoom';
+@import '~lightgallery/scss/lg-relative-caption';
+
+// Core
+@import '~lightgallery/scss/lightgallery-core';
+
+// Custom User Styles
+.lg-outer {
+    .lg-item {
+        &:not(.lg-start-end-progress) {
+            background: url('../images/loading.gif') no-repeat scroll center center transparent;
+        }
+    }
+}
+
+.lg-next:before {
+    content: "\e906";
+}
+
+.lg-prev:after {
+    content: "\e904";
+}
+
+.lg-toolbar {
+    .lg-close:after {
+        content: "\e912";
+    }
+
+    .lg-download:after {
+        content: "\e913";
+    }
+}
+
+
