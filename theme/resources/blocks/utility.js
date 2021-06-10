@@ -22,7 +22,7 @@ export const getRandomInt = (max) => {
  * @param size
  * @returns {string|*|string}
  */
-export const getImage = (image, size = 'full') => {
+export const getImage = (image, size = 'full', placeholderId = false) => {
     if (image) {
         let original = image.url;
         let full = image.sizes && image.sizes.full ? image.sizes.full.url : original;
@@ -76,7 +76,11 @@ export const getImage = (image, size = 'full') => {
             case 'height':
                 return '800'
             default:
-                return 'https://picsum.photos/1200/800';
+                if(placeholderId) {
+                    return `https://picsum.photos/id/${placeholderId}/1200/800`;
+                } else {
+                    return 'https://picsum.photos/1200/800';
+                }
         }
     }
 };
@@ -95,7 +99,6 @@ const getCssVariable = (variableString) => {
  * Define Breakpoints
  */
 export const bootstrapBreakpoints = {
-    xs: getCssVariable('--breakpoint-xs'),
     sm: getCssVariable('--breakpoint-sm'),
     md: getCssVariable('--breakpoint-md'),
     lg: getCssVariable('--breakpoint-lg'),

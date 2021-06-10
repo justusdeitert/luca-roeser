@@ -188,6 +188,9 @@ add_action('after_setup_theme', function () {
      */
     add_theme_support('customize-selective-refresh-widgets');
 
+    /**
+     * Adds gray color array
+     */
     $gray_colors = [];
     foreach (range(1, 9) as $number) {
         array_push($gray_colors, [

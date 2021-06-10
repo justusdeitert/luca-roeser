@@ -1,42 +1,85 @@
 // import Swiper JS
 import Swiper from 'swiper';
 
-window.initSlider = () => {
+window.sliderBlockInstances = {};
 
-    document.querySelectorAll('.slider-block > .block-editor-inner-blocks').forEach(sliderBlock => {
+window.initSliderBlockInstances = () => {
+    document.querySelectorAll('.slider-block').forEach(sliderBlock => {
 
-        // let editorContainer = sliderBlock.querySelector('> .block-editor-inner-blocks')
+        let sliderContainer = sliderBlock.querySelector('.slider-block__container')
+        let breakpoints = {};
+        let initialSlidesPerView = 2;
 
+        if (sliderBlock.dataset.slidesPerView === "1") {
+            initialSlidesPerView = 1
+        }
 
-        // document.querySelectorAll('[data-type="custom/slider-item"]').forEach((element) => {
-        //     element.classList.add('custom-slider-item');
-        // });
+        if (sliderBlock.dataset.slidesPerView === "3") {
+            breakpoints = {
+                [parseInt(window.bootstrapBreakpoints.md)]: {
+                    slidesPerView: 3
+                }
+            }
+        }
 
-        // const swiper = new Swiper(sliderBlock, {
-        //     // Optional parameters
-        //     // direction: 'vertical',
-        //     // loop: true,
-        //     slidesPerView: 1,
-        //     wrapperClass: 'block-editor-block-list__layout',
-        //     slideClass: 'custom-slider-item',
-        //
-        //     // If we need pagination
-        //     // pagination: {
-        //     //     el: '.swiper-pagination',
-        //     // },
-        //
-        //     // Navigation arrows
-        //     // navigation: {
-        //     //     nextEl: '.swiper-button-next',
-        //     //     prevEl: '.swiper-button-prev',
-        //     // },
-        //
-        //     // And if we need scrollbar
-        //     // scrollbar: {
-        //     //     el: '.swiper-scrollbar',
-        //     // },
-        // });
+        if (sliderBlock.dataset.slidesPerView === "4") {
+            breakpoints = {
+                [parseInt(window.bootstrapBreakpoints.md)]: {
+                    slidesPerView: 3
+                },
+                [parseInt(window.bootstrapBreakpoints.lg)]: {
+                    slidesPerView: 4
+                },
+            }
+        }
+
+        let swiperInstance = new Swiper(sliderContainer, {
+            // loop: true,
+            slidesPerView: initialSlidesPerView,
+            // wrapperClass: 'slider-block__slides-wrapper',
+            // slideClass: 'slider-block__slide',
+            // touchEventsTarget: 'wrapper',
+
+            /**
+             * Pagination
+             */
+            pagination: {
+                el: '.swiper-pagination',
+            },
+
+            /**
+             * Navigation arrows
+             */
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+
+            noSwiping: false,
+            allowTouchMove: !document.body.classList.contains('block-editor-page'),
+            autoHeight: true,
+
+            /**
+             * Breakpoints
+             */
+            breakpoints
+        });
+
+        window.sliderBlockInstances[sliderBlock.dataset.sliderId] = swiperInstance;
     });
 };
 
-window.initSlider();
+window.destroySliderBlockInstances = () => {
+    Object.values(window.sliderBlockInstances).forEach((instance) => {
+        instance.destroy();
+    })
+};
+
+window.updateSliderBlockInstances = () => {
+    if (!window.objectIsEmpty(window.sliderBlockInstances)) {
+        window.destroySliderBlockInstances();
+    }
+    window.initSliderBlockInstances();
+};
+
+window.initSliderBlockInstances();

@@ -513,9 +513,16 @@ registerBlockType('custom/image-header', {
                     // value={attributes.mediaID}
                     render={({open}) => (
                         <>
-                            <Button variant="primary" className={'button'} onClick={open} style={{position: `absolute`, right: `10px`, bottom: `10px`}}>
-                                {!attributes.headerImage ? __('Set Image', 'sage') : __('Change Image', 'sage')}
-                            </Button>
+                            <Button className={'button'}
+                                    onClick={open}
+                                    icon={'format-image'}
+                                    style={{
+                                        position: `absolute`,
+                                        right: `20px`,
+                                        bottom: `20px`
+                                    }}
+                                    text={__('Change Image', 'sage')}
+                            />
                         </>
                     )}
                 />
@@ -526,10 +533,16 @@ registerBlockType('custom/image-header', {
                     ]}
                     // value={attributes.mediaID}
                     render={({open}) => (
-                        <Button variant="primary" className={'button'} onClick={open}
-                                style={{position: `absolute`, right: `10px`, top: `10px`}}>
-                            {!attributes.headerLogo ? __('Upload Logo', 'sage') : __('Change Logo', 'sage')}
-                        </Button>
+                        <Button className={'button'}
+                                onClick={open}
+                                icon={'admin-customizer'}
+                                style={{
+                                    position: `absolute`,
+                                    right: `20px`,
+                                    top: `20px`
+                                }}
+                                text={!attributes.headerLogo ? __('Upload Logo', 'sage') : __('Change Logo', 'sage')}
+                        />
                     )}
                 />
             </>

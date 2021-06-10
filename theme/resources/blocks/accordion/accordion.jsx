@@ -17,6 +17,9 @@ const blockIcon = createElement('svg', {width: 20, height: 20},
 const loremIpsum = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.'
 
 const attributes = {
+    blockId: {
+        type: 'string',
+    },
     accordion: {
         type: 'array',
         default: [
@@ -36,9 +39,6 @@ const attributes = {
                 body: loremIpsum,
             },
         ],
-    },
-    clientId: {
-        type: 'string',
     },
 };
 
@@ -72,7 +72,7 @@ registerBlockType('custom/accordion', {
             let accordionItem = document.querySelector('.accordion-block__item.open-on-mount');
             if (accordionItem) {
                 accordionItem.querySelector('.accordion-block__item-header').classList.remove('collapsed');
-                accordionItem.querySelector('.accordion-block__item-body').classList.add('show');
+                accordionItem.querySelector('.accordion-block__collapse').classList.add('show');
             }
         }
 
@@ -201,8 +201,8 @@ registerBlockType('custom/accordion', {
                     );
                 });
 
-                let uniqueIndex = `${attributes.clientId}-${index}`
-                attributes.clientId = clientId;
+                let uniqueIndex = `${attributes.blockId}-${index}`
+                attributes.blockId = clientId;
 
                 return (
                     <div className={classNames("accordion-block__item", item.isOpen && 'open-on-mount')} key={`card-${index}`}>
@@ -243,7 +243,7 @@ registerBlockType('custom/accordion', {
                         <div id={`collapse-${uniqueIndex}`}
                              className={classNames("accordion-block__collapse",  "collapse")}
                              aria-labelledby={`heading-${uniqueIndex}`}
-                             data-bs-parent={`#accordion-${attributes.clientId}`}
+                             data-bs-parent={`#accordion-${attributes.blockId}`}
                         >
                             <div className="accordion-block__item-body">
                                 <RichText
@@ -262,7 +262,7 @@ registerBlockType('custom/accordion', {
 
             return (
                 <>
-                    <div id={`accordion-${attributes.clientId}`} className={classNames(className, 'accordion-block', 'custom-border', 'custom-spacing')}>
+                    <div id={`accordion-${attributes.blockId}`} className={classNames(className, 'accordion-block', 'custom-border', 'custom-spacing')}>
                         {accordionRepeater}
                     </div>
                 </>
@@ -273,7 +273,7 @@ registerBlockType('custom/accordion', {
 
         const accordionRepeater = attributes.accordion.map((item, index) => {
 
-            let uniqueIndex = `${attributes.clientId}-${index}`
+            let uniqueIndex = `${attributes.blockId}-${index}`
 
             return (
                 <div className="accordion-block__item" key={`card-${index}`}>
@@ -295,7 +295,7 @@ registerBlockType('custom/accordion', {
                     <div id={`collapse-${uniqueIndex}`}
                          className={classNames("accordion-block__collapse",  "collapse", item.isOpen && "show")}
                          aria-labelledby={`heading-${uniqueIndex}`}
-                         data-bs-parent={`#accordion-${attributes.clientId}`}
+                         data-bs-parent={`#accordion-${attributes.blockId}`}
                     >
                         <div className="accordion-block__item-body">
                             <RichText.Content
@@ -311,7 +311,7 @@ registerBlockType('custom/accordion', {
 
         return (
             <>
-                <div id={`accordion-${attributes.clientId}`} className={classNames(className, 'accordion-block', 'custom-border', 'custom-spacing')}>
+                <div id={`accordion-${attributes.blockId}`} className={classNames(className, 'accordion-block', 'custom-border', 'custom-spacing')}>
                     {accordionRepeater}
                 </div>
             </>

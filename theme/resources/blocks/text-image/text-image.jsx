@@ -136,15 +136,16 @@ registerBlockType('custom/text-image', {
                                 'image/gif'
                             ]}
                             render={({open}) => (
-                                <Button className={'button text-image-block__image-button'} onClick={open}
+                                <Button className={'button text-image-block__image-button'}
+                                        icon={'format-gallery'}
+                                        onClick={open}
                                         style={{
                                             position: 'absolute',
-                                            left: '10px',
-                                            top: '10px'
+                                            left: '20px',
+                                            top: '20px'
                                         }}
-                                >
-                                    {!attributes.contentImages ? __('Upload Images', 'sage') : __('Change Images', 'sage')}
-                                </Button>
+                                        text={!attributes.contentImages ? __('Upload Images', 'sage') : __('Change Images', 'sage')}
+                                />
                             )}
                         />
                         <div className={classNames('text-image-block__image-wrapper')} data-image-count={attributes.imageCount}>

@@ -64,8 +64,6 @@ function customizer_theme_styles() {
         $gray_colors[$number * 100] = adjustBrightness($theme_colors['dark'], (1 - $number * 0.1));
     }
 
-    var_dump(...$gray_colors);
-
     if (is_admin()) { ?>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -129,6 +127,9 @@ function customizer_theme_styles() {
                 <?php foreach ($gray_colors as $name => $value) { ?>
                     --color-gray-<?php echo $name; ?>: <?php echo $value; ?>;
                 <?php } ?>
+
+                --bs-gutter-x: <?php echo get_theme_mod('custom_gutter_size', 24) / 16; ?>rem;
+                --bs-gutter-y: <?php echo get_theme_mod('custom_gutter_size', 24) / 16; ?>rem;
             }
 
             .block-editor .editor-styles-wrapper .row {
@@ -203,6 +204,9 @@ function customizer_theme_styles() {
                 <?php foreach ($gray_colors as $name => $value) { ?>
                     --color-gray-<?php echo $name; ?>: <?php echo $value; ?>;
                 <?php } ?>
+
+                --bs-gutter-x: <?php echo get_theme_mod('custom_gutter_size', 24) / 16; ?>rem;
+                --bs-gutter-y: <?php echo get_theme_mod('custom_gutter_size', 24) / 16; ?>rem;
             }
 
             <?php // TODO: Have a look at different bootstrap 5 container settings ?>

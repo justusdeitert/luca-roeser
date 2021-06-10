@@ -1,9 +1,11 @@
 import {__} from '@wordpress/i18n';
 import {registerBlockType,} from '@wordpress/blocks';
 import {Button} from '@wordpress/components';
-import {ToggleControl, RadioControl, Tooltip} from '@wordpress/components';
+import {ToggleControl, RangeControl, SelectControl} from '@wordpress/components';
 import {createElement, Component} from '@wordpress/element';
 import {RichText, MediaUpload, InspectorControls} from '@wordpress/block-editor';
+import classNames from 'classnames';
+import {cloneArray, getImage} from "../utility";
 
 const blockIcon = createElement('svg', {width: 20, height: 20},
     createElement('path', {
@@ -11,21 +13,47 @@ const blockIcon = createElement('svg', {width: 20, height: 20},
     })
 );
 
-import {cloneArray, getRandomInt, getImage} from "../utility";
 
 const attributes = {
+    blockId: {
+        type: 'string'
+    },
+    sliderHasHeadline: {
+        type: 'boolean',
+        default: true,
+    },
+    headlineType: {
+        type: 'string',
+        default: 'h5'
+    },
+    slidesPerView: {
+        type: 'number',
+        default: 3,
+    },
     sliderItems: {
         type: 'array',
         default: [
-            {title: '', text: '', slideImage: ['']},
-            {title: '', text: '', slideImage: ['']},
-            {title: '', text: '', slideImage: ['']},
+            {
+                headline: __('The Headline...', 'sage'),
+                text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.',
+                slideImage: false
+            },
+            {
+                headline: __('The Headline...', 'sage'),
+                text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.',
+                slideImage: false
+            },
+            {
+                headline: __('The Headline...', 'sage'),
+                text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.',
+                slideImage: false
+            },
         ],
     }
 }
 
 registerBlockType('custom/slider', {
-    title: __('Gallery Carousel', 'sage'),
+    title: __('Slider', 'sage'),
     icon: blockIcon,
     category: 'custom',
     attributes,
@@ -48,6 +76,7 @@ registerBlockType('custom/slider', {
 
         componentDidMount() {
             // console.log(this.props.name, ": componentDidMount()");
+            window.initSliderBlockInstances();
         }
 
         componentDidUpdate() {
@@ -68,14 +97,14 @@ registerBlockType('custom/slider', {
 
             let {attributes, className, setAttributes, clientId} = this.props;
 
-            const repeater = attributes.sliderItems.map((item, index) => {
+            const repeaterSlides = attributes.sliderItems.map((item, index) => {
 
-                const onChangeTitle = (value) => {
+                const onChangeHeadline = (value) => {
 
                     // Iterate through sliderItems and only change value of selected item
                     attributes.sliderItems.map((innerItem, innerIndex) => {
                         if(innerIndex === index) {
-                            innerItem.title = value;
+                            innerItem.headline = value;
                         }
                     });
 
@@ -112,7 +141,11 @@ registerBlockType('custom/slider', {
 
                 const addElementAfter = (index) => {
 
-                    let newItem = {title: __('The Title...', 'sage'), slideImage: `https://picsum.photos/id/${getRandomInt(100)}/1200/800`};
+                    let newItem = {
+                        headline: __('The Headline...', 'sage'),
+                        text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.',
+                        slideImage: false
+                    };
 
                     attributes.sliderItems.splice(index + 1, 0, newItem) // Adds the new Item at position
 
@@ -120,209 +153,241 @@ registerBlockType('custom/slider', {
                         sliderItems: [...attributes.sliderItems] // Replace With cool spread operator!!
                     });
 
-                    // TODO: Reinitiate Slider!!
-                    // If that's dont in compoentDidUpdate it gets fired to often...
-                    // setTimeout(() => {
-                    //     window.initGalleryCarouselGlideInstances(index, attributes.blockID);
-                    // }, 100)
+                    setTimeout(() => {
+                        window.updateSliderBlockInstances();
+                    }, 300)
                 };
 
                 const removeElement = (index) => {
                     // let arrayPop = attributes.sliderItems.pop(); // Remove last Array Element
-
                     attributes.sliderItems.splice(index, 1) // Removes item from position
 
                     setAttributes({
                         sliderItems: [...attributes.sliderItems] // Clone Array Otherwise there is not reload
                     });
 
-                    // If that's dont in compoentDidUpdate it gets fired to often...
-                    // setTimeout(() => {
-                    //     window.initGalleryCarouselGlideInstances(index - 1, attributes.blockID); // Parameter is first slide
-                    // }, 100)
+                    setTimeout(() => {
+                        window.updateSliderBlockInstances();
+                    }, 300)
                 };
 
                 return (
-                    <div key={index} className={'item glide__slide'}>
-                        <div className='slider-block__image-wrapper'>
-                            <img src={getImage(item.slideImage)} />
-
-                            <MediaUpload
-                                onSelect={onSelectImage}
-                                allowedTypes="image"
-                                // value={item.imageID}
-                                render={({open}) => (
-                                    <div>
-                                        <Button className={'button button-large'} onClick={open}>{__('Change Image', 'sage')}</Button>
-                                    </div>
-                                )}
+                    <div key={index} className={'swiper-slide slider-block__slide'}>
+                        <div className="slider-block__slide-inner custom-border">
+                            <Button icon={'plus'}
+                                    isSmall={true}
+                                    className={'button button--icon-only'}
+                                    // label={__('Add Item after', 'sage')}
+                                    onClick={() => {addElementAfter(index)}}
+                                    style={{
+                                        position: 'absolute',
+                                        right: '-15px',
+                                        top: '50%',
+                                        transform: 'translateY(-50%)',
+                                        zIndex: '100',
+                                    }}
                             />
+                            <Button icon={'minus'}
+                                    isSmall={true}
+                                    className={'button button--icon-only'}
+                                    // label={__('Add Item after', 'sage')}
+                                    onClick={() => removeElement(index)}
+                                    style={{
+                                        position: 'absolute',
+                                        left: '20px',
+                                        top: '20px',
+                                        zIndex: '100',
+                                    }}
+                            />
+                            <div className={classNames('slider-block__image-wrapper', 'ratio ratio-1x1')}>
+                                <img alt={getImage(item.slideImage, 'alt')}
+                                     src={getImage(item.slideImage, 'medium', index)}
+                                     className={'slider-block__image'}
+                                />
 
-                            <Tooltip text={__('Add Element', 'sage')}>
-                                <Button isTertiary onClick={() => addElementAfter(index)}>Add Item</Button>
-                            </Tooltip>
-
-                            <Tooltip text={__('Remove Element', 'sage')}>
-                                <Button isTertiary onClick={() => removeElement(index)}>Remove Item</Button>
-                            </Tooltip>
+                                <MediaUpload
+                                    onSelect={onSelectImage}
+                                    allowedTypes="image"
+                                    // value={item.imageID}
+                                    render={({open}) => (
+                                        <div>
+                                            <Button className={'button'}
+                                                    onClick={open}
+                                                    icon={'format-image'}
+                                                    isSmall={true}
+                                                    style={{
+                                                        position: 'absolute',
+                                                        right: '10px',
+                                                        top: '10px'
+                                                    }}
+                                            />
+                                        </div>
+                                    )}
+                                />
+                            </div>
+                            <div className='slider-block__text-wrapper'>
+                                {attributes.sliderHasHeadline &&
+                                    <RichText
+                                        tagName={attributes.headlineType}
+                                        placeholder={__('The Headline...', 'sage')}
+                                        keepPlaceholderOnFocus={true}
+                                        value={item.headline}
+                                        onChange={onChangeHeadline}
+                                        className="slider-block__headline"
+                                    />
+                                }
+                                <RichText
+                                    tagName="p"
+                                    placeholder={'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'}
+                                    keepPlaceholderOnFocus={true}
+                                    value={item.text}
+                                    onChange={onChangeText}
+                                    className="slider-block__text"
+                                />
+                            </div>
                         </div>
-
-                        <div className='slider-block__text-wrapper'>
-                            <RichText
-                                tagName="h5"
-                                placeholder={__('The Title...', 'sage')}
-                                keepPlaceholderOnFocus={true}
-                                allowedFormats={[]}
-                                value={item.title}
-                                onChange={onChangeTitle}
-                                className="slider-block__title"
-                            />
-                            <RichText
-                                tagName="p"
-                                placeholder={'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod.'}
-                                keepPlaceholderOnFocus={true}
-                                allowedFormats={[]}
-                                value={item.text}
-                                onChange={onChangeText}
-                                className="slider-block__text"
-                            />
-                        </div>
-
                     </div>
                 )
             });
 
-            const onChangeHeadlineIsActive = (value) => {
-                setAttributes({headlineIsActive: value});
+            const onChangeSliderHasHeadline = (value) => {
+                setAttributes({sliderHasHeadline: value});
             };
 
-            const onChangeHeadline = (text) => {
-                setAttributes({headline: text});
+            const onChangeHeadlineType = (value) => {
+                setAttributes({headlineType: value});
             };
 
-            const onChangeRadioField = (value) => {
-                setAttributes({columnsRadioField: value});
+            const onChangeSlidesPerView = (value) => {
+                setAttributes({slidesPerView: value});
 
-                // setTimeout(() => {
-                //     window.initGalleryCarouselGlideInstances();
-                // }, 100)
+                setTimeout(() => {
+                    window.updateSliderBlockInstances();
+                }, 300)
             };
 
-            // Set Block ID to use in Save Method
-            setAttributes({
-                blockID: clientId
-            });
+            const slideNext = () => {
+                window.sliderBlockInstances[attributes.blockId].slideNext(300);
+            };
+
+            const slidePrev = () => {
+                window.sliderBlockInstances[attributes.blockId].slidePrev(300);
+            };
+
+            attributes.blockId = clientId;
 
             return (
-                <div className={className}>
+                <>
                     <InspectorControls>
-                        <hr/>
-                        <ToggleControl
-                            label={__('Headline', 'sage')}
-                            // help={ attributes.withHeadline ? 'Image is left' : 'Image is right' }
-                            checked={attributes.headlineIsActive}
-                            onChange={onChangeHeadlineIsActive}
-                        />
-                        <hr/>
-                        <RadioControl
-                            label={__('Columns', 'sage')}
-                            selected={attributes.columnsRadioField}
-                            options={
-                                [
-                                    {label: __('Three', 'sage'), value: 'three'},
-                                    {label: __('Four', 'sage'), value: 'four'},
-                                ]
+                        <div className="inspector-controls-container">
+                            <hr/>
+                            <Button icon={'arrow-left'}
+                                    className={'button'}
+                                    onClick={slidePrev}
+                                    iconPosition={'left'}
+                                    text={__('Slide Prev', 'sage')}
+                            />
+                            <Button icon={'arrow-right'}
+                                    className={'button'}
+                                    onClick={slideNext}
+                                    iconPosition={'right'}
+                                    text={__('Slide Next', 'sage')}
+                                    style={{marginLeft: '10px'}}
+                            />
+                            <hr/>
+                            <ToggleControl
+                                label={__('Has a Headline', 'sage')}
+                                // help={ attributes.withHeadline ? 'Image is left' : 'Image is right' }
+                                checked={attributes.sliderHasHeadline}
+                                onChange={onChangeSliderHasHeadline}
+                            />
+                            {attributes.sliderHasHeadline &&
+                                <>
+                                    <hr/>
+                                    <p>{__('Headline Type', 'sage')}</p>
+                                    <SelectControl
+                                        value={attributes.headlineType}
+                                        options={[
+                                            {label: __('H4'), value: 'h4'},
+                                            {label: __('H5'), value: 'h5'},
+                                            {label: __('H6'), value: 'h6'},
+                                        ]}
+                                        onChange={onChangeHeadlineType}
+                                    />
+                                </>
                             }
-                            onChange={onChangeRadioField}
-                        />
+                            <hr/>
+                            <p>{__('Slides per View', 'sage')}</p>
+                            <RangeControl
+                                value={attributes.slidesPerView}
+                                min={1}
+                                initialPosition={3}
+                                max={4}
+                                onChange={onChangeSlidesPerView}
+                            />
+                        </div>
                     </InspectorControls>
-                    <div className="slider-block">
-                        <div className="container">
-                            <div className="slider-block__headline-wrapper">
-                                {attributes.headlineIsActive && <RichText
-                                    tagName="h4"
-                                    placeholder={__('The Title...', 'sage')}
-                                    keepPlaceholderOnFocus={true}
-                                    allowedFormats={[]}
-                                    value={attributes.headline}
-                                    onChange={onChangeHeadline}
-                                    className="slider-block__headline"
-                                />}
-                                <div className="slider-block__carousel-icons">
-                                    <i className="icon icon--arrow-left glide-prev"></i>
-                                    <i className="icon icon--arrow-right glide-next"></i>
-                                </div>
+                    <div className={classNames(className, 'slider-block', 'custom-spacing')}
+                         data-slides-per-view={attributes.slidesPerView}
+                         data-slider-id={attributes.blockId}
+                    >
+                        <div className="swiper-container slider-block__container">
+                            <div className="swiper-wrapper slider-block__slides-wrapper">
+                                {repeaterSlides}
                             </div>
-
-                            <div className={'glide glide--slider' + ' ' + attributes.columnsRadioField + ' ' + attributes.blockID}>
-                                <div className={'glide__track'} data-glide-el="track">
-                                    <div className="slider-block__slides glide__slides">
-                                        {repeater}
-                                    </div>
-                                </div>
+                            <div className="swiper-pagination" />
+                            <div className="swiper-button-prev">
+                                <i className="icon-arrow-left" />
                             </div>
-                            {/*<div className="slider-block__button-wrapper">
-                                <Button className={'button button-large'} onClick={addButtonOnClick}>{__('Add Item', 'sage')}</Button>
-                                <Button className={'button button-large'} style={{marginLeft: 10}} onClick={removeButtonOnClick}>{__('Remove Item', 'sage')}</Button>
-                            </div>*/}
+                            <div className="swiper-button-next">
+                                <i className="icon-arrow-right" />
+                            </div>
                         </div>
                     </div>
-                </div>
+                </>
             )
         }
     },
 
     save: ({className, attributes}) => {
 
-        const repeater = attributes.sliderItems.map((item , index) => {
+        const repeaterSlides = attributes.sliderItems.map((item , index) => {
 
             return (
-                <div key={index} className={'item glide__slide'}>
-                    <div className='slider-block__image-wrapper'>
-                        {/*<a href={item.slideImage} className="js-smartPhoto" data-caption={item.imageALT} data-id={item.imageID} data-group={post_id}>
-                            <img src={item.slideImage} alt={item.imageALT}/>
-                        </a>*/}
-                        <a href={image_large}
-                           className="js-smartPhoto"
-                           data-caption={item.imageALT}
-                           data-id={item.imageID}
-                           data-group={post_id}
-                           itemProp="associatedMedia"
-                           itemScope
-                           itemType="http://schema.org/ImageObject">
-                            <img className="text-image-block__image"
-                                 src={image_medium}
-                                 srcSet={`${image_small} 768w, ${image_medium} 1024w`}
-                                 alt={item.imageALT}
-                                 itemProp="contentUrl" />
-                        </a>
-                    </div>
-                    <div className={'slider-block__text-wrapper'}>
-                        <RichText.Content tagName="h5" className="slider-block__title" value={item.title}/>
-                        <RichText.Content tagName="p" className="slider-block__text" value={item.text}/>
+                <div key={index} className={'swiper-slide slider-block__slide'}>
+                    <div className="slider-block__slide-inner custom-border">
+                        <div className={classNames('slider-block__image-wrapper', 'ratio ratio-1x1')}>
+                            <img alt={getImage(item.slideImage, 'alt')}
+                                 src={getImage(item.slideImage, 'medium', index)}
+                                 className={'slider-block__image'}
+                            />
+                        </div>
+                        <div className={'slider-block__text-wrapper'}>
+                            {attributes.sliderHasHeadline &&
+                                <RichText.Content tagName={attributes.headlineType} className="slider-block__headline" value={item.headline}/>
+                            }
+                            <RichText.Content tagName="p" className="slider-block__text" value={item.text}/>
+                        </div>
                     </div>
                 </div>
             )
         });
 
         return (
-            <div className={className}>
-                <div className="slider-block">
-                    <div className="container">
-                        <div className="slider-block__headline-wrapper">
-                            {attributes.headlineIsActive && <RichText.Content tagName="h4" className="slider-block__headline" value={attributes.headline}/>}
-                            <div className="slider-block__carousel-icons">
-                                <i className="icon icon--arrow-left glide-prev"></i>
-                                <i className="icon icon--arrow-right glide-next"></i>
-                            </div>
-                        </div>
-                        <div className={'glide glide--slider' + ' ' + attributes.columnsRadioField}>
-                            <div className="glide__track" data-glide-el="track">
-                                <div className="slider-block__slides glide__slides">
-                                    {repeater}
-                                </div>
-                            </div>
-                        </div>
+            <div className={classNames(className, 'slider-block', 'custom-spacing')}
+                 data-slides-per-view={attributes.slidesPerView}
+                 data-slider-id={attributes.blockId}
+            >
+                <div className="swiper-container slider-block__container">
+                    <div className="swiper-wrapper slider-block__slides-wrapper">
+                        {repeaterSlides}
+                    </div>
+                    <div className="swiper-pagination" />
+                    <div className="swiper-button-prev">
+                        <i className="icon-arrow-left" />
+                    </div>
+                    <div className="swiper-button-next">
+                        <i className="icon-arrow-right" />
                     </div>
                 </div>
             </div>
