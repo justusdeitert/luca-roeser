@@ -59,11 +59,12 @@ function customizer_theme_styles() {
         'info' => get_theme_mod('custom_info_color', '#0dcaf0'),
     ];
 
-    // TODO: Color System needs to be updated with gray & text shades
-    // $gray_colors = [];
-    // foreach (range(1, 10) as $number) {
-    //     $gray_colors[$number * 100] = adjustBrightness($custom_dark_color, $number * 0.1);
-    // }
+    $gray_colors = [];
+    foreach (range(1, 9) as $number) {
+        $gray_colors[$number * 100] = adjustBrightness($theme_colors['dark'], (1 - $number * 0.1));
+    }
+
+    var_dump(...$gray_colors);
 
     if (is_admin()) { ?>
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -123,6 +124,10 @@ function customizer_theme_styles() {
             :root {
                 <?php foreach (array_merge($theme_colors, $standard_colors, $alert_colors) as $name => $value) { ?>
                     --color-<?php echo $name; ?>: <?php echo $value; ?>;
+                <?php } ?>
+
+                <?php foreach ($gray_colors as $name => $value) { ?>
+                    --color-gray-<?php echo $name; ?>: <?php echo $value; ?>;
                 <?php } ?>
             }
 
@@ -193,6 +198,10 @@ function customizer_theme_styles() {
             :root {
                 <?php foreach (array_merge($theme_colors, $standard_colors, $alert_colors) as $name => $value) { ?>
                     --color-<?php echo $name; ?>: <?php echo $value; ?>;
+                <?php } ?>
+
+                <?php foreach ($gray_colors as $name => $value) { ?>
+                    --color-gray-<?php echo $name; ?>: <?php echo $value; ?>;
                 <?php } ?>
             }
 

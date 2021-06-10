@@ -188,6 +188,15 @@ add_action('after_setup_theme', function () {
      */
     add_theme_support('customize-selective-refresh-widgets');
 
+    $gray_colors = [];
+    foreach (range(1, 9) as $number) {
+        array_push($gray_colors, [
+            'name'  => __('Gray ' . $number, 'sage'),
+            'slug'  => 'gray-' . $number,
+            'color' => adjustBrightness(get_theme_mod('custom_dark_color', '#212529'), (1 - $number * 0.1)),
+        ]);
+    }
+
     /**
      * Enable theme color palette support
      * @link https://developer.wordpress.org/block-editor/developers/themes/theme-support/#block-color-palettes
@@ -213,6 +222,7 @@ add_action('after_setup_theme', function () {
             'slug'  => 'dark',
             'color' => get_theme_mod('custom_dark_color', '#212529'),
         ],
+        ...$gray_colors
     ]);
 
     /*

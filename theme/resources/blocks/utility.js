@@ -106,7 +106,7 @@ export const bootstrapBreakpoints = {
 /**
  * This is needed because by default if the image is smaller some image sizes are not
  */
-export const editorThemeColors = [
+export const editorMainColors = [
     {name: 'Primary', slug: 'primary', color: getCssVariable('--color-primary')},
     {name: 'Secondary', slug: 'secondary', color: getCssVariable('--color-secondary')},
     {name: 'Light', slug: 'light', color: getCssVariable('--color-light')},
@@ -119,7 +119,6 @@ export const editorStandardColors = [
     {name: 'Background', slug: 'light', color: getCssVariable('--color-background')},
 ];
 
-// TODO Need to be integrated...
 export const editorGrayColors = [
     {name: 'Gray 100', slug: 'gray-100', color: getCssVariable('--color-gray-100')},
     {name: 'Gray 200', slug: 'gray-200', color: getCssVariable('--color-gray-200')},
@@ -130,8 +129,9 @@ export const editorGrayColors = [
     {name: 'Gray 700', slug: 'gray-700', color: getCssVariable('--color-gray-700')},
     {name: 'Gray 800', slug: 'gray-800', color: getCssVariable('--color-gray-800')},
     {name: 'Gray 900', slug: 'gray-900', color: getCssVariable('--color-gray-900')},
-    {name: 'Gray 1000', slug: 'gray-1000', color: getCssVariable('--color-gray-1000')},
 ]
+
+export const editorThemeColors = [...editorMainColors, ...editorGrayColors]
 
 export const fontAwesomeArray = [
     {class: 'fa-check', unicode: '\\f00c'},

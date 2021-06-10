@@ -6,7 +6,7 @@ import {RangeControl, ColorPalette} from '@wordpress/components';
 import {InspectorControls} from '@wordpress/block-editor';
 
 import classNames from 'classnames';
-import {editorThemeColors} from "../utility";
+import {editorMainColors} from "../utility";
 
 // import {} from "../config";
 
@@ -167,7 +167,7 @@ registerBlockType('custom/divider', {
                             <hr/>
                             <p>{__('Change Color', 'sage')}</p>
                             <ColorPalette
-                                colors={editorThemeColors}
+                                colors={editorMainColors}
                                 value={attributes.color}
                                 onChange={onChangeColor}
                                 // clearable={false}

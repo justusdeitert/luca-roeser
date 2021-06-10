@@ -12,7 +12,7 @@ import {
 } from '@wordpress/block-editor';
 
 import classNames from 'classnames';
-import {editorThemeColors, getImage} from '../utility';
+import {editorMainColors, getImage} from '../utility';
 
 const blockIcon = createElement('svg', {width: 20, height: 20},
     createElement('path', {
@@ -165,7 +165,7 @@ registerBlockType('custom/text-image', {
                 </div>
             );
 
-            const textColumnBackgroundColor = getColorObjectByColorValue(editorThemeColors, attributes.textColumnBackgroundColor);
+            const textColumnBackgroundColor = getColorObjectByColorValue(editorMainColors, attributes.textColumnBackgroundColor);
 
             const textColumn = (
                 <div className={classNames(`text-image-block__text-column`, `col-12 col-md-6 col-xl-${12 - attributes.columnRange}`)}>
@@ -208,7 +208,7 @@ registerBlockType('custom/text-image', {
                             <hr/>
                             <p>{__('Background Color', 'sage')}</p>
                             <ColorPalette
-                                colors={editorThemeColors}
+                                colors={editorMainColors}
                                 value={attributes.textColumnBackgroundColor}
                                 onChange={onChangeTextColumnBackgroundColor}
                                 // clearable={false}
@@ -225,7 +225,7 @@ registerBlockType('custom/text-image', {
     },
     save: ({className, attributes}) => {
 
-        const textColumnBackgroundColor = getColorObjectByColorValue(editorThemeColors, attributes.textColumnBackgroundColor);
+        const textColumnBackgroundColor = getColorObjectByColorValue(editorMainColors, attributes.textColumnBackgroundColor);
 
         const imageColumn = (
             <div className={classNames(`text-image-block__image-column`, `col-12 col-md-6 col-xl-${attributes.columnRange}`)}>
