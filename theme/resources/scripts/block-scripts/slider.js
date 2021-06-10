@@ -7,7 +7,7 @@ Swiper.use([Navigation, Pagination]);
 window.sliderBlockInstances = {};
 
 window.initSliderBlockInstances = () => {
-    document.querySelectorAll('.sliders-block').forEach(sliderBlock => {
+    document.querySelectorAll('.slider-block').forEach(sliderBlock => {
 
         let sliderContainer = sliderBlock.querySelector('.slider-block__container')
         let breakpoints = {};
