@@ -84,13 +84,15 @@
         }
     }
 
+
+
     // Swiper Controls
-    &__controls {
+    .swiper-controls {
         display: flex;
         margin-top: 0.75rem;
         margin-bottom: 0.75rem;
-        align-items: center;
-        justify-content: center;
+        //align-items: center;
+        //justify-content: center;
         padding-right: calc(var(--bs-gutter-x) * .5);
         padding-left: calc(var(--bs-gutter-x) * .5);
 
@@ -101,13 +103,44 @@
             margin-top: 0.75rem;
             margin-bottom: 0.75rem;
 
+            &.swiper-pagination-bullets-dynamic {
+                left: 30px;
+                position: relative;
+
+                .swiper-pagination-bullet {
+                    opacity: 0;
+                    visibility: hidden;
+                    transform: scale(0.3);
+                    transition: opacity .2s ease-in-out, visibility .2s ease-in-out, left .2s ease-in-out;
+
+                    &-active-prev-prev, &-active-next-next {
+                        opacity: 1;
+                        visibility: visible;
+                        transform: scale(0.6);
+                    }
+
+                    &-active-prev, &-active-next {
+                        opacity: 1;
+                        visibility: visible;
+                        transform: scale(1);
+                    }
+
+                    &-active {
+                        opacity: 1;
+                        visibility: visible;
+                        transform: scale(1);
+                    }
+                }
+            }
+
             .swiper-pagination-bullet {
                 width: 10px;
+                min-width: 10px;
                 height: 10px;
                 margin: 5px;
                 border-radius: 50%;
                 background-color: var(--color-gray-500);
-                cursor: pointer;
+                position: relative;
 
                 &-active {
                     background-color: var(--color-primary);
@@ -159,7 +192,6 @@
             &.swiper-button-disabled {
                 opacity: 0.3;
                 cursor: initial;
-                //visibility: hidden;
             }
         }
 

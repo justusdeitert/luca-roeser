@@ -11,6 +11,10 @@ window.initSliderBlockInstances = () => {
 
         let sliderContainer = sliderBlock.querySelector('.slider-block__container')
         let breakpoints = {};
+        // let pagination = {
+        //     el: '.swiper-pagination',
+        //     dynamicBullets: false,
+        // }
         let initialSlidesPerView = 1;
         let sliderLoop = () => {
             return sliderBlock.dataset.sliderLoop === 'true';
@@ -20,13 +24,30 @@ window.initSliderBlockInstances = () => {
             initialSlidesPerView = 1
         }
 
+        if (sliderBlock.dataset.slidesPerView === "2") {
+            breakpoints = {
+                [parseInt(window.bootstrapBreakpoints.xs)]: {
+                    slidesPerView: 2,
+                    pagination: {
+                        dynamicBullets: false,
+                    },
+                },
+            }
+        }
+
         if (sliderBlock.dataset.slidesPerView === "3") {
             breakpoints = {
                 [parseInt(window.bootstrapBreakpoints.xs)]: {
-                    slidesPerView: 2
+                    slidesPerView: 2,
+                    pagination: {
+                        dynamicBullets: false,
+                    },
                 },
                 [parseInt(window.bootstrapBreakpoints.md)]: {
-                    slidesPerView: 3
+                    slidesPerView: 3,
+                    pagination: {
+                        dynamicBullets: false,
+                    },
                 }
             }
         }
@@ -34,13 +55,22 @@ window.initSliderBlockInstances = () => {
         if (sliderBlock.dataset.slidesPerView === "4") {
             breakpoints = {
                 [parseInt(window.bootstrapBreakpoints.xs)]: {
-                    slidesPerView: 2
+                    slidesPerView: 2,
+                    pagination: {
+                        dynamicBullets: false,
+                    },
                 },
                 [parseInt(window.bootstrapBreakpoints.md)]: {
-                    slidesPerView: 3
+                    slidesPerView: 3,
+                    pagination: {
+                        dynamicBullets: false,
+                    },
                 },
                 [parseInt(window.bootstrapBreakpoints.lg)]: {
-                    slidesPerView: 4
+                    slidesPerView: 4,
+                    pagination: {
+                        dynamicBullets: false,
+                    },
                 },
             }
         }
@@ -50,13 +80,14 @@ window.initSliderBlockInstances = () => {
             slidesPerView: initialSlidesPerView,
             // wrapperClass: 'slider-block__slides-wrapper',
             // slideClass: 'slider-block__slide',
-            // touchEventsTarget: 'wrapper',
+            touchEventsTarget: 'wrapper',
 
             /**
              * Pagination
              */
             pagination: {
                 el: ".swiper-pagination",
+                dynamicBullets: true,
             },
 
             /**
@@ -84,7 +115,27 @@ window.initSliderBlockInstances = () => {
         });
 
         window.sliderBlockInstances[sliderBlock.dataset.sliderId] = swiperInstance;
+
+        let addDynamicBulletClass = () => {
+            if(window.innerWidth < parseInt(window.bootstrapBreakpoints.xs)) {
+                sliderBlock.querySelector('.swiper-pagination').classList.add('swiper-pagination-bullets-dynamic')
+            } else {
+                sliderBlock.querySelector('.swiper-pagination').classList.remove('swiper-pagination-bullets-dynamic')
+            }
+        }
+
+        swiperInstance.on('resize', () => {
+            addDynamicBulletClass();
+        });
+
+        swiperInstance.on('init', () => {
+            addDynamicBulletClass();
+        });
     });
+};
+
+window.updateSwiperPaginationClasses = () => {
+    console.log('lol');
 };
 
 /**

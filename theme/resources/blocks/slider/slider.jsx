@@ -455,9 +455,9 @@ registerBlockType('custom/slider', {
             const slideControls = () => {
                 if ((attributes.showPagination || attributes.showArrows)) {
                     return (
-                        <div className={classNames("slider-block__controls", `${attributes.controlsStyle}-position`)}>
+                        <div className={classNames("swiper-controls", `${attributes.controlsStyle}-position`)}>
                             {attributes.showArrows &&
-                            <div className="swiper-button-prev slider-block__prev">
+                            <div className="swiper-button-prev">
                                 <i className="icon-arrow-left" style={{fontSize: `${attributes.arrowSize / 16}rem`}}/>
                             </div>
                             }
@@ -466,14 +466,15 @@ registerBlockType('custom/slider', {
                                 <style>{`
                                     .slider-block .swiper-pagination-bullet {
                                         width: ${attributes.paginationSize}px !important;
+                                        min-width: ${attributes.paginationSize}px !important;
                                         height: ${attributes.paginationSize}px !important;
                                     }
                                 `}</style>
-                                <div className="swiper-pagination slider-block__pagination"/>
+                                <div className="swiper-pagination"/>
                             </>
                             }
                             {attributes.showArrows &&
-                            <div className="swiper-button-next slider-block__next">
+                            <div className="swiper-button-next">
                                 <i className="icon-arrow-right" style={{fontSize: `${attributes.arrowSize / 16}rem`}}/>
                             </div>
                             }
@@ -732,9 +733,9 @@ registerBlockType('custom/slider', {
         const slideControls = () => {
             if ((attributes.showPagination || attributes.showArrows)) {
                 return (
-                    <div className={classNames("slider-block__controls", `${attributes.controlsStyle}-position`)}>
+                    <div className={classNames("swiper-controls", `${attributes.controlsStyle}-position`)}>
                         {attributes.showArrows &&
-                        <div className="swiper-button-prev slider-block__prev">
+                        <div className="swiper-button-prev">
                             <i className="icon-arrow-left" style={{fontSize: `${attributes.arrowSize / 16}rem`}}/>
                         </div>
                         }
@@ -743,14 +744,15 @@ registerBlockType('custom/slider', {
                             <style>{`
                                     .slider-block .swiper-pagination-bullet {
                                         width: ${attributes.paginationSize}px !important;
+                                        min-width: ${attributes.paginationSize}px !important;
                                         height: ${attributes.paginationSize}px !important;
                                     }
                                 `}</style>
-                            <div className="swiper-pagination slider-block__pagination"/>
+                            <div className="swiper-pagination"/>
                         </>
                         }
                         {attributes.showArrows &&
-                        <div className="swiper-button-next slider-block__next">
+                        <div className="swiper-button-next">
                             <i className="icon-arrow-right" style={{fontSize: `${attributes.arrowSize / 16}rem`}}/>
                         </div>
                         }
