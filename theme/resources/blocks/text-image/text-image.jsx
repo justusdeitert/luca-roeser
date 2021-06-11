@@ -159,10 +159,12 @@ registerBlockType('custom/text-image', {
                                            data-lg-size={`${getImage(contentImage, 'height-large')}-${getImage(contentImage, 'width-large')}`}
                                            onClick={event => event.preventDefault()}
                                         >
-                                            <img className={classNames('custom-border', 'custom-shadow')}
-                                                 alt={getImage(contentImage, 'alt')}
-                                                 src={getImage(contentImage, 'small')}
-                                            />
+                                            <div className="custom-border custom-border-radius custom-shadow">
+                                                <img className={classNames('custom-border-radius')}
+                                                     alt={getImage(contentImage, 'alt')}
+                                                     src={getImage(contentImage, 'small')}
+                                                />
+                                            </div>
                                         </a>
                                     )
                                 })
@@ -243,10 +245,12 @@ registerBlockType('custom/text-image', {
                                 <a key={index} href={getImage(contentImage, 'large')}
                                    data-lg-size={`${getImage(contentImage, 'width-large')}-${getImage(contentImage, 'height-large')}`}
                                 >
-                                    <img className={classNames('custom-border', 'custom-shadow')}
-                                         alt={getImage(contentImage, 'alt')}
-                                         src={getImage(contentImage, 'small')}
-                                    />
+                                    <div className="custom-border custom-border-radius custom-shadow">
+                                        <img className={classNames('custom-border-radius')}
+                                             alt={getImage(contentImage, 'alt')}
+                                             src={getImage(contentImage, 'small')}
+                                        />
+                                     </div>
                                 </a>
                             )
                         })

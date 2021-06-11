@@ -223,7 +223,7 @@ registerBlockType('custom/accordion', {
 
                         <div className="accordion-block__item-header-wrapper" style={{display: 'flex', width: '100%', alignItems: 'center'}}>{/*Only in Editor*/}
                             <RemoveButtonPopover />
-                            <div className={classNames("accordion-block__item-header", "collapsed")}
+                            <div className={classNames('accordion-block__item-header', 'custom-border', 'collapsed')}
                                  id={`heading-${uniqueIndex}`}
                                  data-bs-toggle="collapse"
                                  data-bs-target={`#collapse-${uniqueIndex}`}
@@ -248,7 +248,7 @@ registerBlockType('custom/accordion', {
                              aria-labelledby={`heading-${uniqueIndex}`}
                              data-bs-parent={`#accordion-${attributes.blockId}`}
                         >
-                            <div className="accordion-block__item-body">
+                            <div className={classNames('accordion-block__item-body', 'custom-border')}>
                                 <RichText
                                     tagName="p"
                                     placeholder={loremIpsum}
@@ -265,7 +265,7 @@ registerBlockType('custom/accordion', {
 
             return (
                 <>
-                    <div id={`accordion-${attributes.blockId}`} className={classNames(className, 'accordion-block', 'custom-shadow', 'custom-spacing')}>
+                    <div id={`accordion-${attributes.blockId}`} className={classNames(className, 'accordion-block', 'custom-shadow', 'custom-border-radius', 'custom-spacing')}>
                         {accordionRepeater}
                     </div>
                 </>
@@ -281,7 +281,7 @@ registerBlockType('custom/accordion', {
             return (
                 <div className="accordion-block__item" key={`card-${index}`}>
                     <div className="accordion-block__item-header-wrapper" id={`heading-${uniqueIndex}`}>
-                        <div className={classNames("accordion-block__item-header", !item.isOpen && "collapsed")}
+                        <div className={classNames('accordion-block__item-header', 'custom-border', !item.isOpen && 'collapsed')}
                              data-bs-toggle="collapse"
                              data-bs-target={`#collapse-${uniqueIndex}`}
                              aria-expanded="true"
@@ -300,7 +300,7 @@ registerBlockType('custom/accordion', {
                          aria-labelledby={`heading-${uniqueIndex}`}
                          data-bs-parent={`#accordion-${attributes.blockId}`}
                     >
-                        <div className="accordion-block__item-body">
+                        <div className={classNames('accordion-block__item-body', 'custom-border')}>
                             <RichText.Content
                                 tagName="p"
                                 value={item.body}
@@ -314,7 +314,7 @@ registerBlockType('custom/accordion', {
 
         return (
             <>
-                <div id={`accordion-${attributes.blockId}`} className={classNames(className, 'accordion-block', 'custom-shadow', 'custom-spacing')}>
+                <div id={`accordion-${attributes.blockId}`} className={classNames(className, 'accordion-block', 'custom-shadow', 'custom-border-radius', 'custom-spacing')}>
                     {accordionRepeater}
                 </div>
             </>

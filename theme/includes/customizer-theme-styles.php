@@ -149,7 +149,9 @@ function customizer_theme_styles() {
 
             .custom-border {
                 padding: <?php echo get_theme_mod('custom_image_border_width', 0); ?>px;
-                /*background-color: */<?php //echo get_theme_mod('custom_image_border_color', '#FFF'); ?>/*;*/
+            }
+
+            .custom-border-radius {
                 border-radius: <?php echo get_theme_mod('custom_image_border_radius', 0); ?>px;
             }
 
@@ -245,7 +247,9 @@ function customizer_theme_styles() {
 
             .custom-border {
                 padding: <?php echo get_theme_mod('custom_image_border_width', 0)?>px;
-                /*background-color: */<?php //echo get_theme_mod('custom_image_border_color', '#FFF'); ?>/*;*/
+            }
+
+            .custom-border-radius {
                 border-radius: <?php echo get_theme_mod('custom_image_border_radius', 0); ?>px;
             }
 

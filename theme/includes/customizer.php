@@ -309,18 +309,18 @@ if (class_exists('Kirki')) {
         'default' => 0,
         'choices' => [
             'min' => 0,
-            'max' => 30,
+            'max' => 16,
             'step' => 1,
         ],
     ]);
 
-    Kirki::add_field('custom_image_border_color_id', [
-        'type' => 'color',
-        'settings' => 'custom_image_border_color',
-        'label' => __('Custom Image Border Color', 'sage'),
-        'section' => 'theme_settings_id',
-        'default' => '#FFFFFF',
-    ]);
+    // Kirki::add_field('custom_image_border_color_id', [
+    //     'type' => 'color',
+    //     'settings' => 'custom_image_border_color',
+    //     'label' => __('Custom Image Border Color', 'sage'),
+    //     'section' => 'theme_settings_id',
+    //     'default' => '#FFFFFF',
+    // ]);
 
     Kirki::add_field('custom_border_id_07', [
         'type' => 'custom',

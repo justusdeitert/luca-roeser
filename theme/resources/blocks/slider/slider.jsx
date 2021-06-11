@@ -259,7 +259,7 @@ registerBlockType('custom/slider', {
                 return (
                     <div key={index} className={'swiper-slide slider-block__slide'}>
                         <div
-                            className={classNames('slider-block__slide-inner', 'custom-border', 'custom-shadow', slidesBackgroundColor && `has-${slidesBackgroundColor.slug}-background-color`)}>
+                            className={classNames('slider-block__slide-inner', 'custom-border', 'custom-border-radius', 'custom-shadow', slidesBackgroundColor && `has-${slidesBackgroundColor.slug}-background-color`)}>
                             <Button icon={'plus'}
                                     isSmall={true}
                                     className={'button button--icon-only'}
@@ -292,7 +292,7 @@ registerBlockType('custom/slider', {
                                 className={classNames('slider-block__image-wrapper', `ratio ratio-${attributes.sliderImagesRatio}`)}>
                                 <img alt={getImage(item.slideImage, 'alt')}
                                      src={getImage(item.slideImage, 'medium', index)}
-                                     className={'slider-block__image'}
+                                     className={classNames('slider-block__image', 'custom-border-radius')}
                                 />
 
                                 <MediaUpload
@@ -700,13 +700,13 @@ registerBlockType('custom/slider', {
             return (
                 <div key={index} className={'swiper-slide slider-block__slide'}>
                     <div
-                        className={classNames('slider-block__slide-inner', 'custom-border', 'custom-shadow', slidesBackgroundColor && `has-${slidesBackgroundColor.slug}-background-color`)}>
+                        className={classNames('slider-block__slide-inner', 'custom-border', 'custom-border-radius', 'custom-shadow', slidesBackgroundColor && `has-${slidesBackgroundColor.slug}-background-color`)}>
                         {attributes.sliderShowImages &&
                         <div
                             className={classNames('slider-block__image-wrapper', `ratio ratio-${attributes.sliderImagesRatio}`)}>
                             <img alt={getImage(item.slideImage, 'alt')}
                                  src={getImage(item.slideImage, 'medium', index)}
-                                 className={'slider-block__image'}
+                                 className={classNames('slider-block__image', 'custom-border-radius')}
                             />
                         </div>
                         }
