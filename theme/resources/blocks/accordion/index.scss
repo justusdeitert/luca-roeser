@@ -3,8 +3,6 @@
     &__item {
         border-bottom: 1px solid $gray-300;
         position: relative;
-        //display: flex;
-        //align-items: center;
 
         &:last-child {
             border-bottom: none;
@@ -12,7 +10,7 @@
     }
 
     &__item-header {
-        padding: 10px;
+        padding: 0.625rem;
         cursor: pointer;
         display: flex;
         align-items: center;
@@ -30,7 +28,7 @@
     }
 
     &__item-body {
-        padding: 10px;
+        padding: 0.625rem;
     }
 
     .icon-chevron-down {

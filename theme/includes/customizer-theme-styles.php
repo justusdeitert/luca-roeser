@@ -148,7 +148,7 @@ function customizer_theme_styles() {
             }
 
             .custom-border {
-                padding: <?php echo get_theme_mod('custom_image_border_width', 0); ?>px;
+                padding: <?php echo get_theme_mod('custom_image_border_width', 24) / 16; ?>rem;
             }
 
             .custom-border-radius {
@@ -246,7 +246,7 @@ function customizer_theme_styles() {
             }
 
             .custom-border {
-                padding: <?php echo get_theme_mod('custom_image_border_width', 0)?>px;
+                padding: <?php echo get_theme_mod('custom_image_border_width', 24) / 16; ?>rem;
             }
 
             .custom-border-radius {

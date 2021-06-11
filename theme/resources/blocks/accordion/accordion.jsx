@@ -20,6 +20,18 @@ const attributes = {
     blockId: {
         type: 'string',
     },
+    showIcon: {
+        type: 'boolean',
+        default: true,
+    },
+    accordionSpacing: {
+        type: 'number',
+        default: 10,
+    },
+    accordionHeadlineSize: {
+        type: 'number',
+        default: 16,
+    },
     accordion: {
         type: 'array',
         default: [
@@ -94,8 +106,8 @@ registerBlockType('custom/accordion', {
         render() {
             let {attributes, className, setAttributes, clientId} = this.props;
 
-            // Save clientId
-            // setAttributes({clientId: clientId});
+            // Save blockId
+            attributes.blockId = clientId;
 
             const accordionRepeater = attributes.accordion.map((item, index) => {
 
@@ -129,21 +141,18 @@ registerBlockType('custom/accordion', {
 
                 const onChangeAccordionIsOpen = (value) => {
 
-                    if(!value.target.classList.contains('collapsed')) {
+                    // Iterate through slides and only change value of selected item
+                    attributes.accordion.map((innerItem, innerIndex) => {
+                        if (innerIndex === index) {
+                            innerItem.isOpen = !value.target.classList.contains('collapsed');
+                        } else {
+                            innerItem.isOpen = false;
+                        }
+                    });
 
-                        // Iterate through slides and only change value of selected item
-                        attributes.accordion.map((innerItem, innerIndex) => {
-                            if (innerIndex === index) {
-                                innerItem.isOpen = true;
-                            } else {
-                                innerItem.isOpen = false;
-                            }
-                        });
-
-                        setAttributes({
-                            accordion: cloneArray(attributes.accordion), // Clone Array to fire reload in Editor
-                        });
-                    }
+                    setAttributes({
+                        accordion: cloneArray(attributes.accordion), // Clone Array to fire reload in Editor
+                    });
                 };
 
                 const addAccordionItemAfter = (index) => {
@@ -203,7 +212,6 @@ registerBlockType('custom/accordion', {
                 });
 
                 let uniqueIndex = `${attributes.blockId}-${index}`
-                attributes.blockId = clientId;
 
                 return (
                     <div className={classNames("accordion-block__item", item.isOpen && 'open-on-mount')} key={`card-${index}`}>
@@ -230,6 +238,10 @@ registerBlockType('custom/accordion', {
                                  aria-expanded="true"
                                  aria-controls={`collapse-${uniqueIndex}`}
                                  onClick={onChangeAccordionIsOpen}
+                                 style={{
+                                     padding: `${attributes.accordionSpacing / 16}rem`,
+                                     fontSize: `${attributes.accordionHeadlineSize / 16}rem`,
+                                 }}
                             >
                                 <RichText
                                     tagName="p"
@@ -239,7 +251,9 @@ registerBlockType('custom/accordion', {
                                     allowedFormats={['core/bold', 'core/italic']}
                                     onChange={onChangeAccordionHeader}
                                 />
+                                {attributes.showIcon &&
                                 <i className={'icon-chevron-down'}></i>
+                                }
                             </div>
                         </div>
 
@@ -248,7 +262,11 @@ registerBlockType('custom/accordion', {
                              aria-labelledby={`heading-${uniqueIndex}`}
                              data-bs-parent={`#accordion-${attributes.blockId}`}
                         >
-                            <div className={classNames('accordion-block__item-body', 'custom-border')}>
+                            <div className={classNames('accordion-block__item-body', 'custom-border')}
+                                 style={{
+                                     padding: `${attributes.accordionSpacing / 16}rem`,
+                                 }}
+                            >
                                 <RichText
                                     tagName="p"
                                     placeholder={loremIpsum}
@@ -263,8 +281,49 @@ registerBlockType('custom/accordion', {
                 )
             });
 
+            const onChangeShowIcon = (value) => {
+                setAttributes({showIcon: value});
+            };
+
+            const onChangeAccordionSpacing = (value) => {
+                setAttributes({accordionSpacing: value});
+            };
+
+            const onChangeAccordionHeadlineSize = (value) => {
+                setAttributes({accordionHeadlineSize: value});
+            };
+
             return (
                 <>
+                    <InspectorControls>
+                        <div className="inspector-controls-container">
+                            <hr/>
+                            <ToggleControl
+                                label={__('Show Icon', 'sage')}
+                                // help={ attributes.withHeadline ? 'Image is left' : 'Image is right' }
+                                checked={attributes.showIcon}
+                                onChange={onChangeShowIcon}
+                            />
+                            <hr/>
+                            <p>{__('Accordion Spacing', 'sage')}</p>
+                            <RangeControl
+                                value={attributes.accordionSpacing}
+                                min={5}
+                                initialPosition={10}
+                                max={20}
+                                onChange={onChangeAccordionSpacing}
+                            />
+                            <hr/>
+                            <p>{__('Accordion Headline Size', 'sage')}</p>
+                            <RangeControl
+                                value={attributes.accordionHeadlineSize}
+                                min={16}
+                                initialPosition={16}
+                                max={24}
+                                onChange={onChangeAccordionHeadlineSize}
+                            />
+                        </div>
+                    </InspectorControls>
                     <div id={`accordion-${attributes.blockId}`} className={classNames(className, 'accordion-block', 'custom-shadow', 'custom-border-radius', 'custom-spacing')}>
                         {accordionRepeater}
                     </div>
@@ -286,12 +345,18 @@ registerBlockType('custom/accordion', {
                              data-bs-target={`#collapse-${uniqueIndex}`}
                              aria-expanded="true"
                              aria-controls={`collapse-${uniqueIndex}`}
+                             style={{
+                                 padding: `${attributes.accordionSpacing / 16}rem`,
+                                 fontSize: `${attributes.accordionHeadlineSize / 16}rem`,
+                             }}
                         >
                             <RichText.Content
                                 tagName="p"
                                 value={item.header}
                             />
+                            {attributes.showIcon &&
                             <i className={'icon-chevron-down'}></i>
+                            }
                         </div>
                     </div>
 
@@ -300,7 +365,11 @@ registerBlockType('custom/accordion', {
                          aria-labelledby={`heading-${uniqueIndex}`}
                          data-bs-parent={`#accordion-${attributes.blockId}`}
                     >
-                        <div className={classNames('accordion-block__item-body', 'custom-border')}>
+                        <div className={classNames('accordion-block__item-body', 'custom-border')}
+                             style={{
+                                 padding: `${attributes.accordionSpacing / 16}rem`,
+                             }}
+                        >
                             <RichText.Content
                                 tagName="p"
                                 value={item.body}
