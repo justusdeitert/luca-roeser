@@ -67,10 +67,10 @@ if (class_exists('Kirki')) {
         ],
     ]);
 
-    Kirki::add_field('container_padding_tablet_id', [
+    Kirki::add_field('container_padding_desktop_id', [
         'type' => 'slider',
-        'settings' => 'container_padding_tablet',
-        'label' => __('Content padding (Tablet)', 'sage'),
+        'settings' => 'container_padding_desktop',
+        'label' => __('Content padding (Desktop)', 'sage'),
         'section' => 'theme_settings_id',
         'default' => 30,
         'choices' => [
@@ -80,12 +80,25 @@ if (class_exists('Kirki')) {
         ],
     ]);
 
-    Kirki::add_field('custom_gutter_size_id', [
+    Kirki::add_field('custom_gutter_size_mobile_id', [
         'type' => 'slider',
-        'settings' => 'custom_gutter_size',
-        'label' => __('Gutter Size', 'sage'),
+        'settings' => 'custom_gutter_size_mobile',
+        'label' => __('Gutter Size (Mobile)', 'sage'),
         'section' => 'theme_settings_id',
-        'default' => 24,
+        'default' => 20,
+        'choices' => [
+            'min' => 10,
+            'max' => 40,
+            'step' => 1,
+        ],
+    ]);
+
+    Kirki::add_field('custom_gutter_size_desktop_id', [
+        'type' => 'slider',
+        'settings' => 'custom_gutter_size_desktop',
+        'label' => __('Gutter Size (Desktop)', 'sage'),
+        'section' => 'theme_settings_id',
+        'default' => 30,
         'choices' => [
             'min' => 20,
             'max' => 60,
@@ -276,20 +289,20 @@ if (class_exists('Kirki')) {
     ]);
 
     /**
-     * Image Settings
+     * Box Settings
      */
 
     Kirki::add_field('custom_headline_id_04', [
         'type' => 'custom',
         'settings' => 'custom_headline_04',
         'section' => 'theme_settings_id',
-        'default' => '<h2>' . __('Image Settings', 'sage') . '</h2>',
+        'default' => '<h2>' . __('Box Settings', 'sage') . '</h2>',
     ]);
 
-    Kirki::add_field('custom_image_border_width_id', [
+    Kirki::add_field('custom_border_width_id', [
         'type' => 'slider',
-        'settings' => 'custom_image_border_width',
-        'label' => __('Custom Image Border Width', 'sage'),
+        'settings' => 'custom_border_width',
+        'label' => __('Custom Border Width', 'sage'),
         'section' => 'theme_settings_id',
         // 'priority' => 10,
         'default' => 0,
@@ -300,10 +313,10 @@ if (class_exists('Kirki')) {
         ],
     ]);
 
-    Kirki::add_field('custom_image_border_radius_id', [
+    Kirki::add_field('custom_border_radius_id', [
         'type' => 'slider',
-        'settings' => 'custom_image_border_radius',
-        'label' => __('Custom Image Border Radius', 'sage'),
+        'settings' => 'custom_border_radius',
+        'label' => __('Custom Border Radius', 'sage'),
         'section' => 'theme_settings_id',
         // 'priority' => 10,
         'default' => 0,
@@ -314,13 +327,28 @@ if (class_exists('Kirki')) {
         ],
     ]);
 
-    // Kirki::add_field('custom_image_border_color_id', [
-    //     'type' => 'color',
-    //     'settings' => 'custom_image_border_color',
-    //     'label' => __('Custom Image Border Color', 'sage'),
-    //     'section' => 'theme_settings_id',
-    //     'default' => '#FFFFFF',
-    // ]);
+    /**
+     * Icon Settings
+     */
+    $box_shadow = [
+        'no-shadow' => 'No Shadow',
+        'shadow-sm' => 'Small Shadow',
+        'shadow' => 'Shadow',
+        'shadow-md' => 'Medium Shadow',
+        'shadow-lg' => 'Large Shadow',
+    ];
+
+    Kirki::add_field('custom_shadow_id', [
+        'type' => 'select',
+        'settings' => 'custom_shadow',
+        'label' => __('Shadow', 'sage'),
+        'section' => 'theme_settings_id',
+        'default' => 'no-shadow',
+        'placeholder' => __('Select an option...', 'sage'),
+        'priority' => 10,
+        'multiple' => 1,
+        'choices' => $box_shadow,
+    ]);
 
     Kirki::add_field('custom_border_id_07', [
         'type' => 'custom',

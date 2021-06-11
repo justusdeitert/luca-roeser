@@ -112,6 +112,11 @@ window.initSliderBlockInstances = () => {
              * Set to true to enable continuous loop mode
              */
             loop: sliderLoop(),
+
+            /**
+             * Base for breakpoints (beta). Can be window or container.
+             */
+            // breakpointsBase: 'container'
         });
 
         window.sliderBlockInstances[sliderBlock.dataset.sliderId] = swiperInstance;
@@ -132,10 +137,6 @@ window.initSliderBlockInstances = () => {
             addDynamicBulletClass();
         });
     });
-};
-
-window.updateSwiperPaginationClasses = () => {
-    console.log('lol');
 };
 
 /**

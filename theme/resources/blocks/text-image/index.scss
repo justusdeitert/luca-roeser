@@ -3,11 +3,20 @@
         display: flex;
         flex-wrap: wrap;
         margin: -0.625rem;
+        margin: calc(var(--custom-gutter-mobile-y) * -.3) calc(var(--custom-gutter-mobile-x) * -.3);
 
         a {
             display: none;
-            padding: 0.625rem;
+            padding: calc(var(--custom-gutter-mobile-y) * .3) calc(var(--custom-gutter-mobile-x) * .3);
             box-shadow: none;
+        }
+
+        @include media-breakpoint-up(sm) {
+            margin: calc(var(--custom-gutter-desktop-y) * -.3) calc(var(--custom-gutter-desktop-x) * -.3);
+
+            a {
+                padding: calc(var(--custom-gutter-desktop-y) * .3) calc(var(--custom-gutter-desktop-x) * .3);
+            }
         }
 
         img {

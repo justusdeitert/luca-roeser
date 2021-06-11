@@ -1,12 +1,11 @@
 import {__} from '@wordpress/i18n';
 import {registerBlockType} from '@wordpress/blocks';
 import {createElement, Component} from '@wordpress/element';
-import {RangeControl, ToggleControl, Button, Popover} from '@wordpress/components';
-import {MediaUpload, InspectorControls, RichText} from '@wordpress/block-editor';
-import {PanelColorSettings} from '@wordpress/editor';
+import {RangeControl, ToggleControl, Button, Popover, ColorPalette} from '@wordpress/components';
+import {MediaUpload, InspectorControls, RichText, getColorObjectByColorValue} from '@wordpress/block-editor';
 import {withState} from '@wordpress/compose';
 import classNames from 'classnames';
-import {cloneArray} from "../utility";
+import {cloneArray, editorThemeColors} from "../utility";
 
 const blockIcon = createElement('svg', {width: 20, height: 20},
     createElement('path', {
@@ -31,6 +30,9 @@ const attributes = {
     accordionHeadlineSize: {
         type: 'number',
         default: 16,
+    },
+    accordionBackgroundColor: {
+        type: 'string'
     },
     accordion: {
         type: 'array',
@@ -293,6 +295,12 @@ registerBlockType('custom/accordion', {
                 setAttributes({accordionHeadlineSize: value});
             };
 
+            const onChangeAccordionBackgroundColor = (value) => {
+                setAttributes({accordionBackgroundColor: value});
+            };
+
+            const accordionBackgroundColor = getColorObjectByColorValue(editorThemeColors, attributes.accordionBackgroundColor);
+
             return (
                 <>
                     <InspectorControls>
@@ -322,9 +330,16 @@ registerBlockType('custom/accordion', {
                                 max={24}
                                 onChange={onChangeAccordionHeadlineSize}
                             />
+                            <hr/>
+                            <p>{__('Accordion Background Color', 'sage')}</p>
+                            <ColorPalette
+                                colors={[...editorThemeColors]}
+                                value={attributes.accordionBackgroundColor}
+                                onChange={onChangeAccordionBackgroundColor}
+                            />
                         </div>
                     </InspectorControls>
-                    <div id={`accordion-${attributes.blockId}`} className={classNames(className, 'accordion-block', 'custom-shadow', 'custom-border-radius', 'custom-spacing')}>
+                    <div id={`accordion-${attributes.blockId}`} className={classNames(className, 'accordion-block', 'custom-shadow', 'custom-border-radius', 'custom-spacing', accordionBackgroundColor && `has-${accordionBackgroundColor.slug}-background-color`)}>
                         {accordionRepeater}
                     </div>
                 </>
@@ -381,9 +396,11 @@ registerBlockType('custom/accordion', {
             )
         });
 
+        const accordionBackgroundColor = getColorObjectByColorValue(editorThemeColors, attributes.accordionBackgroundColor);
+
         return (
             <>
-                <div id={`accordion-${attributes.blockId}`} className={classNames(className, 'accordion-block', 'custom-shadow', 'custom-border-radius', 'custom-spacing')}>
+                <div id={`accordion-${attributes.blockId}`} className={classNames(className, 'accordion-block', 'custom-shadow', 'custom-border-radius', 'custom-spacing', accordionBackgroundColor && `has-${accordionBackgroundColor.slug}-background-color`)}>
                     {accordionRepeater}
                 </div>
             </>

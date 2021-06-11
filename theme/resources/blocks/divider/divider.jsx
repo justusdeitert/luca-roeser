@@ -33,7 +33,11 @@ registerBlockType('custom/divider', {
             type: 'number',
             default: 1
         },
-        padding: {
+        paddingDesktop: {
+            type: 'number',
+            default: 40
+        },
+        paddingMobile: {
             type: 'number',
             default: 20
         },
@@ -93,8 +97,12 @@ registerBlockType('custom/divider', {
                 setAttributes({opacity: value});
             };
 
-            const onChangePadding = (value) => {
-                setAttributes({padding: value});
+            const onChangePaddingDesktop = (value) => {
+                setAttributes({paddingDesktop: value});
+            };
+
+            const onChangePaddingMobile = (value) => {
+                setAttributes({paddingMobile: value});
             };
 
             const onChangeThickness = (value) => {
@@ -127,13 +135,22 @@ registerBlockType('custom/divider', {
                                 onChange={onChangeOpacity}
                             />
                             <hr/>
-                            <p>{__('Change Padding', 'sage')}</p>
+                            <p>{__('Change Padding (Desktop)', 'sage')}</p>
                             <RangeControl
-                                value={attributes.padding}
+                                value={attributes.paddingDesktop}
                                 min={0}
-                                max={130}
-                                step={1}
-                                onChange={onChangePadding}
+                                max={140}
+                                step={20}
+                                onChange={onChangePaddingDesktop}
+                            />
+                            <hr/>
+                            <p>{__('Change Padding (Mobile)', 'sage')}</p>
+                            <RangeControl
+                                value={attributes.paddingMobile}
+                                min={0}
+                                max={100}
+                                step={20}
+                                onChange={onChangePaddingMobile}
                             />
                             <hr/>
                             <p>{__('Change Thickness', 'sage')}</p>
@@ -174,7 +191,7 @@ registerBlockType('custom/divider', {
                             />
                         </div>
                     </InspectorControls>
-                    <div className={classNames(className, 'divider-block', 'custom-spacing')} style={{padding: `${attributes.padding}px 0px`}}>
+                    <div className={classNames(className, 'divider-block', 'custom-spacing')} style={{padding: `${attributes.paddingDesktop}px 0px`}}>
                         <hr className='divider-block__hr'
                             style={{
                                 height: `${attributes.thickness}px`,
@@ -190,7 +207,7 @@ registerBlockType('custom/divider', {
     },
     save: ({className, attributes}) => {
         return (
-            <div className={classNames(className, 'divider-block', 'custom-spacing')} style={{padding: `${attributes.padding}px 0px`}}>
+            <div className={classNames(className, 'divider-block', 'custom-spacing')} style={{padding: `${attributes.paddingDesktop}px 0px`}}>
                 <hr className='divider-block__hr'
                     style={{
                         height: `${attributes.thickness}px`,

@@ -1,3 +1,8 @@
+#wpadminbar {
+    // To be lower then light-gallery zIndex
+    z-index: 1030;
+}
+
 .is-style-text-shadow {
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 }
@@ -7,21 +12,56 @@
 }
 
 // Theme Container Settings
-.container, .wp-block-group__inner-container {
+.container {
     max-width: calc(var(--max-container-width, 1260px) + (var(--container-padding-mobile, 15px) * 2)) !important;
     padding-left: var(--container-padding-mobile, 15px);
     padding-right: var(--container-padding-mobile, 15px);
-}
 
-@include media-breakpoint-up(sm) {
-    .container, .wp-block-group__inner-container {
-        max-width: calc(var(--max-container-width, 1260px) + (var(--container-padding-tablet, 30px) * 2)) !important;
-        padding-left: var(--container-padding-tablet, 30px);
-        padding-right: var(--container-padding-tablet, 30px);
+    @include media-breakpoint-up(sm) {
+        max-width: calc(var(--max-container-width, 1260px) + (var(--container-padding-desktop, 30px) * 2)) !important;
+        padding-left: var(--container-padding-desktop, 30px);
+        padding-right: var(--container-padding-desktop, 30px);
     }
 }
 
-#wpadminbar {
-    // To be lower then light-gallery zIndex
-    z-index: 1030;
+.row {
+    margin-top: calc(var(--custom-gutter-mobile-y) * -1);
+    margin-right: calc(var(--custom-gutter-mobile-x) * -.5);
+    margin-left: calc(var(--custom-gutter-mobile-x) * -.5);
+
+    > * {
+        padding-right: calc(var(--custom-gutter-mobile-x) * .5);
+        padding-left: calc(var(--custom-gutter-mobile-x) * .5);
+        margin-top: var(--custom-gutter-mobile-y);
+    }
+
+    @include media-breakpoint-up(sm) {
+        margin-top: calc(var(--custom-gutter-desktop-y) * -1);
+        margin-right: calc(var(--custom-gutter-desktop-x) * -.5);
+        margin-left: calc(var(--custom-gutter-desktop-x) * -.5);
+
+        > * {
+            padding-right: calc(var(--custom-gutter-desktop-x) * .5);
+            padding-left: calc(var(--custom-gutter-desktop-x) * .5);
+            margin-top: var(--custom-gutter-desktop-y);
+        }
+    }
+}
+
+// Customizer Classes
+.custom-border {
+    padding: var(--custom-border-width);
+}
+
+.custom-border-radius {
+    border-radius: var(--custom-border-radius);
+}
+
+.custom-shadow {
+    box-shadow: var(--custom-box-shadow);
+}
+
+.custom-spacing {
+    margin-top: var(--custom-block-spacing);
+    margin-bottom: var(--custom-block-spacing);
 }

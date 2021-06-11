@@ -1,9 +1,7 @@
 .wp-block-group  {
     &__inner-container {
         @extend .container;
-    }
-
-    &.has-background {
-        padding: 1.25rem 2.375rem;
+        padding-top: var(--custom-block-spacing, 2rem);
+        padding-bottom: var(--custom-block-spacing, 2rem);
     }
 }

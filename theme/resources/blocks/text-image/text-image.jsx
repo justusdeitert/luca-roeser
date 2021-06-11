@@ -12,7 +12,7 @@ import {
 } from '@wordpress/block-editor';
 
 import classNames from 'classnames';
-import {editorMainColors, getImage} from '../utility';
+import {editorThemeColors, getImage} from '../utility';
 
 const blockIcon = createElement('svg', {width: 20, height: 20},
     createElement('path', {
@@ -37,7 +37,7 @@ const attributes = {
         type: 'number',
         default: 1
     },
-    textColumnBackgroundColor: {
+    imagesBackgroundColor: {
         type: 'string',
         default: ''
     },
@@ -122,9 +122,11 @@ registerBlockType('custom/text-image', {
                 setAttributes({switchContent: value});
             };
 
-            const onChangeTextColumnBackgroundColor = (value) => {
-                setAttributes({textColumnBackgroundColor: value});
+            const onChangeImagesBackgroundColor = (value) => {
+                setAttributes({imagesBackgroundColor: value});
             };
+
+            const imagesBackgroundColor = getColorObjectByColorValue(editorThemeColors, attributes.imagesBackgroundColor);
 
             const imageColumn = (
                 <div className={classNames('text-image-block__image-column', `col-12 col-md-6 col-xl-${attributes.columnRange}`)}>
@@ -159,7 +161,7 @@ registerBlockType('custom/text-image', {
                                            data-lg-size={`${getImage(contentImage, 'height-large')}-${getImage(contentImage, 'width-large')}`}
                                            onClick={event => event.preventDefault()}
                                         >
-                                            <div className="custom-border custom-border-radius custom-shadow">
+                                            <div className={classNames("custom-border custom-border-radius custom-shadow", imagesBackgroundColor && `has-${imagesBackgroundColor.slug}-background-color`)}>
                                                 <img className={classNames('custom-border-radius')}
                                                      alt={getImage(contentImage, 'alt')}
                                                      src={getImage(contentImage, 'small')}
@@ -174,12 +176,9 @@ registerBlockType('custom/text-image', {
                 </div>
             );
 
-            const textColumnBackgroundColor = getColorObjectByColorValue(editorMainColors, attributes.textColumnBackgroundColor);
-
             const textColumn = (
                 <div className={classNames(`text-image-block__text-column`, `col-12 col-md-6 col-xl-${12 - attributes.columnRange}`)}>
-                    <div
-                        className={classNames("text-image-block__text-column-inner", textColumnBackgroundColor && `has-${textColumnBackgroundColor.slug}-background-color`)}>
+                    <div className={classNames("text-image-block__text-column-inner")}>
                         <InnerBlocks allowedBlocks={ALLOWED_BLOCKS}/>
                     </div>
                 </div>
@@ -217,9 +216,9 @@ registerBlockType('custom/text-image', {
                             <hr/>
                             <p>{__('Background Color', 'sage')}</p>
                             <ColorPalette
-                                colors={editorMainColors}
-                                value={attributes.textColumnBackgroundColor}
-                                onChange={onChangeTextColumnBackgroundColor}
+                                colors={editorThemeColors}
+                                value={attributes.imagesBackgroundColor}
+                                onChange={onChangeImagesBackgroundColor}
                                 // clearable={false}
                             />
                         </div>
@@ -234,7 +233,7 @@ registerBlockType('custom/text-image', {
     },
     save: ({className, attributes}) => {
 
-        const textColumnBackgroundColor = getColorObjectByColorValue(editorMainColors, attributes.textColumnBackgroundColor);
+        const imagesBackgroundColor = getColorObjectByColorValue(editorThemeColors, attributes.imagesBackgroundColor);
 
         const imageColumn = (
             <div className={classNames(`text-image-block__image-column`, `col-12 col-md-6 col-xl-${attributes.columnRange}`)}>
@@ -245,7 +244,7 @@ registerBlockType('custom/text-image', {
                                 <a key={index} href={getImage(contentImage, 'large')}
                                    data-lg-size={`${getImage(contentImage, 'width-large')}-${getImage(contentImage, 'height-large')}`}
                                 >
-                                    <div className="custom-border custom-border-radius custom-shadow">
+                                    <div className={classNames("custom-border custom-border-radius custom-shadow", imagesBackgroundColor && `has-${imagesBackgroundColor.slug}-background-color`)}>
                                         <img className={classNames('custom-border-radius')}
                                              alt={getImage(contentImage, 'alt')}
                                              src={getImage(contentImage, 'small')}
@@ -261,7 +260,7 @@ registerBlockType('custom/text-image', {
 
         const textColumn = (
             <div className={classNames(`text-image-block__text-column`, `col-12 col-md-6 col-xl-${12 - attributes.columnRange}`)}>
-                <div className={classNames("text-image-block__text-column-inner", textColumnBackgroundColor && `has-${textColumnBackgroundColor.slug}-background-color`)}>
+                <div className={classNames("text-image-block__text-column-inner")}>
                     <InnerBlocks.Content/>
                 </div>
             </div>
