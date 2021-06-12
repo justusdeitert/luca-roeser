@@ -76,7 +76,7 @@ if (class_exists('Kirki')) {
         Kirki::add_field('max_container_width_id', [
             'type' => 'slider',
             'settings' => 'max_container_width',
-            'label' => __('Maximum content width', 'sage'),
+            'label' => __('Maximum Container width', 'sage'),
             'section' => 'section_content_sizes_id',
             // 'priority' => 10,
             'default' => 1280,
@@ -90,7 +90,7 @@ if (class_exists('Kirki')) {
         Kirki::add_field('container_padding_mobile_id', [
             'type' => 'slider',
             'settings' => 'container_padding_mobile',
-            'label' => __('Content padding (Mobile)', 'sage'),
+            'label' => __('Container padding (Mobile)', 'sage'),
             'section' => 'section_content_sizes_id',
             'default' => 15,
             'choices' => [
@@ -103,7 +103,7 @@ if (class_exists('Kirki')) {
         Kirki::add_field('container_padding_desktop_id', [
             'type' => 'slider',
             'settings' => 'container_padding_desktop',
-            'label' => __('Content padding (Desktop)', 'sage'),
+            'label' => __('Container padding (Desktop)', 'sage'),
             'section' => 'section_content_sizes_id',
             'default' => 30,
             'choices' => [
@@ -116,7 +116,7 @@ if (class_exists('Kirki')) {
         Kirki::add_field('custom_gutter_size_mobile_id', [
             'type' => 'slider',
             'settings' => 'custom_gutter_size_mobile',
-            'label' => __('Gutter Size (Mobile)', 'sage'),
+            'label' => __('Gutter size (Mobile)', 'sage'),
             'section' => 'section_content_sizes_id',
             'default' => 20,
             'choices' => [
@@ -129,7 +129,7 @@ if (class_exists('Kirki')) {
         Kirki::add_field('custom_gutter_size_desktop_id', [
             'type' => 'slider',
             'settings' => 'custom_gutter_size_desktop',
-            'label' => __('Gutter Size (Desktop)', 'sage'),
+            'label' => __('Gutter size (Desktop)', 'sage'),
             'section' => 'section_content_sizes_id',
             'default' => 30,
             'choices' => [
@@ -142,7 +142,7 @@ if (class_exists('Kirki')) {
         Kirki::add_field('custom_block_spacing_id', [
             'type' => 'slider',
             'settings' => 'custom_block_spacing',
-            'label' => __('Block Spacing', 'sage'),
+            'label' => __('Block spacing', 'sage'),
             'section' => 'section_content_sizes_id',
             'default' => 32,
             'choices' => [
@@ -171,7 +171,7 @@ if (class_exists('Kirki')) {
         Kirki::add_field('custom_font_size_id', [
             'type' => 'slider',
             'settings' => 'custom_font_size',
-            'label' => __('Standard Font Size', 'sage'),
+            'label' => __('Custom Font Size', 'sage'),
             'section' => 'section_font_settings_id',
             'description' => __('The font size influences all sizes within the theme', 'sage'),
             'default' => 16,
@@ -185,7 +185,7 @@ if (class_exists('Kirki')) {
         Kirki::add_field('custom_font_weight_id', [
             'type' => 'slider',
             'settings' => 'custom_font_weight',
-            'label' => __('Standard Font Weight', 'sage'),
+            'label' => __('Custom Font Weight', 'sage'),
             'section' => 'section_font_settings_id',
             'default' => 400,
             'choices' => [
@@ -354,6 +354,27 @@ if (class_exists('Kirki')) {
             'panel' => 'panel_theme_settings_id',
         ));
 
+        Kirki::add_field('custom_menu_mobile_on_desktop_id', [
+            'type' => 'toggle',
+            'settings' => 'custom_menu_mobile_on_desktop',
+            'label' => __('Mobile Menu on Desktop', 'sage'),
+            'section' => 'section_menu_settings_id',
+            'default' => '0',
+        ]);
+
+        Kirki::add_field('custom_menu_top_position_id', [
+            'type' => 'slider',
+            'settings' => 'custom_menu_top_position',
+            'label' => __('Menu Height', 'sage'),
+            'section' => 'section_menu_settings_id',
+            'default' => 30,
+            'choices' => [
+                'min' => 10,
+                'max' => 170,
+                'step' => 1,
+            ],
+        ]);
+
         Kirki::add_field('custom_menu_height_id', [
             'type' => 'slider',
             'settings' => 'custom_menu_height',
@@ -513,6 +534,25 @@ if (class_exists('Kirki')) {
         ]);
 
         /**
+         * Submenu Colors
+         */
+        Kirki::add_field('custom_submenu_link_color_id', [
+            'type' => 'color',
+            'settings' => 'custom_submenu_link_color',
+            'label' => __('Submenu Link Color', 'sage'),
+            'section' => 'section_menu_settings_id',
+            'default' => '#212529',
+        ]);
+
+        Kirki::add_field('custom_submenu_link_active_color_id', [
+            'type' => 'color',
+            'settings' => 'custom_submenu_link_active_color',
+            'label' => __('Submenu Link Active Color', 'sage'),
+            'section' => 'section_menu_settings_id',
+            'default' => '#212529',
+        ]);
+
+        /**
          * Custom Opening Hours via ACF Pro
          */
         $opening_hours = get_field('opening_hours', 'option');
@@ -528,6 +568,40 @@ if (class_exists('Kirki')) {
     }
 
     /**
+     * Footer Settings
+     */
+    function footer_settings() {
+        Kirki::add_section('section_footer_settings_id', array(
+            'title' => __('Footer Settings', 'sage'),
+            'panel' => 'panel_theme_settings_id',
+        ));
+
+        Kirki::add_field('custom_footer_background_color_id', [
+            'type' => 'color',
+            'settings' => 'custom_footer_background_color',
+            'label' => __('Footer Background color', 'sage'),
+            'section' => 'section_footer_settings_id',
+            'default' => '#f8f9fa',
+        ]);
+
+        Kirki::add_field('custom_footer_text_color_id', [
+            'type' => 'color',
+            'settings' => 'custom_footer_text_color',
+            'label' => __('Footer Background color', 'sage'),
+            'section' => 'section_footer_settings_id',
+            'default' => '#f8f9fa',
+        ]);
+
+        Kirki::add_field('custom_footer_link_color_id', [
+            'type' => 'color',
+            'settings' => 'custom_footer_link_color',
+            'label' => __('Footer Background color', 'sage'),
+            'section' => 'section_footer_settings_id',
+            'default' => '#f8f9fa',
+        ]);
+    }
+
+    /**
      * Init Settings
      */
     content_sizes();
@@ -536,63 +610,5 @@ if (class_exists('Kirki')) {
     box_settings();
     icon_settings();
     menu_settings();
-}
-
-/*
- * Utility Functions
- * TODO: Refactor Includes and Utility Functions...
- */
-
-/**
- * Increases or decreases the brightness of a color by a percentage of the current brightness.
- *
- * @param string $hexCode Supported formats: `#FFF`, `#FFFFFF`, `FFF`, `FFFFFF`
- * @param float $adjustPercent A number between -1 and 1. E.g. 0.3 = 30% lighter; -0.4 = 40% darker.
- * @return string
- * @link https://stackoverflow.com/questions/3512311/how-to-generate-lighter-darker-color-with-php
- */
-function adjustBrightness($hexCode, $adjustPercent) {
-    $hexCode = ltrim($hexCode, '#');
-
-    if (strlen($hexCode) == 3) {
-        $hexCode = $hexCode[0] . $hexCode[0] . $hexCode[1] . $hexCode[1] . $hexCode[2] . $hexCode[2];
-    }
-
-    $hexCode = array_map('hexdec', str_split($hexCode, 2));
-
-    foreach ($hexCode as & $color) {
-        $adjustableLimit = $adjustPercent < 0 ? $color : 255 - $color;
-        $adjustAmount = ceil($adjustableLimit * $adjustPercent);
-        $color = str_pad(dechex($color + $adjustAmount), 2, '0', STR_PAD_LEFT);
-    }
-
-    return '#' . implode($hexCode);
-}
-
-/**
- * Minify HTML Output
- * @link https://stackoverflow.com/questions/6225351/how-to-minify-php-page-html-output
- *
- * @param $buffer
- * @return string|string[]|null
- */
-function sanitize_output($buffer) {
-
-    $search = array(
-        '/\>[^\S ]+/s',     // strip whitespaces after tags, except space
-        '/[^\S ]+\</s',     // strip whitespaces before tags, except space
-        '/(\s)+/s',         // shorten multiple whitespace sequences
-        '/<!--(.|\s)*?-->/' // Remove HTML comments
-    );
-
-    $replace = array(
-        '>',
-        '<',
-        '\\1',
-        ''
-    );
-
-    $buffer = preg_replace($search, $replace, $buffer);
-
-    return $buffer;
+    footer_settings();
 }

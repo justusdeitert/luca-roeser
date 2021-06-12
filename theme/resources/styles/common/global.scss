@@ -1,3 +1,26 @@
+html {
+    font-size: var(--custom-font-size);
+}
+
+body {
+    color: var(--color-font);
+    background-color: var(--color-background);
+    font-weight: var(--custom-font-weight);
+    font-family: var(--custom-text-font-family);
+}
+
+a {
+    color: var(--color-link);
+
+    &:hover {
+        color: var(--color-link);
+    }
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--custom-headline-font-family);
+}
+
 #wpadminbar {
     // To be lower then light-gallery zIndex
     z-index: 1030;
@@ -5,6 +28,11 @@
 
 .is-style-text-shadow {
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.is-style-no-format {
+    list-style: none;
+    padding: 0;
 }
 
 .light-span {

@@ -1,0 +1,14 @@
+.footer {
+    background-color: var(--custom-footer-background-color);
+    color: var(--custom-footer-text-color);
+    padding-top: var(--custom-block-spacing);
+    padding-bottom: var(--custom-block-spacing);
+
+    a {
+        color: var(--custom-footer-link-color);
+
+        &:hover {
+            color: var(--custom-footer-link-color);
+        }
+    }
+}

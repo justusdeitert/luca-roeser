@@ -1,3 +1,4 @@
+// Variables and Roots
 $grid-breakpoints: (
     xxs: 0,
     xs: 375px,
@@ -15,22 +16,32 @@ $grid-breakpoints: (
     }
 }
 
+html {
+    font-size: var(--custom-font-size);
+}
+
 // Custom Gutenberg block editor styles
-.block-editor .editor-styles-wrapper {
+.editor-styles-wrapper {
     @import 'config';
+    @import 'external';
+    font-weight: var(--custom-font-weight);
+    font-family: var(--custom-text-font-family) !important;
     font-size: $font-size-base;
+    line-height: $line-height-base;
+    color: var(--color-font);
+    background-color: var(--color-background);
     overflow: hidden;
 
     // wrapper to override gutenberg block library css
     > * {
-        @import 'external';
+
         @import 'common';
         @import '../blocks';
         @import 'core-blocks';
     }
 
-    .editor-post-title {
-        font-size: 26px; // Always same size title
+    .editor-post-title__input {
+        font-size: 1.625rem;
     }
 
     blockquote {
@@ -47,24 +58,52 @@ $grid-breakpoints: (
     margin-left: auto;
     margin-right: auto;
     max-width: var(--max-container-width);
+
+    @media (min-width: 720px) {
+        max-width: var(--max-container-width);
+    }
+
+    &[data-type="core/widget-area"] {
+        max-width: var(--max-container-width);
+    }
 }
 
-.block-editor {
-    .editor-styles-wrapper, .block-editor-block-inspector {
-        .components-button {
-            display: inline-flex;
+.editor-styles-wrapper, .block-editor-block-inspector {
+    .components-button {
+        display: inline-flex;
+        border-radius: 4px;
+
+        &:after {
             border-radius: 4px;
+        }
 
-            &:after {
-                border-radius: 4px;
-            }
-
-            &.has-icon {
-                span {
-                    margin-left: 4px;
-                    margin-right: 4px;
-                }
+        &.has-icon {
+            span {
+                margin-left: 4px;
+                margin-right: 4px;
             }
         }
     }
 }
+
+// Widget Area
+.blocks-widgets-container {
+    .editor-styles-wrapper {
+        max-width: var(--max-container-width);
+    }
+
+    // Footer Widget
+    [data-widget-area-id="sidebar-footer"] {
+        background-color: var(--custom-footer-background-color);
+        color: var(--custom-footer-text-color);
+
+        a {
+            color: var(--custom-footer-link-color);
+
+            &:hover {
+                color: var(--custom-footer-link-color);
+            }
+        }
+    }
+}
+

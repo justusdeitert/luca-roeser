@@ -1,6 +1,7 @@
+import {__} from '@wordpress/i18n';
 import '@wordpress/edit-post';
 import domReady from '@wordpress/dom-ready';
-import {unregisterBlockStyle, registerBlockStyle} from '@wordpress/blocks';
+import {registerBlockStyle} from '@wordpress/blocks';
 
 /**
  * External Dependencies
@@ -23,17 +24,17 @@ import './block-scripts';
 import '../block-formats';
 
 domReady(() => {
-    // unregisterBlockStyle('core/button', 'outline');
-
-    // registerBlockStyle('core/button', {
-    //     name: 'outline',
-    //     label: 'Outline',
-    // });
-
     registerBlockStyle('core/heading', [
         {
             name: 'text-shadow',
-            label: 'Text Shadow',
+            label: __('Text Shadow', 'sage'),
+        },
+    ]);
+
+    registerBlockStyle('core/list', [
+        {
+            name: 'no-format',
+            label: __('No Format', 'sage'),
         },
     ]);
 });
