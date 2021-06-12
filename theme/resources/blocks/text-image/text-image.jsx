@@ -2,7 +2,7 @@ import {__} from '@wordpress/i18n';
 import {registerBlockType,} from '@wordpress/blocks';
 import {Button} from '@wordpress/components';
 import {createElement, Component} from '@wordpress/element';
-import {ToggleControl, ColorPalette, RangeControl} from '@wordpress/components';
+import {ToggleControl, ColorPalette, RangeControl, SelectControl} from '@wordpress/components';
 
 import {
     MediaUpload,
@@ -40,6 +40,10 @@ const attributes = {
     imagesBackgroundColor: {
         type: 'string',
         default: ''
+    },
+    imagesRatio: {
+        type: 'string',
+        default: '3x2',
     },
 };
 
@@ -122,11 +126,15 @@ registerBlockType('custom/text-image', {
                 setAttributes({imagesBackgroundColor: value});
             };
 
+            const onChangeImagesRatio = (value) => {
+                setAttributes({imagesRatio: value});
+            };
+
             const imagesBackgroundColor = getColorObjectByColorValue(editorThemeColors, attributes.imagesBackgroundColor);
 
             const imageColumn = (
                 <div className={classNames('text-image-block__image-column', `col-12 col-md-6 col-xl-${attributes.columnRange}`)}>
-                    <div className="text-image-block__image-button-wrapper" style={{position: 'relative', display: 'inline-block'}}>{/*Only Save Editor View*/}
+                    <div style={{position: 'relative', display: 'inline-block', width: '100%'}}>
                         <MediaUpload
                             onSelect={onSelectImage}
                             multiple={true}
@@ -137,13 +145,14 @@ registerBlockType('custom/text-image', {
                                 'image/gif'
                             ]}
                             render={({open}) => (
-                                <Button className={'button text-image-block__image-button'}
+                                <Button className={'button'}
                                         icon={'format-gallery'}
                                         onClick={open}
                                         style={{
                                             position: 'absolute',
                                             left: '20px',
-                                            top: '20px'
+                                            top: '20px',
+                                            zIndex: '10'
                                         }}
                                         text={!attributes.contentImages ? __('Upload Images', 'sage') : __('Change Images', 'sage')}
                                 />
@@ -158,10 +167,12 @@ registerBlockType('custom/text-image', {
                                            onClick={event => event.preventDefault()}
                                         >
                                             <div className={classNames("custom-border custom-border-radius custom-shadow", imagesBackgroundColor && `has-${imagesBackgroundColor.slug}-background-color`)}>
-                                                <img className={classNames('custom-border-radius')}
-                                                     alt={getImage(contentImage, 'alt')}
-                                                     src={getImage(contentImage, 'small')}
-                                                />
+                                                <div className={`ratio ratio-${attributes.imagesRatio}`}>
+                                                    <img className={classNames('custom-border-radius')}
+                                                         alt={getImage(contentImage, 'alt')}
+                                                         src={getImage(contentImage, 'small')}
+                                                    />
+                                                </div>
                                             </div>
                                         </a>
                                     )
@@ -210,6 +221,19 @@ registerBlockType('custom/text-image', {
                                 onChange={onChangeImageCount}
                             />
                             <hr/>
+                            <p>{__('Images Ratio', 'sage')}</p>
+                            <SelectControl
+                                value={attributes.imagesRatio}
+                                options={[
+                                    {label: __('1x1'), value: '1x1'},
+                                    {label: __('4x3'), value: '4x3'},
+                                    {label: __('3x2'), value: '3x2'},
+                                    {label: __('16x9'), value: '16x9'},
+                                    {label: __('21x9'), value: '21x9'},
+                                ]}
+                                onChange={onChangeImagesRatio}
+                            />
+                            <hr/>
                             <p>{__('Background Color', 'sage')}</p>
                             <ColorPalette
                                 colors={editorThemeColors}
@@ -241,10 +265,12 @@ registerBlockType('custom/text-image', {
                                    data-lg-size={`${getImage(contentImage, 'width-large')}-${getImage(contentImage, 'height-large')}`}
                                 >
                                     <div className={classNames("custom-border custom-border-radius custom-shadow", imagesBackgroundColor && `has-${imagesBackgroundColor.slug}-background-color`)}>
-                                        <img className={classNames('custom-border-radius')}
-                                             alt={getImage(contentImage, 'alt')}
-                                             src={getImage(contentImage, 'small')}
-                                        />
+                                        <div className={`ratio ratio-${attributes.imagesRatio}`}>
+                                            <img className={classNames('custom-border-radius')}
+                                                 alt={getImage(contentImage, 'alt')}
+                                                 src={getImage(contentImage, 'small')}
+                                            />
+                                        </div>
                                      </div>
                                 </a>
                             )

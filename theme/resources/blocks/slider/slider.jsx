@@ -658,6 +658,7 @@ registerBlockType('custom/slider', {
                                     options={[
                                         {label: __('1x1'), value: '1x1'},
                                         {label: __('4x3'), value: '4x3'},
+                                        {label: __('3x2'), value: '3x2'},
                                         {label: __('16x9'), value: '16x9'},
                                         {label: __('21x9'), value: '21x9'},
                                     ]}

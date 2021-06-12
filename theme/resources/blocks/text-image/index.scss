@@ -2,13 +2,13 @@
     &__image-wrapper {
         display: flex;
         flex-wrap: wrap;
-        margin: -0.625rem;
+        //margin: -0.625rem;
         margin: calc(var(--custom-gutter-mobile-y) * -.3) calc(var(--custom-gutter-mobile-x) * -.3);
 
         a {
             display: none;
             padding: calc(var(--custom-gutter-mobile-y) * .3) calc(var(--custom-gutter-mobile-x) * .3);
-            box-shadow: none;
+            width: 100%;
         }
 
         @include media-breakpoint-up(sm) {
