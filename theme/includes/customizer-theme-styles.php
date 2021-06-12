@@ -239,7 +239,20 @@ function customizer_theme_styles() {
 
                 --custom-border-width: <?php echo get_theme_mod('custom_border_width', 24) / 16; ?>rem;
                 --custom-border-radius: <?php echo get_theme_mod('custom_border_radius', 0); ?>px;
-                --custom-box-shadow: <?php echo $custom_shadows[get_theme_mod('custom_shadow', 'no-shadow')]; ?>
+                --custom-box-shadow: <?php echo $custom_shadows[get_theme_mod('custom_shadow', 'no-shadow')]; ?>;
+
+                /* Custom Menu Settings  - Only needed on Frontend */
+                --custom-menu-height:  <?php echo get_theme_mod('custom_menu_height', 60); ?>px;
+                --custom-menu-icon-size:  <?php echo get_theme_mod('custom_menu_icon_size', 100); ?>%;
+                --custom-menu-icon-wrapper-width:  <?php echo get_theme_mod('custom_menu_icon_wrapper_width', 100); ?>px;
+                --custom-menu-item-spacing:  <?php echo get_theme_mod('custom_menu_item_spacing', 5); ?>px;
+                --custom-menu-background-color:  <?php echo get_theme_mod('custom_menu_background_color', '#f8f9fa'); ?>;
+                --custom-menu-font-weight:  <?php echo get_theme_mod('custom_menu_font_weight', 300); ?>;
+                --custom-menu-font-size:  <?php echo get_theme_mod('custom_menu_font_size', 16) / 16; ?>rem;
+                --custom-menu-link-color:  <?php echo get_theme_mod('custom_menu_link_color', '#212529'); ?>;
+                --custom-menu-link-active-color:  <?php echo get_theme_mod('custom_menu_link_active_color', '#212529'); ?>;
+                --custom-menu-link-active-background-color:  <?php echo get_theme_mod('custom_menu_link_active_background_color', '#f8f9fa'); ?>;
+
             }
 
             @font-face {

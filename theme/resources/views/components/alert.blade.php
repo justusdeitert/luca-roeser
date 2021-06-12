@@ -1,5 +1,3 @@
-<div {{ $attributes->merge(['class' => $type]) }}>
-    <div class="px-4 py-3">
-        {!! $message ?? $slot !!}
-    </div>
+<div {{ $attributes->merge(['class' => $type]) }} role="alert">
+    {!! $message ?? $slot !!}
 </div>

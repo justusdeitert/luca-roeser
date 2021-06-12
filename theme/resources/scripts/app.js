@@ -14,6 +14,11 @@ import './external';
 import './block-scripts';
 
 /**
+ * App - Frontend Scripts
+ */
+import './app-scripts';
+
+/**
  * jQuery Ready
  */
 $(() => {

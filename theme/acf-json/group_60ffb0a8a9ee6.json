@@ -1,0 +1,412 @@
+{
+    "key": "group_60ffb0a8a9ee6",
+    "title": "Options: Business Hours",
+    "fields": [
+        {
+            "key": "field_61000299aa528",
+            "label": "Business Hours",
+            "name": "business_hours",
+            "type": "group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_60ffb0b536789",
+                    "label": "Monday",
+                    "name": "monday",
+                    "type": "repeater",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "collapsed": "",
+                    "min": 0,
+                    "max": 0,
+                    "layout": "table",
+                    "button_label": "",
+                    "sub_fields": [
+                        {
+                            "key": "field_60ffb0c93678a",
+                            "label": "From",
+                            "name": "from",
+                            "type": "time_picker",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            },
+                            "display_format": "H:i",
+                            "return_format": "H:i"
+                        },
+                        {
+                            "key": "field_60ffb0f43678b",
+                            "label": "To",
+                            "name": "to",
+                            "type": "time_picker",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            },
+                            "display_format": "H:i",
+                            "return_format": "H:i"
+                        }
+                    ]
+                },
+                {
+                    "key": "field_60ffb1383678c",
+                    "label": "Tuesday",
+                    "name": "tuesday",
+                    "type": "repeater",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "collapsed": "",
+                    "min": 0,
+                    "max": 0,
+                    "layout": "table",
+                    "button_label": "",
+                    "sub_fields": [
+                        {
+                            "key": "field_60ffb1383678d",
+                            "label": "From",
+                            "name": "from",
+                            "type": "time_picker",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            },
+                            "display_format": "H:i",
+                            "return_format": "H:i"
+                        },
+                        {
+                            "key": "field_60ffb1383678e",
+                            "label": "To",
+                            "name": "to",
+                            "type": "time_picker",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            },
+                            "display_format": "H:i",
+                            "return_format": "H:i"
+                        }
+                    ]
+                },
+                {
+                    "key": "field_60ffb15636790",
+                    "label": "Wednesday",
+                    "name": "wednesday",
+                    "type": "repeater",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "collapsed": "",
+                    "min": 0,
+                    "max": 0,
+                    "layout": "table",
+                    "button_label": "",
+                    "sub_fields": [
+                        {
+                            "key": "field_60ffb15636791",
+                            "label": "From",
+                            "name": "from",
+                            "type": "time_picker",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            },
+                            "display_format": "H:i",
+                            "return_format": "H:i"
+                        },
+                        {
+                            "key": "field_60ffb15636792",
+                            "label": "To",
+                            "name": "to",
+                            "type": "time_picker",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            },
+                            "display_format": "H:i",
+                            "return_format": "H:i"
+                        }
+                    ]
+                },
+                {
+                    "key": "field_60ffb1a196ffa",
+                    "label": "Thursday",
+                    "name": "thursday",
+                    "type": "repeater",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "collapsed": "",
+                    "min": 0,
+                    "max": 0,
+                    "layout": "table",
+                    "button_label": "",
+                    "sub_fields": [
+                        {
+                            "key": "field_60ffb1a196ffb",
+                            "label": "From",
+                            "name": "from",
+                            "type": "time_picker",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            },
+                            "display_format": "H:i",
+                            "return_format": "H:i"
+                        },
+                        {
+                            "key": "field_60ffb1a196ffc",
+                            "label": "To",
+                            "name": "to",
+                            "type": "time_picker",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            },
+                            "display_format": "H:i",
+                            "return_format": "H:i"
+                        }
+                    ]
+                },
+                {
+                    "key": "field_60ffb1aa96ffd",
+                    "label": "Friday",
+                    "name": "friday",
+                    "type": "repeater",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "collapsed": "",
+                    "min": 0,
+                    "max": 0,
+                    "layout": "table",
+                    "button_label": "",
+                    "sub_fields": [
+                        {
+                            "key": "field_60ffb1aa96ffe",
+                            "label": "From",
+                            "name": "from",
+                            "type": "time_picker",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            },
+                            "display_format": "H:i",
+                            "return_format": "H:i"
+                        },
+                        {
+                            "key": "field_60ffb1aa96fff",
+                            "label": "To",
+                            "name": "to",
+                            "type": "time_picker",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            },
+                            "display_format": "H:i",
+                            "return_format": "H:i"
+                        }
+                    ]
+                },
+                {
+                    "key": "field_60ffb1b297000",
+                    "label": "Saturday",
+                    "name": "saturday",
+                    "type": "repeater",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "collapsed": "",
+                    "min": 0,
+                    "max": 0,
+                    "layout": "table",
+                    "button_label": "",
+                    "sub_fields": [
+                        {
+                            "key": "field_60ffb1b297001",
+                            "label": "From",
+                            "name": "from",
+                            "type": "time_picker",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            },
+                            "display_format": "H:i",
+                            "return_format": "H:i"
+                        },
+                        {
+                            "key": "field_60ffb1b297002",
+                            "label": "To",
+                            "name": "to",
+                            "type": "time_picker",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            },
+                            "display_format": "H:i",
+                            "return_format": "H:i"
+                        }
+                    ]
+                },
+                {
+                    "key": "field_60ffb1b997003",
+                    "label": "Sunday",
+                    "name": "sunday",
+                    "type": "repeater",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "collapsed": "",
+                    "min": 0,
+                    "max": 0,
+                    "layout": "table",
+                    "button_label": "",
+                    "sub_fields": [
+                        {
+                            "key": "field_60ffb1b997004",
+                            "label": "From",
+                            "name": "from",
+                            "type": "time_picker",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            },
+                            "display_format": "H:i",
+                            "return_format": "H:i"
+                        },
+                        {
+                            "key": "field_60ffb1b997005",
+                            "label": "To",
+                            "name": "to",
+                            "type": "time_picker",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            },
+                            "display_format": "H:i",
+                            "return_format": "H:i"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "acf-options-business-hours"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "modified": 1627457859
+}

@@ -42,21 +42,21 @@
     }
 }
 
-.lg-next:before {
-    content: "\e906";
+.lg-next {
+    @extend .icon-arrow-right;
 }
 
-.lg-prev:after {
-    content: "\e904";
+.lg-prev {
+    @extend .icon-arrow-left;
 }
 
 .lg-toolbar {
-    .lg-close:after {
-        content: "\e912";
+    .lg-close {
+        @extend .icon-close;
     }
 
-    .lg-download:after {
-        content: "\e913";
+    .lg-download {
+        @extend .icon-download;
     }
 }
 

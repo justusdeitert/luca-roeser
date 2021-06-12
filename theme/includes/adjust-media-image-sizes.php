@@ -1,9 +1,8 @@
 <?php
 
 /**
- *  Add theme Support
+ * Adjust standard Wordpress Media Image Sizes
  */
-add_theme_support( 'post-thumbnails' );
 
 /**
  *  Add Image Sizes
@@ -31,19 +30,3 @@ update_option('medium_size_w', 1024);
 update_option('medium_size_h', 1024);
 update_option('large_size_w', 1680);
 update_option('large_size_h', 1680);
-
-/**
- * Remove Thumbnail Sizes
- * @param $sizes
- * @return mixed
- */
-// function remove_default_image_sizes($sizes)
-// {
-//     unset($sizes['medium_large']);
-//     unset($sizes['x_small']);
-//     unset($sizes['1536x1536']);
-//     unset($sizes['2048x2048']);
-//     return $sizes;
-// }
-//
-// add_filter('intermediate_image_sizes_advanced', 'remove_default_image_sizes');

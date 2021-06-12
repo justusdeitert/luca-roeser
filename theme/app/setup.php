@@ -81,7 +81,9 @@ add_action('after_setup_theme', function () {
      * @link https://developer.wordpress.org/reference/functions/register_nav_menus/
      */
     register_nav_menus([
-        'primary_navigation' => __('Primary Navigation', 'sage')
+        'primary_navigation_desktop' => __('Primary Navigation Desktop', 'sage'),
+        'secondary_navigation_desktop' => __('Secondary Navigation Desktop', 'sage'),
+        'primary_navigation_mobile' => __('Primary Navigation Mobile', 'sage')
     ]);
 
     /**

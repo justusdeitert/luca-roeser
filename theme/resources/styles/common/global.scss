@@ -65,3 +65,11 @@
     margin-top: var(--custom-block-spacing);
     margin-bottom: var(--custom-block-spacing);
 }
+
+// Adjust Admin Bar Bug since Wordpress 5.8
+@media screen and (max-width: 782px) {
+    #wpadminbar {
+        position: absolute;
+        transform: translateY(-100%);
+    }
+}

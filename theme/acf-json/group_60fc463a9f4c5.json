@@ -1,0 +1,117 @@
+{
+    "key": "group_60fc463a9f4c5",
+    "title": "Menu Items",
+    "fields": [
+        {
+            "key": "field_60fed57b5cee0",
+            "label": "Icon Class",
+            "name": "icon_class",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "alert-circle": "alert-circle",
+                "arrow-down-circle": "arrow-down-circle",
+                "arrow-down": "arrow-down",
+                "arrow-left-circle": "arrow-left-circle",
+                "arrow-left": "arrow-left",
+                "arrow-right-circle": "arrow-right-circle",
+                "arrow-right": "arrow-right",
+                "arrow-up-circle": "arrow-up-circle",
+                "arrow-up": "arrow-up",
+                "at": "at",
+                "bookmark": "bookmark",
+                "chat": "chat",
+                "check": "check",
+                "chevron-down": "chevron-down",
+                "chevron-left": "chevron-left",
+                "chevron-right": "chevron-right",
+                "chevron-up": "chevron-up",
+                "close-circle": "close-circle",
+                "close": "close",
+                "download": "download",
+                "edit-note": "edit-note",
+                "edit": "edit",
+                "eye": "eye",
+                "grid": "grid",
+                "headphones": "headphones",
+                "help-circle": "help-circle",
+                "image": "image",
+                "info": "info",
+                "link": "link",
+                "mail": "mail",
+                "menu": "menu",
+                "minus-circle": "minus-circle",
+                "minus": "minus",
+                "people": "people",
+                "person": "person",
+                "phone": "phone",
+                "place": "place",
+                "plus-circle": "plus-circle",
+                "plus": "plus",
+                "search": "search",
+                "star": "star",
+                "trash": "trash",
+                "upload": "upload",
+                "wifi": "wifi"
+            },
+            "default_value": false,
+            "allow_null": 1,
+            "multiple": 0,
+            "ui": 1,
+            "ajax": 1,
+            "return_format": "value",
+            "placeholder": ""
+        },
+        {
+            "key": "field_60fedce860ca5",
+            "label": "Icon Position",
+            "name": "icon_position",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_60fed57b5cee0",
+                        "operator": "!=empty"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui": 1,
+            "ui_on_text": "Right",
+            "ui_off_text": "Left"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "nav_menu_item",
+                "operator": "==",
+                "value": "all"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "modified": 1627390167
+}
