@@ -130,7 +130,7 @@ registerBlockType('custom/image-header', {
     category: 'custom',
     supports: {
         // align: true,
-        align: ['full', 'wide'],
+        align: ['full'],
     },
     multiple: false, // Use this block just once per post
     attributes,

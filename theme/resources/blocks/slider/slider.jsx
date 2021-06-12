@@ -126,9 +126,9 @@ registerBlockType('custom/slider', {
     title: __('Slider', 'sage'),
     icon: blockIcon,
     category: 'custom',
-    supports: {
-        align: ['wide'],
-    },
+    // supports: {
+    //     align: ['wide'],
+    // },
     attributes,
     // Access React Lifecycle Methods within gutenberg block
     // https://wordpress.org/gutenberg/handbook/block-api/block-edit-save/
@@ -327,7 +327,6 @@ registerBlockType('custom/slider', {
                                 <RichText
                                     tagName={attributes.headlineType}
                                     placeholder={__('The Headline...', 'sage')}
-                                    keepPlaceholderOnFocus={true}
                                     value={item.headline}
                                     onChange={onChangeHeadline}
                                     className="slider-block__headline"
@@ -336,7 +335,6 @@ registerBlockType('custom/slider', {
                                 <RichText
                                     tagName="p"
                                     placeholder={'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'}
-                                    keepPlaceholderOnFocus={true}
                                     value={item.text}
                                     onChange={onChangeText}
                                     className="slider-block__text"

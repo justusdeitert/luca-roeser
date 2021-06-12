@@ -1,20 +1,15 @@
-<div class="container">
+@include('partials.navigation')
 
-    {{--<a class="sr-only sr-only-focusable" href="#main">
-        {{ __('Skip to content') }}
-    </a>--}}
-
-    {{--@include('partials.header')--}}
-
-    <main class="main">
+<main class="main">
+    <div class="container">
         @yield('content')
-    </main>
+    </div>
+</main>
 
-    @hasSection('sidebar')
-        <aside class="sidebar">
-            @yield('sidebar')
-        </aside>
-    @endif
+@hasSection('sidebar')
+    <aside class="sidebar">
+        @yield('sidebar')
+    </aside>
+@endif
 
-    @include('partials.footer')
-</div>
+@include('partials.footer')

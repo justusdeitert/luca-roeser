@@ -6,7 +6,7 @@ import {RangeControl, ColorPalette} from '@wordpress/components';
 import {InspectorControls} from '@wordpress/block-editor';
 
 import classNames from 'classnames';
-import {editorMainColors} from "../utility";
+import {editorThemeColors} from "../utility";
 
 // import {} from "../config";
 
@@ -21,8 +21,7 @@ registerBlockType('custom/divider', {
     icon: blockIcon,
     category: 'custom',
     supports: {
-        // align: true,
-        align: ['full', 'wide'],
+        align: ['full'],
     },
     attributes: {
         color: {
@@ -33,11 +32,11 @@ registerBlockType('custom/divider', {
             type: 'number',
             default: 1
         },
-        paddingDesktop: {
+        spacingDesktop: {
             type: 'number',
             default: 40
         },
-        paddingMobile: {
+        spacingMobile: {
             type: 'number',
             default: 20
         },
@@ -51,7 +50,7 @@ registerBlockType('custom/divider', {
         },
         width: {
             type: 'number',
-            default: 400
+            default: 50
         },
     },
     // Access React Lifecycle Methods within gutenberg block
@@ -97,12 +96,12 @@ registerBlockType('custom/divider', {
                 setAttributes({opacity: value});
             };
 
-            const onChangePaddingDesktop = (value) => {
-                setAttributes({paddingDesktop: value});
+            const onChangeSpacingDesktop = (value) => {
+                setAttributes({spacingDesktop: value});
             };
 
-            const onChangePaddingMobile = (value) => {
-                setAttributes({paddingMobile: value});
+            const onChangeSpacingMobile = (value) => {
+                setAttributes({spacingMobile: value});
             };
 
             const onChangeThickness = (value) => {
@@ -135,22 +134,22 @@ registerBlockType('custom/divider', {
                                 onChange={onChangeOpacity}
                             />
                             <hr/>
-                            <p>{__('Change Padding (Desktop)', 'sage')}</p>
+                            <p>{__('Change Spacing (Desktop)', 'sage')}</p>
                             <RangeControl
-                                value={attributes.paddingDesktop}
+                                value={attributes.spacingDesktop}
                                 min={0}
                                 max={140}
                                 step={20}
-                                onChange={onChangePaddingDesktop}
+                                onChange={onChangeSpacingDesktop}
                             />
                             <hr/>
-                            <p>{__('Change Padding (Mobile)', 'sage')}</p>
+                            <p>{__('Change Spacing (Mobile)', 'sage')}</p>
                             <RangeControl
-                                value={attributes.paddingMobile}
+                                value={attributes.spacingMobile}
                                 min={0}
                                 max={100}
                                 step={20}
-                                onChange={onChangePaddingMobile}
+                                onChange={onChangeSpacingMobile}
                             />
                             <hr/>
                             <p>{__('Change Thickness', 'sage')}</p>
@@ -171,11 +170,11 @@ registerBlockType('custom/divider', {
                             {!attributes.hasFullWidth &&
                                 <>
                                     <hr/>
-                                    <p>{__('Change Width', 'sage')}</p>
+                                    <p>{__('Change Width in %', 'sage')}</p>
                                     <RangeControl
                                         value={attributes.width}
-                                        min={60}
-                                        max={800}
+                                        min={10}
+                                        max={100}
                                         step={1}
                                         onChange={onChangeWidth}
                                     />
@@ -184,18 +183,18 @@ registerBlockType('custom/divider', {
                             <hr/>
                             <p>{__('Change Color', 'sage')}</p>
                             <ColorPalette
-                                colors={editorMainColors}
+                                colors={editorThemeColors}
                                 value={attributes.color}
                                 onChange={onChangeColor}
                                 // clearable={false}
                             />
                         </div>
                     </InspectorControls>
-                    <div className={classNames(className, 'divider-block', 'custom-spacing')} style={{padding: `${attributes.paddingDesktop}px 0px`}}>
+                    <div className={classNames(className, 'divider-block')} style={{padding: `${attributes.spacingDesktop / 16}rem 0`}}>
                         <hr className='divider-block__hr'
                             style={{
                                 height: `${attributes.thickness}px`,
-                                maxWidth: attributes.hasFullWidth ? 'initial' : `${attributes.width}px`,
+                                maxWidth: attributes.hasFullWidth ? 'initial' : `${attributes.width}%`,
                                 opacity: attributes.opacity,
                                 backgroundColor: attributes.color
                             }}
@@ -207,11 +206,11 @@ registerBlockType('custom/divider', {
     },
     save: ({className, attributes}) => {
         return (
-            <div className={classNames(className, 'divider-block', 'custom-spacing')} style={{padding: `${attributes.paddingDesktop}px 0px`}}>
+            <div className={classNames(className, 'divider-block')} style={{padding: `${attributes.spacingDesktop / 16}rem 0`}} >
                 <hr className='divider-block__hr'
                     style={{
                         height: `${attributes.thickness}px`,
-                        maxWidth: attributes.hasFullWidth ? 'initial' : `${attributes.width}px`,
+                        maxWidth: attributes.hasFullWidth ? 'initial' : `${attributes.width}%`,
                         opacity: attributes.opacity,
                         backgroundColor: attributes.color
                     }}

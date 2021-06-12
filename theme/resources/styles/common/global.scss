@@ -13,14 +13,14 @@
 
 // Theme Container Settings
 .container {
-    max-width: calc(var(--max-container-width, 1260px) + (var(--container-padding-mobile, 15px) * 2)) !important;
-    padding-left: var(--container-padding-mobile, 15px);
-    padding-right: var(--container-padding-mobile, 15px);
+    max-width: calc(var(--max-container-width) + (var(--container-padding-mobile) * 2)) !important;
+    padding-left: var(--container-padding-mobile);
+    padding-right: var(--container-padding-mobile);
 
     @include media-breakpoint-up(sm) {
-        max-width: calc(var(--max-container-width, 1260px) + (var(--container-padding-desktop, 30px) * 2)) !important;
-        padding-left: var(--container-padding-desktop, 30px);
-        padding-right: var(--container-padding-desktop, 30px);
+        max-width: calc(var(--max-container-width) + (var(--container-padding-desktop) * 2)) !important;
+        padding-left: var(--container-padding-desktop);
+        padding-right: var(--container-padding-desktop);
     }
 }
 

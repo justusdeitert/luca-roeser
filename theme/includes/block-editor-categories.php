@@ -4,7 +4,7 @@
  * Adjust block categories
  * @link https://loomo.ca/gutenberg-creating-custom-block-categories/
  */
-add_filter('block_categories', function ($categories) {
+add_filter('block_categories_all', function ($categories) {
     return array_merge(
         $categories,
         array(

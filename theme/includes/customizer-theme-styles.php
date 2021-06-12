@@ -88,7 +88,7 @@ function customizer_theme_styles() {
 
             .block-editor .editor-styles-wrapper {
                 font-family: '<?php echo $custom_text_font; ?>', <?php echo $standard_google_fonts[$custom_text_font]; ?>;
-                color: <?php echo get_theme_mod('custom_text_color', '#212529'); ?>;
+                color: <?php echo get_theme_mod('custom_font_color', '#212529'); ?>;
                 font-weight: <?php echo get_theme_mod('custom_font_weight', '400'); ?>;
             }
 
@@ -183,7 +183,7 @@ function customizer_theme_styles() {
 
             body {
                 font-family: '<?php echo $custom_text_font; ?>', <?php echo $standard_google_fonts[$custom_text_font]; ?>;
-                color: <?php echo get_theme_mod('custom_text_color', '#212529'); ?>;
+                color: <?php echo get_theme_mod('custom_font_color', '#212529'); ?>;
                 background-color: <?php echo get_theme_mod('custom_background_color', '#f8f9fa'); ?>;
                 font-weight: <?php echo get_theme_mod('custom_font_weight', '400'); ?>;
             }

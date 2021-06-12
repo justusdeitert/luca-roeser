@@ -59,9 +59,9 @@ registerBlockType('custom/text-image', {
     title: __('Text Image', 'sage'),
     icon: blockIcon,
     category: 'custom',
-    supports: {
-        align: ['wide'],
-    },
+    // supports: {
+    //     align: ['wide'],
+    // },
     attributes,
     // Access React Lifecycle Methods within gutenberg block
     // https://wordpress.org/gutenberg/handbook/block-api/block-edit-save/
@@ -111,10 +111,6 @@ registerBlockType('custom/text-image', {
             };
 
             const onChangeImageCount = (value) => {
-                // value of 2 is not possible for now..
-                if (value === 2) {
-                    value = 3;
-                }
                 setAttributes({imageCount: value});
             };
 

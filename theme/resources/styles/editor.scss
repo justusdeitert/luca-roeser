@@ -46,7 +46,7 @@ $grid-breakpoints: (
 .wp-block {
     margin-left: auto;
     margin-right: auto;
-    max-width: var(--max-container-width, 1260px);
+    max-width: var(--max-container-width);
 }
 
 .block-editor {

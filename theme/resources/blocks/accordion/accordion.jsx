@@ -248,7 +248,6 @@ registerBlockType('custom/accordion', {
                                 <RichText
                                     tagName="p"
                                     placeholder={'Lorem Ipsum'}
-                                    keepPlaceholderOnFocus={true}
                                     value={item.header}
                                     allowedFormats={['core/bold', 'core/italic']}
                                     onChange={onChangeAccordionHeader}
@@ -272,7 +271,6 @@ registerBlockType('custom/accordion', {
                                 <RichText
                                     tagName="p"
                                     placeholder={loremIpsum}
-                                    keepPlaceholderOnFocus={true}
                                     value={item.body}
                                     // allowedFormats={['core/bold', 'core/italic', 'core/link']}
                                     onChange={onChangeAccordionBody}
