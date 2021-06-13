@@ -5,11 +5,13 @@ image: tetraweb/php
 before_script:
     - apt-get update
     - apt-get install zip unzip
+    - pwd
     - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
     - php composer-setup.php
     - php -r "unlink('composer-setup.php');"
     # Run Composer Install to fetch all PHP dependencies and npm install
-    - php composer.phar install
+    - cd $(pwd)/bedrock && php $(pwd)/composer.phar install
+    - cd $(pwd)/theme && php $(pwd)/composer.phar install
     - npm install
     - npm run deploy
     # Security tip
