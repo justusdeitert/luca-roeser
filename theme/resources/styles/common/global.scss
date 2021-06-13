@@ -3,17 +3,17 @@ html {
 }
 
 body {
-    color: var(--color-font);
-    background-color: var(--color-background);
+    color: var(--custom-font-color);
+    background-color: var(--custom-body-background-color);
     font-weight: var(--custom-font-weight);
     font-family: var(--custom-text-font-family);
 }
 
 a {
-    color: var(--color-link);
+    color: var(--custom-link-color);
 
     &:hover {
-        color: var(--color-link);
+        color: var(--custom-link-hover-color);
     }
 }
 
@@ -92,6 +92,10 @@ h1, h2, h3, h4, h5, h6 {
 .custom-spacing {
     margin-top: var(--custom-block-spacing);
     margin-bottom: var(--custom-block-spacing);
+}
+
+.custom-box-background {
+    background-color: green;
 }
 
 // Adjust Admin Bar Bug since Wordpress 5.8

@@ -1,1 +1,22 @@
-// Empty for now..
+// Wordpress Admin Only Styles
+
+// Adjusting Kirki Customizer Controls
+[id^="customize-control-custom_border"],
+[id^="customize-control-custom_spacing"],
+[id^="customize-control-custom_text"],
+[id^="customize-control-custom_headline"] {
+    display: list-item !important;
+    margin-bottom: 0;
+
+    label {
+        cursor: initial;
+    }
+
+    .custom-headline {
+        margin-top: 0;
+    }
+
+    .custom-text {
+        margin-top: 0;
+    }
+}

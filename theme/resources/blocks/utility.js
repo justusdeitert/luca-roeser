@@ -111,28 +111,28 @@ export const bootstrapBreakpoints = {
  * This is needed because by default if the image is smaller some image sizes are not
  */
 export const editorMainColors = [
-    {name: 'Primary', slug: 'primary', color: getCssVariable('--color-primary')},
-    {name: 'Secondary', slug: 'secondary', color: getCssVariable('--color-secondary')},
-    {name: 'Light', slug: 'light', color: getCssVariable('--color-light')},
-    {name: 'Dark', slug: 'dark', color: getCssVariable('--color-dark')},
+    {name: 'Primary', slug: 'primary', color: getCssVariable('--custom-primary-color')},
+    {name: 'Secondary', slug: 'secondary', color: getCssVariable('--custom-secondary-color')},
+    {name: 'Light', slug: 'light', color: getCssVariable('--custom-light-color')},
+    {name: 'Dark', slug: 'dark', color: getCssVariable('--custom-dark-color')},
 ];
 
 export const editorStandardColors = [
-    {name: 'Font', slug: 'font', color: getCssVariable('--color-font')},
-    {name: 'Link', slug: 'link', color: getCssVariable('--color-link')},
-    {name: 'Background', slug: 'light', color: getCssVariable('--color-background')},
+    {name: 'Font', slug: 'font', color: getCssVariable('--custom-font-color')},
+    {name: 'Link', slug: 'link', color: getCssVariable('--custom-link-color')},
+    {name: 'Background', slug: 'light', color: getCssVariable('--custom-background-color')},
 ];
 
 export const editorGrayColors = [
-    {name: 'Gray 100', slug: 'gray-100', color: getCssVariable('--color-gray-100')},
-    {name: 'Gray 200', slug: 'gray-200', color: getCssVariable('--color-gray-200')},
-    {name: 'Gray 300', slug: 'gray-300', color: getCssVariable('--color-gray-300')},
-    {name: 'Gray 400', slug: 'gray-400', color: getCssVariable('--color-gray-400')},
-    {name: 'Gray 500', slug: 'gray-500', color: getCssVariable('--color-gray-500')},
-    {name: 'Gray 600', slug: 'gray-600', color: getCssVariable('--color-gray-600')},
-    {name: 'Gray 700', slug: 'gray-700', color: getCssVariable('--color-gray-700')},
-    {name: 'Gray 800', slug: 'gray-800', color: getCssVariable('--color-gray-800')},
-    {name: 'Gray 900', slug: 'gray-900', color: getCssVariable('--color-gray-900')},
+    {name: 'Gray 100', slug: 'gray-100', color: getCssVariable('--custom-gray-100-color')},
+    {name: 'Gray 200', slug: 'gray-200', color: getCssVariable('--custom-gray-200-color')},
+    {name: 'Gray 300', slug: 'gray-300', color: getCssVariable('--custom-gray-300-color')},
+    {name: 'Gray 400', slug: 'gray-400', color: getCssVariable('--custom-gray-400-color')},
+    {name: 'Gray 500', slug: 'gray-500', color: getCssVariable('--custom-gray-500-color')},
+    {name: 'Gray 600', slug: 'gray-600', color: getCssVariable('--custom-gray-600-color')},
+    {name: 'Gray 700', slug: 'gray-700', color: getCssVariable('--custom-gray-700-color')},
+    {name: 'Gray 800', slug: 'gray-800', color: getCssVariable('--custom-gray-800-color')},
+    {name: 'Gray 900', slug: 'gray-900', color: getCssVariable('--custom-gray-900-color')},
 ]
 
 export const editorThemeColors = [...editorMainColors, ...editorGrayColors]

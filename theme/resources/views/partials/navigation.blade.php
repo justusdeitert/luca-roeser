@@ -1,15 +1,15 @@
 <?php
-    $menu_icon = get_theme_mod('custom_menu_icon');
-    $menu_icon_alt = get_post_meta($menu_icon['id'], '_wp_attachment_image_alt', true);
+    $menu_logo = get_theme_mod('custom_menu_logo_image');
+    $menu_logo_alt = get_post_meta($menu_logo['id'], '_wp_attachment_image_alt', true);
     $menu_item_separator = get_theme_mod('custom_menu_item_separator');
     $menu_is_transparent = get_theme_mod('custom_menu_is_transparent');
     $menu_has_opening_hours = get_theme_mod('custom_menu_has_opening_hours');
     $menu_height = get_theme_mod('custom_menu_height');
-    $menu_center_primary_nav = get_theme_mod('custom_menu_center_primary_nav');
+    // $menu_center_primary_nav = get_theme_mod('custom_menu_center_primary_nav');
     $custom_menu_mobile_on_desktop = get_theme_mod('custom_menu_mobile_on_desktop');
 
     $navigation_classes = [
-        $menu_center_primary_nav ? 'primary-is-centered' : '',
+        // $menu_center_primary_nav ? 'primary-is-centered' : '',
         $menu_is_transparent ? 'is-transparent' : ''
     ];
 ?>
@@ -30,9 +30,9 @@
     <div class="container">
         <div class="navigation__inner">
 
-            @if($menu_icon['url'])
+            @if($menu_logo['url'])
                 <div class="navigation__logo-wrapper">
-                    <img src="{!! $menu_icon['url'] !!}" alt="{!! $menu_icon_alt !!}">
+                    <img src="{!! $menu_logo['url'] !!}" alt="{!! $menu_logo_alt !!}">
                 </div>
             @endif
 
@@ -52,8 +52,7 @@
                 </div>
             @endif
 
-            {{-- Desktop Navigation --}}
-            @if(!$custom_menu_mobile_on_desktop))
+            @if(!$custom_menu_mobile_on_desktop)
                 @if (has_nav_menu('primary_navigation_desktop'))
                     {!! wp_nav_menu([
                         'theme_location' => 'primary_navigation_desktop',
@@ -78,11 +77,11 @@
                 <i class="icon-menu"></i>
                 @if (has_nav_menu('primary_navigation_mobile'))
                     {!! wp_nav_menu([
-                     'theme_location' => 'primary_navigation_mobile',
-                     'menu_class' => 'navigation__mobile navigation__mobile--primary',
-                     'container' => false,
-                     'echo' => false
-                 ]) !!}
+                         'theme_location' => 'primary_navigation_mobile',
+                         'menu_class' => 'navigation__mobile navigation__mobile--primary',
+                         'container' => false,
+                         'echo' => false
+                    ]) !!}
                 @endif
             </div>
         </div>

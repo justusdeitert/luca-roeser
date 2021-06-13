@@ -18,7 +18,7 @@ $standard_google_fonts = [
     'Open Sans' => 'sans-serif',
     'Raleway' => 'sans-serif',
     'Roboto' => 'sans-serif',
-    'Roboto Slab' => 'serif', // serif
+    'Roboto Slab' => 'serif',
     'Barlow' => 'sans-serif',
     'Quicksand' => 'sans-serif',
     'Poppins' => 'sans-serif',
@@ -26,25 +26,67 @@ $standard_google_fonts = [
 ];
 
 /**
- * Custom Colors Array
+ * Custom Colors Arrays
  */
-$theme_colors = [
-    // Theme Colors
+
+// General Colors
+$general_colors = [
     'primary' => '#0d6efd',
     'secondary' => '#6c757d',
+    'tertiary' => '#6c757d',
     'light' => '#f8f9fa',
     'dark' => '#212529',
-    'border',
-    // Standard Colors
+];
+
+// Font Colors
+$font_colors = [
     'font' => '#212529',
     'link' => '#0d6efd',
-    'background' => '#f8f9fa',
-    'border',
-    // Alert Colors
+    'link_hover' => '#0d6efd',
+];
+
+// Content Colors
+$content_colors = [
+    'body_background' => '#f8f9fa',
+];
+
+// Alert Colors
+$alert_colors = [
     'success' => '#198754',
     'danger' => '#dc3545',
     'warning' => '#ffc107',
     'info' => '#0dcaf0',
+];
+
+// Menu Colors
+$menu_colors = [
+    'menu_background' => '#f8f9fa',
+    'menu_link' => '#212529',
+    'menu_link_active' => '#f8f9fa',
+    'menu_link_active_background' => '#f8f9fa',
+    'submenu_link' => '#212529',
+    'submenu_link_active' => '#212529'
+];
+
+// Footer colors
+$footer_colors = [
+    'footer_background' => '#f8f9fa',
+    'footer_text' => '#f8f9fa',
+    'footer_link' => '#f8f9fa',
+    'footer_link_hover' => '#f8f9fa',
+];
+
+/**
+ * Theme Box Shadow Variants
+ * Further implementation & corresponding css box shadows in
+ * @file theme/includes/add-customizer-theme-styles.php
+ */
+$box_shadows = [
+    'no-shadow' => 'No Shadow',
+    'shadow-sm' => 'Small Shadow',
+    'shadow' => 'Shadow',
+    'shadow-md' => 'Medium Shadow',
+    'shadow-lg' => 'Large Shadow',
 ];
 
 /**
@@ -54,6 +96,45 @@ $theme_colors = [
  */
 if (class_exists('Kirki')) {
 
+    function custom_kirki_border($section) {
+        $unique_id = uniqid();
+        Kirki::add_field('custom_border_id_' . $unique_id, [
+            'type' => 'custom',
+            'settings' => 'custom_border_' . $unique_id,
+            'section' => $section,
+            'default' => '<hr class="custom-border" style="border-top: 1px solid #B8B8B8; margin: 20px 0 25px 0;"/>',
+        ]);
+    }
+
+    function custom_kirki_spacing($section, $height) {
+        $unique_id = uniqid();
+        Kirki::add_field('custom_spacing_id_' . $unique_id, [
+            'type' => 'custom',
+            'settings' => 'custom_spacing_' . $unique_id,
+            'section' => $section,
+            'default' => '<div class="custom-spacing" style="height: ' . $height . 'px;" />',
+        ]);
+    }
+
+    function custom_kirki_text($section, $text_string) {
+        $unique_id = uniqid();
+        Kirki::add_field('custom_text_id_' . $unique_id, [
+            'type' => 'custom',
+            'settings' => 'custom_text_' . $unique_id,
+            'section' => $section,
+            'default' => '<p class="custom-text">' . __($text_string, 'sage') . '</p>',
+        ]);
+    }
+
+    function custom_kirki_headline($section, $headline_string, $headline_type) {
+        $unique_id = uniqid();
+        Kirki::add_field('custom_headline_id_' . $unique_id, [
+            'type' => 'custom',
+            'settings' => 'custom_headline_' . $unique_id,
+            'section' => $section,
+            'default' => '<' . $headline_type . ' class="custom-headline">' . $headline_string . '</' . $headline_type . '>',
+        ]);
+    }
 
     /**
      * Custom Theme Settings
@@ -67,17 +148,23 @@ if (class_exists('Kirki')) {
     /**
      * Content & Container Sizes
      */
-    function content_sizes() {
-        Kirki::add_section('section_content_sizes_id', array(
-            'title' => __('Content Sizes', 'sage'),
+    function content_settings() {
+
+        global $box_shadows;
+
+        Kirki::add_section('section_content_settings_id', array(
+            'title' => __('Content Settings', 'sage'),
             'panel' => 'panel_theme_settings_id',
         ));
+
+        custom_kirki_spacing('section_content_settings_id', 10);
 
         Kirki::add_field('max_container_width_id', [
             'type' => 'slider',
             'settings' => 'max_container_width',
             'label' => __('Maximum Container width', 'sage'),
-            'section' => 'section_content_sizes_id',
+            'description' => __('Define the maximum content width', 'sage'),
+            'section' => 'section_content_settings_id',
             // 'priority' => 10,
             'default' => 1280,
             'choices' => [
@@ -87,11 +174,14 @@ if (class_exists('Kirki')) {
             ],
         ]);
 
+        custom_kirki_border('section_content_settings_id');
+        custom_kirki_text('section_content_settings_id', 'Define the custom side spacing for Mobile and Desktop');
+
         Kirki::add_field('container_padding_mobile_id', [
             'type' => 'slider',
             'settings' => 'container_padding_mobile',
             'label' => __('Container padding (Mobile)', 'sage'),
-            'section' => 'section_content_sizes_id',
+            'section' => 'section_content_settings_id',
             'default' => 15,
             'choices' => [
                 'min' => 5,
@@ -104,7 +194,7 @@ if (class_exists('Kirki')) {
             'type' => 'slider',
             'settings' => 'container_padding_desktop',
             'label' => __('Container padding (Desktop)', 'sage'),
-            'section' => 'section_content_sizes_id',
+            'section' => 'section_content_settings_id',
             'default' => 30,
             'choices' => [
                 'min' => 10,
@@ -113,11 +203,14 @@ if (class_exists('Kirki')) {
             ],
         ]);
 
+        custom_kirki_border('section_content_settings_id');
+        custom_kirki_text('section_content_settings_id', 'Define the custom grid gutter size for Mobile and Desktop');
+
         Kirki::add_field('custom_gutter_size_mobile_id', [
             'type' => 'slider',
             'settings' => 'custom_gutter_size_mobile',
             'label' => __('Gutter size (Mobile)', 'sage'),
-            'section' => 'section_content_sizes_id',
+            'section' => 'section_content_settings_id',
             'default' => 20,
             'choices' => [
                 'min' => 10,
@@ -130,7 +223,7 @@ if (class_exists('Kirki')) {
             'type' => 'slider',
             'settings' => 'custom_gutter_size_desktop',
             'label' => __('Gutter size (Desktop)', 'sage'),
-            'section' => 'section_content_sizes_id',
+            'section' => 'section_content_settings_id',
             'default' => 30,
             'choices' => [
                 'min' => 20,
@@ -139,11 +232,14 @@ if (class_exists('Kirki')) {
             ],
         ]);
 
+        custom_kirki_border('section_content_settings_id');
+
         Kirki::add_field('custom_block_spacing_id', [
             'type' => 'slider',
             'settings' => 'custom_block_spacing',
             'label' => __('Block spacing', 'sage'),
-            'section' => 'section_content_sizes_id',
+            'section' => 'section_content_settings_id',
+            'description' => __('Define the general (mostly vertical) spacing between blocks', 'sage'),
             'default' => 32,
             'choices' => [
                 'min' => 16,
@@ -151,12 +247,62 @@ if (class_exists('Kirki')) {
                 'step' => 1,
             ],
         ]);
+
+        custom_kirki_border('section_content_settings_id');
+
+        Kirki::add_section('section_box_settings_id', array(
+            'title' => __('Box Settings', 'sage'),
+            'panel' => 'panel_theme_settings_id',
+        ));
+
+        Kirki::add_field('custom_border_width_id', [
+            'type' => 'slider',
+            'settings' => 'custom_border_width',
+            'label' => __('Custom Border Width', 'sage'),
+            'section' => 'section_content_settings_id',
+            'description' => __('Define the custom border width of content elements', 'sage'),
+            'default' => 0,
+            'choices' => [
+                'min' => 0,
+                'max' => 20,
+                'step' => 1,
+            ],
+        ]);
+
+        Kirki::add_field('custom_border_radius_id', [
+            'type' => 'slider',
+            'settings' => 'custom_border_radius',
+            'label' => __('Custom Border Radius', 'sage'),
+            'section' => 'section_content_settings_id',
+            'description' => __('Define the custom border radius of content elements', 'sage'),
+            'default' => 0,
+            'choices' => [
+                'min' => 0,
+                'max' => 16,
+                'step' => 1,
+            ],
+        ]);
+
+        Kirki::add_field('custom_shadow_id', [
+            'type' => 'select',
+            'settings' => 'custom_shadow',
+            'label' => __('Shadow', 'sage'),
+            'section' => 'section_content_settings_id',
+            'description' => __('Define the custom box shadow of content elements', 'sage'),
+            'default' => 'no-shadow',
+            'placeholder' => __('Select an option...', 'sage'),
+            'priority' => 10,
+            'multiple' => 1,
+            'choices' => $box_shadows,
+        ]);
     }
 
     /**
      * Font Settings
      */
-    function font_settings($standard_google_fonts) {
+    function font_settings() {
+
+        global $standard_google_fonts;
 
         $standard_google_fonts_array = [];
         foreach ($standard_google_fonts as $key => $value) {
@@ -173,7 +319,7 @@ if (class_exists('Kirki')) {
             'settings' => 'custom_font_size',
             'label' => __('Custom Font Size', 'sage'),
             'section' => 'section_font_settings_id',
-            'description' => __('The font size influences all sizes within the theme', 'sage'),
+            'description' => __('The font size influences all other font sizes & spacings within the theme', 'sage'),
             'default' => 16,
             'choices' => [
                 'min' => 14,
@@ -187,6 +333,7 @@ if (class_exists('Kirki')) {
             'settings' => 'custom_font_weight',
             'label' => __('Custom Font Weight', 'sage'),
             'section' => 'section_font_settings_id',
+            'description' => __('300 (Light)<br>400 (Medium)<br>500 (Bold)', 'sage'),
             'default' => 400,
             'choices' => [
                 'min' => 300,
@@ -200,6 +347,7 @@ if (class_exists('Kirki')) {
             'settings' => 'custom_headline_font',
             'label' => __('Headline Font', 'sage'),
             'section' => 'section_font_settings_id',
+            'description' => __('Font used for all Headline Types.<br>H1, H2, H3, H4, H5, H6', 'sage'),
             'default' => 'Roboto',
             'placeholder' => __('Select an option...', 'sage'),
             'priority' => 10,
@@ -207,125 +355,23 @@ if (class_exists('Kirki')) {
             'choices' => $standard_google_fonts_array,
         ]);
 
-        Kirki::add_field('custom_spacing_id_01', [
-            'type' => 'custom',
-            'settings' => 'custom_spacing_01',
-            'section' => 'section_font_settings_id',
-            'default' => '<div class="custom-spacing" style="height: 5px;" />',
-        ]);
+        custom_kirki_spacing('section_font_settings_id', 16);
 
         Kirki::add_field('custom_text_font_id', [
             'type' => 'select',
             'settings' => 'custom_text_font',
             'label' => __('Text Font', 'sage'),
             'section' => 'section_font_settings_id',
+            'description' => __('Font used for all Texts.', 'sage'),
             'default' => 'Roboto',
             'placeholder' => __('Select an option...', 'sage'),
             'priority' => 10,
             'multiple' => 1,
             'choices' => $standard_google_fonts_array,
         ]);
-    }
 
-    /**
-     * Color Settings
-     */
-    function color_settings($theme_colors) {
-        Kirki::add_section('section_color_settings_id', array(
-            'title' => __('Color Settings', 'sage'),
-            'panel' => 'panel_theme_settings_id',
-        ));
+        custom_kirki_spacing('section_font_settings_id', 16);
 
-        foreach ($theme_colors as $color => $value) {
-            if ($value === 'border') {
-                Kirki::add_field('custom_border_id_' . $color, [
-                    'type' => 'custom',
-                    'settings' => 'custom_border_' . $color,
-                    'section' => 'section_color_settings_id',
-                    'default' => '<hr style="border-top: 1px solid #B8B8B8; margin: 20px 0;"/>',
-                ]);
-            } else {
-                Kirki::add_field('custom_' . $color . '_color_id', [
-                    'type' => 'color',
-                    'settings' => 'custom_' . $color . '_color',
-                    'label' => __(ucfirst($color) . ' Color', 'sage'),
-                    'section' => 'section_color_settings_id',
-                    'default' => $value,
-                ]);
-            }
-        }
-    }
-
-    /**
-     * Box Settings
-     */
-    function box_settings() {
-        Kirki::add_section('section_box_settings_id', array(
-            'title' => __('Box Settings', 'sage'),
-            'panel' => 'panel_theme_settings_id',
-        ));
-
-        Kirki::add_field('custom_border_width_id', [
-            'type' => 'slider',
-            'settings' => 'custom_border_width',
-            'label' => __('Custom Border Width', 'sage'),
-            'section' => 'section_box_settings_id',
-            // 'priority' => 10,
-            'default' => 0,
-            'choices' => [
-                'min' => 0,
-                'max' => 20,
-                'step' => 1,
-            ],
-        ]);
-
-        Kirki::add_field('custom_border_radius_id', [
-            'type' => 'slider',
-            'settings' => 'custom_border_radius',
-            'label' => __('Custom Border Radius', 'sage'),
-            'section' => 'section_box_settings_id',
-            // 'priority' => 10,
-            'default' => 0,
-            'choices' => [
-                'min' => 0,
-                'max' => 16,
-                'step' => 1,
-            ],
-        ]);
-
-        $box_shadow = [
-            'no-shadow' => 'No Shadow',
-            'shadow-sm' => 'Small Shadow',
-            'shadow' => 'Shadow',
-            'shadow-md' => 'Medium Shadow',
-            'shadow-lg' => 'Large Shadow',
-        ];
-
-        Kirki::add_field('custom_shadow_id', [
-            'type' => 'select',
-            'settings' => 'custom_shadow',
-            'label' => __('Shadow', 'sage'),
-            'section' => 'section_box_settings_id',
-            'default' => 'no-shadow',
-            'placeholder' => __('Select an option...', 'sage'),
-            'priority' => 10,
-            'multiple' => 1,
-            'choices' => $box_shadow,
-        ]);
-    }
-
-    /**
-     * Icon Settings
-     */
-    function icon_settings() {
-        Kirki::add_section('section_icon_settings_id', array(
-            'title' => __('Icon Settings', 'sage'),
-            'panel' => 'panel_theme_settings_id',
-        ));
-
-        /**
-         * Icon Settings
-         */
         $standard_icon_sets = [
             'bootstrap-icons' => 'Bootstrap Icons',
             'feather-icons' => 'Feather Icons',
@@ -335,13 +381,142 @@ if (class_exists('Kirki')) {
         Kirki::add_field('custom_icons_id', [
             'type' => 'select',
             'settings' => 'custom_icons',
-            'label' => __('Icons', 'sage'),
-            'section' => 'section_icon_settings_id',
+            'label' => __('Icon Font', 'sage'),
+            'section' => 'section_font_settings_id',
+            'description' => __('Select the custom Icon font.', 'sage'),
             'default' => 'bootstrap-icons',
             'placeholder' => __('Select an option...', 'sage'),
             'priority' => 10,
             'multiple' => 1,
             'choices' => $standard_icon_sets,
+        ]);
+    }
+
+    /**
+     * Color Settings
+     */
+    function color_settings() {
+
+        global $general_colors, $font_colors, $content_colors, $alert_colors, $menu_colors, $footer_colors;
+
+        Kirki::add_section('section_color_settings_id', array(
+            'title' => __('Color Settings', 'sage'),
+            'panel' => 'panel_theme_settings_id',
+        ));
+
+        function cleanColorName($color_name) {
+            $new_color_name = str_replace('_', ' ', $color_name);
+            $new_color_name = ucwords($new_color_name);
+            return $new_color_name;
+        }
+
+        custom_kirki_headline('section_color_settings_id', 'General Colors', 'h2');
+        // custom_kirki_text('section_color_settings_id', 'Define the general theme Colors that can be selected within the Gutenberg Editor');
+
+        foreach ($general_colors as $color => $value) {
+            Kirki::add_field('custom_' . $color . '_color_id', [
+                'type' => 'color',
+                'settings' => 'custom_' . $color . '_color',
+                'label' => __(cleanColorName($color) . ' Color', 'sage'),
+                'section' => 'section_color_settings_id',
+                'default' => $value,
+            ]);
+        }
+
+        custom_kirki_border('section_color_settings_id');
+        custom_kirki_headline('section_color_settings_id', 'Font Colors', 'h2');
+        // custom_kirki_text('section_color_settings_id', 'Define the general theme Colors that can be selected within the Gutenberg Editor');
+
+        foreach ($font_colors as $color => $value) {
+            Kirki::add_field('custom_' . $color . '_color_id', [
+                'type' => 'color',
+                'settings' => 'custom_' . $color . '_color',
+                'label' => __(cleanColorName($color) . ' Color', 'sage'),
+                'section' => 'section_color_settings_id',
+                'default' => $value,
+            ]);
+        }
+
+        custom_kirki_border('section_color_settings_id');
+        custom_kirki_headline('section_color_settings_id', 'Content Colors', 'h2');
+
+        foreach ($content_colors as $color => $value) {
+            Kirki::add_field('custom_' . $color . '_color_id', [
+                'type' => 'color',
+                'settings' => 'custom_' . $color . '_color',
+                'label' => __(cleanColorName($color) . ' Color', 'sage'),
+                'section' => 'section_color_settings_id',
+                'default' => $value,
+            ]);
+        }
+
+        custom_kirki_border('section_color_settings_id');
+        custom_kirki_headline('section_color_settings_id', 'Alert Colors', 'h2');
+
+        foreach ($alert_colors as $color => $value) {
+            Kirki::add_field('custom_' . $color . '_color_id', [
+                'type' => 'color',
+                'settings' => 'custom_' . $color . '_color',
+                'label' => __(cleanColorName($color) . ' Color', 'sage'),
+                'section' => 'section_color_settings_id',
+                'default' => $value,
+            ]);
+        }
+
+        custom_kirki_border('section_color_settings_id');
+        custom_kirki_headline('section_color_settings_id', 'Menu Colors', 'h2');
+
+        foreach ($menu_colors as $color => $value) {
+            Kirki::add_field('custom_' . $color . '_color_id', [
+                'type' => 'color',
+                'settings' => 'custom_' . $color . '_color',
+                'label' => __(cleanColorName($color) . ' Color', 'sage'),
+                'section' => 'section_color_settings_id',
+                'default' => $value,
+            ]);
+        }
+
+        custom_kirki_border('section_color_settings_id');
+        custom_kirki_headline('section_color_settings_id', 'Footer Colors', 'h2');
+
+        foreach ($footer_colors as $color => $value) {
+            Kirki::add_field('custom_' . $color . '_color_id', [
+                'type' => 'color',
+                'settings' => 'custom_' . $color . '_color',
+                'label' => __(cleanColorName($color) . ' Color', 'sage'),
+                'section' => 'section_color_settings_id',
+                'default' => $value,
+            ]);
+        }
+
+        custom_kirki_border('section_color_settings_id');
+
+        /**
+         * Sorted theme color selection / Remove Dark Color
+         * TODO: Make A bigger Color Palette Available
+         */
+        $selected_theme_colors = [];
+        foreach (array_merge($general_colors) as $key => $value) {
+            if (gettype($key) === 'integer') {
+                return;
+            }
+            if ($key === 'dark') {
+                return;
+            }
+            $selected_theme_colors[$key] = cleanColorName($key);
+        }
+
+        Kirki::add_field('brightness_color_id', [
+            'type' => 'select',
+            'settings' => 'brightness_color',
+            'label' => __('Select Brightness Color', 'sage'),
+            'section' => 'section_color_settings_id',
+            'description' => __('Define which of the above colors should be splittet into multiple lighter colors and shown within the editor', 'sage'),
+            'default' => 'primary',
+            'placeholder' => __('Select an option...', 'sage'),
+            'priority' => 10,
+            'multiple' => 1,
+            'choices' => $selected_theme_colors,
         ]);
     }
 
@@ -362,18 +537,18 @@ if (class_exists('Kirki')) {
             'default' => '0',
         ]);
 
-        Kirki::add_field('custom_menu_top_position_id', [
-            'type' => 'slider',
-            'settings' => 'custom_menu_top_position',
-            'label' => __('Menu Height', 'sage'),
-            'section' => 'section_menu_settings_id',
-            'default' => 30,
-            'choices' => [
-                'min' => 10,
-                'max' => 170,
-                'step' => 1,
-            ],
-        ]);
+        // Kirki::add_field('custom_menu_top_position_id', [
+        //     'type' => 'slider',
+        //     'settings' => 'custom_menu_top_position',
+        //     'label' => __('Menu Height', 'sage'),
+        //     'section' => 'section_menu_settings_id',
+        //     'default' => 30,
+        //     'choices' => [
+        //         'min' => 10,
+        //         'max' => 170,
+        //         'step' => 1,
+        //     ],
+        // ]);
 
         Kirki::add_field('custom_menu_height_id', [
             'type' => 'slider',
@@ -409,10 +584,13 @@ if (class_exists('Kirki')) {
             'default' => '0',
         ]);
 
-        Kirki::add_field('custom_menu_icon_id', [
+        custom_kirki_border('section_menu_settings_id');
+        custom_kirki_headline('section_menu_settings_id', 'Menu Logo Settings', 'h2');
+
+        Kirki::add_field('custom_menu_logo_image_id', [
             'type' => 'image',
-            'settings' => 'custom_menu_icon',
-            'label' => __('Menu Icon', 'sage'),
+            'settings' => 'custom_menu_logo_image',
+            'label' => __('Menu Logo Image', 'sage'),
             // 'description' => __('Description Here.', 'sage'),
             'section' => 'section_menu_settings_id',
             'default' => '',
@@ -424,10 +602,12 @@ if (class_exists('Kirki')) {
             ],
         ]);
 
-        Kirki::add_field('custom_menu_icon_size_id', [
+        custom_kirki_spacing('section_menu_settings_id', 10);
+
+        Kirki::add_field('custom_menu_logo_size_id', [
             'type' => 'slider',
-            'settings' => 'custom_menu_icon_size',
-            'label' => __('Menu Icon Size in %', 'sage'),
+            'settings' => 'custom_menu_logo_size',
+            'label' => __('Menu Logo Size in %', 'sage'),
             'section' => 'section_menu_settings_id',
             'default' => 80,
             'choices' => [
@@ -437,10 +617,10 @@ if (class_exists('Kirki')) {
             ],
         ]);
 
-        Kirki::add_field('custom_menu_icon_wrapper_width_id', [
+        Kirki::add_field('custom_menu_logo_wrapper_width_id', [
             'type' => 'slider',
-            'settings' => 'custom_menu_icon_wrapper_width',
-            'label' => __('Menu Icon Wrapper Width', 'sage'),
+            'settings' => 'custom_menu_logo_wrapper_width',
+            'label' => __('Menu Logo Wrapper Width', 'sage'),
             'section' => 'section_menu_settings_id',
             'default' => 60,
             'choices' => [
@@ -449,6 +629,8 @@ if (class_exists('Kirki')) {
                 'step' => 1,
             ],
         ]);
+
+        custom_kirki_border('section_menu_settings_id');
 
         Kirki::add_field('custom_menu_font_size_id', [
             'type' => 'slider',
@@ -501,57 +683,6 @@ if (class_exists('Kirki')) {
             'default' => '0',
         ]);
 
-        Kirki::add_field('custom_menu_link_color_id', [
-            'type' => 'color',
-            'settings' => 'custom_menu_link_color',
-            'label' => __('Menu Link Color', 'sage'),
-            'section' => 'section_menu_settings_id',
-            'default' => '#212529',
-        ]);
-
-        Kirki::add_field('custom_menu_link_active_color_id', [
-            'type' => 'color',
-            'settings' => 'custom_menu_link_active_color',
-            'label' => __('Menu Link Active Color', 'sage'),
-            'section' => 'section_menu_settings_id',
-            'default' => '#212529',
-        ]);
-
-        Kirki::add_field('custom_menu_link_active_background_color_id', [
-            'type' => 'color',
-            'settings' => 'custom_menu_link_active_background_color',
-            'label' => __('Menu Link Active Background Color', 'sage'),
-            'section' => 'section_menu_settings_id',
-            'default' => '#f8f9fa',
-        ]);
-
-        Kirki::add_field('custom_menu_background_color_id', [
-            'type' => 'color',
-            'settings' => 'custom_menu_background_color',
-            'label' => __('Menu Background Color', 'sage'),
-            'section' => 'section_menu_settings_id',
-            'default' => '#f8f9fa',
-        ]);
-
-        /**
-         * Submenu Colors
-         */
-        Kirki::add_field('custom_submenu_link_color_id', [
-            'type' => 'color',
-            'settings' => 'custom_submenu_link_color',
-            'label' => __('Submenu Link Color', 'sage'),
-            'section' => 'section_menu_settings_id',
-            'default' => '#212529',
-        ]);
-
-        Kirki::add_field('custom_submenu_link_active_color_id', [
-            'type' => 'color',
-            'settings' => 'custom_submenu_link_active_color',
-            'label' => __('Submenu Link Active Color', 'sage'),
-            'section' => 'section_menu_settings_id',
-            'default' => '#212529',
-        ]);
-
         /**
          * Custom Opening Hours via ACF Pro
          */
@@ -570,45 +701,43 @@ if (class_exists('Kirki')) {
     /**
      * Footer Settings
      */
-    function footer_settings() {
-        Kirki::add_section('section_footer_settings_id', array(
-            'title' => __('Footer Settings', 'sage'),
-            'panel' => 'panel_theme_settings_id',
-        ));
-
-        Kirki::add_field('custom_footer_background_color_id', [
-            'type' => 'color',
-            'settings' => 'custom_footer_background_color',
-            'label' => __('Footer Background color', 'sage'),
-            'section' => 'section_footer_settings_id',
-            'default' => '#f8f9fa',
-        ]);
-
-        Kirki::add_field('custom_footer_text_color_id', [
-            'type' => 'color',
-            'settings' => 'custom_footer_text_color',
-            'label' => __('Footer Background color', 'sage'),
-            'section' => 'section_footer_settings_id',
-            'default' => '#f8f9fa',
-        ]);
-
-        Kirki::add_field('custom_footer_link_color_id', [
-            'type' => 'color',
-            'settings' => 'custom_footer_link_color',
-            'label' => __('Footer Background color', 'sage'),
-            'section' => 'section_footer_settings_id',
-            'default' => '#f8f9fa',
-        ]);
-    }
+    // function footer_settings() {
+    //     Kirki::add_section('section_footer_settings_id', array(
+    //         'title' => __('Footer Settings', 'sage'),
+    //         'panel' => 'panel_theme_settings_id',
+    //     ));
+    //
+    //     Kirki::add_field('custom_footer_background_color_id', [
+    //         'type' => 'color',
+    //         'settings' => 'custom_footer_background_color',
+    //         'label' => __('Footer Background Color', 'sage'),
+    //         'section' => 'section_footer_settings_id',
+    //         'default' => '#f8f9fa',
+    //     ]);
+    //
+    //     Kirki::add_field('custom_footer_text_color_id', [
+    //         'type' => 'color',
+    //         'settings' => 'custom_footer_text_color',
+    //         'label' => __('Footer Text Color', 'sage'),
+    //         'section' => 'section_footer_settings_id',
+    //         'default' => '#f8f9fa',
+    //     ]);
+    //
+    //     Kirki::add_field('custom_footer_link_color_id', [
+    //         'type' => 'color',
+    //         'settings' => 'custom_footer_link_color',
+    //         'label' => __('Footer Link Color', 'sage'),
+    //         'section' => 'section_footer_settings_id',
+    //         'default' => '#f8f9fa',
+    //     ]);
+    // }
 
     /**
      * Init Settings
      */
-    content_sizes();
-    font_settings($standard_google_fonts);
-    color_settings($theme_colors);
-    box_settings();
-    icon_settings();
+    content_settings();
+    font_settings();
+    color_settings();
     menu_settings();
-    footer_settings();
+    // footer_settings();
 }

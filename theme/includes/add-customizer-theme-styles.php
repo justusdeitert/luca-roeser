@@ -25,22 +25,40 @@ function customizer_theme_styles() {
     }
 
     $theme_colors = [
-        // Theme Colors
+        // General Colors
         'primary' => get_theme_mod('custom_primary_color', '#0d6efd'),
         'secondary' => get_theme_mod('custom_secondary_color', '#6c757d'),
+        'tertiary' => get_theme_mod('custom_tertiary_color', '#6c757d'),
         'light' => get_theme_mod('custom_light_color', '#f8f9fa'),
         'dark' => get_theme_mod('custom_dark_color', '#212529'),
 
-        // Standard Colors
+        // Font Colors
         'font' => get_theme_mod('custom_font_color', '#212529'),
         'link' => get_theme_mod('custom_link_color', '#0d6efd'),
-        'background' => get_theme_mod('custom_background_color', '#f8f9fa'),
+        'link-hover' => get_theme_mod('custom_link_hover_color', '#0d6efd'),
+
+        // Content Colors
+        'body-background' => get_theme_mod('custom_body_background_color', '#f8f9fa'),
 
         // Alert Colors
         'success' => get_theme_mod('custom_success_color', '#198754'),
         'danger' => get_theme_mod('custom_danger_color', '#dc3545'),
         'warning' => get_theme_mod('custom_warning_color', '#ffc107'),
         'info' => get_theme_mod('custom_info_color', '#0dcaf0'),
+
+        // Menu Colors
+        'menu-background' => get_theme_mod('custom_menu_background_color', '#f8f9fa'),
+        'menu-link' => get_theme_mod('custom_menu_link_color', '#212529'),
+        'menu-link-active' => get_theme_mod('custom_menu_link_active_color', '#f8f9fa'),
+        'menu-link-active-background' => get_theme_mod('custom_menu_link_active_background_color', '#f8f9fa'),
+        'submenu-link' => get_theme_mod('custom_submenu_link_color', '#212529'),
+        'submenu-link-active' => get_theme_mod('custom_submenu_link_active_color', '#212529'),
+
+        // Footer Colors
+        'footer-background' => get_theme_mod('custom_footer_background_color', '#f8f9fa'),
+        'footer-text' => get_theme_mod('custom_footer_text_color', '#f8f9fa'),
+        'footer-link' => get_theme_mod('custom_footer_link_color', '#f8f9fa'),
+        'footer-link-hover' => get_theme_mod('custom_footer_link_hover_color', '#f8f9fa'),
     ];
 
     /**
@@ -69,7 +87,7 @@ function customizer_theme_styles() {
     <link href="<?php echo $custom_google_font_string; ?>" rel="stylesheet">
     <style>
         :root {
-            /* Content Sizes */
+            /* Content Settings */
             --max-container-width: <?php echo get_theme_mod('max_container_width', 1280); ?>px;
             --container-padding-mobile: <?php echo get_theme_mod('container_padding_mobile', 15) / 16; ?>rem;
             --container-padding-desktop: <?php echo get_theme_mod('container_padding_desktop', 30) / 16; ?>rem;
@@ -78,8 +96,11 @@ function customizer_theme_styles() {
             --custom-gutter-desktop-x: <?php echo get_theme_mod('custom_gutter_size_desktop', 30) / 16; ?>rem;
             --custom-gutter-desktop-y: <?php echo get_theme_mod('custom_gutter_size_desktop', 30) / 16; ?>rem;
             --custom-block-spacing: <?php echo get_theme_mod('custom_block_spacing', 32) / 16; ?>rem;
+            --custom-border-width: <?php echo get_theme_mod('custom_border_width', 24) / 16; ?>rem;
+            --custom-border-radius: <?php echo get_theme_mod('custom_border_radius', 0); ?>px;
+            --custom-box-shadow: <?php echo $custom_shadows[get_theme_mod('custom_shadow', 'no-shadow')]; ?>;
 
-            /* Font Sizes */
+            /* Font Settings */
             --custom-font-size: <?php echo get_theme_mod('custom_font_size'); ?>px;
             --custom-font-weight: <?php echo get_theme_mod('custom_font_weight', '400'); ?>;
             --custom-headline-font: <?php echo get_theme_mod('custom_headline_font', 'Roboto'); ?>;
@@ -89,36 +110,20 @@ function customizer_theme_styles() {
 
             /* Color Settings */
             <?php foreach ($theme_colors as $name => $value) { ?>
-                --color-<?php echo $name; ?>: <?php echo $value; ?>;
+                --custom-<?php echo $name; ?>-color: <?php echo $value; ?>;
             <?php } ?>
 
             <?php foreach ($gray_colors as $name => $value) { ?>
-                --color-gray-<?php echo $name; ?>: <?php echo $value; ?>;
+                --custom-gray-<?php echo $name; ?>-color: <?php echo $value; ?>;
             <?php } ?>
-
-            /* Box Settings */
-            --custom-border-width: <?php echo get_theme_mod('custom_border_width', 24) / 16; ?>rem;
-            --custom-border-radius: <?php echo get_theme_mod('custom_border_radius', 0); ?>px;
-            --custom-box-shadow: <?php echo $custom_shadows[get_theme_mod('custom_shadow', 'no-shadow')]; ?>;
 
             /* Menu Settings */
             --custom-menu-height:  <?php echo get_theme_mod('custom_menu_height', 60); ?>px;
-            --custom-menu-icon-size:  <?php echo get_theme_mod('custom_menu_icon_size', 100); ?>%;
-            --custom-menu-icon-wrapper-width:  <?php echo get_theme_mod('custom_menu_icon_wrapper_width', 100); ?>px;
+            --custom-menu-logo-size:  <?php echo get_theme_mod('custom_menu_logo_size', 100); ?>%;
+            --custom-menu-logo-wrapper-width:  <?php echo get_theme_mod('custom_menu_logo_wrapper_width', 100); ?>px;
             --custom-menu-item-spacing:  <?php echo get_theme_mod('custom_menu_item_spacing', 5); ?>px;
-            --custom-menu-background-color:  <?php echo get_theme_mod('custom_menu_background_color', '#f8f9fa'); ?>;
             --custom-menu-font-weight:  <?php echo get_theme_mod('custom_menu_font_weight', 300); ?>;
             --custom-menu-font-size:  <?php echo get_theme_mod('custom_menu_font_size', 16) / 16; ?>rem;
-            --custom-menu-link-color:  <?php echo get_theme_mod('custom_menu_link_color', '#212529'); ?>;
-            --custom-menu-link-active-color:  <?php echo get_theme_mod('custom_menu_link_active_color', '#212529'); ?>;
-            --custom-menu-link-active-background-color:  <?php echo get_theme_mod('custom_menu_link_active_background_color', '#f8f9fa'); ?>;
-            --custom-submenu-link-color:  <?php echo get_theme_mod('custom_submenu_link_color', '#212529'); ?>;
-            --custom-submenu-link-active-color:  <?php echo get_theme_mod('custom_submenu_link_active_color', '#212529'); ?>;
-
-            /* Footer Settings */
-            --custom-footer-background-color: <?php echo get_theme_mod('custom_footer_background_color'); ?>;
-            --custom-footer-text-color: <?php echo get_theme_mod('custom_footer_text_color'); ?>;
-            --custom-footer-link-color: <?php echo get_theme_mod('custom_footer_link_color'); ?>;
         }
 
         /* Icon Settings */

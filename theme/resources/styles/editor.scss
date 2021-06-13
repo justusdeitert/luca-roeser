@@ -28,13 +28,12 @@ html {
     font-family: var(--custom-text-font-family) !important;
     font-size: $font-size-base;
     line-height: $line-height-base;
-    color: var(--color-font);
-    background-color: var(--color-background);
+    color: var(--custom-font-color);
+    background-color: var(--custom-body-background-color);
     overflow: hidden;
 
     // wrapper to override gutenberg block library css
     > * {
-
         @import 'common';
         @import '../blocks';
         @import 'core-blocks';
