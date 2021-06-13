@@ -24,7 +24,7 @@ stage_deploy:
         paths:
             - build/
     only:
-        - dev
+        - master
     script:
         - ssh-add <(echo "$STAGING_PRIVATE_KEY")
         - ssh -p22 wandeldigital@87.230.85.133 "mkdir testfolder/wp-content/themes/_tmp"
