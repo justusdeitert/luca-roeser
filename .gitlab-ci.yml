@@ -62,7 +62,7 @@ stage_deploy:
     script:
 #        - echo "$STAGING_PRIVATE_KEY"
         - ssh-add <(echo "$STAGING_PRIVATE_KEY")
-        - ssh -p22 wandeldigital@87.230.85.133 "mkdir ./testfolder/wp-content/themes/_tmp"
-        - scp -P22 -r build/* wandeldigital@87.230.85.133:./testfolder/wp-content/themes/_tmp
-        - ssh -p22 wandeldigital@87.230.85.133 "mv ./testfolder/wp-content/themes/live ./testfolder/wp-content/themes/_old && mv ./testfolder/wp-content/themes/_tmp ./testfolder/wp-content/themes/live"
-        - ssh -p22 wandeldigital@87.230.85.133 "rm -rf ./testfolder/wp-content/themes/_old"
+        - ssh wandeldigital@87.230.85.133 "mkdir ./_tmp"
+        - scp -r build/* wandeldigital@87.230.85.133:./_tmp
+        - ssh wandeldigital@87.230.85.133 "mv ./live ./_old && mv ./_tmp ./live"
+        - ssh wandeldigital@87.230.85.133 "rm -rf ./_old"
