@@ -5,9 +5,9 @@
 
 #image: node:latest
 
-#stages:
-#    - build
-#    - move
+stages:
+    - build
+    - move
 
 before_script:
 #    - apt-get update
@@ -53,9 +53,6 @@ before_script:
 build_npm:
     stage: build
     image: node:latest
-    artifacts:
-        paths:
-            - build/
     script:
         - pwd
         - ls
@@ -73,6 +70,6 @@ stage_deploy:
         - ls
         - ssh-add <(echo "$STAGING_PRIVATE_KEY")
         - ssh wandeldigital@87.230.85.133 "mkdir ./_tmp"
-        - scp -r build/* wandeldigital@87.230.85.133:./_tmp
+        - scp -r * wandeldigital@87.230.85.133:./_tmp
         - ssh wandeldigital@87.230.85.133 "mv ./live ./_old && mv ./_tmp ./live"
         - ssh wandeldigital@87.230.85.133 "rm -rf ./_old"
