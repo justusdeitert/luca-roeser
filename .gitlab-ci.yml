@@ -41,6 +41,8 @@ pipeline:
     image: node:latest
     script:
         - pwd
+        - npm install --prefix ./theme
+        - npm build:production --prefix ./theme
 
 #stage_deploy:
 #    artifacts:
