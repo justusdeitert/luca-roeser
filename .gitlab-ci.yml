@@ -42,7 +42,11 @@ pipeline:
     script:
         - pwd
         - npm install --prefix ./theme
-        - npm build:production --prefix ./theme
+        - npm run build:production --prefix ./theme
+
+stage_deploy:
+
+
 
 #stage_deploy:
 #    artifacts:
