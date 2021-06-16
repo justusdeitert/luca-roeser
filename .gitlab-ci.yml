@@ -3,9 +3,11 @@
 #image: php:latest
 #image: note:latest
 
-stages:
-    - build
-    - move
+#image: node:latest
+
+#stages:
+#    - build
+#    - move
 
 before_script:
 #    - apt-get update
@@ -19,6 +21,10 @@ before_script:
     # - npm install
     # - npm run deploy # TODO: Adjust tasks
 #
+#    - ls
+#    - npm install --prefix ./theme
+#    - npm run build:production --prefix ./theme
+#    - ls
     # Security tip
     # Create a user that has access only to the folder that needs to be updated
     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
@@ -47,8 +53,12 @@ before_script:
 build_npm:
     stage: build
     image: node:latest
+    artifacts:
+        paths:
+            - build/
     script:
         - pwd
+        - ls
         - npm install --prefix ./theme
         - npm run build:production --prefix ./theme
 
@@ -60,7 +70,7 @@ stage_deploy:
     only:
         - master
     script:
-#        - echo "$STAGING_PRIVATE_KEY"
+        - ls
         - ssh-add <(echo "$STAGING_PRIVATE_KEY")
         - ssh wandeldigital@87.230.85.133 "mkdir ./_tmp"
         - scp -r build/* wandeldigital@87.230.85.133:./_tmp
