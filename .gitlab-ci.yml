@@ -1,35 +1,56 @@
 # https://docs.gitlab.com/ee/ci/examples/deployment/composer-npm-deploy.html
 
-image: tetraweb/php
+#image: php:latest
+#image: note:latest
 
 before_script:
     - apt-get update
     - apt-get install zip unzip
-    - pwd
-    - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-    - php composer-setup.php
-    - php -r "unlink('composer-setup.php');"
+#    - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+#    - php composer-setup.php
+#    - php -r "unlink('composer-setup.php');"
     # Run Composer Install to fetch all PHP dependencies and npm install
-    - cd $(pwd)/bedrock && php $(pwd)/composer.phar install
-    - cd $(pwd)/theme && php $(pwd)/composer.phar install
-    - npm install
-    - npm run deploy
+#    - php ./composer.phar install --working-dir=./bedrock
+#    - php ./composer.phar install --working-dir=./theme
+    # - npm install
+    # - npm run deploy # TODO: Adjust tasks
     # Security tip
     # Create a user that has access only to the folder that needs to be updated
-    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-    - mkdir -p ~/.ssh
-    - eval $(ssh-agent -s)
-    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+#    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+#    - mkdir -p ~/.ssh
+#    - eval $(ssh-agent -s)
+#    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
 
-stage_deploy:
-    artifacts:
-        paths:
-            - build/
-    only:
-        - master
+build:composer:
+    image: php:latest
     script:
-        - ssh-add <(echo "$STAGING_PRIVATE_KEY")
-        - ssh -p22 wandeldigital@87.230.85.133 "mkdir testfolder/wp-content/themes/_tmp"
-        - scp -P22 -r build/* wandeldigital@87.230.85.133:testfolder/wp-content/themes/_tmp
-        - ssh -p22 wandeldigital@87.230.85.133 "mv testfolder/wp-content/themes/live testfolder/wp-content/themes/_old && mv testfolder/wp-content/themes/_tmp testfolder/wp-content/themes/live"
-        - ssh -p22 wandeldigital@87.230.85.133 "rm -rf testfolder/wp-content/themes/_old"
+        - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+        - php composer-setup.php
+        - php -r "unlink('composer-setup.php');"
+        # Run Composer Install to fetch all PHP dependencies and npm install
+        - php ./composer.phar install --working-dir=./bedrock
+        - php ./composer.phar install --working-dir=./theme
+        # Security tip
+        # Create a user that has access only to the folder that needs to be updated
+        - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+        - mkdir -p ~/.ssh
+        - eval $(ssh-agent -s)
+        - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+
+build:npm:
+    image: npm:latest
+    script:
+        - pwd
+
+#stage_deploy:
+#    artifacts:
+#        paths:
+#            - build/
+#    only:
+#        - master
+#    script:
+#        - ssh-add <(echo "$STAGING_PRIVATE_KEY")
+#        - ssh -p22 wandeldigital@87.230.85.133 "mkdir testfolder/wp-content/themes/_tmp"
+#        - scp -P22 -r build/* wandeldigital@87.230.85.133:testfolder/wp-content/themes/_tmp
+#        - ssh -p22 wandeldigital@87.230.85.133 "mv testfolder/wp-content/themes/live testfolder/wp-content/themes/_old && mv testfolder/wp-content/themes/_tmp testfolder/wp-content/themes/live"
+#        - ssh -p22 wandeldigital@87.230.85.133 "rm -rf testfolder/wp-content/themes/_old"
