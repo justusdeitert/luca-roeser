@@ -10,8 +10,8 @@ stages:
     - deploy
 
 # before_script:
-    - apt-get update
-    - apt-get install zip unzip
+#    - apt-get update
+#    - apt-get install zip unzip php-zip
 #    - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 #    - php composer-setup.php
 #    - php -r "unlink('composer-setup.php');"
@@ -43,6 +43,9 @@ build:composer:
     only:
         - master
     script:
+        # Intalling Core Dependencies
+        - apt-get update
+        - apt-get install zip unzip php7.3-zip git
         # Install Composer
         - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
         - php composer-setup.php
