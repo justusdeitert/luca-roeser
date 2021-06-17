@@ -7,7 +7,7 @@
 
 stages:
     - build
-    - move
+    - deploy
 
 before_script:
 #    - apt-get update
@@ -43,27 +43,34 @@ before_script:
 #        - php ./composer.phar install --working-dir=./theme
 #        # Security tip
 #        # Create a user that has access only to the folder that needs to be updated
-#        - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-#        - mkdir -p ~/.ssh
-#        - eval $(ssh-agent -s)
-#        - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+##        - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+##        - mkdir -p ~/.ssh
+##        - eval $(ssh-agent -s)
+##        - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
 
 
 # npm fileline!!!
-build_npm:
+build:npm:
     stage: build
     image: node:latest
-    script:
-        - pwd
-        - ls
-        - npm install --prefix ./theme
-        - npm run build:production --prefix ./theme
-
-stage_deploy:
-    stage: move
     artifacts:
         paths:
             - theme/public/
+    #            - theme/vendor/
+    #            - bedrock/vendor/
+    script:
+#        - pwd
+#        - ls
+        - npm install --prefix ./theme
+        - npm run build:production --prefix ./theme
+
+deploy:staging:
+    stage: deploy
+    artifacts:
+        paths:
+            - theme/public/
+#            - theme/vendor/
+#            - bedrock/vendor/
     only:
         - master
     script:
