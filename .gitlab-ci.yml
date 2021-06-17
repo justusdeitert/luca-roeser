@@ -63,7 +63,7 @@ stage_deploy:
     stage: move
     artifacts:
         paths:
-            - build/
+            - theme/public/
     only:
         - master
     script:
@@ -71,5 +71,5 @@ stage_deploy:
         - ssh-add <(echo "$STAGING_PRIVATE_KEY")
         - ssh wandeldigital@87.230.85.133 "mkdir ./_tmp"
         - scp -r * wandeldigital@87.230.85.133:./_tmp
-        - ssh wandeldigital@87.230.85.133 "mv ./live ./_old && mv ./_tmp ./live"
+        # - ssh wandeldigital@87.230.85.133 "mv ./live ./_old && mv ./_tmp ./live"
         - ssh wandeldigital@87.230.85.133 "rm -rf ./_old"
