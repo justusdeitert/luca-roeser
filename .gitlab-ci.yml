@@ -44,8 +44,8 @@ build:composer:
         - master
     script:
         # Intalling Core Dependencies
-        - apt-get update
-        - apt-get install zip unzip git
+        - apt-get -y update
+        - apt-get -y install zip unzip git
         # Install Composer
         - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
         - php composer-setup.php
