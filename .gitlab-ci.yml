@@ -34,7 +34,7 @@ stages:
 
 build:composer:
     stage: build
-    image: php:latest
+    image: php:7.4
     artifacts:
         paths:
             - theme/public/
@@ -45,7 +45,7 @@ build:composer:
     script:
         # Intalling Core Dependencies
         - apt-get update
-        - apt-get install zip unzip php7.3-zip git
+        - apt-get install zip unzip git
         # Install Composer
         - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
         - php composer-setup.php
