@@ -9,9 +9,9 @@ stages:
     - build
     - deploy
 
-before_script:
-#    - apt-get update
-#    - apt-get install zip unzip
+# before_script:
+    - apt-get update
+    - apt-get install zip unzip
 #    - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 #    - php composer-setup.php
 #    - php -r "unlink('composer-setup.php');"
@@ -27,10 +27,10 @@ before_script:
 #    - ls
     # Security tip
     # Create a user that has access only to the folder that needs to be updated
-    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-    - mkdir -p ~/.ssh
-    - eval $(ssh-agent -s)
-    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+#    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+#    - mkdir -p ~/.ssh
+#    - eval $(ssh-agent -s)
+#    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
 
 build:composer:
     stage: build
@@ -43,6 +43,7 @@ build:composer:
     only:
         - master
     script:
+        # Install Composer
         - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
         - php composer-setup.php
         - php -r "unlink('composer-setup.php');"
@@ -84,7 +85,13 @@ deploy:staging:
     only:
         - master
     script:
-        - ls
+        # Security tip
+        # Create a user that has access only to the folder that needs to be updated
+        - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+        - mkdir -p ~/.ssh
+        - eval $(ssh-agent -s)
+        - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+        # Deploy to Server
         - ssh-add <(echo "$STAGING_PRIVATE_KEY")
         - ssh wandeldigital@87.230.85.133 "mkdir ./_tmp"
         - scp -r * wandeldigital@87.230.85.133:./_tmp
