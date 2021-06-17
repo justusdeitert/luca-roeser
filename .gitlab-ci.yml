@@ -6,7 +6,8 @@
 #image: node:latest
 
 stages:
-    - build
+    - build:composer
+    - build:npm
     - deploy
 
 # before_script:
@@ -33,11 +34,10 @@ stages:
 #    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
 
 build:composer:
-    stage: build
+    stage: build:composer
     image: php:7.4
     artifacts:
         paths:
-            - theme/public/
             - theme/vendor/
             - bedrock/vendor/
     only:
@@ -45,14 +45,14 @@ build:composer:
     script:
         # Intalling Core Dependencies
         - apt-get -y update
-        - apt-get -y install zip unzip git
+        - apt-get -y install zip unzip git composer
         # Install Composer
-        - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-        - php composer-setup.php
-        - php -r "unlink('composer-setup.php');"
+#        - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+#        - php composer-setup.php
+#        - php -r "unlink('composer-setup.php');"
         # Run Composer Install to fetch all PHP dependencies and npm install
-        - php ./composer.phar install --working-dir=./bedrock
-        - php ./composer.phar install --working-dir=./theme
+        - composer install --working-dir=./bedrock
+        - composer install --working-dir=./theme
         # Security tip
         # Create a user that has access only to the folder that needs to be updated
 #        - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
@@ -63,7 +63,7 @@ build:composer:
 
 # npm fileline!!!
 build:npm:
-    stage: build
+    stage: build:npm
     image: node:latest
     artifacts:
         paths:
