@@ -7,7 +7,7 @@
 
 stages:
     - build:composer
-    - build:npm
+#    - build:npm
     - deploy
 
 # before_script:
@@ -62,27 +62,27 @@ build:composer:
 
 
 # npm fileline!!!
-build:npm:
-    stage: build:npm
-    image: node:latest
-    artifacts:
-        paths:
-            - theme/public/
-            - theme/vendor/
-            - bedrock/vendor/
-    only:
-        - master
-    script:
-#        - pwd
-#        - ls
-        - npm install --prefix ./theme
-        - npm run build:production --prefix ./theme
+#build:npm:
+#    stage: build:npm
+#    image: node:latest
+#    artifacts:
+#        paths:
+#            - theme/public/
+#            - theme/vendor/
+#            - bedrock/vendor/
+#    only:
+#        - master
+#    script:
+##        - pwd
+##        - ls
+#        - npm install --prefix ./theme
+#        - npm run build:production --prefix ./theme
 
 deploy:staging:
     stage: deploy
     artifacts:
         paths:
-            - theme/public/
+#            - theme/public/
             - theme/vendor/
             - bedrock/vendor/
     only:
