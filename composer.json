@@ -1,0 +1,12 @@
+{
+    "autoload": {
+        "psr-4": {
+            "Deployer\\": "deployer/"
+        }
+    },
+    "require-dev": {
+        "deployer/deployer": "^6.8",
+        "deployer/recipes": "^6.2",
+        "vlucas/phpdotenv": "^5.2"
+    }
+}
