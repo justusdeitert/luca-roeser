@@ -74,22 +74,26 @@ build:npm:
         - npm install --prefix ./theme
         - npm run build:production --prefix ./theme
 
-#deploy:staging:
-#    stage: deploy
-#    only:
-#        - master
-#    script:
-#        # Security tip
-#        # Create a user that has access only to the folder that needs to be updated
-#        - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-#        - mkdir -p ~/.ssh
-#        - eval $(ssh-agent -s)
-#        - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-#
-#        # Deploy to Server
-#        - ssh-add <(echo "$STAGING_PRIVATE_KEY")
-#
-#        - ssh wandeldigital@87.230.85.133 "mkdir ./_tmp"
-#        - scp -r * wandeldigital@87.230.85.133:./_tmp
-#        # - ssh wandeldigital@87.230.85.133 "mv ./live ./_old && mv ./_tmp ./live"
-#        - ssh wandeldigital@87.230.85.133 "rm -rf ./_old"
+deploy:staging:
+    stage: deploy
+    only:
+        - master
+    script:
+        # Intalling Core Dependencies
+        - apt-get -y update
+        - apt-get -y install zip unzip git
+
+        # Security tip
+        # Create a user that has access only to the folder that needs to be updated
+        - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+        - mkdir -p ~/.ssh
+        - eval $(ssh-agent -s)
+        - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+
+        # Deploy to Server
+        - ssh-add <(echo "$STAGING_PRIVATE_KEY")
+        - ssh wandeldigital@87.230.85.133 "mkdir ./_tmp"
+        - zip -r temp.zip *
+        - scp -r temp.zip wandeldigital@87.230.85.133:./_tmp
+        # - ssh wandeldigital@87.230.85.133 "mv ./live ./_old && mv ./_tmp ./live"
+        # - ssh wandeldigital@87.230.85.133 "rm -rf ./_old"
