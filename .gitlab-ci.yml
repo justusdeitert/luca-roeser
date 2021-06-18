@@ -45,14 +45,14 @@ build:composer:
     script:
         # Intalling Core Dependencies
         - apt-get -y update
-        - apt-get -y install zip unzip git composer
+        - apt-get -y install zip unzip git
         # Install Composer
-#        - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-#        - php composer-setup.php
-#        - php -r "unlink('composer-setup.php');"
+        - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+        - php composer-setup.php
+        - php -r "unlink('composer-setup.php');"
         # Run Composer Install to fetch all PHP dependencies and npm install
-        - composer install --working-dir=./bedrock
-        - composer install --working-dir=./theme
+        - php ./composer.phar install --working-dir=./bedrock
+        - php ./composer.phar install --working-dir=./theme
         # Security tip
         # Create a user that has access only to the folder that needs to be updated
 #        - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
