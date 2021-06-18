@@ -92,8 +92,8 @@ deploy:staging:
 
         # Deploy to Server
         - ssh-add <(echo "$STAGING_PRIVATE_KEY")
-        - ssh wandeldigital@87.230.85.133 "mkdir ./_tmp"
+        # - ssh wandeldigital@87.230.85.133 "mkdir ./_tmp"
         - zip -r temp.zip *
-        - scp -r temp.zip wandeldigital@87.230.85.133:./_tmp
+        - scp -r temp.zip wandeldigital@87.230.85.133:./temp.zip
         # - ssh wandeldigital@87.230.85.133 "mv ./live ./_old && mv ./_tmp ./live"
         # - ssh wandeldigital@87.230.85.133 "rm -rf ./_old"
