@@ -537,6 +537,26 @@ if (class_exists('Kirki')) {
             'default' => '0',
         ]);
 
+        Kirki::add_field('custom_menu_item_order_id', [
+            'type' => 'sortable',
+            'settings' => 'custom_menu_item_order',
+            'label' => __('Menu Item Order', 'sage'),
+            'section' => 'section_menu_settings_id',
+            'default' => [
+                'logo',
+                'business_hours',
+                'primary_menu',
+                'secondary_menu',
+            ],
+            'choices' => [
+                'logo' => __('Logo', 'sage'),
+                'business_hours' => __('Business hours', 'sage'),
+                'primary_menu' => __('Primary Menu', 'sage'),
+                'secondary_menu' => __('Secondary Menu', 'sage'),
+            ],
+            // 'priority' => 10,
+        ]);
+
         // Kirki::add_field('custom_menu_top_position_id', [
         //     'type' => 'slider',
         //     'settings' => 'custom_menu_top_position',
