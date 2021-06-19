@@ -50,10 +50,11 @@ function customizer_theme_styles() {
         'navbar-background' => get_theme_mod('custom_navbar_background_color', '#f8f9fa'),
         'navbar-font' => get_theme_mod('custom_navbar_font_color', '#212529'),
         'navbar-font-active' => get_theme_mod('custom_navbar_font_active_color', '#f8f9fa'),
-        'navbar-font-active-background' => get_theme_mod('custom_navbar_font_active_background_color', '#f8f9fa'),
+        'navbar-background-active' => get_theme_mod('custom_navbar_background_active_color', '#f8f9fa'),
         'navbar-submenu-background' => get_theme_mod('custom_navbar_submenu_background_color', '#f8f9fa'),
         'navbar-submenu-font' => get_theme_mod('custom_navbar_submenu_font_color', '#212529'),
         'navbar-submenu-font-active' => get_theme_mod('custom_navbar_submenu_font_active_color', '#212529'),
+        'navbar-submenu-background-active' => get_theme_mod('custom_navbar_submenu_background_active_color', '#f8f9fa'),
 
         // Footer Colors
         'footer-background' => get_theme_mod('custom_footer_background_color', '#f8f9fa'),
@@ -144,6 +145,8 @@ function customizer_theme_styles() {
             --custom-navbar-font-size:  <?php echo get_theme_mod('custom_navbar_font_size', 16) / 16; ?>rem;
             --custom-navbar-font-weight:  <?php echo get_theme_mod('custom_navbar_font_weight', 300); ?>;
             --custom-navbar-item-spacing:  <?php echo get_theme_mod('custom_navbar_item_spacing', 5); ?>px;
+            --custom-navbar-submenu-item-height:  <?php echo get_theme_mod('custom_navbar_submenu_item_height', 40); ?>px;
+
         }
 
         /* Icon Settings */

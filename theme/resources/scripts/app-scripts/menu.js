@@ -1,12 +1,15 @@
 /**
  * Desktop Sub Menu
  */
-let subMenuItems = document.querySelectorAll('.menu-item-has-children');
 
+/**
+ * Navbar Menu Items
+ */
+let subMenuItems = document.querySelectorAll('.menu-item-has-children');
 if (subMenuItems) {
 
     subMenuItems.forEach(item => {
-        let subMenu = item.querySelector('.sub-menu');
+        let subMenu = item.querySelector('.popper-wrapper');
 
         item.addEventListener('mouseover', () => {
             subMenu.classList.add('active');
@@ -25,7 +28,7 @@ let navigationBusinessHours = document.querySelector('.navbar__business-hours');
 
 if (navigationBusinessHours) {
 
-    let navbarBusinessHoursTemplate = document.querySelector('.navbar .business-hours-template');
+    let navbarBusinessHoursTemplate = navigationBusinessHours.querySelector('.popper-wrapper');
 
     navigationBusinessHours.addEventListener('mouseover', () => {
         navbarBusinessHoursTemplate.classList.add('active');
@@ -38,12 +41,13 @@ if (navigationBusinessHours) {
 
 /**
  * Mobile Menu
+ * TODO: Different Mobile Menu Variants...
  */
 let burgerMenuIconWrapper = document.querySelector('.navbar__burger-menu-icon-wrapper');
 
 if (burgerMenuIconWrapper) {
     let burgerMenuIcon = document.querySelector('.navbar__burger-menu-icon');
-    let primaryMobileMenu = document.querySelector('.navbar__primary-mobile-menu');
+    let primaryMobileMenu = burgerMenuIconWrapper.querySelector('.popper-wrapper');
 
     burgerMenuIconWrapper.addEventListener('click', () => {
         // TODO: Easier Close Icon Switch

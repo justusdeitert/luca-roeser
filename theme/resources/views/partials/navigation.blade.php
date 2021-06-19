@@ -78,8 +78,11 @@
                                 <span>{{ $is_open ? __('Now open', 'sage') : __('Now closed', 'sage') }}</span>
                                 <i class="icon-caret-down ms-1"></i>
                             </div>
-
-                            {!! $business_hours_template; !!}
+                            <div class="popper-wrapper">
+                                <div class="sub-menu">
+                                    {!! $business_hours_template; !!}
+                                </div>
+                            </div>
                         </div>
                     @endif
                 @endif
@@ -91,7 +94,8 @@
                                 'theme_location' => 'primary_desktop_menu',
                                 'menu_class' => 'navbar__menu navbar__primary-desktop-menu d-none d-md-flex ' . get_item_spacing_classes('primary_menu'),
                                 'container' => false,
-                                'echo' => false
+                                'echo' => false,
+                                'walker' => new Submenu_Wrap()
                             ]) !!}
                         @endif
                     @endif
@@ -104,7 +108,8 @@
                                 'theme_location' => 'secondary_desktop_menu',
                                 'menu_class' => 'navbar__menu navbar__secondary-desktop-menu d-none d-md-flex ' . get_item_spacing_classes('secondary_menu'),
                                 'container' => false,
-                                'echo' => false
+                                'echo' => false,
+                                'walker' => new Submenu_Wrap()
                             ]) !!}
                         @endif
                     @endif
@@ -117,14 +122,16 @@
                         get_item_spacing_classes('burger_menu_icon')
                     ]) !!}">
                         <i class="navbar__burger-menu-icon icon-menu"></i>
-                        @if (has_nav_menu('primary_mobile_menu'))
-                            {!! wp_nav_menu([
-                                 'theme_location' => 'primary_mobile_menu',
-                                 'menu_class' => ' navbar__primary-mobile-menu',
-                                 'container' => false,
-                                 'echo' => false
-                            ]) !!}
-                        @endif
+                        <div class="popper-wrapper">
+                            @if (has_nav_menu('primary_mobile_menu'))
+                                {!! wp_nav_menu([
+                                     'theme_location' => 'primary_mobile_menu',
+                                     'menu_class' => 'sub-menu navbar__primary-mobile-menu',
+                                     'container' => false,
+                                     'echo' => false
+                                ]) !!}
+                            @endif
+                        </div>
                     </div>
                 @endif
             @endforeach

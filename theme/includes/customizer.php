@@ -63,10 +63,11 @@ $menu_colors = [
     'navbar_background' => '#f8f9fa',
     'navbar_font' => '#212529',
     'navbar_font_active' => '#f8f9fa',
-    'navbar_font_active_background' => '#f8f9fa',
+    'navbar_background_active' => '#f8f9fa',
     'navbar_submenu_background' => '#f8f9fa',
     'navbar_submenu_font' => '#212529',
-    'navbar_submenu_font_active' => '#212529'
+    'navbar_submenu_font_active' => '#212529',
+    'navbar_submenu_background_active' => '#f8f9fa',
 ];
 
 // Footer colors
@@ -820,6 +821,19 @@ if (class_exists('Kirki')) {
                 ],
             ]);
         }
+
+        Kirki::add_field('custom_navbar_submenu_item_height_id', [
+            'type' => 'slider',
+            'settings' => 'custom_navbar_submenu_item_height',
+            'label' => __('Navbar Submenu Item Height', 'sage'),
+            'section' => 'section_menu_settings_id',
+            'default' => 40,
+            'choices' => [
+                'min' => 30,
+                'max' => 80,
+                'step' => 5,
+            ],
+        ]);
 
         // Kirki::add_field('custom_menu_top_position_id', [
         //     'type' => 'slider',

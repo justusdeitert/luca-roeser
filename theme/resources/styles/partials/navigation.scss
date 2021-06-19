@@ -1,58 +1,70 @@
-.sub-menu-class {
-    list-style: none;
-    position: absolute;
-    background-color: var(--custom-navbar-submenu-background-color);
-    border-radius: var(--custom-border-radius);
-    box-shadow: var(--custom-box-shadow);
-    bottom: -30px;
-    transform: translateY(100%);
-    padding: 0;
-    margin: 0;
-    opacity: 0;
+.popper-wrapper {
+    position: fixed;
     visibility: hidden;
-    transition: opacity .2s ease-in-out, visibility .2s ease-in-out, bottom .2s ease-in-out;
-    white-space: nowrap;
-    min-width: 180px;
-
-    a {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-        text-decoration: none;
-        padding: 5px var(--custom-navbar-item-spacing);
-        color: var(--custom-navbar-submenu-font-color);
-        min-height: 35px;
-    }
+    padding-top: 20px;
 
     &.active {
-        opacity: 1;
         visibility: visible;
-        bottom: -20px;
+
+        .sub-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+
+        }
     }
 
-    //&:before {
-    //    content: "";
-    //    display: block;
-    //    position: absolute;
-    //    width: 100%;
-    //    height: 20px;
-    //    top: -20px;
-    //}
+    .popper-arrow {
+        top: -10px;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 10px 10px 10px;
+        border-color: transparent transparent var(--custom-navbar-submenu-background-color) transparent;
+    }
+}
 
-    //&:after {
-    //    content: "";
-    //    display: block;
-    //    width: 0;
-    //    height: 0;
-    //    position: absolute;
-    //    top: -16px;
-    //    left: 50%;
-    //    transform: translateX(-50%);
-    //    border: 8px solid transparent;
-    //    border-bottom-color: var(--custom-navbar-submenu-background-color);
-    //    pointer-events: none;
-    //}
+.sub-menu {
+    list-style: none;
+    background-color: var(--custom-navbar-submenu-background-color);
+    border-radius: var(--custom-border-radius);
+    box-shadow: var(--custom-navbar-box-shadow);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(40px);
+    transition: opacity .2s ease-in-out, visibility .2s ease-in-out, transform .2s ease-in-out;
+    white-space: nowrap;
+    min-width: 200px;
+
+    &__inner {
+        border-radius: var(--custom-border-radius);
+        list-style: none;
+        overflow: hidden;
+        padding: 0;
+    }
+
+    .menu-item {
+        a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-decoration: none;
+            padding: 5px var(--custom-navbar-item-spacing);
+            color: var(--custom-navbar-submenu-font-color);
+            min-height: var(--custom-navbar-submenu-item-height);
+
+            &:hover {
+                background-color: var(--custom-navbar-submenu-background-active-color);
+            }
+        }
+
+        &.current-menu-item {
+            a {
+                background-color: var(--custom-navbar-submenu-background-active-color);
+            }
+        }
+    }
 }
 
 .navbar {
@@ -78,6 +90,8 @@
         border-radius: var(--custom-border-radius);
         display: flex;
         box-shadow: var(--custom-navbar-box-shadow);
+        position: relative;
+        overflow: hidden;
     }
 
     &__logo-wrapper {
@@ -137,10 +151,6 @@
                     background-color: var(--custom-navbar-font-active-background-color);
                 }
             }
-
-            .sub-menu {
-                @extend .sub-menu-class;
-            }
         }
     }
 
@@ -157,9 +167,9 @@
         color: var(--custom-navbar-font-color);
     }
 
-    &__primary-mobile-menu {
-        @extend .sub-menu-class;
-    }
+    //&__primary-mobile-menu {
+    //    @extend .sub-menu-class;
+    //}
 }
 
 // Business Hours Template
@@ -170,7 +180,7 @@
     cursor: pointer;
     padding: 5px var(--custom-navbar-item-spacing);
     //font-weight: var(--custom-menu-font-weight);
-    position: relative;
+    //position: relative;
 
 
     &__headline {
@@ -208,7 +218,7 @@
     }
 
     .business-hours-template {
-        @extend .sub-menu-class;
+        //@extend .sub-menu-class;
         left: 0;
         padding: 0.5rem 0;
         color: var(--custom-navbar-font-color);
@@ -219,7 +229,9 @@
 
         &__wrapper {
             display: flex;
+            align-items: center;
             padding: 3px var(--custom-navbar-item-spacing);
+            min-height: calc(var(--custom-navbar-submenu-item-height) * 0.8);
         }
 
         &__day {
