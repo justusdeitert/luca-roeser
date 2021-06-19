@@ -632,7 +632,6 @@ if (class_exists('Kirki')) {
             'type' => 'image',
             'settings' => 'custom_navbar_logo_image',
             'label' => __('Navbar Logo', 'sage'),
-            // 'description' => __('Description Here.', 'sage'),
             'section' => 'section_menu_settings_id',
             'default' => '',
             'choices' => [
@@ -743,7 +742,6 @@ if (class_exists('Kirki')) {
         ]);
 
         custom_kirki_border('section_menu_settings_id');
-        // custom_kirki_spacing('section_menu_settings_id', 10);
         custom_kirki_headline('section_menu_settings_id', 'Navbar Order & Spacing', 'h2');
 
         Kirki::add_field('custom_navbar_order_id', [
@@ -765,17 +763,7 @@ if (class_exists('Kirki')) {
                 'secondary_menu' => __('Secondary Menu', 'sage'),
                 'burger_menu_icon' => __('Burger Menu Icon', 'sage'),
             ],
-            // 'active_callback' => [
-            //     [
-            //         'setting'  => 'custom_mobile_menu_only',
-            //         'operator' => '==',
-            //         'value'    => false,
-            //     ]
-            // ],
-            // 'priority' => 10,
         ]);
-
-
 
         Kirki::add_field('custom_navbar_logo_spacing_id', [
             'type' => 'multicheck',
@@ -834,22 +822,21 @@ if (class_exists('Kirki')) {
                 'step' => 5,
             ],
         ]);
+    }
 
-        // Kirki::add_field('custom_menu_top_position_id', [
-        //     'type' => 'slider',
-        //     'settings' => 'custom_menu_top_position',
-        //     'label' => __('Menu Height', 'sage'),
-        //     'section' => 'section_menu_settings_id',
-        //     'default' => 30,
-        //     'choices' => [
-        //         'min' => 10,
-        //         'max' => 170,
-        //         'step' => 1,
-        //     ],
-        // ]);
+    function api_settings() {
+        Kirki::add_section('section_api_settings_id', array(
+            'title' => __('API Settings', 'sage'),
+            'panel' => 'panel_theme_settings_id',
+        ));
 
-
-        // custom_kirki_border('section_menu_settings_id');
+        Kirki::add_field('custom_google_maps_api_key_id', [
+            'type' => 'text',
+            'settings' => 'custom_google_maps_api_key',
+            'label' => __('Google Maps Api Key', 'sage'),
+            'section' => 'section_api_settings_id',
+            'description' => __('Set the API Key to enable the Maps Block', 'sage'),
+        ]);
     }
 
     /**
@@ -894,4 +881,5 @@ if (class_exists('Kirki')) {
     color_settings();
     menu_settings();
     // footer_settings();
+    api_settings();
 }

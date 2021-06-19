@@ -63,7 +63,8 @@ $core_blocks = [
 $custom_blocks_normal_editor = [
     'custom/divider',
     'custom/accordion',
-    'custom/map',
+    // Check if google Maps Key is Set
+    get_theme_mod('custom_google_maps_api_key', false) ? 'custom/map' : '',
     'custom/icon',
     'custom/image-header',
     'custom/text-image',

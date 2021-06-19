@@ -123,14 +123,16 @@
                     ]) !!}">
                         <i class="navbar__burger-menu-icon icon-menu"></i>
                         <div class="popper-wrapper">
-                            @if (has_nav_menu('primary_mobile_menu'))
-                                {!! wp_nav_menu([
-                                     'theme_location' => 'primary_mobile_menu',
-                                     'menu_class' => 'sub-menu navbar__primary-mobile-menu',
-                                     'container' => false,
-                                     'echo' => false
-                                ]) !!}
-                            @endif
+                            <div class="sub-menu">
+                                @if (has_nav_menu('primary_mobile_menu'))
+                                    {!! wp_nav_menu([
+                                         'theme_location' => 'primary_mobile_menu',
+                                         'menu_class' => 'sub-menu__inner navbar__primary-mobile-menu',
+                                         'container' => false,
+                                         'echo' => false
+                                    ]) !!}
+                                @endif
+                            </div>
                         </div>
                     </div>
                 @endif
