@@ -4,3 +4,4 @@
 import './utility';
 import './text-image';
 import './slider';
+import './popper';

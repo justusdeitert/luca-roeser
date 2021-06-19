@@ -24,6 +24,8 @@ h1, h2, h3, h4, h5, h6 {
 #wpadminbar {
     // To be lower then light-gallery zIndex
     z-index: 1030;
+    position: absolute;
+    transform: translateY(-100%);
 }
 
 .is-style-text-shadow {
@@ -39,7 +41,6 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 300;
 }
 
-// Theme Container Settings
 .container {
     max-width: calc(var(--max-container-width) + (var(--container-padding-mobile) * 2)) !important;
     padding-left: var(--container-padding-mobile);
@@ -47,6 +48,16 @@ h1, h2, h3, h4, h5, h6 {
 
     @include media-breakpoint-up(sm) {
         max-width: calc(var(--max-container-width) + (var(--container-padding-desktop) * 2)) !important;
+        padding-left: var(--container-padding-desktop);
+        padding-right: var(--container-padding-desktop);
+    }
+}
+
+.container-fluid {
+    padding-left: var(--container-padding-mobile);
+    padding-right: var(--container-padding-mobile);
+
+    @include media-breakpoint-up(sm) {
         padding-left: var(--container-padding-desktop);
         padding-right: var(--container-padding-desktop);
     }

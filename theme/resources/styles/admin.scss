@@ -1,22 +1,30 @@
 // Wordpress Admin Only Styles
 
 // Adjusting Kirki Customizer Controls
-[id^="customize-control-custom_border"],
-[id^="customize-control-custom_spacing"],
-[id^="customize-control-custom_text"],
-[id^="customize-control-custom_headline"] {
-    display: list-item !important;
-    margin-bottom: 0;
+#customize-controls {
+    [id^="customize-control-custom_border"],
+    [id^="customize-control-custom_spacing"],
+    [id^="customize-control-custom_text"],
+    [id^="customize-control-custom_headline"] {
+        display: list-item !important;
+        margin-bottom: 0;
 
-    label {
-        cursor: initial;
+        label {
+            cursor: initial;
+        }
+
+        .custom-headline {
+            margin-top: 0;
+        }
+
+        .custom-text {
+            margin-top: 0;
+        }
     }
 
-    .custom-headline {
-        margin-top: 0;
-    }
-
-    .custom-text {
-        margin-top: 0;
+    [id^="customize-control-custom_navbar_logo_image"] {
+        img {
+            max-width: 50%;
+        }
     }
 }

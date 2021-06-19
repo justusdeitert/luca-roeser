@@ -47,12 +47,13 @@ function customizer_theme_styles() {
         'info' => get_theme_mod('custom_info_color', '#0dcaf0'),
 
         // Menu Colors
-        'menu-background' => get_theme_mod('custom_menu_background_color', '#f8f9fa'),
-        'menu-link' => get_theme_mod('custom_menu_link_color', '#212529'),
-        'menu-link-active' => get_theme_mod('custom_menu_link_active_color', '#f8f9fa'),
-        'menu-link-active-background' => get_theme_mod('custom_menu_link_active_background_color', '#f8f9fa'),
-        'submenu-link' => get_theme_mod('custom_submenu_link_color', '#212529'),
-        'submenu-link-active' => get_theme_mod('custom_submenu_link_active_color', '#212529'),
+        'navbar-background' => get_theme_mod('custom_navbar_background_color', '#f8f9fa'),
+        'navbar-font' => get_theme_mod('custom_navbar_font_color', '#212529'),
+        'navbar-font-active' => get_theme_mod('custom_navbar_font_active_color', '#f8f9fa'),
+        'navbar-font-active-background' => get_theme_mod('custom_navbar_font_active_background_color', '#f8f9fa'),
+        'navbar-submenu-background' => get_theme_mod('custom_navbar_submenu_background_color', '#f8f9fa'),
+        'navbar-submenu-font' => get_theme_mod('custom_navbar_submenu_font_color', '#212529'),
+        'navbar-submenu-font-active' => get_theme_mod('custom_navbar_submenu_font_active_color', '#212529'),
 
         // Footer Colors
         'footer-background' => get_theme_mod('custom_footer_background_color', '#f8f9fa'),
@@ -117,13 +118,32 @@ function customizer_theme_styles() {
                 --custom-gray-<?php echo $name; ?>-color: <?php echo $value; ?>;
             <?php } ?>
 
-            /* Menu Settings */
-            --custom-menu-height:  <?php echo get_theme_mod('custom_menu_height', 60); ?>px;
-            --custom-menu-logo-size:  <?php echo get_theme_mod('custom_menu_logo_size', 100); ?>%;
-            --custom-menu-logo-wrapper-width:  <?php echo get_theme_mod('custom_menu_logo_wrapper_width', 100); ?>px;
-            --custom-menu-item-spacing:  <?php echo get_theme_mod('custom_menu_item_spacing', 5); ?>px;
-            --custom-menu-font-weight:  <?php echo get_theme_mod('custom_menu_font_weight', 300); ?>;
-            --custom-menu-font-size:  <?php echo get_theme_mod('custom_menu_font_size', 16) / 16; ?>rem;
+            /* Navbar Settings */
+            --custom-navbar-height:  <?php echo get_theme_mod('custom_navbar_height', 60); ?>px;
+
+            /*
+             * Custom Navbar Positioning
+             */
+            <?php
+                $custom_navbar_position = 'static';
+                $custom_navbar_behavior = get_theme_mod('custom_navbar_behavior', 'moving');
+                $custom_navbar_top_position = get_theme_mod('custom_navbar_top_position', 0);
+
+                if ($custom_navbar_top_position === '0') {
+                    $custom_navbar_position = ($custom_navbar_behavior === 'moving') ? 'sticky' : 'static';
+                } else {
+                    $custom_navbar_position = ($custom_navbar_behavior === 'moving') ? 'fixed' : 'absolute';
+                }
+            ?>
+
+            --custom-navbar-position:  <?php echo $custom_navbar_position; ?>;
+            --custom-navbar-top-position:  <?php echo $custom_navbar_top_position; ?>px;
+            --custom-navbar-box-shadow: <?php echo $custom_shadows[get_theme_mod('custom_navbar_shadow', 'no-shadow')]; ?>;
+            --custom-navbar-logo-height:  <?php echo get_theme_mod('custom_navbar_logo_height', 100); ?>%;
+            --custom-navbar-logo-wrapper-width:  <?php echo get_theme_mod('custom_navbar_logo_wrapper_width', 100); ?>px;
+            --custom-navbar-font-size:  <?php echo get_theme_mod('custom_navbar_font_size', 16) / 16; ?>rem;
+            --custom-navbar-font-weight:  <?php echo get_theme_mod('custom_navbar_font_weight', 300); ?>;
+            --custom-navbar-item-spacing:  <?php echo get_theme_mod('custom_navbar_item_spacing', 5); ?>px;
         }
 
         /* Icon Settings */

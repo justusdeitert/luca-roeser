@@ -60,12 +60,13 @@ $alert_colors = [
 
 // Menu Colors
 $menu_colors = [
-    'menu_background' => '#f8f9fa',
-    'menu_link' => '#212529',
-    'menu_link_active' => '#f8f9fa',
-    'menu_link_active_background' => '#f8f9fa',
-    'submenu_link' => '#212529',
-    'submenu_link_active' => '#212529'
+    'navbar_background' => '#f8f9fa',
+    'navbar_font' => '#212529',
+    'navbar_font_active' => '#f8f9fa',
+    'navbar_font_active_background' => '#f8f9fa',
+    'navbar_submenu_background' => '#f8f9fa',
+    'navbar_submenu_font' => '#212529',
+    'navbar_submenu_font_active' => '#212529'
 ];
 
 // Footer colors
@@ -472,6 +473,9 @@ if (class_exists('Kirki')) {
                 'settings' => 'custom_' . $color . '_color',
                 'label' => __(cleanColorName($color) . ' Color', 'sage'),
                 'section' => 'section_color_settings_id',
+                'choices'     => [
+                    'alpha' => true,
+                ],
                 'default' => $value,
             ]);
         }
@@ -524,56 +528,46 @@ if (class_exists('Kirki')) {
      * Menu Settings
      */
     function menu_settings() {
+
+        global $box_shadows;
+
         Kirki::add_section('section_menu_settings_id', array(
             'title' => __('Menu Settings', 'sage'),
             'panel' => 'panel_theme_settings_id',
         ));
 
-        Kirki::add_field('custom_menu_mobile_on_desktop_id', [
+        /**
+         * General Settings / Navbar Settings
+         */
+
+        custom_kirki_headline('section_menu_settings_id', 'General Navbar Settings', 'h2');
+
+        Kirki::add_field('custom_mobile_menu_only_id', [
             'type' => 'toggle',
-            'settings' => 'custom_menu_mobile_on_desktop',
-            'label' => __('Mobile Menu on Desktop', 'sage'),
+            'settings' => 'custom_mobile_menu_only',
+            'label' => __('Mobile Menu Only', 'sage'),
             'section' => 'section_menu_settings_id',
             'default' => '0',
         ]);
 
-        Kirki::add_field('custom_menu_item_order_id', [
-            'type' => 'sortable',
-            'settings' => 'custom_menu_item_order',
-            'label' => __('Menu Item Order', 'sage'),
-            'section' => 'section_menu_settings_id',
-            'default' => [
-                'logo',
-                'business_hours',
-                'primary_menu',
-                'secondary_menu',
-            ],
-            'choices' => [
-                'logo' => __('Logo', 'sage'),
-                'business_hours' => __('Business hours', 'sage'),
-                'primary_menu' => __('Primary Menu', 'sage'),
-                'secondary_menu' => __('Secondary Menu', 'sage'),
-            ],
-            // 'priority' => 10,
-        ]);
+        /**
+         * Custom Opening Hours via ACF Pro
+         */
+        $opening_hours = get_field('opening_hours', 'option');
+        if ($opening_hours && array_filter($opening_hours)) {
+            Kirki::add_field('custom_menu_has_opening_hours_id', [
+                'type' => 'toggle',
+                'settings' => 'custom_menu_has_opening_hours',
+                'label' => __('Add Opening Hours', 'sage'),
+                'section' => 'section_menu_settings_id',
+                'default' => '0',
+            ]);
+        }
 
-        // Kirki::add_field('custom_menu_top_position_id', [
-        //     'type' => 'slider',
-        //     'settings' => 'custom_menu_top_position',
-        //     'label' => __('Menu Height', 'sage'),
-        //     'section' => 'section_menu_settings_id',
-        //     'default' => 30,
-        //     'choices' => [
-        //         'min' => 10,
-        //         'max' => 170,
-        //         'step' => 1,
-        //     ],
-        // ]);
-
-        Kirki::add_field('custom_menu_height_id', [
+        Kirki::add_field('custom_navbar_height_id', [
             'type' => 'slider',
-            'settings' => 'custom_menu_height',
-            'label' => __('Menu Height', 'sage'),
+            'settings' => 'custom_navbar_height',
+            'label' => __('Navbar Height', 'sage'),
             'section' => 'section_menu_settings_id',
             'default' => 60,
             'choices' => [
@@ -583,34 +577,60 @@ if (class_exists('Kirki')) {
             ],
         ]);
 
-        Kirki::add_field('custom_menu_item_spacing_id', [
-            'type' => 'slider',
-            'settings' => 'custom_menu_item_spacing',
-            'label' => __('Menu Item Spacing', 'sage'),
+        Kirki::add_field('custom_navbar_behavior_id', [
+            'type' => 'radio',
+            'settings' => 'custom_navbar_behavior',
+            'label' => __('Custom Navbar Behavior', 'sage'),
             'section' => 'section_menu_settings_id',
-            'default' => 5,
+            'default' => 'moving',
             'choices' => [
-                'min' => 5,
-                'max' => 15,
-                'step' => 1,
+                'moving' => __('Moving', 'sage'),
+                'fixed' => __('Fixed', 'sage'),
             ],
         ]);
 
-        Kirki::add_field('custom_menu_center_primary_nav_id', [
+        Kirki::add_field('custom_navbar_top_position_id', [
+            'type' => 'slider',
+            'settings' => 'custom_navbar_top_position',
+            'label' => __('Navbar Top Position', 'sage'),
+            'section' => 'section_menu_settings_id',
+            'default' => 0,
+            'choices' => [
+                'min' => 0,
+                'max' => 200,
+                'step' => 5,
+            ],
+        ]);
+
+        Kirki::add_field('custom_full_width_navbar_id', [
             'type' => 'toggle',
-            'settings' => 'custom_menu_center_primary_nav',
-            'label' => __('Center Primary Nav', 'sage'),
+            'settings' => 'custom_full_width_navbar',
+            'label' => __('Full Width Navbar', 'sage'),
             'section' => 'section_menu_settings_id',
             'default' => '0',
         ]);
 
-        custom_kirki_border('section_menu_settings_id');
-        custom_kirki_headline('section_menu_settings_id', 'Menu Logo Settings', 'h2');
+        Kirki::add_field('custom_navbar_shadow_id', [
+            'type' => 'select',
+            'settings' => 'custom_navbar_shadow',
+            'label' => __('Navbar Shadow', 'sage'),
+            'section' => 'section_menu_settings_id',
+            'description' => __('Define the custom box shadow of the navbar', 'sage'),
+            'default' => 'no-shadow',
+            'placeholder' => __('Select an option...', 'sage'),
+            // 'priority' => 10,
+            'multiple' => 1,
+            'choices' => $box_shadows,
+        ]);
 
-        Kirki::add_field('custom_menu_logo_image_id', [
+        custom_kirki_border('section_menu_settings_id');
+        custom_kirki_headline('section_menu_settings_id', 'Navbar Logo Settings', 'h2');
+
+
+        Kirki::add_field('custom_navbar_logo_image_id', [
             'type' => 'image',
-            'settings' => 'custom_menu_logo_image',
-            'label' => __('Menu Logo Image', 'sage'),
+            'settings' => 'custom_navbar_logo_image',
+            'label' => __('Navbar Logo', 'sage'),
             // 'description' => __('Description Here.', 'sage'),
             'section' => 'section_menu_settings_id',
             'default' => '',
@@ -624,10 +644,10 @@ if (class_exists('Kirki')) {
 
         custom_kirki_spacing('section_menu_settings_id', 10);
 
-        Kirki::add_field('custom_menu_logo_size_id', [
+        Kirki::add_field('custom_navbar_logo_height_id', [
             'type' => 'slider',
-            'settings' => 'custom_menu_logo_size',
-            'label' => __('Menu Logo Size in %', 'sage'),
+            'settings' => 'custom_navbar_logo_height',
+            'label' => __('Navbar Logo Height (in %)', 'sage'),
             'section' => 'section_menu_settings_id',
             'default' => 80,
             'choices' => [
@@ -635,12 +655,18 @@ if (class_exists('Kirki')) {
                 'max' => 100,
                 'step' => 1,
             ],
+            'active_callback' => function () {
+                if (get_theme_mod('custom_navbar_logo_image')['url'] !== '') {
+                    return true;
+                }
+                return false;
+            },
         ]);
 
-        Kirki::add_field('custom_menu_logo_wrapper_width_id', [
+        Kirki::add_field('custom_navbar_logo_wrapper_width_id', [
             'type' => 'slider',
-            'settings' => 'custom_menu_logo_wrapper_width',
-            'label' => __('Menu Logo Wrapper Width', 'sage'),
+            'settings' => 'custom_navbar_logo_wrapper_width',
+            'label' => __('Navbar Logo Wrapper Width', 'sage'),
             'section' => 'section_menu_settings_id',
             'default' => 60,
             'choices' => [
@@ -648,14 +674,21 @@ if (class_exists('Kirki')) {
                 'max' => 120,
                 'step' => 1,
             ],
+            'active_callback' => function () {
+                if (get_theme_mod('custom_navbar_logo_image')['url'] !== '') {
+                    return true;
+                }
+                return false;
+            },
         ]);
 
         custom_kirki_border('section_menu_settings_id');
+        custom_kirki_headline('section_menu_settings_id', 'Navbar Font Settings', 'h2');
 
-        Kirki::add_field('custom_menu_font_size_id', [
+        Kirki::add_field('custom_navbar_font_size_id', [
             'type' => 'slider',
-            'settings' => 'custom_menu_font_size',
-            'label' => __('Menu Font Size', 'sage'),
+            'settings' => 'custom_navbar_font_size',
+            'label' => __('Navbar Font Size', 'sage'),
             'section' => 'section_menu_settings_id',
             'default' => 16,
             'choices' => [
@@ -665,16 +698,29 @@ if (class_exists('Kirki')) {
             ],
         ]);
 
-        Kirki::add_field('custom_menu_font_weight_id', [
+        Kirki::add_field('custom_navbar_font_weight_id', [
             'type' => 'slider',
-            'settings' => 'custom_menu_font_weight',
-            'label' => __('Menu Font Weight', 'sage'),
+            'settings' => 'custom_navbar_font_weight',
+            'label' => __('Navbar Font Weight', 'sage'),
             'section' => 'section_menu_settings_id',
             'default' => 400,
             'choices' => [
                 'min' => 300,
                 'max' => 500,
                 'step' => 100,
+            ],
+        ]);
+
+        Kirki::add_field('custom_navbar_item_spacing_id', [
+            'type' => 'slider',
+            'settings' => 'custom_navbar_item_spacing',
+            'label' => __('Navbar Item Spacing', 'sage'),
+            'section' => 'section_menu_settings_id',
+            'default' => 5,
+            'choices' => [
+                'min' => 5,
+                'max' => 30,
+                'step' => 1,
             ],
         ]);
 
@@ -695,27 +741,101 @@ if (class_exists('Kirki')) {
             ],
         ]);
 
-        Kirki::add_field('custom_menu_is_transparent_id', [
-            'type' => 'toggle',
-            'settings' => 'custom_menu_is_transparent',
-            'label' => __('Transparent Menu', 'sage'),
+        custom_kirki_border('section_menu_settings_id');
+        // custom_kirki_spacing('section_menu_settings_id', 10);
+        custom_kirki_headline('section_menu_settings_id', 'Navbar Order & Spacing', 'h2');
+
+        Kirki::add_field('custom_navbar_order_id', [
+            'type' => 'sortable',
+            'settings' => 'custom_navbar_order',
+            'label' => __('Navbar Item Order', 'sage'),
             'section' => 'section_menu_settings_id',
-            'default' => '0',
+            'default' => [
+                'logo',
+                'business_hours',
+                'primary_menu',
+                'secondary_menu',
+                'burger_menu_icon',
+            ],
+            'choices' => [
+                'logo' => __('Logo', 'sage'),
+                'business_hours' => __('Business Hours', 'sage'),
+                'primary_menu' => __('Primary Menu', 'sage'),
+                'secondary_menu' => __('Secondary Menu', 'sage'),
+                'burger_menu_icon' => __('Burger Menu Icon', 'sage'),
+            ],
+            // 'active_callback' => [
+            //     [
+            //         'setting'  => 'custom_mobile_menu_only',
+            //         'operator' => '==',
+            //         'value'    => false,
+            //     ]
+            // ],
+            // 'priority' => 10,
         ]);
 
-        /**
-         * Custom Opening Hours via ACF Pro
-         */
-        $opening_hours = get_field('opening_hours', 'option');
-        if ($opening_hours && array_filter($opening_hours)) {
-            Kirki::add_field('custom_menu_has_opening_hours_id', [
-                'type' => 'toggle',
-                'settings' => 'custom_menu_has_opening_hours',
-                'label' => __('Add Opening Hours', 'sage'),
+
+
+        Kirki::add_field('custom_navbar_logo_spacing_id', [
+            'type' => 'multicheck',
+            'settings' => 'custom_navbar_logo_spacing',
+            'label' => __('Logo Spacing', 'sage'),
+            'section' => 'section_menu_settings_id',
+            // 'default' => ['option-1', 'option-3', 'option-4'],
+            // 'priority' => 10,
+            'choices' => [
+                'left' => __('Left', 'sage'),
+                'right' => __('Right', 'sage'),
+            ],
+        ]);
+
+        // Navbar items
+        $navbar_items = [
+            'logo' => __('Logo', 'sage'),
+            'business_hours' => __('Business Hours', 'sage'),
+            'primary_menu' => __('Primary Menu', 'sage'),
+            'secondary_menu' => __('Secondary Menu', 'sage'),
+            'burger_menu_icon' => __('Burger Menu Icon', 'sage'),
+        ];
+
+        foreach ($navbar_items as $item => $value) {
+
+            $one = '';
+            $two = '';
+
+            if ($item === 'primary_menu' || $item === 'secondary_menu' || $item === 'burger_menu_icon') {
+                $one = 'left';
+                $two = '';
+            }
+
+            Kirki::add_field('custom_navbar_' . $item . '_spacing_id', [
+                'type' => 'multicheck',
+                'settings' => 'custom_navbar_' . $item . '_spacing',
+                'label' => __($value . ' Spacing', 'sage'),
                 'section' => 'section_menu_settings_id',
-                'default' => '0',
+                'default' => [$one, $two],
+                'choices' => [
+                    'left' => __('Left', 'sage'),
+                    'right' => __('Right', 'sage'),
+                ],
             ]);
         }
+
+        // Kirki::add_field('custom_menu_top_position_id', [
+        //     'type' => 'slider',
+        //     'settings' => 'custom_menu_top_position',
+        //     'label' => __('Menu Height', 'sage'),
+        //     'section' => 'section_menu_settings_id',
+        //     'default' => 30,
+        //     'choices' => [
+        //         'min' => 10,
+        //         'max' => 170,
+        //         'step' => 1,
+        //     ],
+        // ]);
+
+
+        // custom_kirki_border('section_menu_settings_id');
     }
 
     /**
