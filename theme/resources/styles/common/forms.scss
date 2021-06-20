@@ -2,7 +2,55 @@
     margin-bottom: var(--custom-gutter-mobile-y);
 }
 
+.alert {
+    &-danger {
+        background-color: var(--custom-danger-color);
+    }
+}
+
 // Contact form 7 styles
-.wpcf7-list-item {
-    margin: 0;
+.wpcf7 {
+    @extend .custom-spacing;
+
+    .wpcf7-list-item {
+        margin: 0;
+    }
+
+    .wpcf7-acceptance {
+        //cursor: pointer;
+    }
+
+    form {
+        .wpcf7-response-output {
+            @extend .alert;
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        &.sent {
+            .wpcf7-response-output {
+                @extend .alert-success;
+            }
+        }
+
+        &.failed,
+        &.aborted {
+            .wpcf7-response-output {
+                @extend .alert-danger;
+            }
+        }
+
+        &.spam {
+            .wpcf7-response-output {
+                @extend .alert-warning;
+            }
+        }
+
+        &.invalid,
+        &.unaccepted {
+            .wpcf7-response-output {
+                @extend .alert-warning;
+            }
+        }
+    }
 }

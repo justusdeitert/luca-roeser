@@ -25,15 +25,19 @@ new DeployerWordpress();
 set('local_path', __DIR__);
 
 /*
+ * Uploads all files (and directories) from local machine to remote server.
+ * Overwrites existing files on server with updated local files and uploads new files.
+ * Locally deleted files are not deleted on server.
+ * ---------------
  * Used for push and pull commands
  */
 set('sync_dirs', [
-    '{{local_path}}/bedrock/web/app/uploads/' => '{{deploy_path}}/shared/bedrock/web/app/uploads/',
-    // '{{local_path}}/bedrock/web/app/uploads-webpc/' => '{{deploy_path}}/shared/bedrock/web/app/uploads-webpc/',
+    '{{local_path}}/bedrock/web/app/uploads/' => '{{deploy_path}}/shared/bedrock/web/app/uploads/'
 ]);
 
 /**
- * Upload Folders eg. if you quickly want to add a plugin without composer..
+ * Upload Folders
+ * eg. if you quickly want to add a plugin without composer..
  */
 set('upload_folders', [
     // '{{local_path}}/bedrock/web/app/plugins/aad-sso-wordpress-master' => '{{release_path}}/bedrock/web/app/plugins/',
@@ -44,11 +48,12 @@ set('upload_folders', [
  */
 set('custom_writable_dirs', [
     'bedrock/web/app/uploads',
-    // '{{local_path}}/bedrock/web/app/uploads-webpc',
     'theme/acf-json',
 ]);
 
-
+/**
+ * Cleans up Files and Folders
+ */
 set('custom_clean_up', [
     // 'test'
 ]);
@@ -61,7 +66,8 @@ set('theme_paths', [
 ]);
 
 /**
- * Configure Composer Paths For Installing Composer Packages on Server
+ * Configure Composer Paths
+ * for installing Composer Packages on Server
  */
 set('composer_paths', [
     'bedrock',
@@ -69,10 +75,11 @@ set('composer_paths', [
 ]);
 
 /**
- * Configure NPM Paths For Installing NPM Packages on Server
+ * Configure NPM Paths
+ * for installing NPM Packages on Server
  */
 set('npm_paths', [
-    'bedrock/web/app/themes/theme'
+    'theme'
 ]);
 
 /**
@@ -83,12 +90,12 @@ set('application', 'dr-ladwig');
 /*
  * Project repository
  */
-set('repository', 'git@lab.justusdeitert.de:JD/johannes-ladwig.git');
+set('repository', 'git@gitlab.com:justusdeitert/the-theme.git');
 
 /**
  * Number of releases to keep. -1 for unlimited releases. Default to 5.
  */
-set('keep_releases', 5);
+set('keep_releases', 3);
 
 /**
  * [Optional] Allocate tty for git clone. Default value is false.
@@ -135,13 +142,13 @@ task('deploy', [
     'success'
 ]);
 
-// after('deploy:update_code', 'npm:install');
+// after('deploy:update_code', 'npm:install'); // Npm Install takes to long....
 after('deploy:shared', 'upload:dist');
 after('deploy:shared', 'upload:folders');
 after('deploy:shared', 'composer:install');
 
 /**
- * If deploy fails automatically unlock.
+ * [Optional] If deploy fails automatically unlock.
  */
 after('deploy:failed', 'deploy:unlock');
 

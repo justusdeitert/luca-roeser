@@ -12,6 +12,6 @@ task('custom_clean_up', function () {
 
     foreach (get('custom_clean_up') as $value) {
         writeln("Deleting {$value}");
-        run("rm -R {$value}");
+        run("rm -rf {$value}");
     }
 });
