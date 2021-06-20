@@ -183,7 +183,7 @@ registerBlockType('custom/map', {
                         {attributes.googleMapsLink &&
                             <a href={attributes.googleMapsLink} className="map-block__route-link" target="_blank" rel="noopener noreferrer">
                                 <span>Zu Google Maps</span>
-                                <Icon icon={routeIcon} className={'map-block__route-link-icon'}/>
+                                <i class={'icon-arrow-right-circle'}></i>
                             </a>
                         }
                     </div>
@@ -203,7 +203,7 @@ registerBlockType('custom/map', {
                     {attributes.googleMapsLink &&
                         <a href={attributes.googleMapsLink} className="map-block__route-link" target="_blank" rel="noopener noreferrer">
                             <span>Zu Google Maps</span>
-                            <Icon icon={routeIcon} className={'map-block__route-link-icon'}/>
+                            <i className={'icon-arrow-right-circle'}></i>
                         </a>
                     }
                 </div>

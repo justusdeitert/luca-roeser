@@ -15,17 +15,18 @@
         top: 0;
         width: 100%;
         height: 100%;
-        background-color: #E5E7E9;
+        background-color: var(--custom-gray-300-color);
 
         iframe {
-            background-color: #E5E7E9;
+            background-color: var(--custom-gray-300-color);
         }
     }
 
     &__route-link {
-        box-shadow: rgba(0, 0, 0, .3) 0 1px 4px -1px;
-        background-color: #FFF;
-        border-radius: 2px;
+        box-shadow: var(--custom-box-shadow);
+        background-color: var(--custom-body-background-color);
+        border-radius: var(--custom-border-radius);
+        color: var(--custom-font-color);
         height: 48px;
         position: absolute;
         top: 10px;
@@ -34,12 +35,16 @@
         align-items: center;
         margin: 0;
         text-decoration: none;
+        padding: 10px;
+
+        &:hover {
+            color: var(--custom-font-color);
+        }
 
         span {
-            margin: 0 0 0 10px;
-            font-weight: 500;
-            color: $primary;
-            font-size: 14px;
+            font-weight: var(--custom-font-weight);
+            font-family: var(--custom-text-font-family);
+            margin-right: 10px;
 
             @include media-breakpoint-down(xs) {
                 display: none;
