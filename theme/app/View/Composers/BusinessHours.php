@@ -6,8 +6,7 @@ use Roots\Acorn\View\Composer;
 use DateTime;
 use DateTimeZone;
 
-class BusinessHours extends Composer
-{
+class BusinessHours extends Composer {
     /**
      * List of views served by this composer.
      *
@@ -22,8 +21,7 @@ class BusinessHours extends Composer
      *
      * @return array
      */
-    public function override()
-    {
+    public function override() {
         return [
             'is_open' => $this->is_open(),
             'business_hours_template' => $this->business_hours_template()
@@ -35,15 +33,15 @@ class BusinessHours extends Composer
      * @return bool
      * @throws \Exception
      */
-    public function is_open()
-    {
+    public function is_open() {
         $current_date = new DateTime('now', new DateTimeZone(wp_timezone_string()));
         $current_time = $current_date->format('H:i');
         $current_day = strtolower($current_date->format('l'));
-        $business_hours = get_field('business_hours', 'option'); // Clean array when days are empty
+        // Clean array when days are empty
+        $business_hours = class_exists('ACF') ? get_field('business_hours', 'option') : false;
         $is_open = false;
 
-        if($business_hours) {
+        if ($business_hours) {
             $business_hours_filtered = array_filter($business_hours); // Filter array in case some days are empty
             foreach ($business_hours_filtered as $day => $times) {
                 foreach ($times as $time) {
@@ -64,21 +62,21 @@ class BusinessHours extends Composer
      *
      * @return string
      */
-    public function business_hours_template()
-    {
+    public function business_hours_template() {
         $current_date = new DateTime('now', new DateTimeZone(wp_timezone_string()));
         $current_time = $current_date->format('H:i');
         $current_day = strtolower($current_date->format('l'));
-        $opening_hours = array_filter(get_field('business_hours', 'option')); // Clean array when days are empty
+        $opening_hours = class_exists('ACF') ? array_filter(get_field('business_hours', 'option')) : false; // Clean array when days are empty
 
         // Remove from Array if a time is missing
-        foreach ($opening_hours as $day => $times) {
-            if (count($times) < 2) {
-                unset($opening_hours[$day]);
+        if ($opening_hours) {
+            foreach ($opening_hours as $day => $times) {
+                if (count($times) < 2) {
+                    unset($opening_hours[$day]);
+                }
             }
-        }
 
-        ob_start(); ?>
+            ob_start(); ?>
             <div class="business-hours-template">
                 <?php foreach ($opening_hours as $day => $times) { ?>
                     <div class="business-hours-template__wrapper">
@@ -112,7 +110,7 @@ class BusinessHours extends Composer
                 <?php } ?>
             </div>
 
-        <?php return ob_get_clean();
-
+            <?php return ob_get_clean();
+        }
     }
 }

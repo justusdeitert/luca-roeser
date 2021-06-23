@@ -554,15 +554,17 @@ if (class_exists('Kirki')) {
         /**
          * Custom Opening Hours via ACF Pro
          */
-        $opening_hours = get_field('opening_hours', 'option');
-        if ($opening_hours && array_filter($opening_hours)) {
-            Kirki::add_field('custom_menu_has_opening_hours_id', [
-                'type' => 'toggle',
-                'settings' => 'custom_menu_has_opening_hours',
-                'label' => __('Add Opening Hours', 'sage'),
-                'section' => 'section_menu_settings_id',
-                'default' => '0',
-            ]);
+        if (class_exists('ACF')) {
+            $opening_hours = get_field('opening_hours', 'option');
+            if ($opening_hours && array_filter($opening_hours)) {
+                Kirki::add_field('custom_menu_has_opening_hours_id', [
+                    'type' => 'toggle',
+                    'settings' => 'custom_menu_has_opening_hours',
+                    'label' => __('Add Opening Hours', 'sage'),
+                    'section' => 'section_menu_settings_id',
+                    'default' => '0',
+                ]);
+            }
         }
 
         Kirki::add_field('custom_navbar_height_id', [

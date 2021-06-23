@@ -8,7 +8,7 @@
     $navbar_height = get_theme_mod('custom_navbar_height');
     $navbar_top_position = get_theme_mod('custom_navbar_top_position');
     $navbar_logo = get_theme_mod('custom_navbar_logo_image');
-    $navbar_logo_alt = get_post_meta($navbar_logo['id'], '_wp_attachment_image_alt', true);
+    $navbar_logo_alt = $navbar_logo ? get_post_meta($navbar_logo['id'], '_wp_attachment_image_alt', true) : '';
     $navbar_has_full_width = get_theme_mod('custom_full_width_navbar');
 
     /**
