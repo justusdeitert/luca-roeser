@@ -20,12 +20,12 @@ task('npm:build_production', function () {
 /**
  * Upload Dist Folder
  */
-desc('Upload dist folder');
-task('upload:dist_folder', function () {
+desc('Upload public folder');
+task('upload:public_folder', function () {
     foreach (get('theme_paths') as $key => $value) {
-        writeln("Upload: {{local_path}}/{$value}/dist");
-        writeln("Destination: " . "{{release_path}}/{$value}/dist");
-        upload("{{local_path}}/{$value}/dist", "{{release_path}}/{$value}");
+        writeln("Upload: {{local_path}}/{$value}/public");
+        writeln("Destination: " . "{{release_path}}/{$value}/public");
+        upload("{{local_path}}/{$value}/public", "{{release_path}}/{$value}");
     }
 });
 
@@ -35,5 +35,5 @@ task('upload:dist_folder', function () {
 desc('Build production locally & upload dist folder');
 task('upload:dist', [
     'npm:build_production',
-    'upload:dist_folder'
+    'upload:public_folder'
 ]);
