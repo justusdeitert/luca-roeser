@@ -55,7 +55,8 @@
         "wpackagist-plugin/modern-images-wp":"1.0.3",
         "wpackagist-plugin/duplicate-post":"4.1.2",
         "yoast/wordpress-seo": "17.2.1",
-        "wpackagist-plugin/contact-form-7":"5.4.2"
+        "wpackagist-plugin/contact-form-7":"5.4.2",
+        "wpackagist-plugin/one-click-demo-import":"3.0.2"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.6.0",
