@@ -28,3 +28,11 @@
         }
     }
 }
+
+@import "~codemirror/lib/codemirror";
+@import "~codemirror/theme/material";
+
+.CodeMirror {
+    width: auto;
+    height: auto;
+}

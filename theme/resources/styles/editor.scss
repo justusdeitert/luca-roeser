@@ -35,6 +35,7 @@ html {
     // wrapper to override gutenberg block library css
     > * {
         @import 'common';
+        @import 'components';
         @import '../blocks';
         @import 'core-blocks';
     }
