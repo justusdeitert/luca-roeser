@@ -13,8 +13,9 @@ function adjust_wp_menu_items($items, $args) {
     foreach ($items as &$item) {
 
         // vars
-        $icon_class = get_field('icon_class', $item);
-        $icon_position = get_field('icon_position', $item);
+        $acf_exists = class_exists('ACF');
+        $icon_class = $acf_exists ? get_field('icon_class', $item) : '';
+        $icon_position = $acf_exists ? get_field('icon_position', $item) : '';
 
         // prepend icon
         if ($icon_class) {
