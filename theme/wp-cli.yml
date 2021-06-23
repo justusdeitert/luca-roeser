@@ -1,0 +1,3 @@
+path: ../bedrock/web/wp
+server:
+  docroot: web

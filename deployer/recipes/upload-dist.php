@@ -13,7 +13,7 @@ desc('Build production locally');
 task('npm:build_production', function () {
     foreach (get('theme_paths') as $key => $value) {
         writeln("Build for Production in {$value}");
-        run("cd {{local_path}}/{$value} && yarn clean && yarn build:production");
+        run("cd {{local_path}}/{$value} && yarn clear && yarn build:production");
     }
 })->local();
 
