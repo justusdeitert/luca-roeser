@@ -1,6 +1,35 @@
-.alert {
-    &-danger {
-        background-color: var(--custom-danger-color);
+// Adjust Bootstrap Form Fields
+.form-group {
+    //display: inline-flex;
+    align-items: center;
+}
+
+.form-control {
+    color: rgb(var(--custom-form-font-color));
+    min-height:  var(--custom-form-height);
+    background-color: rgb(var(--custom-form-background-color));
+
+    &:focus {
+        color: rgb(var(--custom-form-font-color));
+        background-color: rgb(var(--custom-form-background-color));
+        box-shadow: 0 0 0 0.25rem rgba(var(--custom-form-focus-color), 0.25);
+        border-color: rgba(var(--custom-form-focus-color), 0.35);
+    }
+
+    @include placeholder {
+        color: rgb(var(--custom-form-font-color));
+    }
+}
+
+.form-check-input {
+    &:checked {
+        background-color: rgb(var(--custom-form-focus-color));
+        border-color: rgb(var(--custom-form-focus-color));
+    }
+
+    &:focus {
+        box-shadow: 0 0 0 0.25rem rgba(var(--custom-form-focus-color), 0.25);
+        border-color: rgba(var(--custom-form-focus-color), 0.35);
     }
 }
 
@@ -10,10 +39,24 @@
 
     .wpcf7-list-item {
         margin: 0;
+
+        input {
+            @extend .form-check-input;
+        }
+
+        &-label {
+            margin-left: 0.5rem;
+        }
     }
 
     .wpcf7-acceptance {
-        //cursor: pointer;
+        label {
+            cursor: pointer;
+        }
+    }
+
+    .wpcf7-not-valid-tip {
+        color: rgba(var(--custom-danger-color), 0.8);
     }
 
     form {

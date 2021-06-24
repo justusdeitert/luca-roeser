@@ -1,3 +1,8 @@
 .wp-block-columns {
     margin-bottom: 0;
+    @extend .row;
+
+    .wp-block-column {
+        @extend .col;
+    }
 }

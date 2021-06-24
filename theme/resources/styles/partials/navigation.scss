@@ -20,13 +20,13 @@
         height: 0;
         border-style: solid;
         border-width: 0 10px 10px 10px;
-        border-color: transparent transparent var(--custom-navbar-submenu-background-color) transparent;
+        border-color: transparent transparent rgb(var(--custom-navbar-submenu-background-color)) transparent;
     }
 }
 
 .sub-menu {
     list-style: none;
-    background-color: var(--custom-navbar-submenu-background-color);
+    background-color: rgb(var(--custom-navbar-submenu-background-color));
     border-radius: var(--custom-border-radius);
     box-shadow: var(--custom-navbar-box-shadow);
     opacity: 0;
@@ -51,17 +51,17 @@
             height: 100%;
             text-decoration: none;
             padding: 5px var(--custom-navbar-item-spacing);
-            color: var(--custom-navbar-submenu-font-color);
+            color: rgb(var(--custom-navbar-submenu-font-color));
             min-height: var(--custom-navbar-submenu-item-height);
 
             &:hover {
-                background-color: var(--custom-navbar-submenu-background-active-color);
+                background-color: rgb(var(--custom-navbar-submenu-background-active-color));
             }
         }
 
         &.current-menu-item {
             a {
-                background-color: var(--custom-navbar-submenu-background-active-color);
+                background-color: rgb(var(--custom-navbar-submenu-background-active-color));
             }
         }
     }
@@ -76,7 +76,7 @@
     font-weight: var(--custom-navbar-font-weight);
 
     &.set-to-top {
-        background-color: var(--custom-navbar-background-color);
+        background-color: rgb(var(--custom-navbar-background-color));
         box-shadow: var(--custom-navbar-box-shadow);
 
         .navbar__inner  {
@@ -86,7 +86,7 @@
 
     &__inner {
         height: var(--custom-navbar-height);
-        background-color: var(--custom-navbar-background-color);
+        background-color: rgb(var(--custom-navbar-background-color));
         border-radius: var(--custom-border-radius);
         display: flex;
         box-shadow: var(--custom-navbar-box-shadow);
@@ -126,7 +126,7 @@
                 right: 0;
                 transform: translateX(50%);
                 z-index: 100;
-                color: var(--custom-navbar-font-color);
+                color: rgb(var(--custom-navbar-font-color));
             }
 
             > a {
@@ -136,19 +136,19 @@
                 height: 100%;
                 text-decoration: none;
                 padding: 5px var(--custom-navbar-item-spacing);
-                color: var(--custom-navbar-font-color);
+                color: rgb(var(--custom-navbar-font-color));
                 min-height: 35px;
 
                 &:hover {
-                    color: var(--custom-navbar-font-active-color);
-                    background-color: var(--custom-navbar-font-active-background-color);
+                    color: rgb(var(--custom-navbar-font-active-color));
+                    background-color: rgb(var(--custom-navbar-font-active-background-color));
                 }
             }
 
             &.current-menu-item {
                 > a {
-                    color: var(--custom-navbar-font-active-color);
-                    background-color: var(--custom-navbar-font-active-background-color);
+                    color: rgb(var(--custom-navbar-font-active-color));
+                    background-color: rgb(var(--custom-navbar-font-active-background-color));
                 }
             }
         }
@@ -164,7 +164,7 @@
 
     &__burger-menu-icon {
         font-size: 2.25rem;
-        color: var(--custom-navbar-font-color);
+        color: rgb(var(--custom-navbar-font-color));
     }
 
     //&__primary-mobile-menu {
@@ -185,7 +185,7 @@
 
     &__headline {
         line-height: 1.25rem;
-        color: var(--custom-navbar-font-color);
+        color: rgb(var(--custom-navbar-font-color));
         opacity: 0.7;
     }
 
@@ -194,7 +194,7 @@
         font-weight: 500;
         align-items: center;
         line-height: 1.25rem;
-        color: var(--custom-navbar-font-color);
+        color: rgb(var(--custom-navbar-font-color));
 
         i {
             font-size: 1rem;
@@ -203,10 +203,10 @@
         }
 
         &.is-open {
-            color: var(--custom-success-color);
+            color: rgb(var(--custom-success-color));
 
             i {
-                color: var(--custom-success-color);
+                color: rgb(var(--custom-success-color));
             }
         }
     }
@@ -221,7 +221,7 @@
         //@extend .sub-menu-class;
         left: 0;
         padding: 0.5rem 0;
-        color: var(--custom-navbar-font-color);
+        color: rgb(var(--custom-navbar-font-color));
 
         &:after {
             left: calc(var(--custom-navbar-item-spacing) + 1rem);
@@ -243,7 +243,7 @@
         &__time {
 
             .active {
-                color: var(--custom-success-color);
+                color: rgb(var(--custom-success-color));
             }
 
             &:last-child {

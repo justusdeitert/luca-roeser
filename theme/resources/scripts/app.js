@@ -20,10 +20,11 @@ import './app-scripts';
 
 /**
  * jQuery Ready
+ * TODO: jQuery is disabled for frontend
  */
-$(() => {
-    // console.log('Hello world');
-});
+// $(() => {
+//     // console.log('Hello world');
+// });
 
 /**
  * DOM Ready

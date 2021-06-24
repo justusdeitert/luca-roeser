@@ -196,11 +196,12 @@ add_action('after_setup_theme', function () {
      * Adds gray color array
      */
     $gray_colors = [];
+    $dark_color = get_theme_mod('custom_dark_color', '#212529');
     foreach (range(1, 9) as $number) {
         array_push($gray_colors, [
             'name'  => __('Gray ' . $number * 100, 'sage'),
             'slug'  => 'gray-' . $number * 100,
-            'color' => adjustBrightness(get_theme_mod('custom_dark_color', '#212529'), (1 - $number * 0.03)),
+            'color' => adjustBrightness($dark_color, (1 - $number * 0.03)),
         ]);
     }
 

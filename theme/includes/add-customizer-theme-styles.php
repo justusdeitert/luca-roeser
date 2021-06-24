@@ -24,43 +24,57 @@ function customizer_theme_styles() {
         $custom_google_font_string = 'https://fonts.googleapis.com/css2?family=' . $custom_text_font_plus . ':wght@300;400;500&display=swap';
     }
 
-    $theme_colors = [
-        // General Colors
+    /**
+     * Adds Dark Color variations to general colors
+     */
+    $general_colors = [
         'primary' => get_theme_mod('custom_primary_color', '#0d6efd'),
         'secondary' => get_theme_mod('custom_secondary_color', '#6c757d'),
         'tertiary' => get_theme_mod('custom_tertiary_color', '#6c757d'),
         'light' => get_theme_mod('custom_light_color', '#f8f9fa'),
         'dark' => get_theme_mod('custom_dark_color', '#212529'),
-
-        // Font Colors
-        'font' => get_theme_mod('custom_font_color', '#212529'),
-        'link' => get_theme_mod('custom_link_color', '#0d6efd'),
-        'link-hover' => get_theme_mod('custom_link_hover_color', '#0d6efd'),
-
-        // Content Colors
-        'body-background' => get_theme_mod('custom_body_background_color', '#f8f9fa'),
-
-        // Alert Colors
-        'success' => get_theme_mod('custom_success_color', '#198754'),
+        'success' => get_theme_mod('custom_success_color', '#8ac837'),
         'danger' => get_theme_mod('custom_danger_color', '#dc3545'),
         'warning' => get_theme_mod('custom_warning_color', '#ffc107'),
         'info' => get_theme_mod('custom_info_color', '#0dcaf0'),
+    ];
+
+    foreach ($general_colors as $color => $value) {
+        $general_color_versions[$color] = convert_hex($value);
+        $general_color_versions[$color . '-dark'] = convert_hex(adjustBrightness($value, -0.3));
+    }
+
+    $theme_colors = [
+
+        // Font Colors
+        'font' => convert_hex(get_theme_mod('custom_font_color', '#212529')),
+        'link' => convert_hex(get_theme_mod('custom_link_color', '#0d6efd')),
+        'link-hover' => convert_hex(get_theme_mod('custom_link_hover_color', '#0d6efd')),
+
+        // Content Colors
+        'body-background' => convert_hex(get_theme_mod('custom_body_background_color', '#f8f9fa')),
 
         // Menu Colors
-        'navbar-background' => get_theme_mod('custom_navbar_background_color', '#f8f9fa'),
-        'navbar-font' => get_theme_mod('custom_navbar_font_color', '#212529'),
-        'navbar-font-active' => get_theme_mod('custom_navbar_font_active_color', '#f8f9fa'),
-        'navbar-background-active' => get_theme_mod('custom_navbar_background_active_color', '#f8f9fa'),
-        'navbar-submenu-background' => get_theme_mod('custom_navbar_submenu_background_color', '#f8f9fa'),
-        'navbar-submenu-font' => get_theme_mod('custom_navbar_submenu_font_color', '#212529'),
-        'navbar-submenu-font-active' => get_theme_mod('custom_navbar_submenu_font_active_color', '#212529'),
-        'navbar-submenu-background-active' => get_theme_mod('custom_navbar_submenu_background_active_color', '#f8f9fa'),
+        'navbar-background' => convert_hex(get_theme_mod('custom_navbar_background_color', '#f8f9fa')),
+        'navbar-font' => convert_hex(get_theme_mod('custom_navbar_font_color', '#212529')),
+        'navbar-font-active' => convert_hex(get_theme_mod('custom_navbar_font_active_color', '#f8f9fa')),
+        'navbar-background-active' => convert_hex(get_theme_mod('custom_navbar_background_active_color', '#f8f9fa')),
+        'navbar-submenu-background' => convert_hex(get_theme_mod('custom_navbar_submenu_background_color', '#f8f9fa')),
+        'navbar-submenu-font' => convert_hex(get_theme_mod('custom_navbar_submenu_font_color', '#212529')),
+        'navbar-submenu-font-active' => convert_hex(get_theme_mod('custom_navbar_submenu_font_active_color', '#212529')),
+        'navbar-submenu-background-active' => convert_hex(get_theme_mod('custom_navbar_submenu_background_active_color', '#f8f9fa')),
+
+        // Form Colors
+        'form-font' => convert_hex(get_theme_mod('custom_form_font_color', '#212529')),
+        'form-focus' => convert_hex(get_theme_mod('custom_form_focus_color', '#0d6efd')),
+        'form-background' => convert_hex(get_theme_mod('custom_form_background_color', '#f8f9fa')),
+        'form-border' => convert_hex(get_theme_mod('custom_form_border_color', '#6c757d')),
 
         // Footer Colors
-        'footer-background' => get_theme_mod('custom_footer_background_color', '#f8f9fa'),
-        'footer-text' => get_theme_mod('custom_footer_text_color', '#f8f9fa'),
-        'footer-link' => get_theme_mod('custom_footer_link_color', '#f8f9fa'),
-        'footer-link-hover' => get_theme_mod('custom_footer_link_hover_color', '#f8f9fa'),
+        'footer-background' => convert_hex(get_theme_mod('custom_footer_background_color', '#f8f9fa')),
+        'footer-text' => convert_hex(get_theme_mod('custom_footer_text_color', '#f8f9fa')),
+        'footer-link' => convert_hex(get_theme_mod('custom_footer_link_color', '#f8f9fa')),
+        'footer-link-hover' => convert_hex(get_theme_mod('custom_footer_link_hover_color', '#f8f9fa')),
     ];
 
     /**
@@ -68,8 +82,9 @@ function customizer_theme_styles() {
      * TODO: One Shade needs to be added and let it be adjustable...
      */
     $gray_colors = [];
+    $dark_color = get_theme_mod('custom_dark_color', '#212529');
     foreach (range(1, 9) as $number) {
-        $gray_colors[$number * 100] = adjustBrightness($theme_colors['dark'], (1 - $number * 0.03));
+        $gray_colors[$number * 100] = convert_hex(adjustBrightness($dark_color, (1 - $number * 0.03)));
     }
 
     /**
@@ -105,16 +120,26 @@ function customizer_theme_styles() {
             /* Font Settings */
             --custom-font-size: <?php echo get_theme_mod('custom_font_size'); ?>px;
             --custom-font-weight: <?php echo get_theme_mod('custom_font_weight', '400'); ?>;
+            --custom-headline-weight: <?php echo get_theme_mod('custom_headline_weight', '400'); ?>;
             --custom-headline-font: <?php echo get_theme_mod('custom_headline_font', 'Roboto'); ?>;
             --custom-text-font: <?php echo get_theme_mod('custom_text_font', 'Roboto'); ?>;
             --custom-headline-font-family: '<?php echo $custom_headline_font; ?>', <?php echo $standard_google_fonts[$custom_headline_font]; ?>;
             --custom-text-font-family: '<?php echo $custom_text_font; ?>', <?php echo $standard_google_fonts[$custom_text_font]; ?>;
 
-            /* Color Settings */
+            /* Font Settings */
+            --custom-form-height: <?php echo get_theme_mod('custom_form_height'); ?>px;
+
+            /* General Colors */
+            <?php foreach ($general_color_versions as $name => $value) { ?>
+                --custom-<?php echo $name; ?>-color: <?php echo $value; ?>;
+            <?php } ?>
+
+            /* Theme Colors */
             <?php foreach ($theme_colors as $name => $value) { ?>
                 --custom-<?php echo $name; ?>-color: <?php echo $value; ?>;
             <?php } ?>
 
+            /* Gray Color Shades */
             <?php foreach ($gray_colors as $name => $value) { ?>
                 --custom-gray-<?php echo $name; ?>-color: <?php echo $value; ?>;
             <?php } ?>
@@ -158,23 +183,33 @@ function customizer_theme_styles() {
             font-display: block;
         }
 
-        <?php foreach ($theme_colors as $name => $value) { ?>
+        <?php foreach ($general_color_versions as $name => $value) { ?>
             .has-<?php echo $name; ?>-color {
-                color: <?php echo $value; ?>;
+                color: rgb(<?php echo $value; ?>);
             }
 
             .has-<?php echo $name; ?>-background-color {
-                background-color: <?php echo $value; ?>;
+                background-color: rgb(<?php echo $value; ?>);
+            }
+        <?php } ?>
+
+        <?php foreach ($theme_colors as $name => $value) { ?>
+            .has-<?php echo $name; ?>-color {
+                color: rgb(<?php echo $value; ?>);
+            }
+
+            .has-<?php echo $name; ?>-background-color {
+                background-color: rgb(<?php echo $value; ?>);
             }
         <?php } ?>
 
         <?php foreach ($gray_colors as $name => $value) { ?>
             .has-gray-<?php echo $name; ?>-color {
-                color: <?php echo $value; ?>;
+                color: rgb(<?php echo $value; ?>);
             }
 
             .has-gray-<?php echo $name; ?>-background-color {
-                background-color: <?php echo $value; ?>;
+                background-color: rgb(<?php echo $value; ?>);
             }
         <?php } ?>
     </style>

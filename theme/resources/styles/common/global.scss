@@ -1,24 +1,42 @@
 html {
     font-size: var(--custom-font-size);
+    height: 100%;
 }
 
 body {
-    color: var(--custom-font-color);
-    background-color: var(--custom-body-background-color);
+    color: rgb(var(--custom-font-color));
+    background-color: rgb(var(--custom-body-background-color));
     font-weight: var(--custom-font-weight);
     font-family: var(--custom-text-font-family);
+    height: 100%;
+}
+
+#app {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.page-header {
+    margin-top: calc(var(--custom-navbar-top-position) + var(--custom-navbar-height) + var(--custom-block-spacing));
+    margin-bottom: calc(var(--custom-block-spacing) / 1.5);
 }
 
 a {
-    color: var(--custom-link-color);
+    color: rgb(var(--custom-link-color));
 
     &:hover {
-        color: var(--custom-link-hover-color);
+        color: rgb(var(--custom-link-hover-color));
     }
 }
 
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--custom-headline-font-family);
+    font-weight: var(--custom-headline-weight);
+}
+
+b, strong {
+    font-weight: 600;
 }
 
 #wpadminbar {

@@ -61,3 +61,30 @@ function sanitize_output($buffer) {
 
     return $buffer;
 }
+
+/**
+ * Check to see if the current page is the login/register page.
+ * Use this in conjunction with is_admin() to separate the front-end
+ * from the back-end of your theme.
+ *
+ * @link https://wordpress.stackexchange.com/questions/12863/check-if-wp-login-is-current-page/12865#12865
+ * @link https://stevegrunwell.com/blog/wordpress-is-login-page-function/
+ * @return bool
+ */
+if (!function_exists('is_login_page')) {
+    function is_login_page() {
+        return in_array(
+            $GLOBALS['pagenow'],
+            array('wp-login.php', 'wp-register.php'),
+            true
+        );
+    }
+}
+
+function convert_hex($hex) {
+    $hex = str_replace('#', '', $hex);
+    $first = substr($hex, 0, 2);
+    $second = substr($hex, 2, 2);
+    $third = substr($hex, 4, 2);
+    return hexdec($first) . ', ' . hexdec($second) . ', ' . hexdec($third);
+}

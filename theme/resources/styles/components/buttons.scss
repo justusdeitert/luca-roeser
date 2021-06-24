@@ -2,11 +2,90 @@
  * Buttons
  */
 
-/**
- * Bootstrap Button Classes
- */
-.btn {
-    &-light {
-        background-color: green;
+$theme-colors: (
+    'primary': var(--custom-primary-color),
+    'secondary': var(--custom-secondary-color),
+    'success': var(--custom-success-color),
+    'info': var(--custom-info-color),
+    'warning': var(--custom-warning-color),
+    'danger': var(--custom-danger-color),
+    'light': var(--custom-light-color),
+    'dark': var(--custom-dark-color),
+);
+
+$theme-dark-colors: (
+    'primary': var(--custom-primary-dark-color),
+    'secondary': var(--custom-secondary-dark-color),
+    'success': var(--custom-success-dark-color),
+    'info': var(--custom-info-dark-color),
+    'warning': var(--custom-warning-dark-color),
+    'danger': var(--custom-danger-dark-color),
+    'light': var(--custom-light-dark-color),
+    'dark': var(--custom-dark-dark-color)
+);
+
+//.btn {
+//    transition:
+//        color 0.15s ease-in-out,
+//        background-color 0.15s ease-in-out,
+//        border-color 0.15s ease-in-out,
+//        box-shadow 0.15s ease-in-out,
+//        filter 0.15s ease-in-out;
+//}
+
+@each $color, $value in $theme-colors {
+    .btn-#{$color} {
+        background-color: rgb($value);
+        border-color: rgb($value);
+
+        &:disabled {
+            background-color: rgb($value);
+            border-color: rgb($value);
+        }
     }
 }
+
+@each $color, $value in $theme-dark-colors {
+    .btn-#{$color} {
+        &:hover {
+            background-color: rgb($value);
+            border-color: rgb($value);
+        }
+
+        &:focus {
+            background-color: rgb($value);
+            border-color: rgb($value);
+            box-shadow: 0 0 0 0.25rem rgba($value, 0.3);
+
+            &:active {
+                box-shadow: 0 0 0 0.25rem rgba($value, 0.3);
+            }
+        }
+    }
+}
+
+// dark
+
+// disabled
+// color: #fff;
+// background-color: #212529;
+// border-color: rgb(33 37 41);
+
+// normal
+// color: #fff;
+// background-color: #212529;
+// border-color: rgb(33 37 41);
+
+// hover
+// color: #fff;
+// background-color: #1c1f23;
+// border-color: rgb(26 30 33);
+
+// focus
+// color: #fff;
+// background-color: #1c1f23;
+// border-color: rgb(26 30 33);
+// box-shadow: 0 0 0 0.25rem rgb(66 70 73 / 50%);
+
+
+

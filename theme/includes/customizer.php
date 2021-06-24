@@ -70,6 +70,14 @@ $menu_colors = [
     'navbar_submenu_background_active' => '#f8f9fa',
 ];
 
+// Form colors
+$form_colors = [
+    'form_font' => '#212529',
+    'form_focus' => '#0d6efd',
+    'form_background' => '#f8f9fa',
+    'form_border' => '#6c757d',
+];
+
 // Footer colors
 $footer_colors = [
     'footer_background' => '#f8f9fa',
@@ -344,6 +352,20 @@ if (class_exists('Kirki')) {
             ],
         ]);
 
+        Kirki::add_field('custom_headline_weight_id', [
+            'type' => 'slider',
+            'settings' => 'custom_headline_weight',
+            'label' => __('Custom Headline Weight', 'sage'),
+            'section' => 'section_font_settings_id',
+            'description' => __('300 (Light)<br>400 (Medium)<br>500 (Bold)', 'sage'),
+            'default' => 400,
+            'choices' => [
+                'min' => 300,
+                'max' => 500,
+                'step' => 100,
+            ],
+        ]);
+
         Kirki::add_field('custom_headline_font_id', [
             'type' => 'select',
             'settings' => 'custom_headline_font',
@@ -399,7 +421,7 @@ if (class_exists('Kirki')) {
      */
     function color_settings() {
 
-        global $general_colors, $font_colors, $content_colors, $alert_colors, $menu_colors, $footer_colors;
+        global $general_colors, $font_colors, $content_colors, $alert_colors, $menu_colors, $form_colors, $footer_colors;
 
         Kirki::add_section('section_color_settings_id', array(
             'title' => __('Color Settings', 'sage'),
@@ -477,6 +499,19 @@ if (class_exists('Kirki')) {
                 'choices'     => [
                     'alpha' => true,
                 ],
+                'default' => $value,
+            ]);
+        }
+
+        custom_kirki_border('section_color_settings_id');
+        custom_kirki_headline('section_color_settings_id', 'Form Colors', 'h2');
+
+        foreach ($form_colors as $color => $value) {
+            Kirki::add_field('custom_' . $color . '_color_id', [
+                'type' => 'color',
+                'settings' => 'custom_' . $color . '_color',
+                'label' => __(cleanColorName($color) . ' Color', 'sage'),
+                'section' => 'section_color_settings_id',
                 'default' => $value,
             ]);
         }
@@ -826,6 +861,41 @@ if (class_exists('Kirki')) {
         ]);
     }
 
+    /**
+     * Form Settings
+     */
+    function form_settings() {
+        Kirki::add_section('section_form_settings_id', array(
+            'title' => __('Form Settings', 'sage'),
+            'panel' => 'panel_theme_settings_id',
+        ));
+
+        Kirki::add_field('custom_form_height_id', [
+            'type' => 'slider',
+            'settings' => 'custom_form_height',
+            'label' => __('Custom Form Height', 'sage'),
+            'section' => 'section_form_settings_id',
+            'description' => __('Define Form Height', 'sage'),
+            'default' => 40,
+            'choices' => [
+                'min' => 40,
+                'max' => 60,
+                'step' => 1,
+            ],
+        ]);
+
+        Kirki::add_field('custom_google_maps_api_key_id', [
+            'type' => 'text',
+            'settings' => 'custom_google_maps_api_key',
+            'label' => __('Google Maps Api Key', 'sage'),
+            'section' => 'section_api_settings_id',
+            'description' => __('Set the API Key to enable the Maps Block', 'sage'),
+        ]);
+    }
+
+    /**
+     * Api Settings
+     */
     function api_settings() {
         Kirki::add_section('section_api_settings_id', array(
             'title' => __('API Settings', 'sage'),
@@ -882,6 +952,7 @@ if (class_exists('Kirki')) {
     font_settings();
     color_settings();
     menu_settings();
+    form_settings();
     // footer_settings();
     api_settings();
 }

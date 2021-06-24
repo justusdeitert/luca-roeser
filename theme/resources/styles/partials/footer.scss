@@ -1,14 +1,15 @@
 .footer {
-    background-color: var(--custom-footer-background-color);
-    color: var(--custom-footer-text-color);
+    background-color: rgb(var(--custom-footer-background-color));
+    color: rgb(var(--custom-footer-text-color));
     padding-top: var(--custom-block-spacing);
     padding-bottom: var(--custom-block-spacing);
+    margin-top: auto;
 
     a {
-        color: var(--custom-footer-link-color);
+        color: rgb(var(--custom-footer-link-color));
 
         &:hover {
-            color: var(--custom-footer-link-hover-color);
+            color: rgb(var(--custom-footer-link-hover-color));
         }
     }
 }

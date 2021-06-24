@@ -28,8 +28,8 @@ html {
     font-family: var(--custom-text-font-family) !important;
     font-size: $font-size-base;
     line-height: $line-height-base;
-    color: var(--custom-font-color);
-    background-color: var(--custom-body-background-color);
+    color: rgb(var(--custom-font-color));
+    background-color: rgb(var(--custom-body-background-color));
     overflow: hidden;
 
     // wrapper to override gutenberg block library css
@@ -72,7 +72,6 @@ html {
     .components-button {
         display: inline-flex;
         border-radius: 4px;
-        height: auto;
 
         &:after {
             border-radius: 4px;
@@ -95,14 +94,14 @@ html {
 
     // Footer Widget
     [data-widget-area-id="sidebar-footer"] {
-        background-color: var(--custom-footer-background-color);
-        color: var(--custom-footer-text-color);
+        background-color: rgb(var(--custom-footer-background-color));
+        color: rgb(var(--custom-footer-text-color));
 
         a {
-            color: var(--custom-footer-link-color);
+            color: rgb(var(--custom-footer-link-color));
 
             &:hover {
-                color: var(--custom-footer-link-color);
+                color: rgb(var(--custom-footer-link-color));
             }
         }
     }

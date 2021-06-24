@@ -138,17 +138,12 @@ registerBlockType('custom/map', {
                                 ]}
                                 render={({open}) => (
                                     <Button className={'button'} onClick={open}>
-                                        {!attributes.markerImage ?
-                                            __('Upload Map Marker', 'sage')
-                                            :
-                                            <img src={getImage(attributes.markerImage, 'original')}/>
-                                        }
+                                        {!attributes.markerImage ? __('Upload Map Marker', 'sage') : __('Update Map Marker', 'sage')}
                                     </Button>
                                 )}
                             />
                             {attributes.markerImage &&
                                 <Tooltip text={__('Remove Marker Image', 'sage')}>
-                                    {/*<Button icon="trash" className={'button'} onClick={removeMarkerImage} style={{marginLeft: '10px'}} />*/}
                                     <Icon icon="trash" size={32} onClick={removeMarkerImage} style={{marginLeft: '10px', cursor: 'pointer'}} />
                                 </Tooltip>
                             }
