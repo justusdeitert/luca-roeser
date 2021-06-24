@@ -8,6 +8,7 @@
     color: rgb(var(--custom-form-font-color));
     min-height:  var(--custom-form-height);
     background-color: rgb(var(--custom-form-background-color));
+    border-color: rgb(var(--custom-form-border-color));
 
     &:focus {
         color: rgb(var(--custom-form-font-color));
