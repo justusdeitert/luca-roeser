@@ -130,3 +130,8 @@ Config::apply();
 if (!defined('ABSPATH')) {
     define('ABSPATH', $webroot_dir . '/wp/');
 }
+
+/**
+ * Adds Default Theme Option
+ */
+define('WP_DEFAULT_THEME', env('WP_DEFAULT_THEME'));

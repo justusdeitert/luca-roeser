@@ -24,9 +24,10 @@
 /**
  * Adjust WP Admin Menu for Contact Form 7 Database Plugin
  */
-if (is_plugin_active('contact-form-cfdb7/contact-form-cfdb-7.php')) {
-    add_action('admin_menu', function () {
 
+add_action('admin_menu', function () {
+
+    if (is_plugin_active('contact-form-cfdb7/contact-form-cfdb-7.php')) {
         /**
          * Remove Plugin Menu Item
          */
@@ -38,5 +39,6 @@ if (is_plugin_active('contact-form-cfdb7/contact-form-cfdb-7.php')) {
         global $submenu;
         $permalink = get_admin_url() . 'admin.php?page=cfdb7-list.php';
         $submenu['wpcf7'][] = ['Database', 'manage_options', $permalink];
-    }, 99);
-}
+    }
+}, 99);
+
