@@ -32,7 +32,31 @@
 @import "~codemirror/lib/codemirror";
 @import "~codemirror/theme/material";
 
-.CodeMirror {
-    width: auto;
-    height: auto;
+/**
+ * Contact Form 7 - Admin Panel Adjustments
+ */
+.toplevel_page_wpcf7 {
+    .CodeMirror {
+        width: auto;
+        height: auto;
+        border-radius: 10px;
+        margin-top: 10px;
+
+        &-sizer {
+            width: 0;
+            min-width: 0 !important;
+        }
+    }
+
+    .tag-generator-panel {
+        .submitbox {
+            display: none;
+        }
+
+        .insert-box {
+            input[type='text'] {
+                width: 100%;
+            }
+        }
+    }
 }

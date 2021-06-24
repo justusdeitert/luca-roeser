@@ -8,10 +8,8 @@ import 'codemirror/mode/htmlmixed/htmlmixed';
 
 let editor = CodeMirror.fromTextArea(document.getElementById('wpcf7-form'), {
     mode: 'htmlmixed',
-    lineNumbers: true,
     theme: 'material',
+    lineNumbers: true,
 });
-
-// editor.setSize('auto', 'auto');
 
 editor.save()
