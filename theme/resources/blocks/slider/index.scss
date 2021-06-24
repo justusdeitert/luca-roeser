@@ -154,17 +154,17 @@
                 height: 10px;
                 margin: 5px;
                 border-radius: 50%;
-                background-color: var(--custom-gray-500-color);
+                background-color: rgb(var(--custom-gray-500-color));
                 position: relative;
 
                 &-active {
-                    background-color: var(--custom-primary-color);
+                    background-color: rgb(var(--custom-primary-color));
                 }
             }
         }
 
         i {
-            color: var(--custom-primary-color);
+            color: rgb(var(--custom-primary-color));
             font-size: 2.5rem;
         }
 
