@@ -158,13 +158,13 @@
                 position: relative;
 
                 &-active {
-                    background-color: rgb(var(--custom-primary-color));
+                    background-color: rgb(var(--custom-controls-color));
                 }
             }
         }
 
         i {
-            color: rgb(var(--custom-primary-color));
+            color: rgb(var(--custom-controls-color));
             font-size: 2.5rem;
         }
 

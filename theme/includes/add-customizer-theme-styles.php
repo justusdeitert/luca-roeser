@@ -53,6 +53,7 @@ function customizer_theme_styles() {
 
         // Content Colors
         'body-background' => convert_hex(get_theme_mod('custom_body_background_color', '#f8f9fa')),
+        'controls' => convert_hex(get_theme_mod('custom_controls_color', '#212529')),
 
         // Menu Colors
         'navbar-background' => convert_hex(get_theme_mod('custom_navbar_background_color', '#f8f9fa')),

@@ -268,3 +268,9 @@ add_action('widgets_init', function () {
         'description' => __('The Footer widget area is displayed on the bottom of each page.', 'sage'),
     ] + $config);
 });
+
+// https://developer.wordpress.org/reference/functions/load_theme_textdomain/
+// https://roots.io/docs/sage/9.x/localization/#generating-language-files
+add_action('after_setup_theme', function () {
+    load_theme_textdomain('sage', get_template_directory() . '/resources/lang');
+});

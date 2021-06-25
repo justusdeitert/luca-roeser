@@ -4,7 +4,6 @@
     $menu_has_opening_hours = get_theme_mod('custom_menu_has_opening_hours');
     $custom_menu_mobile_only = get_theme_mod('custom_mobile_menu_only');
     $custom_navbar_order = get_theme_mod('custom_navbar_order');
-
     $navbar_height = get_theme_mod('custom_navbar_height');
     $navbar_top_position = get_theme_mod('custom_navbar_top_position');
     $navbar_logo = get_theme_mod('custom_navbar_logo_image');
@@ -19,9 +18,18 @@
         $navbar_top_position == 0 ? 'set-to-top' : ''
     ];
 
+    /**
+     * Navbar Item Spacing Function
+     * @param $item
+     * @return string
+     */
     function get_item_spacing_classes($item) {
 
         $custom_item_spacing = get_theme_mod('custom_navbar_' . $item . '_spacing');
+
+        if (!$custom_item_spacing) {
+            return '';
+        }
 
         if (in_array('left', $custom_item_spacing) && in_array('right', $custom_item_spacing)) {
             return 'ms-auto me-auto';
@@ -37,6 +45,22 @@
 
         return '';
     }
+
+    /**
+     * KIRKI Sortable BUG
+     * custom_navbar_order has default config but returns false
+     */
+    if (!$custom_navbar_order) {
+        $custom_navbar_order = [
+            'logo',
+            'business_hours',
+            'primary_menu',
+            'secondary_menu',
+            'burger_menu_icon'
+        ];
+    }
+
+    $has_any_menu = has_nav_menu('primary_mobile_menu') || has_nav_menu('primary_desktop_menu') || has_nav_menu('secondary_desktop_menu');
 ?>
 
 <?php if ($menu_item_separator !== 'none') { ?>
@@ -51,7 +75,7 @@
     </style>
 <?php } ?>
 
-@if(class_exists('Kirki'))
+@if(class_exists('Kirki') && $has_any_menu)
     <nav class="{!! implode(' ', $navbar_classes); !!}">
         <div class="@if($navbar_has_full_width) {!! 'container-fluid' !!} @else {!! 'container' !!} @endif">
             <div class="navbar__inner">
@@ -60,7 +84,7 @@
                 @foreach($custom_navbar_order as $custom_navbar_item)
 
                     @if($custom_navbar_item === 'logo')
-                        @if($navbar_logo['url'])
+                        @if($navbar_logo && $navbar_logo['url'])
                             <div class="navbar__logo-wrapper {!! get_item_spacing_classes('logo') !!}">
                                 <img src="{!! $navbar_logo['url'] !!}" alt="{!! $navbar_logo_alt !!}">
                             </div>

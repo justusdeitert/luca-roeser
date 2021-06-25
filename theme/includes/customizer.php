@@ -48,6 +48,7 @@ $font_colors = [
 // Content Colors
 $content_colors = [
     'body_background' => '#f8f9fa',
+    'controls' => '#212529',
 ];
 
 // Alert Colors

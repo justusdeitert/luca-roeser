@@ -58,7 +58,7 @@ const attributes = {
     },
     arrowSize: {
         type: 'number',
-        default: 40,
+        default: 32,
     },
 
     /**
