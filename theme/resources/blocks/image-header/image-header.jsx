@@ -22,7 +22,7 @@ const attributes = {
     },
     headerHeight: {
         type: 'number',
-        default: 450,
+        default: 500,
     },
     headerMobileHeight: {
         type: 'number',

@@ -250,7 +250,7 @@ if (class_exists('Kirki')) {
             'label' => __('Block spacing', 'sage'),
             'section' => 'section_content_settings_id',
             'description' => __('Define the general (mostly vertical) spacing between blocks', 'sage'),
-            'default' => 32,
+            'default' => 48,
             'choices' => [
                 'min' => 16,
                 'max' => 80,

@@ -29,7 +29,7 @@ const attributes = {
     },
     accordionHeadlineSize: {
         type: 'number',
-        default: 16,
+        default: 20,
     },
     accordionBackgroundColor: {
         type: 'string'

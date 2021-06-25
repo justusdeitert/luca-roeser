@@ -108,8 +108,8 @@ registerBlockType('custom/text-image', {
             let {attributes, className, setAttributes } = this.props;
 
             const TEMPLATE = [
-                ['core/heading', {placeholder: 'The Title...'}],
-                ['core/paragraph', {placeholder: loremIpsum({count: 3})}],
+                ['core/heading', {content: 'The Title...'}],
+                ['core/paragraph', {content: loremIpsum({count: 3})}],
             ];
 
             const onSelectImage = (object) => {
