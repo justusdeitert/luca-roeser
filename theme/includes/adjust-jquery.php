@@ -1,9 +1,9 @@
 <?php
 
 // Remove jQuery from frontend
-if (!is_admin() && !is_login_page()) {
-    add_action('init', function () {
+add_action('init', function () {
+    if (!is_admin() && !is_login_page()) {
         wp_deregister_script('jquery');
-    });
-}
+    }
+});
 
