@@ -13,6 +13,7 @@ import {
 
 import classNames from 'classnames';
 import {editorThemeColors, getImage} from '../utility';
+import {loremIpsum} from "lorem-ipsum";
 
 const blockIcon = createElement('svg', {width: 20, height: 20},
     createElement('path', {
@@ -106,6 +107,11 @@ registerBlockType('custom/text-image', {
 
             let {attributes, className, setAttributes } = this.props;
 
+            const TEMPLATE = [
+                ['core/heading', {placeholder: 'The Title...'}],
+                ['core/paragraph', {placeholder: loremIpsum({count: 3})}],
+            ];
+
             const onSelectImage = (object) => {
                 setAttributes({contentImages: object});
             };
@@ -186,7 +192,7 @@ registerBlockType('custom/text-image', {
             const textColumn = (
                 <div className={classNames(`text-image-block__text-column`, `col-12 col-md-6 col-xl-${12 - attributes.columnRange}`)}>
                     <div className={classNames("text-image-block__text-column-inner")}>
-                        <InnerBlocks allowedBlocks={ALLOWED_BLOCKS}/>
+                        <InnerBlocks template={TEMPLATE} allowedBlocks={ALLOWED_BLOCKS}/>
                     </div>
                 </div>
             );

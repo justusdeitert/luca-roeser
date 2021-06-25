@@ -47,6 +47,7 @@
     "classnames": "^2.3.1",
     "codemirror": "^5.63.1",
     "lightgallery": "^2.1.8",
+    "lorem-ipsum": "^2.0.4",
     "popper.js": "^1.16.1",
     "swiper": "^6.7.5",
     "tippy.js": "^6.3.2"

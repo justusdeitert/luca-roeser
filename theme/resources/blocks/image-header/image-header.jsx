@@ -124,6 +124,18 @@ const getOverlayColor = (overlayColor) => {
     }
 }
 
+const ALLOWED_BLOCKS = [
+    'core/paragraph',
+    'core/heading',
+    'core/list',
+    'core/shortcode',
+    'core/spacer',
+    'custom/button',
+    'custom/icon-text',
+    'custom/row',
+    'custom/divider'
+];
+
 registerBlockType('custom/image-header', {
     title: __('Image Header', 'sage'),
     icon: blockIcon,
@@ -491,7 +503,7 @@ registerBlockType('custom/image-header', {
                                     }}
                                 />
                             }
-                            <InnerBlocks templateLock='all' template={TEMPLATE} allowedBlocks={['custom/column']}/>
+                            <InnerBlocks template={TEMPLATE} allowedBlocks={ALLOWED_BLOCKS}/>
                         </div>
                     </div>
                 </div>

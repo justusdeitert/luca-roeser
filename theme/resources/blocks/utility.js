@@ -77,9 +77,9 @@ export const getImage = (image, size = 'full', placeholderId = false) => {
                 return '800'
             default:
                 if(placeholderId) {
-                    return `https://picsum.photos/id/${placeholderId}/1200/800`;
+                    return `https://picsum.photos/id/${placeholderId}/1800/1200`;
                 } else {
-                    return 'https://picsum.photos/1200/800';
+                    return 'https://picsum.photos/1800/1200';
                 }
         }
     }
