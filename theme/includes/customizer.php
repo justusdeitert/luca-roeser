@@ -693,7 +693,7 @@ if (class_exists('Kirki')) {
                 'step' => 1,
             ],
             'active_callback' => function () {
-                if (get_theme_mod('custom_navbar_logo_image')['url'] !== '') {
+                if (get_theme_mod('custom_navbar_logo_image') && get_theme_mod('custom_navbar_logo_image')['url']) {
                     return true;
                 }
                 return false;
@@ -712,7 +712,7 @@ if (class_exists('Kirki')) {
                 'step' => 1,
             ],
             'active_callback' => function () {
-                if (get_theme_mod('custom_navbar_logo_image')['url'] !== '') {
+                if (get_theme_mod('custom_navbar_logo_image') && get_theme_mod('custom_navbar_logo_image')['url']) {
                     return true;
                 }
                 return false;

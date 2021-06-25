@@ -37,6 +37,7 @@ class BusinessHours extends Composer {
         $current_date = new DateTime('now', new DateTimeZone(wp_timezone_string()));
         $current_time = $current_date->format('H:i');
         $current_day = strtolower($current_date->format('l'));
+
         // Clean array when days are empty
         $business_hours = class_exists('ACF') ? get_field('business_hours', 'option') : false;
         $is_open = false;
@@ -66,10 +67,12 @@ class BusinessHours extends Composer {
         $current_date = new DateTime('now', new DateTimeZone(wp_timezone_string()));
         $current_time = $current_date->format('H:i');
         $current_day = strtolower($current_date->format('l'));
-        $opening_hours = class_exists('ACF') ? array_filter(get_field('business_hours', 'option')) : false; // Clean array when days are empty
+        $opening_hours = class_exists('ACF') ? get_field('business_hours', 'option') : false; // Clean array when days are empty
+        $opening_hours = is_array($opening_hours) ? array_filter($opening_hours) : false;
 
         // Remove from Array if a time is missing
         if ($opening_hours) {
+
             foreach ($opening_hours as $day => $times) {
                 if (count($times) < 2) {
                     unset($opening_hours[$day]);
@@ -77,39 +80,38 @@ class BusinessHours extends Composer {
             }
 
             ob_start(); ?>
-            <div class="business-hours-template">
-                <?php foreach ($opening_hours as $day => $times) { ?>
-                    <div class="business-hours-template__wrapper">
-                        <?php
-                        setlocale(LC_TIME, get_locale());
-                        $day_format = new DateTime($day, new DateTimeZone(wp_timezone_string()));
-                        $day_format = $day_format->format('Y-m-d');
-                        $day_format = strftime("%a", strtotime($day_format));
-                        ?>
+                <div class="business-hours-template">
+                    <?php foreach ($opening_hours as $day => $times) { ?>
+                        <div class="business-hours-template__wrapper">
+                            <?php
+                            setlocale(LC_TIME, get_locale());
+                            $day_format = new DateTime($day, new DateTimeZone(wp_timezone_string()));
+                            $day_format = $day_format->format('Y-m-d');
+                            $day_format = strftime("%a", strtotime($day_format));
+                            ?>
 
-                        <span class="business-hours-template__day"><?php echo $day_format; ?></span>
+                            <span class="business-hours-template__day"><?php echo $day_format; ?></span>
 
-                        <div class="business-hours-template__time-wrapper">
-                            <?php foreach ($times as $time) { ?>
-                                <?php
-                                $time_is_active = false;
-                                if ($day === $current_day) {
-                                    if ($current_time > $time['from'] && $current_time < $time['to']) {
-                                        $time_is_active = true;
+                            <div class="business-hours-template__time-wrapper">
+                                <?php foreach ($times as $time) { ?>
+                                    <?php
+                                    $time_is_active = false;
+                                    if ($day === $current_day) {
+                                        if ($current_time > $time['from'] && $current_time < $time['to']) {
+                                            $time_is_active = true;
+                                        }
                                     }
-                                }
-                                ?>
-                                <span class="business-hours-template__time">
-                                    <span class="<?php echo $time_is_active ? 'active' : ''; ?>">
-                                        <?php echo $time['from']; ?> - <?php echo $time['to']; ?>
+                                    ?>
+                                    <span class="business-hours-template__time">
+                                        <span class="<?php echo $time_is_active ? 'active' : ''; ?>">
+                                            <?php echo $time['from']; ?> - <?php echo $time['to']; ?>
+                                        </span>
                                     </span>
-                                </span>
-                            <?php } ?>
+                                <?php } ?>
+                            </div>
                         </div>
-                    </div>
-                <?php } ?>
-            </div>
-
+                    <?php } ?>
+                </div>
             <?php return ob_get_clean();
         }
     }
