@@ -269,8 +269,20 @@ add_action('widgets_init', function () {
     ] + $config);
 });
 
-// https://developer.wordpress.org/reference/functions/load_theme_textdomain/
-// https://roots.io/docs/sage/9.x/localization/#generating-language-files
+/**
+ * TODO: Loading text domain does not work!
+ * @link https://discourse.roots.io/t/language-po-and-mo-totally-ignored/12295/5
+ * @link https://developer.wordpress.org/reference/functions/load_theme_textdomain/
+ * @link https://roots.io/docs/sage/9.x/localization/#generating-language-files
+ */
 add_action('after_setup_theme', function () {
-    load_theme_textdomain('sage', get_template_directory() . '/resources/lang');
+    load_theme_textdomain('sage', get_template_directory() . '/lang');
+});
+
+/**
+ * https://developer.wordpress.org/block-editor/how-to-guides/internationalization/
+ */
+add_action('init', function () {
+    wp_set_script_translations('sage/editor', 'sage');
+    load_theme_textdomain('sage', get_template_directory() . '/lang');
 });

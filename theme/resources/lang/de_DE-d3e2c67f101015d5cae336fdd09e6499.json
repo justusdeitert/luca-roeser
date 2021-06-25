@@ -1,0 +1,324 @@
+{
+    "translation-revision-date": "2021-10-12 10:50+0200",
+    "generator": "WP-CLI\/2.4.0",
+    "source": "public\/scripts\/editor.js",
+    "domain": "messages",
+    "locale_data": {
+        "messages": {
+            "": {
+                "domain": "messages",
+                "lang": "de",
+                "plural-forms": "nplurals=2; plural=(n != 1);"
+            },
+            "Light": [
+                "Hell"
+            ],
+            "Dark": [
+                "Dunkel"
+            ],
+            "Left": [
+                "Links"
+            ],
+            "Right": [
+                "Rechts"
+            ],
+            "Remove Icon": [
+                "Icon entfernen"
+            ],
+            "Light Span": [
+                "Light Span"
+            ],
+            "Text Shadow": [
+                "Textschatten"
+            ],
+            "Accordion": [
+                "Akkordeon"
+            ],
+            "Remove Item": [
+                "Element entfernen"
+            ],
+            "Really want to remove this Item?": [
+                "M\u00f6chten Sie diesen Artikel wirklich entfernen?"
+            ],
+            "Yes": [
+                "Ja"
+            ],
+            "Add Item after": [
+                "Element hinzuf\u00fcgen nach"
+            ],
+            "Show Icon": [
+                "Zeige Icon"
+            ],
+            "Accordion Spacing": [
+                "Akkordeonabstand"
+            ],
+            "Accordion Headline Size": [
+                "Akkordeon-Headline-Gr\u00f6\u00dfe"
+            ],
+            "Accordion Background Color": [
+                "Akkordeon Hintergrundfarbe"
+            ],
+            "Divider": [
+                "Trenner"
+            ],
+            "Change Opacity": [
+                "Deckkraft \u00e4ndern"
+            ],
+            "Change Spacing (Desktop)": [
+                "\u00c4ndern des Abstands (Desktop)"
+            ],
+            "Change Spacing (Mobile)": [
+                "Abstand \u00e4ndern (Mobil)"
+            ],
+            "Change Thickness": [
+                "Dicke \u00e4ndern"
+            ],
+            "Full Width": [
+                "Volle Breite"
+            ],
+            "Change Width in %": [
+                "Breite in % \u00e4ndern"
+            ],
+            "Change Color": [
+                "Farbe \u00e4ndern"
+            ],
+            "Icon": [
+                "Icon"
+            ],
+            "Upload Icon": [
+                "Icon Hochladen"
+            ],
+            "Change Icon": [
+                "Icon \u00e4ndern"
+            ],
+            "Image Header": [
+                "Image Header"
+            ],
+            "Header Properties": [
+                "Header-Eigenschaften"
+            ],
+            "Full Height header": [
+                "Kopfzeile \"Volle H\u00f6he\""
+            ],
+            "Header Height": [
+                "Header H\u00f6he"
+            ],
+            "Mobile Header Height": [
+                "H\u00f6he Mobile-Kopfbereich"
+            ],
+            "Adjust Header Clip Path (Top)": [
+                "Header-Clip-Pfad anpassen (oben)"
+            ],
+            "Adjust Header Clip Path (Bottom)": [
+                "Header-Clip-Pfad anpassen (unten)"
+            ],
+            "Header Background Color": [
+                "Header Hintergrundfarbe"
+            ],
+            "Image Properties": [
+                "Bild-Eigenschaften"
+            ],
+            "Image Blur": [
+                "Bildunsch\u00e4rfe"
+            ],
+            "Image Opacity": [
+                "Bild Transparenz"
+            ],
+            "Image Overlay": [
+                "Bild\u00fcberlagerung"
+            ],
+            "Select Overlay Color": [
+                "\u00dcberlagerungsfarbe ausw\u00e4hlen"
+            ],
+            "Select Image Position": [
+                "Bildposition ausw\u00e4hlen"
+            ],
+            "Horizontal": [
+                "Horizontal"
+            ],
+            "Center": [
+                "Zentriert"
+            ],
+            "Vertical": [
+                "Vertikal"
+            ],
+            "Top": [
+                "Oben"
+            ],
+            "Bottom": [
+                "Unten"
+            ],
+            "Logo Properties": [
+                "Logo-Eigenschaften"
+            ],
+            "Adjust Logo Size": [
+                "Logogr\u00f6\u00dfe anpassen"
+            ],
+            "Smaller Logo on Mobile": [
+                "Kleineres Logo auf Mobil"
+            ],
+            "Adjust Logo Position": [
+                "Logo-Position anpassen"
+            ],
+            "Logo sits right": [
+                "Logo sitzt rechts"
+            ],
+            "Logo sits left": [
+                "Logo sitzt links"
+            ],
+            "Header Logo Position X": [
+                "Kopfzeile Logo Position X"
+            ],
+            "Header Logo Position Y": [
+                "Kopfzeile Logo Position Y"
+            ],
+            "Text Properties": [
+                "Texteigenschaften"
+            ],
+            "Text Position X": [
+                "Textposition X"
+            ],
+            "Text Position Y": [
+                "Textposition Y"
+            ],
+            "Change Image": [
+                "Bild \u00e4ndern"
+            ],
+            "Upload Logo": [
+                "Logo hochladen"
+            ],
+            "Change Logo": [
+                "Logo \u00e4ndern"
+            ],
+            "Map": [
+                "Karte"
+            ],
+            "Upload Map Marker": [
+                "Kartenmarkierung hochladen"
+            ],
+            "Update Map Marker": [
+                "Kartenmarkierung aktualisieren"
+            ],
+            "Remove Marker Image": [
+                "Markerbild entfernen"
+            ],
+            "Address": [
+                "Adresse"
+            ],
+            "Google Maps Link": [
+                "Google-Maps-Link"
+            ],
+            "Adjust Zoom Level": [
+                "Zoomstufe anpassen"
+            ],
+            "The Headline...": [
+                "Die \u00dcberschrift..."
+            ],
+            "Slider": [
+                "Slider"
+            ],
+            "Slide Prev": [
+                "Folie Zur\u00fcck"
+            ],
+            "Slide Next": [
+                "Slide Weiter"
+            ],
+            "Slider Properties": [
+                "Slider-Eigenschaften"
+            ],
+            "Loop Slider": [
+                "Loop-Schieberegler"
+            ],
+            "Slides per View": [
+                "Slides pro Ansicht"
+            ],
+            "Slides Background Color": [
+                "Hintergrundfarbe der Folien"
+            ],
+            "Slider Controls": [
+                "Slider Controls"
+            ],
+            "Controls Position": [
+                "Steuert Position"
+            ],
+            "Controls Style": [
+                "Steuerelementstil"
+            ],
+            "Show Pagination": [
+                "Seitennummerierung anzeigen"
+            ],
+            "Pagination Size": [
+                "Paginierungsgr\u00f6\u00dfe"
+            ],
+            "Show Arrows": [
+                "Pfeiltasten anzeigen"
+            ],
+            "Arrow Size": [
+                "Pfeilgr\u00f6\u00dfe"
+            ],
+            "Show Text Wrapper": [
+                "Text Wrapper anzeigen"
+            ],
+            "Show Headline": [
+                "\u00dcberschrift anzeigen"
+            ],
+            "Headline Type": [
+                "\u00dcberschriften-Typ"
+            ],
+            "H4": [
+                "H4"
+            ],
+            "H5": [
+                "H5"
+            ],
+            "H6": [
+                "H6"
+            ],
+            "Center Text": [
+                "Zentrierter Text"
+            ],
+            "Show Images": [
+                "Bilder anzeigen"
+            ],
+            "Images Ratio": [
+                "Bildverh\u00e4ltnis"
+            ],
+            "1x1": [
+                "1x1"
+            ],
+            "4x3": [
+                "4x3"
+            ],
+            "3x2": [
+                "3x2"
+            ],
+            "16x9": [
+                "16x9"
+            ],
+            "21x9": [
+                "21x9"
+            ],
+            "Text Image": [
+                "Text Image"
+            ],
+            "Upload Images": [
+                "Bilder hochladen"
+            ],
+            "Change Images": [
+                "Bilder \u00e4ndern"
+            ],
+            "Switch content order": [
+                "\u00c4ndern der Inhaltsreihenfolge"
+            ],
+            "Adjust Column Range": [
+                "Anpassen der Spaltenbreite"
+            ],
+            "Adjust visible Images": [
+                "Sichtbare Bilder anpassen"
+            ],
+            "Background Color": [
+                "Hintergrundfarbe"
+            ]
+        }
+    }
+}
