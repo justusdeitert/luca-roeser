@@ -83,6 +83,11 @@ window.initSliderBlockInstances = () => {
             touchEventsTarget: 'wrapper',
 
             /**
+             * Passive event listeners will be used by default where possible to improve scrolling performance on mobile devices
+             */
+            passiveListeners: false,
+
+            /**
              * Pagination
              */
             pagination: {
