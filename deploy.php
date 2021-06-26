@@ -174,7 +174,7 @@ task('push', [
 
 desc('Pull Project DB & Uploads Folder');
 task('pull', [
-    'custom_writeable_dirs',
+    // 'custom_writeable_dirs',
     'pull:db',
     'pull:files',
     // 'deactivate_password_protected'

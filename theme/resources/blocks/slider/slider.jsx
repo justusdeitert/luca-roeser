@@ -704,7 +704,7 @@ registerBlockType('custom/slider', {
                         <div
                             className={classNames('slider-block__image-wrapper', `ratio ratio-${attributes.sliderImagesRatio}`)}>
                             <img alt={getImage(item.slideImage, 'alt')}
-                                 srcSet={`${getImage(item.slideImage, 'tiny')} 480w, ${getImage(item.slideImage, 'small')} 768w, ${getImage(item.slideImage, 'medium')} 1024w`}
+                                 srcSet={`${getImage(item.slideImage, 'tiny')} 480w, ${getImage(item.slideImage, 'small')} 768w, ${getImage(item.slideImage, 'medium')} 1360w`}
                                  src={getImage(item.slideImage, 'small', index)}
                                  className={classNames('slider-block__image', 'custom-border-radius')}
                             />
