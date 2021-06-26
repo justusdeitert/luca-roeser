@@ -4,4 +4,15 @@
     border-left: 0.25rem solid rgb(var(--custom-font-color));
     color: rgb(var(--custom-font-color));
     padding-left: 1rem;
+
+    &.is-style-large {
+        p {
+            font-style: initial;
+            font-size: 1.5rem;
+
+            @include media-breakpoint-down(sm) {
+                font-size: 1.2rem;
+            }
+        }
+    }
 }

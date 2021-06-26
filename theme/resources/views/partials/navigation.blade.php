@@ -1,12 +1,18 @@
 <?php
 
-    $menu_item_separator = get_theme_mod('custom_menu_item_separator');
-    $menu_has_opening_hours = get_theme_mod('custom_menu_has_opening_hours');
-    $custom_menu_mobile_only = get_theme_mod('custom_mobile_menu_only');
-    $custom_navbar_order = get_theme_mod('custom_navbar_order');
-    $navbar_height = get_theme_mod('custom_navbar_height');
-    $navbar_top_position = get_theme_mod('custom_navbar_top_position');
-    $navbar_logo = get_theme_mod('custom_navbar_logo_image');
+    $menu_item_separator = get_theme_mod('custom_menu_item_separator', 'none');
+    $menu_has_opening_hours = get_theme_mod('custom_menu_has_opening_hours', '0');
+    $custom_menu_mobile_only = get_theme_mod('custom_mobile_menu_only', '0');
+    $custom_navbar_order = get_theme_mod('custom_navbar_order', [
+        'logo',
+        'business_hours',
+        'primary_menu',
+        'secondary_menu',
+        'burger_menu_icon'
+    ]);
+    $navbar_height = get_theme_mod('custom_navbar_height', 60);
+    $navbar_top_position = get_theme_mod('custom_navbar_top_position', 0);
+    $navbar_logo = get_theme_mod('custom_navbar_logo_image', '');
     $navbar_logo_alt = $navbar_logo ? get_post_meta($navbar_logo['id'], '_wp_attachment_image_alt', true) : '';
     $navbar_has_full_width = get_theme_mod('custom_full_width_navbar');
 
@@ -23,9 +29,9 @@
      * @param $item
      * @return string
      */
-    function get_item_spacing_classes($item) {
+    function get_item_spacing_classes($item, $default = []) {
 
-        $custom_item_spacing = get_theme_mod('custom_navbar_' . $item . '_spacing');
+        $custom_item_spacing = get_theme_mod('custom_navbar_' . $item . '_spacing', $default);
 
         if (!$custom_item_spacing) {
             return '';
@@ -85,7 +91,7 @@
 
                     @if($custom_navbar_item === 'logo')
                         @if($navbar_logo && $navbar_logo['url'])
-                            <div class="navbar__logo-wrapper {!! get_item_spacing_classes('logo') !!}">
+                            <div class="navbar__logo-wrapper {!! get_item_spacing_classes('logo', []) !!}">
                                 <img src="{!! $navbar_logo['url'] !!}" alt="{!! $navbar_logo_alt !!}">
                             </div>
                         @endif
@@ -93,7 +99,7 @@
 
                     @if($custom_navbar_item === 'business_hours')
                         @if($menu_has_opening_hours)
-                            <div class="navbar__business-hours {!! get_item_spacing_classes('business_hours') !!}">
+                            <div class="navbar__business-hours {!! get_item_spacing_classes('business_hours', []) !!}">
                                 @if($navbar_height >= 50)
                                     <span class="navbar__business-hours__headline">
                                         {{ __('Business hours', 'sage') }}
@@ -117,7 +123,7 @@
                             @if (has_nav_menu('primary_desktop_menu'))
                                 {!! wp_nav_menu([
                                     'theme_location' => 'primary_desktop_menu',
-                                    'menu_class' => 'navbar__menu navbar__primary-desktop-menu d-none d-md-flex ' . get_item_spacing_classes('primary_menu'),
+                                    'menu_class' => 'navbar__menu navbar__primary-desktop-menu d-none d-md-flex ' . get_item_spacing_classes('primary_menu', ['left', '']),
                                     'container' => false,
                                     'echo' => false,
                                     'walker' => new Submenu_Wrap()
@@ -131,7 +137,7 @@
                             @if (has_nav_menu('secondary_desktop_menu'))
                                 {!! wp_nav_menu([
                                     'theme_location' => 'secondary_desktop_menu',
-                                    'menu_class' => 'navbar__menu navbar__secondary-desktop-menu d-none d-md-flex ' . get_item_spacing_classes('secondary_menu'),
+                                    'menu_class' => 'navbar__menu navbar__secondary-desktop-menu d-none d-md-flex ' . get_item_spacing_classes('secondary_menu', ['left', '']),
                                     'container' => false,
                                     'echo' => false,
                                     'walker' => new Submenu_Wrap()
@@ -144,7 +150,7 @@
                         <div class="{!! implode(' ', [
                             'navbar__burger-menu-icon-wrapper d-flex',
                             !$custom_menu_mobile_only ? 'd-md-none' : '',
-                            get_item_spacing_classes('burger_menu_icon')
+                            get_item_spacing_classes('burger_menu_icon', ['left', ''])
                         ]) !!}">
                             <i class="navbar__burger-menu-icon icon-menu"></i>
                             <div class="popper-wrapper">

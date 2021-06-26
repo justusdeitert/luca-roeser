@@ -186,7 +186,7 @@
     &__headline {
         line-height: 1.25rem;
         color: rgb(var(--custom-navbar-font-color));
-        opacity: 0.7;
+        //opacity: 0.7;
     }
 
     &__wrapper {
@@ -203,10 +203,10 @@
         }
 
         &.is-open {
-            color: rgb(var(--custom-success-color));
+            color: rgb(var(--custom-primary-color));
 
             i {
-                color: rgb(var(--custom-success-color));
+                color: rgb(var(--custom-primary-color));
             }
         }
     }
@@ -243,7 +243,7 @@
         &__time {
 
             .active {
-                color: rgb(var(--custom-success-color));
+                color: rgb(var(--custom-primary-color));
             }
 
             &:last-child {
