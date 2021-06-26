@@ -21,5 +21,3 @@ wp.customize('blogname', value => {
  * @link https://kirki.org/docs/arguments/transport/
  * @link https://kirki.org/docs/modules/postmessage/
  */
-
-console.log('customizer.js')

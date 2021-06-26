@@ -1,5 +1,6 @@
 const mix = require('laravel-mix');
 require('@tinypixelco/laravel-mix-wp-blocks');
+require('laravel-mix-bundle-analyzer');
 
 // Require dotenv yarn add dotenv
 require('dotenv').config({path: '../bedrock/.env'});
@@ -31,10 +32,13 @@ mix
 mix
     .js('resources/scripts/app.js', 'scripts')
     .js('resources/scripts/customizer.js', 'scripts')
-    .js('resources/scripts/admin.js', 'scripts')
     .blocks('resources/scripts/editor.js', 'scripts')
     .autoload({jquery: ['$', 'window.jQuery']})
     .extract();
+
+mix
+    .js('resources/scripts/admin.js', 'scripts')
+    .extract(['codemirror', 'lorem-ipsum/dist'], 'scripts/vendor-admin.js');
 
 mix
     .copyDirectory('resources/images', 'public/images')
@@ -43,3 +47,8 @@ mix
 mix
     .sourceMaps()
     .version();
+
+/**
+ * Bundle Analyser to see all included Bundles
+ */
+// mix.bundleAnalyzer();

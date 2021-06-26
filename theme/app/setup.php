@@ -48,8 +48,12 @@ add_action('enqueue_block_editor_assets', function () {
  */
 add_action('admin_enqueue_scripts', function() {
     wp_enqueue_script('sage/vendor', asset('scripts/vendor.js')->uri(), null, null, true);
-    wp_enqueue_script('sage/admin', asset('scripts/admin.js')->uri(), ['sage/vendor'], null, true);
+    wp_enqueue_script('sage/vendor-admin', asset('scripts/vendor-admin.js')->uri(), null, null, true);
+
+    wp_enqueue_script('sage/admin', asset('scripts/admin.js')->uri(), ['sage/vendor-admin'], null, true);
+
     wp_add_inline_script('sage/vendor', asset('scripts/manifest.js')->contents(), 'before');
+    wp_add_inline_script('sage/vendor-admin', asset('scripts/manifest-admin.js')->contents(), 'before');
 
     wp_enqueue_style('sage/admin', asset('styles/admin.css')->uri(), false, null);
 }, 100);
