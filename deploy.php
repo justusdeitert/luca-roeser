@@ -85,7 +85,7 @@ set('npm_paths', [
 /**
  * Project name
  */
-set('application', 'dr-ladwig');
+set('application', 'the-theme');
 
 /*
  * Project repository
