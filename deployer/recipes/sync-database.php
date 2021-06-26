@@ -166,7 +166,7 @@ task('push:db', function () {
      * Cleanup exports on local machine
      */
     writeln("<comment>Replace http with https in wp_posts table on server</comment>");
-    runLocally("cd {{current_path}}/bedrock && {{bin/wp}} search-replace 'http://' 'https://' --allow-root wp_posts");
+    run("cd {{current_path}}/bedrock && {{bin/wp}} search-replace 'http://' 'https://' --allow-root wp_posts");
 
     /**
      * Cleanup uploaded file

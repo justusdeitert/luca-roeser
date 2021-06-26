@@ -168,7 +168,7 @@ registerBlockType('custom/text-image', {
                             {
                                 attributes.contentImages.map((contentImage, index) => {
                                     return (
-                                        <a key={index} href={getImage(contentImage, 'large')}
+                                        <a key={index} href={getImage(contentImage, 'xlarge')}
                                            data-lg-size={`${getImage(contentImage, 'height-large')}-${getImage(contentImage, 'width-large')}`}
                                            onClick={event => event.preventDefault()}
                                         >
@@ -266,14 +266,16 @@ registerBlockType('custom/text-image', {
                 <div className={classNames("text-image-block__image-wrapper")} data-image-count={attributes.imageCount}>
                     {
                         attributes.contentImages.map((contentImage, index) => {
+                            console.log(contentImage);
                             return (
-                                <a key={index} href={getImage(contentImage, 'large')}
+                                <a key={index} href={getImage(contentImage, 'xlarge')}
                                    data-lg-size={`${getImage(contentImage, 'width-large')}-${getImage(contentImage, 'height-large')}`}
                                 >
                                     <div className={classNames("custom-border custom-border-radius custom-shadow", imagesBackgroundColor && `has-${imagesBackgroundColor.slug}-background-color`)}>
                                         <div className={`ratio ratio-${attributes.imagesRatio}`}>
                                             <img className={classNames('custom-border-radius')}
                                                  alt={getImage(contentImage, 'alt')}
+                                                 srcSet={`${getImage(contentImage, 'tiny')} 480w, ${getImage(contentImage, 'small')} 768w, ${getImage(contentImage, 'medium')} 1024w`}
                                                  src={getImage(contentImage, 'small')}
                                             />
                                         </div>

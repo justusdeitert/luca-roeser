@@ -470,7 +470,7 @@ registerBlockType('custom/image-header', {
                             objectPosition: `${attributes.headerImagePositionHorizontal} ${attributes.headerImagePositionVertical}`,
                             opacity: attributes.headerImageOpacity,
                         }}
-                        src={getImage(attributes.headerImage, 'medium')}
+                        src={getImage(attributes.headerImage, 'xlarge')}
                         alt={getImage(attributes.headerImage, 'alt')}
                         width={getImage(attributes.headerImage, 'width')}
                         height={getImage(attributes.headerImage, 'height')}
@@ -492,7 +492,7 @@ registerBlockType('custom/image-header', {
                             {attributes.headerLogo &&
                                 <img
                                     className={classNames('image-header-block__logo', attributes.headerLogoSmallerOnMobile && 'smaller-on-mobile')}
-                                    src={getImage(attributes.headerLogo, 'original')}
+                                    src={getImage(attributes.headerLogo, 'xlarge')}
                                     alt={getImage(attributes.headerLogo, 'alt')}
                                     style={{
                                         width: `${attributes.headerLogoSize}px`,
@@ -581,7 +581,7 @@ registerBlockType('custom/image-header', {
                          objectPosition: `${attributes.headerImagePositionHorizontal} ${attributes.headerImagePositionVertical}`,
                          opacity: attributes.headerImageOpacity,
                      }}
-                     srcSet={`${getImage(attributes.headerImage, 'tiny')} 480w, ${getImage(attributes.headerImage, 'small')} 768w, ${getImage(attributes.headerImage, 'medium')} 1024w`}
+                     srcSet={`${getImage(attributes.headerImage, 'tiny')} 480w, ${getImage(attributes.headerImage, 'small')} 768w, ${getImage(attributes.headerImage, 'medium')} 1024w, ${getImage(attributes.headerImage, 'xlarge')} 1360w`}
                      sizes="100w"
                      src={getImage(attributes.headerImage, 'medium')}
                      alt={getImage(attributes.headerImage, 'alt')}
@@ -603,7 +603,7 @@ registerBlockType('custom/image-header', {
                         {attributes.headerLogo &&
                             <img
                                 className={classNames('image-header-block__logo', attributes.headerLogoSmallerOnMobile && 'smaller-on-mobile')}
-                                src={getImage(attributes.headerLogo, 'original')}
+                                src={getImage(attributes.headerLogo, 'xlarge')}
                                 alt={getImage(attributes.headerLogo, 'alt')}
                                 style={{
                                     width: `${attributes.headerLogoSize}px`,

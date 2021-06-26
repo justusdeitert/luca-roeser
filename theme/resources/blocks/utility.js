@@ -25,19 +25,31 @@ export const getRandomInt = (max) => {
 export const getImage = (image, size = 'full', placeholderId = false) => {
     if (image) {
         let original = image.url;
-        let full = image.sizes && image.sizes.full ? image.sizes.full.url : original;
-        let large = image.sizes && image.sizes.large ? image.sizes.large.url : full;
-        let medium = image.sizes && image.sizes.medium ? image.sizes.medium.url : large;
-        let small = image.sizes && image.sizes.small ? image.sizes.small.url : medium;
-        let tiny = image.sizes && image.sizes.tiny ? image.sizes.tiny.url : small;
-        let placeholder = image.sizes && image.sizes.placeholder ? image.sizes.placeholder.url : tiny;
-        let thumbnail = image.sizes && image.sizes.thumbnail ? image.sizes.thumbnail.url : placeholder;
+        let thumbnail = image.sizes && image.sizes.thumbnail ? image.sizes.thumbnail.url : original;
+        let placeholder = image.sizes && image.sizes.placeholder ? image.sizes.placeholder.url : thumbnail;
+        let tiny = image.sizes && image.sizes.tiny ? image.sizes.tiny.url : placeholder;
+        let small = image.sizes && image.sizes.small ? image.sizes.small.url : tiny;
+        let medium = image.sizes && image.sizes.medium ? image.sizes.medium.url : small;
+        let large = image.sizes && image.sizes.large ? image.sizes.large.url : medium;
+        let xlarge = image.sizes && image.sizes.xlarge ? image.sizes.xlarge.url : large;
+
+        /**
+         * Old Image Definitions
+         */
+        // let original = image.url;
+        // let full = image.sizes && image.sizes.full ? image.sizes.full.url : original;
+        // let large = image.sizes && image.sizes.large ? image.sizes.large.url : full;
+        // let medium = image.sizes && image.sizes.medium ? image.sizes.medium.url : large;
+        // let small = image.sizes && image.sizes.small ? image.sizes.small.url : medium;
+        // let tiny = image.sizes && image.sizes.tiny ? image.sizes.tiny.url : small;
+        // let placeholder = image.sizes && image.sizes.placeholder ? image.sizes.placeholder.url : tiny;
+        // let thumbnail = image.sizes && image.sizes.thumbnail ? image.sizes.thumbnail.url : placeholder;
 
         switch (size) {
             case 'original':
                 return original;
-            case 'full':
-                return full;
+            case 'xlarge':
+                return xlarge;
             case 'large':
                 return large;
             case 'medium':
@@ -63,7 +75,7 @@ export const getImage = (image, size = 'full', placeholderId = false) => {
             case 'height-large':
                 return image.sizes && image.sizes.large ? image.sizes.large.height : image.sizes.full.height;
             default:
-                return original;
+                return xlarge;
         }
     } else {
         switch (size) {
@@ -72,9 +84,9 @@ export const getImage = (image, size = 'full', placeholderId = false) => {
             case 'description':
                 return 'Lorem Picsum'
             case 'width':
-                return '1200'
+                return '1800'
             case 'height':
-                return '800'
+                return '1200'
             default:
                 if(placeholderId) {
                     return `https://picsum.photos/id/${placeholderId}/1800/1200`;

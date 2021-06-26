@@ -704,7 +704,8 @@ registerBlockType('custom/slider', {
                         <div
                             className={classNames('slider-block__image-wrapper', `ratio ratio-${attributes.sliderImagesRatio}`)}>
                             <img alt={getImage(item.slideImage, 'alt')}
-                                 src={getImage(item.slideImage, 'medium', index)}
+                                 srcSet={`${getImage(item.slideImage, 'tiny')} 480w, ${getImage(item.slideImage, 'small')} 768w, ${getImage(item.slideImage, 'medium')} 1024w`}
+                                 src={getImage(item.slideImage, 'small', index)}
                                  className={classNames('slider-block__image', 'custom-border-radius')}
                             />
                         </div>
@@ -768,13 +769,13 @@ registerBlockType('custom/slider', {
             >
                 <div className="swiper-container slider-block__container">
                     {attributes.controlsPosition === 'top' &&
-                    slideControls()
+                        slideControls()
                     }
                     <div className="swiper-wrapper slider-block__slides-wrapper">
                         {repeaterSlides}
                     </div>
                     {attributes.controlsPosition === 'bottom' &&
-                    slideControls()
+                        slideControls()
                     }
                 </div>
             </div>
