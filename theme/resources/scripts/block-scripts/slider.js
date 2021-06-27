@@ -85,7 +85,7 @@ window.initSliderBlockInstances = () => {
             /**
              * Passive event listeners will be used by default where possible to improve scrolling performance on mobile devices
              */
-            passiveListeners: false,
+            passiveListeners: true,
 
             /**
              * Pagination
@@ -126,21 +126,24 @@ window.initSliderBlockInstances = () => {
 
         window.sliderBlockInstances[sliderBlock.dataset.sliderId] = swiperInstance;
 
-        let addDynamicBulletClass = () => {
-            if(window.innerWidth < parseInt(window.bootstrapBreakpoints.xs)) {
-                sliderBlock.querySelector('.swiper-pagination').classList.add('swiper-pagination-bullets-dynamic')
-            } else {
-                sliderBlock.querySelector('.swiper-pagination').classList.remove('swiper-pagination-bullets-dynamic')
+        let swiperPagination = sliderBlock.querySelector('.swiper-pagination');
+        if(swiperPagination) {
+            let addDynamicBulletClass = () => {
+                if(window.innerWidth < parseInt(window.bootstrapBreakpoints.xs)) {
+                    swiperPagination.classList.add('swiper-pagination-bullets-dynamic')
+                } else {
+                    swiperPagination.classList.remove('swiper-pagination-bullets-dynamic')
+                }
             }
+
+            swiperInstance.on('resize', () => {
+                addDynamicBulletClass();
+            });
+
+            swiperInstance.on('init', () => {
+                addDynamicBulletClass();
+            });
         }
-
-        swiperInstance.on('resize', () => {
-            addDynamicBulletClass();
-        });
-
-        swiperInstance.on('init', () => {
-            addDynamicBulletClass();
-        });
     });
 };
 
