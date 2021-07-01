@@ -17,10 +17,18 @@
 @import "~bootstrap/scss/reboot";
 //@import "~bootstrap/scss/type";
 //@import "~bootstrap/scss/images";
+
+/* purgecss start ignore */
 @import "~bootstrap/scss/containers";
 @import "~bootstrap/scss/grid";
+/* purgecss end ignore */
+
 //@import "~bootstrap/scss/tables";
+
+/* purgecss start ignore */
 @import "~bootstrap/scss/forms";
+/* purgecss end ignore */
+
 @import "~bootstrap/scss/buttons";
 @import "~bootstrap/scss/transitions";
 //@import "~bootstrap/scss/dropdown";
@@ -32,7 +40,11 @@
 //@import "~bootstrap/scss/breadcrumb";
 //@import "~bootstrap/scss/pagination";
 //@import "~bootstrap/scss/badge";
+
+/* purgecss start ignore */
 @import "~bootstrap/scss/alert";
+/* purgecss end ignore */
+
 //@import "~bootstrap/scss/progress";
 //@import "~bootstrap/scss/list-group";
 //@import "~bootstrap/scss/close";
@@ -45,7 +57,9 @@
 //@import "~bootstrap/scss/offcanvas";
 
 // Helpers
+/* purgecss start ignore */
 @import "~bootstrap/scss/helpers";
+/* purgecss end ignore */
 
 // Utilities
 @import "~bootstrap/scss/utilities/api";

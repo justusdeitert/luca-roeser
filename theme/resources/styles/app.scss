@@ -14,10 +14,12 @@
 @import 'partials';
 
 // Import gutenberg block styles
-@import '../blocks';
+ @import '../blocks';
 
 // Core Blocks
 @import 'core-blocks';
+
+/* purgecss start ignore */
 
 // Wordpress align classes
 //.alignwide {
@@ -29,3 +31,5 @@
     margin-right: calc(-100vw / 2 + 100% / 2);
     max-width: 100vw;
 }
+
+/* purgecss end ignore */
