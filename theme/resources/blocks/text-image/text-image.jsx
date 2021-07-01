@@ -266,7 +266,6 @@ registerBlockType('custom/text-image', {
                 <div className={classNames("text-image-block__image-wrapper")} data-image-count={attributes.imageCount}>
                     {
                         attributes.contentImages.map((contentImage, index) => {
-                            console.log(contentImage);
                             return (
                                 <a key={index} href={getImage(contentImage, 'xlarge')}
                                    data-lg-size={`${getImage(contentImage, 'width-large')}-${getImage(contentImage, 'height-large')}`}

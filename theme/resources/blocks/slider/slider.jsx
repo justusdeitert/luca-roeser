@@ -149,7 +149,7 @@ registerBlockType('custom/slider', {
 
         componentDidMount() {
             // console.log(this.props.name, ": componentDidMount()");
-            window.initSliderBlockInstances();
+            // window.initSliderBlockInstances();
         }
 
         componentDidUpdate() {

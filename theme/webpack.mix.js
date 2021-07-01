@@ -1,7 +1,13 @@
 const mix = require('laravel-mix');
 require('@tinypixelco/laravel-mix-wp-blocks');
 require('laravel-mix-bundle-analyzer');
-require('laravel-mix-purgecss');
+
+/**
+ * @link https://github.com/spatie/laravel-mix-purgecss
+ * Not used atm.
+ * Using postcss-purgecss-laravel via postcss plugins
+ */
+// require('laravel-mix-purgecss'); //
 
 // Require dotenv yarn add dotenv
 require('dotenv').config({path: '../bedrock/.env'});
@@ -17,13 +23,6 @@ require('dotenv').config({path: '../bedrock/.env'});
  |
  */
 
-    // let whitelistPattern = [
-    //   '/^navbar(-.*)?$/',
-    // ];
-
-// console.log(require('purgecss-with-wordpress').safelist);
-// console.log(whitelistPattern);
-
 let purgeCssConfig = {
     // enabled: true, // Also work on development by default
     content: ['index.php', '**/*.html', '**/*.php', '**/*.js', '**/*.jsx', '**/*.ts', '**/*.vue', '**/*.twig'],
@@ -34,7 +33,9 @@ mix
     .browserSync(process.env.WP_HOME);
 
 mix
-    .sass('resources/styles/app.scss', 'styles')
+    .sass('resources/styles/app.scss', 'styles', {}, [
+        require('postcss-purgecss-laravel')(purgeCssConfig)
+    ])
     .sass('resources/styles/editor.scss', 'styles')
     .sass('resources/styles/admin.scss', 'styles')
     .options({
@@ -43,7 +44,6 @@ mix
             require('autoprefixer'),
         ],
     })
-    .purgeCss(purgeCssConfig);
 
 mix
     .js('resources/scripts/app.js', 'scripts')
