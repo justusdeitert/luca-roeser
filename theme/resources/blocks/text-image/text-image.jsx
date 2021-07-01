@@ -275,8 +275,8 @@ registerBlockType('custom/text-image', {
                                         <div className={`ratio ratio-${attributes.imagesRatio}`}>
                                             <img className={classNames('custom-border-radius')}
                                                  alt={getImage(contentImage, 'alt')}
-                                                 srcSet={`${getImage(contentImage, 'tiny')} 480w, ${getImage(contentImage, 'small')} 768w, ${getImage(contentImage, 'medium')} 1360w`}
-                                                 src={getImage(contentImage, 'small')}
+                                                 srcSet={`${getImage(contentImage, 'tiny')} 768w, ${getImage(contentImage, 'small')} 1360w`}
+                                                 src={getImage(contentImage, 'tiny')}
                                             />
                                         </div>
                                      </div>

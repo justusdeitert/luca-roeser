@@ -25,7 +25,7 @@ require('dotenv').config({path: '../bedrock/.env'});
 // console.log(whitelistPattern);
 
 let purgeCssConfig = {
-    enabled: true, // Also work on development by default
+    // enabled: true, // Also work on development by default
     content: ['index.php', '**/*.html', '**/*.php', '**/*.js', '**/*.jsx', '**/*.ts', '**/*.vue', '**/*.twig'],
 }
 
