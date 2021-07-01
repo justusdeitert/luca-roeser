@@ -11,7 +11,10 @@ if ($google_maps_api_key) {
     function add_google_maps_api_script()
     {
         global $google_maps_api_key;
-        wp_enqueue_script('google-maps-api', 'https://maps.googleapis.com/maps/api/js?key=' . $google_maps_api_key . '&callback=initMaps', [], null, true);
+
+        if (has_block('custom/map', get_the_ID())) {
+            wp_enqueue_script('google-maps-api', 'https://maps.googleapis.com/maps/api/js?key=' . $google_maps_api_key . '&callback=initMaps', [], null, true);
+        }
     }
 
     add_action('wp_enqueue_scripts', 'add_google_maps_api_script', 100);
