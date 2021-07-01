@@ -24,14 +24,9 @@ $theme-dark-colors: (
     'dark': var(--custom-dark-dark-color)
 );
 
-//.btn {
-//    transition:
-//        color 0.15s ease-in-out,
-//        background-color 0.15s ease-in-out,
-//        border-color 0.15s ease-in-out,
-//        box-shadow 0.15s ease-in-out,
-//        filter 0.15s ease-in-out;
-//}
+.btn {
+    min-height:  var(--custom-form-height);
+}
 
 @each $color, $value in $theme-colors {
     .btn-#{$color} {
