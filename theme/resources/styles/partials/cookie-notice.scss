@@ -1,0 +1,40 @@
+#cookie-law-info-bar {
+    box-shadow: var(--custom-box-shadow);
+    border-radius: var(--custom-border-radius);
+    font-weight: var(--custom-font-weight);
+    font-size: var(--custom-font-size);
+    color: rgb(var(--custom-font-color));
+
+    .cli_messagebar_head {
+
+    }
+}
+
+// Cookie Settings Modal
+.cli-modal {
+    &-content {
+        box-shadow: var(--custom-box-shadow);
+        border-radius: var(--custom-border-radius);
+        font-weight: var(--custom-font-weight);
+        //font-size: var(--custom-font-size);
+        //color: rgb(var(--custom-font-color));
+    }
+
+
+}
+
+.cli-modal-backdrop {
+
+}
+
+// Cookie Law Info Buttons
+#wt-cli-privacy-save-btn,
+#cookie-law-info-bar a[role='button'] {
+    @extend .btn;
+    display: inline-flex;
+    align-items: center;
+}
+
+#cliModalClose {
+
+}

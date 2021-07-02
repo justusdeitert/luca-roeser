@@ -22,10 +22,17 @@ add_action('wp_enqueue_scripts', function () {
         wp_enqueue_script('comment-reply');
     }
 
-    // wp_enqueue_style('sage/app', asset('styles/app.css')->uri(), false, null);
-    wp_register_style( 'sage/app', false );
-    wp_enqueue_style( 'sage/app', false );
-    wp_add_inline_style( 'sage/app', asset('styles/app.css')->contents());
+    /**
+     * Check for Enviroment & Set CSS either inline or as file..
+     * TODO: Check if it works better as preloaded external styles?....
+     */
+    if (!isMode('production')) {
+        wp_enqueue_style('sage/app', asset('styles/app.css')->uri(), false, null);
+    } else {
+        wp_register_style( 'sage/app', false );
+        wp_enqueue_style( 'sage/app', false );
+        wp_add_inline_style( 'sage/app', asset('styles/app.css')->contents());
+    }
 }, 100);
 
 /**

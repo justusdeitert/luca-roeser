@@ -81,10 +81,23 @@ if (!function_exists('is_login_page')) {
     }
 }
 
+/**
+ * Convert RGB String to HEX Code
+ * @param $hex
+ * @return string
+ */
 function convert_hex($hex) {
     $hex = str_replace('#', '', $hex);
     $first = substr($hex, 0, 2);
     $second = substr($hex, 2, 2);
     $third = substr($hex, 4, 2);
     return hexdec($first) . ', ' . hexdec($second) . ', ' . hexdec($third);
+}
+
+/**
+ * @param $string
+ * @return bool
+ */
+function isMode($string) {
+    return WP_ENV === $string;
 }

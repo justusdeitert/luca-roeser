@@ -1,16 +1,31 @@
 const mix = require('laravel-mix');
 require('@tinypixelco/laravel-mix-wp-blocks');
 require('laravel-mix-bundle-analyzer');
+require('dotenv').config({path: '../bedrock/.env'});
 
 /**
  * @link https://github.com/spatie/laravel-mix-purgecss
  * Not used atm.
  * Using postcss-purgecss-laravel via postcss plugins
  */
-// require('laravel-mix-purgecss'); //
+// require('laravel-mix-purgecss');
 
-// Require dotenv yarn add dotenv
-require('dotenv').config({path: '../bedrock/.env'});
+/**
+ * Get Webpack Mode
+ * @param $modeString
+ * @returns {boolean}
+ */
+let isMode = ($modeString) => {
+    return process.env.NODE_ENV === $modeString;
+}
+
+/**
+ * Purge CSS Configuration
+ * @type {{content: string[]}}
+ */
+let purgeCssConfig = {
+    content: ['index.php', '**/*.html', '**/*.php', '**/*.js', '**/*.jsx', '**/*.ts', '**/*.vue', '**/*.twig'],
+}
 
 /*
  |--------------------------------------------------------------------------
@@ -22,20 +37,15 @@ require('dotenv').config({path: '../bedrock/.env'});
  | for your application, as well as bundling up your JS files.
  |
  */
-
-let purgeCssConfig = {
-    // enabled: true, // Also work on development by default
-    content: ['index.php', '**/*.html', '**/*.php', '**/*.js', '**/*.jsx', '**/*.ts', '**/*.vue', '**/*.twig'],
-}
-
 mix
     .setPublicPath('./public')
     .browserSync(process.env.WP_HOME);
 
 mix
     .sass('resources/styles/app.scss', 'styles', {}, [
-        require('postcss-purgecss-laravel')(purgeCssConfig)
+        isMode('production') && require('postcss-purgecss-laravel')(purgeCssConfig)
     ])
+    // .sass('resources/styles/app.scss', 'styles')
     .sass('resources/styles/editor.scss', 'styles')
     .sass('resources/styles/admin.scss', 'styles')
     .options({
