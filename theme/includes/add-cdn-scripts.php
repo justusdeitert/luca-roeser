@@ -4,12 +4,14 @@
  * Add Various CDN Scripts to Footer of Frontend & Editor
  */
 
+use function Roots\asset;
+
 $google_maps_api_key = get_theme_mod('custom_google_maps_api_key', false);
 
 /**
  * Add CDN Scripts
  */
-function add_cdn_scripts() {
+function add_block_scripts() {
 
     /**
      * Adds Google Maps API Script
@@ -20,17 +22,25 @@ function add_cdn_scripts() {
     }
 
     /**
-     * Adds light-gallery Script
+     * Lightgallery.js
+     * @link https://www.lightgalleryjs.com
+     *
      */
     if (has_block('custom/text-image', get_the_ID())) {
-        wp_enqueue_script('light-gallery', 'https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.2.1/lightgallery.min.js', ['sage/vendor'], null, true);
-        wp_enqueue_script('light-gallery-thumbnails', 'https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.2.1/plugins/thumbnail/lg-thumbnail.min.js', ['sage/vendor'], null, true);
-        wp_enqueue_script('light-gallery-hash', 'https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.2.1/plugins/hash/lg-hash.min.js', ['sage/vendor'], null, true);
+        wp_enqueue_script('light-gallery', asset('scripts/light-gallery.js')->uri(), ['sage/vendor'], null, true);
+    }
+
+    /**
+     * Swiper.js
+     * @link https://swiperjs.com/get-started
+     */
+    if (has_block('custom/slider', get_the_ID())) {
+        wp_enqueue_script('swiper', asset('scripts/swiper.js')->uri(), ['sage/vendor'], null, true);
     }
 }
 
-add_action('wp_enqueue_scripts', 'add_cdn_scripts', 99);
-add_action('enqueue_block_editor_assets', 'add_cdn_scripts', 99);
+add_action('wp_enqueue_scripts', 'add_block_scripts', 99);
+add_action('enqueue_block_editor_assets', 'add_block_scripts', 99);
 
 /**
  * Defer Scripts
@@ -45,8 +55,7 @@ add_filter('script_loader_tag', function ($tag, $handle, $src) {
         'sage/manifest',
         'sage/vendor',
         'light-gallery',
-        'light-gallery-thumbnails',
-        'light-gallery-hash',
+        'swiper',
         'sage/app',
         'google-maps-api',
     ];

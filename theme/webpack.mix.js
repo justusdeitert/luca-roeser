@@ -59,8 +59,10 @@ mix
     .js('resources/scripts/app.js', 'scripts')
     .js('resources/scripts/customizer.js', 'scripts')
     .blocks('resources/scripts/editor.js', 'scripts')
-    .autoload({jquery: ['$', 'window.jQuery']})
-    .extract();
+    // .autoload({jquery: ['$', 'window.jQuery']}) // not needed right now...
+    .extract(['swiper'], 'scripts/swiper.js')
+    .extract(['lightGallery', 'lgThumbnail', 'lgHash'], 'scripts/light-gallery.js')
+    .extract(); // extract all other files. Default: vendor.js
 
 mix
     .js('resources/scripts/admin.js', 'scripts')
@@ -77,4 +79,4 @@ mix
 /**
  * Bundle Analyser to see all included Bundles
  */
-// mix.bundleAnalyzer();
+mix.bundleAnalyzer();
