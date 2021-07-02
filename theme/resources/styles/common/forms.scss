@@ -38,6 +38,10 @@
 .wpcf7 {
     @extend .custom-spacing;
 
+    .wpcf7-response-output {
+        //display: none;
+    }
+
     .wpcf7-list-item {
         margin: 0;
 
@@ -62,6 +66,13 @@
     }
 
     form {
+
+        &.init, &.resetting, &.submitting {
+            .wpcf7-response-output {
+                display: none;
+            }
+        }
+
         .wpcf7-response-output {
             @extend .alert;
             margin-left: 0;

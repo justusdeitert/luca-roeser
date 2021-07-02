@@ -75,8 +75,7 @@
         "yoast/wordpress-seo": "17.3",
         "advanced-custom-fields/advanced-custom-fields-pro": "5.10.2",
         "wpackagist-plugin/regenerate-thumbnails":"3.1.5",
-        "wpackagist-plugin/imsanity":"2.7.2",
-        "wpackagist-plugin/cookie-law-info":"2.0.6"
+        "wpackagist-plugin/imsanity":"2.7.2"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.6.0",

@@ -56,17 +56,23 @@ mix
     })
 
 mix
-    .js('resources/scripts/app.js', 'scripts')
     .js('resources/scripts/customizer.js', 'scripts')
+    .js('resources/scripts/admin.js', 'scripts')
+    .js('resources/scripts/app.js', 'scripts')
     .blocks('resources/scripts/editor.js', 'scripts')
     // .autoload({jquery: ['$', 'window.jQuery']}) // not needed right now...
-    .extract(['swiper'], 'scripts/swiper.js')
-    .extract(['lightGallery', 'lgThumbnail', 'lgHash'], 'scripts/light-gallery.js')
+
+    /**
+     * Extract Libraries
+     */
+    // .extract(['swiper'], 'scripts/swiper.js')
+    // .extract(['lightGallery', 'lgThumbnail', 'lgHash'], 'scripts/light-gallery.js')
+    .extract(['codemirror', 'lorem-ipsum/dist'], 'scripts/vendor-admin.js')
     .extract(); // extract all other files. Default: vendor.js
 
-mix
-    .js('resources/scripts/admin.js', 'scripts')
-    .extract(['codemirror', 'lorem-ipsum/dist'], 'scripts/vendor-admin.js');
+// mix
+//     .js('resources/scripts/admin.js', 'scripts')
+//     .extract(['codemirror', 'lorem-ipsum/dist'], 'scripts/vendor-admin.js');
 
 mix
     .copyDirectory('resources/images', 'public/images')

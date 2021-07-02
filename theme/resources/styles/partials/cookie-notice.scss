@@ -5,9 +5,13 @@
     font-size: var(--custom-font-size);
     color: rgb(var(--custom-font-color));
 
-    .cli_messagebar_head {
-
-    }
+    // lowl
+    background-color: rgb(255, 255, 255);
+    color: rgb(108, 108, 108);
+    font-family: inherit;
+    bottom: 0px;
+    position: fixed;
+    display: block;
 }
 
 // Cookie Settings Modal

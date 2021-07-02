@@ -12,7 +12,8 @@
  */
 wp.customize('blogname', value => {
     value.bind(to => {
-        $('.brand').text(to)
+        // $('.brand').text(to)
+        // TODO: No jQuery method
     });
 });
 

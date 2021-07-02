@@ -1,8 +1,12 @@
-// core version + navigation, pagination modules:
-import Swiper, { Navigation, Pagination } from 'swiper/core';
+/**
+ * core version + navigation, pagination modules:
+ */
+// import Swiper, { Navigation, Pagination } from 'swiper/core';
 
-// configure Swiper to use modules
-Swiper.use([Navigation, Pagination]);
+/**
+ * configure Swiper to use modules
+ */
+// Swiper.use([Navigation, Pagination]);
 
 window.sliderBlockInstances = {};
 

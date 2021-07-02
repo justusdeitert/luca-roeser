@@ -1,7 +1,6 @@
-// import loadjs from 'loadjs';
-
-// window.mapsApiLoaded = false;
 window.refreshGap = true;
+
+console.log('lol');
 
 window.initMaps = () => {
 

@@ -27,7 +27,11 @@ function add_block_scripts() {
      *
      */
     if (has_block('custom/text-image', get_the_ID())) {
-        wp_enqueue_script('light-gallery', asset('scripts/light-gallery.js')->uri(), ['sage/vendor'], null, true);
+        // wp_enqueue_script('light-gallery', asset('scripts/light-gallery.js')->uri(), ['sage/vendor'], null, true);
+        // wp_enqueue_script('light-gallery', asset('scripts/light-gallery.js')->uri(), ['sage/vendor'], null, true);
+        wp_enqueue_script('light-gallery', 'https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.2.1/lightgallery.min.js', ['sage/vendor'], null, true);
+        wp_enqueue_script('light-gallery-thumbnails', 'https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.2.1/plugins/thumbnail/lg-thumbnail.min.js', ['sage/vendor'], null, true);
+        wp_enqueue_script('light-gallery-hash', 'https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.2.1/plugins/hash/lg-hash.min.js', ['sage/vendor'], null, true);
     }
 
     /**
@@ -35,7 +39,8 @@ function add_block_scripts() {
      * @link https://swiperjs.com/get-started
      */
     if (has_block('custom/slider', get_the_ID())) {
-        wp_enqueue_script('swiper', asset('scripts/swiper.js')->uri(), ['sage/vendor'], null, true);
+        // wp_enqueue_script('swiper', asset('scripts/swiper.js')->uri(), ['sage/vendor'], null, true);
+        wp_enqueue_script('swiper', 'https://unpkg.com/swiper@7/swiper-bundle.min.js', ['sage/vendor'], null, true);
     }
 }
 
@@ -55,13 +60,15 @@ add_filter('script_loader_tag', function ($tag, $handle, $src) {
         'sage/manifest',
         'sage/vendor',
         'light-gallery',
+        'light-gallery-thumbnails',
+        'light-gallery-hash',
         'swiper',
         'sage/app',
         'google-maps-api',
     ];
 
     if (in_array($handle, $defer_scripts)) {
-        return '<script src="' . $src . '" id="' . $handle . '-js" defer type="text/javascript"></script>' . "\n";
+        return '<script src="' . $src . '" id="' . $handle . '-js" defer></script>' . "\n";
     }
 
     return $tag;
