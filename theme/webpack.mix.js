@@ -65,8 +65,8 @@ mix
     /**
      * Extract Libraries
      */
-    // .extract(['swiper'], 'scripts/swiper.js')
-    // .extract(['lightGallery', 'lgThumbnail', 'lgHash'], 'scripts/light-gallery.js')
+    .extract(['swiper'], 'scripts/swiper.js')
+    .extract(['lightGallery', 'lgThumbnail', 'lgHash'], 'scripts/light-gallery.js')
     .extract(['codemirror', 'lorem-ipsum/dist'], 'scripts/vendor-admin.js')
     .extract(); // extract all other files. Default: vendor.js
 
@@ -85,4 +85,4 @@ mix
 /**
  * Bundle Analyser to see all included Bundles
  */
-// mix.bundleAnalyzer();
+mix.bundleAnalyzer();

@@ -38,3 +38,9 @@ domReady(() => {
         },
     ]);
 });
+
+console.log('öpppö');
+
+document.addEventListener('readystatechange', event => {
+    console.log('readystatechange');
+});

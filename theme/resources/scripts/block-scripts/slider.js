@@ -1,12 +1,12 @@
 /**
  * core version + navigation, pagination modules:
  */
-// import Swiper, { Navigation, Pagination } from 'swiper/core';
+import Swiper, { Navigation, Pagination } from 'swiper/core';
 
 /**
  * configure Swiper to use modules
  */
-// Swiper.use([Navigation, Pagination]);
+Swiper.use([Navigation, Pagination]);
 
 window.sliderBlockInstances = {};
 
@@ -171,3 +171,24 @@ window.updateSliderBlockInstances = () => {
 };
 
 window.initSliderBlockInstances();
+
+document.addEventListener('readystatechange', event => {
+    console.log('readystatechange');
+});
+
+document.addEventListener('readystatechange', event => {
+    console.log('readystatechange');
+});
+
+document.addEventListener('readystatechange', event => {
+
+    // When HTML/DOM elements are ready:
+    if (event.target.readyState === 'interactive') {   //does same as:  ..addEventListener("DOMContentLoaded"..
+        console.log("dom loaded");
+    }
+
+    // When window loaded ( external resources are loaded too- `css`,`src`, etc...)
+    if (event.target.readyState === 'complete') {
+        console.log("everything loaded!!");
+    }
+});
