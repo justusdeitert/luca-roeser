@@ -61,7 +61,7 @@ add_filter('script_loader_tag', function ($tag, $handle, $src) {
     ];
 
     if (in_array($handle, $defer_scripts)) {
-        return '<script src="' . $src . '" id="' . $handle . '" defer type="text/javascript"></script>' . "\n";
+        return '<script src="' . $src . '" id="' . $handle . '-js" defer type="text/javascript"></script>' . "\n";
     }
 
     return $tag;

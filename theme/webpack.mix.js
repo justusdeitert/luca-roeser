@@ -79,4 +79,4 @@ mix
 /**
  * Bundle Analyser to see all included Bundles
  */
-mix.bundleAnalyzer();
+// mix.bundleAnalyzer();
