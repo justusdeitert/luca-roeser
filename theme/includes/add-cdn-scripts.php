@@ -37,13 +37,19 @@ add_action('enqueue_block_editor_assets', 'add_cdn_scripts', 100);
  */
 add_filter('script_loader_tag', function ($tag, $handle, $src) {
 
-    // The handles of the enqueued scripts we want to defer
-    $defer_scripts = array(
-        'google-maps-api'
-    );
+    /**
+     * Handles of the enqueued scripts we want to defer
+     */
+    $defer_scripts = [
+        'contact-form-7',
+        'sage/manifest',
+        'sage/vendor',
+        'sage/app',
+        'google-maps-api',
+    ];
 
     if (in_array($handle, $defer_scripts)) {
-        return '<script src="' . $src . '" defer type="text/javascript"></script>' . "\n";
+        return '<script src="' . $src . '" id="' . $handle . '" defer type="text/javascript"></script>' . "\n";
     }
 
     return $tag;

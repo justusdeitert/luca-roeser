@@ -102,7 +102,15 @@ function customizer_theme_styles() {
     ob_start(); ?>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="<?php echo $custom_google_font_string; ?>" rel="stylesheet">
+
+    <?php
+        /**
+         * Custom Preload Google Font
+         * Preloading CSS with rel="preload"
+         * @link https://metabox.io/load-google-fonts-faster-wordpress/
+         */
+    ?>
+    <link href="<?php echo $custom_google_font_string; ?>" rel="preload" as="style" onload="this.rel='stylesheet'">
     <style>
         :root {
             /* Content Settings */
