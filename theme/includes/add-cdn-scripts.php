@@ -16,7 +16,7 @@ function add_cdn_scripts() {
      */
     $google_maps_api_key = get_theme_mod('custom_google_maps_api_key', false);
     if ($google_maps_api_key && has_block('custom/map', get_the_ID())) {
-        wp_enqueue_script('google-maps-api', 'https://maps.googleapis.com/maps/api/js?key=' . $google_maps_api_key . '&callback=initMaps', [], null, true);
+        wp_enqueue_script('google-maps-api', 'https://maps.googleapis.com/maps/api/js?key=' . $google_maps_api_key . '&callback=initMaps', ['sage/app'], null, true);
     }
 
     /**
