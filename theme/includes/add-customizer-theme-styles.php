@@ -12,9 +12,9 @@ function customizer_theme_styles() {
      * Custom google font
      * TODO: Better Google Font Implementation
      */
-    $custom_text_font = get_theme_mod('custom_text_font', 'Montserrat');
+    $custom_text_font = get_theme_setting('custom_text_font', 'Montserrat');
     $custom_text_font_plus = str_replace(' ', '+', $custom_text_font); // replace space with +
-    $custom_headline_font = get_theme_mod('custom_headline_font', 'Montserrat');
+    $custom_headline_font = get_theme_setting('custom_headline_font', 'Montserrat');
     $custom_headline_font_plus = str_replace(' ', '+', $custom_headline_font); // replace space with +
     $custom_google_font_string = 'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap';
 
@@ -28,15 +28,15 @@ function customizer_theme_styles() {
      * Adds Dark Color variations to general colors
      */
     $general_colors = [
-        'primary' => get_theme_mod('custom_primary_color', '#0d6efd'),
-        'secondary' => get_theme_mod('custom_secondary_color', '#6c757d'),
-        'tertiary' => get_theme_mod('custom_tertiary_color', '#6c757d'),
-        'light' => get_theme_mod('custom_light_color', '#f8f9fa'),
-        'dark' => get_theme_mod('custom_dark_color', '#212529'),
-        'success' => get_theme_mod('custom_success_color', '#8ac837'),
-        'danger' => get_theme_mod('custom_danger_color', '#dc3545'),
-        'warning' => get_theme_mod('custom_warning_color', '#ffc107'),
-        'info' => get_theme_mod('custom_info_color', '#0dcaf0'),
+        'primary' => get_theme_setting('custom_primary_color', '#0d6efd'),
+        'secondary' => get_theme_setting('custom_secondary_color', '#6c757d'),
+        'tertiary' => get_theme_setting('custom_tertiary_color', '#6c757d'),
+        'light' => get_theme_setting('custom_light_color', '#f8f9fa'),
+        'dark' => get_theme_setting('custom_dark_color', '#212529'),
+        'success' => get_theme_setting('custom_success_color', '#8ac837'),
+        'danger' => get_theme_setting('custom_danger_color', '#dc3545'),
+        'warning' => get_theme_setting('custom_warning_color', '#ffc107'),
+        'info' => get_theme_setting('custom_info_color', '#0dcaf0'),
     ];
 
     foreach ($general_colors as $color => $value) {
@@ -47,35 +47,35 @@ function customizer_theme_styles() {
     $theme_colors = [
 
         // Font Colors
-        'font' => convert_hex(get_theme_mod('custom_font_color', '#212529')),
-        'link' => convert_hex(get_theme_mod('custom_link_color', '#0d6efd')),
-        'link-hover' => convert_hex(get_theme_mod('custom_link_hover_color', '#0d6efd')),
+        'font' => convert_hex(get_theme_setting('custom_font_color', '#212529')),
+        'link' => convert_hex(get_theme_setting('custom_link_color', '#0d6efd')),
+        'link-hover' => convert_hex(get_theme_setting('custom_link_hover_color', '#0d6efd')),
 
         // Content Colors
-        'body-background' => convert_hex(get_theme_mod('custom_body_background_color', '#f8f9fa')),
-        'controls' => convert_hex(get_theme_mod('custom_controls_color', '#212529')),
+        'body-background' => convert_hex(get_theme_setting('custom_body_background_color', '#f8f9fa')),
+        'controls' => convert_hex(get_theme_setting('custom_controls_color', '#212529')),
 
         // Menu Colors
-        'navbar-background' => convert_hex(get_theme_mod('custom_navbar_background_color', '#f8f9fa')),
-        'navbar-font' => convert_hex(get_theme_mod('custom_navbar_font_color', '#212529')),
-        'navbar-font-active' => convert_hex(get_theme_mod('custom_navbar_font_active_color', '#f8f9fa')),
-        'navbar-background-active' => convert_hex(get_theme_mod('custom_navbar_background_active_color', '#f8f9fa')),
-        'navbar-submenu-background' => convert_hex(get_theme_mod('custom_navbar_submenu_background_color', '#f8f9fa')),
-        'navbar-submenu-font' => convert_hex(get_theme_mod('custom_navbar_submenu_font_color', '#212529')),
-        'navbar-submenu-font-active' => convert_hex(get_theme_mod('custom_navbar_submenu_font_active_color', '#212529')),
-        'navbar-submenu-background-active' => convert_hex(get_theme_mod('custom_navbar_submenu_background_active_color', '#f8f9fa')),
+        'navbar-background' => convert_hex(get_theme_setting('custom_navbar_background_color', '#f8f9fa')),
+        'navbar-font' => convert_hex(get_theme_setting('custom_navbar_font_color', '#212529')),
+        'navbar-font-active' => convert_hex(get_theme_setting('custom_navbar_font_active_color', '#f8f9fa')),
+        'navbar-background-active' => convert_hex(get_theme_setting('custom_navbar_background_active_color', '#f8f9fa')),
+        'navbar-submenu-background' => convert_hex(get_theme_setting('custom_navbar_submenu_background_color', '#f8f9fa')),
+        'navbar-submenu-font' => convert_hex(get_theme_setting('custom_navbar_submenu_font_color', '#212529')),
+        'navbar-submenu-font-active' => convert_hex(get_theme_setting('custom_navbar_submenu_font_active_color', '#212529')),
+        'navbar-submenu-background-active' => convert_hex(get_theme_setting('custom_navbar_submenu_background_active_color', '#f8f9fa')),
 
         // Form Colors
-        'form-font' => convert_hex(get_theme_mod('custom_form_font_color', '#212529')),
-        'form-focus' => convert_hex(get_theme_mod('custom_form_focus_color', '#0d6efd')),
-        'form-background' => convert_hex(get_theme_mod('custom_form_background_color', '#f8f9fa')),
-        'form-border' => convert_hex(get_theme_mod('custom_form_border_color', '#6c757d')),
+        'form-font' => convert_hex(get_theme_setting('custom_form_font_color', '#212529')),
+        'form-focus' => convert_hex(get_theme_setting('custom_form_focus_color', '#0d6efd')),
+        'form-background' => convert_hex(get_theme_setting('custom_form_background_color', '#f8f9fa')),
+        'form-border' => convert_hex(get_theme_setting('custom_form_border_color', '#6c757d')),
 
         // Footer Colors
-        'footer-background' => convert_hex(get_theme_mod('custom_footer_background_color', '#f8f9fa')),
-        'footer-text' => convert_hex(get_theme_mod('custom_footer_text_color', '#f8f9fa')),
-        'footer-link' => convert_hex(get_theme_mod('custom_footer_link_color', '#f8f9fa')),
-        'footer-link-hover' => convert_hex(get_theme_mod('custom_footer_link_hover_color', '#f8f9fa')),
+        'footer-background' => convert_hex(get_theme_setting('custom_footer_background_color', '#f8f9fa')),
+        'footer-text' => convert_hex(get_theme_setting('custom_footer_text_color', '#f8f9fa')),
+        'footer-link' => convert_hex(get_theme_setting('custom_footer_link_color', '#f8f9fa')),
+        'footer-link-hover' => convert_hex(get_theme_setting('custom_footer_link_hover_color', '#f8f9fa')),
     ];
 
     /**
@@ -83,7 +83,7 @@ function customizer_theme_styles() {
      * TODO: One Shade needs to be added and let it be adjustable...
      */
     $gray_colors = [];
-    $dark_color = get_theme_mod('custom_dark_color', '#212529');
+    $dark_color = get_theme_setting('custom_dark_color', '#212529');
     foreach (range(1, 9) as $number) {
         $gray_colors[$number * 100] = convert_hex(adjustBrightness($dark_color, (1 - $number * 0.03)));
     }
@@ -114,29 +114,29 @@ function customizer_theme_styles() {
     <style>
         :root {
             /* Content Settings */
-            --max-container-width: <?php echo get_theme_mod('max_container_width', 1280); ?>px;
-            --container-padding-mobile: <?php echo get_theme_mod('container_padding_mobile', 15) / 16; ?>rem;
-            --container-padding-desktop: <?php echo get_theme_mod('container_padding_desktop', 30) / 16; ?>rem;
-            --custom-gutter-mobile-x: <?php echo get_theme_mod('custom_gutter_size_mobile', 20) / 16; ?>rem;
-            --custom-gutter-mobile-y: <?php echo get_theme_mod('custom_gutter_size_mobile', 20) / 16; ?>rem;
-            --custom-gutter-desktop-x: <?php echo get_theme_mod('custom_gutter_size_desktop', 30) / 16; ?>rem;
-            --custom-gutter-desktop-y: <?php echo get_theme_mod('custom_gutter_size_desktop', 30) / 16; ?>rem;
-            --custom-block-spacing: <?php echo get_theme_mod('custom_block_spacing', 48) / 16; ?>rem;
-            --custom-border-width: <?php echo get_theme_mod('custom_border_width', 0) / 16; ?>rem;
-            --custom-border-radius: <?php echo get_theme_mod('custom_border_radius', 0); ?>px;
-            --custom-box-shadow: <?php echo $custom_shadows[get_theme_mod('custom_shadow', 'no-shadow')]; ?>;
+            --max-container-width: <?php echo get_theme_setting('max_container_width', 1280); ?>px;
+            --container-padding-mobile: <?php echo get_theme_setting('container_padding_mobile', 15) / 16; ?>rem;
+            --container-padding-desktop: <?php echo get_theme_setting('container_padding_desktop', 30) / 16; ?>rem;
+            --custom-gutter-mobile-x: <?php echo get_theme_setting('custom_gutter_size_mobile', 20) / 16; ?>rem;
+            --custom-gutter-mobile-y: <?php echo get_theme_setting('custom_gutter_size_mobile', 20) / 16; ?>rem;
+            --custom-gutter-desktop-x: <?php echo get_theme_setting('custom_gutter_size_desktop', 30) / 16; ?>rem;
+            --custom-gutter-desktop-y: <?php echo get_theme_setting('custom_gutter_size_desktop', 30) / 16; ?>rem;
+            --custom-block-spacing: <?php echo get_theme_setting('custom_block_spacing', 48) / 16; ?>rem;
+            --custom-border-width: <?php echo get_theme_setting('custom_border_width', 0) / 16; ?>rem;
+            --custom-border-radius: <?php echo get_theme_setting('custom_border_radius', 0); ?>px;
+            --custom-box-shadow: <?php echo $custom_shadows[get_theme_setting('custom_shadow', 'no-shadow')]; ?>;
 
             /* Font Settings */
-            --custom-font-size: <?php echo get_theme_mod('custom_font_size'); ?>px;
-            --custom-font-weight: <?php echo get_theme_mod('custom_font_weight', '400'); ?>;
-            --custom-headline-weight: <?php echo get_theme_mod('custom_headline_weight', '400'); ?>;
-            --custom-headline-font: <?php echo get_theme_mod('custom_headline_font', 'Roboto'); ?>;
-            --custom-text-font: <?php echo get_theme_mod('custom_text_font', 'Roboto'); ?>;
+            --custom-font-size: <?php echo get_theme_setting('custom_font_size'); ?>px;
+            --custom-font-weight: <?php echo get_theme_setting('custom_font_weight', '400'); ?>;
+            --custom-headline-weight: <?php echo get_theme_setting('custom_headline_weight', '400'); ?>;
+            --custom-headline-font: <?php echo get_theme_setting('custom_headline_font', 'Roboto'); ?>;
+            --custom-text-font: <?php echo get_theme_setting('custom_text_font', 'Roboto'); ?>;
             --custom-headline-font-family: '<?php echo $custom_headline_font; ?>', <?php echo $standard_google_fonts[$custom_headline_font]; ?>;
             --custom-text-font-family: '<?php echo $custom_text_font; ?>', <?php echo $standard_google_fonts[$custom_text_font]; ?>;
 
             /* Font Settings */
-            --custom-form-height: <?php echo get_theme_mod('custom_form_height'); ?>px;
+            --custom-form-height: <?php echo get_theme_setting('custom_form_height'); ?>px;
 
             /* General Colors */
             <?php foreach ($general_color_versions as $name => $value) { ?>
@@ -154,15 +154,15 @@ function customizer_theme_styles() {
             <?php } ?>
 
             /* Navbar Settings */
-            --custom-navbar-height:  <?php echo get_theme_mod('custom_navbar_height', 60); ?>px;
+            --custom-navbar-height:  <?php echo get_theme_setting('custom_navbar_height', 60); ?>px;
 
             /*
              * Custom Navbar Positioning
              */
             <?php
                 $custom_navbar_position = 'static';
-                $custom_navbar_behavior = get_theme_mod('custom_navbar_behavior', 'moving');
-                $custom_navbar_top_position = get_theme_mod('custom_navbar_top_position', 0);
+                $custom_navbar_behavior = get_theme_setting('custom_navbar_behavior', 'moving');
+                $custom_navbar_top_position = get_theme_setting('custom_navbar_top_position', 0);
 
                 if ($custom_navbar_top_position === '0') {
                     $custom_navbar_position = ($custom_navbar_behavior === 'moving') ? 'sticky' : 'static';
@@ -173,20 +173,20 @@ function customizer_theme_styles() {
 
             --custom-navbar-position:  <?php echo $custom_navbar_position; ?>;
             --custom-navbar-top-position:  <?php echo $custom_navbar_top_position; ?>px;
-            --custom-navbar-box-shadow: <?php echo $custom_shadows[get_theme_mod('custom_navbar_shadow', 'no-shadow')]; ?>;
-            --custom-navbar-logo-height:  <?php echo get_theme_mod('custom_navbar_logo_height', 100); ?>%;
-            --custom-navbar-logo-wrapper-width:  <?php echo get_theme_mod('custom_navbar_logo_wrapper_width', 100); ?>px;
-            --custom-navbar-font-size:  <?php echo get_theme_mod('custom_navbar_font_size', 16) / 16; ?>rem;
-            --custom-navbar-font-weight:  <?php echo get_theme_mod('custom_navbar_font_weight', 300); ?>;
-            --custom-navbar-item-spacing:  <?php echo get_theme_mod('custom_navbar_item_spacing', 5); ?>px;
-            --custom-navbar-submenu-item-height:  <?php echo get_theme_mod('custom_navbar_submenu_item_height', 40); ?>px;
+            --custom-navbar-box-shadow: <?php echo $custom_shadows[get_theme_setting('custom_navbar_shadow', 'no-shadow')]; ?>;
+            --custom-navbar-logo-height:  <?php echo get_theme_setting('custom_navbar_logo_height', 100); ?>%;
+            --custom-navbar-logo-wrapper-width:  <?php echo get_theme_setting('custom_navbar_logo_wrapper_width', 100); ?>px;
+            --custom-navbar-font-size:  <?php echo get_theme_setting('custom_navbar_font_size', 16) / 16; ?>rem;
+            --custom-navbar-font-weight:  <?php echo get_theme_setting('custom_navbar_font_weight', 300); ?>;
+            --custom-navbar-item-spacing:  <?php echo get_theme_setting('custom_navbar_item_spacing', 5); ?>px;
+            --custom-navbar-submenu-item-height:  <?php echo get_theme_setting('custom_navbar_submenu_item_height', 40); ?>px;
 
         }
 
         /* Icon Settings */
         @font-face {
             font-family: 'custom-icon-font';
-            src: url('<?php echo get_stylesheet_directory_uri(); ?>/resources/fonts/icons/<?php echo get_theme_mod('custom_icons', 'bootstrap-icons')  ?>.woff2') format('woff2');
+            src: url('<?php echo get_stylesheet_directory_uri(); ?>/resources/fonts/icons/<?php echo get_theme_setting('custom_icons', 'bootstrap-icons')  ?>.woff2') format('woff2');
             font-weight: normal;
             font-style: normal;
             font-display: block;
