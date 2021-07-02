@@ -22,15 +22,15 @@ function add_cdn_scripts() {
     /**
      * Adds light-gallery Script
      */
-    // if (has_block('custom/text-image', get_the_ID())) {
-        // wp_enqueue_script('light-gallery', 'https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.2.1/lightgallery.es5.min.js', [], null, true);
-        // wp_enqueue_script('light-gallery-thumbnails', 'https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.2.1/plugins/thumbnail/lg-thumbnail.es5.min.js', [], null, true);
-        // wp_enqueue_script('light-gallery-hash', 'https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.2.1/plugins/hash/lg-hash.es5.min.js', [], null, true);
-    // }
+    if (has_block('custom/text-image', get_the_ID())) {
+        wp_enqueue_script('light-gallery', 'https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.2.1/lightgallery.min.js', ['sage/vendor'], null, true);
+        wp_enqueue_script('light-gallery-thumbnails', 'https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.2.1/plugins/thumbnail/lg-thumbnail.min.js', ['sage/vendor'], null, true);
+        wp_enqueue_script('light-gallery-hash', 'https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.2.1/plugins/hash/lg-hash.min.js', ['sage/vendor'], null, true);
+    }
 }
 
-add_action('wp_enqueue_scripts', 'add_cdn_scripts', 100);
-add_action('enqueue_block_editor_assets', 'add_cdn_scripts', 100);
+add_action('wp_enqueue_scripts', 'add_cdn_scripts', 99);
+add_action('enqueue_block_editor_assets', 'add_cdn_scripts', 99);
 
 /**
  * Defer Scripts
@@ -44,6 +44,9 @@ add_filter('script_loader_tag', function ($tag, $handle, $src) {
         'contact-form-7',
         'sage/manifest',
         'sage/vendor',
+        'light-gallery',
+        'light-gallery-thumbnails',
+        'light-gallery-hash',
         'sage/app',
         'google-maps-api',
     ];
