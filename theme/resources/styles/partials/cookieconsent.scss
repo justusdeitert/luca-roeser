@@ -1,5 +1,36 @@
 @import "~vanilla-cookieconsent/dist/cookieconsent.css";
 
+/** Light color-scheme **/
+:root{
+    --cc-bg: #fff;
+    --cc-text: #2d4156;
+
+    --cc-btn-primary-bg: #2d4156;
+    --cc-btn-primary-text: var(--cc-bg);
+    --cc-btn-primary-hover-bg: #1d2e38;
+
+    --cc-btn-secondary-bg: #eaeff2;
+    --cc-btn-secondary-text: var(--cc-text);
+    --cc-btn-secondary-hover-bg: #d8e0e6;
+
+
+    --cc-toggle-bg-off: #919ea6;
+    --cc-toggle-bg-on: var(--cc-btn-primary-bg);
+    --cc-toggle-bg-readonly: #d5dee2;
+
+    --cc-toggle-knob-bg: #fff;
+    --cc-toggle-knob-icon-color: #ecf2fa;
+
+    --cc-block-text: var(--cc-text);
+    --cc-cookie-category-block-bg: #f0f4f7;
+    --cc-cookie-category-block-bg-hover: #e9eff4;
+    --cc-section-border: #f1f3f5;
+    --cc-cookie-table-border: #e9edf2;
+    --cc-overlay-bg: rgba(4, 6, 8, .85);
+    --cc-webkit-scrollbar-bg: #cfd5db;
+    --cc-webkit-scrollbar-bg-hover: #9199a0;
+}
+
 // Cookie Consent Container
 #cc_div {
     font-size: var(--custom-font-size);
@@ -239,9 +270,19 @@
 
     // Settings Inner
     #s-inr {
+        border-radius: var(--custom-border-radius);
+        box-shadow: var(--custom-box-shadow);
+        background-color: rgba(var(--custom-cookie-background-color));
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+
         #s-hdr {
-            background-color: rgba(var(--custom-cookie-background-color));
+            position: initial;
+            height: initial;
+            background-color: transparent;
             border-color: rgba(var(--custom-cookie-background-highlight-color));
+            padding: var(--custom-cookie-consent-padding);
 
             #s-c-bnc {
 
@@ -250,6 +291,8 @@
                     display: flex;
                     align-items: center;
                     justify-content: center;
+
+                    @extend .custom-icon;
                     @extend .icon-close;
 
                     &:before {
@@ -260,6 +303,7 @@
                         top: initial;
                         height: initial;
                         width: initial;
+                        font-size: 2rem;
                     }
 
                     &:after {
@@ -275,9 +319,14 @@
 
         #s-bl {
             padding: var(--custom-cookie-consent-padding);
-            border-radius: var(--custom-border-radius);
-            box-shadow: var(--custom-box-shadow);
-            background-color: rgba(var(--custom-cookie-background-color));
+            background-color: transparent;
+
+            &::-webkit-scrollbar,
+            &::-webkit-scrollbar-thumb,
+            &::-webkit-scrollbar-thumb:hover,
+            &::-webkit-scrollbar-button {
+                display: none;
+            }
 
             .b-ex {
                 background-color: rgba(var(--custom-cookie-background-highlight-color));
@@ -285,8 +334,10 @@
         }
 
         #s-bns {
-            background-color: rgba(var(--custom-cookie-background-color));
+            position: initial;
+            background-color: transparent;
             border-color: rgba(var(--custom-cookie-background-highlight-color));
+            padding: var(--custom-cookie-consent-padding);
         }
     }
 }

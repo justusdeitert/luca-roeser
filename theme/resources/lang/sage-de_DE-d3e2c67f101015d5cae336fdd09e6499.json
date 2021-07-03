@@ -1,5 +1,5 @@
 {
-    "translation-revision-date": "2021-10-12 10:50+0200",
+    "translation-revision-date": "2021-10-20 16:56+0200",
     "generator": "WP-CLI\/2.4.0",
     "source": "public\/scripts\/editor.js",
     "domain": "messages",
@@ -22,6 +22,15 @@
             "Right": [
                 "Rechts"
             ],
+            "Top": [
+                "Oben"
+            ],
+            "Bottom": [
+                "Unten"
+            ],
+            "Center": [
+                "Zentriert"
+            ],
             "Remove Icon": [
                 "Icon entfernen"
             ],
@@ -38,7 +47,7 @@
                 "Element entfernen"
             ],
             "Really want to remove this Item?": [
-                "M\u00f6chten Sie diesen Artikel wirklich entfernen?"
+                "M\u00f6chten Sie dieses Element wirklich entfernen?"
             ],
             "Yes": [
                 "Ja"
@@ -47,7 +56,7 @@
                 "Element hinzuf\u00fcgen nach"
             ],
             "Show Icon": [
-                "Zeige Icon"
+                "Icon zeigen"
             ],
             "Accordion Spacing": [
                 "Akkordeonabstand"
@@ -98,7 +107,7 @@
                 "Header-Eigenschaften"
             ],
             "Full Height header": [
-                "Kopfzeile \"Volle H\u00f6he\""
+                "Volle H\u00f6he"
             ],
             "Header Height": [
                 "Header H\u00f6he"
@@ -107,10 +116,10 @@
                 "H\u00f6he Mobile-Kopfbereich"
             ],
             "Adjust Header Clip Path (Top)": [
-                "Header-Clip-Pfad anpassen (oben)"
+                "Header-Clip-Path anpassen (oben)"
             ],
             "Adjust Header Clip Path (Bottom)": [
-                "Header-Clip-Pfad anpassen (unten)"
+                "Header-Clip-Path anpassen (unten)"
             ],
             "Header Background Color": [
                 "Header Hintergrundfarbe"
@@ -136,23 +145,14 @@
             "Horizontal": [
                 "Horizontal"
             ],
-            "Center": [
-                "Zentriert"
-            ],
             "Vertical": [
                 "Vertikal"
-            ],
-            "Top": [
-                "Oben"
-            ],
-            "Bottom": [
-                "Unten"
             ],
             "Logo Properties": [
                 "Logo-Eigenschaften"
             ],
             "Adjust Logo Size": [
-                "Logogr\u00f6\u00dfe anpassen"
+                "Gr\u00f6\u00dfe des Logos anpassen"
             ],
             "Smaller Logo on Mobile": [
                 "Kleineres Logo auf Mobil"
@@ -194,19 +194,19 @@
                 "Karte"
             ],
             "Upload Map Marker": [
-                "Kartenmarkierung hochladen"
+                "Marker hochladen"
             ],
             "Update Map Marker": [
-                "Kartenmarkierung aktualisieren"
+                "Marker aktualisieren"
             ],
             "Remove Marker Image": [
-                "Markerbild entfernen"
+                "Marker entfernen"
             ],
             "Address": [
                 "Adresse"
             ],
             "Google Maps Link": [
-                "Google-Maps-Link"
+                "Google Maps Link"
             ],
             "Adjust Zoom Level": [
                 "Zoomstufe anpassen"
@@ -218,31 +218,31 @@
                 "Slider"
             ],
             "Slide Prev": [
-                "Folie Zur\u00fcck"
+                "Slide Zur\u00fcck"
             ],
             "Slide Next": [
                 "Slide Weiter"
             ],
             "Slider Properties": [
-                "Slider-Eigenschaften"
+                "Slider Eigenschaften"
             ],
             "Loop Slider": [
-                "Loop-Schieberegler"
+                "Loop Silber"
             ],
             "Slides per View": [
                 "Slides pro Ansicht"
             ],
             "Slides Background Color": [
-                "Hintergrundfarbe der Folien"
+                "Hintergrundfarbe der Slides"
             ],
             "Slider Controls": [
                 "Slider Controls"
             ],
             "Controls Position": [
-                "Steuert Position"
+                "Steuerelement Position"
             ],
             "Controls Style": [
-                "Steuerelementstil"
+                "Steuerelement Stil"
             ],
             "Show Pagination": [
                 "Seitennummerierung anzeigen"
@@ -275,13 +275,13 @@
                 "H6"
             ],
             "Center Text": [
-                "Zentrierter Text"
+                "Text zentrieren"
             ],
             "Show Images": [
                 "Bilder anzeigen"
             ],
             "Images Ratio": [
-                "Bildverh\u00e4ltnis"
+                "Seitenverh\u00e4ltnis"
             ],
             "1x1": [
                 "1x1"
@@ -308,7 +308,7 @@
                 "Bilder \u00e4ndern"
             ],
             "Switch content order": [
-                "\u00c4ndern der Inhaltsreihenfolge"
+                "Inhaltsreihenfolge \u00e4ndern"
             ],
             "Adjust Column Range": [
                 "Anpassen der Spaltenbreite"
@@ -318,6 +318,9 @@
             ],
             "Background Color": [
                 "Hintergrundfarbe"
+            ],
+            "No Format": [
+                "Kein Format"
             ]
         }
     }

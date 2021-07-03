@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-10-12T08:49:03+00:00\n"
+"POT-Creation-Date: 2021-10-20T14:24:04+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 
@@ -37,51 +37,51 @@ msgstr ""
 msgid "Continued"
 msgstr ""
 
-#: app/setup.php:86
+#: app/setup.php:114
 msgid "Primary Desktop Menu"
 msgstr ""
 
-#: app/setup.php:87
+#: app/setup.php:115
 msgid "Secondary Desktop Menu"
 msgstr ""
 
-#: app/setup.php:88
+#: app/setup.php:116
 msgid "Primary Mobile Menu"
 msgstr ""
 
-#: app/setup.php:202
+#: app/setup.php:230
 msgid "Gray "
 msgstr ""
 
-#: app/setup.php:214
+#: app/setup.php:242
 msgid "Primary"
 msgstr ""
 
-#: app/setup.php:219
+#: app/setup.php:247
 msgid "Secondary"
 msgstr ""
 
-#: app/setup.php:224
+#: app/setup.php:252
 msgid "Tertiary"
 msgstr ""
 
-#: app/setup.php:229
+#: app/setup.php:257
 #: resources/blocks/image-header/image-header.jsx:362
-#: public/scripts/editor.js:1899
+#: public/scripts/editor.js:2567
 msgid "Light"
 msgstr ""
 
-#: app/setup.php:234
+#: app/setup.php:262
 #: resources/blocks/image-header/image-header.jsx:361
-#: public/scripts/editor.js:1898
+#: public/scripts/editor.js:2566
 msgid "Dark"
 msgstr ""
 
-#: app/setup.php:266
+#: app/setup.php:300
 msgid "Footer"
 msgstr ""
 
-#: app/setup.php:268
+#: app/setup.php:302
 msgid "The Footer widget area is displayed on the bottom of each page."
 msgstr ""
 
@@ -109,382 +109,492 @@ msgstr ""
 
 #: includes/add-options-page.php:15
 #: includes/add-options-page.php:16
-#: includes/customizer.php:799
-#: includes/customizer.php:822
+#: includes/customizer.php:826
+#: includes/customizer.php:849
 msgid "Business Hours"
 msgstr ""
 
-#: includes/adjust-media-image-sizes.php:20
+#: includes/adjust-media-image-sizes.php:21
 msgid "Placeholder"
 msgstr ""
 
-#: includes/adjust-media-image-sizes.php:21
+#: includes/adjust-media-image-sizes.php:22
 msgid "Tiny"
 msgstr ""
 
-#: includes/adjust-media-image-sizes.php:22
+#: includes/adjust-media-image-sizes.php:23
 msgid "Small"
+msgstr ""
+
+#: includes/adjust-media-image-sizes.php:24
+msgid "Extra Large"
 msgstr ""
 
 #: includes/block-editor-categories.php:14
 msgid "Custom Blocks"
 msgstr ""
 
-#: includes/customizer.php:155
+#: includes/customizer.php:164
 msgid "Theme Settings"
 msgstr ""
 
-#: includes/customizer.php:156
+#: includes/customizer.php:165
 msgid "Custom Theme Settings"
 msgstr ""
 
-#: includes/customizer.php:167
+#: includes/customizer.php:176
 msgid "Content Settings"
 msgstr ""
 
-#: includes/customizer.php:176
+#: includes/customizer.php:185
 msgid "Maximum Container width"
 msgstr ""
 
-#: includes/customizer.php:177
+#: includes/customizer.php:186
 msgid "Define the maximum content width"
 msgstr ""
 
-#: includes/customizer.php:194
+#: includes/customizer.php:203
 msgid "Container padding (Mobile)"
 msgstr ""
 
-#: includes/customizer.php:207
+#: includes/customizer.php:216
 msgid "Container padding (Desktop)"
 msgstr ""
 
-#: includes/customizer.php:223
+#: includes/customizer.php:232
 msgid "Gutter size (Mobile)"
 msgstr ""
 
-#: includes/customizer.php:236
+#: includes/customizer.php:245
 msgid "Gutter size (Desktop)"
 msgstr ""
 
-#: includes/customizer.php:251
+#: includes/customizer.php:260
 msgid "Block spacing"
 msgstr ""
 
-#: includes/customizer.php:253
+#: includes/customizer.php:262
 msgid "Define the general (mostly vertical) spacing between blocks"
 msgstr ""
 
-#: includes/customizer.php:265
+#: includes/customizer.php:274
 msgid "Box Settings"
 msgstr ""
 
-#: includes/customizer.php:272
+#: includes/customizer.php:281
 msgid "Custom Border Width"
 msgstr ""
 
-#: includes/customizer.php:274
+#: includes/customizer.php:283
 msgid "Define the custom border width of content elements"
 msgstr ""
 
-#: includes/customizer.php:286
+#: includes/customizer.php:295
 msgid "Custom Border Radius"
 msgstr ""
 
-#: includes/customizer.php:288
+#: includes/customizer.php:297
 msgid "Define the custom border radius of content elements"
 msgstr ""
 
-#: includes/customizer.php:300
+#: includes/customizer.php:309
 msgid "Shadow"
 msgstr ""
 
-#: includes/customizer.php:302
+#: includes/customizer.php:311
 msgid "Define the custom box shadow of content elements"
 msgstr ""
 
-#: includes/customizer.php:304
-#: includes/customizer.php:377
-#: includes/customizer.php:392
-#: includes/customizer.php:413
-#: includes/customizer.php:557
-#: includes/customizer.php:659
-#: includes/customizer.php:771
+#: includes/customizer.php:313
+#: includes/customizer.php:386
+#: includes/customizer.php:401
+#: includes/customizer.php:422
+#: includes/customizer.php:587
+#: includes/customizer.php:686
+#: includes/customizer.php:798
+#: includes/customizer.php:1017
+#: includes/customizer.php:1032
+#: includes/customizer.php:1046
+#: includes/customizer.php:1068
 msgid "Select an option..."
 msgstr ""
 
-#: includes/customizer.php:324
+#: includes/customizer.php:333
 msgid "Font Settings"
 msgstr ""
 
-#: includes/customizer.php:331
+#: includes/customizer.php:340
 msgid "Custom Font Size"
 msgstr ""
 
-#: includes/customizer.php:333
+#: includes/customizer.php:342
 msgid "The font size influences all other font sizes & spacings within the theme"
 msgstr ""
 
-#: includes/customizer.php:345
+#: includes/customizer.php:354
 msgid "Custom Font Weight"
 msgstr ""
 
-#: includes/customizer.php:347
-#: includes/customizer.php:361
+#: includes/customizer.php:356
+#: includes/customizer.php:370
 msgid "300 (Light)<br>400 (Medium)<br>500 (Bold)"
 msgstr ""
 
-#: includes/customizer.php:359
+#: includes/customizer.php:368
 msgid "Custom Headline Weight"
 msgstr ""
 
-#: includes/customizer.php:373
+#: includes/customizer.php:382
 msgid "Headline Font"
 msgstr ""
 
-#: includes/customizer.php:375
+#: includes/customizer.php:384
 msgid "Font used for all Headline Types.<br>H1, H2, H3, H4, H5, H6"
 msgstr ""
 
-#: includes/customizer.php:388
+#: includes/customizer.php:397
 msgid "Text Font"
 msgstr ""
 
-#: includes/customizer.php:390
+#: includes/customizer.php:399
 msgid "Font used for all Texts."
 msgstr ""
 
-#: includes/customizer.php:409
+#: includes/customizer.php:418
 msgid "Icon Font"
 msgstr ""
 
-#: includes/customizer.php:411
+#: includes/customizer.php:420
 msgid "Select the custom Icon font."
 msgstr ""
 
-#: includes/customizer.php:428
+#: includes/customizer.php:444
 msgid "Color Settings"
 msgstr ""
 
-#: includes/customizer.php:553
+#: includes/customizer.php:583
 msgid "Select Brightness Color"
 msgstr ""
 
-#: includes/customizer.php:555
+#: includes/customizer.php:585
 msgid "Define which of the above colors should be splittet into multiple lighter colors and shown within the editor"
 msgstr ""
 
-#: includes/customizer.php:572
+#: includes/customizer.php:602
 msgid "Menu Settings"
 msgstr ""
 
-#: includes/customizer.php:585
+#: includes/customizer.php:615
 msgid "Mobile Menu Only"
 msgstr ""
 
-#: includes/customizer.php:599
+#: includes/customizer.php:627
 msgid "Add Opening Hours"
 msgstr ""
 
-#: includes/customizer.php:609
+#: includes/customizer.php:636
 msgid "Navbar Height"
 msgstr ""
 
-#: includes/customizer.php:622
+#: includes/customizer.php:649
 msgid "Custom Navbar Behavior"
 msgstr ""
 
-#: includes/customizer.php:626
+#: includes/customizer.php:653
 msgid "Moving"
 msgstr ""
 
-#: includes/customizer.php:627
+#: includes/customizer.php:654
 msgid "Fixed"
 msgstr ""
 
-#: includes/customizer.php:634
+#: includes/customizer.php:661
 msgid "Navbar Top Position"
 msgstr ""
 
-#: includes/customizer.php:647
+#: includes/customizer.php:674
 msgid "Full Width Navbar"
 msgstr ""
 
-#: includes/customizer.php:655
+#: includes/customizer.php:682
 msgid "Navbar Shadow"
 msgstr ""
 
-#: includes/customizer.php:657
+#: includes/customizer.php:684
 msgid "Define the custom box shadow of the navbar"
 msgstr ""
 
-#: includes/customizer.php:672
+#: includes/customizer.php:699
 msgid "Navbar Logo"
 msgstr ""
 
-#: includes/customizer.php:688
+#: includes/customizer.php:715
 msgid "Navbar Logo Height (in %)"
 msgstr ""
 
-#: includes/customizer.php:707
+#: includes/customizer.php:734
 msgid "Navbar Logo Wrapper Width"
 msgstr ""
 
-#: includes/customizer.php:729
+#: includes/customizer.php:756
 msgid "Navbar Font Size"
 msgstr ""
 
-#: includes/customizer.php:742
+#: includes/customizer.php:769
 msgid "Navbar Font Weight"
 msgstr ""
 
-#: includes/customizer.php:755
+#: includes/customizer.php:782
 msgid "Navbar Item Spacing"
 msgstr ""
 
-#: includes/customizer.php:768
+#: includes/customizer.php:795
 msgid "Custom Menu Item Separator"
 msgstr ""
 
-#: includes/customizer.php:775
+#: includes/customizer.php:802
 msgid "No Separator"
 msgstr ""
 
-#: includes/customizer.php:788
+#: includes/customizer.php:815
 msgid "Navbar Item Order"
 msgstr ""
 
-#: includes/customizer.php:798
-#: includes/customizer.php:821
+#: includes/customizer.php:825
+#: includes/customizer.php:848
 msgid "Logo"
 msgstr ""
 
-#: includes/customizer.php:800
-#: includes/customizer.php:823
+#: includes/customizer.php:827
+#: includes/customizer.php:850
 msgid "Primary Menu"
 msgstr ""
 
-#: includes/customizer.php:801
-#: includes/customizer.php:824
+#: includes/customizer.php:828
+#: includes/customizer.php:851
 msgid "Secondary Menu"
 msgstr ""
 
-#: includes/customizer.php:802
-#: includes/customizer.php:825
+#: includes/customizer.php:829
+#: includes/customizer.php:852
 msgid "Burger Menu Icon"
 msgstr ""
 
-#: includes/customizer.php:809
+#: includes/customizer.php:836
 msgid "Logo Spacing"
 msgstr ""
 
-#: includes/customizer.php:814
-#: includes/customizer.php:845
+#: includes/customizer.php:841
+#: includes/customizer.php:872
+#: includes/customizer.php:1050
 #: resources/blocks/image-header/image-header.jsx:374
 #: resources/blocks/slider/slider.jsx:543
-#: public/scripts/editor.js:1911
-#: public/scripts/editor.js:3006
+#: public/scripts/editor.js:2579
+#: public/scripts/editor.js:3681
 msgid "Left"
 msgstr ""
 
-#: includes/customizer.php:815
-#: includes/customizer.php:846
+#: includes/customizer.php:842
+#: includes/customizer.php:873
+#: includes/customizer.php:1051
 #: resources/blocks/image-header/image-header.jsx:376
 #: resources/blocks/slider/slider.jsx:544
-#: public/scripts/editor.js:1913
-#: public/scripts/editor.js:3007
+#: public/scripts/editor.js:2581
+#: public/scripts/editor.js:3682
 msgid "Right"
 msgstr ""
 
-#: includes/customizer.php:854
+#: includes/customizer.php:881
 msgid "Navbar Submenu Item Height"
 msgstr ""
 
-#: includes/customizer.php:870
+#: includes/customizer.php:897
 msgid "Form Settings"
 msgstr ""
 
-#: includes/customizer.php:877
+#: includes/customizer.php:904
 msgid "Custom Form Height"
 msgstr ""
 
-#: includes/customizer.php:879
+#: includes/customizer.php:906
 msgid "Define Form Height"
 msgstr ""
 
-#: includes/customizer.php:891
-#: includes/customizer.php:909
+#: includes/customizer.php:918
+#: includes/customizer.php:936
 msgid "Google Maps Api Key"
 msgstr ""
 
-#: includes/customizer.php:893
-#: includes/customizer.php:911
+#: includes/customizer.php:920
+#: includes/customizer.php:938
 msgid "Set the API Key to enable the Maps Block"
 msgstr ""
 
-#: includes/customizer.php:902
+#: includes/customizer.php:929
 msgid "API Settings"
+msgstr ""
+
+#: includes/customizer.php:948
+#: includes/customizer.php:1084
+msgid "Cookie Settings"
+msgstr ""
+
+#: includes/customizer.php:955
+msgid "Force Cookie Consent"
+msgstr ""
+
+#: includes/customizer.php:963
+msgid "Custom Cookie Padding"
+msgstr ""
+
+#: includes/customizer.php:979
+msgid "Cookie consent title"
+msgstr ""
+
+#: includes/customizer.php:981
+msgid "I use cookies"
+msgstr ""
+
+#: includes/customizer.php:987
+msgid "Your cookie consent message here"
+msgstr ""
+
+#: includes/customizer.php:989
+msgid "Cookie Consent Description"
+msgstr ""
+
+#: includes/customizer.php:998
+msgid "Accept Button"
+msgstr ""
+
+#: includes/customizer.php:1000
+msgid "Accept"
+msgstr ""
+
+#: includes/customizer.php:1006
+msgid "Reject Button"
+msgstr ""
+
+#: includes/customizer.php:1008
+msgid "Reject"
+msgstr ""
+
+#: includes/customizer.php:1014
+msgid "Cookie Consent Layout"
+msgstr ""
+
+#: includes/customizer.php:1020
+msgid "Box"
+msgstr ""
+
+#: includes/customizer.php:1021
+msgid "Cloud"
+msgstr ""
+
+#: includes/customizer.php:1022
+msgid "Bar"
+msgstr ""
+
+#: includes/customizer.php:1029
+msgid "Cookie Consent Position Y"
+msgstr ""
+
+#: includes/customizer.php:1035
+#: resources/blocks/image-header/image-header.jsx:384
+#: resources/blocks/slider/slider.jsx:533
+#: public/scripts/editor.js:2589
+#: public/scripts/editor.js:3671
+msgid "Top"
+msgstr ""
+
+#: includes/customizer.php:1036
+#: resources/blocks/image-header/image-header.jsx:386
+#: resources/blocks/slider/slider.jsx:534
+#: public/scripts/editor.js:2591
+#: public/scripts/editor.js:3672
+msgid "Bottom"
+msgstr ""
+
+#: includes/customizer.php:1043
+msgid "Cookie Consent Position X"
+msgstr ""
+
+#: includes/customizer.php:1049
+#: resources/blocks/image-header/image-header.jsx:375
+#: resources/blocks/image-header/image-header.jsx:385
+#: resources/blocks/slider/slider.jsx:545
+#: public/scripts/editor.js:2580
+#: public/scripts/editor.js:2590
+#: public/scripts/editor.js:3683
+msgid "Center"
+msgstr ""
+
+#: includes/customizer.php:1065
+msgid "Cookie Consent Transition"
+msgstr ""
+
+#: includes/customizer.php:1071
+msgid "Slide"
+msgstr ""
+
+#: includes/customizer.php:1072
+msgid "Zoom"
+msgstr ""
+
+#: includes/customizer.php:1082
+msgid "Cookie Settings Title"
+msgstr ""
+
+#: includes/customizer.php:1090
+msgid "Save Button Text"
+msgstr ""
+
+#: includes/customizer.php:1092
+msgid "Save settings"
+msgstr ""
+
+#: includes/customizer.php:1098
+msgid "Accept All Button Text"
+msgstr ""
+
+#: includes/customizer.php:1100
+msgid "Accept all"
+msgstr ""
+
+#: includes/customizer.php:1106
+msgid "Reject All Button Text"
+msgstr ""
+
+#: includes/customizer.php:1108
+msgid "Reject all"
+msgstr ""
+
+#: includes/customizer.php:1114
+msgid "Close Button Text"
+msgstr ""
+
+#: includes/customizer.php:1116
+msgid "Close"
 msgstr ""
 
 #. Template Name of the theme
 msgid "Custom Template"
 msgstr ""
 
-#: storage/framework/views/5e29a216b744da590ca685ce39f036a5642335f1.php:7
-msgid "By"
-msgstr ""
-
-#: storage/framework/views/7b9819400134d6d2ce4d298fa52a4d6bb3e780a7.php:11
-msgid "Sorry, but the page you are trying to view does not exist."
-msgstr ""
-
-#: storage/framework/views/8a7b9bb7ff5ff204a1bc0ccf90ccff915ce8bcba.php:16
 #: storage/framework/views/9910fdfc64fc17e36016430f87799e5f71379f57.php:3
 msgid "Pages:"
 msgstr ""
 
-#: storage/framework/views/8f5852f47871cbbca1d11845dff34c860b9b0f17.php:5
-msgctxt "comments title"
-msgid "One response to &ldquo;%2$s&rdquo;"
-msgid_plural "%1$s responses to &ldquo;%2$s&rdquo;"
-msgstr[0] ""
-msgstr[1] ""
-
-#: storage/framework/views/8f5852f47871cbbca1d11845dff34c860b9b0f17.php:19
-msgid "&larr; Older comments"
-msgstr ""
-
-#: storage/framework/views/8f5852f47871cbbca1d11845dff34c860b9b0f17.php:26
-msgid "Newer comments &rarr;"
-msgstr ""
-
-#: storage/framework/views/8f5852f47871cbbca1d11845dff34c860b9b0f17.php:42
-msgid "Comments are closed."
-msgstr ""
-
-#: storage/framework/views/12fa76da3401bda37e18690f4e75e7806a5fda02.php:11
-#: storage/framework/views/74fa57ab672705f2c85452a522cd286889481cc7.php:11
-msgid "Sorry, no results were found."
-msgstr ""
-
-#: storage/framework/views/a8a859a90f17cc7ea706f046957fbd390045a79f.php:6
-msgctxt "placeholder"
-msgid "Search &hellip;"
-msgstr ""
-
-#: storage/framework/views/a8a859a90f17cc7ea706f046957fbd390045a79f.php:12
-msgctxt "submit button"
-msgid "Search"
-msgstr ""
-
-#: storage/framework/views/a1879d305ce357a6b440f6b96f2b5f000d6415b0.php:99
+#: storage/framework/views/a1879d305ce357a6b440f6b96f2b5f000d6415b0.php:105
 msgid "Business hours"
 msgstr ""
 
-#: storage/framework/views/a1879d305ce357a6b440f6b96f2b5f000d6415b0.php:104
+#: storage/framework/views/a1879d305ce357a6b440f6b96f2b5f000d6415b0.php:110
 msgid "Now open"
 msgstr ""
 
-#: storage/framework/views/a1879d305ce357a6b440f6b96f2b5f000d6415b0.php:104
+#: storage/framework/views/a1879d305ce357a6b440f6b96f2b5f000d6415b0.php:110
 msgid "Now closed"
 msgstr ""
 
@@ -522,12 +632,12 @@ msgstr ""
 
 #: resources/block-formats/custom-button.jsx:184
 #: resources/blocks/icon/icon.jsx:123
-#: public/scripts/editor.js:1520
+#: public/scripts/editor.js:2176
 msgid "Remove Icon"
 msgstr ""
 
 #: resources/block-formats/light-span.jsx:40
-#: public/scripts/editor.js:3289
+#: public/scripts/editor.js:5948
 msgid "Light Span"
 msgstr ""
 
@@ -541,319 +651,296 @@ msgstr ""
 
 #: resources/block-formats/text-shadow.jsx:45
 #: resources/scripts/editor.js:30
-#: public/scripts/editor.js:3325
+#: public/scripts/editor.js:5984
 msgid "Text Shadow"
 msgstr ""
 
 #: resources/blocks/accordion/accordion.jsx:60
-#: public/scripts/editor.js:832
+#: public/scripts/editor.js:1488
 msgid "Accordion"
 msgstr ""
 
 #: resources/blocks/accordion/accordion.jsx:192
-#: public/scripts/editor.js:964
+#: public/scripts/editor.js:1620
 msgid "Remove Item"
 msgstr ""
 
 #: resources/blocks/accordion/accordion.jsx:207
-#: public/scripts/editor.js:979
+#: public/scripts/editor.js:1635
 msgid "Really want to remove this Item?"
 msgstr ""
 
 #: resources/blocks/accordion/accordion.jsx:208
-#: public/scripts/editor.js:980
+#: public/scripts/editor.js:1636
 msgid "Yes"
 msgstr ""
 
 #: resources/blocks/accordion/accordion.jsx:223
-#: public/scripts/editor.js:995
+#: public/scripts/editor.js:1651
 msgid "Add Item after"
 msgstr ""
 
 #: resources/blocks/accordion/accordion.jsx:308
-#: public/scripts/editor.js:1080
+#: public/scripts/editor.js:1736
 msgid "Show Icon"
 msgstr ""
 
 #: resources/blocks/accordion/accordion.jsx:314
-#: public/scripts/editor.js:1086
+#: public/scripts/editor.js:1742
 msgid "Accordion Spacing"
 msgstr ""
 
 #: resources/blocks/accordion/accordion.jsx:323
-#: public/scripts/editor.js:1095
+#: public/scripts/editor.js:1751
 msgid "Accordion Headline Size"
 msgstr ""
 
 #: resources/blocks/accordion/accordion.jsx:332
-#: public/scripts/editor.js:1104
+#: public/scripts/editor.js:1760
 msgid "Accordion Background Color"
 msgstr ""
 
 #: resources/blocks/divider/divider.jsx:20
-#: public/scripts/editor.js:568
+#: public/scripts/editor.js:1189
 msgid "Divider"
 msgstr ""
 
 #: resources/blocks/divider/divider.jsx:128
-#: public/scripts/editor.js:676
+#: public/scripts/editor.js:1297
 msgid "Change Opacity"
 msgstr ""
 
 #: resources/blocks/divider/divider.jsx:137
-#: public/scripts/editor.js:685
+#: public/scripts/editor.js:1306
 msgid "Change Spacing (Desktop)"
 msgstr ""
 
 #: resources/blocks/divider/divider.jsx:146
-#: public/scripts/editor.js:694
+#: public/scripts/editor.js:1315
 msgid "Change Spacing (Mobile)"
 msgstr ""
 
 #: resources/blocks/divider/divider.jsx:155
-#: public/scripts/editor.js:703
+#: public/scripts/editor.js:1324
 msgid "Change Thickness"
 msgstr ""
 
 #: resources/blocks/divider/divider.jsx:165
-#: public/scripts/editor.js:713
+#: public/scripts/editor.js:1334
 msgid "Full Width"
 msgstr ""
 
 #: resources/blocks/divider/divider.jsx:173
-#: public/scripts/editor.js:721
+#: public/scripts/editor.js:1342
 msgid "Change Width in %"
 msgstr ""
 
 #: resources/blocks/divider/divider.jsx:184
-#: public/scripts/editor.js:732
+#: public/scripts/editor.js:1353
 msgid "Change Color"
 msgstr ""
 
 #: resources/blocks/icon/icon.jsx:30
-#: public/scripts/editor.js:1427
+#: public/scripts/editor.js:2083
 msgid "Icon"
 msgstr ""
 
 #: resources/blocks/icon/icon.jsx:114
-#: public/scripts/editor.js:1511
+#: public/scripts/editor.js:2167
 msgid "Upload Icon"
 msgstr ""
 
 #: resources/blocks/icon/icon.jsx:114
-#: public/scripts/editor.js:1511
+#: public/scripts/editor.js:2167
 msgid "Change Icon"
 msgstr ""
 
 #: resources/blocks/image-header/image-header.jsx:140
-#: public/scripts/editor.js:1677
+#: public/scripts/editor.js:2345
 msgid "Image Header"
 msgstr ""
 
 #: resources/blocks/image-header/image-header.jsx:275
-#: public/scripts/editor.js:1812
+#: public/scripts/editor.js:2480
 msgid "Header Properties"
 msgstr ""
 
 #: resources/blocks/image-header/image-header.jsx:278
-#: public/scripts/editor.js:1815
+#: public/scripts/editor.js:2483
 msgid "Full Height header"
 msgstr ""
 
 #: resources/blocks/image-header/image-header.jsx:286
-#: public/scripts/editor.js:1823
+#: public/scripts/editor.js:2491
 msgid "Header Height"
 msgstr ""
 
 #: resources/blocks/image-header/image-header.jsx:295
-#: public/scripts/editor.js:1832
+#: public/scripts/editor.js:2500
 msgid "Mobile Header Height"
 msgstr ""
 
 #: resources/blocks/image-header/image-header.jsx:304
-#: public/scripts/editor.js:1841
+#: public/scripts/editor.js:2509
 msgid "Adjust Header Clip Path (Top)"
 msgstr ""
 
 #: resources/blocks/image-header/image-header.jsx:313
-#: public/scripts/editor.js:1850
+#: public/scripts/editor.js:2518
 msgid "Adjust Header Clip Path (Bottom)"
 msgstr ""
 
 #: resources/blocks/image-header/image-header.jsx:324
-#: public/scripts/editor.js:1861
+#: public/scripts/editor.js:2529
 msgid "Header Background Color"
 msgstr ""
 
 #: resources/blocks/image-header/image-header.jsx:331
 #: resources/blocks/slider/slider.jsx:644
-#: public/scripts/editor.js:1868
-#: public/scripts/editor.js:3107
+#: public/scripts/editor.js:2536
+#: public/scripts/editor.js:3782
 msgid "Image Properties"
 msgstr ""
 
 #: resources/blocks/image-header/image-header.jsx:333
-#: public/scripts/editor.js:1870
+#: public/scripts/editor.js:2538
 msgid "Image Blur"
 msgstr ""
 
 #: resources/blocks/image-header/image-header.jsx:341
-#: public/scripts/editor.js:1878
+#: public/scripts/editor.js:2546
 msgid "Image Opacity"
 msgstr ""
 
 #: resources/blocks/image-header/image-header.jsx:351
-#: public/scripts/editor.js:1888
+#: public/scripts/editor.js:2556
 msgid "Image Overlay"
 msgstr ""
 
 #: resources/blocks/image-header/image-header.jsx:358
-#: public/scripts/editor.js:1895
+#: public/scripts/editor.js:2563
 msgid "Select Overlay Color"
 msgstr ""
 
 #: resources/blocks/image-header/image-header.jsx:369
-#: public/scripts/editor.js:1906
+#: public/scripts/editor.js:2574
 msgid "Select Image Position"
 msgstr ""
 
 #: resources/blocks/image-header/image-header.jsx:371
-#: public/scripts/editor.js:1908
+#: public/scripts/editor.js:2576
 msgid "Horizontal"
 msgstr ""
 
-#: resources/blocks/image-header/image-header.jsx:375
-#: resources/blocks/image-header/image-header.jsx:385
-#: resources/blocks/slider/slider.jsx:545
-#: public/scripts/editor.js:1912
-#: public/scripts/editor.js:1922
-#: public/scripts/editor.js:3008
-msgid "Center"
-msgstr ""
-
 #: resources/blocks/image-header/image-header.jsx:381
-#: public/scripts/editor.js:1918
+#: public/scripts/editor.js:2586
 msgid "Vertical"
 msgstr ""
 
-#: resources/blocks/image-header/image-header.jsx:384
-#: resources/blocks/slider/slider.jsx:533
-#: public/scripts/editor.js:1921
-#: public/scripts/editor.js:2996
-msgid "Top"
-msgstr ""
-
-#: resources/blocks/image-header/image-header.jsx:386
-#: resources/blocks/slider/slider.jsx:534
-#: public/scripts/editor.js:1923
-#: public/scripts/editor.js:2997
-msgid "Bottom"
-msgstr ""
-
 #: resources/blocks/image-header/image-header.jsx:392
-#: public/scripts/editor.js:1929
+#: public/scripts/editor.js:2597
 msgid "Logo Properties"
 msgstr ""
 
 #: resources/blocks/image-header/image-header.jsx:394
-#: public/scripts/editor.js:1931
+#: public/scripts/editor.js:2599
 msgid "Adjust Logo Size"
 msgstr ""
 
 #: resources/blocks/image-header/image-header.jsx:404
-#: public/scripts/editor.js:1941
+#: public/scripts/editor.js:2609
 msgid "Smaller Logo on Mobile"
 msgstr ""
 
 #: resources/blocks/image-header/image-header.jsx:411
-#: public/scripts/editor.js:1948
+#: public/scripts/editor.js:2616
 msgid "Adjust Logo Position"
 msgstr ""
 
 #: resources/blocks/image-header/image-header.jsx:412
-#: public/scripts/editor.js:1949
+#: public/scripts/editor.js:2617
 msgid "Logo sits right"
 msgstr ""
 
 #: resources/blocks/image-header/image-header.jsx:412
-#: public/scripts/editor.js:1949
+#: public/scripts/editor.js:2617
 msgid "Logo sits left"
 msgstr ""
 
 #: resources/blocks/image-header/image-header.jsx:417
-#: public/scripts/editor.js:1954
+#: public/scripts/editor.js:2622
 msgid "Header Logo Position X"
 msgstr ""
 
 #: resources/blocks/image-header/image-header.jsx:426
-#: public/scripts/editor.js:1963
+#: public/scripts/editor.js:2631
 msgid "Header Logo Position Y"
 msgstr ""
 
 #: resources/blocks/image-header/image-header.jsx:436
 #: resources/blocks/slider/slider.jsx:591
-#: public/scripts/editor.js:1973
-#: public/scripts/editor.js:3054
+#: public/scripts/editor.js:2641
+#: public/scripts/editor.js:3729
 msgid "Text Properties"
 msgstr ""
 
 #: resources/blocks/image-header/image-header.jsx:438
-#: public/scripts/editor.js:1975
+#: public/scripts/editor.js:2643
 msgid "Text Position X"
 msgstr ""
 
 #: resources/blocks/image-header/image-header.jsx:447
-#: public/scripts/editor.js:1984
+#: public/scripts/editor.js:2652
 msgid "Text Position Y"
 msgstr ""
 
 #: resources/blocks/image-header/image-header.jsx:529
-#: public/scripts/editor.js:2066
+#: public/scripts/editor.js:2734
 msgid "Change Image"
 msgstr ""
 
 #: resources/blocks/image-header/image-header.jsx:549
-#: public/scripts/editor.js:2086
+#: public/scripts/editor.js:2754
 msgid "Upload Logo"
 msgstr ""
 
 #: resources/blocks/image-header/image-header.jsx:549
-#: public/scripts/editor.js:2086
+#: public/scripts/editor.js:2754
 msgid "Change Logo"
 msgstr ""
 
 #: resources/blocks/map/map.jsx:41
-#: public/scripts/editor.js:1229
+#: public/scripts/editor.js:1885
 msgid "Map"
 msgstr ""
 
 #: resources/blocks/map/map.jsx:141
-#: public/scripts/editor.js:1329
+#: public/scripts/editor.js:1985
 msgid "Upload Map Marker"
 msgstr ""
 
 #: resources/blocks/map/map.jsx:141
-#: public/scripts/editor.js:1329
+#: public/scripts/editor.js:1985
 msgid "Update Map Marker"
 msgstr ""
 
 #: resources/blocks/map/map.jsx:146
-#: public/scripts/editor.js:1334
+#: public/scripts/editor.js:1990
 msgid "Remove Marker Image"
 msgstr ""
 
 #: resources/blocks/map/map.jsx:152
-#: public/scripts/editor.js:1340
+#: public/scripts/editor.js:1996
 msgid "Address"
 msgstr ""
 
 #: resources/blocks/map/map.jsx:158
-#: public/scripts/editor.js:1346
+#: public/scripts/editor.js:2002
 msgid "Google Maps Link"
 msgstr ""
 
 #: resources/blocks/map/map.jsx:163
-#: public/scripts/editor.js:1351
+#: public/scripts/editor.js:2007
 msgid "Adjust Zoom Level"
 msgstr ""
 
@@ -862,202 +949,202 @@ msgstr ""
 #: resources/blocks/slider/slider.jsx:117
 #: resources/blocks/slider/slider.jsx:220
 #: resources/blocks/slider/slider.jsx:329
-#: public/scripts/editor.js:2570
-#: public/scripts/editor.js:2575
-#: public/scripts/editor.js:2580
-#: public/scripts/editor.js:2683
-#: public/scripts/editor.js:2792
+#: public/scripts/editor.js:3245
+#: public/scripts/editor.js:3250
+#: public/scripts/editor.js:3255
+#: public/scripts/editor.js:3358
+#: public/scripts/editor.js:3467
 msgid "The Headline..."
 msgstr ""
 
 #: resources/blocks/slider/slider.jsx:126
-#: public/scripts/editor.js:2589
+#: public/scripts/editor.js:3264
 msgid "Slider"
 msgstr ""
 
 #: resources/blocks/slider/slider.jsx:492
-#: public/scripts/editor.js:2955
+#: public/scripts/editor.js:3630
 msgid "Slide Prev"
 msgstr ""
 
 #: resources/blocks/slider/slider.jsx:498
-#: public/scripts/editor.js:2961
+#: public/scripts/editor.js:3636
 msgid "Slide Next"
 msgstr ""
 
 #: resources/blocks/slider/slider.jsx:502
-#: public/scripts/editor.js:2965
+#: public/scripts/editor.js:3640
 msgid "Slider Properties"
 msgstr ""
 
 #: resources/blocks/slider/slider.jsx:505
-#: public/scripts/editor.js:2968
+#: public/scripts/editor.js:3643
 msgid "Loop Slider"
 msgstr ""
 
 #: resources/blocks/slider/slider.jsx:511
-#: public/scripts/editor.js:2974
+#: public/scripts/editor.js:3649
 msgid "Slides per View"
 msgstr ""
 
 #: resources/blocks/slider/slider.jsx:520
-#: public/scripts/editor.js:2983
+#: public/scripts/editor.js:3658
 msgid "Slides Background Color"
 msgstr ""
 
 #: resources/blocks/slider/slider.jsx:527
-#: public/scripts/editor.js:2990
+#: public/scripts/editor.js:3665
 msgid "Slider Controls"
 msgstr ""
 
 #: resources/blocks/slider/slider.jsx:529
-#: public/scripts/editor.js:2992
+#: public/scripts/editor.js:3667
 msgid "Controls Position"
 msgstr ""
 
 #: resources/blocks/slider/slider.jsx:539
-#: public/scripts/editor.js:3002
+#: public/scripts/editor.js:3677
 msgid "Controls Style"
 msgstr ""
 
 #: resources/blocks/slider/slider.jsx:551
-#: public/scripts/editor.js:3014
+#: public/scripts/editor.js:3689
 msgid "Show Pagination"
 msgstr ""
 
 #: resources/blocks/slider/slider.jsx:559
-#: public/scripts/editor.js:3022
+#: public/scripts/editor.js:3697
 msgid "Pagination Size"
 msgstr ""
 
 #: resources/blocks/slider/slider.jsx:571
-#: public/scripts/editor.js:3034
+#: public/scripts/editor.js:3709
 msgid "Show Arrows"
 msgstr ""
 
 #: resources/blocks/slider/slider.jsx:579
-#: public/scripts/editor.js:3042
+#: public/scripts/editor.js:3717
 msgid "Arrow Size"
 msgstr ""
 
 #: resources/blocks/slider/slider.jsx:594
-#: public/scripts/editor.js:3057
+#: public/scripts/editor.js:3732
 msgid "Show Text Wrapper"
 msgstr ""
 
 #: resources/blocks/slider/slider.jsx:603
-#: public/scripts/editor.js:3066
+#: public/scripts/editor.js:3741
 msgid "Show Headline"
 msgstr ""
 
 #: resources/blocks/slider/slider.jsx:611
-#: public/scripts/editor.js:3074
+#: public/scripts/editor.js:3749
 msgid "Headline Type"
 msgstr ""
 
 #: resources/blocks/slider/slider.jsx:615
-#: public/scripts/editor.js:3078
+#: public/scripts/editor.js:3753
 msgid "H4"
 msgstr ""
 
 #: resources/blocks/slider/slider.jsx:616
-#: public/scripts/editor.js:3079
+#: public/scripts/editor.js:3754
 msgid "H5"
 msgstr ""
 
 #: resources/blocks/slider/slider.jsx:617
-#: public/scripts/editor.js:3080
+#: public/scripts/editor.js:3755
 msgid "H6"
 msgstr ""
 
 #: resources/blocks/slider/slider.jsx:635
-#: public/scripts/editor.js:3098
+#: public/scripts/editor.js:3773
 msgid "Center Text"
 msgstr ""
 
 #: resources/blocks/slider/slider.jsx:647
-#: public/scripts/editor.js:3110
+#: public/scripts/editor.js:3785
 msgid "Show Images"
 msgstr ""
 
 #: resources/blocks/slider/slider.jsx:655
 #: resources/blocks/text-image/text-image.jsx:230
-#: public/scripts/editor.js:2386
-#: public/scripts/editor.js:3118
+#: public/scripts/editor.js:3060
+#: public/scripts/editor.js:3793
 msgid "Images Ratio"
 msgstr ""
 
 #: resources/blocks/slider/slider.jsx:659
 #: resources/blocks/text-image/text-image.jsx:234
-#: public/scripts/editor.js:2390
-#: public/scripts/editor.js:3122
+#: public/scripts/editor.js:3064
+#: public/scripts/editor.js:3797
 msgid "1x1"
 msgstr ""
 
 #: resources/blocks/slider/slider.jsx:660
 #: resources/blocks/text-image/text-image.jsx:235
-#: public/scripts/editor.js:2391
-#: public/scripts/editor.js:3123
+#: public/scripts/editor.js:3065
+#: public/scripts/editor.js:3798
 msgid "4x3"
 msgstr ""
 
 #: resources/blocks/slider/slider.jsx:661
 #: resources/blocks/text-image/text-image.jsx:236
-#: public/scripts/editor.js:2392
-#: public/scripts/editor.js:3124
+#: public/scripts/editor.js:3066
+#: public/scripts/editor.js:3799
 msgid "3x2"
 msgstr ""
 
 #: resources/blocks/slider/slider.jsx:662
 #: resources/blocks/text-image/text-image.jsx:237
-#: public/scripts/editor.js:2393
-#: public/scripts/editor.js:3125
+#: public/scripts/editor.js:3067
+#: public/scripts/editor.js:3800
 msgid "16x9"
 msgstr ""
 
 #: resources/blocks/slider/slider.jsx:663
 #: resources/blocks/text-image/text-image.jsx:238
-#: public/scripts/editor.js:2394
-#: public/scripts/editor.js:3126
+#: public/scripts/editor.js:3068
+#: public/scripts/editor.js:3801
 msgid "21x9"
 msgstr ""
 
 #: resources/blocks/text-image/text-image.jsx:64
-#: public/scripts/editor.js:2225
+#: public/scripts/editor.js:2894
 msgid "Text Image"
 msgstr ""
 
 #: resources/blocks/text-image/text-image.jsx:163
-#: public/scripts/editor.js:2319
+#: public/scripts/editor.js:2993
 msgid "Upload Images"
 msgstr ""
 
 #: resources/blocks/text-image/text-image.jsx:163
-#: public/scripts/editor.js:2319
+#: public/scripts/editor.js:2993
 msgid "Change Images"
 msgstr ""
 
 #: resources/blocks/text-image/text-image.jsx:206
-#: public/scripts/editor.js:2362
+#: public/scripts/editor.js:3036
 msgid "Switch content order"
 msgstr ""
 
 #: resources/blocks/text-image/text-image.jsx:211
-#: public/scripts/editor.js:2367
+#: public/scripts/editor.js:3041
 msgid "Adjust Column Range"
 msgstr ""
 
 #: resources/blocks/text-image/text-image.jsx:220
-#: public/scripts/editor.js:2376
+#: public/scripts/editor.js:3050
 msgid "Adjust visible Images"
 msgstr ""
 
 #: resources/blocks/text-image/text-image.jsx:243
-#: public/scripts/editor.js:2399
+#: public/scripts/editor.js:3073
 msgid "Background Color"
 msgstr ""
 
 #: resources/scripts/editor.js:37
-#: public/scripts/editor.js:3332
+#: public/scripts/editor.js:5991
 msgid "No Format"
 msgstr ""

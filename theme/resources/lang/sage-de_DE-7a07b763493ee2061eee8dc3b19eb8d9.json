@@ -1,5 +1,5 @@
 {
-    "translation-revision-date": "2021-10-12 10:50+0200",
+    "translation-revision-date": "2021-10-20 16:56+0200",
     "generator": "WP-CLI\/2.4.0",
     "source": "resources\/scripts\/editor.js",
     "domain": "messages",
@@ -12,6 +12,9 @@
             },
             "Text Shadow": [
                 "Textschatten"
+            ],
+            "No Format": [
+                "Kein Format"
             ]
         }
     }

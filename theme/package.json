@@ -18,7 +18,8 @@
     "lint:css": "stylelint \"resources/**/*.{css,scss,vue}\"",
     "translate": "npm run translate:pot && npm run translate:js",
     "translate:pot": "wp i18n make-pot . ./resources/lang/sage.pot --ignore-domain --include=\"app,resources\"",
-    "translate:js": "wp i18n make-json ./resources/lang --pretty-print"
+    "translate:js": "rm ./resources/lang/*.json && wp i18n make-json ./resources/lang --pretty-print && npm run translate:rename",
+    "translate:rename": "rename ./resources/lang/*.json sage-{{f}}"
   },
   "devDependencies": {
     "@tinypixelco/laravel-mix-wp-blocks": "^1.1.0",
@@ -36,6 +37,7 @@
     "laravel-mix-purgecss": "^6.0.0",
     "postcss": "^8.3.0",
     "postcss-purgecss-laravel": "^2.0.0",
+    "rename-cli": "^6.2.1",
     "sass": "^1.34.0",
     "sass-loader": "11.1.1",
     "stylelint": "^13.13.1",

@@ -7,8 +7,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-10-12T08:49:03+00:00\n"
-"PO-Revision-Date: 2021-10-12 10:50+0200\n"
+"POT-Creation-Date: 2021-10-20T14:24:04+00:00\n"
+"PO-Revision-Date: 2021-10-20 16:56+0200\n"
 "Language: de\n"
 "X-Generator: Poedit 3.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -18,7 +18,6 @@ msgid "Berlin"
 msgstr "Berlin"
 
 #. Theme URI of the theme
-#, fuzzy
 msgid "https://roots.io/sage/"
 msgstr "https://roots.io/sage/"
 
@@ -27,12 +26,10 @@ msgid "The first Multipurpose Wordpress Theme (MWT) from WandelDigital."
 msgstr "Das erste Mehrzweck Wordpress Theme (MWT) von WandelDigital."
 
 #. Author of the theme
-#, fuzzy
 msgid "WandelDigital"
 msgstr "WandelDigital"
 
 #. Author URI of the theme
-#, fuzzy
 msgid "https://wandeldigital.de"
 msgstr "https://wandeldigital.de"
 
@@ -40,54 +37,51 @@ msgstr "https://wandeldigital.de"
 msgid "Continued"
 msgstr "Fortsetzung"
 
-#: app/setup.php:86
-#, fuzzy
+#: app/setup.php:114
 msgid "Primary Desktop Menu"
 msgstr "Primäres Desktopmenü"
 
-#: app/setup.php:87
+#: app/setup.php:115
 msgid "Secondary Desktop Menu"
 msgstr "Sekundärer Desktopmenü"
 
-#: app/setup.php:88
+#: app/setup.php:116
 msgid "Primary Mobile Menu"
 msgstr "Primäres mobiles Menü"
 
-#: app/setup.php:202
-#, fuzzy
+#: app/setup.php:230
 msgid "Gray "
 msgstr "Grau "
 
-#: app/setup.php:214
+#: app/setup.php:242
 msgid "Primary"
 msgstr "Primär"
 
-#: app/setup.php:219
+#: app/setup.php:247
 msgid "Secondary"
 msgstr "Sekundär"
 
-#: app/setup.php:224
+#: app/setup.php:252
 msgid "Tertiary"
 msgstr "Tertiär"
 
-#: app/setup.php:229
+#: app/setup.php:257
 #: resources/blocks/image-header/image-header.jsx:362
-#: public/scripts/editor.js:1899
+#: public/scripts/editor.js:2567
 msgid "Light"
 msgstr "Hell"
 
-#: app/setup.php:234
+#: app/setup.php:262
 #: resources/blocks/image-header/image-header.jsx:361
-#: public/scripts/editor.js:1898
+#: public/scripts/editor.js:2566
 msgid "Dark"
 msgstr "Dunkel"
 
-#: app/setup.php:266
+#: app/setup.php:300
 msgid "Footer"
 msgstr "Footer"
 
-#: app/setup.php:268
-#, fuzzy
+#: app/setup.php:302
 msgid "The Footer widget area is displayed on the bottom of each page."
 msgstr "Der Bereich Fußzeilen-Widget wird unten auf jeder Seite angezeigt."
 
@@ -110,427 +104,497 @@ msgid "Error locating <code>%s</code> for inclusion."
 msgstr "Es trat ein Fehler beim Auffinden von <code>%s</code> für die Einbindung auf."
 
 #: functions.php:15
-#, fuzzy
 msgid "Error locating autoloader. Please run <code>composer install</code>."
 msgstr "Fehler beim Suchen des Autoloaders. Bitte führen Sie <code>composer install</code> aus."
 
 #: includes/add-options-page.php:15
 #: includes/add-options-page.php:16
-#: includes/customizer.php:799
-#: includes/customizer.php:822
+#: includes/customizer.php:826
+#: includes/customizer.php:849
 msgid "Business Hours"
 msgstr "Öffnungszeiten"
 
-#: includes/adjust-media-image-sizes.php:20
+#: includes/adjust-media-image-sizes.php:21
 msgid "Placeholder"
 msgstr "Platzhalter"
 
-#: includes/adjust-media-image-sizes.php:21
+#: includes/adjust-media-image-sizes.php:22
 msgid "Tiny"
 msgstr "Sehr klein"
 
-#: includes/adjust-media-image-sizes.php:22
+#: includes/adjust-media-image-sizes.php:23
 msgid "Small"
 msgstr "Klein"
 
+#: includes/adjust-media-image-sizes.php:24
+msgid "Extra Large"
+msgstr "Extra Groß"
+
 #: includes/block-editor-categories.php:14
-#, fuzzy
 msgid "Custom Blocks"
 msgstr "Benutzerdefinierte Blöcke"
 
-#: includes/customizer.php:155
+#: includes/customizer.php:164
 msgid "Theme Settings"
 msgstr "Theme Einstellungen"
 
-#: includes/customizer.php:156
+#: includes/customizer.php:165
 msgid "Custom Theme Settings"
 msgstr "Benutzerdefinierte Design Einstellungen"
 
-#: includes/customizer.php:167
+#: includes/customizer.php:176
 msgid "Content Settings"
 msgstr "Inhaltseinstellungen"
 
-#: includes/customizer.php:176
+#: includes/customizer.php:185
 msgid "Maximum Container width"
 msgstr "Maximale Containerbreite"
 
-#: includes/customizer.php:177
+#: includes/customizer.php:186
 msgid "Define the maximum content width"
 msgstr "Definiere die maximale Inhaltsbreite"
 
-#: includes/customizer.php:194
-#, fuzzy
+#: includes/customizer.php:203
 msgid "Container padding (Mobile)"
-msgstr "Behälterpolsterung (Mobil)"
+msgstr "Container padding (Mobile)"
 
-#: includes/customizer.php:207
-#, fuzzy
+#: includes/customizer.php:216
 msgid "Container padding (Desktop)"
-msgstr "Containerpolsterung (Desktop)"
+msgstr "Container padding (Desktop)"
 
-#: includes/customizer.php:223
-#, fuzzy
+#: includes/customizer.php:232
 msgid "Gutter size (Mobile)"
-msgstr "Rinnengröße (Mobil)"
+msgstr "Gutter size (Mobile)"
 
-#: includes/customizer.php:236
-#, fuzzy
+#: includes/customizer.php:245
 msgid "Gutter size (Desktop)"
-msgstr "Rinnengröße (Desktop)"
+msgstr "Gutter size (Desktop)"
 
-#: includes/customizer.php:251
-#, fuzzy
+#: includes/customizer.php:260
 msgid "Block spacing"
 msgstr "Blockabstand"
 
-#: includes/customizer.php:253
-#, fuzzy
+#: includes/customizer.php:262
 msgid "Define the general (mostly vertical) spacing between blocks"
 msgstr "Definieren Sie den allgemeinen (meist vertikalen) Abstand zwischen Blöcken"
 
-#: includes/customizer.php:265
+#: includes/customizer.php:274
 msgid "Box Settings"
 msgstr "Box Einstellungen"
 
-#: includes/customizer.php:272
-#, fuzzy
+#: includes/customizer.php:281
 msgid "Custom Border Width"
 msgstr "Benutzerdefinierte Rahmenbreite"
 
-#: includes/customizer.php:274
-#, fuzzy
+#: includes/customizer.php:283
 msgid "Define the custom border width of content elements"
-msgstr "Definieren der benutzerdefinierten Rahmenbreite von Inhaltselementen"
+msgstr "Benutzerdefinierten Rahmenbreite von Inhaltselementen"
 
-#: includes/customizer.php:286
+#: includes/customizer.php:295
 msgid "Custom Border Radius"
-msgstr "Benutzerdefinierter Eckenradius"
+msgstr "Benutzerdefinierter Border Radius"
 
-#: includes/customizer.php:288
-#, fuzzy
+#: includes/customizer.php:297
 msgid "Define the custom border radius of content elements"
-msgstr "Definieren des benutzerdefinierten Rahmenradius von Inhaltselementen"
+msgstr "Benutzerdefinierter Border Radius von Inhaltselementen"
 
-#: includes/customizer.php:300
+#: includes/customizer.php:309
 msgid "Shadow"
 msgstr "Schatten"
 
-#: includes/customizer.php:302
-#, fuzzy
+#: includes/customizer.php:311
 msgid "Define the custom box shadow of content elements"
-msgstr "Definieren des benutzerdefinierten Feldschattens von Inhaltselementen"
+msgstr "Benutzerdefinierter Box Shadow von Inhaltselementen"
 
-#: includes/customizer.php:304
-#: includes/customizer.php:377
-#: includes/customizer.php:392
-#: includes/customizer.php:413
-#: includes/customizer.php:557
-#: includes/customizer.php:659
-#: includes/customizer.php:771
+#: includes/customizer.php:313
+#: includes/customizer.php:386
+#: includes/customizer.php:401
+#: includes/customizer.php:422
+#: includes/customizer.php:587
+#: includes/customizer.php:686
+#: includes/customizer.php:798
+#: includes/customizer.php:1017
+#: includes/customizer.php:1032
+#: includes/customizer.php:1046
+#: includes/customizer.php:1068
 msgid "Select an option..."
 msgstr "Wählen Sie eine Option…"
 
-#: includes/customizer.php:324
+#: includes/customizer.php:333
 msgid "Font Settings"
 msgstr "Einstellungen Schriftart"
 
-#: includes/customizer.php:331
+#: includes/customizer.php:340
 msgid "Custom Font Size"
 msgstr "Benutzerdefinierte Schriftgröße"
 
-#: includes/customizer.php:333
-#, fuzzy
+#: includes/customizer.php:342
 msgid "The font size influences all other font sizes & spacings within the theme"
-msgstr "Die Schriftgröße beeinflusst alle anderen Schriftgrößen und Abstände innerhalb des Themas"
+msgstr "Die Schriftgröße beeinflusst alle anderen Schriftgrößen und Abstände innerhalb des Themes"
 
-#: includes/customizer.php:345
+#: includes/customizer.php:354
 msgid "Custom Font Weight"
 msgstr "Benutzerdefinierte Schriftgewicht"
 
-#: includes/customizer.php:347
-#: includes/customizer.php:361
-#, fuzzy
+#: includes/customizer.php:356
+#: includes/customizer.php:370
 msgid "300 (Light)<br>400 (Medium)<br>500 (Bold)"
 msgstr "300 (Licht)<br>400 (Mittel)<br>500 (Fett)"
 
-#: includes/customizer.php:359
-#, fuzzy
+#: includes/customizer.php:368
 msgid "Custom Headline Weight"
-msgstr "Benutzerdefinierte Überschriftengewichtung"
+msgstr "Benutzerdefinierte Headline Font Weight"
 
-#: includes/customizer.php:373
-#, fuzzy
+#: includes/customizer.php:382
 msgid "Headline Font"
-msgstr "Überschriftenschriftart"
+msgstr "Schriftart der Überschriften"
 
-#: includes/customizer.php:375
-#, fuzzy
+#: includes/customizer.php:384
 msgid "Font used for all Headline Types.<br>H1, H2, H3, H4, H5, H6"
 msgstr "Schriftart, die für alle Überschriftentypen verwendet wird.<br>H1, H2, H3, H4, H5, H6"
 
-#: includes/customizer.php:388
+#: includes/customizer.php:397
 msgid "Text Font"
-msgstr "Schrift Text"
+msgstr "Text Schriftart"
 
-#: includes/customizer.php:390
-#, fuzzy
+#: includes/customizer.php:399
 msgid "Font used for all Texts."
 msgstr "Schriftart, die für alle Texte verwendet wird."
 
-#: includes/customizer.php:409
+#: includes/customizer.php:418
 msgid "Icon Font"
 msgstr "Symbol-Schriftart"
 
-#: includes/customizer.php:411
-#, fuzzy
+#: includes/customizer.php:420
 msgid "Select the custom Icon font."
-msgstr "Wählen Sie die benutzerdefinierte Icon-Schriftart aus."
+msgstr "Wählen Sie die benutzerdefinierte Icon-Font aus."
 
-#: includes/customizer.php:428
+#: includes/customizer.php:444
 msgid "Color Settings"
 msgstr "Farbeinstellungen"
 
-#: includes/customizer.php:553
-#, fuzzy
+#: includes/customizer.php:583
 msgid "Select Brightness Color"
 msgstr "Helligkeitsfarbe auswählen"
 
-#: includes/customizer.php:555
-#, fuzzy
+#: includes/customizer.php:585
 msgid "Define which of the above colors should be splittet into multiple lighter colors and shown within the editor"
 msgstr "Definieren Sie, welche der oben genannten Farben in mehrere hellere Farben aufgeteilt und im Editor angezeigt werden sollen"
 
-#: includes/customizer.php:572
+#: includes/customizer.php:602
 msgid "Menu Settings"
 msgstr "Menüeinstellungen"
 
-#: includes/customizer.php:585
-#, fuzzy
+#: includes/customizer.php:615
 msgid "Mobile Menu Only"
 msgstr "Nur mobiles Menü"
 
-#: includes/customizer.php:599
-#, fuzzy
+#: includes/customizer.php:627
 msgid "Add Opening Hours"
 msgstr "Öffnungszeiten hinzufügen"
 
-#: includes/customizer.php:609
-#, fuzzy
+#: includes/customizer.php:636
 msgid "Navbar Height"
 msgstr "Höhe der Navigationsleiste"
 
-#: includes/customizer.php:622
-#, fuzzy
+#: includes/customizer.php:649
 msgid "Custom Navbar Behavior"
 msgstr "Benutzerdefiniertes Navigationsleistenverhalten"
 
-#: includes/customizer.php:626
+#: includes/customizer.php:653
 msgid "Moving"
-msgstr "Umzug"
+msgstr "Beweglich"
 
-#: includes/customizer.php:627
+#: includes/customizer.php:654
 msgid "Fixed"
 msgstr "Fixiert"
 
-#: includes/customizer.php:634
-#, fuzzy
+#: includes/customizer.php:661
 msgid "Navbar Top Position"
 msgstr "Obere Position der Navigationsleiste"
 
-#: includes/customizer.php:647
-#, fuzzy
+#: includes/customizer.php:674
 msgid "Full Width Navbar"
 msgstr "Navigationsleiste in voller Breite"
 
-#: includes/customizer.php:655
-#, fuzzy
+#: includes/customizer.php:682
 msgid "Navbar Shadow"
 msgstr "Schatten der Navigationsleiste"
 
-#: includes/customizer.php:657
-#, fuzzy
+#: includes/customizer.php:684
 msgid "Define the custom box shadow of the navbar"
-msgstr "Definieren des benutzerdefinierten Feldschattens der Navigationsleiste"
+msgstr "Benutzerdefinierter Box Shaddow der Navigationsleiste"
 
-#: includes/customizer.php:672
+#: includes/customizer.php:699
 msgid "Navbar Logo"
 msgstr "Hauptmenü Logo"
 
-#: includes/customizer.php:688
-#, fuzzy
+#: includes/customizer.php:715
 msgid "Navbar Logo Height (in %)"
 msgstr "Höhe des Navbar-Logos (in %)"
 
-#: includes/customizer.php:707
-#, fuzzy
+#: includes/customizer.php:734
 msgid "Navbar Logo Wrapper Width"
 msgstr "Breite des Navbar-Logo-Wrappers"
 
-#: includes/customizer.php:729
+#: includes/customizer.php:756
 msgid "Navbar Font Size"
 msgstr "Schriftgröße"
 
-#: includes/customizer.php:742
+#: includes/customizer.php:769
 msgid "Navbar Font Weight"
 msgstr "Navigationsleiste Schriftstärke"
 
-#: includes/customizer.php:755
-#, fuzzy
+#: includes/customizer.php:782
 msgid "Navbar Item Spacing"
-msgstr "Abstand des Navigationsleistenelements"
+msgstr "Abstand der Navigationselemente"
 
-#: includes/customizer.php:768
-#, fuzzy
+#: includes/customizer.php:795
 msgid "Custom Menu Item Separator"
-msgstr "Benutzerdefiniertes Menüelementtrennzeichen"
+msgstr "Benutzerdefiniertes Trennzeichen"
 
-#: includes/customizer.php:775
+#: includes/customizer.php:802
 msgid "No Separator"
 msgstr "Kein Separator"
 
-#: includes/customizer.php:788
-#, fuzzy
+#: includes/customizer.php:815
 msgid "Navbar Item Order"
-msgstr "Navbar Artikelbestellung"
+msgstr "Navbar Artikelreihenfolge"
 
-#: includes/customizer.php:798
-#: includes/customizer.php:821
+#: includes/customizer.php:825
+#: includes/customizer.php:848
 msgid "Logo"
 msgstr "Logo"
 
-#: includes/customizer.php:800
-#: includes/customizer.php:823
+#: includes/customizer.php:827
+#: includes/customizer.php:850
 msgid "Primary Menu"
 msgstr "Hauptmenü"
 
-#: includes/customizer.php:801
-#: includes/customizer.php:824
+#: includes/customizer.php:828
+#: includes/customizer.php:851
 msgid "Secondary Menu"
 msgstr "Sekundäres Menü"
 
-#: includes/customizer.php:802
-#: includes/customizer.php:825
-#, fuzzy
+#: includes/customizer.php:829
+#: includes/customizer.php:852
 msgid "Burger Menu Icon"
-msgstr "Burger Menü Symbol"
+msgstr "Burger Menü Icon"
 
-#: includes/customizer.php:809
+#: includes/customizer.php:836
 msgid "Logo Spacing"
 msgstr "Logo-Abstand"
 
-#: includes/customizer.php:814
-#: includes/customizer.php:845
+#: includes/customizer.php:841
+#: includes/customizer.php:872
+#: includes/customizer.php:1050
 #: resources/blocks/image-header/image-header.jsx:374
 #: resources/blocks/slider/slider.jsx:543
-#: public/scripts/editor.js:1911
-#: public/scripts/editor.js:3006
+#: public/scripts/editor.js:2579
+#: public/scripts/editor.js:3681
 msgid "Left"
 msgstr "Links"
 
-#: includes/customizer.php:815
-#: includes/customizer.php:846
+#: includes/customizer.php:842
+#: includes/customizer.php:873
+#: includes/customizer.php:1051
 #: resources/blocks/image-header/image-header.jsx:376
 #: resources/blocks/slider/slider.jsx:544
-#: public/scripts/editor.js:1913
-#: public/scripts/editor.js:3007
+#: public/scripts/editor.js:2581
+#: public/scripts/editor.js:3682
 msgid "Right"
 msgstr "Rechts"
 
-#: includes/customizer.php:854
-#, fuzzy
+#: includes/customizer.php:881
 msgid "Navbar Submenu Item Height"
-msgstr "Höhe des Untermenüs Navigationsleistenelement"
+msgstr "Höhe der Navigationselemente"
 
-#: includes/customizer.php:870
+#: includes/customizer.php:897
 msgid "Form Settings"
 msgstr "Formular Einstellungen"
 
-#: includes/customizer.php:877
-#, fuzzy
+#: includes/customizer.php:904
 msgid "Custom Form Height"
 msgstr "Benutzerdefinierte Formularhöhe"
 
-#: includes/customizer.php:879
-#, fuzzy
+#: includes/customizer.php:906
 msgid "Define Form Height"
 msgstr "Formularhöhe definieren"
 
-#: includes/customizer.php:891
-#: includes/customizer.php:909
+#: includes/customizer.php:918
+#: includes/customizer.php:936
 msgid "Google Maps Api Key"
 msgstr "Google Maps Api Key"
 
-#: includes/customizer.php:893
-#: includes/customizer.php:911
-#, fuzzy
+#: includes/customizer.php:920
+#: includes/customizer.php:938
 msgid "Set the API Key to enable the Maps Block"
 msgstr "Festlegen des API-Schlüssels zum Aktivieren des Kartenblocks"
 
-#: includes/customizer.php:902
+#: includes/customizer.php:929
 msgid "API Settings"
 msgstr "API Einstellungen"
+
+#: includes/customizer.php:948
+#: includes/customizer.php:1084
+msgid "Cookie Settings"
+msgstr "Cookie Einstellungen"
+
+#: includes/customizer.php:955
+msgid "Force Cookie Consent"
+msgstr "Cookie Content erzwingen"
+
+#: includes/customizer.php:963
+msgid "Custom Cookie Padding"
+msgstr "Benutzerdefiniertes Cookie Padding"
+
+#: includes/customizer.php:979
+msgid "Cookie consent title"
+msgstr "Titel des Cookie Consents"
+
+#: includes/customizer.php:981
+msgid "I use cookies"
+msgstr "Ich verwende Cookies"
+
+#: includes/customizer.php:987
+msgid "Your cookie consent message here"
+msgstr "Ihre Cookie-Einwilligungsnachricht hier"
+
+#: includes/customizer.php:989
+msgid "Cookie Consent Description"
+msgstr "Cookie Consent Beschreibung"
+
+#: includes/customizer.php:998
+msgid "Accept Button"
+msgstr "Akzeptieren Button "
+
+#: includes/customizer.php:1000
+msgid "Accept"
+msgstr "Akzeptieren"
+
+#: includes/customizer.php:1006
+msgid "Reject Button"
+msgstr "Ablehnen Button"
+
+#: includes/customizer.php:1008
+msgid "Reject"
+msgstr "Ablehnen"
+
+#: includes/customizer.php:1014
+msgid "Cookie Consent Layout"
+msgstr "Cookie Consent Layout"
+
+#: includes/customizer.php:1020
+msgid "Box"
+msgstr "Box"
+
+#: includes/customizer.php:1021
+msgid "Cloud"
+msgstr "Cloud"
+
+#: includes/customizer.php:1022
+msgid "Bar"
+msgstr "Bar"
+
+#: includes/customizer.php:1029
+msgid "Cookie Consent Position Y"
+msgstr "Cookie Consent Position Y"
+
+#: includes/customizer.php:1035
+#: resources/blocks/image-header/image-header.jsx:384
+#: resources/blocks/slider/slider.jsx:533
+#: public/scripts/editor.js:2589
+#: public/scripts/editor.js:3671
+msgid "Top"
+msgstr "Oben"
+
+#: includes/customizer.php:1036
+#: resources/blocks/image-header/image-header.jsx:386
+#: resources/blocks/slider/slider.jsx:534
+#: public/scripts/editor.js:2591
+#: public/scripts/editor.js:3672
+msgid "Bottom"
+msgstr "Unten"
+
+#: includes/customizer.php:1043
+msgid "Cookie Consent Position X"
+msgstr "Cookie Consent Position X"
+
+#: includes/customizer.php:1049
+#: resources/blocks/image-header/image-header.jsx:375
+#: resources/blocks/image-header/image-header.jsx:385
+#: resources/blocks/slider/slider.jsx:545
+#: public/scripts/editor.js:2580
+#: public/scripts/editor.js:2590
+#: public/scripts/editor.js:3683
+msgid "Center"
+msgstr "Zentriert"
+
+#: includes/customizer.php:1065
+msgid "Cookie Consent Transition"
+msgstr "Cookie Consent Animation"
+
+#: includes/customizer.php:1071
+msgid "Slide"
+msgstr "Slide"
+
+#: includes/customizer.php:1072
+msgid "Zoom"
+msgstr "Zoom"
+
+#: includes/customizer.php:1082
+msgid "Cookie Settings Title"
+msgstr "Titel der Cookie-Einstellungen"
+
+#: includes/customizer.php:1090
+msgid "Save Button Text"
+msgstr "Speichern Button text"
+
+#: includes/customizer.php:1092
+msgid "Save settings"
+msgstr "Einstellungen speichern"
+
+#: includes/customizer.php:1098
+msgid "Accept All Button Text"
+msgstr "Alle akzeptieren Button Text"
+
+#: includes/customizer.php:1100
+msgid "Accept all"
+msgstr "Alle akzeptieren"
+
+#: includes/customizer.php:1106
+msgid "Reject All Button Text"
+msgstr "Alle ablehnen Button Text"
+
+#: includes/customizer.php:1108
+msgid "Reject all"
+msgstr "Alle ablehnen"
+
+#: includes/customizer.php:1114
+msgid "Close Button Text"
+msgstr "Schließen Button Text"
+
+#: includes/customizer.php:1116
+msgid "Close"
+msgstr "Schließen"
 
 #. Template Name of the theme
 msgid "Custom Template"
 msgstr "Template"
 
-#: storage/framework/views/5e29a216b744da590ca685ce39f036a5642335f1.php:7
-msgid "By"
-msgstr "Von"
-
-#: storage/framework/views/7b9819400134d6d2ce4d298fa52a4d6bb3e780a7.php:11
-msgid "Sorry, but the page you are trying to view does not exist."
-msgstr "Entschuldigung, aber die Seite, die Du Dir ansehen willst, existiert nicht."
-
-#: storage/framework/views/8a7b9bb7ff5ff204a1bc0ccf90ccff915ce8bcba.php:16
 #: storage/framework/views/9910fdfc64fc17e36016430f87799e5f71379f57.php:3
 msgid "Pages:"
 msgstr "Seiten:"
 
-#: storage/framework/views/8f5852f47871cbbca1d11845dff34c860b9b0f17.php:5
-msgctxt "comments title"
-msgid "One response to &ldquo;%2$s&rdquo;"
-msgid_plural "%1$s responses to &ldquo;%2$s&rdquo;"
-msgstr[0] "Eine Antwort zu &ldquo;%2$s&rdquo;"
-msgstr[1] "%1$s Antworten zu &ldquo;%2$s&rdquo;"
-
-#: storage/framework/views/8f5852f47871cbbca1d11845dff34c860b9b0f17.php:19
-msgid "&larr; Older comments"
-msgstr "&larr; Ältere Kommentare"
-
-#: storage/framework/views/8f5852f47871cbbca1d11845dff34c860b9b0f17.php:26
-msgid "Newer comments &rarr;"
-msgstr "Neuere Kommentare &rarr;"
-
-#: storage/framework/views/8f5852f47871cbbca1d11845dff34c860b9b0f17.php:42
-msgid "Comments are closed."
-msgstr "Kommentare sind geschlossen."
-
-#: storage/framework/views/12fa76da3401bda37e18690f4e75e7806a5fda02.php:11
-#: storage/framework/views/74fa57ab672705f2c85452a522cd286889481cc7.php:11
-msgid "Sorry, no results were found."
-msgstr "Sorry, keine Ergebnisse gefunden."
-
-#: storage/framework/views/a8a859a90f17cc7ea706f046957fbd390045a79f.php:6
-msgctxt "placeholder"
-msgid "Search &hellip;"
-msgstr "Suche &hellip;"
-
-#: storage/framework/views/a8a859a90f17cc7ea706f046957fbd390045a79f.php:12
-msgctxt "submit button"
-msgid "Search"
-msgstr "Suche"
-
-#: storage/framework/views/a1879d305ce357a6b440f6b96f2b5f000d6415b0.php:99
+#: storage/framework/views/a1879d305ce357a6b440f6b96f2b5f000d6415b0.php:105
 msgid "Business hours"
-msgstr "Geschäftszeiten"
+msgstr "Öffnungszeiten"
 
-#: storage/framework/views/a1879d305ce357a6b440f6b96f2b5f000d6415b0.php:104
-#, fuzzy
+#: storage/framework/views/a1879d305ce357a6b440f6b96f2b5f000d6415b0.php:110
 msgid "Now open"
 msgstr "Jetzt geöffnet"
 
-#: storage/framework/views/a1879d305ce357a6b440f6b96f2b5f000d6415b0.php:104
+#: storage/framework/views/a1879d305ce357a6b440f6b96f2b5f000d6415b0.php:110
 msgid "Now closed"
 msgstr "Jetzt geschlossen"
 
@@ -568,12 +632,12 @@ msgstr "Wählen Sie die Button-farbe"
 
 #: resources/block-formats/custom-button.jsx:184
 #: resources/blocks/icon/icon.jsx:123
-#: public/scripts/editor.js:1520
+#: public/scripts/editor.js:2176
 msgid "Remove Icon"
 msgstr "Icon entfernen"
 
 #: resources/block-formats/light-span.jsx:40
-#: public/scripts/editor.js:3289
+#: public/scripts/editor.js:5948
 msgid "Light Span"
 msgstr "Light Span"
 
@@ -582,357 +646,301 @@ msgid "Non Breaking Space"
 msgstr "Nicht brechendes Leerzeichen"
 
 #: resources/block-formats/small-span.jsx:45
-#, fuzzy
 msgid "Small Span"
-msgstr "Kleine Spannweite"
+msgstr "Small Span"
 
 #: resources/block-formats/text-shadow.jsx:45
 #: resources/scripts/editor.js:30
-#: public/scripts/editor.js:3325
+#: public/scripts/editor.js:5984
 msgid "Text Shadow"
 msgstr "Textschatten"
 
 #: resources/blocks/accordion/accordion.jsx:60
-#: public/scripts/editor.js:832
+#: public/scripts/editor.js:1488
 msgid "Accordion"
 msgstr "Akkordeon"
 
 #: resources/blocks/accordion/accordion.jsx:192
-#: public/scripts/editor.js:964
+#: public/scripts/editor.js:1620
 msgid "Remove Item"
 msgstr "Element entfernen"
 
 #: resources/blocks/accordion/accordion.jsx:207
-#: public/scripts/editor.js:979
-#, fuzzy
+#: public/scripts/editor.js:1635
 msgid "Really want to remove this Item?"
-msgstr "Möchten Sie diesen Artikel wirklich entfernen?"
+msgstr "Möchten Sie dieses Element wirklich entfernen?"
 
 #: resources/blocks/accordion/accordion.jsx:208
-#: public/scripts/editor.js:980
+#: public/scripts/editor.js:1636
 msgid "Yes"
 msgstr "Ja"
 
 #: resources/blocks/accordion/accordion.jsx:223
-#: public/scripts/editor.js:995
-#, fuzzy
+#: public/scripts/editor.js:1651
 msgid "Add Item after"
 msgstr "Element hinzufügen nach"
 
 #: resources/blocks/accordion/accordion.jsx:308
-#: public/scripts/editor.js:1080
+#: public/scripts/editor.js:1736
 msgid "Show Icon"
-msgstr "Zeige Icon"
+msgstr "Icon zeigen"
 
 #: resources/blocks/accordion/accordion.jsx:314
-#: public/scripts/editor.js:1086
-#, fuzzy
+#: public/scripts/editor.js:1742
 msgid "Accordion Spacing"
 msgstr "Akkordeonabstand"
 
 #: resources/blocks/accordion/accordion.jsx:323
-#: public/scripts/editor.js:1095
-#, fuzzy
+#: public/scripts/editor.js:1751
 msgid "Accordion Headline Size"
 msgstr "Akkordeon-Headline-Größe"
 
 #: resources/blocks/accordion/accordion.jsx:332
-#: public/scripts/editor.js:1104
-#, fuzzy
+#: public/scripts/editor.js:1760
 msgid "Accordion Background Color"
 msgstr "Akkordeon Hintergrundfarbe"
 
 #: resources/blocks/divider/divider.jsx:20
-#: public/scripts/editor.js:568
+#: public/scripts/editor.js:1189
 msgid "Divider"
 msgstr "Trenner"
 
 #: resources/blocks/divider/divider.jsx:128
-#: public/scripts/editor.js:676
-#, fuzzy
+#: public/scripts/editor.js:1297
 msgid "Change Opacity"
 msgstr "Deckkraft ändern"
 
 #: resources/blocks/divider/divider.jsx:137
-#: public/scripts/editor.js:685
-#, fuzzy
+#: public/scripts/editor.js:1306
 msgid "Change Spacing (Desktop)"
 msgstr "Ändern des Abstands (Desktop)"
 
 #: resources/blocks/divider/divider.jsx:146
-#: public/scripts/editor.js:694
-#, fuzzy
+#: public/scripts/editor.js:1315
 msgid "Change Spacing (Mobile)"
 msgstr "Abstand ändern (Mobil)"
 
 #: resources/blocks/divider/divider.jsx:155
-#: public/scripts/editor.js:703
-#, fuzzy
+#: public/scripts/editor.js:1324
 msgid "Change Thickness"
 msgstr "Dicke ändern"
 
 #: resources/blocks/divider/divider.jsx:165
-#: public/scripts/editor.js:713
+#: public/scripts/editor.js:1334
 msgid "Full Width"
 msgstr "Volle Breite"
 
 #: resources/blocks/divider/divider.jsx:173
-#: public/scripts/editor.js:721
-#, fuzzy
+#: public/scripts/editor.js:1342
 msgid "Change Width in %"
 msgstr "Breite in % ändern"
 
 #: resources/blocks/divider/divider.jsx:184
-#: public/scripts/editor.js:732
-#, fuzzy
+#: public/scripts/editor.js:1353
 msgid "Change Color"
 msgstr "Farbe ändern"
 
 #: resources/blocks/icon/icon.jsx:30
-#: public/scripts/editor.js:1427
+#: public/scripts/editor.js:2083
 msgid "Icon"
 msgstr "Icon"
 
 #: resources/blocks/icon/icon.jsx:114
-#: public/scripts/editor.js:1511
+#: public/scripts/editor.js:2167
 msgid "Upload Icon"
 msgstr "Icon Hochladen"
 
 #: resources/blocks/icon/icon.jsx:114
-#: public/scripts/editor.js:1511
+#: public/scripts/editor.js:2167
 msgid "Change Icon"
 msgstr "Icon ändern"
 
 #: resources/blocks/image-header/image-header.jsx:140
-#: public/scripts/editor.js:1677
+#: public/scripts/editor.js:2345
 msgid "Image Header"
 msgstr "Image Header"
 
 #: resources/blocks/image-header/image-header.jsx:275
-#: public/scripts/editor.js:1812
-#, fuzzy
+#: public/scripts/editor.js:2480
 msgid "Header Properties"
 msgstr "Header-Eigenschaften"
 
 #: resources/blocks/image-header/image-header.jsx:278
-#: public/scripts/editor.js:1815
-#, fuzzy
+#: public/scripts/editor.js:2483
 msgid "Full Height header"
-msgstr "Kopfzeile \"Volle Höhe\""
+msgstr "Volle Höhe"
 
 #: resources/blocks/image-header/image-header.jsx:286
-#: public/scripts/editor.js:1823
+#: public/scripts/editor.js:2491
 msgid "Header Height"
 msgstr "Header Höhe"
 
 #: resources/blocks/image-header/image-header.jsx:295
-#: public/scripts/editor.js:1832
+#: public/scripts/editor.js:2500
 msgid "Mobile Header Height"
 msgstr "Höhe Mobile-Kopfbereich"
 
 #: resources/blocks/image-header/image-header.jsx:304
-#: public/scripts/editor.js:1841
-#, fuzzy
+#: public/scripts/editor.js:2509
 msgid "Adjust Header Clip Path (Top)"
-msgstr "Header-Clip-Pfad anpassen (oben)"
+msgstr "Header-Clip-Path anpassen (oben)"
 
 #: resources/blocks/image-header/image-header.jsx:313
-#: public/scripts/editor.js:1850
-#, fuzzy
+#: public/scripts/editor.js:2518
 msgid "Adjust Header Clip Path (Bottom)"
-msgstr "Header-Clip-Pfad anpassen (unten)"
+msgstr "Header-Clip-Path anpassen (unten)"
 
 #: resources/blocks/image-header/image-header.jsx:324
-#: public/scripts/editor.js:1861
+#: public/scripts/editor.js:2529
 msgid "Header Background Color"
 msgstr "Header Hintergrundfarbe"
 
 #: resources/blocks/image-header/image-header.jsx:331
 #: resources/blocks/slider/slider.jsx:644
-#: public/scripts/editor.js:1868
-#: public/scripts/editor.js:3107
+#: public/scripts/editor.js:2536
+#: public/scripts/editor.js:3782
 msgid "Image Properties"
 msgstr "Bild-Eigenschaften"
 
 #: resources/blocks/image-header/image-header.jsx:333
-#: public/scripts/editor.js:1870
-#, fuzzy
+#: public/scripts/editor.js:2538
 msgid "Image Blur"
 msgstr "Bildunschärfe"
 
 #: resources/blocks/image-header/image-header.jsx:341
-#: public/scripts/editor.js:1878
+#: public/scripts/editor.js:2546
 msgid "Image Opacity"
 msgstr "Bild Transparenz"
 
 #: resources/blocks/image-header/image-header.jsx:351
-#: public/scripts/editor.js:1888
+#: public/scripts/editor.js:2556
 msgid "Image Overlay"
 msgstr "Bildüberlagerung"
 
 #: resources/blocks/image-header/image-header.jsx:358
-#: public/scripts/editor.js:1895
-#, fuzzy
+#: public/scripts/editor.js:2563
 msgid "Select Overlay Color"
 msgstr "Überlagerungsfarbe auswählen"
 
 #: resources/blocks/image-header/image-header.jsx:369
-#: public/scripts/editor.js:1906
-#, fuzzy
+#: public/scripts/editor.js:2574
 msgid "Select Image Position"
 msgstr "Bildposition auswählen"
 
 #: resources/blocks/image-header/image-header.jsx:371
-#: public/scripts/editor.js:1908
+#: public/scripts/editor.js:2576
 msgid "Horizontal"
 msgstr "Horizontal"
 
-#: resources/blocks/image-header/image-header.jsx:375
-#: resources/blocks/image-header/image-header.jsx:385
-#: resources/blocks/slider/slider.jsx:545
-#: public/scripts/editor.js:1912
-#: public/scripts/editor.js:1922
-#: public/scripts/editor.js:3008
-msgid "Center"
-msgstr "Zentriert"
-
 #: resources/blocks/image-header/image-header.jsx:381
-#: public/scripts/editor.js:1918
+#: public/scripts/editor.js:2586
 msgid "Vertical"
 msgstr "Vertikal"
 
-#: resources/blocks/image-header/image-header.jsx:384
-#: resources/blocks/slider/slider.jsx:533
-#: public/scripts/editor.js:1921
-#: public/scripts/editor.js:2996
-msgid "Top"
-msgstr "Oben"
-
-#: resources/blocks/image-header/image-header.jsx:386
-#: resources/blocks/slider/slider.jsx:534
-#: public/scripts/editor.js:1923
-#: public/scripts/editor.js:2997
-msgid "Bottom"
-msgstr "Unten"
-
 #: resources/blocks/image-header/image-header.jsx:392
-#: public/scripts/editor.js:1929
-#, fuzzy
+#: public/scripts/editor.js:2597
 msgid "Logo Properties"
 msgstr "Logo-Eigenschaften"
 
 #: resources/blocks/image-header/image-header.jsx:394
-#: public/scripts/editor.js:1931
-#, fuzzy
+#: public/scripts/editor.js:2599
 msgid "Adjust Logo Size"
-msgstr "Logogröße anpassen"
+msgstr "Größe des Logos anpassen"
 
 #: resources/blocks/image-header/image-header.jsx:404
-#: public/scripts/editor.js:1941
+#: public/scripts/editor.js:2609
 msgid "Smaller Logo on Mobile"
 msgstr "Kleineres Logo auf Mobil"
 
 #: resources/blocks/image-header/image-header.jsx:411
-#: public/scripts/editor.js:1948
-#, fuzzy
+#: public/scripts/editor.js:2616
 msgid "Adjust Logo Position"
 msgstr "Logo-Position anpassen"
 
 #: resources/blocks/image-header/image-header.jsx:412
-#: public/scripts/editor.js:1949
-#, fuzzy
+#: public/scripts/editor.js:2617
 msgid "Logo sits right"
 msgstr "Logo sitzt rechts"
 
 #: resources/blocks/image-header/image-header.jsx:412
-#: public/scripts/editor.js:1949
-#, fuzzy
+#: public/scripts/editor.js:2617
 msgid "Logo sits left"
 msgstr "Logo sitzt links"
 
 #: resources/blocks/image-header/image-header.jsx:417
-#: public/scripts/editor.js:1954
-#, fuzzy
+#: public/scripts/editor.js:2622
 msgid "Header Logo Position X"
 msgstr "Kopfzeile Logo Position X"
 
 #: resources/blocks/image-header/image-header.jsx:426
-#: public/scripts/editor.js:1963
-#, fuzzy
+#: public/scripts/editor.js:2631
 msgid "Header Logo Position Y"
 msgstr "Kopfzeile Logo Position Y"
 
 #: resources/blocks/image-header/image-header.jsx:436
 #: resources/blocks/slider/slider.jsx:591
-#: public/scripts/editor.js:1973
-#: public/scripts/editor.js:3054
-#, fuzzy
+#: public/scripts/editor.js:2641
+#: public/scripts/editor.js:3729
 msgid "Text Properties"
 msgstr "Texteigenschaften"
 
 #: resources/blocks/image-header/image-header.jsx:438
-#: public/scripts/editor.js:1975
-#, fuzzy
+#: public/scripts/editor.js:2643
 msgid "Text Position X"
 msgstr "Textposition X"
 
 #: resources/blocks/image-header/image-header.jsx:447
-#: public/scripts/editor.js:1984
-#, fuzzy
+#: public/scripts/editor.js:2652
 msgid "Text Position Y"
 msgstr "Textposition Y"
 
 #: resources/blocks/image-header/image-header.jsx:529
-#: public/scripts/editor.js:2066
+#: public/scripts/editor.js:2734
 msgid "Change Image"
 msgstr "Bild ändern"
 
 #: resources/blocks/image-header/image-header.jsx:549
-#: public/scripts/editor.js:2086
+#: public/scripts/editor.js:2754
 msgid "Upload Logo"
 msgstr "Logo hochladen"
 
 #: resources/blocks/image-header/image-header.jsx:549
-#: public/scripts/editor.js:2086
+#: public/scripts/editor.js:2754
 msgid "Change Logo"
 msgstr "Logo ändern"
 
 #: resources/blocks/map/map.jsx:41
-#: public/scripts/editor.js:1229
+#: public/scripts/editor.js:1885
 msgid "Map"
 msgstr "Karte"
 
 #: resources/blocks/map/map.jsx:141
-#: public/scripts/editor.js:1329
-#, fuzzy
+#: public/scripts/editor.js:1985
 msgid "Upload Map Marker"
-msgstr "Kartenmarkierung hochladen"
+msgstr "Marker hochladen"
 
 #: resources/blocks/map/map.jsx:141
-#: public/scripts/editor.js:1329
-#, fuzzy
+#: public/scripts/editor.js:1985
 msgid "Update Map Marker"
-msgstr "Kartenmarkierung aktualisieren"
+msgstr "Marker aktualisieren"
 
 #: resources/blocks/map/map.jsx:146
-#: public/scripts/editor.js:1334
-#, fuzzy
+#: public/scripts/editor.js:1990
 msgid "Remove Marker Image"
-msgstr "Markerbild entfernen"
+msgstr "Marker entfernen"
 
 #: resources/blocks/map/map.jsx:152
-#: public/scripts/editor.js:1340
+#: public/scripts/editor.js:1996
 msgid "Address"
 msgstr "Adresse"
 
 #: resources/blocks/map/map.jsx:158
-#: public/scripts/editor.js:1346
+#: public/scripts/editor.js:2002
 msgid "Google Maps Link"
-msgstr "Google-Maps-Link"
+msgstr "Google Maps Link"
 
 #: resources/blocks/map/map.jsx:163
-#: public/scripts/editor.js:1351
-#, fuzzy
+#: public/scripts/editor.js:2007
 msgid "Adjust Zoom Level"
 msgstr "Zoomstufe anpassen"
 
@@ -941,210 +949,232 @@ msgstr "Zoomstufe anpassen"
 #: resources/blocks/slider/slider.jsx:117
 #: resources/blocks/slider/slider.jsx:220
 #: resources/blocks/slider/slider.jsx:329
-#: public/scripts/editor.js:2570
-#: public/scripts/editor.js:2575
-#: public/scripts/editor.js:2580
-#: public/scripts/editor.js:2683
-#: public/scripts/editor.js:2792
-#, fuzzy
+#: public/scripts/editor.js:3245
+#: public/scripts/editor.js:3250
+#: public/scripts/editor.js:3255
+#: public/scripts/editor.js:3358
+#: public/scripts/editor.js:3467
 msgid "The Headline..."
 msgstr "Die Überschrift..."
 
 #: resources/blocks/slider/slider.jsx:126
-#: public/scripts/editor.js:2589
+#: public/scripts/editor.js:3264
 msgid "Slider"
 msgstr "Slider"
 
 #: resources/blocks/slider/slider.jsx:492
-#: public/scripts/editor.js:2955
-#, fuzzy
+#: public/scripts/editor.js:3630
 msgid "Slide Prev"
-msgstr "Folie Zurück"
+msgstr "Slide Zurück"
 
 #: resources/blocks/slider/slider.jsx:498
-#: public/scripts/editor.js:2961
-#, fuzzy
+#: public/scripts/editor.js:3636
 msgid "Slide Next"
 msgstr "Slide Weiter"
 
 #: resources/blocks/slider/slider.jsx:502
-#: public/scripts/editor.js:2965
-#, fuzzy
+#: public/scripts/editor.js:3640
 msgid "Slider Properties"
-msgstr "Slider-Eigenschaften"
+msgstr "Slider Eigenschaften"
 
 #: resources/blocks/slider/slider.jsx:505
-#: public/scripts/editor.js:2968
-#, fuzzy
+#: public/scripts/editor.js:3643
 msgid "Loop Slider"
-msgstr "Loop-Schieberegler"
+msgstr "Loop Silber"
 
 #: resources/blocks/slider/slider.jsx:511
-#: public/scripts/editor.js:2974
+#: public/scripts/editor.js:3649
 msgid "Slides per View"
 msgstr "Slides pro Ansicht"
 
 #: resources/blocks/slider/slider.jsx:520
-#: public/scripts/editor.js:2983
-#, fuzzy
+#: public/scripts/editor.js:3658
 msgid "Slides Background Color"
-msgstr "Hintergrundfarbe der Folien"
+msgstr "Hintergrundfarbe der Slides"
 
 #: resources/blocks/slider/slider.jsx:527
-#: public/scripts/editor.js:2990
+#: public/scripts/editor.js:3665
 msgid "Slider Controls"
 msgstr "Slider Controls"
 
 #: resources/blocks/slider/slider.jsx:529
-#: public/scripts/editor.js:2992
-#, fuzzy
+#: public/scripts/editor.js:3667
 msgid "Controls Position"
-msgstr "Steuert Position"
+msgstr "Steuerelement Position"
 
 #: resources/blocks/slider/slider.jsx:539
-#: public/scripts/editor.js:3002
-#, fuzzy
+#: public/scripts/editor.js:3677
 msgid "Controls Style"
-msgstr "Steuerelementstil"
+msgstr "Steuerelement Stil"
 
 #: resources/blocks/slider/slider.jsx:551
-#: public/scripts/editor.js:3014
+#: public/scripts/editor.js:3689
 msgid "Show Pagination"
 msgstr "Seitennummerierung anzeigen"
 
 #: resources/blocks/slider/slider.jsx:559
-#: public/scripts/editor.js:3022
+#: public/scripts/editor.js:3697
 msgid "Pagination Size"
 msgstr "Paginierungsgröße"
 
 #: resources/blocks/slider/slider.jsx:571
-#: public/scripts/editor.js:3034
+#: public/scripts/editor.js:3709
 msgid "Show Arrows"
 msgstr "Pfeiltasten anzeigen"
 
 #: resources/blocks/slider/slider.jsx:579
-#: public/scripts/editor.js:3042
+#: public/scripts/editor.js:3717
 msgid "Arrow Size"
 msgstr "Pfeilgröße"
 
 #: resources/blocks/slider/slider.jsx:594
-#: public/scripts/editor.js:3057
+#: public/scripts/editor.js:3732
 msgid "Show Text Wrapper"
 msgstr "Text Wrapper anzeigen"
 
 #: resources/blocks/slider/slider.jsx:603
-#: public/scripts/editor.js:3066
+#: public/scripts/editor.js:3741
 msgid "Show Headline"
 msgstr "Überschrift anzeigen"
 
 #: resources/blocks/slider/slider.jsx:611
-#: public/scripts/editor.js:3074
+#: public/scripts/editor.js:3749
 msgid "Headline Type"
 msgstr "Überschriften-Typ"
 
 #: resources/blocks/slider/slider.jsx:615
-#: public/scripts/editor.js:3078
+#: public/scripts/editor.js:3753
 msgid "H4"
 msgstr "H4"
 
 #: resources/blocks/slider/slider.jsx:616
-#: public/scripts/editor.js:3079
+#: public/scripts/editor.js:3754
 msgid "H5"
 msgstr "H5"
 
 #: resources/blocks/slider/slider.jsx:617
-#: public/scripts/editor.js:3080
+#: public/scripts/editor.js:3755
 msgid "H6"
 msgstr "H6"
 
 #: resources/blocks/slider/slider.jsx:635
-#: public/scripts/editor.js:3098
+#: public/scripts/editor.js:3773
 msgid "Center Text"
-msgstr "Zentrierter Text"
+msgstr "Text zentrieren"
 
 #: resources/blocks/slider/slider.jsx:647
-#: public/scripts/editor.js:3110
+#: public/scripts/editor.js:3785
 msgid "Show Images"
 msgstr "Bilder anzeigen"
 
 #: resources/blocks/slider/slider.jsx:655
 #: resources/blocks/text-image/text-image.jsx:230
-#: public/scripts/editor.js:2386
-#: public/scripts/editor.js:3118
+#: public/scripts/editor.js:3060
+#: public/scripts/editor.js:3793
 msgid "Images Ratio"
-msgstr "Bildverhältnis"
+msgstr "Seitenverhältnis"
 
 #: resources/blocks/slider/slider.jsx:659
 #: resources/blocks/text-image/text-image.jsx:234
-#: public/scripts/editor.js:2390
-#: public/scripts/editor.js:3122
+#: public/scripts/editor.js:3064
+#: public/scripts/editor.js:3797
 msgid "1x1"
 msgstr "1x1"
 
 #: resources/blocks/slider/slider.jsx:660
 #: resources/blocks/text-image/text-image.jsx:235
-#: public/scripts/editor.js:2391
-#: public/scripts/editor.js:3123
-#, fuzzy
+#: public/scripts/editor.js:3065
+#: public/scripts/editor.js:3798
 msgid "4x3"
 msgstr "4x3"
 
 #: resources/blocks/slider/slider.jsx:661
 #: resources/blocks/text-image/text-image.jsx:236
-#: public/scripts/editor.js:2392
-#: public/scripts/editor.js:3124
+#: public/scripts/editor.js:3066
+#: public/scripts/editor.js:3799
 msgid "3x2"
 msgstr "3x2"
 
 #: resources/blocks/slider/slider.jsx:662
 #: resources/blocks/text-image/text-image.jsx:237
-#: public/scripts/editor.js:2393
-#: public/scripts/editor.js:3125
-#, fuzzy
+#: public/scripts/editor.js:3067
+#: public/scripts/editor.js:3800
 msgid "16x9"
 msgstr "16x9"
 
 #: resources/blocks/slider/slider.jsx:663
 #: resources/blocks/text-image/text-image.jsx:238
-#: public/scripts/editor.js:2394
-#: public/scripts/editor.js:3126
-#, fuzzy
+#: public/scripts/editor.js:3068
+#: public/scripts/editor.js:3801
 msgid "21x9"
 msgstr "21x9"
 
 #: resources/blocks/text-image/text-image.jsx:64
-#: public/scripts/editor.js:2225
+#: public/scripts/editor.js:2894
 msgid "Text Image"
 msgstr "Text Image"
 
 #: resources/blocks/text-image/text-image.jsx:163
-#: public/scripts/editor.js:2319
+#: public/scripts/editor.js:2993
 msgid "Upload Images"
 msgstr "Bilder hochladen"
 
 #: resources/blocks/text-image/text-image.jsx:163
-#: public/scripts/editor.js:2319
+#: public/scripts/editor.js:2993
 msgid "Change Images"
 msgstr "Bilder ändern"
 
 #: resources/blocks/text-image/text-image.jsx:206
-#: public/scripts/editor.js:2362
-#, fuzzy
+#: public/scripts/editor.js:3036
 msgid "Switch content order"
-msgstr "Ändern der Inhaltsreihenfolge"
+msgstr "Inhaltsreihenfolge ändern"
 
 #: resources/blocks/text-image/text-image.jsx:211
-#: public/scripts/editor.js:2367
+#: public/scripts/editor.js:3041
 msgid "Adjust Column Range"
 msgstr "Anpassen der Spaltenbreite"
 
 #: resources/blocks/text-image/text-image.jsx:220
-#: public/scripts/editor.js:2376
-#, fuzzy
+#: public/scripts/editor.js:3050
 msgid "Adjust visible Images"
 msgstr "Sichtbare Bilder anpassen"
 
 #: resources/blocks/text-image/text-image.jsx:243
-#: public/scripts/editor.js:2399
+#: public/scripts/editor.js:3073
 msgid "Background Color"
 msgstr "Hintergrundfarbe"
+
+#~ msgid "By"
+#~ msgstr "Von"
+
+#~ msgid "Sorry, but the page you are trying to view does not exist."
+#~ msgstr ""
+"\n"
+"aber die Seite, die Du Dir ansehen willst, existiert \"\n"
+""
+
+#~ msgctxt "comments title"
+#~ msgid "One response to &ldquo;%2$s&rdquo;"
+#~ msgid_plural "%1$s responses to &ldquo;%2$s&rdquo;"
+#~ msgstr[0] "Eine Antwort zu &ldquo;%2$s&rdquo;"
+#~ msgstr[1] "%1$s Antworten zu &ldquo;%2$s&rdquo;"
+
+#~ msgid "&larr; Older comments"
+#~ msgstr "&larr; Ältere Kommentare"
+
+#~ msgid "Newer comments &rarr;"
+#~ msgstr "Neuere Kommentare &rarr;"
+
+#~ msgid "Comments are closed."
+#~ msgstr "Kommentare sind geschlossen."
+
+#~ msgid "Sorry, no results were found."
+#~ msgstr "Sorry, keine Ergebnisse gefunden."
+
+#~ msgctxt "placeholder"
+#~ msgid "Search &hellip;"
+#~ msgstr "Suche &hellip;"
+
+#~ msgctxt "submit button"
+#~ msgid "Search"
+#~ msgstr "Suche"

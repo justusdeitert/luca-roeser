@@ -56,6 +56,12 @@ add_action('enqueue_block_editor_assets', function () {
     }
 
     wp_enqueue_style('sage/editor', asset('styles/editor.css')->uri(), false, null);
+
+    /**
+     * Add Wordpress Script Translations
+     * @link https://developer.wordpress.org/block-editor/how-to-guides/internationalization/
+     */
+    wp_set_script_translations('sage/editor', 'sage', get_template_directory() . '/resources/lang');
 }, 100);
 
 /**
@@ -266,6 +272,12 @@ add_action('after_setup_theme', function () {
      */
     remove_theme_support('core-block-patterns');
 
+    /**
+     * Loading textdomain
+     * @link https://developer.wordpress.org/reference/functions/load_theme_textdomain/
+     * @link https://roots.io/docs/sage/9.x/localization/#generating-language-files
+     */
+    load_theme_textdomain('sage', get_template_directory() . '/resources/lang');
 }, 20);
 
 /**
@@ -297,14 +309,25 @@ add_action('widgets_init', function () {
  * @link https://developer.wordpress.org/reference/functions/load_theme_textdomain/
  * @link https://roots.io/docs/sage/9.x/localization/#generating-language-files
  */
-add_action('after_setup_theme', function () {
-    load_theme_textdomain('sage', get_template_directory() . '/lang');
-});
+// add_action('after_setup_theme', function () {
+//     load_theme_textdomain('sage', get_template_directory() . '/lang');
+// });
+//
+// /**
+//  * https://developer.wordpress.org/block-editor/how-to-guides/internationalization/
+//  */
+// add_action('init', function () {
+//     wp_set_script_translations('sage/editor', 'sage');
+//     load_theme_textdomain('sage', get_template_directory() . '/lang');
+// });
 
-/**
- * https://developer.wordpress.org/block-editor/how-to-guides/internationalization/
- */
-add_action('init', function () {
-    wp_set_script_translations('sage/editor', 'sage');
-    load_theme_textdomain('sage', get_template_directory() . '/lang');
-});
+
+// function myguten_set_script_translations() {
+//     wp_set_script_translations( 'myguten-script', 'myguten' );
+// }
+// add_action( 'init', 'myguten_set_script_translations' );
+
+
+// add_action( 'init', function() {
+//     wp_set_script_translations( 'sage/editor', 'sage', get_template_directory() . '/resources/lang');
+// });

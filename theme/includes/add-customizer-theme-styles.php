@@ -286,7 +286,8 @@ function customizer_theme_styles() {
                             {
                                 title : "Cookie usage",
                                 description: 'Your cookie usage disclaimer'
-                            },{
+                            },
+                            {
                                 title : "Strictly necessary cookies",
                                 description: 'Category description ... ',
                                 toggle : {
@@ -294,13 +295,27 @@ function customizer_theme_styles() {
                                     enabled : false,
                                     readonly: true
                                 }
-                            },{
+                            },
+                            {
                                 title : "Analytics cookies",
                                 description: 'Category description ... ',
                                 toggle : {
                                     value : 'analytics',
                                     enabled : false,
                                     readonly: false
+                                }
+                            },
+                            {
+                                title : "Cookie usage",
+                                description: 'Your cookie usage disclaimer'
+                            },
+                            {
+                                title : "Strictly necessary cookies",
+                                description: 'Category description ... ',
+                                toggle : {
+                                    value : 'necessary',
+                                    enabled : false,
+                                    readonly: true
                                 }
                             },
                         ]
