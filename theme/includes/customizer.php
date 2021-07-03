@@ -910,38 +910,108 @@ if (class_exists('Kirki')) {
     }
 
     /**
-     * Footer Settings
+     * Api Settings
      */
-    // function footer_settings() {
-    //     Kirki::add_section('section_footer_settings_id', array(
-    //         'title' => __('Footer Settings', 'sage'),
-    //         'panel' => 'panel_theme_settings_id',
-    //     ));
-    //
-    //     Kirki::add_field('custom_footer_background_color_id', [
-    //         'type' => 'color',
-    //         'settings' => 'custom_footer_background_color',
-    //         'label' => __('Footer Background Color', 'sage'),
-    //         'section' => 'section_footer_settings_id',
-    //         'default' => '#f8f9fa',
-    //     ]);
-    //
-    //     Kirki::add_field('custom_footer_text_color_id', [
-    //         'type' => 'color',
-    //         'settings' => 'custom_footer_text_color',
-    //         'label' => __('Footer Text Color', 'sage'),
-    //         'section' => 'section_footer_settings_id',
-    //         'default' => '#f8f9fa',
-    //     ]);
-    //
-    //     Kirki::add_field('custom_footer_link_color_id', [
-    //         'type' => 'color',
-    //         'settings' => 'custom_footer_link_color',
-    //         'label' => __('Footer Link Color', 'sage'),
-    //         'section' => 'section_footer_settings_id',
-    //         'default' => '#f8f9fa',
-    //     ]);
-    // }
+    function cookie_settings() {
+        Kirki::add_section('section_cookie_settings_id', array(
+            'title' => __('Cookie Settings', 'sage'),
+            'panel' => 'panel_theme_settings_id',
+        ));
+
+        Kirki::add_field('custom_cookie_force_consent_id', [
+            'type' => 'toggle',
+            'settings' => 'custom_cookie_force_consent',
+            'label' => __('Force Cookie Consent', 'sage'),
+            'section' => 'section_menu_settings_id',
+            'default' => '0',
+        ]);
+
+        Kirki::add_field('custom_cookie_consent_title_id', [
+            'type' => 'text',
+            'settings' => 'custom_cookie_consent_title',
+            'label' => __('You cookie consent title here', 'sage'),
+            'section' => 'section_cookie_settings_id',
+            'default' => __('I use cookies', 'sage'),
+            'description' => __('Cookie Consent Title', 'sage'),
+        ]);
+
+        Kirki::add_field('custom_cookie_consent_description_id', [
+            'type' => 'code',
+            'settings' => 'custom_cookie_consent_description',
+            'label' => __('Your cookie consent message here', 'sage'),
+            'section' => 'section_cookie_settings_id',
+            'default' => __('Your cookie consent message here', 'sage'),
+            'description' => __('Cookie Consent Description', 'sage'),
+            'choices'     => [
+                'language' => 'html',
+            ],
+        ]);
+
+        Kirki::add_field('custom_cookie_primary_button_text_id', [
+            'type' => 'text',
+            'settings' => 'custom_cookie_consent_primary_button_text',
+            'label' => __('Accept', 'sage'),
+            'section' => 'section_cookie_settings_id',
+            'default' => __('Accept', 'sage'),
+            'description' => __('Cookie Consent Primary Button', 'sage'),
+        ]);
+
+        Kirki::add_field('custom_cookie_consent_secondary_button_text_id', [
+            'type' => 'text',
+            'settings' => 'custom_cookie_consent_secondary_button_text',
+            'label' => __('Reject', 'sage'),
+            'section' => 'section_cookie_settings_id',
+            'default' => __('Reject', 'sage'),
+            'description' => __('Cookie Consent Secondary Button', 'sage'),
+        ]);
+
+        custom_kirki_border('section_cookie_settings_id');
+        custom_kirki_headline('section_cookie_settings_id', 'Consent Modal UI', 'h2');
+
+        Kirki::add_field('custom_cookie_consent_layout_id', [
+            'type' => 'select',
+            'settings' => 'custom_cookie_consent_layout',
+            'label' => __('Cookie Consent Layout', 'sage'),
+            'section' => 'section_cookie_settings_id',
+            'default' => 'box',
+            'placeholder' => __('Select an option...', 'sage'),
+            'multiple' => 1,
+            'choices' => [
+                'box' => __('Box', 'sage'),
+                'cloud' => __('Cloud', 'sage'),
+                'bar' => __('Bar', 'sage')
+            ],
+        ]);
+
+        Kirki::add_field('custom_cookie_consent_position_y_id', [
+            'type' => 'select',
+            'settings' => 'custom_cookie_consent_position_y',
+            'label' => __('Cookie Consent Position Y', 'sage'),
+            'section' => 'section_cookie_settings_id',
+            'default' => 'bottom',
+            'placeholder' => __('Select an option...', 'sage'),
+            'multiple' => 1,
+            'choices' => [
+                'top' => __('Top', 'sage'),
+                'bottom' => __('Bottom', 'sage'),
+            ],
+        ]);
+
+        Kirki::add_field('custom_cookie_consent_position_x_id', [
+            'type' => 'select',
+            'settings' => 'custom_cookie_consent_position_x',
+            'label' => __('Cookie Consent Position X', 'sage'),
+            'section' => 'section_cookie_settings_id',
+            'default' => 'right',
+            'placeholder' => __('Select an option...', 'sage'),
+            'multiple' => 1,
+            'choices' => [
+                'center' => __('Center', 'sage'),
+                'left' => __('Left', 'sage'),
+                'right' => __('Right', 'sage'),
+            ],
+        ]);
+    }
 
     /**
      * Init Settings
@@ -951,6 +1021,6 @@ if (class_exists('Kirki')) {
     color_settings();
     menu_settings();
     form_settings();
-    // footer_settings();
     api_settings();
+    cookie_settings();
 }

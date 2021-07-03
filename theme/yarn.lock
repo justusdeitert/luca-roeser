@@ -8399,6 +8399,11 @@ validate-npm-package-license@^3.0.1:
     spdx-correct "^3.0.0"
     spdx-expression-parse "^3.0.0"
 
+vanilla-cookieconsent@^2.6.0:
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/vanilla-cookieconsent/-/vanilla-cookieconsent-2.6.0.tgz#2f9073ce9082a9e3dbe685af0aa5907054a93dca"
+  integrity sha512-8ndntzgKWgBkDG7U5vGCpP5iRCa/UeUzxTmjkdYnzKwuYddFDTBSxFGgxYYQh9CO12md/oXQawNS9YOQNyCIMw==
+
 vary@~1.1.2:
   version "1.1.2"
   resolved "https://registry.npmjs.org/vary/-/vary-1.1.2.tgz"

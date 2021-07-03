@@ -66,10 +66,10 @@ mix
     /**
      * External Libraries / don't extract libraries
      */
-    .js('resources/scripts/external/bootstrap.js', 'scripts/external')
-    .js('resources/scripts/external/lightgallery.js', 'scripts/external')
-    .js('resources/scripts/external/photoswipe.js', 'scripts/external')
-    .js('resources/scripts/external/swiper.js', 'scripts/external')
+    .js('resources/scripts/external/bootstrap.js', 'scripts')
+    .js('resources/scripts/external/lightgallery.js', 'scripts')
+    .js('resources/scripts/external/photoswipe.js', 'scripts')
+    .js('resources/scripts/external/swiper.js', 'scripts')
 
     /**
      * Editor Script for Blocks

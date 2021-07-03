@@ -54,6 +54,7 @@
     "photoswipe": "git://github.com/dimsemenov/photoswipe#v5-beta",
     "popper.js": "^1.16.1",
     "swiper": "^7.0.8",
-    "tippy.js": "^6.3.2"
+    "tippy.js": "^6.3.2",
+    "vanilla-cookieconsent": "^2.6.0"
   }
 }

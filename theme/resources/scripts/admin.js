@@ -5,10 +5,14 @@
 import CodeMirror from 'codemirror';
 import 'codemirror/mode/htmlmixed/htmlmixed';
 
-let editor = CodeMirror.fromTextArea(document.getElementById('wpcf7-form'), {
-    mode: 'htmlmixed',
-    theme: 'material',
-    lineNumbers: true,
-});
+let textArea = document.getElementById('wpcf7-form');
 
-editor.save()
+if (textArea) {
+    let editor = CodeMirror.fromTextArea(document.getElementById('wpcf7-form'), {
+        mode: 'htmlmixed',
+        theme: 'material',
+        lineNumbers: true,
+    });
+
+    editor.save()
+}

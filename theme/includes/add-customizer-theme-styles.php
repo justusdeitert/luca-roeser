@@ -13,9 +13,9 @@ function customizer_theme_styles() {
      * TODO: Better Google Font Implementation
      */
     $custom_text_font = get_theme_setting('custom_text_font', 'Montserrat');
-    $custom_text_font_plus = str_replace(' ', '+', $custom_text_font); // replace space with +
+    $custom_text_font_plus = str_replace(' ', '+', $custom_text_font); /* replace space with + */
     $custom_headline_font = get_theme_setting('custom_headline_font', 'Montserrat');
-    $custom_headline_font_plus = str_replace(' ', '+', $custom_headline_font); // replace space with +
+    $custom_headline_font_plus = str_replace(' ', '+', $custom_headline_font); /* replace space with + */
     $custom_google_font_string = 'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap';
 
     if ($custom_text_font !== $custom_headline_font) {
@@ -222,6 +222,74 @@ function customizer_theme_styles() {
             }
         <?php } ?>
     </style>
+    <script>
+        /* Cookie Consent by -> https://github.com/orestbida/cookieconsent */
+        var cookieConsentConfig = {
+            delay: 0,
+            force_consent: <?php echo get_theme_setting('custom_cookie_force_consent', 'false'); ?>,
+            current_lang: 'de',
+            onAccept: function () {
+                /* do something ... */
+            },
+            gui_options: {
+                consent_modal: {
+                    layout: '<?php echo get_theme_setting('custom_cookie_consent_layout', 'box'); ?>', /* box / cloud / bar */
+                    position: '<?php echo get_theme_setting('custom_cookie_consent_position_y', 'bottom'); ?> <?php echo get_theme_setting('custom_cookie_consent_position_x', 'right'); ?>', /* bottom / middle / top + left / right / center */
+                    transition: 'slide' /* zoom / slide */
+                },
+                settings_modal: {
+                    layout: 'box', /* box / bar */
+                    position: 'left', /* left / right */
+                    transition: 'slide' /* zoom / slide */
+                }
+            },
+            languages : {
+                en : {
+                    consent_modal : {
+                        title :  '<?php echo get_theme_setting('custom_cookie_consent_title', 'I use cookies'); ?>',
+                        description :  '<?php echo get_theme_setting('custom_cookie_consent_description', 'Your cookie consent message here'); ?>',
+                        primary_btn: {
+                            text: '<?php echo get_theme_setting('custom_cookie_consent_primary_button_text', 'Accept'); ?>',
+                            role: 'accept_all'  /* 'accept_selected' or 'accept_all' */
+                        },
+                        secondary_btn: {
+                            text : '<?php echo get_theme_setting('custom_cookie_consent_secondary_button_text', 'Reject'); ?>',
+                            role : 'accept_necessary'   /* 'settings' or 'accept_necessary' */
+                        }
+                    },
+                    settings_modal : {
+                        title : 'Cookie settings',
+                        save_settings_btn : "Save settings",
+                        accept_all_btn : "Accept all",
+                        reject_all_btn : "Reject all", /* optional, [v.2.5.0 +] */
+                        close_btn_label: "Close",
+                        blocks : [
+                            {
+                                title : "Cookie usage",
+                                description: 'Your cookie usage disclaimer'
+                            },{
+                                title : "Strictly necessary cookies",
+                                description: 'Category description ... ',
+                                toggle : {
+                                    value : 'necessary',
+                                    enabled : false,
+                                    readonly: true
+                                }
+                            },{
+                                title : "Analytics cookies",
+                                description: 'Category description ... ',
+                                toggle : {
+                                    value : 'analytics',
+                                    enabled : false,
+                                    readonly: false
+                                }
+                            },
+                        ]
+                    }
+                }
+            }
+        }
+    </script>
 
     <?php echo sanitize_output(ob_get_clean()); // Minify HTML Output
 
