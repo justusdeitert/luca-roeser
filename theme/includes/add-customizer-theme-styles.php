@@ -80,6 +80,7 @@ function customizer_theme_styles() {
 
         // Footer Colors
         'cookie-background' => convert_hex(get_theme_mod('custom_cookie_background_color', '#f8f9fa')),
+        'cookie-background-highlight' => convert_hex(get_theme_mod('custom_cookie_background_highlight_color', '#6c757d')),
         'cookie-font' => convert_hex(get_theme_mod('custom_cookie_font_color', '#212529')),
         'cookie-link' => convert_hex(get_theme_mod('custom_cookie_link_color', '#0d6efd')),
         'cookie-link-hover' => convert_hex(get_theme_mod('custom_cookie_link_hover_color', '#0d6efd')),
@@ -253,7 +254,7 @@ function customizer_theme_styles() {
                 consent_modal: {
                     layout: '<?php echo get_theme_mod('custom_cookie_consent_layout', 'box'); ?>', /* box / cloud / bar */
                     position: '<?php echo get_theme_mod('custom_cookie_consent_position_y', 'bottom'); ?> <?php echo get_theme_mod('custom_cookie_consent_position_x', 'right'); ?>', /* bottom / middle / top + left / right / center */
-                    transition: 'slide' /* zoom / slide */
+                    transition: '<?php echo get_theme_mod('custom_cookie_consent_transition', 'slide'); ?>' /* zoom / slide */
                 },
                 settings_modal: {
                     layout: 'box', /* box / bar */

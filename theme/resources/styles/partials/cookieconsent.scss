@@ -209,6 +209,12 @@
 // Cookie Settings Container
 #s-cnt {
 
+    #s-ttl {
+        @extend h5;
+        font-weight: 500;
+        color: rgba(var(--custom-cookie-font-color));
+    }
+
     // Settings Button Container
     #s-bns {
         height: auto;
@@ -230,9 +236,57 @@
             @extend .btn-secondary;
         }
     }
-}
 
-// Settings Link
-button[data-cc="c-settings"] {
-    @extend a;
+    // Settings Inner
+    #s-inr {
+        #s-hdr {
+            background-color: rgba(var(--custom-cookie-background-color));
+            border-color: rgba(var(--custom-cookie-background-highlight-color));
+
+            #s-c-bnc {
+
+                #s-c-bn {
+                    background-color: transparent;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    @extend .icon-close;
+
+                    &:before {
+                        transform: initial;
+                        background-color: transparent;
+                        position: initial;
+                        left: initial;
+                        top: initial;
+                        height: initial;
+                        width: initial;
+                    }
+
+                    &:after {
+                        display: none;
+                    }
+
+                    &:hover {
+                        background-color: transparent;
+                    }
+                }
+            }
+        }
+
+        #s-bl {
+            padding: var(--custom-cookie-consent-padding);
+            border-radius: var(--custom-border-radius);
+            box-shadow: var(--custom-box-shadow);
+            background-color: rgba(var(--custom-cookie-background-color));
+
+            .b-ex {
+                background-color: rgba(var(--custom-cookie-background-highlight-color));
+            }
+        }
+
+        #s-bns {
+            background-color: rgba(var(--custom-cookie-background-color));
+            border-color: rgba(var(--custom-cookie-background-highlight-color));
+        }
+    }
 }
