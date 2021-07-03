@@ -82,9 +82,17 @@ $form_colors = [
 // Footer colors
 $footer_colors = [
     'footer_background' => '#f8f9fa',
-    'footer_text' => '#f8f9fa',
-    'footer_link' => '#f8f9fa',
-    'footer_link_hover' => '#f8f9fa',
+    'footer_font' => '#212529',
+    'footer_link' => '#0d6efd',
+    'footer_link_hover' => '#0d6efd',
+];
+
+// Footer colors
+$cookie_colors = [
+    'cookie_background' => '#f8f9fa',
+    'cookie_font' => '#212529',
+    'cookie_link' => '#0d6efd',
+    'cookie_link_hover' => '#0d6efd',
 ];
 
 /**
@@ -422,7 +430,14 @@ if (class_exists('Kirki')) {
      */
     function color_settings() {
 
-        global $general_colors, $font_colors, $content_colors, $alert_colors, $menu_colors, $form_colors, $footer_colors;
+        global $general_colors,
+               $font_colors,
+               $content_colors,
+               $alert_colors,
+               $menu_colors,
+               $form_colors,
+               $footer_colors,
+               $cookie_colors;
 
         Kirki::add_section('section_color_settings_id', array(
             'title' => __('Color Settings', 'sage'),
@@ -529,6 +544,20 @@ if (class_exists('Kirki')) {
                 'default' => $value,
             ]);
         }
+
+        custom_kirki_border('section_color_settings_id');
+        custom_kirki_headline('section_color_settings_id', 'Cookie Notice Colors', 'h2');
+
+        foreach ($cookie_colors as $color => $value) {
+            Kirki::add_field('custom_' . $color . '_color_id', [
+                'type' => 'color',
+                'settings' => 'custom_' . $color . '_color',
+                'label' => __(cleanColorName($color) . ' Color', 'sage'),
+                'section' => 'section_color_settings_id',
+                'default' => $value,
+            ]);
+        }
+
 
         custom_kirki_border('section_color_settings_id');
 
@@ -913,6 +942,7 @@ if (class_exists('Kirki')) {
      * Api Settings
      */
     function cookie_settings() {
+
         Kirki::add_section('section_cookie_settings_id', array(
             'title' => __('Cookie Settings', 'sage'),
             'panel' => 'panel_theme_settings_id',
@@ -922,9 +952,26 @@ if (class_exists('Kirki')) {
             'type' => 'toggle',
             'settings' => 'custom_cookie_force_consent',
             'label' => __('Force Cookie Consent', 'sage'),
-            'section' => 'section_menu_settings_id',
+            'section' => 'section_cookie_settings_id',
             'default' => '0',
         ]);
+
+        Kirki::add_field('custom_cookie_consent_padding_id', [
+            'type' => 'slider',
+            'settings' => 'custom_cookie_consent_padding',
+            'label' => __('Custom Cookie Consent Padding', 'sage'),
+            'section' => 'section_cookie_settings_id',
+            'description' => __('Define your custom cookie consent padding', 'sage'),
+            'default' => 25,
+            'choices' => [
+                'min' => 10,
+                'max' => 40,
+                'step' => 1,
+            ],
+        ]);
+
+        custom_kirki_border('section_cookie_settings_id');
+        custom_kirki_headline('section_cookie_settings_id', 'Consent Modal', 'h2');
 
         Kirki::add_field('custom_cookie_consent_title_id', [
             'type' => 'text',
@@ -964,9 +1011,6 @@ if (class_exists('Kirki')) {
             'default' => __('Reject', 'sage'),
             'description' => __('Cookie Consent Secondary Button', 'sage'),
         ]);
-
-        custom_kirki_border('section_cookie_settings_id');
-        custom_kirki_headline('section_cookie_settings_id', 'Consent Modal UI', 'h2');
 
         Kirki::add_field('custom_cookie_consent_layout_id', [
             'type' => 'select',
@@ -1010,6 +1054,61 @@ if (class_exists('Kirki')) {
                 'left' => __('Left', 'sage'),
                 'right' => __('Right', 'sage'),
             ],
+            'active_callback' => [
+                [
+                    'setting'  => 'custom_cookie_consent_layout',
+                    'operator' => '!==',
+                    'value'    => 'bar',
+                ]
+            ]
+        ]);
+
+        custom_kirki_border('section_cookie_settings_id');
+        custom_kirki_headline('section_cookie_settings_id', 'Consent Settings', 'h2');
+
+        Kirki::add_field('custom_cookie_settings_title_id', [
+            'type' => 'text',
+            'settings' => 'custom_cookie_settings_title',
+            'label' => __('Your cookie settings title here', 'sage'),
+            'section' => 'section_cookie_settings_id',
+            'default' => __('Cookie Settings', 'sage'),
+            'description' => __('Cookie Settings Title', 'sage'),
+        ]);
+
+        Kirki::add_field('custom_cookie_settings_save_settings_button_text_id', [
+            'type' => 'text',
+            'settings' => 'custom_cookie_settings_save_settings_button_text',
+            'label' => __('Your cookie settings save button text here', 'sage'),
+            'section' => 'section_cookie_settings_id',
+            'default' => __('Save settings', 'sage'),
+            'description' => __('Cookie Settings Save Button Text', 'sage'),
+        ]);
+
+        Kirki::add_field('custom_cookie_settings_accept_all_button_text_id', [
+            'type' => 'text',
+            'settings' => 'custom_cookie_settings_accept_all_button_text',
+            'label' => __('Your cookie settings accept all button text here', 'sage'),
+            'section' => 'section_cookie_settings_id',
+            'default' => __('Accept all', 'sage'),
+            'description' => __('Cookie Settings Accept All Button Text', 'sage'),
+        ]);
+
+        Kirki::add_field('custom_cookie_settings_reject_all_button_text_id', [
+            'type' => 'text',
+            'settings' => 'custom_cookie_settings_reject_all_button_text',
+            'label' => __('Your cookie settings reject all button text here', 'sage'),
+            'section' => 'section_cookie_settings_id',
+            'default' => __('Reject all', 'sage'),
+            'description' => __('Cookie Settings Reject All Button Text', 'sage'),
+        ]);
+
+        Kirki::add_field('custom_cookie_settings_close_button_text_id', [
+            'type' => 'text',
+            'settings' => 'custom_cookie_settings_close_button_text',
+            'label' => __('Your cookie settings close button text here', 'sage'),
+            'section' => 'section_cookie_settings_id',
+            'default' => __('Close', 'sage'),
+            'description' => __('Cookie Settings Close Button Text', 'sage'),
         ]);
     }
 

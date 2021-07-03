@@ -5,25 +5,25 @@
     border-radius: var(--custom-border-radius);
 
     &-success {
-        color: rgb(var(--custom-success-dark-color));
+        color: rgb(var(--custom-success-darker-color));
         background-color: rgba(var(--custom-success-color), 0.2);
         border-color: rgba(var(--custom-success-color), 0.4);
     }
 
     &-danger {
-        color: rgb(var(--custom-danger-dark-color));
+        color: rgb(var(--custom-danger-darker-color));
         background-color: rgba(var(--custom-danger-color), 0.2);
         border-color: rgba(var(--custom-danger-color), 0.4);
     }
 
     &-warning {
-        color: rgb(var(--custom-warning-dark-color));
+        color: rgb(var(--custom-warning-darker-color));
         background-color: rgba(var(--custom-warning-color), 0.2);
         border-color: rgba(var(--custom-warning-color), 0.4);
     }
 
     &-info {
-        color: rgb(var(--custom-info-dark-color));
+        color: rgb(var(--custom-info-darker-color));
         background-color: rgba(var(--custom-info-color), 0.2);
         border-color: rgba(var(--custom-info-color), 0.4);
     }

@@ -41,7 +41,8 @@ function customizer_theme_styles() {
 
     foreach ($general_colors as $color => $value) {
         $general_color_versions[$color] = convert_hex($value);
-        $general_color_versions[$color . '-dark'] = convert_hex(adjustBrightness($value, -0.3));
+        $general_color_versions[$color . '-dark'] = convert_hex(adjustBrightness($value, -0.1));
+        $general_color_versions[$color . '-darker'] = convert_hex(adjustBrightness($value, -0.4));
     }
 
     $theme_colors = [
@@ -73,9 +74,15 @@ function customizer_theme_styles() {
 
         // Footer Colors
         'footer-background' => convert_hex(get_theme_mod('custom_footer_background_color', '#f8f9fa')),
-        'footer-text' => convert_hex(get_theme_mod('custom_footer_text_color', '#f8f9fa')),
-        'footer-link' => convert_hex(get_theme_mod('custom_footer_link_color', '#f8f9fa')),
-        'footer-link-hover' => convert_hex(get_theme_mod('custom_footer_link_hover_color', '#f8f9fa')),
+        'footer-font' => convert_hex(get_theme_mod('custom_footer_font_color', '#212529')),
+        'footer-link' => convert_hex(get_theme_mod('custom_footer_link_color', '#0d6efd')),
+        'footer-link-hover' => convert_hex(get_theme_mod('custom_footer_link_hover_color', '#0d6efd')),
+
+        // Footer Colors
+        'cookie-background' => convert_hex(get_theme_mod('custom_cookie_background_color', '#f8f9fa')),
+        'cookie-font' => convert_hex(get_theme_mod('custom_cookie_font_color', '#212529')),
+        'cookie-link' => convert_hex(get_theme_mod('custom_cookie_link_color', '#0d6efd')),
+        'cookie-link-hover' => convert_hex(get_theme_mod('custom_cookie_link_hover_color', '#0d6efd')),
     ];
 
     /**
@@ -181,6 +188,10 @@ function customizer_theme_styles() {
             --custom-navbar-item-spacing:  <?php echo get_theme_mod('custom_navbar_item_spacing', 5); ?>px;
             --custom-navbar-submenu-item-height:  <?php echo get_theme_mod('custom_navbar_submenu_item_height', 40); ?>px;
 
+            /*
+             * Custom Cookie Consent Variables
+             */
+            --custom-cookie-consent-padding:  <?php echo get_theme_mod('custom_cookie_consent_padding', 25); ?>px;
         }
 
         /* Icon Settings */
@@ -222,11 +233,18 @@ function customizer_theme_styles() {
             }
         <?php } ?>
     </style>
+
+    <?php
+        $force_consent = 'false';
+        if (get_theme_mod('custom_cookie_force_consent', '0')) {
+            $force_consent = 'true';
+        }
+    ?>
     <script>
         /* Cookie Consent by -> https://github.com/orestbida/cookieconsent */
         var cookieConsentConfig = {
             delay: 0,
-            force_consent: <?php echo get_theme_mod('custom_cookie_force_consent', 'false'); ?>,
+            force_consent: <?php echo $force_consent; ?>,
             current_lang: 'de',
             onAccept: function () {
                 /* do something ... */
@@ -258,11 +276,11 @@ function customizer_theme_styles() {
                         }
                     },
                     settings_modal : {
-                        title : 'Cookie settings',
-                        save_settings_btn : "Save settings",
-                        accept_all_btn : "Accept all",
-                        reject_all_btn : "Reject all", /* optional, [v.2.5.0 +] */
-                        close_btn_label: "Close",
+                        title: '<?php echo get_theme_mod('custom_cookie_settings_title', 'Cookie Settings'); ?>',
+                        save_settings_btn: '<?php echo get_theme_mod('custom_cookie_settings_save_settings_button_text', 'Save settings'); ?>',
+                        accept_all_btn: '<?php echo get_theme_mod('custom_cookie_settings_accept_all_button_text', 'Accept all'); ?>',
+                        reject_all_btn: '<?php echo get_theme_mod('custom_cookie_settings_reject_all_button_text', 'Reject all'); ?>', /* optional, [v.2.5.0 +] */
+                        close_btn_label: '<?php echo get_theme_mod('custom_cookie_settings_close_button_text', 'Close'); ?>',
                         blocks : [
                             {
                                 title : "Cookie usage",
