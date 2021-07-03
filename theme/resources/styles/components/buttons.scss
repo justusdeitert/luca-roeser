@@ -5,6 +5,7 @@
 $theme-colors: (
     'primary': var(--custom-primary-color),
     'secondary': var(--custom-secondary-color),
+    'tertiary': var(--custom-tertiary-color),
     'success': var(--custom-success-color),
     'info': var(--custom-info-color),
     'warning': var(--custom-warning-color),
@@ -16,6 +17,7 @@ $theme-colors: (
 $theme-dark-colors: (
     'primary': var(--custom-primary-dark-color),
     'secondary': var(--custom-secondary-dark-color),
+    'tertiary': var(--custom-tertiary-dark-color),
     'success': var(--custom-success-dark-color),
     'info': var(--custom-info-dark-color),
     'warning': var(--custom-warning-dark-color),
@@ -26,6 +28,14 @@ $theme-dark-colors: (
 
 .btn {
     min-height:  var(--custom-form-height);
+
+    &-light {
+        color: var(--custom-dark-color);
+
+        &:hover {
+            color: var(--custom-dark-color);
+        }
+    }
 }
 
 @each $color, $value in $theme-colors {
@@ -58,29 +68,3 @@ $theme-dark-colors: (
         }
     }
 }
-
-// dark
-
-// disabled
-// color: #fff;
-// background-color: #212529;
-// border-color: rgb(33 37 41);
-
-// normal
-// color: #fff;
-// background-color: #212529;
-// border-color: rgb(33 37 41);
-
-// hover
-// color: #fff;
-// background-color: #1c1f23;
-// border-color: rgb(26 30 33);
-
-// focus
-// color: #fff;
-// background-color: #1c1f23;
-// border-color: rgb(26 30 33);
-// box-shadow: 0 0 0 0.25rem rgb(66 70 73 / 50%);
-
-
-

@@ -3,4 +3,3 @@
  */
 
 import './menu';
-import './cookieconsent';

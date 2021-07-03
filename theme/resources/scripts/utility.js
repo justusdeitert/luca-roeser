@@ -3,9 +3,12 @@
  * @param variableString
  * @returns {string}
  */
-const getCssVariable = (variableString) => {
+export const getCssVariable = (variableString) => {
     let style = getComputedStyle(document.body)
-    return style.getPropertyValue(variableString)
+    let styleString = style.getPropertyValue(variableString);
+
+    // Removing spaces from string
+    return styleString.replace(' ', '');
 }
 
 /**

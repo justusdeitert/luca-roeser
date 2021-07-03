@@ -566,29 +566,31 @@ if (class_exists('Kirki')) {
          * Sorted theme color selection / Remove Dark Color
          * TODO: Make A bigger Color Palette Available
          */
-        $selected_theme_colors = [];
-        foreach (array_merge($general_colors) as $key => $value) {
-            if (gettype($key) === 'integer') {
-                return;
-            }
-            if ($key === 'dark') {
-                return;
-            }
-            $selected_theme_colors[$key] = cleanColorName($key);
-        }
-
-        Kirki::add_field('brightness_color_id', [
-            'type' => 'select',
-            'settings' => 'brightness_color',
-            'label' => __('Select Brightness Color', 'sage'),
-            'section' => 'section_color_settings_id',
-            'description' => __('Define which of the above colors should be splittet into multiple lighter colors and shown within the editor', 'sage'),
-            'default' => 'primary',
-            'placeholder' => __('Select an option...', 'sage'),
-            'priority' => 10,
-            'multiple' => 1,
-            'choices' => $selected_theme_colors,
-        ]);
+        // $selected_theme_colors = [];
+        // foreach (array_merge($general_colors) as $key => $value) {
+        //     if (gettype($key) === 'integer') {
+        //         return;
+        //     }
+        //     if ($key === 'dark') {
+        //         return;
+        //     }
+        //     $selected_theme_colors[$key] = cleanColorName($key);
+        // }
+        //
+        // var_dump($selected_theme_colors);
+        //
+        // Kirki::add_field('brightness_color_id', [
+        //     'type' => 'select',
+        //     'settings' => 'brightness_color',
+        //     'label' => __('Select Brightness Color', 'sage'),
+        //     'section' => 'section_color_settings_id',
+        //     'description' => __('Define which of the above colors should be splittet into multiple lighter colors and shown within the editor', 'sage'),
+        //     'default' => 'primary',
+        //     'placeholder' => __('Select an option...', 'sage'),
+        //     'priority' => 10,
+        //     'multiple' => 1,
+        //     'choices' => $selected_theme_colors,
+        // ]);
     }
 
     /**
@@ -970,6 +972,40 @@ if (class_exists('Kirki')) {
             ],
         ]);
 
+        $button_style_choices = [
+            'primary' => __('Primary', 'sage'),
+            'secondary' => __('Secondary', 'sage'),
+            'tertiary' => __('Tertiary', 'sage'),
+            'success' => __('Success', 'sage'),
+            'danger' => __('Danger', 'sage'),
+            'warning' => __('Warning', 'sage'),
+            'info' => __('Info', 'sage'),
+            'light' => __('Light', 'sage'),
+            'dark' => __('Dark', 'sage'),
+        ];
+
+        Kirki::add_field('custom_cookie_primary_button_style_id', [
+            'type' => 'select',
+            'settings' => 'custom_cookie_primary_button_style',
+            'label' => __('Primary Button Style', 'sage'),
+            'section' => 'section_cookie_settings_id',
+            'default' => 'primary',
+            'placeholder' => __('Select an option...', 'sage'),
+            'multiple' => 1,
+            'choices' => $button_style_choices,
+        ]);
+
+        Kirki::add_field('custom_cookie_secondary_button_style_id', [
+            'type' => 'select',
+            'settings' => 'custom_cookie_secondary_button_style',
+            'label' => __('Secondary Button Style', 'sage'),
+            'section' => 'section_cookie_settings_id',
+            'default' => 'secondary',
+            'placeholder' => __('Select an option...', 'sage'),
+            'multiple' => 1,
+            'choices' => $button_style_choices,
+        ]);
+
         custom_kirki_border('section_cookie_settings_id');
         custom_kirki_headline('section_cookie_settings_id', 'Consent Modal', 'h2');
 
@@ -985,6 +1021,7 @@ if (class_exists('Kirki')) {
             'type' => 'code',
             'settings' => 'custom_cookie_consent_description',
             'label' => __('Your cookie consent message here', 'sage'),
+            'description' => __('Simply create a button or link with data-cc="c-settings" attribute', 'sage'),
             'section' => 'section_cookie_settings_id',
             'default' => __('Cookie Consent Description', 'sage'),
             'choices'     => [
@@ -1115,6 +1152,56 @@ if (class_exists('Kirki')) {
             'section' => 'section_cookie_settings_id',
             'default' => __('Close', 'sage'),
         ]);
+
+        Kirki::add_field('custom_cookie_settings_layout_id', [
+            'type' => 'select',
+            'settings' => 'custom_cookie_settings_layout',
+            'label' => __('Cookie Setting Layout', 'sage'),
+            'section' => 'section_cookie_settings_id',
+            'default' => 'box',
+            'placeholder' => __('Select an option...', 'sage'),
+            'multiple' => 1,
+            'choices' => [
+                'box' => __('Box', 'sage'),
+                'bar' => __('Bar', 'sage'),
+            ],
+        ]);
+
+        Kirki::add_field('custom_cookie_settings_position_id', [
+            'type' => 'select',
+            'settings' => 'custom_cookie_settings_position',
+            'label' => __('Cookie Setting Position', 'sage'),
+            'section' => 'section_cookie_settings_id',
+            'default' => 'right',
+            'placeholder' => __('Select an option...', 'sage'),
+            'multiple' => 1,
+            'choices' => [
+                'left' => __('Left', 'sage'),
+                'right' => __('Right', 'sage'),
+            ],
+            'active_callback' => [
+                [
+                    'setting'  => 'custom_cookie_settings_layout',
+                    'operator' => '===',
+                    'value'    => 'bar',
+                ]
+            ]
+        ]);
+
+        Kirki::add_field('custom_cookie_settings_transition_id', [
+            'type' => 'select',
+            'settings' => 'custom_cookie_settings_transition',
+            'label' => __('Cookie Setting Transition', 'sage'),
+            'section' => 'section_cookie_settings_id',
+            'default' => 'slide',
+            'placeholder' => __('Select an option...', 'sage'),
+            'multiple' => 1,
+            'choices' => [
+                'slide' => __('Slide', 'sage'),
+                'zoom' => __('Zoom', 'sage'),
+            ],
+        ]);
+
     }
 
     /**

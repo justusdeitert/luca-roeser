@@ -193,6 +193,9 @@ function customizer_theme_styles() {
              * Custom Cookie Consent Variables
              */
             --custom-cookie-consent-padding:  <?php echo get_theme_mod('custom_cookie_consent_padding', 25); ?>px;
+            --custom-cookie-primary-button-style:  <?php echo get_theme_mod('custom_cookie_primary_button_style', 'primary'); ?>;
+            --custom-cookie-secondary-button-style:  <?php echo get_theme_mod('custom_cookie_secondary_button_style', 'secondary'); ?>;
+
         }
 
         /* Icon Settings */
@@ -257,9 +260,9 @@ function customizer_theme_styles() {
                     transition: '<?php echo get_theme_mod('custom_cookie_consent_transition', 'slide'); ?>' /* zoom / slide */
                 },
                 settings_modal: {
-                    layout: 'box', /* box / bar */
-                    position: 'left', /* left / right */
-                    transition: 'slide' /* zoom / slide */
+                    layout: '<?php echo get_theme_mod('custom_cookie_settings_layout', 'box'); ?>', /* box / bar */
+                    position: '<?php echo get_theme_mod('custom_cookie_settings_position', 'right'); ?>', /* left / right */
+                    transition: '<?php echo get_theme_mod('custom_cookie_settings_transition', 'slide'); ?>' /* zoom / slide */
                 }
             },
             languages : {
