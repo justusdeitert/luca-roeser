@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2021-10-20T14:24:04+00:00\n"
-"PO-Revision-Date: 2021-10-20 16:56+0200\n"
+"PO-Revision-Date: 2021-10-21 12:44+0200\n"
 "Language: de\n"
 "X-Generator: Poedit 3.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -466,7 +466,7 @@ msgstr "Cookie Consent Beschreibung"
 
 #: includes/customizer.php:998
 msgid "Accept Button"
-msgstr "Akzeptieren Button "
+msgstr "Akzeptieren Button"
 
 #: includes/customizer.php:1000
 msgid "Accept"
@@ -1146,12 +1146,6 @@ msgstr "Hintergrundfarbe"
 
 #~ msgid "By"
 #~ msgstr "Von"
-
-#~ msgid "Sorry, but the page you are trying to view does not exist."
-#~ msgstr ""
-"\n"
-"aber die Seite, die Du Dir ansehen willst, existiert \"\n"
-""
 
 #~ msgctxt "comments title"
 #~ msgid "One response to &ldquo;%2$s&rdquo;"

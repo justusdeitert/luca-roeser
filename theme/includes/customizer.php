@@ -962,7 +962,7 @@ if (class_exists('Kirki')) {
         Kirki::add_field('custom_cookie_consent_padding_id', [
             'type' => 'slider',
             'settings' => 'custom_cookie_consent_padding',
-            'label' => __('Custom Cookie Padding', 'sage'),
+            'label' => 'Custom Cookie Padding',
             'section' => 'section_cookie_settings_id',
             'default' => 25,
             'choices' => [
@@ -1032,7 +1032,7 @@ if (class_exists('Kirki')) {
         Kirki::add_field('custom_cookie_primary_button_text_id', [
             'type' => 'text',
             'settings' => 'custom_cookie_consent_primary_button_text',
-            'label' => __('Accept Button', 'sage'),
+            'label' => __('Primary Button', 'sage'),
             'section' => 'section_cookie_settings_id',
             'default' => __('Accept', 'sage'),
         ]);
@@ -1040,9 +1040,9 @@ if (class_exists('Kirki')) {
         Kirki::add_field('custom_cookie_consent_secondary_button_text_id', [
             'type' => 'text',
             'settings' => 'custom_cookie_consent_secondary_button_text',
-            'label' => __('Reject Button', 'sage'),
+            'label' => 'Secondary Button',
             'section' => 'section_cookie_settings_id',
-            'default' => __('Reject', 'sage'),
+            'default' => 'Reject',
         ]);
 
         Kirki::add_field('custom_cookie_consent_layout_id', [

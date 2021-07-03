@@ -10,7 +10,7 @@
     //--cc-btn-secondary-text: var(--cc-text);
     //--cc-btn-secondary-hover-bg: #d8e0e6;
 
-    --cc-toggle-bg-off: rgba(var(--custom-cookie-font-color), 0.7);
+    --cc-toggle-bg-off: rgba(var(--custom-cookie-font-color), 0.5);
     --cc-toggle-bg-on: rgba(var(--custom-cookie-font-color), 1);
     --cc-toggle-bg-readonly: rgba(var(--custom-cookie-font-color), 0.2);
     --cc-toggle-knob-bg: rgb(var(--custom-cookie-background-color));
@@ -36,6 +36,24 @@
 
 .cc_div .c-bn, .cc_div .b-tl, #s-ttl, #c-ttl, #s-bl td:before {
     font-weight: 500;
+}
+
+#s-bl {
+    td, th {
+        font-size: var(--custom-font-size);
+    }
+}
+
+#s-cnt {
+    .p {
+        font-size: var(--custom-font-size);
+    }
+
+    .b-bn {
+        .b-tl {
+            font-size: var(--custom-font-size);
+        }
+    }
 }
 
 // Cookie Consent Container
@@ -159,13 +177,10 @@
             a, button {
                 text-decoration: underline;
                 color: rgba(var(--custom-cookie-link-color));
+                font-weight: 500;
 
                 &:hover {
                     color: rgba(var(--custom-cookie-link-hover-color));
-                }
-
-                strong {
-                    font-weight: 500;
                 }
             }
         }
@@ -277,6 +292,17 @@
         display: flex;
         flex-direction: column;
         padding: 0;
+
+        a {
+            text-decoration: underline;
+            color: rgba(var(--custom-cookie-link-color));
+            font-weight: 500;
+            border-bottom: 0;
+
+            &:hover {
+                color: rgba(var(--custom-cookie-link-hover-color));
+            }
+        }
 
         #s-hdr {
             position: initial;

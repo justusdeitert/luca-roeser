@@ -38,18 +38,6 @@
  * Contact Form 7 - Admin Panel Adjustments
  */
 .toplevel_page_wpcf7 {
-    .CodeMirror {
-        width: auto;
-        height: auto;
-        border-radius: 10px;
-        margin-top: 10px;
-
-        &-sizer {
-            width: 0;
-            min-width: 0 !important;
-        }
-    }
-
     .tag-generator-panel {
         .submitbox {
             display: none;
@@ -59,6 +47,23 @@
             input[type='text'] {
                 width: 100%;
             }
+        }
+    }
+}
+
+/**
+ * General CodeMirror Styling
+ */
+.wp-admin {
+    .CodeMirror {
+        width: auto;
+        height: auto;
+        border-radius: 10px;
+        margin-top: 10px;
+
+        &-sizer {
+            width: 0;
+            min-width: 0 !important;
         }
     }
 }

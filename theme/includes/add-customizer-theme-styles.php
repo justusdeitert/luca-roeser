@@ -244,12 +244,14 @@ function customizer_theme_styles() {
             $force_consent = 'true';
         }
     ?>
+
     <script>
         /* Cookie Consent by -> https://github.com/orestbida/cookieconsent */
         var cookieConsentConfig = {
             delay: 0,
             force_consent: <?php echo $force_consent; ?>,
             current_lang: 'de',
+            page_scripts: true,
             onAccept: function () {
                 /* do something ... */
             },
@@ -265,62 +267,73 @@ function customizer_theme_styles() {
                     transition: '<?php echo get_theme_mod('custom_cookie_settings_transition', 'slide'); ?>' /* zoom / slide */
                 }
             },
-            languages : {
-                en : {
-                    consent_modal : {
-                        title :  '<?php echo get_theme_mod('custom_cookie_consent_title', 'I use cookies'); ?>',
-                        description :  '<?php echo get_theme_mod('custom_cookie_consent_description', 'Your cookie consent message here'); ?>',
+            languages: {
+                en: {
+                    consent_modal: {
+                        title: '<?php echo get_theme_mod('custom_cookie_consent_title', 'I use cookies'); ?>',
+                        description: '<?php echo get_theme_mod('custom_cookie_consent_description', 'Your cookie consent message here'); ?>',
                         primary_btn: {
                             text: '<?php echo get_theme_mod('custom_cookie_consent_primary_button_text', 'Accept'); ?>',
                             role: 'accept_all'  /* 'accept_selected' or 'accept_all' */
                         },
                         secondary_btn: {
-                            text : '<?php echo get_theme_mod('custom_cookie_consent_secondary_button_text', 'Reject'); ?>',
-                            role : 'accept_necessary'   /* 'settings' or 'accept_necessary' */
+                            text: '<?php echo get_theme_mod('custom_cookie_consent_secondary_button_text', 'Reject'); ?>',
+                            role: 'accept_necessary'   /* 'settings' or 'accept_necessary' */
                         }
                     },
-                    settings_modal : {
+                    settings_modal: {
                         title: '<?php echo get_theme_mod('custom_cookie_settings_title', 'Cookie Settings'); ?>',
                         save_settings_btn: '<?php echo get_theme_mod('custom_cookie_settings_save_settings_button_text', 'Save settings'); ?>',
                         accept_all_btn: '<?php echo get_theme_mod('custom_cookie_settings_accept_all_button_text', 'Accept all'); ?>',
                         reject_all_btn: '<?php echo get_theme_mod('custom_cookie_settings_reject_all_button_text', 'Reject all'); ?>', /* optional, [v.2.5.0 +] */
                         close_btn_label: '<?php echo get_theme_mod('custom_cookie_settings_close_button_text', 'Close'); ?>',
-                        blocks : [
+                        cookie_table_headers : [
+                            {col1: '<?php _e('Cookie Name', 'sage'); ?>'},
+                            {col2: '<?php _e('Provider', 'sage'); ?>'},
+                            {col3: '<?php _e('Expiration', 'sage'); ?>'},
+                            {col5: '<?php _e('Type', 'sage'); ?>'}
+                        ],
+                        blocks: [
+                            <?php
+
+                            ?>
                             {
-                                title : "Cookie usage",
-                                description: 'Your cookie usage disclaimer'
+                                title: '<?php _e('Cookie usage', 'sage'); ?>',
+                                description: '<?php _e('We use cookies to ensure the basic functionalities of the website and to enhance your online experience. You can choose for each category to opt-in/out whenever you want.', 'sage'); ?>'
                             },
                             {
-                                title : "Strictly necessary cookies",
-                                description: 'Category description ... ',
-                                toggle : {
-                                    value : 'necessary',
-                                    enabled : false,
+                                title: '<?php _e('Essential cookies', 'sage') ?>',
+                                description: '<?php _e('Essential cookies enable basic functions and are necessary for the website to function properly.', 'sage'); ?>',
+                                toggle: {
+                                    value: 'necessary',
+                                    enabled: true,
                                     readonly: true
                                 }
                             },
                             {
-                                title : "Analytics cookies",
-                                description: 'Category description ... ',
-                                toggle : {
-                                    value : 'analytics',
-                                    enabled : false,
+                                title: 'Google Analytics',
+                                description: '<?php _e('These cookies collect information about how you use the website, which pages you visited and which links you clicked on. All of the data is anonymized and cannot be used to identify you. <a href="https://policies.google.com/privacy?hl=en">https://policies.google.com/privacy?hl=en</a>', 'sage') ?>',
+                                toggle: {
+                                    value: 'analytics',
+                                    enabled: false,
                                     readonly: false
-                                }
-                            },
-                            {
-                                title : "Cookie usage",
-                                description: 'Your cookie usage disclaimer'
-                            },
-                            {
-                                title : "Strictly necessary cookies",
-                                description: 'Category description ... ',
-                                toggle : {
-                                    value : 'necessary',
-                                    enabled : false,
-                                    readonly: true
-                                }
-                            },
+                                },
+                                cookie_table: [
+                                    {
+                                        col1: '^_ga',
+                                        col2: 'Google LLC',
+                                        col3: '2 years',
+                                        col5: 'Permanent cookie',
+                                        is_regex: true
+                                    },
+                                    {
+                                        col1: '_gid',
+                                        col2: 'Google LLC',
+                                        col3: '1 day',
+                                        col5: 'Permanent cookie'
+                                    }
+                                ]
+                            }
                         ]
                     }
                 }

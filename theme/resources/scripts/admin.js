@@ -5,14 +5,26 @@
 import CodeMirror from 'codemirror';
 import 'codemirror/mode/htmlmixed/htmlmixed';
 
-let textArea = document.getElementById('wpcf7-form');
-
-if (textArea) {
-    let editor = CodeMirror.fromTextArea(document.getElementById('wpcf7-form'), {
+let contactFormTextArea = document.getElementById('wpcf7-form');
+if (contactFormTextArea) {
+    let editor = CodeMirror.fromTextArea(contactFormTextArea, {
         mode: 'htmlmixed',
         theme: 'material',
         lineNumbers: true,
     });
 
     editor.save()
+}
+
+let acfCodeField = document.querySelectorAll('.acf-code-field textarea');
+if (acfCodeField) {
+    acfCodeField.forEach(codeField => {
+        let editor = CodeMirror.fromTextArea(codeField, {
+            mode: 'htmlmixed',
+            theme: 'material',
+            lineNumbers: true,
+        });
+
+        editor.save()
+    })
 }
