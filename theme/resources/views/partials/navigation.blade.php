@@ -1,20 +1,20 @@
 <?php
 
-    $menu_item_separator = get_theme_setting('custom_menu_item_separator', 'none');
-    $menu_has_opening_hours = get_theme_setting('custom_menu_has_opening_hours', '0');
-    $custom_menu_mobile_only = get_theme_setting('custom_mobile_menu_only', '0');
-    $custom_navbar_order = get_theme_setting('custom_navbar_order', [
+    $menu_item_separator = get_theme_mod('custom_menu_item_separator', 'none');
+    $menu_has_opening_hours = get_theme_mod('custom_menu_has_opening_hours', '0');
+    $custom_menu_mobile_only = get_theme_mod('custom_mobile_menu_only', '0');
+    $custom_navbar_order = get_theme_mod('custom_navbar_order', [
         'logo',
         'business_hours',
         'primary_menu',
         'secondary_menu',
         'burger_menu_icon'
     ]);
-    $navbar_height = get_theme_setting('custom_navbar_height', 60);
-    $navbar_top_position = get_theme_setting('custom_navbar_top_position', 0);
-    $navbar_logo = get_theme_setting('custom_navbar_logo_image', '');
+    $navbar_height = get_theme_mod('custom_navbar_height', 60);
+    $navbar_top_position = get_theme_mod('custom_navbar_top_position', 0);
+    $navbar_logo = get_theme_mod('custom_navbar_logo_image', '');
     $navbar_logo_alt = $navbar_logo ? get_post_meta($navbar_logo['id'], '_wp_attachment_image_alt', true) : '';
-    $navbar_has_full_width = get_theme_setting('custom_full_width_navbar');
+    $navbar_has_full_width = get_theme_mod('custom_full_width_navbar');
 
     /**
      * Custom Navbar Classes
@@ -31,7 +31,7 @@
      */
     function get_item_spacing_classes($item, $default = []) {
 
-        $custom_item_spacing = get_theme_setting('custom_navbar_' . $item . '_spacing', $default);
+        $custom_item_spacing = get_theme_mod('custom_navbar_' . $item . '_spacing', $default);
 
         if (!$custom_item_spacing) {
             return '';

@@ -45,4 +45,4 @@ foreach (new DirectoryIterator(locate_template('includes/')) as $file_info) {
 
 
 
-$max_container_width = get_theme_setting('max_container_width', '1260');
+$max_container_width = get_theme_mod('max_container_width', '1260');

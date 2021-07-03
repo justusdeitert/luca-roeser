@@ -218,7 +218,7 @@ add_action('after_setup_theme', function () {
      * Adds gray color array
      */
     $gray_colors = [];
-    $dark_color = get_theme_setting('custom_dark_color', '#212529');
+    $dark_color = get_theme_mod('custom_dark_color', '#212529');
     foreach (range(1, 9) as $number) {
         array_push($gray_colors, [
             'name'  => __('Gray ' . $number * 100, 'sage'),
@@ -235,27 +235,27 @@ add_action('after_setup_theme', function () {
         [
             'name'  => __('Primary', 'sage'),
             'slug'  => 'primary',
-            'color' => get_theme_setting('custom_primary_color', '#0d6efd'),
+            'color' => get_theme_mod('custom_primary_color', '#0d6efd'),
         ],
         [
             'name'  => __('Secondary', 'sage'),
             'slug'  => 'secondary',
-            'color' => get_theme_setting('custom_secondary_color', '#6c757d'),
+            'color' => get_theme_mod('custom_secondary_color', '#6c757d'),
         ],
         [
             'name'  => __('Tertiary', 'sage'),
             'slug'  => 'tertiary',
-            'color' => get_theme_setting('custom_tertiary_color', '#6c757d'),
+            'color' => get_theme_mod('custom_tertiary_color', '#6c757d'),
         ],
         [
             'name'  => __('Light', 'sage'),
             'slug'  => 'light',
-            'color' => get_theme_setting('custom_light_color', '#f8f9fa'),
+            'color' => get_theme_mod('custom_light_color', '#f8f9fa'),
         ],
         [
             'name'  => __('Dark', 'sage'),
             'slug'  => 'dark',
-            'color' => get_theme_setting('custom_dark_color', '#212529'),
+            'color' => get_theme_mod('custom_dark_color', '#212529'),
         ],
         ...$gray_colors
     ]);

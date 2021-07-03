@@ -101,17 +101,3 @@ function convert_hex($hex) {
 function isMode($string) {
     return WP_ENV === $string;
 }
-
-/**
- * Try to avoid multiple get_theme_mods queries.
- */
-$theme_settings = get_theme_mods();
-function get_theme_setting($setting, $default = false) {
-    global $theme_settings;
-
-    if(isset($theme_settings[$setting])) {
-        return $theme_settings[$setting];
-    } else {
-        return $default;
-    }
-}
