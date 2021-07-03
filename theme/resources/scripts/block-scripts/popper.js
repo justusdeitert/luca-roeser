@@ -1,8 +1,6 @@
 import {createPopper} from '@popperjs/core';
 
-
 window.popperInstances = [];
-
 
 let popperOptions = (popperArrow) => {
 

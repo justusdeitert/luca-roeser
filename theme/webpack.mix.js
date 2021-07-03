@@ -56,23 +56,33 @@ mix
     })
 
 mix
+    /**
+     * Standart Scripts
+     */
     .js('resources/scripts/customizer.js', 'scripts')
     .js('resources/scripts/admin.js', 'scripts')
     .js('resources/scripts/app.js', 'scripts')
-    .blocks('resources/scripts/editor.js', 'scripts')
-    // .autoload({jquery: ['$', 'window.jQuery']}) // not needed right now...
 
     /**
-     * Extract Libraries
+     * External Libraries / don't extract libraries
      */
-    .extract(['swiper'], 'scripts/swiper.js')
-    .extract(['lightGallery', 'lgThumbnail', 'lgHash'], 'scripts/light-gallery.js')
-    .extract(['codemirror', 'lorem-ipsum/dist'], 'scripts/vendor-admin.js')
-    .extract(); // extract all other files. Default: vendor.js
+    .js('resources/scripts/external/bootstrap.js', 'scripts/external')
+    .js('resources/scripts/external/lightgallery.js', 'scripts/external')
+    .js('resources/scripts/external/swiper.js', 'scripts/external')
 
-// mix
-//     .js('resources/scripts/admin.js', 'scripts')
-//     .extract(['codemirror', 'lorem-ipsum/dist'], 'scripts/vendor-admin.js');
+    /**
+     * Editor Script for Blocks
+     */
+    .blocks('resources/scripts/editor.js', 'scripts')
+
+    /**
+     * Extracting Vendors
+     * Keep in Mind that you need to include all scripts so that they work..
+     */
+    // .extract(['swiper'], 'scripts/swiper.js')
+    // .extract(['lightGallery', 'lgThumbnail', 'lgHash'], 'scripts/lightgallery.js')
+    // .extract(['codemirror', 'lorem-ipsum/dist'], 'scripts/vendor-admin.js')
+    // .extract(); // extract all other files. Default: vendor.js
 
 mix
     .copyDirectory('resources/images', 'public/images')
@@ -85,4 +95,4 @@ mix
 /**
  * Bundle Analyser to see all included Bundles
  */
-// mix.bundleAnalyzer();
+mix.bundleAnalyzer();

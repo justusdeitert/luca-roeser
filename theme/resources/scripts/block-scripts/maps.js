@@ -1,7 +1,5 @@
 window.refreshGap = true;
 
-console.log('lol');
-
 window.initMaps = () => {
 
     document.querySelectorAll('.map-block__map').forEach(map => {
