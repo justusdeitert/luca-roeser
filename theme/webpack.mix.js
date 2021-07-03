@@ -68,6 +68,7 @@ mix
      */
     .js('resources/scripts/external/bootstrap.js', 'scripts/external')
     .js('resources/scripts/external/lightgallery.js', 'scripts/external')
+    .js('resources/scripts/external/photoswipe.js', 'scripts/external')
     .js('resources/scripts/external/swiper.js', 'scripts/external')
 
     /**

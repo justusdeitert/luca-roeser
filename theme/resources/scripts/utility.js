@@ -11,7 +11,7 @@ const getCssVariable = (variableString) => {
 /**
  * Define Breakpoints
  */
-window.bootstrapBreakpoints = {
+export const bootstrapBreakpoints = {
     xs: getCssVariable('--breakpoint-xs'),
     sm: getCssVariable('--breakpoint-sm'),
     md: getCssVariable('--breakpoint-md'),
@@ -25,6 +25,6 @@ window.bootstrapBreakpoints = {
  * @param obj
  * @returns {boolean}
  */
-window.objectIsEmpty = (obj) => {
+export const objectIsEmpty = (obj) => {
     return Object.keys(obj).length === 0;
 }

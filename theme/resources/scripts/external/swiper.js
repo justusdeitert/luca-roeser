@@ -2,6 +2,7 @@
  * core version + navigation, pagination modules:
  */
 import Swiper, { Navigation, Pagination } from 'swiper/core';
+import {bootstrapBreakpoints, objectIsEmpty} from '../utility'
 
 /**
  * configure Swiper to use modules
@@ -9,7 +10,6 @@ import Swiper, { Navigation, Pagination } from 'swiper/core';
 Swiper.use([Navigation, Pagination]);
 
 window.sliderBlockInstances = {};
-
 window.initSliderBlockInstances = () => {
     document.querySelectorAll('.slider-block').forEach(sliderBlock => {
 
@@ -30,7 +30,7 @@ window.initSliderBlockInstances = () => {
 
         if (sliderBlock.dataset.slidesPerView === "2") {
             breakpoints = {
-                [parseInt(window.bootstrapBreakpoints.xs)]: {
+                [parseInt(bootstrapBreakpoints.xs)]: {
                     slidesPerView: 2,
                     pagination: {
                         dynamicBullets: false,
@@ -41,13 +41,13 @@ window.initSliderBlockInstances = () => {
 
         if (sliderBlock.dataset.slidesPerView === "3") {
             breakpoints = {
-                [parseInt(window.bootstrapBreakpoints.xs)]: {
+                [parseInt(bootstrapBreakpoints.xs)]: {
                     slidesPerView: 2,
                     pagination: {
                         dynamicBullets: false,
                     },
                 },
-                [parseInt(window.bootstrapBreakpoints.md)]: {
+                [parseInt(bootstrapBreakpoints.md)]: {
                     slidesPerView: 3,
                     pagination: {
                         dynamicBullets: false,
@@ -58,19 +58,19 @@ window.initSliderBlockInstances = () => {
 
         if (sliderBlock.dataset.slidesPerView === "4") {
             breakpoints = {
-                [parseInt(window.bootstrapBreakpoints.xs)]: {
+                [parseInt(bootstrapBreakpoints.xs)]: {
                     slidesPerView: 2,
                     pagination: {
                         dynamicBullets: false,
                     },
                 },
-                [parseInt(window.bootstrapBreakpoints.md)]: {
+                [parseInt(bootstrapBreakpoints.md)]: {
                     slidesPerView: 3,
                     pagination: {
                         dynamicBullets: false,
                     },
                 },
-                [parseInt(window.bootstrapBreakpoints.lg)]: {
+                [parseInt(bootstrapBreakpoints.lg)]: {
                     slidesPerView: 4,
                     pagination: {
                         dynamicBullets: false,
@@ -133,7 +133,7 @@ window.initSliderBlockInstances = () => {
         let swiperPagination = sliderBlock.querySelector('.swiper-pagination');
         if(swiperPagination) {
             let addDynamicBulletClass = () => {
-                if(window.innerWidth < parseInt(window.bootstrapBreakpoints.xs)) {
+                if(window.innerWidth < parseInt(bootstrapBreakpoints.xs)) {
                     swiperPagination.classList.add('swiper-pagination-bullets-dynamic')
                 } else {
                     swiperPagination.classList.remove('swiper-pagination-bullets-dynamic')
@@ -164,7 +164,7 @@ window.destroySliderBlockInstances = () => {
  * Reinitialize all Slider Instances
  */
 window.updateSliderBlockInstances = () => {
-    if (!window.objectIsEmpty(window.sliderBlockInstances)) {
+    if (!objectIsEmpty(window.sliderBlockInstances)) {
         window.destroySliderBlockInstances();
     }
     window.initSliderBlockInstances();

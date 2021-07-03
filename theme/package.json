@@ -51,6 +51,7 @@
     "codemirror": "^5.63.1",
     "lightgallery": "^2.2.1",
     "lorem-ipsum": "^2.0.4",
+    "photoswipe": "git://github.com/dimsemenov/photoswipe#v5-beta",
     "popper.js": "^1.16.1",
     "swiper": "^7.0.8",
     "tippy.js": "^6.3.2"
