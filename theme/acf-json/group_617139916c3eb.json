@@ -3,6 +3,25 @@
     "title": "Options: Cookie Notice",
     "fields": [
         {
+            "key": "field_617258f71a749",
+            "label": "Enable Cookie Notice",
+            "name": "enable_cookie_notice",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui": 1,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
             "key": "field_617139a163a06",
             "label": "Cookie Code",
             "name": "cookie_code",
@@ -34,7 +53,7 @@
                 "class": "",
                 "id": ""
             },
-            "collapsed": "",
+            "collapsed": "field_6171454670c3b",
             "min": 0,
             "max": 0,
             "layout": "block",
@@ -118,7 +137,7 @@
                         "class": "",
                         "id": ""
                     },
-                    "layout": "block",
+                    "layout": "table",
                     "sub_fields": [
                         {
                             "key": "field_617145b170c3f",
@@ -180,10 +199,10 @@
                     ]
                 },
                 {
-                    "key": "field_617145fa70c42",
-                    "label": "Cookie Table",
-                    "name": "cookie_table",
-                    "type": "repeater",
+                    "key": "field_61724ef0a4076",
+                    "label": "Cookie Has Table",
+                    "name": "cookie_has_table",
+                    "type": "true_false",
                     "instructions": "",
                     "required": 0,
                     "conditional_logic": 0,
@@ -192,7 +211,34 @@
                         "class": "",
                         "id": ""
                     },
-                    "collapsed": "",
+                    "message": "",
+                    "default_value": 0,
+                    "ui": 1,
+                    "ui_on_text": "",
+                    "ui_off_text": ""
+                },
+                {
+                    "key": "field_617145fa70c42",
+                    "label": "Cookie Table",
+                    "name": "cookie_table",
+                    "type": "repeater",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_61724ef0a4076",
+                                "operator": "==",
+                                "value": "1"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "collapsed": "field_6171464970c43",
                     "min": 0,
                     "max": 0,
                     "layout": "table",
@@ -296,5 +342,5 @@
     "hide_on_screen": "",
     "active": true,
     "description": "",
-    "modified": 1634814137
+    "modified": 1634883982
 }

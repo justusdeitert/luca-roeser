@@ -6,7 +6,7 @@
 
 function customizer_theme_styles() {
 
-    global $standard_google_fonts;
+    global $standard_google_fonts, $default_cookie_message;
 
     /**
      * Custom google font
@@ -271,7 +271,7 @@ function customizer_theme_styles() {
                 en: {
                     consent_modal: {
                         title: '<?php echo get_theme_mod('custom_cookie_consent_title', 'I use cookies'); ?>',
-                        description: '<?php echo get_theme_mod('custom_cookie_consent_description', 'Your cookie consent message here'); ?>',
+                        description: '<?php echo get_theme_mod('custom_cookie_consent_description', $default_cookie_message); ?>',
                         primary_btn: {
                             text: '<?php echo get_theme_mod('custom_cookie_consent_primary_button_text', 'Accept'); ?>',
                             role: 'accept_all'  /* 'accept_selected' or 'accept_all' */
@@ -291,49 +291,74 @@ function customizer_theme_styles() {
                             {col1: '<?php _e('Cookie Name', 'sage'); ?>'},
                             {col2: '<?php _e('Provider', 'sage'); ?>'},
                             {col3: '<?php _e('Expiration', 'sage'); ?>'},
-                            {col5: '<?php _e('Type', 'sage'); ?>'}
+                            {col4: '<?php _e('Type', 'sage'); ?>'}
                         ],
                         blocks: [
-                            <?php
-
-                            ?>
-                            {
-                                title: '<?php _e('Cookie usage', 'sage'); ?>',
-                                description: '<?php _e('We use cookies to ensure the basic functionalities of the website and to enhance your online experience. You can choose for each category to opt-in/out whenever you want.', 'sage'); ?>'
-                            },
-                            {
-                                title: '<?php _e('Essential cookies', 'sage') ?>',
-                                description: '<?php _e('Essential cookies enable basic functions and are necessary for the website to function properly.', 'sage'); ?>',
-                                toggle: {
-                                    value: 'necessary',
-                                    enabled: true,
-                                    readonly: true
-                                }
-                            },
-                            {
-                                title: 'Google Analytics',
-                                description: '<?php _e('These cookies collect information about how you use the website, which pages you visited and which links you clicked on. All of the data is anonymized and cannot be used to identify you. <a href="https://policies.google.com/privacy?hl=en">https://policies.google.com/privacy?hl=en</a>', 'sage') ?>',
-                                toggle: {
-                                    value: 'analytics',
-                                    enabled: false,
-                                    readonly: false
-                                },
-                                cookie_table: [
+                            <?php if (class_exists('ACF') && get_field('cookie_blocks', 'options')) {  ?>
+                                <?php $cookie_blocks = get_field('cookie_blocks', 'options'); ?>
+                                <?php foreach ($cookie_blocks as $cookie_block) { ?>
                                     {
-                                        col1: '^_ga',
-                                        col2: 'Google LLC',
-                                        col3: '2 years',
-                                        col5: 'Permanent cookie',
-                                        is_regex: true
+                                        title: '<?php echo $cookie_block['cookie_title']; ?>',
+                                        description: '<?php echo $cookie_block['cookie_description']; ?>',
+                                        <?php if ($cookie_block['cookie_has_toggle'] && $cookie_block['cookie_toggle']['toggle_value']) { ?>
+                                            toggle: {
+                                                value: '<?php echo $cookie_block['cookie_toggle']['toggle_value']; ?>',
+                                                enabled: <?php echo $cookie_block['cookie_toggle']['enabled'] ? 'true' : 'false' ?>,
+                                                readonly: <?php echo $cookie_block['cookie_toggle']['readonly'] ? 'true' : 'false' ?>
+                                            },
+                                        <?php } ?>
+                                        <?php if ($cookie_block['cookie_has_table']) { ?>
+                                            cookie_table: [
+                                                <?php foreach ($cookie_block['cookie_table'] as $cookie_table) { ?>
+                                                    {
+                                                        col1: '<?php echo $cookie_table['cookie_name']; ?>',
+                                                        col2: '<?php echo $cookie_table['cookie_provider']; ?>',
+                                                        col3: '<?php echo $cookie_table['cookie_expiration']; ?>',
+                                                        col4: '<?php echo $cookie_table['cookie_type']; ?>',
+                                                    },
+                                                <?php } ?>
+                                            ]
+                                        <?php } ?>
                                     },
-                                    {
-                                        col1: '_gid',
-                                        col2: 'Google LLC',
-                                        col3: '1 day',
-                                        col5: 'Permanent cookie'
+                                <?php } ?>
+                            <?php } else { ?>
+                                {
+                                    title: '<?php _e('Cookie usage', 'sage'); ?>',
+                                    description: '<?php _e('We use cookies to ensure the basic functionalities of the website and to enhance your online experience. You can choose for each category to opt-in/out whenever you want.', 'sage'); ?>'
+                                },
+                                {
+                                    title: '<?php _e('Essential cookies', 'sage') ?>',
+                                    description: '<?php _e('Essential cookies enable basic functions and are necessary for the website to function properly.', 'sage'); ?>',
+                                    toggle: {
+                                        value: 'necessary',
+                                        enabled: true,
+                                        readonly: true
                                     }
-                                ]
-                            }
+                                },
+                                {
+                                    title: 'Google Analytics',
+                                    description: '<?php _e('These cookies collect information about how you use the website, which pages you visited and which links you clicked on. All of the data is anonymized and cannot be used to identify you. <a href="https://policies.google.com/privacy?hl=en">https://policies.google.com/privacy?hl=en</a>', 'sage') ?>',
+                                    toggle: {
+                                        value: 'analytics',
+                                        enabled: false,
+                                        readonly: false
+                                    },
+                                    cookie_table: [
+                                        {
+                                            col1: '^_ga',
+                                            col2: 'Google LLC',
+                                            col3: '2 years',
+                                            col4: 'Permanent cookie',
+                                        },
+                                        {
+                                            col1: '_gid',
+                                            col2: 'Google LLC',
+                                            col3: '1 day',
+                                            col4: 'Permanent cookie'
+                                        }
+                                    ]
+                                }
+                            <?php } ?>
                         ]
                     }
                 }
