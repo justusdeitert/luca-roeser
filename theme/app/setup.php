@@ -45,7 +45,7 @@ add_action('wp_enqueue_scripts', function () {
  * @return void
  */
 add_action('enqueue_block_editor_assets', function () {
-    if ($manifest = asset('scripts/manifest.asset.php')->load()) { // Important for Editor
+    if ($manifest = asset('scripts/editor.asset.php')->load()) { // Important for Editor
 
         wp_enqueue_script('sage/manifest', asset('scripts/manifest.js')->uri(), ...array_values($manifest));
         // wp_enqueue_script('sage/vendor', asset('scripts/vendor.js')->uri(), ['sage/manifest'], null, true);
