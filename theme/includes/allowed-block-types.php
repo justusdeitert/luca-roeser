@@ -63,9 +63,7 @@ $core_blocks = [
 $custom_blocks_normal_editor = [
     'custom/divider',
     'custom/accordion',
-    // Check if google Maps Key is Set
-    get_theme_mod('custom_google_maps_api_key', false) ? 'custom/map' : '',
-    'custom/icon',
+    get_theme_mod('custom_google_maps_api_key', false) ? 'custom/map' : '', // Check if google Maps Key is Set
     'custom/image-header',
     'custom/text-image',
     'custom/slider',
@@ -74,9 +72,9 @@ $custom_blocks_normal_editor = [
 
 $custom_blocks_widget_editor = [
     'custom/divider',
-    'custom/icon',
     'custom/text-image',
     'custom/slider',
+    'custom/image',
 ];
 
 add_filter('allowed_block_types_all', function ($allowed_block_types, $editor_context) {
