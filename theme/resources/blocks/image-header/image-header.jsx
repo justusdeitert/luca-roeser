@@ -5,6 +5,9 @@ import {RangeControl, Button, ToggleControl, SelectControl, PanelBody, ColorPale
 import {MediaUpload, InspectorControls, InnerBlocks, getColorObjectByColorValue} from '@wordpress/block-editor';
 import classNames from 'classnames';
 import {editorThemeColors, getImage} from "../utility";
+import * as clipPaths from "../clip-path-svgs"
+
+console.log(clipPaths['defaultClip']);
 
 const blockIcon = createElement('svg', {width: 20, height: 20},
     createElement('path', {
@@ -28,14 +31,14 @@ const attributes = {
         type: 'number',
         default: 300,
     },
-    headerClipPathTop: {
-        type: 'number',
-        default: 0,
+    headerClipPath: {
+        type: 'string',
+        default: 'none',
     },
-    headerClipPathBottom: {
-        type: 'number',
-        default: 0,
-    },
+    // headerClipPathBottom: {
+    //     type: 'number',
+    //     default: 0,
+    // },
     headerBackgroundColor: {
         type: 'string',
         default: ''
@@ -170,13 +173,13 @@ registerBlockType('custom/image-header', {
             setAttributes({headerMobileHeight: value});
         };
 
-        const onChangeHeaderClipPathTop = (value) => {
-            setAttributes({headerClipPathTop: value});
+        const onChangeHeaderClipPath = (value) => {
+            setAttributes({headerClipPath: value});
         };
 
-        const onChangeHeaderClipPathBottom = (value) => {
-            setAttributes({headerClipPathBottom: value});
-        };
+        // const onChangeHeaderClipPathBottom = (value) => {
+        //     setAttributes({headerClipPathBottom: value});
+        // };
 
         const onChangeHeaderBackgroundColor = (value) => {
             setAttributes({headerBackgroundColor: value});
@@ -259,13 +262,13 @@ registerBlockType('custom/image-header', {
             ['core/heading', {placeholder: 'This is the Subtitle...'}],
         ];
 
-        const getClipPath = () => {
-            let topLeft = attributes.headerClipPathTop < 0 ? 0 - attributes.headerClipPathTop : 0;
-            let topRight = attributes.headerClipPathTop > 0 ? 0 + attributes.headerClipPathTop : 0;
-            let bottomLeft = attributes.headerClipPathBottom < 0 ? 100 + attributes.headerClipPathBottom : 100;
-            let bottomRight = attributes.headerClipPathBottom > 0 ? 100 - attributes.headerClipPathBottom : 100;
-            return `polygon(0 ${topLeft}%,100% ${topRight}%,100% ${bottomLeft}%,0 ${bottomRight}%)`
-        }
+        // const getClipPath = () => {
+        //     let topLeft = attributes.headerClipPathTop < 0 ? 0 - attributes.headerClipPathTop : 0;
+        //     let topRight = attributes.headerClipPathTop > 0 ? 0 + attributes.headerClipPathTop : 0;
+        //     let bottomLeft = attributes.headerClipPathBottom < 0 ? 100 + attributes.headerClipPathBottom : 100;
+        //     let bottomRight = attributes.headerClipPathBottom > 0 ? 100 - attributes.headerClipPathBottom : 100;
+        //     return `polygon(0 ${topLeft}%,100% ${topRight}%,100% ${bottomLeft}%,0 ${bottomRight}%)`
+        // }
 
         const headerBackgroundColor = getColorObjectByColorValue(editorThemeColors, attributes.headerBackgroundColor);
 
@@ -301,6 +304,17 @@ registerBlockType('custom/image-header', {
                                     onChange={onChangeHeaderMobileHeight}
                                 />
                                 <hr/>
+                                <SelectControl
+                                    label={__('Header Clip Path', 'sage')}
+                                    value={attributes.headerClipPath}
+                                    options={[
+                                        {label: __('None', 'sage'), value: 'none'},
+                                        {label: __('Default Clip', 'sage'), value: 'defaultClip'},
+                                        {label: __('House', 'sage'), value: 'house'},
+                                    ]}
+                                    onChange={onChangeHeaderClipPath}
+                                />
+                                {/*<hr/>
                                 <p>{__('Adjust Header Clip Path (Top)', 'sage')}</p>
                                 <RangeControl
                                     value={attributes.headerClipPathTop}
@@ -317,7 +331,7 @@ registerBlockType('custom/image-header', {
                                     max={+15}
                                     step={1}
                                     onChange={onChangeHeaderClipPathBottom}
-                                />
+                                />*/}
                             </>
                         }
                         <hr/>
@@ -460,9 +474,11 @@ registerBlockType('custom/image-header', {
                         maxHeight: attributes.headerFullHeight ? `initial` : `${attributes.headerHeight}px`,
                         minHeight: attributes.headerFullHeight ? `initial` : `${attributes.headerMobileHeight}px`,
                         height: attributes.headerFullHeight ? `100vh` : `${attributes.headerMobileHeight / attributes.headerHeight * 100}vw`,
-                        clipPath: attributes.headerFullHeight ? 'initial' : getClipPath(),
+                        clipPath: attributes.headerClipPath !== 'none' ? 'url(#clipPolygon)' : 'none'
+                        // clipPath: attributes.headerFullHeight ? 'initial' : getClipPath(),
                     }}
                 >
+                    {attributes.headerClipPath !== 'none' && clipPaths[attributes.headerClipPath]}
                     <img
                         className={classNames('image-header-block__image', attributes.headerImageBlur > 0 ? 'is-blurred' : '')}
                         style={{
@@ -555,13 +571,13 @@ registerBlockType('custom/image-header', {
     },
     save: ({className, attributes}) => {
 
-        const getClipPath = () => {
-            let topLeft = attributes.headerClipPathTop < 0 ? 0 - attributes.headerClipPathTop : 0;
-            let topRight = attributes.headerClipPathTop > 0 ? 0 + attributes.headerClipPathTop : 0;
-            let bottomLeft = attributes.headerClipPathBottom < 0 ? 100 + attributes.headerClipPathBottom : 100;
-            let bottomRight = attributes.headerClipPathBottom > 0 ? 100 - attributes.headerClipPathBottom : 100;
-            return `polygon(0 ${topLeft}%,100% ${topRight}%,100% ${bottomLeft}%,0 ${bottomRight}%)`
-        }
+        // const getClipPath = () => {
+        //     let topLeft = attributes.headerClipPathTop < 0 ? 0 - attributes.headerClipPathTop : 0;
+        //     let topRight = attributes.headerClipPathTop > 0 ? 0 + attributes.headerClipPathTop : 0;
+        //     let bottomLeft = attributes.headerClipPathBottom < 0 ? 100 + attributes.headerClipPathBottom : 100;
+        //     let bottomRight = attributes.headerClipPathBottom > 0 ? 100 - attributes.headerClipPathBottom : 100;
+        //     return `polygon(0 ${topLeft}%,100% ${topRight}%,100% ${bottomLeft}%,0 ${bottomRight}%)`
+        // }
 
         const headerBackgroundColor = getColorObjectByColorValue(editorThemeColors, attributes.headerBackgroundColor);
 
@@ -572,9 +588,11 @@ registerBlockType('custom/image-header', {
                     maxHeight: attributes.headerFullHeight ? `initial` : `${attributes.headerHeight}px`,
                     minHeight: attributes.headerFullHeight ? `initial` : `${attributes.headerMobileHeight}px`,
                     height: attributes.headerFullHeight ? `100vh` : `${attributes.headerMobileHeight / attributes.headerHeight * 100}vw`,
-                    clipPath: attributes.headerFullHeight ? 'initial' : getClipPath(),
+                    clipPath: attributes.headerClipPath !== 'none' ? 'url(#clipPolygon)' : 'none'
+                    // clipPath: attributes.headerFullHeight ? 'initial' : getClipPath(),
                 }}
             >
+                {attributes.headerClipPath !== 'none' && clipPaths[attributes.headerClipPath]}
                 <img className={classNames('image-header-block__image', attributes.headerImageBlur > 0 ? 'is-blurred' : '')}
                      style={{
                          filter: `blur(${attributes.headerImageBlur}px)`,
