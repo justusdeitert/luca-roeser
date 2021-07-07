@@ -80,7 +80,7 @@ function customizer_theme_styles() {
 
         // Footer Colors
         'cookie-background' => convert_hex(get_theme_mod('custom_cookie_background_color', '#f8f9fa')),
-        'cookie-background-highlight' => convert_hex(get_theme_mod('custom_cookie_background_highlight_color', '#6c757d')),
+        'cookie-background-highlight' => convert_hex(get_theme_mod('custom_cookie_background_highlight_color', '#e3e3e3')),
         'cookie-font' => convert_hex(get_theme_mod('custom_cookie_font_color', '#212529')),
         'cookie-link' => convert_hex(get_theme_mod('custom_cookie_link_color', '#0d6efd')),
         'cookie-link-hover' => convert_hex(get_theme_mod('custom_cookie_link_hover_color', '#0d6efd')),

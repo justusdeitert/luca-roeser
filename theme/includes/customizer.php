@@ -90,7 +90,7 @@ $footer_colors = [
 // Footer colors
 $cookie_colors = [
     'cookie_background' => '#f8f9fa',
-    'cookie_background_highlight' => '#6c757d',
+    'cookie_background_highlight' => '#e3e3e3',
     'cookie_font' => '#212529',
     'cookie_link' => '#0d6efd',
     'cookie_link_hover' => '#0d6efd',
