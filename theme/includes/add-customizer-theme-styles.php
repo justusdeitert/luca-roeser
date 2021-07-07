@@ -16,12 +16,12 @@ function customizer_theme_styles() {
     $custom_text_font_plus = str_replace(' ', '+', $custom_text_font); /* replace space with + */
     $custom_headline_font = get_theme_mod('custom_headline_font', 'Montserrat');
     $custom_headline_font_plus = str_replace(' ', '+', $custom_headline_font); /* replace space with + */
-    $custom_google_font_string = 'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap';
+    $custom_google_font_string = 'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600&display=swap';
 
     if ($custom_text_font !== $custom_headline_font) {
-        $custom_google_font_string = 'https://fonts.googleapis.com/css2?family=' . $custom_text_font_plus . ':wght@300;400;500&family=' . $custom_headline_font_plus . ':wght@300;400;500&display=swap';
+        $custom_google_font_string = 'https://fonts.googleapis.com/css2?family=' . $custom_text_font_plus . ':wght@300;400;500;600&family=' . $custom_headline_font_plus . ':wght@300;400;500;600&display=swap';
     } else {
-        $custom_google_font_string = 'https://fonts.googleapis.com/css2?family=' . $custom_text_font_plus . ':wght@300;400;500&display=swap';
+        $custom_google_font_string = 'https://fonts.googleapis.com/css2?family=' . $custom_text_font_plus . ':wght@300;400;500;600&display=swap';
     }
 
     /**

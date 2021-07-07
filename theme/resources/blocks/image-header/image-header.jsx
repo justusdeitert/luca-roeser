@@ -1,7 +1,7 @@
 import {__} from '@wordpress/i18n';
 import {registerBlockType} from '@wordpress/blocks';
 import {createElement} from '@wordpress/element';
-import {RangeControl, Button, ToggleControl, SelectControl, PanelBody, ColorPalette} from '@wordpress/components';
+import {RangeControl, Button, ToggleControl, SelectControl, PanelBody, ColorPalette, Icon, Tooltip} from '@wordpress/components';
 import {MediaUpload, InspectorControls, InnerBlocks, getColorObjectByColorValue} from '@wordpress/block-editor';
 import classNames from 'classnames';
 import {editorThemeColors, getImage} from "../utility";
@@ -16,6 +16,14 @@ const blockIcon = createElement('svg', {width: 20, height: 20},
 );
 
 const attributes = {
+    /**
+     * Default Attributes
+     * @link https://developer.wordpress.org/block-editor/reference-guides/block-api/block-supports/#align
+     */
+    align: {
+        type: 'string',
+        default: 'full'
+    },
     /**
      * Header Properties
      */
@@ -50,6 +58,10 @@ const attributes = {
     headerImage: {
         type: 'object',
         default: ''
+    },
+    headerImageRemove: {
+        type: 'boolean',
+        default: false
     },
     headerImageBlur: {
         type: 'number',
@@ -136,7 +148,8 @@ const ALLOWED_BLOCKS = [
     'custom/button',
     'custom/icon-text',
     'custom/row',
-    'custom/divider'
+    'custom/divider',
+    'custom/image'
 ];
 
 registerBlockType('custom/image-header', {
@@ -191,6 +204,10 @@ registerBlockType('custom/image-header', {
 
         const onSelectHeaderImage = (imageObject) => {
             setAttributes({headerImage: imageObject});
+        };
+
+        const headerImageRemove = () => {
+            setAttributes({headerImageRemove: !attributes.headerImageRemove});
         };
 
         const onChangeHeaderImageBlur = (value) => {
@@ -479,18 +496,20 @@ registerBlockType('custom/image-header', {
                     }}
                 >
                     {attributes.headerClipPath !== 'none' && clipPaths[attributes.headerClipPath]}
-                    <img
-                        className={classNames('image-header-block__image', attributes.headerImageBlur > 0 ? 'is-blurred' : '')}
-                        style={{
-                            filter: `blur(${attributes.headerImageBlur}px)`,
-                            objectPosition: `${attributes.headerImagePositionHorizontal} ${attributes.headerImagePositionVertical}`,
-                            opacity: attributes.headerImageOpacity,
-                        }}
-                        src={getImage(attributes.headerImage, 'xlarge')}
-                        alt={getImage(attributes.headerImage, 'alt')}
-                        width={getImage(attributes.headerImage, 'width')}
-                        height={getImage(attributes.headerImage, 'height')}
-                    />
+                    {!attributes.headerImageRemove &&
+                        <img
+                            className={classNames('image-header-block__image', attributes.headerImageBlur > 0 ? 'is-blurred' : '')}
+                            style={{
+                                filter: `blur(${attributes.headerImageBlur}px)`,
+                                objectPosition: `${attributes.headerImagePositionHorizontal} ${attributes.headerImagePositionVertical}`,
+                                opacity: attributes.headerImageOpacity,
+                            }}
+                            src={getImage(attributes.headerImage, 'xlarge')}
+                            alt={getImage(attributes.headerImage, 'alt')}
+                            width={getImage(attributes.headerImage, 'width')}
+                            height={getImage(attributes.headerImage, 'height')}
+                        />
+                    }
                     {attributes.headerImageHasOverlay &&
                         <div className="image-header-block__overlay"
                              style={{
@@ -539,10 +558,19 @@ registerBlockType('custom/image-header', {
                                     icon={'format-image'}
                                     style={{
                                         position: `absolute`,
-                                        right: `20px`,
+                                        right: `70px`,
                                         bottom: `20px`
                                     }}
                                     text={__('Change Image', 'sage')}
+                            />
+                            <Button className={'button'}
+                                    onClick={headerImageRemove}
+                                    icon={'trash'}
+                                    style={{
+                                        position: `absolute`,
+                                        right: `20px`,
+                                        bottom: `20px`
+                                    }}
                             />
                         </>
                     )}
@@ -593,17 +621,19 @@ registerBlockType('custom/image-header', {
                 }}
             >
                 {attributes.headerClipPath !== 'none' && clipPaths[attributes.headerClipPath]}
-                <img className={classNames('image-header-block__image', attributes.headerImageBlur > 0 ? 'is-blurred' : '')}
-                     style={{
-                         filter: `blur(${attributes.headerImageBlur}px)`,
-                         objectPosition: `${attributes.headerImagePositionHorizontal} ${attributes.headerImagePositionVertical}`,
-                         opacity: attributes.headerImageOpacity,
-                     }}
-                     srcSet={`${getImage(attributes.headerImage, 'tiny')} 480w, ${getImage(attributes.headerImage, 'small')} 768w, ${getImage(attributes.headerImage, 'medium')} 1024w, ${getImage(attributes.headerImage, 'xlarge')} 1360w`}
-                     sizes="100w"
-                     src={getImage(attributes.headerImage, 'medium')}
-                     alt={getImage(attributes.headerImage, 'alt')}
-                />
+                {!attributes.headerImageRemove &&
+                    <img className={classNames('image-header-block__image', attributes.headerImageBlur > 0 ? 'is-blurred' : '')}
+                         style={{
+                             filter: `blur(${attributes.headerImageBlur}px)`,
+                             objectPosition: `${attributes.headerImagePositionHorizontal} ${attributes.headerImagePositionVertical}`,
+                             opacity: attributes.headerImageOpacity,
+                         }}
+                         srcSet={`${getImage(attributes.headerImage, 'tiny')} 480w, ${getImage(attributes.headerImage, 'small')} 768w, ${getImage(attributes.headerImage, 'medium')} 1024w, ${getImage(attributes.headerImage, 'xlarge')} 1360w`}
+                         sizes="100w"
+                         src={getImage(attributes.headerImage, 'medium')}
+                         alt={getImage(attributes.headerImage, 'alt')}
+                    />
+                }
                 {attributes.headerImageHasOverlay &&
                     <div className="image-header-block__overlay"
                          style={{

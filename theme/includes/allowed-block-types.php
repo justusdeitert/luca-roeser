@@ -14,7 +14,7 @@ $core_blocks = [
     // 'core/verse',
 
     // Media
-    // 'core/image',
+    'core/image',
     // 'core/gallery',
     // 'core/audio',
     // 'core/cover',
@@ -69,6 +69,7 @@ $custom_blocks_normal_editor = [
     'custom/image-header',
     'custom/text-image',
     'custom/slider',
+    'custom/image',
 ];
 
 $custom_blocks_widget_editor = [

@@ -26,6 +26,8 @@ body {
 
 a {
     color: rgb(var(--custom-link-color));
+    position: relative;
+    z-index: 20;
 
     &:hover {
         color: rgb(var(--custom-link-hover-color));
@@ -35,10 +37,22 @@ a {
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--custom-headline-font-family);
     font-weight: var(--custom-headline-weight);
+    position: relative;
+    z-index: 20;
 }
 
 b, strong {
-    font-weight: 500;
+    font-weight: 600;
+}
+
+p {
+    position: relative;
+    z-index: 20;
+}
+
+img {
+    z-index: 10;
+    max-width: initial;
 }
 
 #wpadminbar {
@@ -59,6 +73,10 @@ b, strong {
     padding: 0;
     border: 0;
     word-wrap: normal !important;
+}
+
+.has-text-align-center {
+    text-align: center;
 }
 
 .is-style-text-shadow {

@@ -106,3 +106,17 @@ html {
         }
     }
 }
+
+.components-focal-point-picker-control {
+    &.no-picker-controls {
+        .focal-point-picker__controls {
+            display: none;
+        }
+    }
+}
+
+h1, h2, h3, h4, h5, h6 {
+    &.has-background {
+        padding: initial;
+    }
+}

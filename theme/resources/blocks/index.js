@@ -5,4 +5,4 @@ import './icon';
 import './image-header';
 import './text-image';
 import './slider';
-// import './slider-test';
+import './image';

@@ -132,7 +132,7 @@ add_action('after_setup_theme', function () {
      * Register the editor font sizes.
      * @link https://developer.wordpress.org/block-editor/developers/themes/theme-support/#block-font-sizes
      */
-    add_theme_support('editor-font-sizes', []);
+    // add_theme_support('editor-font-sizes', []);
 
     /**
      * Register relative length units in the editor.
@@ -168,7 +168,7 @@ add_action('after_setup_theme', function () {
      * Disable custom font sizes in the editor.
      * @link https://developer.wordpress.org/block-editor/developers/themes/theme-support/#disabling-custom-font-sizes
      */
-    add_theme_support('disable-custom-font-sizes');
+    // add_theme_support('disable-custom-font-sizes');
 
     /**
      * Disable the default block patterns.
@@ -265,12 +265,6 @@ add_action('after_setup_theme', function () {
         ],
         ...$gray_colors
     ]);
-
-    /*
-     * Remove Theme Support for Core Block Pattern
-     * @link https://developer.wordpress.org/block-editor/developers/themes/theme-support/#disabling-the-default-block-patterns
-     */
-    remove_theme_support('core-block-patterns');
 
     /**
      * Loading textdomain

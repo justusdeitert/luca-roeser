@@ -158,7 +158,7 @@ registerBlockType('custom/text-image', {
                                             position: 'absolute',
                                             left: '20px',
                                             top: '20px',
-                                            zIndex: '10'
+                                            zIndex: '30'
                                         }}
                                         text={!attributes.contentImages ? __('Upload Images', 'sage') : __('Change Images', 'sage')}
                                 />
