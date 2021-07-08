@@ -73,6 +73,8 @@ registerBlockType('custom/image', {
             setAttributes({imagePosition: {x: 0.5, y: 0.5}});
         };
 
+        console.log(attributes.imageObject.mime !== 'image/svg+xml');
+
         return (
             <>
                 <InspectorControls>
@@ -131,7 +133,7 @@ registerBlockType('custom/image', {
                          transform: `translate(${focalPositionInPixel(attributes.imagePosition.x)}, ${focalPositionInPixel(attributes.imagePosition.y)})`,
                      }}
                      alt={getImage(attributes.imageObject, 'alt')}
-                     srcSet={`${getImage(attributes.imageObject, 'tiny')} 768w, ${getImage(attributes.imageObject, 'small')} 1360w`}
+                     srcSet={attributes.imageObject.mime !== 'image/svg+xml' ? `${getImage(attributes.imageObject, 'tiny')} 768w, ${getImage(attributes.imageObject, 'small')} 1360w` : false}
                      src={getImage(attributes.imageObject, 'tiny')}
                 />
             </>
@@ -147,7 +149,7 @@ registerBlockType('custom/image', {
                      transform: `translate(${focalPositionInPixel(attributes.imagePosition.x)}, ${focalPositionInPixel(attributes.imagePosition.y)})`,
                  }}
                  alt={getImage(attributes.imageObject, 'alt')}
-                 srcSet={`${getImage(attributes.imageObject, 'tiny')} 768w, ${getImage(attributes.imageObject, 'small')} 1360w`}
+                 srcSet={attributes.imageObject.mime !== 'image/svg+xml' ? `${getImage(attributes.imageObject, 'tiny')} 768w, ${getImage(attributes.imageObject, 'small')} 1360w` : false}
                  src={getImage(attributes.imageObject, 'tiny')}
             />
         );

@@ -82,14 +82,6 @@ const attributes = {
     /**
      * Text Properties
      */
-    textPositionX: {
-        type: 'number',
-        default: 0,
-    },
-    textPositionY: {
-        type: 'number',
-        default: 0,
-    },
     textPosition: {
         type: 'object',
         default: {x: 0.5, y: 0.5}
@@ -201,14 +193,6 @@ registerBlockType('custom/image-header', {
          * Text Properties
          */
 
-        const onChangeTextPositionX = (value) => {
-            setAttributes({textPositionX: value});
-        };
-
-        const onChangeTextPositionY = (value) => {
-            setAttributes({textPositionY: value});
-        };
-
         const onChangeTextPosition = (value) => {
 
             /**
@@ -278,24 +262,6 @@ registerBlockType('custom/image-header', {
                                     ]}
                                     onChange={onChangeHeaderClipPath}
                                 />
-                                {/*<hr/>
-                                <p>{__('Adjust Header Clip Path (Top)', 'sage')}</p>
-                                <RangeControl
-                                    value={attributes.headerClipPathTop}
-                                    min={-15}
-                                    max={+15}
-                                    step={1}
-                                    onChange={onChangeHeaderClipPathTop}
-                                />
-                                <hr/>
-                                <p>{__('Adjust Header Clip Path (Bottom)', 'sage')}</p>
-                                <RangeControl
-                                    value={attributes.headerClipPathBottom}
-                                    min={-15}
-                                    max={+15}
-                                    step={1}
-                                    onChange={onChangeHeaderClipPathBottom}
-                                />*/}
                             </>
                         }
                         <hr/>
@@ -325,52 +291,36 @@ registerBlockType('custom/image-header', {
                         </>
                         }
                     </PanelBody>
-                    <PanelBody title={__('Background Image Properties', 'sage')} initialOpen={false}>
-                        <hr/>
-                        <p>{__('Image Blur', 'sage')}</p>
-                        <RangeControl
-                            value={attributes.headerImageBlur}
-                            min={0}
-                            max={10}
-                            onChange={onChangeHeaderImageBlur}
-                        />
-                        <hr/>
-                        <p>{__('Image Opacity', 'sage')}</p>
-                        <RangeControl
-                            value={attributes.headerImageOpacity}
-                            min={0}
-                            max={1}
-                            step={0.05}
-                            onChange={onChangeHeaderImageOpacity}
-                        />
-                        <hr/>
-                        <p>{__('Background Image Alignment', 'sage')}</p>
-                        <AlignmentMatrixControl
-                            value={attributes.headerImageAlignment}
-                            onChange={onChangeHeaderImageAlignment}
-                        />
-                    </PanelBody>
+                    {!attributes.headerImageRemove &&
+                        <PanelBody title={__('Background Image Properties', 'sage')} initialOpen={false}>
+                            <hr/>
+                            <p>{__('Image Blur', 'sage')}</p>
+                            <RangeControl
+                                value={attributes.headerImageBlur}
+                                min={0}
+                                max={10}
+                                onChange={onChangeHeaderImageBlur}
+                            />
+                            <hr/>
+                            <p>{__('Image Opacity', 'sage')}</p>
+                            <RangeControl
+                                value={attributes.headerImageOpacity}
+                                min={0}
+                                max={1}
+                                step={0.05}
+                                onChange={onChangeHeaderImageOpacity}
+                            />
+                            <hr/>
+                            <p>{__('Background Image Alignment', 'sage')}</p>
+                            <AlignmentMatrixControl
+                                value={attributes.headerImageAlignment}
+                                onChange={onChangeHeaderImageAlignment}
+                            />
+                        </PanelBody>
+                    }
                     <PanelBody title={__('Text Properties', 'sage')} initialOpen={false}>
                         <hr/>
-                        <p>{__('Text Position X', 'sage')}</p>
-                        <RangeControl
-                            value={attributes.textPositionX}
-                            min={-100}
-                            max={100}
-                            step={1}
-                            onChange={onChangeTextPositionX}
-                        />
-                        <hr/>
-                        <p>{__('Text Position Y', 'sage')}</p>
-                        <RangeControl
-                            value={attributes.textPositionY}
-                            min={-100}
-                            max={100}
-                            step={1}
-                            onChange={onChangeTextPositionY}
-                        />
-                        <hr/>
-                        <p>{__('Image Position', 'sage')}</p>
+                        <p>{__('Text Position', 'sage')}</p>
                         <Button className={'button'}
                                 onClick={setBackTextPosition}
                                 style={{marginBottom: '20px'}}
