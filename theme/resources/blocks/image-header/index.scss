@@ -33,15 +33,15 @@
         display: flex;
         align-items: center;
         justify-content: center;
+
+        @include media-breakpoint-down(sm) {
+            transform: scale(0.7);
+        }
     }
 
     &__text-wrapper {
         display: inline-block;
         position: relative;
-
-        @include media-breakpoint-down(sm) {
-            transform: scale(0.8);
-        }
     }
 
     &__logo {
@@ -54,5 +54,9 @@
                 transform: scale(0.7);
             }
         }
+    }
+
+    .clip-path-svg {
+        position: absolute;
     }
 }

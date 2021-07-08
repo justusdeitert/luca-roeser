@@ -38,7 +38,7 @@ h1, h2, h3, h4, h5, h6 {
     font-family: var(--custom-headline-font-family);
     font-weight: var(--custom-headline-weight);
     position: relative;
-    z-index: 20;
+    z-index: 10;
 }
 
 b, strong {
@@ -47,11 +47,11 @@ b, strong {
 
 p {
     position: relative;
-    z-index: 20;
+    z-index: 10;
 }
 
 img {
-    z-index: 10;
+    z-index: 0; // Let Images be always behind text
     max-width: initial;
 }
 

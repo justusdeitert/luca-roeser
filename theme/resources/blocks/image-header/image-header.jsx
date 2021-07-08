@@ -1,13 +1,12 @@
 import {__} from '@wordpress/i18n';
 import {registerBlockType} from '@wordpress/blocks';
 import {createElement} from '@wordpress/element';
-import {RangeControl, Button, ToggleControl, SelectControl, PanelBody, ColorPalette, Icon, Tooltip} from '@wordpress/components';
+import {RangeControl, Button, ToggleControl, SelectControl, PanelBody, ColorPalette, FocalPointPicker} from '@wordpress/components';
+import {__experimentalAlignmentMatrixControl as AlignmentMatrixControl} from '@wordpress/components';
 import {MediaUpload, InspectorControls, InnerBlocks, getColorObjectByColorValue} from '@wordpress/block-editor';
 import classNames from 'classnames';
-import {editorThemeColors, getImage} from "../utility";
+import {editorThemeColors, getImage, focalPositionInPixel} from "../utility";
 import * as clipPaths from "../clip-path-svgs"
-
-console.log(clipPaths['defaultClip']);
 
 const blockIcon = createElement('svg', {width: 20, height: 20},
     createElement('path', {
@@ -43,13 +42,17 @@ const attributes = {
         type: 'string',
         default: 'none',
     },
-    // headerClipPathBottom: {
-    //     type: 'number',
-    //     default: 0,
-    // },
     headerBackgroundColor: {
         type: 'string',
         default: ''
+    },
+    headerBackgroundHasOverlay: {
+        type: 'boolean',
+        default: false,
+    },
+    headerBackgroundOverlayColor: {
+        type: 'string',
+        default: 'light'
     },
 
     /**
@@ -71,48 +74,9 @@ const attributes = {
         type: 'number',
         default: 1,
     },
-    headerImageHasOverlay: {
-        type: 'boolean',
-        default: false,
-    },
-    headerImageOverlayColor: {
+    headerImageAlignment: {
         type: 'string',
-        default: 'light'
-    },
-    headerImagePositionHorizontal: {
-        type: 'string',
-        default: 'center',
-    },
-    headerImagePositionVertical: {
-        type: 'string',
-        default: 'center',
-    },
-
-    /**
-     * Logo Properties
-     */
-    headerLogo: {
-        type: 'object',
-    },
-    headerLogoSize: {
-        type: 'number',
-        default: 100,
-    },
-    headerLogoSmallerOnMobile: {
-        type: 'boolean',
-        default: false,
-    },
-    headerLogoPosition: { // Left or Right
-        type: 'boolean',
-        default: false,
-    },
-    headerLogoPositionX: {
-        type: 'number',
-        default: 0,
-    },
-    headerLogoPositionY: {
-        type: 'number',
-        default: 0,
+        default: 'center center'
     },
 
     /**
@@ -126,6 +90,10 @@ const attributes = {
         type: 'number',
         default: 0,
     },
+    textPosition: {
+        type: 'object',
+        default: {x: 0.5, y: 0.5}
+    },
 }
 
 const getOverlayColor = (overlayColor) => {
@@ -138,6 +106,9 @@ const getOverlayColor = (overlayColor) => {
             return `radial-gradient(at center top, rgba(255, 255, 255, 0.5) 20%, rgba(255, 255, 255, 0) 80%)`
     }
 }
+
+// For not firing update to often
+let onChangeTextPositionTimeout = true;
 
 const ALLOWED_BLOCKS = [
     'core/paragraph',
@@ -190,12 +161,16 @@ registerBlockType('custom/image-header', {
             setAttributes({headerClipPath: value});
         };
 
-        // const onChangeHeaderClipPathBottom = (value) => {
-        //     setAttributes({headerClipPathBottom: value});
-        // };
-
         const onChangeHeaderBackgroundColor = (value) => {
             setAttributes({headerBackgroundColor: value});
+        };
+
+        const onChangeHeaderBackgroundHasOverlay = (value) => {
+            setAttributes({headerBackgroundHasOverlay: value});
+        };
+
+        const onChangeHeaderBackgroundOverlayColor = (value) => {
+            setAttributes({headerBackgroundOverlayColor: value});
         };
 
         /**
@@ -218,48 +193,8 @@ registerBlockType('custom/image-header', {
             setAttributes({headerImageOpacity: value});
         };
 
-        const onChangeHeaderImageHasOverlay = (value) => {
-            setAttributes({headerImageHasOverlay: value});
-        };
-
-        const onChangeHeaderImageOverlayColor = (value) => {
-            setAttributes({headerImageOverlayColor: value});
-        };
-
-        const onChangeHeaderImagePositionHorizontal = (value) => {
-            setAttributes({headerImagePositionHorizontal: value});
-        };
-
-        const onChangeHeaderImagePositionVertical = (value) => {
-            setAttributes({headerImagePositionVertical: value});
-        };
-
-        /**
-         * Logo Properties
-         */
-
-        const onSelectHeaderLogo = (imageObject) => {
-            setAttributes({headerLogo: imageObject});
-        };
-
-        const onChangeHeaderLogoSize = (value) => {
-            setAttributes({headerLogoSize: value});
-        };
-
-        const onChangeHeaderLogoSmallerOnMobile = (value) => {
-            setAttributes({headerLogoSmallerOnMobile: value});
-        };
-
-        const onChangeHeaderLogoPosition = (value) => {
-            setAttributes({headerLogoPosition: value});
-        };
-
-        const onChangeHeaderLogoPositionX = (value) => {
-            setAttributes({headerLogoPositionX: value});
-        };
-
-        const onChangeHeaderLogoPositionY = (value) => {
-            setAttributes({headerLogoPositionY: value});
+        const onChangeHeaderImageAlignment = (value) => {
+            setAttributes({headerImageAlignment: value});
         };
 
         /**
@@ -274,18 +209,30 @@ registerBlockType('custom/image-header', {
             setAttributes({textPositionY: value});
         };
 
+        const onChangeTextPosition = (value) => {
+
+            /**
+             * Timeout for Text Position On Change
+             */
+            if (onChangeTextPositionTimeout) {
+                setAttributes({textPosition: value});
+
+                onChangeTextPositionTimeout = false;
+
+                setTimeout(function () {
+                    onChangeTextPositionTimeout = true;
+                }, 30);
+            }
+        };
+
+        const setBackTextPosition = () => {
+            setAttributes({imagePosition: {x: 0.5, y: 0.5}});
+        };
+
         const TEMPLATE = [
             ['core/heading', {placeholder: 'The Title...'}],
             ['core/heading', {placeholder: 'This is the Subtitle...'}],
         ];
-
-        // const getClipPath = () => {
-        //     let topLeft = attributes.headerClipPathTop < 0 ? 0 - attributes.headerClipPathTop : 0;
-        //     let topRight = attributes.headerClipPathTop > 0 ? 0 + attributes.headerClipPathTop : 0;
-        //     let bottomLeft = attributes.headerClipPathBottom < 0 ? 100 + attributes.headerClipPathBottom : 100;
-        //     let bottomRight = attributes.headerClipPathBottom > 0 ? 100 - attributes.headerClipPathBottom : 100;
-        //     return `polygon(0 ${topLeft}%,100% ${topRight}%,100% ${bottomLeft}%,0 ${bottomRight}%)`
-        // }
 
         const headerBackgroundColor = getColorObjectByColorValue(editorThemeColors, attributes.headerBackgroundColor);
 
@@ -306,7 +253,7 @@ registerBlockType('custom/image-header', {
                                 <p>{__('Header Height', 'sage')}</p>
                                 <RangeControl
                                     value={attributes.headerHeight}
-                                    min={300}
+                                    min={attributes.headerMobileHeight}
                                     max={800}
                                     step={10}
                                     onChange={onChangeHeaderHeight}
@@ -358,8 +305,27 @@ registerBlockType('custom/image-header', {
                             value={attributes.headerBackgroundColor}
                             onChange={onChangeHeaderBackgroundColor}
                         />
+                        <hr/>
+                        <ToggleControl
+                            label={__('Background Overlay', 'sage')}
+                            checked={attributes.headerBackgroundHasOverlay}
+                            onChange={onChangeHeaderBackgroundHasOverlay}
+                        />
+                        {attributes.headerBackgroundHasOverlay &&
+                        <>
+                            <SelectControl
+                                label={__('Select Overlay Color', 'sage')}
+                                value={attributes.headerBackgroundOverlayColor}
+                                options={[
+                                    {label: __('Dark', 'sage'), value: 'dark'},
+                                    {label: __('Light', 'sage'), value: 'light'},
+                                ]}
+                                onChange={onChangeHeaderBackgroundOverlayColor}
+                            />
+                        </>
+                        }
                     </PanelBody>
-                    <PanelBody title={__('Image Properties', 'sage')} initialOpen={false}>
+                    <PanelBody title={__('Background Image Properties', 'sage')} initialOpen={false}>
                         <hr/>
                         <p>{__('Image Blur', 'sage')}</p>
                         <RangeControl
@@ -378,92 +344,12 @@ registerBlockType('custom/image-header', {
                             onChange={onChangeHeaderImageOpacity}
                         />
                         <hr/>
-                        <ToggleControl
-                            label={__('Image Overlay', 'sage')}
-                            checked={attributes.headerImageHasOverlay}
-                            onChange={onChangeHeaderImageHasOverlay}
-                        />
-                        {attributes.headerImageHasOverlay &&
-                            <>
-                                <SelectControl
-                                    label={__('Select Overlay Color', 'sage')}
-                                    value={attributes.headerImageOverlayColor}
-                                    options={[
-                                        {label: __('Dark', 'sage'), value: 'dark'},
-                                        {label: __('Light', 'sage'), value: 'light'},
-                                    ]}
-                                    onChange={onChangeHeaderImageOverlayColor}
-                                />
-                            </>
-                        }
-                        <hr/>
-                        <p>{__('Select Image Position', 'sage')}</p>
-                        <SelectControl
-                            label={__('Horizontal', 'sage')}
-                            value={attributes.headerImagePositionHorizontal}
-                            options={[
-                                {label: __('Left', 'sage'), value: 'left'},
-                                {label: __('Center', 'sage'), value: 'center'},
-                                {label: __('Right', 'sage'), value: 'right'},
-                            ]}
-                            onChange={onChangeHeaderImagePositionHorizontal}
-                        />
-                        <SelectControl
-                            label={__('Vertical', 'sage')}
-                            value={attributes.headerImagePositionVertical}
-                            options={[
-                                {label: __('Top', 'sage'), value: 'top'},
-                                {label: __('Center', 'sage'), value: 'center'},
-                                {label: __('Bottom', 'sage'), value: 'bottom'},
-                            ]}
-                            onChange={onChangeHeaderImagePositionVertical}
+                        <p>{__('Background Image Alignment', 'sage')}</p>
+                        <AlignmentMatrixControl
+                            value={attributes.headerImageAlignment}
+                            onChange={onChangeHeaderImageAlignment}
                         />
                     </PanelBody>
-                    {attributes.headerLogo &&
-                        <PanelBody title={__('Logo Properties', 'sage')} initialOpen={false}>
-                            <hr/>
-                            <p>{__('Adjust Logo Size', 'sage')}</p>
-                            <RangeControl
-                                value={attributes.headerLogoSize}
-                                min={50}
-                                max={260}
-                                step={1}
-                                onChange={onChangeHeaderLogoSize}
-                            />
-                            <hr/>
-                            <ToggleControl
-                                label={__('Smaller Logo on Mobile', 'sage')}
-                                // help={ attributes.switchContent ? 'Image is left' : 'Image is right' }
-                                checked={attributes.headerLogoSmallerOnMobile}
-                                onChange={onChangeHeaderLogoSmallerOnMobile}
-                            />
-                            <hr/>
-                            <ToggleControl
-                                label={__('Adjust Logo Position', 'sage')}
-                                help={attributes.headerLogoPosition ? __('Logo sits right', 'sage') : __('Logo sits left', 'sage')}
-                                checked={attributes.headerLogoPosition}
-                                onChange={onChangeHeaderLogoPosition}
-                            />
-                            <hr/>
-                            <p>{__('Header Logo Position X', 'sage')}</p>
-                            <RangeControl
-                                value={attributes.headerLogoPositionX}
-                                min={-200}
-                                max={200}
-                                step={1}
-                                onChange={onChangeHeaderLogoPositionX}
-                            />
-                            <hr/>
-                            <p>{__('Header Logo Position Y', 'sage')}</p>
-                            <RangeControl
-                                value={attributes.headerLogoPositionY}
-                                min={-200}
-                                max={200}
-                                step={1}
-                                onChange={onChangeHeaderLogoPositionY}
-                            />
-                        </PanelBody>
-                    }
                     <PanelBody title={__('Text Properties', 'sage')} initialOpen={false}>
                         <hr/>
                         <p>{__('Text Position X', 'sage')}</p>
@@ -483,6 +369,19 @@ registerBlockType('custom/image-header', {
                             step={1}
                             onChange={onChangeTextPositionY}
                         />
+                        <hr/>
+                        <p>{__('Image Position', 'sage')}</p>
+                        <Button className={'button'}
+                                onClick={setBackTextPosition}
+                                style={{marginBottom: '20px'}}
+                                text={__('Default Position', 'sage')}
+                        />
+                        <FocalPointPicker
+                            className={'no-picker-controls'}
+                            value={attributes.textPosition}
+                            onChange={onChangeTextPosition}
+                            onDrag={onChangeTextPosition}
+                        />
                     </PanelBody>
                 </InspectorControls>
                 <div
@@ -490,7 +389,7 @@ registerBlockType('custom/image-header', {
                     style={{
                         maxHeight: attributes.headerFullHeight ? `initial` : `${attributes.headerHeight}px`,
                         minHeight: attributes.headerFullHeight ? `initial` : `${attributes.headerMobileHeight}px`,
-                        height: attributes.headerFullHeight ? `100vh` : `${attributes.headerMobileHeight / attributes.headerHeight * 100}vw`,
+                        height: attributes.headerFullHeight ? `100vh` : '60vw',
                         clipPath: attributes.headerClipPath !== 'none' ? 'url(#clipPolygon)' : 'none'
                         // clipPath: attributes.headerFullHeight ? 'initial' : getClipPath(),
                     }}
@@ -501,7 +400,7 @@ registerBlockType('custom/image-header', {
                             className={classNames('image-header-block__image', attributes.headerImageBlur > 0 ? 'is-blurred' : '')}
                             style={{
                                 filter: `blur(${attributes.headerImageBlur}px)`,
-                                objectPosition: `${attributes.headerImagePositionHorizontal} ${attributes.headerImagePositionVertical}`,
+                                objectPosition: `${attributes.headerImageAlignment}`,
                                 opacity: attributes.headerImageOpacity,
                             }}
                             src={getImage(attributes.headerImage, 'xlarge')}
@@ -510,34 +409,19 @@ registerBlockType('custom/image-header', {
                             height={getImage(attributes.headerImage, 'height')}
                         />
                     }
-                    {attributes.headerImageHasOverlay &&
+                    {attributes.headerBackgroundHasOverlay &&
                         <div className="image-header-block__overlay"
                              style={{
-                                 backgroundImage: getOverlayColor(attributes.headerImageOverlayColor)
+                                 backgroundImage: getOverlayColor(attributes.headerBackgroundOverlayColor)
                              }}
                         />
                     }
                     <div className="container image-header-block__container">
                         <div className="image-header-block__text-wrapper"
                              style={{
-                                 left: `${attributes.textPositionX}px`,
-                                 top: `${attributes.textPositionY}px`
+                                 transform: `translate(${focalPositionInPixel(attributes.textPosition.x)}, ${focalPositionInPixel(attributes.textPosition.y)})`,
                              }}
                         >
-                            {attributes.headerLogo &&
-                                <img
-                                    className={classNames('image-header-block__logo', attributes.headerLogoSmallerOnMobile && 'smaller-on-mobile')}
-                                    src={getImage(attributes.headerLogo, 'xlarge')}
-                                    alt={getImage(attributes.headerLogo, 'alt')}
-                                    style={{
-                                        width: `${attributes.headerLogoSize}px`,
-                                        height: `${attributes.headerLogoSize}px`,
-                                        left: !attributes.headerLogoPosition ? `${attributes.headerLogoPositionX - attributes.headerLogoSize}px` : 'initial',
-                                        right: attributes.headerLogoPosition ? `${attributes.headerLogoPositionX - attributes.headerLogoSize}px` : 'initial',
-                                        top: `${attributes.headerLogoPositionY}px`,
-                                    }}
-                                />
-                            }
                             <InnerBlocks template={TEMPLATE} allowedBlocks={ALLOWED_BLOCKS}/>
                         </div>
                     </div>
@@ -565,7 +449,7 @@ registerBlockType('custom/image-header', {
                             />
                             <Button className={'button'}
                                     onClick={headerImageRemove}
-                                    icon={'trash'}
+                                    icon={!attributes.headerImageRemove ? 'visibility' : 'hidden'}
                                     style={{
                                         position: `absolute`,
                                         right: `20px`,
@@ -575,37 +459,10 @@ registerBlockType('custom/image-header', {
                         </>
                     )}
                 />
-                <MediaUpload
-                    onSelect={onSelectHeaderLogo}
-                    allowedTypes={[
-                        'image/svg+xml',
-                    ]}
-                    // value={attributes.mediaID}
-                    render={({open}) => (
-                        <Button className={'button'}
-                                onClick={open}
-                                icon={'admin-customizer'}
-                                style={{
-                                    position: `absolute`,
-                                    right: `20px`,
-                                    top: `20px`
-                                }}
-                                text={!attributes.headerLogo ? __('Upload Logo', 'sage') : __('Change Logo', 'sage')}
-                        />
-                    )}
-                />
             </>
         );
     },
     save: ({className, attributes}) => {
-
-        // const getClipPath = () => {
-        //     let topLeft = attributes.headerClipPathTop < 0 ? 0 - attributes.headerClipPathTop : 0;
-        //     let topRight = attributes.headerClipPathTop > 0 ? 0 + attributes.headerClipPathTop : 0;
-        //     let bottomLeft = attributes.headerClipPathBottom < 0 ? 100 + attributes.headerClipPathBottom : 100;
-        //     let bottomRight = attributes.headerClipPathBottom > 0 ? 100 - attributes.headerClipPathBottom : 100;
-        //     return `polygon(0 ${topLeft}%,100% ${topRight}%,100% ${bottomLeft}%,0 ${bottomRight}%)`
-        // }
 
         const headerBackgroundColor = getColorObjectByColorValue(editorThemeColors, attributes.headerBackgroundColor);
 
@@ -615,7 +472,7 @@ registerBlockType('custom/image-header', {
                 style={{
                     maxHeight: attributes.headerFullHeight ? `initial` : `${attributes.headerHeight}px`,
                     minHeight: attributes.headerFullHeight ? `initial` : `${attributes.headerMobileHeight}px`,
-                    height: attributes.headerFullHeight ? `100vh` : `${attributes.headerMobileHeight / attributes.headerHeight * 100}vw`,
+                    height: attributes.headerFullHeight ? `100vh` : '60vw',
                     clipPath: attributes.headerClipPath !== 'none' ? 'url(#clipPolygon)' : 'none'
                     // clipPath: attributes.headerFullHeight ? 'initial' : getClipPath(),
                 }}
@@ -625,7 +482,7 @@ registerBlockType('custom/image-header', {
                     <img className={classNames('image-header-block__image', attributes.headerImageBlur > 0 ? 'is-blurred' : '')}
                          style={{
                              filter: `blur(${attributes.headerImageBlur}px)`,
-                             objectPosition: `${attributes.headerImagePositionHorizontal} ${attributes.headerImagePositionVertical}`,
+                             objectPosition: `${attributes.headerImageAlignment}`,
                              opacity: attributes.headerImageOpacity,
                          }}
                          srcSet={`${getImage(attributes.headerImage, 'tiny')} 480w, ${getImage(attributes.headerImage, 'small')} 768w, ${getImage(attributes.headerImage, 'medium')} 1024w, ${getImage(attributes.headerImage, 'xlarge')} 1360w`}
@@ -634,34 +491,19 @@ registerBlockType('custom/image-header', {
                          alt={getImage(attributes.headerImage, 'alt')}
                     />
                 }
-                {attributes.headerImageHasOverlay &&
+                {attributes.headerBackgroundHasOverlay &&
                     <div className="image-header-block__overlay"
                          style={{
-                             backgroundImage: getOverlayColor(attributes.headerImageOverlayColor)
+                             backgroundImage: getOverlayColor(attributes.headerBackgroundOverlayColor)
                          }}
                     />
                 }
                 <div className="container image-header-block__container">
                     <div className="image-header-block__text-wrapper"
                          style={{
-                             left: `${attributes.textPositionX}px`,
-                             top: `${attributes.textPositionY}px`
+                             transform: `translate(${focalPositionInPixel(attributes.textPosition.x)}, ${focalPositionInPixel(attributes.textPosition.y)})`,
                          }}
                     >
-                        {attributes.headerLogo &&
-                            <img
-                                className={classNames('image-header-block__logo', attributes.headerLogoSmallerOnMobile && 'smaller-on-mobile')}
-                                src={getImage(attributes.headerLogo, 'xlarge')}
-                                alt={getImage(attributes.headerLogo, 'alt')}
-                                style={{
-                                    width: `${attributes.headerLogoSize}px`,
-                                    height: `${attributes.headerLogoSize}px`,
-                                    left: !attributes.headerLogoPosition ? `${attributes.headerLogoPositionX - attributes.headerLogoSize}px` : 'initial',
-                                    right: attributes.headerLogoPosition ? `${attributes.headerLogoPositionX - attributes.headerLogoSize}px` : 'initial',
-                                    top: `${attributes.headerLogoPositionY}px`,
-                                }}
-                            />
-                        }
                         <InnerBlocks.Content/>
                     </div>
                 </div>

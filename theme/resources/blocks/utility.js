@@ -191,3 +191,16 @@ export const fontAwesomeArray = [
     {class: 'fa-file-invoice-dollar', unicode: '\\f571'},
     {class: 'fa-shield-alt', unicode: '\\f3ed'}
 ];
+
+export const focalPositionInPixel = (value) => {
+
+    if (typeof value === 'string') {
+        value = value.replace('.', '');
+        value = parseInt(value) / 100
+    }
+
+    value = (-0.5 + value) * 1000;
+    value = Math.round(value);
+
+    return `${value}px`;
+}

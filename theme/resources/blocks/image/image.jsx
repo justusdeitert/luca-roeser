@@ -5,25 +5,13 @@ import {Button, Draggable, RangeControl, FocalPointPicker, SelectControl} from '
 import {RichText, MediaUpload, InspectorControls, URLInput} from '@wordpress/block-editor';
 // import {Icon, more} from '@wordpress/icons';
 import classNames from 'classnames';
-import {getImage} from '../utility';
-
-
-
+import {getImage, focalPositionInPixel} from '../utility';
 
 const blockIcon = createElement('svg', {width: 20, height: 20},
     createElement('path', {
         d: 'M15,11 L15,13 L7,13 L7,11 L15,11 Z M3.5,8 C4.88071187,8 6,9.11928813 6,10.5 C6,11.8807119 4.88071187,13 3.5,13 C2.11928813,13 1,11.8807119 1,10.5 C1,9.11928813 2.11928813,8 3.5,8 Z M19,8 L19,10 L7,10 L7,8 L19,8 Z'
     })
 );
-
-let imagePositionInPixel = (value) => {
-    if (typeof value === 'string') {
-        value = value.replace('.', '');
-        value = parseInt(value) / 100
-    }
-    value = (-0.5 + value) * 1000;
-    return `${value}px`;
-}
 
 // For not firing update to often
 let onChangeImagePositionTimeout = true;
@@ -140,7 +128,7 @@ registerBlockType('custom/image', {
                      style={{
                          width: `${attributes.imageSize}px`,
                          position: attributes.imagePositioning,
-                         transform: `translate(${imagePositionInPixel(attributes.imagePosition.x)}, ${imagePositionInPixel(attributes.imagePosition.y)})`,
+                         transform: `translate(${focalPositionInPixel(attributes.imagePosition.x)}, ${focalPositionInPixel(attributes.imagePosition.y)})`,
                      }}
                      alt={getImage(attributes.imageObject, 'alt')}
                      srcSet={`${getImage(attributes.imageObject, 'tiny')} 768w, ${getImage(attributes.imageObject, 'small')} 1360w`}
@@ -156,7 +144,7 @@ registerBlockType('custom/image', {
                  style={{
                      width: `${attributes.imageSize}px`,
                      position: attributes.imagePositioning,
-                     transform: `translate(${imagePositionInPixel(attributes.imagePosition.x)}, ${imagePositionInPixel(attributes.imagePosition.y)})`,
+                     transform: `translate(${focalPositionInPixel(attributes.imagePosition.x)}, ${focalPositionInPixel(attributes.imagePosition.y)})`,
                  }}
                  alt={getImage(attributes.imageObject, 'alt')}
                  srcSet={`${getImage(attributes.imageObject, 'tiny')} 768w, ${getImage(attributes.imageObject, 'small')} 1360w`}
