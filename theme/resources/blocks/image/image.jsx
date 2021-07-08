@@ -73,7 +73,11 @@ registerBlockType('custom/image', {
             setAttributes({imagePosition: {x: 0.5, y: 0.5}});
         };
 
-        console.log(attributes.imageObject.mime !== 'image/svg+xml');
+        const imageStyle = {
+            width: `${attributes.imageSize}px`,
+            position: attributes.imagePositioning,
+            transform: `translate(${focalPositionInPixel(attributes.imagePosition.x)}, ${focalPositionInPixel(attributes.imagePosition.y)})`,
+        };
 
         return (
             <>
@@ -126,32 +130,46 @@ registerBlockType('custom/image', {
                         />
                     </div>
                 </InspectorControls>
-                <img className={classNames(className, 'image-block')}
-                     style={{
-                         width: `${attributes.imageSize}px`,
-                         position: attributes.imagePositioning,
-                         transform: `translate(${focalPositionInPixel(attributes.imagePosition.x)}, ${focalPositionInPixel(attributes.imagePosition.y)})`,
-                     }}
-                     alt={getImage(attributes.imageObject, 'alt')}
-                     srcSet={attributes.imageObject.mime !== 'image/svg+xml' ? `${getImage(attributes.imageObject, 'tiny')} 768w, ${getImage(attributes.imageObject, 'small')} 1360w` : false}
-                     src={getImage(attributes.imageObject, 'tiny')}
-                />
+                {attributes.imageObject.mime !== 'image/svg+xml' ?
+                    <img className={classNames(className, 'image-block')}
+                         style={imageStyle}
+                         alt={getImage(attributes.imageObject, 'alt')}
+                         srcSet={`${getImage(attributes.imageObject, 'tiny')} 768w, ${getImage(attributes.imageObject, 'small')} 1360w`}
+                         src={getImage(attributes.imageObject, 'tiny')}
+                    /> :
+                    <img className={classNames(className, 'image-block')}
+                         style={imageStyle}
+                         alt={getImage(attributes.imageObject, 'alt')}
+                         src={getImage(attributes.imageObject, 'tiny')}
+                    />
+                }
             </>
         );
     },
     save: ({className, attributes}) => {
 
+        const imageStyle = {
+            width: `${attributes.imageSize}px`,
+            position: attributes.imagePositioning,
+            transform: `translate(${focalPositionInPixel(attributes.imagePosition.x)}, ${focalPositionInPixel(attributes.imagePosition.y)})`,
+        };
+
         return (
-            <img className={classNames(className, 'image-block')}
-                 style={{
-                     width: `${attributes.imageSize}px`,
-                     position: attributes.imagePositioning,
-                     transform: `translate(${focalPositionInPixel(attributes.imagePosition.x)}, ${focalPositionInPixel(attributes.imagePosition.y)})`,
-                 }}
-                 alt={getImage(attributes.imageObject, 'alt')}
-                 srcSet={attributes.imageObject.mime !== 'image/svg+xml' ? `${getImage(attributes.imageObject, 'tiny')} 768w, ${getImage(attributes.imageObject, 'small')} 1360w` : false}
-                 src={getImage(attributes.imageObject, 'tiny')}
-            />
+            <>
+                {attributes.imageObject.mime !== 'image/svg+xml' ?
+                    <img className={classNames(className, 'image-block')}
+                         style={imageStyle}
+                         alt={getImage(attributes.imageObject, 'alt')}
+                         srcSet={`${getImage(attributes.imageObject, 'tiny')} 768w, ${getImage(attributes.imageObject, 'small')} 1360w`}
+                         src={getImage(attributes.imageObject, 'tiny')}
+                    /> :
+                    <img className={classNames(className, 'image-block')}
+                         style={imageStyle}
+                         alt={getImage(attributes.imageObject, 'alt')}
+                         src={getImage(attributes.imageObject, 'tiny')}
+                    />
+                }
+            </>
         );
     },
 });
