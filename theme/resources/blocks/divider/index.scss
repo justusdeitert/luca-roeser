@@ -1,6 +1,12 @@
 .divider-block {
+    margin: var(--desktop-divider-spacing) 0;
+
     &__hr {
         margin: 0 auto;
         width: 100%;
+    }
+
+    @include media-breakpoint-down(sm) {
+        margin: var(--mobile-divider-spacing) 0;
     }
 }

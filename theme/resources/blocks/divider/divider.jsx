@@ -131,7 +131,7 @@ registerBlockType('custom/divider', {
                                 value={attributes.spacingDesktop}
                                 min={0}
                                 max={140}
-                                step={20}
+                                step={10}
                                 onChange={onChangeSpacingDesktop}
                             />
                             <hr/>
@@ -140,7 +140,7 @@ registerBlockType('custom/divider', {
                                 value={attributes.spacingMobile}
                                 min={0}
                                 max={100}
-                                step={20}
+                                step={10}
                                 onChange={onChangeSpacingMobile}
                             />
                             <hr/>
@@ -182,13 +182,17 @@ registerBlockType('custom/divider', {
                             />
                         </div>
                     </InspectorControls>
-                    <div className={classNames(className, 'divider-block')} style={{padding: `${attributes.spacingDesktop / 16}rem 0`}}>
+                    <div className={classNames(className, 'divider-block')} style={{
+                        padding: `${attributes.spacingDesktop / 16}rem 0`,
+                        '--desktop-divider-spacing': `${attributes.spacingDesktop / 16}rem`,
+                        '--mobile-divider-spacing': `${attributes.spacingMobile / 16}rem`
+                    }}>
                         <hr className='divider-block__hr'
                             style={{
                                 height: `${attributes.thickness}px`,
                                 maxWidth: attributes.hasFullWidth ? 'initial' : `${attributes.width}%`,
                                 opacity: attributes.opacity,
-                                backgroundColor: attributes.color
+                                backgroundColor: attributes.color,
                             }}
                         />
                     </div>
@@ -198,13 +202,16 @@ registerBlockType('custom/divider', {
     },
     save: ({className, attributes}) => {
         return (
-            <div className={classNames(className, 'divider-block')} style={{padding: `${attributes.spacingDesktop / 16}rem 0`}} >
+            <div className={classNames(className, 'divider-block')} style={{
+                '--desktop-divider-spacing': `${attributes.spacingDesktop / 16}rem`,
+                '--mobile-divider-spacing': `${attributes.spacingMobile / 16}rem`
+            }} >
                 <hr className='divider-block__hr'
                     style={{
                         height: `${attributes.thickness}px`,
                         maxWidth: attributes.hasFullWidth ? 'initial' : `${attributes.width}%`,
                         opacity: attributes.opacity,
-                        backgroundColor: attributes.color
+                        backgroundColor: attributes.color,
                     }}
                 />
             </div>
