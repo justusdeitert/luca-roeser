@@ -84,12 +84,6 @@ task('pull:db', function () {
     /**
      * Cleanup exports on local machine
      */
-    writeln("<comment>Replace https with http in wp_posts table</comment>");
-    runLocally("cd {{local_path}}/bedrock && wp search-replace 'https://' 'http://' --allow-root wp_posts");
-
-    /**
-     * Cleanup exports on local machine
-     */
     writeln("<info>Cleaning up</info>");
     runLocally("rm {$downloadedExport}");
 
