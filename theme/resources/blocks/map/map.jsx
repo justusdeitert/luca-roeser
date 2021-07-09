@@ -2,19 +2,12 @@ import {__} from '@wordpress/i18n';
 import {registerBlockType,} from '@wordpress/blocks';
 import {Button} from '@wordpress/components';
 import {createElement, Component} from '@wordpress/element';
-import {ToggleControl, TextControl, RangeControl} from '@wordpress/components';
+import {TextControl, RangeControl} from '@wordpress/components';
 import {Icon, Tooltip} from '@wordpress/components';
-import {routeIcon} from "../icons";
-import {RichText, MediaUpload, MediaUploadCheck, InspectorControls} from '@wordpress/block-editor';
+import {MediaUpload, InspectorControls} from '@wordpress/block-editor';
 import classNames from "classnames";
-
-import {fontAwesomeArray, getImage} from '../utility';
-
-const blockIcon = createElement('svg', {width: 20, height: 20},
-    createElement('path', {
-        d: 'M6,0.666666667 C2.77916667,0.666666667 0.166666667,3.27916667 0.166666667,6.5 C0.166666667,10.875 6,17.3333333 6,17.3333333 C6,17.3333333 11.8333333,10.875 11.8333333,6.5 C11.8333333,3.27916667 9.22083333,0.666666667 6,0.666666667 Z M6,8.58333333 C4.85,8.58333333 3.91666667,7.65 3.91666667,6.5 C3.91666667,5.35 4.85,4.41666667 6,4.41666667 C7.15,4.41666667 8.08333333,5.35 8.08333333,6.5 C8.08333333,7.65 7.15,8.58333333 6,8.58333333 Z'
-    })
-);
+import {getImage} from '../utility';
+import {mapIcon} from '../icons';
 
 const attributes = {
     markerImageURL: {
@@ -39,7 +32,7 @@ const attributes = {
 
 registerBlockType('custom/map', {
     title: __('Map', 'sage'),
-    icon: blockIcon,
+    icon: mapIcon,
     category: 'custom',
     supports: {
         // align: true,

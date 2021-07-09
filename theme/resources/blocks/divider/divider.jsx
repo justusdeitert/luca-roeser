@@ -1,24 +1,16 @@
 import {__} from '@wordpress/i18n';
 import {registerBlockType} from '@wordpress/blocks';
 import {ToggleControl} from '@wordpress/components';
-import {createElement, Component} from '@wordpress/element';
+import {Component} from '@wordpress/element';
 import {RangeControl, ColorPalette} from '@wordpress/components';
 import {InspectorControls} from '@wordpress/block-editor';
-
 import classNames from 'classnames';
 import {editorThemeColors} from "../utility";
-
-// import {} from "../config";
-
-const blockIcon = createElement('svg', {width: 20, height: 20},
-    createElement('path', {
-        d: 'M18.3333333,8.75 L18.3333333,10.4166667 L1.66666667,10.4166667 L1.66666667,8.75 L18.3333333,8.75 Z'
-    })
-);
+import {dividerIcon} from "../icons";
 
 registerBlockType('custom/divider', {
     title: __('Divider', 'sage'),
-    icon: blockIcon,
+    icon: dividerIcon,
     category: 'custom',
     supports: {
         align: ['full'],

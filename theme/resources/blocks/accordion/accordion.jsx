@@ -1,18 +1,14 @@
 import {__} from '@wordpress/i18n';
 import {registerBlockType} from '@wordpress/blocks';
-import {createElement, Component} from '@wordpress/element';
+import {Component} from '@wordpress/element';
 import {RangeControl, ToggleControl, Button, Popover, ColorPalette} from '@wordpress/components';
-import {MediaUpload, InspectorControls, RichText, getColorObjectByColorValue} from '@wordpress/block-editor';
+import {InspectorControls, RichText, getColorObjectByColorValue} from '@wordpress/block-editor';
 import {withState} from '@wordpress/compose';
 import classNames from 'classnames';
 import {cloneArray, editorThemeColors} from "../utility";
+import {accordionIcon} from "../icons";
 
-const blockIcon = createElement('svg', {width: 20, height: 20},
-    createElement('path', {
-        d: 'M19.1666667,12 L19.1666667,2 C19.1666667,1.07916667 18.4208333,0.333333333 17.5,0.333333333 L2.5,0.333333333 C1.57916667,0.333333333 0.833333333,1.07916667 0.833333333,2 L0.833333333,12 C0.833333333,12.9208333 1.57916667,13.6666667 2.5,13.6666667 L17.5,13.6666667 C18.4208333,13.6666667 19.1666667,12.9208333 19.1666667,12 Z M7.08333333,7.41666667 L9.16666667,9.92083333 L12.0833333,6.16666667 L15.8333333,11.1666667 L4.16666667,11.1666667 L7.08333333,7.41666667 Z'
-    })
-);
-
+// TODO: Use Lorem Ipsum NPM Library!!
 const loremIpsum = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.'
 
 const attributes = {
@@ -58,7 +54,7 @@ const attributes = {
 
 registerBlockType('custom/accordion', {
     title: __('Accordion', 'sage'),
-    icon: blockIcon,
+    icon: accordionIcon,
     category: 'custom',
     attributes,
     multiple: false,

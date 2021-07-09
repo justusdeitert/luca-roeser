@@ -6,12 +6,7 @@ import {createElement, Component} from '@wordpress/element';
 import {RichText, MediaUpload, InspectorControls, getColorObjectByColorValue} from '@wordpress/block-editor';
 import classNames from 'classnames';
 import {cloneArray, editorThemeColors, getImage} from "../utility";
-
-const blockIcon = createElement('svg', {width: 20, height: 20},
-    createElement('path', {
-        d: 'M14.9333333,10.7733333 L14.9333333,2.45333333 C14.9333333,1.6872 14.3128,1.06666667 13.5466667,1.06666667 L5.22666667,1.06666667 C4.46053333,1.06666667 3.84,1.6872 3.84,2.45333333 L3.84,10.7733333 C3.84,11.5394667 4.46053333,12.16 5.22666667,12.16 L13.5466667,12.16 C14.3128,12.16 14.9333333,11.5394667 14.9333333,10.7733333 Z M7.30666667,8 L8.71413333,9.87893333 L10.7733333,7.30666667 L13.5466667,10.7733333 L5.22666667,10.7733333 L7.30666667,8 Z M1.06666667,3.84 L1.06666667,13.5466667 C1.06666667,14.3128 1.6872,14.9333333 2.45333333,14.9333333 L12.16,14.9333333 L12.16,13.5466667 L2.45333333,13.5466667 L2.45333333,3.84 L1.06666667,3.84 Z'
-    })
-);
+import {sliderIcon} from "../icons";
 
 const attributes = {
     blockId: {
@@ -124,7 +119,7 @@ const attributes = {
 
 registerBlockType('custom/slider', {
     title: __('Slider', 'sage'),
-    icon: blockIcon,
+    icon: sliderIcon,
     category: 'custom',
     // supports: {
     //     align: ['wide'],

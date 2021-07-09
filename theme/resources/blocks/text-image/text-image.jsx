@@ -1,25 +1,13 @@
 import {__} from '@wordpress/i18n';
 import {registerBlockType,} from '@wordpress/blocks';
 import {Button} from '@wordpress/components';
-import {createElement, Component} from '@wordpress/element';
+import {Component} from '@wordpress/element';
 import {ToggleControl, ColorPalette, RangeControl, SelectControl} from '@wordpress/components';
-
-import {
-    MediaUpload,
-    InspectorControls,
-    InnerBlocks,
-    getColorObjectByColorValue
-} from '@wordpress/block-editor';
-
+import {MediaUpload, InspectorControls, InnerBlocks, getColorObjectByColorValue} from '@wordpress/block-editor';
 import classNames from 'classnames';
 import {editorThemeColors, getImage} from '../utility';
+import {textImageIcon} from '../icons';
 import {loremIpsum} from "lorem-ipsum";
-
-const blockIcon = createElement('svg', {width: 20, height: 20},
-    createElement('path', {
-        d: 'M15.9896811,4 L15.9896811,15.9145 L14.3195216,15.9145 L14.3195216,4 L15.9896811,4 Z M19.33,4 L19.33,15.9145 L17.6598405,15.9145 L17.6598405,4 L19.33,4 Z M11.8560364,4 C12.28,4 12.6328088,4.32631429 12.6845785,4.74466593 L12.6911162,4.85103571 L12.6911162,15.0634643 C12.6911162,15.4955286 12.3709199,15.8550786 11.9604119,15.9078374 L11.8560364,15.9145 L1.83507973,15.9145 C1.41111617,15.9145 1.05830734,15.5881857 1.00653772,15.1698341 L1,15.0634643 L1,4.85103571 C1,4.41897143 1.32019625,4.05942143 1.73070426,4.00666264 L1.83507973,4 L11.8560364,4 Z M8.3361754,10.6210579 L6.24847608,13.3613929 L4.75785877,11.5316661 L2.67015945,14.2124286 L11.0209567,14.2124286 L8.3361754,10.6210579 Z'
-    })
-);
 
 const attributes = {
     contentImages: {
@@ -62,7 +50,7 @@ const ALLOWED_BLOCKS = [
 
 registerBlockType('custom/text-image', {
     title: __('Text Image', 'sage'),
-    icon: blockIcon,
+    icon: textImageIcon,
     category: 'custom',
     // supports: {
     //     align: ['wide'],

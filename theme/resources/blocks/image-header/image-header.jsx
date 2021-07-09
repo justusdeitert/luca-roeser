@@ -7,12 +7,7 @@ import {MediaUpload, InspectorControls, InnerBlocks, getColorObjectByColorValue}
 import classNames from 'classnames';
 import {editorThemeColors, getImage, focalPositionInPixel} from "../utility";
 import * as clipPaths from "../clip-path-svgs"
-
-const blockIcon = createElement('svg', {width: 20, height: 20},
-    createElement('path', {
-        d: 'M19.1666667,12 L19.1666667,2 C19.1666667,1.07916667 18.4208333,0.333333333 17.5,0.333333333 L2.5,0.333333333 C1.57916667,0.333333333 0.833333333,1.07916667 0.833333333,2 L0.833333333,12 C0.833333333,12.9208333 1.57916667,13.6666667 2.5,13.6666667 L17.5,13.6666667 C18.4208333,13.6666667 19.1666667,12.9208333 19.1666667,12 Z M7.08333333,7.41666667 L9.16666667,9.92083333 L12.0833333,6.16666667 L15.8333333,11.1666667 L4.16666667,11.1666667 L7.08333333,7.41666667 Z'
-    })
-);
+import {imageHeaderIcon} from "../icons";
 
 const attributes = {
     /**
@@ -117,7 +112,7 @@ const ALLOWED_BLOCKS = [
 
 registerBlockType('custom/image-header', {
     title: __('Image Header', 'sage'),
-    icon: blockIcon,
+    icon: imageHeaderIcon,
     category: 'custom',
     supports: {
         // align: true,
