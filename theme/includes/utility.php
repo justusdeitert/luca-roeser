@@ -101,3 +101,12 @@ function convert_hex($hex) {
 function isMode($string) {
     return WP_ENV === $string;
 }
+
+function is_gutenberg_editor() {
+    if (!function_exists('get_current_screen')) {
+        return false;
+    }
+
+    $screen = get_current_screen();
+    return $screen->is_block_editor;
+}

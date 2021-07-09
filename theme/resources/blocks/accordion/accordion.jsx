@@ -368,7 +368,7 @@ registerBlockType('custom/accordion', {
                                 value={item.header}
                             />
                             {attributes.showIcon &&
-                            <i className={'icon-chevron-down'}></i>
+                                <i className={'icon-chevron-down'}></i>
                             }
                         </div>
                     </div>

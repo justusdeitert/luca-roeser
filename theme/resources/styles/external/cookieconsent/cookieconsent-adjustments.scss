@@ -249,6 +249,9 @@
     }
 
     &.bar {
+        margin-left: 0;
+        margin-right: 0;
+
         #c-inr {
             max-width: var(--max-container-width);
         }
