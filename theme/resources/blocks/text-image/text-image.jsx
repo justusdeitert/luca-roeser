@@ -168,7 +168,7 @@ registerBlockType('custom/text-image', {
                             {
                                 attributes.contentImages.map((contentImage, index) => {
                                     return (
-                                        <a key={index} href={getImage(contentImage, 'xlarge')}
+                                        <a key={index} href={getImage(contentImage, 'x_large')}
                                            data-lg-size={`${getImage(contentImage, 'height-large')}-${getImage(contentImage, 'width-large')}`}
                                            onClick={event => event.preventDefault()}
                                         >
@@ -267,7 +267,7 @@ registerBlockType('custom/text-image', {
                     {
                         attributes.contentImages.map((contentImage, index) => {
                             return (
-                                <a key={index} href={getImage(contentImage, 'xlarge')}
+                                <a key={index} href={getImage(contentImage, 'x_large')}
                                    data-lg-size={`${getImage(contentImage, 'width-large')}-${getImage(contentImage, 'height-large')}`}
                                 >
                                     <div className={classNames("custom-border custom-border-radius custom-shadow", imagesBackgroundColor && `has-${imagesBackgroundColor.slug}-background-color`)}>

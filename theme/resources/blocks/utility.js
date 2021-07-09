@@ -27,11 +27,12 @@ export const getImage = (image, size = 'full', placeholderId = false) => {
         let original = image.url;
         let thumbnail = image.sizes && image.sizes.thumbnail ? image.sizes.thumbnail.url : original;
         let placeholder = image.sizes && image.sizes.placeholder ? image.sizes.placeholder.url : thumbnail;
-        let tiny = image.sizes && image.sizes.tiny ? image.sizes.tiny.url : placeholder;
+        let very_tiny = image.sizes && image.sizes.very_tiny ? image.sizes.very_tiny.url : placeholder;
+        let tiny = image.sizes && image.sizes.tiny ? image.sizes.tiny.url : very_tiny;
         let small = image.sizes && image.sizes.small ? image.sizes.small.url : tiny;
         let medium = image.sizes && image.sizes.medium ? image.sizes.medium.url : small;
         let large = image.sizes && image.sizes.large ? image.sizes.large.url : medium;
-        let xlarge = image.sizes && image.sizes.xlarge ? image.sizes.xlarge.url : large;
+        let x_large = image.sizes && image.sizes.x_large ? image.sizes.x_large.url : large;
 
         /**
          * Old Image Definitions
@@ -48,8 +49,8 @@ export const getImage = (image, size = 'full', placeholderId = false) => {
         switch (size) {
             case 'original':
                 return original;
-            case 'xlarge':
-                return xlarge;
+            case 'x_large':
+                return x_large;
             case 'large':
                 return large;
             case 'medium':
@@ -58,6 +59,8 @@ export const getImage = (image, size = 'full', placeholderId = false) => {
                 return small;
             case 'tiny':
                 return tiny;
+            case 'very_tiny':
+                return very_tiny;
             case 'placeholder':
                 return placeholder;
             case 'thumbnail':
@@ -75,7 +78,7 @@ export const getImage = (image, size = 'full', placeholderId = false) => {
             case 'height-large':
                 return image.sizes && image.sizes.large ? image.sizes.large.height : image.sizes.full.height;
             default:
-                return xlarge;
+                return x_large;
         }
     } else {
         switch (size) {

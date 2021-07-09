@@ -353,7 +353,7 @@ registerBlockType('custom/image-header', {
                                 objectPosition: `${attributes.headerImageAlignment}`,
                                 opacity: attributes.headerImageOpacity,
                             }}
-                            src={getImage(attributes.headerImage, 'xlarge')}
+                            src={getImage(attributes.headerImage, 'x_large')}
                             alt={getImage(attributes.headerImage, 'alt')}
                             width={getImage(attributes.headerImage, 'width')}
                             height={getImage(attributes.headerImage, 'height')}
@@ -435,7 +435,7 @@ registerBlockType('custom/image-header', {
                              objectPosition: `${attributes.headerImageAlignment}`,
                              opacity: attributes.headerImageOpacity,
                          }}
-                         srcSet={`${getImage(attributes.headerImage, 'tiny')} 480w, ${getImage(attributes.headerImage, 'small')} 768w, ${getImage(attributes.headerImage, 'medium')} 1024w, ${getImage(attributes.headerImage, 'xlarge')} 1360w`}
+                         srcSet={`${getImage(attributes.headerImage, 'tiny')} 480w, ${getImage(attributes.headerImage, 'small')} 768w, ${getImage(attributes.headerImage, 'medium')} 1024w, ${getImage(attributes.headerImage, 'x_large')} 1360w`}
                          sizes="100w"
                          src={getImage(attributes.headerImage, 'medium')}
                          alt={getImage(attributes.headerImage, 'alt')}
