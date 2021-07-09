@@ -144,7 +144,7 @@ registerBlockType('custom/slider', {
 
         componentDidMount() {
             // console.log(this.props.name, ": componentDidMount()");
-            // window.initSliderBlockInstances();
+            window.initSliderBlockInstances();
         }
 
         componentDidUpdate() {
@@ -258,7 +258,7 @@ registerBlockType('custom/slider', {
                             <Button icon={'plus'}
                                     isSmall={true}
                                     className={'button button--icon-only'}
-                                // label={__('Add Item after', 'sage')}
+                                    // label={__('Add Item after', 'sage')}
                                     onClick={() => {
                                         addElementAfter(index)
                                     }}
@@ -273,7 +273,7 @@ registerBlockType('custom/slider', {
                             <Button icon={'minus'}
                                     isSmall={true}
                                     className={'button button--icon-only'}
-                                // label={__('Add Item after', 'sage')}
+                                    // label={__('Add Item after', 'sage')}
                                     onClick={() => removeElement(index)}
                                     style={{
                                         position: 'absolute',
@@ -436,6 +436,8 @@ registerBlockType('custom/slider', {
             };
 
             const slideNext = () => {
+                console.log('slideNext');
+                console.log(window.sliderBlockInstances[attributes.blockId]);
                 window.sliderBlockInstances[attributes.blockId].slideNext(300);
             };
 

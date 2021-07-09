@@ -10,6 +10,7 @@ import {bootstrapBreakpoints, objectIsEmpty} from '../utility'
 Swiper.use([Navigation, Pagination]);
 
 window.sliderBlockInstances = {};
+
 window.initSliderBlockInstances = () => {
     document.querySelectorAll('.slider-block').forEach(sliderBlock => {
 

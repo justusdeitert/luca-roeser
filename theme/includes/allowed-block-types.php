@@ -14,7 +14,7 @@ $core_blocks = [
     // 'core/verse',
 
     // Media
-    'core/image',
+    // 'core/image',
     // 'core/gallery',
     // 'core/audio',
     // 'core/cover',
