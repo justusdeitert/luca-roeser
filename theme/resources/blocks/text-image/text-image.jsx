@@ -34,6 +34,10 @@ const attributes = {
         type: 'string',
         default: '3x2',
     },
+    hasGallery: {
+        type: 'boolean',
+        default: true
+    }
 };
 
 const ALLOWED_BLOCKS = [
@@ -122,6 +126,10 @@ registerBlockType('custom/text-image', {
 
             const onChangeImagesRatio = (value) => {
                 setAttributes({imagesRatio: value});
+            };
+
+            const onChangeHasGallery = (value) => {
+                setAttributes({hasGallery: value});
             };
 
             const imagesBackgroundColor = getColorObjectByColorValue(editorThemeColors, attributes.imagesBackgroundColor);
@@ -226,6 +234,12 @@ registerBlockType('custom/text-image', {
                                     {label: __('21x9'), value: '21x9'},
                                 ]}
                                 onChange={onChangeImagesRatio}
+                            />
+                            <hr/>
+                            <ToggleControl
+                                label={__('Has Gallery', 'sage')}
+                                checked={attributes.hasGallery}
+                                onChange={onChangeHasGallery}
                             />
                             <hr/>
                             <p>{__('Background Color', 'sage')}</p>
