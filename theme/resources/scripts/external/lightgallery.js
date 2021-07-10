@@ -20,13 +20,6 @@ window.initTextImageLightGallery = () => {
             customSlideName: true,
             zoomFromOrigin: false,
         });
-
-        /**
-         * TODO: Implement a scroll treshold for lightGallerySpeed 300ms
-         */
-        // document.addEventListener('scroll', () => {
-        //     lightGalleryInstance.closeGallery();
-        // });
     })
 };
 
