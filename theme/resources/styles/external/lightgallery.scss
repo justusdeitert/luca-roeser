@@ -44,10 +44,18 @@
 
 .lg-next {
     @extend .icon-arrow-right;
+
+    &:after {
+        display: none;
+    }
 }
 
 .lg-prev {
     @extend .icon-arrow-left;
+
+    &:after {
+        display: none;
+    }
 }
 
 .lg-toolbar {
