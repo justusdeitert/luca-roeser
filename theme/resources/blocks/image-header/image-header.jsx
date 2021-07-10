@@ -252,8 +252,8 @@ registerBlockType('custom/image-header', {
                                     value={attributes.headerClipPath}
                                     options={[
                                         {label: __('None', 'sage'), value: 'none'},
-                                        {label: __('Default Clip', 'sage'), value: 'defaultClip'},
-                                        {label: __('House', 'sage'), value: 'house'},
+                                        {label: __('Slope', 'sage'), value: 'slope'},
+                                        {label: __('Curves', 'sage'), value: 'curves'},
                                     ]}
                                     onChange={onChangeHeaderClipPath}
                                 />
