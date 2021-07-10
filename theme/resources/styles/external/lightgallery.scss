@@ -1,5 +1,7 @@
 // This files contains lightGallery and all plugins
 
+/* purgecss start ignore */
+
 // Example For white theme
 // $lg-theme-color: #fff;
 // $lg-theme-highlight: #333;
@@ -19,8 +21,8 @@
 //@import '~lightgallery/scss/lg-fonts';
 @import '~lightgallery/scss/lg-theme-default';
 @import '~lightgallery/scss/lg-thumbnail';
-@import '~lightgallery/scss/lg-video';
-@import '~lightgallery/scss/lg-autoplay';
+//@import '~lightgallery/scss/lg-video';
+//@import '~lightgallery/scss/lg-autoplay';
 @import '~lightgallery/scss/lg-zoom';
 @import '~lightgallery/scss/lg-pager';
 @import '~lightgallery/scss/lg-fullscreen';
@@ -37,6 +39,7 @@
 .lg-outer {
     .lg-item {
         &:not(.lg-start-end-progress) {
+            // TODO: ADD Loading GIF!
             background: url('../images/loading.gif') no-repeat scroll center center transparent;
         }
     }
@@ -68,4 +71,4 @@
     }
 }
 
-
+/* purgecss end ignore */
