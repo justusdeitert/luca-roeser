@@ -60,6 +60,18 @@
                 "koodimonni-plugin-language/*",
                 "koodimonni-theme-language/*"
             ]
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "contact-form-7/de_de",
+                "type": "wordpress-language",
+                "version": "5.5.2",
+                "dist": {
+                    "type": "zip",
+                    "url": "https://downloads.wordpress.org/translation/plugin/contact-form-7/5.5.2/de_DE.zip"
+                }
+            }
         }
     ],
     "require": {
@@ -85,7 +97,8 @@
         "yoast/wordpress-seo": "17.4",
         "advanced-custom-fields/advanced-custom-fields-pro": "5.10.2",
         "wpackagist-plugin/regenerate-thumbnails":"3.1.5",
-        "wpackagist-plugin/imsanity":"2.7.2"
+        "wpackagist-plugin/imsanity":"2.7.2",
+        "contact-form-7/de_de":"5.5.2"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.6.0",
@@ -115,7 +128,8 @@
                 "vendor:koodimonni-language"
             ],
             "web/app/languages/plugins/": [
-                "vendor:koodimonni-plugin-language"
+                "vendor:koodimonni-plugin-language",
+                "package:contact-form-7/de_de"
             ],
             "web/app/languages/themes/": [
                 "vendor:koodimonni-theme-language"

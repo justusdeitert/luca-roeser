@@ -6,28 +6,34 @@ import lightGallery from 'lightgallery';
 /**
  * Plugins
  */
-import lgThumbnail from 'lightgallery/plugins/thumbnail'
-import lgZoom from 'lightgallery/plugins/zoom'
-import lgHash from 'lightgallery/plugins/hash'
+import lgThumbnail from 'lightgallery/plugins/thumbnail';
+import lgZoom from 'lightgallery/plugins/zoom';
+import lgHash from 'lightgallery/plugins/hash';
 
 window.lightGalleryInstances = {};
 
 window.initTextImageLightGallery = () => {
     document.querySelectorAll('.text-image-block').forEach(textImageBlock => {
-        let imageWrapper = textImageBlock.querySelector('.text-image-block__image-wrapper');
-        let lightGalleryInstance = lightGallery(imageWrapper, {
-            plugins: [lgZoom, lgThumbnail, lgHash],
-            speed: 300,
-            thumbnail: true,
-            customSlideName: true,
-            zoomFromOrigin: false,
-        });
 
-        /**
-         * Push Lightgallery to Instances with lgId
-         * @type {LightGallery}
-         */
-        window.lightGalleryInstances[lightGalleryInstance.lgId] = lightGalleryInstance;
+        if(!textImageBlock.classList.contains('no-gallery')) {
+            let imageWrapper = textImageBlock.querySelector('.text-image-block__images-wrapper');
+            let lightGalleryInstance = lightGallery(imageWrapper, {
+                plugins: [lgZoom, lgThumbnail, lgHash],
+                speed: 300,
+                thumbnail: true,
+                customSlideName: true,
+                zoomFromOrigin: false,
+                mobileSettings: {
+                    showCloseIcon: true
+                }
+            });
+
+            /**
+             * Push Lightgallery to Instances with lgId
+             * @type {LightGallery}
+             */
+            window.lightGalleryInstances[lightGalleryInstance.lgId] = lightGalleryInstance;
+        }
     })
 };
 

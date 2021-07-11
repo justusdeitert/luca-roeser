@@ -160,24 +160,24 @@ registerBlockType('custom/text-image', {
                                 />
                             )}
                         />
-                        <div className={classNames('text-image-block__image-wrapper')} data-image-count={attributes.imageCount}>
+                        <div className={classNames('text-image-block__images-wrapper')} data-image-count={attributes.imageCount}>
                             {
                                 attributes.contentImages.map((contentImage, index) => {
-                                    return (
-                                        <a key={index} href={getImage(contentImage, 'x_large')}
-                                           data-lg-size={`${getImage(contentImage, 'height-large')}-${getImage(contentImage, 'width-large')}`}
-                                           onClick={event => event.preventDefault()}
-                                        >
-                                            <div className={classNames("custom-border custom-border-radius custom-shadow", imagesBackgroundColor && `has-${imagesBackgroundColor.slug}-background-color`)}>
-                                                <div className={`ratio ratio-${attributes.imagesRatio}`}>
-                                                    <img className={classNames('custom-border-radius')}
-                                                         alt={getImage(contentImage, 'alt')}
-                                                         src={getImage(contentImage, 'small')}
-                                                    />
+                                    if (index < attributes.imageCount) {
+                                        return (
+                                            <div className={'text-image-block__image-wrapper'}>
+                                                <div className={classNames("custom-border custom-border-radius custom-shadow", imagesBackgroundColor && `has-${imagesBackgroundColor.slug}-background-color`)}>
+                                                    <div className={`ratio ratio-${attributes.imagesRatio}`}>
+                                                        <img className={classNames('custom-border-radius')}
+                                                             alt={getImage(contentImage, 'alt')}
+                                                             srcSet={`${getImage(contentImage, 'tiny')} 768w, ${getImage(contentImage, 'small')} 1360w`}
+                                                             src={getImage(contentImage, 'tiny')}
+                                                        />
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </a>
-                                    )
+                                        )
+                                    }
                                 })
                             }
                         </div>
@@ -194,7 +194,7 @@ registerBlockType('custom/text-image', {
             );
 
             return (
-                <div className={classNames(className, 'text-image-block', 'custom-spacing')}>
+                <div className={classNames(className, 'text-image-block', 'custom-spacing', 'no-gallery')}>
                     <InspectorControls>
                         <div className="inspector-controls-container">
                             <hr/>
@@ -264,25 +264,43 @@ registerBlockType('custom/text-image', {
         const imagesBackgroundColor = getColorObjectByColorValue(editorThemeColors, attributes.imagesBackgroundColor);
 
         const imageColumn = (
-            <div className={classNames(`text-image-block__image-column`, `col-12 col-md-6 col-xl-${attributes.columnRange}`)}>
-                <div className={classNames("text-image-block__image-wrapper")} data-image-count={attributes.imageCount}>
+            <div className={classNames(`text-image-block__images-column`, `col-12 col-md-6 col-xl-${attributes.columnRange}`)}>
+                <div className={classNames('text-image-block__images-wrapper')} data-image-count={attributes.imageCount}>
                     {
                         attributes.contentImages.map((contentImage, index) => {
-                            return (
-                                <a key={index} href={getImage(contentImage, 'x_large')}
-                                   data-lg-size={`${getImage(contentImage, 'width-large')}-${getImage(contentImage, 'height-large')}`}
-                                >
-                                    <div className={classNames("custom-border custom-border-radius custom-shadow", imagesBackgroundColor && `has-${imagesBackgroundColor.slug}-background-color`)}>
-                                        <div className={`ratio ratio-${attributes.imagesRatio}`}>
-                                            <img className={classNames('custom-border-radius')}
-                                                 alt={getImage(contentImage, 'alt')}
-                                                 srcSet={`${getImage(contentImage, 'tiny')} 768w, ${getImage(contentImage, 'small')} 1360w`}
-                                                 src={getImage(contentImage, 'tiny')}
-                                            />
+                            if (attributes.hasGallery) {
+                                return (
+                                    <a key={index} href={getImage(contentImage, 'x_large')}
+                                       data-lg-size={`${getImage(contentImage, 'width-large')}-${getImage(contentImage, 'height-large')}`}
+                                    >
+                                        <div className={classNames("custom-border custom-border-radius custom-shadow", imagesBackgroundColor && `has-${imagesBackgroundColor.slug}-background-color`)}>
+                                            <div className={`ratio ratio-${attributes.imagesRatio}`}>
+                                                <img className={classNames('custom-border-radius')}
+                                                     alt={getImage(contentImage, 'alt')}
+                                                     srcSet={`${getImage(contentImage, 'tiny')} 768w, ${getImage(contentImage, 'small')} 1360w`}
+                                                     src={getImage(contentImage, 'tiny')}
+                                                />
+                                            </div>
                                         </div>
-                                     </div>
-                                </a>
-                            )
+                                    </a>
+                                )
+                            } else {
+                                if (index < attributes.imageCount) {
+                                    return (
+                                        <div className={'text-image-block__image-wrapper'}>
+                                            <div className={classNames("custom-border custom-border-radius custom-shadow", imagesBackgroundColor && `has-${imagesBackgroundColor.slug}-background-color`)}>
+                                                <div className={`ratio ratio-${attributes.imagesRatio}`}>
+                                                    <img className={classNames('custom-border-radius')}
+                                                         alt={getImage(contentImage, 'alt')}
+                                                         srcSet={`${getImage(contentImage, 'tiny')} 768w, ${getImage(contentImage, 'small')} 1360w`}
+                                                         src={getImage(contentImage, 'tiny')}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )
+                                }
+                            }
                         })
                     }
                 </div>
@@ -298,7 +316,7 @@ registerBlockType('custom/text-image', {
         );
 
         return (
-            <div className={classNames(className, 'text-image-block', 'custom-spacing')}>
+            <div className={classNames(className, 'text-image-block', 'custom-spacing', !attributes.hasGallery && 'no-gallery')}>
                 <div className="text-image-block__row row">
                     {!attributes.switchContent ? imageColumn : textColumn}
                     {!attributes.switchContent ? textColumn : imageColumn}

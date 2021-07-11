@@ -1,11 +1,11 @@
 .text-image-block {
-    &__image-wrapper {
+    &__images-wrapper {
         display: flex;
         flex-wrap: wrap;
         //margin: -0.625rem;
         margin: calc(var(--custom-gutter-mobile-y) * -.3) calc(var(--custom-gutter-mobile-x) * -.3);
 
-        a {
+        > a, > div {
             display: none;
             padding: calc(var(--custom-gutter-mobile-y) * .3) calc(var(--custom-gutter-mobile-x) * .3);
             width: 100%;
@@ -14,7 +14,7 @@
         @include media-breakpoint-up(sm) {
             margin: calc(var(--custom-gutter-desktop-y) * -.3) calc(var(--custom-gutter-desktop-x) * -.3);
 
-            a {
+            > a, > div {
                 padding: calc(var(--custom-gutter-desktop-y) * .3) calc(var(--custom-gutter-desktop-x) * .3);
             }
         }
@@ -26,7 +26,7 @@
         }
 
         &[data-image-count="1"] {
-            a {
+            > a, > div {
                 &:nth-child(1) {
                     display: inline;
                     width: 100%;
@@ -35,7 +35,7 @@
         }
 
         &[data-image-count="2"] {
-            a {
+            > a, > div {
                 &:nth-child(1),
                 &:nth-child(2) {
                     display: inline;
@@ -45,7 +45,7 @@
         }
 
         &[data-image-count="3"] {
-            a {
+            > a, > div {
                 &:nth-child(1),
                 &:nth-child(2),
                 &:nth-child(3) {
@@ -60,7 +60,7 @@
         }
 
         &[data-image-count="4"] {
-            a {
+            > a, > div {
                 &:nth-child(1),
                 &:nth-child(2),
                 &:nth-child(3),

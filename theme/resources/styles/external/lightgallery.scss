@@ -64,10 +64,25 @@
 .lg-toolbar {
     .lg-close {
         @extend .icon-close;
+
+        &:after {
+            display: none;
+        }
     }
 
     .lg-download {
         @extend .icon-download;
+
+        &:after {
+            display: none;
+        }
+    }
+
+    /**
+     * TODO: Implement Zoom Icon / Add Zoom Icon to Icon Sets...
+     */
+    .lg-zoom-in, lg-zoom-out {
+        display: none;
     }
 }
 
