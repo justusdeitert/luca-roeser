@@ -18,4 +18,4 @@ production:
     # bin/npm: npm
     bin/wp: /opt/plesk/php/7.4/bin/php ~/wp-cli.phar
     sites:
-        zahnarzt-in-gescher.main: zahnarzt.wandeldigital.de
+        zahnarzt-in-gescher.main: zahnarzt-in-gescher.de
