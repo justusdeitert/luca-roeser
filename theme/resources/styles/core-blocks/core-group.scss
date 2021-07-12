@@ -1,4 +1,4 @@
-.wp-block-group  {
+.wp-block-group {
     padding: 0;
 
     &__inner-container {
@@ -17,6 +17,14 @@
             padding: 0;
             margin-top: var(--custom-block-spacing, 2rem);
             margin-bottom: var(--custom-block-spacing, 2rem);
+        }
+    }
+}
+
+[data-align="full"] {
+    .wp-block-group {
+        &.has-background {
+            box-shadow: none;
         }
     }
 }
