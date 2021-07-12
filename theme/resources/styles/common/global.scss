@@ -68,12 +68,25 @@ img {
     max-width: initial;
 }
 
-//#wpadminbar {
-//    // To be lower then light-gallery zIndex
-//    z-index: 1030;
-//    position: absolute;
-//    transform: translateY(-100%);
-//}
+.edit-post-link {
+    position: fixed;
+    bottom: var(--custom-block-spacing);
+    right: var(--custom-block-spacing);
+    background-color: rgb(var(--custom-body-background-color));
+    border-radius: 50%;
+    box-shadow: var(--custom-box-shadow);
+    color: rgb(var(--custom-font-color));
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+
+    &:hover {
+        color: rgb(var(--custom-font-color));
+    }
+}
 
 .screen-reader-response {
     position: absolute;
@@ -171,12 +184,4 @@ img {
 
 .custom-box-background {
     background-color: green;
-}
-
-// Adjust Admin Bar Bug since Wordpress 5.8
-@media screen and (max-width: 782px) {
-    #wpadminbar {
-        position: absolute;
-        transform: translateY(-100%);
-    }
 }
