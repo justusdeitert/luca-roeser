@@ -1,0 +1,21 @@
+staging:
+    hostname: wandeldigital.de
+    stage: staging
+    branch: master
+    deploy_path: ~/zahnarzt.wandeldigital.de
+    bin/composer: /opt/plesk/php/7.4/bin/php ~/composer.phar
+    # bin/npm: npm
+    bin/wp: /opt/plesk/php/7.4/bin/php ~/wp-cli.phar
+    sites:
+        zahnarzt-in-gescher.main: zahnarzt.wandeldigital.de
+
+production:
+    hostname: wandeldigital.de
+    stage: production
+    branch: master
+    deploy_path: ~/zahnarzt.wandeldigital.de
+    bin/composer: /opt/plesk/php/7.4/bin/php ~/composer.phar
+    # bin/npm: npm
+    bin/wp: /opt/plesk/php/7.4/bin/php ~/wp-cli.phar
+    sites:
+        zahnarzt-in-gescher.main: zahnarzt.wandeldigital.de

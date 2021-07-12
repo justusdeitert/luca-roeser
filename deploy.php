@@ -123,7 +123,8 @@ set('shared_dirs', [
 ]);
 
 // Load host setup
-inventory(__DIR__ . '/hosts.yml');
+
+inventory(__DIR__ . '/hosts/'. getenv('PROJECT_NAME') .'.yml');
 
 // Tasks
 // https://deployer.org/docs/advanced/deploy-strategies.html
