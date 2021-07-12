@@ -1,6 +1,6 @@
 html {
     font-size: var(--custom-font-size);
-    //height: 100%;
+    height: 100%;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -10,13 +10,13 @@ body {
     background-color: rgb(var(--custom-body-background-color));
     font-weight: var(--custom-font-weight);
     font-family: var(--custom-text-font-family);
-    //height: 100%;
+    height: 100%;
 }
 
 #app {
-    //height: 100%;
-    //display: flex;
-    //flex-direction: column;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 /**
