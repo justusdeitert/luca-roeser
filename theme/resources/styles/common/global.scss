@@ -24,6 +24,14 @@ body {
  * TODO: Condition for if navigation exists
  */
 
+main {
+    > *:first-child {
+        &:not(.image-header-block) {
+            margin-top: calc(var(--custom-navbar-top-position) + var(--custom-navbar-height) + var(--custom-block-spacing));
+        }
+    }
+}
+
 .page-header {
     margin-top: calc(var(--custom-navbar-top-position) + var(--custom-navbar-height) + var(--custom-block-spacing));
     margin-bottom: calc(var(--custom-block-spacing) / 1.5);
@@ -60,12 +68,12 @@ img {
     max-width: initial;
 }
 
-#wpadminbar {
-    // To be lower then light-gallery zIndex
-    z-index: 1030;
-    position: absolute;
-    transform: translateY(-100%);
-}
+//#wpadminbar {
+//    // To be lower then light-gallery zIndex
+//    z-index: 1030;
+//    position: absolute;
+//    transform: translateY(-100%);
+//}
 
 .screen-reader-response {
     position: absolute;

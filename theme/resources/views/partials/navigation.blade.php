@@ -21,7 +21,7 @@
      */
     $navbar_classes = [
         'navbar',
-        $navbar_top_position == 0 ? 'set-to-top' : ''
+        $navbar_top_position == 0 ? 'set-to-top' : '',
     ];
 
     /**
@@ -70,20 +70,22 @@
 ?>
 
 <?php if ($menu_item_separator !== 'none') { ?>
-    <style>
-        .navbar .navbar__menu > .menu-item:after {
-            content: '<?php echo $menu_item_separator; ?>';
-        }
+    <?php ob_start(); ?>
+        <style>
+            .navbar .navbar__menu > .menu-item:after {
+                content: '<?php echo $menu_item_separator; ?>';
+            }
 
-        .navbar .navbar__menu > .menu-item:last-child:after {
-            display: none;
-        }
-    </style>
+            .navbar .navbar__menu > .menu-item:last-child:after {
+                display: none;
+            }
+        </style>
+    <?php echo sanitize_output(ob_get_clean()); // Minify HTML Output ?>
 <?php } ?>
 
 @if(class_exists('Kirki') && $has_any_menu)
-    <nav class="{!! implode(' ', $navbar_classes); !!}">
-        <div class="@if($navbar_has_full_width) {!! 'container-fluid' !!} @else {!! 'container' !!} @endif">
+    <nav class="{!! class_names($navbar_classes); !!}">
+        <div class="{!! $navbar_has_full_width ? 'container-fluid' : 'container' !!}">
             <div class="navbar__inner">
 
                 {{-- Define Menu Item Order --}}
@@ -147,7 +149,7 @@
                     @endif
 
                     @if($custom_navbar_item === 'burger_menu_icon')
-                        <div class="{!! implode(' ', [
+                        <div class="{!! class_names([
                             'navbar__burger-menu-icon-wrapper d-flex',
                             !$custom_menu_mobile_only ? 'd-md-none' : '',
                             get_item_spacing_classes('burger_menu_icon', ['left', ''])

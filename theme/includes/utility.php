@@ -110,3 +110,12 @@ function is_gutenberg_editor() {
     $screen = get_current_screen();
     return $screen->is_block_editor;
 }
+
+/**
+ * Function to return correct classnames based on array
+ * @param array $class_names
+ * @return string
+ */
+function class_names(array $class_names) {
+    return implode(' ', array_filter($class_names));
+}
