@@ -20,6 +20,14 @@ require 'recipe/slack.php';
 new DeployerWordpress();
 
 /**
+ * Initiate dot environment .env
+ */
+if (file_exists(__DIR__ . '/bedrock/.env')) {
+    $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__, '/bedrock/.env');
+    $dotenv->load();
+}
+
+/**
  * Local Path Needs to be set, there is no such deployer variable
  */
 set('local_path', __DIR__);
@@ -123,8 +131,7 @@ set('shared_dirs', [
 ]);
 
 // Load host setup
-
-inventory(__DIR__ . '/hosts/'. getenv('PROJECT_NAME') .'.yml');
+inventory(__DIR__ . '/hosts/'. $_ENV('PROJECT_NAME') .'.yml');
 
 // Tasks
 // https://deployer.org/docs/advanced/deploy-strategies.html
