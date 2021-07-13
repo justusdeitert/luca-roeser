@@ -6,7 +6,7 @@
 
 function customizer_theme_styles() {
 
-    global $standard_google_fonts, $default_cookie_message;
+    global $default_cookie_message;
 
     /**
      * Custom google font
@@ -25,9 +25,9 @@ function customizer_theme_styles() {
     }
 
     /**
-     * Adds Dark Color variations to general colors
+     * Standard colors to add dark color variations
      */
-    $general_colors = [
+    $standard_colors = [
         'primary' => get_theme_mod('custom_primary_color', '#0d6efd'),
         'secondary' => get_theme_mod('custom_secondary_color', '#6c757d'),
         'tertiary' => get_theme_mod('custom_tertiary_color', '#6c757d'),
@@ -39,10 +39,10 @@ function customizer_theme_styles() {
         'info' => get_theme_mod('custom_info_color', '#0dcaf0'),
     ];
 
-    foreach ($general_colors as $color => $value) {
-        $general_color_versions[$color] = convert_hex($value);
-        $general_color_versions[$color . '-dark'] = convert_hex(adjustBrightness($value, -0.1));
-        $general_color_versions[$color . '-darker'] = convert_hex(adjustBrightness($value, -0.4));
+    foreach ($standard_colors as $color => $value) {
+        $standard_color_versions[$color] = convert_hex($value);
+        $standard_color_versions[$color . '-dark'] = convert_hex(adjustBrightness($value, -0.1));
+        $standard_color_versions[$color . '-darker'] = convert_hex(adjustBrightness($value, -0.4));
     }
 
     $theme_colors = [
@@ -140,14 +140,14 @@ function customizer_theme_styles() {
             --custom-headline-weight: <?php echo get_theme_mod('custom_headline_weight', '400'); ?>;
             --custom-headline-font: <?php echo get_theme_mod('custom_headline_font', 'Roboto'); ?>;
             --custom-text-font: <?php echo get_theme_mod('custom_text_font', 'Roboto'); ?>;
-            --custom-headline-font-family: '<?php echo $custom_headline_font; ?>', <?php echo $standard_google_fonts[$custom_headline_font]; ?>;
-            --custom-text-font-family: '<?php echo $custom_text_font; ?>', <?php echo $standard_google_fonts[$custom_text_font]; ?>;
+            --custom-headline-font-family: '<?php echo $custom_headline_font; ?>', <?php echo $GLOBALS['standard_google_fonts'][$custom_headline_font]; ?>;
+            --custom-text-font-family: '<?php echo $custom_text_font; ?>', <?php echo $GLOBALS['standard_google_fonts'][$custom_text_font]; ?>;
 
             /* Font Settings */
             --custom-form-height: <?php echo get_theme_mod('custom_form_height'); ?>px;
 
             /* General Colors */
-            <?php foreach ($general_color_versions as $name => $value) { ?>
+            <?php foreach ($standard_color_versions as $name => $value) { ?>
                 --custom-<?php echo $name; ?>-color: <?php echo $value; ?>;
             <?php } ?>
 
@@ -207,7 +207,7 @@ function customizer_theme_styles() {
             font-display: block;
         }
 
-        <?php foreach ($general_color_versions as $name => $value) { ?>
+        <?php foreach ($standard_color_versions as $name => $value) { ?>
             .has-<?php echo $name; ?>-color {
                 color: rgb(<?php echo $value; ?>);
             }

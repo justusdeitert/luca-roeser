@@ -8,7 +8,7 @@
 /**
  * Custom Theme Font Array
  */
-$standard_google_fonts = [
+$GLOBALS['standard_google_fonts'] = [
     'Montserrat' => 'sans-serif',
     'Montserrat Alternates' => 'sans-serif',
     'Source Sans Pro' => 'sans-serif',
@@ -30,7 +30,7 @@ $standard_google_fonts = [
  */
 
 // General Colors
-$general_colors = [
+$GLOBALS['general_colors'] = [
     'primary' => '#0d6efd',
     'secondary' => '#6c757d',
     'tertiary' => '#6c757d',
@@ -39,20 +39,20 @@ $general_colors = [
 ];
 
 // Font Colors
-$font_colors = [
+$GLOBALS['font_colors'] = [
     'font' => '#212529',
     'link' => '#0d6efd',
     'link_hover' => '#0d6efd',
 ];
 
 // Content Colors
-$content_colors = [
+$GLOBALS['content_colors'] = [
     'body_background' => '#f8f9fa',
     'controls' => '#212529',
 ];
 
 // Alert Colors
-$alert_colors = [
+$GLOBALS['alert_colors'] = [
     'success' => '#198754',
     'danger' => '#dc3545',
     'warning' => '#ffc107',
@@ -60,7 +60,7 @@ $alert_colors = [
 ];
 
 // Menu Colors
-$menu_colors = [
+$GLOBALS['menu_colors'] = [
     'navbar_background' => '#f8f9fa',
     'navbar_font' => '#212529',
     'navbar_font_active' => '#f8f9fa',
@@ -72,7 +72,7 @@ $menu_colors = [
 ];
 
 // Form colors
-$form_colors = [
+$GLOBALS['form_colors'] = [
     'form_font' => '#212529',
     'form_focus' => '#0d6efd',
     'form_background' => '#f8f9fa',
@@ -80,7 +80,7 @@ $form_colors = [
 ];
 
 // Footer colors
-$footer_colors = [
+$GLOBALS['footer_colors'] = [
     'footer_background' => '#f8f9fa',
     'footer_font' => '#212529',
     'footer_link' => '#0d6efd',
@@ -88,7 +88,7 @@ $footer_colors = [
 ];
 
 // Footer colors
-$cookie_colors = [
+$GLOBALS['cookie_colors'] = [
     'cookie_background' => '#f8f9fa',
     'cookie_background_highlight' => '#e3e3e3',
     'cookie_font' => '#212529',
@@ -101,7 +101,7 @@ $cookie_colors = [
  * Further implementation & corresponding css box shadows in
  * @file theme/includes/add-customizer-theme-styles.php
  */
-$box_shadows = [
+$GLOBALS['box_shadows'] = [
     'no-shadow' => 'No Shadow',
     'shadow-sm' => 'Small Shadow',
     'shadow' => 'Shadow',
@@ -176,8 +176,6 @@ if (class_exists('Kirki')) {
          * Content & Container Sizes
          */
         function content_settings() {
-
-            global $box_shadows;
 
             Kirki::add_section('section_content_settings_id', array(
                 'title' => __('Content Settings', 'sage'),
@@ -320,7 +318,7 @@ if (class_exists('Kirki')) {
                 'placeholder' => __('Select an option...', 'sage'),
                 'priority' => 10,
                 'multiple' => 1,
-                'choices' => $box_shadows,
+                'choices' => $GLOBALS['box_shadows'],
             ]);
         }
 
@@ -329,10 +327,8 @@ if (class_exists('Kirki')) {
          */
         function font_settings() {
 
-            global $standard_google_fonts;
-
             $standard_google_fonts_array = [];
-            foreach ($standard_google_fonts as $key => $value) {
+            foreach ($GLOBALS['standard_google_fonts'] as $key => $value) {
                 $standard_google_fonts_array[$key] = $key . ' (' . ucfirst($value) . ')';
             }
 
@@ -438,15 +434,6 @@ if (class_exists('Kirki')) {
          */
         function color_settings() {
 
-            global $general_colors,
-                   $font_colors,
-                   $content_colors,
-                   $alert_colors,
-                   $menu_colors,
-                   $form_colors,
-                   $footer_colors,
-                   $cookie_colors;
-
             Kirki::add_section('section_color_settings_id', array(
                 'title' => __('Color Settings', 'sage'),
                 'panel' => 'panel_theme_settings_id',
@@ -461,7 +448,7 @@ if (class_exists('Kirki')) {
             custom_kirki_headline('section_color_settings_id', 'General Colors', 'h2');
             // custom_kirki_text('section_color_settings_id', 'Define the general theme Colors that can be selected within the Gutenberg Editor');
 
-            foreach ($general_colors as $color => $value) {
+            foreach ($GLOBALS['general_colors'] as $color => $value) {
                 Kirki::add_field('custom_' . $color . '_color_id', [
                     'type' => 'color',
                     'settings' => 'custom_' . $color . '_color',
@@ -475,7 +462,7 @@ if (class_exists('Kirki')) {
             custom_kirki_headline('section_color_settings_id', 'Font Colors', 'h2');
             // custom_kirki_text('section_color_settings_id', 'Define the general theme Colors that can be selected within the Gutenberg Editor');
 
-            foreach ($font_colors as $color => $value) {
+            foreach ($GLOBALS['font_colors'] as $color => $value) {
                 Kirki::add_field('custom_' . $color . '_color_id', [
                     'type' => 'color',
                     'settings' => 'custom_' . $color . '_color',
@@ -488,7 +475,7 @@ if (class_exists('Kirki')) {
             custom_kirki_border('section_color_settings_id');
             custom_kirki_headline('section_color_settings_id', 'Content Colors', 'h2');
 
-            foreach ($content_colors as $color => $value) {
+            foreach ($GLOBALS['content_colors'] as $color => $value) {
                 Kirki::add_field('custom_' . $color . '_color_id', [
                     'type' => 'color',
                     'settings' => 'custom_' . $color . '_color',
@@ -501,7 +488,7 @@ if (class_exists('Kirki')) {
             custom_kirki_border('section_color_settings_id');
             custom_kirki_headline('section_color_settings_id', 'Alert Colors', 'h2');
 
-            foreach ($alert_colors as $color => $value) {
+            foreach ($GLOBALS['alert_colors'] as $color => $value) {
                 Kirki::add_field('custom_' . $color . '_color_id', [
                     'type' => 'color',
                     'settings' => 'custom_' . $color . '_color',
@@ -514,7 +501,7 @@ if (class_exists('Kirki')) {
             custom_kirki_border('section_color_settings_id');
             custom_kirki_headline('section_color_settings_id', 'Menu Colors', 'h2');
 
-            foreach ($menu_colors as $color => $value) {
+            foreach ($GLOBALS['menu_colors'] as $color => $value) {
                 Kirki::add_field('custom_' . $color . '_color_id', [
                     'type' => 'color',
                     'settings' => 'custom_' . $color . '_color',
@@ -530,7 +517,7 @@ if (class_exists('Kirki')) {
             custom_kirki_border('section_color_settings_id');
             custom_kirki_headline('section_color_settings_id', 'Form Colors', 'h2');
 
-            foreach ($form_colors as $color => $value) {
+            foreach ($GLOBALS['form_colors'] as $color => $value) {
                 Kirki::add_field('custom_' . $color . '_color_id', [
                     'type' => 'color',
                     'settings' => 'custom_' . $color . '_color',
@@ -543,7 +530,7 @@ if (class_exists('Kirki')) {
             custom_kirki_border('section_color_settings_id');
             custom_kirki_headline('section_color_settings_id', 'Footer Colors', 'h2');
 
-            foreach ($footer_colors as $color => $value) {
+            foreach ($GLOBALS['footer_colors'] as $color => $value) {
                 Kirki::add_field('custom_' . $color . '_color_id', [
                     'type' => 'color',
                     'settings' => 'custom_' . $color . '_color',
@@ -556,7 +543,7 @@ if (class_exists('Kirki')) {
             custom_kirki_border('section_color_settings_id');
             custom_kirki_headline('section_color_settings_id', 'Cookie Notice Colors', 'h2');
 
-            foreach ($cookie_colors as $color => $value) {
+            foreach ($GLOBALS['cookie_colors'] as $color => $value) {
                 Kirki::add_field('custom_' . $color . '_color_id', [
                     'type' => 'color',
                     'settings' => 'custom_' . $color . '_color',
@@ -604,8 +591,6 @@ if (class_exists('Kirki')) {
          * Menu Settings
          */
         function menu_settings() {
-
-            global $box_shadows;
 
             Kirki::add_section('section_menu_settings_id', array(
                 'title' => __('Menu Settings', 'sage'),
@@ -695,7 +680,7 @@ if (class_exists('Kirki')) {
                 'placeholder' => __('Select an option...', 'sage'),
                 // 'priority' => 10,
                 'multiple' => 1,
-                'choices' => $box_shadows,
+                'choices' => $GLOBALS['box_shadows'],
             ]);
 
             custom_kirki_border('section_menu_settings_id');
