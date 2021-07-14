@@ -1,11 +1,10 @@
 import {__} from '@wordpress/i18n';
 import {registerBlockType} from '@wordpress/blocks';
-import {createElement} from '@wordpress/element';
 import {RangeControl, Button, ToggleControl, SelectControl, PanelBody, ColorPalette, FocalPointPicker} from '@wordpress/components';
 import {__experimentalAlignmentMatrixControl as AlignmentMatrixControl} from '@wordpress/components';
-import {MediaUpload, InspectorControls, InnerBlocks, getColorObjectByColorValue} from '@wordpress/block-editor';
+import {MediaUpload, InspectorControls, InnerBlocks} from '@wordpress/block-editor';
 import classNames from 'classnames';
-import {editorThemeColors, getImage, focalPositionInPixel} from "../utility";
+import {editorThemeColors, getImage, focalPositionInPixel, getColorObject} from "../utility";
 import * as clipPaths from "../clip-path-svgs"
 import {imageHeaderIcon} from "../icons";
 
@@ -17,6 +16,10 @@ const attributes = {
     align: {
         type: 'string',
         default: 'full'
+    },
+    clientId: {
+        type: 'string',
+        default: ''
     },
     /**
      * Header Properties
@@ -127,7 +130,7 @@ registerBlockType('custom/image-header', {
     //         subTitle: __('Lorem ipsum dolor sit amet.'),
     //     },
     // },
-    edit: ({className, attributes, setAttributes}) => {
+    edit: ({className, attributes, setAttributes, clientId}) => {
 
         /**
          * Header Properties
@@ -214,7 +217,7 @@ registerBlockType('custom/image-header', {
             ['core/heading', {placeholder: 'This is the Subtitle...'}],
         ];
 
-        const headerBackgroundColor = getColorObjectByColorValue(editorThemeColors, attributes.headerBackgroundColor);
+        attributes.clientId = clientId;
 
         return (
             <>
@@ -332,16 +335,15 @@ registerBlockType('custom/image-header', {
                     </PanelBody>
                 </InspectorControls>
                 <div
-                    className={classNames(className, 'image-header-block', headerBackgroundColor && `has-${headerBackgroundColor.slug}-background-color`)}
+                    className={classNames(className, 'image-header-block', getColorObject(attributes.headerBackgroundColor) && `has-${getColorObject(attributes.headerBackgroundColor).slug}-background-color`)}
                     style={{
                         maxHeight: attributes.headerFullHeight ? `initial` : `${attributes.headerHeight}px`,
                         minHeight: attributes.headerFullHeight ? `initial` : `${attributes.headerMobileHeight}px`,
                         height: attributes.headerFullHeight ? `100vh` : '60vw',
-                        clipPath: attributes.headerClipPath !== 'none' ? 'url(#clipPolygon)' : 'none'
-                        // clipPath: attributes.headerFullHeight ? 'initial' : getClipPath(),
+                        clipPath: attributes.headerClipPath !== 'none' ? `url(#clip-path-${attributes.clientId})` : 'none'
                     }}
                 >
-                    {attributes.headerClipPath !== 'none' && clipPaths[attributes.headerClipPath]}
+                    {attributes.headerClipPath !== 'none' && clipPaths[attributes.headerClipPath](`clip-path-${attributes.clientId}`)}
                     {!attributes.headerImageRemove &&
                         <img
                             className={classNames('image-header-block__image', attributes.headerImageBlur > 0 ? 'is-blurred' : '')}
@@ -411,20 +413,18 @@ registerBlockType('custom/image-header', {
     },
     save: ({className, attributes}) => {
 
-        const headerBackgroundColor = getColorObjectByColorValue(editorThemeColors, attributes.headerBackgroundColor);
-
         return (
             <div
-                className={classNames(className, 'image-header-block', headerBackgroundColor && `has-${headerBackgroundColor.slug}-background-color`)}
+                className={classNames(className, 'image-header-block', getColorObject(attributes.headerBackgroundColor) && `has-${getColorObject(attributes.headerBackgroundColor).slug}-background-color`)}
                 style={{
                     maxHeight: attributes.headerFullHeight ? `initial` : `${attributes.headerHeight}px`,
                     minHeight: attributes.headerFullHeight ? `initial` : `${attributes.headerMobileHeight}px`,
                     height: attributes.headerFullHeight ? `100vh` : '60vw',
-                    clipPath: attributes.headerClipPath !== 'none' ? 'url(#clipPolygon)' : 'none'
+                    clipPath: attributes.headerClipPath !== 'none' ? `url(#clip-path-${attributes.clientId})` : 'none'
                     // clipPath: attributes.headerFullHeight ? 'initial' : getClipPath(),
                 }}
             >
-                {attributes.headerClipPath !== 'none' && clipPaths[attributes.headerClipPath]}
+                {attributes.headerClipPath !== 'none' && clipPaths[attributes.headerClipPath](`clip-path-${attributes.clientId}`)}
                 {!attributes.headerImageRemove &&
                     <img className={classNames('image-header-block__image', attributes.headerImageBlur > 0 ? 'is-blurred' : '')}
                          style={{

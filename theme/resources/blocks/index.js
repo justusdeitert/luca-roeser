@@ -6,3 +6,4 @@ import './text-image';
 import './slider';
 import './image';
 import './button';
+import './section';

@@ -1,0 +1,11 @@
+.section-block {
+    &__inner {
+        @extend .container;
+        padding-top: var(--custom-block-spacing, 2rem);
+        padding-bottom: var(--custom-block-spacing, 2rem);
+    }
+}
+
+.clip-path-svg {
+    position: absolute;
+}

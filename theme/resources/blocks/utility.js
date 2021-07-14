@@ -1,3 +1,5 @@
+import {getColorObjectByColorValue} from '@wordpress/block-editor';
+
 /**
  * @param array
  * @returns {*}
@@ -243,4 +245,8 @@ export const focalPositionInPixel = (value, unit = 'px') => {
     value = Math.round(value);
 
     return `${value + unit}`;
+}
+
+export const getColorObject = (color) => {
+    return getColorObjectByColorValue(editorThemeColors, color)
 }

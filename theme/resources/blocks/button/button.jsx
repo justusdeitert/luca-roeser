@@ -1,46 +1,48 @@
 import {__} from '@wordpress/i18n';
 import {registerBlockType} from '@wordpress/blocks';
-import {SelectControl, ToolbarGroup, ToolbarDropdownMenu} from '@wordpress/components';
-import {BlockControls, InspectorControls, RichText} from '@wordpress/block-editor';
+import {SelectControl, ToolbarGroup, ToolbarDropdownMenu, ToolbarButton, Popover, Dropdown} from '@wordpress/components';
+import {BlockControls, InspectorControls, RichText, __experimentalLinkControl as LinkControl} from '@wordpress/block-editor';
+import {useState} from '@wordpress/element';
 import classNames from 'classnames';
-import {imageIcon} from '../icons';
+import {buttonIcon} from '../icons';
+
+const attributes = {
+    buttonAlignment: {
+        type: 'string',
+        default: 'left'
+    },
+    buttonText: {
+        type: 'string',
+        default: 'Lorem Ipsum'
+    },
+    buttonStyle: {
+        type: 'string',
+        default: 'primary'
+    },
+    buttonSize: {
+        type: 'string',
+        default: ''
+    },
+    buttonLink: {
+        type: 'object',
+        default: {
+            opensInNewTab: false,
+            nofollow: false
+        }
+    },
+};
 
 registerBlockType('custom/button', {
     title: __('Button', 'sage'),
-    icon: imageIcon,
+    icon: buttonIcon,
     category: 'custom',
     // multiple: false, // Use this block just once per post
-    attributes: {
-        buttonAlignment: {
-            type: 'string',
-            default: 'left'
-        },
-        buttonText: {
-            type: 'string',
-            default: 'Lorem Ipsum'
-        },
-        buttonStyle: {
-            type: 'string',
-            default: 'primary'
-        },
-        buttonSize: {
-            type: 'string',
-            default: ''
-        },
-    },
+    attributes,
     edit: ({className, attributes, setAttributes}) => {
 
         const onChangeButtonText = (value) => {
             setAttributes({buttonText: value});
         };
-
-        // const onChangeButtonAlignment = (value) => {
-        //     setAttributes({buttonAlignment: value});
-        // };
-        //
-        // const onChangeTextAlign = (value) => {
-        //     setAttributes({textAlign: value});
-        // };
 
         const onChangeButtonStyle = (value) => {
             setAttributes({buttonStyle: value});
@@ -57,6 +59,15 @@ registerBlockType('custom/button', {
         const getAlignmentIcon = () => {
             return 'align-' + attributes.buttonAlignment;
         }
+
+        const onChangeButtonLink = (value) => {
+            setAttributes({buttonLink: value});
+        };
+
+        // const [isVisible, setIsVisible] = useState(false);
+        // const toggleVisible = () => {
+        //     setIsVisible((state) => !state);
+        // };
 
         return (
             <>
@@ -82,6 +93,43 @@ registerBlockType('custom/button', {
                                     onClick: () => onClickAlignment('center'),
                                 },
                             ]}
+                        />
+                        {/*<ToolbarButton
+                            icon="admin-links"
+                            label="Edit Link"
+                            onClick={toggleVisible}
+                        />*/}
+                        <Dropdown
+                            className="my-container-class-name"
+                            contentClassName="my-popover-content-classname"
+                            position="bottom right"
+                            renderToggle={({isOpen, onToggle}) => (
+                                <ToolbarButton
+                                    icon="admin-links"
+                                    label="Edit Link"
+                                    onClick={onToggle}
+                                    aria-expanded={isOpen}
+                                />
+                            )}
+                            renderContent={() => (
+                                <div style={{padding: "16px"}}>
+                                    <LinkControl
+                                        value={attributes.buttonLink}
+                                        onChange={onChangeButtonLink}
+                                        withCreateSuggestion={true}
+                                        settings={[
+                                            {
+                                                id: 'opensInNewTab',
+                                                title: __('Open in new tab', 'sage'),
+                                            },
+                                            {
+                                                id: 'nofollow',
+                                                title: __('Search engines should ignore this link (nofollow)', 'sage')
+                                            },
+                                        ]}
+                                    />
+                                </div>
+                            )}
                         />
                     </ToolbarGroup>
                 </BlockControls>
@@ -120,7 +168,7 @@ registerBlockType('custom/button', {
                 </InspectorControls>
                 <div className={classNames(className, 'button-block', `justify-content-${attributes.buttonAlignment}`)}>
                     <RichText
-                        tagName="a"
+                        tagName="div"
                         className={classNames('btn', `btn-${attributes.buttonStyle}`, attributes.buttonSize && `btn-${attributes.buttonSize}`)}
                         role="button"
                         placeholder={__('Button Text', 'sage')}
@@ -130,6 +178,27 @@ registerBlockType('custom/button', {
                         value={attributes.buttonText}
                         onChange={onChangeButtonText}
                     />
+                    {/*{isVisible &&
+                        <Popover>
+                            <div style={{padding: "16px"}}>
+                                <LinkControl
+                                    value={attributes.buttonLink}
+                                    onChange={onChangeButtonLink}
+                                    withCreateSuggestion={true}
+                                    settings={[
+                                        {
+                                            id: 'opensInNewTab',
+                                            title: __('Open in new tab', 'sage'),
+                                        },
+                                        {
+                                            id: 'customDifferentSetting',
+                                            title: 'Has this custom setting?'
+                                        }
+                                    ]}
+                                />
+                            </div>
+                        </Popover>
+                    }*/}
                 </div>
             </>
         );
@@ -138,7 +207,9 @@ registerBlockType('custom/button', {
         return (
             <>
                 <div className={classNames(className, 'button-block', `justify-content-${attributes.buttonAlignment}`)}>
-                    <a href='#'
+                    <a href={attributes.buttonLink.url}
+                       target={attributes.buttonLink.opensInNewTab ? '_blank' : '_self'}
+                       rel={attributes.buttonLink.nofollow ? 'noopener nofollow' : 'noopener'}
                        role="button"
                        className={classNames('btn', `btn-${attributes.buttonStyle}`, attributes.buttonSize && `btn-${attributes.buttonSize}`)}
                     >{attributes.buttonText}</a>

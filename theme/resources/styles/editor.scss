@@ -66,6 +66,10 @@ html {
     &[data-type="core/widget-area"] {
         max-width: var(--max-container-width);
     }
+
+    &[data-align="wide"] {
+        max-width: calc(var(--max-container-width) + 200px);
+    }
 }
 
 .editor-styles-wrapper, .block-editor-block-inspector {

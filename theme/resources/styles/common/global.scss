@@ -205,6 +205,10 @@ img {
     }
 }
 
-.custom-box-background {
-    background-color: green;
+/**
+ * Remember to add recaptcha gdpr notice
+ * @link https://developers.google.com/recaptcha/docs/faq#id-like-to-hide-the-recaptcha-badge.-what-is-allowed
+ */
+.grecaptcha-badge {
+    visibility: hidden;
 }

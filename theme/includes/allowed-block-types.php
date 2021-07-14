@@ -69,6 +69,7 @@ $custom_blocks_normal_editor = [
     'custom/slider',
     'custom/image',
     'custom/button',
+    'custom/section',
 ];
 
 $custom_blocks_widget_editor = [
