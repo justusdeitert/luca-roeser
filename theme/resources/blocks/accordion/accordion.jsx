@@ -186,7 +186,7 @@ registerBlockType('custom/accordion', {
                         <Button icon={'minus'}
                                 isSmall={true}
                                 label={__('Remove Item', 'sage')}
-                                className={'icon-only'}
+                                className={'button'}
                                 onClick={toggleVisible}
                                 // style={{marginRight: '10px'}}
                         >
@@ -212,11 +212,11 @@ registerBlockType('custom/accordion', {
                 let uniqueIndex = `${attributes.blockId}-${index}`
 
                 return (
-                    <div className={classNames("accordion-block__item", item.isOpen && 'open-on-mount')} key={`card-${index}`}>
+                    <div key={`card-${index}`} className={classNames("accordion-block__item", item.isOpen && 'open-on-mount')}>
                         <Button icon={'plus'}
-                                className={'button button--icon-only'}
+                                className={'button'}
                                 isSmall={true}
-                                label={__('Add Item after', 'sage')}
+                                // label={__('Add Item after', 'sage')}
                                 onClick={() => {addAccordionItemAfter(index)}}
                                 style={{
                                     position: 'absolute',
@@ -249,7 +249,7 @@ registerBlockType('custom/accordion', {
                                     onChange={onChangeAccordionHeader}
                                 />
                                 {attributes.showIcon &&
-                                <i className={'icon-chevron-down'}></i>
+                                    <i className={'icon-chevron-down'}></i>
                                 }
                             </div>
                         </div>
@@ -347,7 +347,7 @@ registerBlockType('custom/accordion', {
             let uniqueIndex = `${attributes.blockId}-${index}`
 
             return (
-                <div className="accordion-block__item" key={`card-${index}`}>
+                <div key={`card-${index}`} className="accordion-block__item">
                     <div className="accordion-block__item-header-wrapper" id={`heading-${uniqueIndex}`}>
                         <div className={classNames('accordion-block__item-header', 'custom-border', !item.isOpen && 'collapsed')}
                              data-bs-toggle="collapse"

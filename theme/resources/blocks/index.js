@@ -7,3 +7,4 @@ import './slider';
 import './image';
 import './button';
 import './section';
+import './fluid-text';

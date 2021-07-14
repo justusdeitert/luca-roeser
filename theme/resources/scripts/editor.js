@@ -23,22 +23,23 @@ import './block-scripts';
  */
 import '../block-formats';
 
+/**
+ * Core Block Extends
+ */
+import '../block-extends';
+
 domReady(() => {
-    registerBlockStyle('core/heading', [
-        {
-            name: 'text-shadow',
-            label: __('Text Shadow', 'sage'),
-        },
-    ]);
+    // registerBlockStyle('core/heading', [
+    //     {
+    //         name: 'text-shadow',
+    //         label: __('Text Shadow', 'sage'),
+    //     },
+    // ]);
 
-    registerBlockStyle('core/list', [
-        {
-            name: 'no-format',
-            label: __('No Format', 'sage'),
-        },
-    ]);
-});
-
-document.addEventListener('readystatechange', event => {
-    console.log('readystatechange');
+    // registerBlockStyle('core/list', [
+    //     {
+    //         name: 'no-format',
+    //         label: __('No Format', 'sage'),
+    //     },
+    // ]);
 });

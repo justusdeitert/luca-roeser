@@ -145,6 +145,8 @@ registerBlockType('custom/section', {
                                 {label: __('Slope', 'sage'), value: 'slope'},
                                 {label: __('Curves', 'sage'), value: 'curves'},
                                 {label: __('Curves 02', 'sage'), value: 'curves_02'},
+                                {label: __('Waves', 'sage'), value: 'waves'},
+
                             ]}
                             onChange={onChangeSectionClipPath}
                         />

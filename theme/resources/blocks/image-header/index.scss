@@ -34,25 +34,12 @@
         align-items: center;
         justify-content: center;
 
-        @include media-breakpoint-down(sm) {
-            transform: scale(0.7);
-        }
+        padding-top: var(--custom-block-spacing, 2rem);
+        padding-bottom: var(--custom-block-spacing, 2rem);
     }
 
     &__text-wrapper {
         display: inline-block;
         position: relative;
-    }
-
-    &__logo {
-        position: absolute;
-        object-fit: contain;
-        object-position: center;
-
-        &.smaller-on-mobile {
-            @include media-breakpoint-down(sm) {
-                transform: scale(0.7);
-            }
-        }
     }
 }

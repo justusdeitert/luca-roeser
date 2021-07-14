@@ -436,8 +436,6 @@ registerBlockType('custom/slider', {
             };
 
             const slideNext = () => {
-                console.log('slideNext');
-                console.log(window.sliderBlockInstances[attributes.blockId]);
                 window.sliderBlockInstances[attributes.blockId].slideNext(300);
             };
 

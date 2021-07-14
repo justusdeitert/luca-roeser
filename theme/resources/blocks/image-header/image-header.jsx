@@ -111,7 +111,8 @@ const ALLOWED_BLOCKS = [
     'custom/icon-text',
     'custom/row',
     'custom/divider',
-    'custom/image'
+    'custom/image',
+    'custom/fluid-text'
 ];
 
 registerBlockType('custom/image-header', {
@@ -225,7 +226,7 @@ registerBlockType('custom/image-header', {
                     <PanelBody title={__('Header Properties', 'sage')} initialOpen={false}>
                         <hr/>
                         <ToggleControl
-                            label={__('Full Height header', 'sage')}
+                            label={__('Full Height', 'sage')}
                             // help={ attributes.switchContent ? 'Image is left' : 'Image is right' }
                             checked={attributes.headerFullHeight}
                             onChange={onChangeFullHeight}
@@ -259,6 +260,7 @@ registerBlockType('custom/image-header', {
                                         {label: __('Slope', 'sage'), value: 'slope'},
                                         {label: __('Curves', 'sage'), value: 'curves'},
                                         {label: __('Curves 02', 'sage'), value: 'curves_02'},
+                                        {label: __('Waves', 'sage'), value: 'waves'},
                                     ]}
                                     onChange={onChangeHeaderClipPath}
                                 />
@@ -413,9 +415,11 @@ registerBlockType('custom/image-header', {
     },
     save: ({className, attributes}) => {
 
+        // console.log(className);
+
         return (
             <div
-                className={classNames(className, 'image-header-block', getColorObject(attributes.headerBackgroundColor) && `has-${getColorObject(attributes.headerBackgroundColor).slug}-background-color`)}
+                className={classNames('image-header-block', getColorObject(attributes.headerBackgroundColor) && `has-${getColorObject(attributes.headerBackgroundColor).slug}-background-color`)}
                 style={{
                     maxHeight: attributes.headerFullHeight ? `initial` : `${attributes.headerHeight}px`,
                     minHeight: attributes.headerFullHeight ? `initial` : `${attributes.headerMobileHeight}px`,

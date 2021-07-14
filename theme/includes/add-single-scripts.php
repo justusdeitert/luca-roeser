@@ -26,7 +26,7 @@ function add_single_scripts() {
      * @link https://www.lightgalleryjs.com
      *
      */
-    if (has_block('custom/text-image', get_the_ID())) {
+    if (is_gutenberg_editor() || has_block('custom/text-image', get_the_ID())) {
         wp_enqueue_script('lightgallery', asset('scripts/lightgallery.js')->uri(), ['sage/manifest'], null, true);
     }
 
@@ -34,7 +34,7 @@ function add_single_scripts() {
      * Swiper.js
      * @link https://swiperjs.com/get-started
      */
-    if (has_block('custom/slider', get_the_ID())) {
+    if (is_gutenberg_editor() || has_block('custom/slider', get_the_ID())) {
         wp_enqueue_script('swiper', asset('scripts/swiper.js')->uri(), ['sage/manifest'], null, true);
     }
 
@@ -42,7 +42,7 @@ function add_single_scripts() {
      * Bootstrap 5 Scripts for Accordion
      * @link https://getbootstrap.com/docs/5.0/getting-started/introduction/
      */
-    if (has_block('custom/accordion', get_the_ID())) {
+    if (is_gutenberg_editor() || has_block('custom/accordion', get_the_ID())) {
         wp_enqueue_script('bootstrap', asset('scripts/bootstrap.js')->uri(), ['sage/manifest'], null, true);
     }
 }

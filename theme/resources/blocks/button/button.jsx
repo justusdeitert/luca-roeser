@@ -172,7 +172,6 @@ registerBlockType('custom/button', {
                         className={classNames('btn', `btn-${attributes.buttonStyle}`, attributes.buttonSize && `btn-${attributes.buttonSize}`)}
                         role="button"
                         placeholder={__('Button Text', 'sage')}
-                        keepPlaceholderOnFocus={true}
                         // allowedFormats={['core/bold', 'core/italic']}
                         allowedFormats={[]}
                         value={attributes.buttonText}

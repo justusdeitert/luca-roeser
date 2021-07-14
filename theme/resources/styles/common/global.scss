@@ -109,13 +109,34 @@ img {
     text-align: right;
 }
 
-.is-style-text-shadow {
+.has-style-shadow {
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 
-.is-style-no-format {
-    list-style: none;
-    padding: 0;
+.has-font-size {
+    &-tiny {
+        @extend h6;
+    }
+
+    &-small {
+        @extend h5;
+    }
+
+    &-normal {
+        @extend h4;
+    }
+
+    &-medium {
+        @extend h3;
+    }
+
+    &-large {
+        @extend h2;
+    }
+
+    &-huge {
+        @extend h1;
+    }
 }
 
 .light-span {

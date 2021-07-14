@@ -25,7 +25,7 @@ $core_blocks = [
     // Design
     // 'core/buttons',
     'core/columns',
-    'core/group',
+    // 'core/group',
     // 'core/more',
     // 'core/nextpage',
     // 'core/separator',
@@ -70,6 +70,7 @@ $custom_blocks_normal_editor = [
     'custom/image',
     'custom/button',
     'custom/section',
+    'custom/fluid-text',
 ];
 
 $custom_blocks_widget_editor = [
