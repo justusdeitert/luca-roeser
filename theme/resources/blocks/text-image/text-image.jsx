@@ -50,7 +50,8 @@ const ALLOWED_BLOCKS = [
     'custom/button',
     'custom/icon-text',
     'custom/row',
-    'custom/divider'
+    'custom/divider',
+    'custom/accordion'
 ];
 
 registerBlockType('custom/text-image', {

@@ -198,6 +198,11 @@ img {
 .custom-spacing {
     margin-top: var(--custom-block-spacing);
     margin-bottom: var(--custom-block-spacing);
+
+    .custom-spacing {
+        margin-top: initial;
+        margin-bottom: initial;
+    }
 }
 
 .custom-box-background {

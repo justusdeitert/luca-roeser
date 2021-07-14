@@ -126,7 +126,7 @@ registerBlockType('custom/button', {
                         placeholder={__('Button Text', 'sage')}
                         keepPlaceholderOnFocus={true}
                         // allowedFormats={['core/bold', 'core/italic']}
-                        allowedFormats={false}
+                        allowedFormats={[]}
                         value={attributes.buttonText}
                         onChange={onChangeButtonText}
                     />
@@ -138,12 +138,10 @@ registerBlockType('custom/button', {
         return (
             <>
                 <div className={classNames(className, 'button-block', `justify-content-${attributes.buttonAlignment}`)}>
-                    <RichText.Content
-                        tagName="a"
-                        className={classNames('btn', `btn-${attributes.buttonStyle}`, attributes.buttonSize && `btn-${attributes.buttonSize}`)}
-                        role="button"
-                        value={attributes.buttonText}
-                    />
+                    <a href='#'
+                       role="button"
+                       className={classNames('btn', `btn-${attributes.buttonStyle}`, attributes.buttonSize && `btn-${attributes.buttonSize}`)}
+                    >{attributes.buttonText}</a>
                 </div>
             </>
         );
