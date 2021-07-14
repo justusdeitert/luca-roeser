@@ -279,6 +279,10 @@ function customizer_theme_styles() {
 
     </style>
 
+    <?php if (class_exists('ACF') && get_field('cookie_code', 'options')) {  ?>
+        <?php echo get_field('cookie_code', 'options'); ?>
+    <?php } ?>
+
     <?php
         $force_consent = 'false';
         if (get_theme_mod('custom_cookie_force_consent', '0')) {

@@ -157,19 +157,19 @@ img {
 //    }
 //}
 
-.is-vertically-aligned {
-    &-top {
-        align-self: flex-start;
-    }
-
-    &-center {
-        align-self: center;
-    }
-
-    &-bottom {
-        align-self: flex-end;
-    }
-}
+//.is-vertically-aligned {
+//    &-top {
+//        align-self: flex-start;
+//    }
+//
+//    &-center {
+//        align-self: center;
+//    }
+//
+//    &-bottom {
+//        align-self: flex-end;
+//    }
+//}
 
 .container {
     max-width: calc(var(--max-container-width) + (var(--container-padding-mobile) * 2));
