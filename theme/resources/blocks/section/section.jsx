@@ -1,6 +1,6 @@
 import {__} from '@wordpress/i18n';
 import {registerBlockType, createBlock} from '@wordpress/blocks';
-import {SelectControl, RangeControl} from '@wordpress/components';
+import {SelectControl, RangeControl, ToggleControl} from '@wordpress/components';
 import {InnerBlocks, InspectorControls, ColorPalette} from '@wordpress/block-editor';
 import classNames from 'classnames';
 import {buttonIcon} from '../icons';
@@ -23,6 +23,14 @@ const attributes = {
     sectionBorderRadius: {
         type: 'number',
         default: 0,
+    },
+    hasInnerWidth: {
+        type: 'boolean',
+        default: false,
+    },
+    innerWidth: {
+        type: 'number',
+        default: 800,
     },
 };
 
@@ -124,7 +132,18 @@ registerBlockType('custom/section', {
             setAttributes({sectionBorderRadius: value});
         };
 
+        const onChangeHasInnerWidth = (value) => {
+            setAttributes({hasInnerWidth: value});
+        };
+
+        const onChangeInnerWidth = (value) => {
+            setAttributes({innerWidth: value});
+        };
+
+
         attributes.clientId = clientId;
+
+        console.log(attributes.innerWidth);
 
         return (
             <>
@@ -139,14 +158,18 @@ registerBlockType('custom/section', {
                         <hr/>
                         <SelectControl
                             label={__('Section Clip Path', 'sage')}
-                            value={attributes.headerClipPath}
+                            value={attributes.sectionClipPath}
                             options={[
                                 {label: __('None', 'sage'), value: 'none'},
                                 {label: __('Slope', 'sage'), value: 'slope'},
-                                {label: __('Curves', 'sage'), value: 'curves'},
+                                {label: __('Curves 01', 'sage'), value: 'curves_01'},
                                 {label: __('Curves 02', 'sage'), value: 'curves_02'},
-                                {label: __('Waves', 'sage'), value: 'waves'},
-
+                                {label: __('Waves 01', 'sage'), value: 'waves_01'},
+                                {label: __('Waves 02', 'sage'), value: 'waves_02'},
+                                {label: __('Waves 03', 'sage'), value: 'waves_03'},
+                                {label: __('Lines 01', 'sage'), value: 'lines_01'},
+                                {label: __('Lines 02', 'sage'), value: 'lines_02'},
+                                {label: __('Lines 03', 'sage'), value: 'lines_03'},
                             ]}
                             onChange={onChangeSectionClipPath}
                         />
@@ -159,6 +182,26 @@ registerBlockType('custom/section', {
                             step={1}
                             onChange={onChangeSectionBorderRadius}
                         />
+                        <hr/>
+                        <ToggleControl
+                            label={__('Has Inner Width', 'sage')}
+                            // help={ attributes.switchContent ? 'Image is left' : 'Image is right' }
+                            checked={attributes.hasInnerWidth}
+                            onChange={onChangeHasInnerWidth}
+                        />
+                        {attributes.hasInnerWidth &&
+                            <>
+                                <hr/>
+                                <p>{__('Inner Width', 'sage')}</p>
+                                <RangeControl
+                                    value={attributes.innerWidth}
+                                    min={100}
+                                    max={1200}
+                                    step={10}
+                                    onChange={onChangeInnerWidth}
+                                />
+                            </>
+                        }
                     </div>
                 </InspectorControls>
                 <section className={classNames(className, 'section-block', getColorObject(attributes.sectionBackgroundColor) && `has-${getColorObject(attributes.sectionBackgroundColor).slug}-background-color`, 'custom-border-radius')}
@@ -168,9 +211,15 @@ registerBlockType('custom/section', {
                          }}
                 >
                     {attributes.sectionClipPath !== 'none' && clipPaths[attributes.sectionClipPath](`clip-path-${attributes.clientId}`)}
-                    <div className="section-block__inner">
-                        <InnerBlocks templateLock={false} allowedBlocks={ALLOWEDBLOCKS}/>
-                    </div>
+                    {attributes.hasInnerWidth ?
+                        <div className="section-block__inner" style={{maxWidth: `${attributes.innerWidth}px`}}>
+                            <InnerBlocks templateLock={false} allowedBlocks={ALLOWEDBLOCKS}/>
+                        </div>
+                        :
+                        <div className="section-block__inner">
+                            <InnerBlocks templateLock={false} allowedBlocks={ALLOWEDBLOCKS}/>
+                        </div>
+                    }
                 </section>
             </>
         );
@@ -184,9 +233,15 @@ registerBlockType('custom/section', {
                      }}
             >
                 {attributes.sectionClipPath !== 'none' && clipPaths[attributes.sectionClipPath](`clip-path-${attributes.clientId}`)}
-                <div className="section-block__inner">
-                    <InnerBlocks.Content/>
-                </div>
+                {attributes.hasInnerWidth ?
+                    <div className="section-block__inner" style={{maxWidth: `${attributes.innerWidth}px`}}>
+                        <InnerBlocks.Content/>
+                    </div>
+                    :
+                    <div className="section-block__inner">
+                        <InnerBlocks.Content/>
+                    </div>
+                }
             </section>
         );
     },

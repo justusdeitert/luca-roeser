@@ -100,8 +100,8 @@ registerBlockType('custom/button', {
                             onClick={toggleVisible}
                         />*/}
                         <Dropdown
-                            className="my-container-class-name"
-                            contentClassName="my-popover-content-classname"
+                            // className="my-container-class-name"
+                            // contentClassName="my-popover-content-classname"
                             position="bottom right"
                             renderToggle={({isOpen, onToggle}) => (
                                 <ToolbarButton

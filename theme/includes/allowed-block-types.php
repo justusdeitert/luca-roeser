@@ -71,6 +71,7 @@ $custom_blocks_normal_editor = [
     'custom/button',
     'custom/section',
     'custom/fluid-text',
+    'custom/icon-text',
 ];
 
 $custom_blocks_widget_editor = [

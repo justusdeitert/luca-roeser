@@ -258,9 +258,14 @@ registerBlockType('custom/image-header', {
                                     options={[
                                         {label: __('None', 'sage'), value: 'none'},
                                         {label: __('Slope', 'sage'), value: 'slope'},
-                                        {label: __('Curves', 'sage'), value: 'curves'},
+                                        {label: __('Curves 01', 'sage'), value: 'curves_01'},
                                         {label: __('Curves 02', 'sage'), value: 'curves_02'},
-                                        {label: __('Waves', 'sage'), value: 'waves'},
+                                        {label: __('Waves 01', 'sage'), value: 'waves_01'},
+                                        {label: __('Waves 02', 'sage'), value: 'waves_02'},
+                                        {label: __('Waves 03', 'sage'), value: 'waves_03'},
+                                        {label: __('Lines 01', 'sage'), value: 'lines_01'},
+                                        {label: __('Lines 02', 'sage'), value: 'lines_02'},
+                                        {label: __('Lines 03', 'sage'), value: 'lines_03'},
                                     ]}
                                     onChange={onChangeHeaderClipPath}
                                 />

@@ -8,3 +8,4 @@ import './image';
 import './button';
 import './section';
 import './fluid-text';
+import './icon-text';

@@ -113,14 +113,14 @@ registerBlockType('custom/image', {
                                     onClick: () => onClickAlignment('left'),
                                 },
                                 {
-                                    title: 'Right',
-                                    icon: 'align-right',
-                                    onClick: () => onClickAlignment('right'),
-                                },
-                                {
                                     title: 'Center',
                                     icon: 'align-center',
                                     onClick: () => onClickAlignment('center'),
+                                },
+                                {
+                                    title: 'Right',
+                                    icon: 'align-right',
+                                    onClick: () => onClickAlignment('right'),
                                 },
                             ]}
                         />

@@ -1,0 +1,15 @@
+.icon-text-block {
+    &__inner {
+        display: flex;
+        margin-bottom: 1rem;
+    }
+
+    &__text {
+        margin-left: 1rem;
+        width: 100%;
+
+        *:last-child {
+            margin: 0;
+        }
+    }
+}

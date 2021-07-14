@@ -12,8 +12,9 @@ import {accordionIcon} from "../icons";
 const loremIpsum = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.'
 
 const attributes = {
-    blockId: {
+    clientId: {
         type: 'string',
+        default: '',
     },
     showIcon: {
         type: 'boolean',
@@ -104,8 +105,8 @@ registerBlockType('custom/accordion', {
         render() {
             let {attributes, className, setAttributes, clientId} = this.props;
 
-            // Save blockId
-            attributes.blockId = clientId;
+            // Save clientId
+            attributes.clientId = clientId;
 
             const accordionRepeater = attributes.accordion.map((item, index) => {
 
@@ -194,9 +195,9 @@ registerBlockType('custom/accordion', {
                                 <Popover>
                                     <div className="popover__inner"
                                          style={{
-                                             width: '200px',
+                                             width: '220px',
                                              display: 'flex',
-                                             padding: '5px',
+                                             padding: '10px',
                                              zIndex: '100'
                                          }}
                                     >
@@ -209,7 +210,7 @@ registerBlockType('custom/accordion', {
                     );
                 });
 
-                let uniqueIndex = `${attributes.blockId}-${index}`
+                let uniqueIndex = `${attributes.clientId}-${index}`
 
                 return (
                     <div key={`card-${index}`} className={classNames("accordion-block__item", item.isOpen && 'open-on-mount')}>
@@ -257,7 +258,7 @@ registerBlockType('custom/accordion', {
                         <div id={`collapse-${uniqueIndex}`}
                              className={classNames("accordion-block__collapse",  "collapse")}
                              aria-labelledby={`heading-${uniqueIndex}`}
-                             data-bs-parent={`#accordion-${attributes.blockId}`}
+                             data-bs-parent={`#accordion-${attributes.clientId}`}
                         >
                             <div className={classNames('accordion-block__item-body', 'custom-border')}
                                  style={{
@@ -333,7 +334,7 @@ registerBlockType('custom/accordion', {
                             />
                         </div>
                     </InspectorControls>
-                    <div id={`accordion-${attributes.blockId}`} className={classNames(className, 'accordion-block', 'custom-shadow', 'custom-border-radius', 'custom-spacing', accordionBackgroundColor && `has-${accordionBackgroundColor.slug}-background-color`)}>
+                    <div id={`accordion-${attributes.clientId}`} className={classNames(className, 'accordion-block', 'custom-shadow', 'custom-border-radius', 'custom-spacing', accordionBackgroundColor && `has-${accordionBackgroundColor.slug}-background-color`)}>
                         {accordionRepeater}
                     </div>
                 </>
@@ -344,7 +345,7 @@ registerBlockType('custom/accordion', {
 
         const accordionRepeater = attributes.accordion.map((item, index) => {
 
-            let uniqueIndex = `${attributes.blockId}-${index}`
+            let uniqueIndex = `${attributes.clientId}-${index}`
 
             return (
                 <div key={`card-${index}`} className="accordion-block__item">
@@ -372,7 +373,7 @@ registerBlockType('custom/accordion', {
                     <div id={`collapse-${uniqueIndex}`}
                          className={classNames("accordion-block__collapse",  "collapse", item.isOpen && "show")}
                          aria-labelledby={`heading-${uniqueIndex}`}
-                         data-bs-parent={`#accordion-${attributes.blockId}`}
+                         data-bs-parent={`#accordion-${attributes.clientId}`}
                     >
                         <div className={classNames('accordion-block__item-body', 'custom-border')}
                              style={{
@@ -394,7 +395,7 @@ registerBlockType('custom/accordion', {
 
         return (
             <>
-                <div id={`accordion-${attributes.blockId}`} className={classNames(className, 'accordion-block', 'custom-shadow', 'custom-border-radius', 'custom-spacing', accordionBackgroundColor && `has-${accordionBackgroundColor.slug}-background-color`)}>
+                <div id={`accordion-${attributes.clientId}`} className={classNames(className, 'accordion-block', 'custom-shadow', 'custom-border-radius', 'custom-spacing', accordionBackgroundColor && `has-${accordionBackgroundColor.slug}-background-color`)}>
                     {accordionRepeater}
                 </div>
             </>
