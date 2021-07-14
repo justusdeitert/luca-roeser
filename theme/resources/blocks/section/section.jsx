@@ -204,7 +204,7 @@ registerBlockType('custom/section', {
                         }
                     </div>
                 </InspectorControls>
-                <section className={classNames(className, 'section-block', getColorObject(attributes.sectionBackgroundColor) && `has-${getColorObject(attributes.sectionBackgroundColor).slug}-background-color`, 'custom-border-radius')}
+                <section className={classNames(className, 'section-block', getColorObject(attributes.sectionBackgroundColor) && `has-${getColorObject(attributes.sectionBackgroundColor).slug}-background-color has-background`, 'custom-border-radius')}
                          style={{
                              clipPath: attributes.sectionClipPath !== 'none' ? `url(#clip-path-${attributes.clientId})` : 'none',
                              borderRadius: `${attributes.sectionBorderRadius}px`,
@@ -226,7 +226,7 @@ registerBlockType('custom/section', {
     },
     save: ({attributes, className}) => {
         return (
-            <section className={classNames(className, 'section-block', getColorObject(attributes.sectionBackgroundColor) && `has-${getColorObject(attributes.sectionBackgroundColor).slug}-background-color`, 'custom-border-radius')}
+            <section className={classNames(className, 'section-block', getColorObject(attributes.sectionBackgroundColor) && `has-${getColorObject(attributes.sectionBackgroundColor).slug}-background-color has-background`, 'custom-border-radius')}
                      style={{
                          clipPath: attributes.sectionClipPath !== 'none' ? `url(#clip-path-${attributes.clientId})` : 'none',
                          borderRadius: `${attributes.sectionBorderRadius}px`,

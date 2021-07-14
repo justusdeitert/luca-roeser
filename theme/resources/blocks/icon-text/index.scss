@@ -2,11 +2,23 @@
     &__inner {
         display: flex;
         margin-bottom: 1rem;
+
+        @include media-breakpoint-down(sm) {
+            flex-direction: column;
+
+            img  {
+                margin-bottom: 1rem;
+            }
+        }
     }
 
     &__text {
         margin-left: 1rem;
         width: 100%;
+
+        @include media-breakpoint-down(sm) {
+            margin-left: 0 !important;
+        }
 
         *:last-child {
             margin: 0;

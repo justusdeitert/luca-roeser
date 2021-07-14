@@ -4,6 +4,14 @@
         padding-top: var(--custom-block-spacing, 2rem);
         padding-bottom: var(--custom-block-spacing, 2rem);
     }
+
+    &:not(.has-background) {
+        .section-block__inner {
+            padding: 0;
+            margin-top: var(--custom-block-spacing, 2rem);
+            margin-bottom: var(--custom-block-spacing, 2rem);
+        }
+    }
 }
 
 .clip-path-svg {
