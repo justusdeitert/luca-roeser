@@ -223,13 +223,42 @@ add_action('after_setup_theme', function () {
     /**
      * Adds gray color array
      */
-    $gray_colors = [];
+    // $gray_colors = [];
+    // $dark_color = get_theme_mod('custom_dark_color', '#212529');
+    // foreach (range(1, 9) as $number) {
+    //     array_push($gray_colors, [
+    //         'name'  => __('Gray ' . $number * 100, 'sage'),
+    //         'slug'  => 'gray-' . $number * 100,
+    //         'color' => adjustBrightness($dark_color, (1 - $number * 0.03)),
+    //     ]);
+    // }
+
+    $light_colors = [];
+    $light_color = get_theme_mod('custom_light_color', '#f8f9fa');
+    foreach (range(1, 6) as $number) {
+        array_push($light_colors, [
+            'name'  => __('Light ' . $number * 100, 'sage'),
+            'slug'  => 'light-' . $number * 100,
+            'color' => adjustBrightness($light_color, -($number * 0.04)),
+        ]);
+    }
+
+    $dark_colors = [];
     $dark_color = get_theme_mod('custom_dark_color', '#212529');
-    foreach (range(1, 9) as $number) {
-        array_push($gray_colors, [
-            'name'  => __('Gray ' . $number * 100, 'sage'),
-            'slug'  => 'gray-' . $number * 100,
-            'color' => adjustBrightness($dark_color, (1 - $number * 0.03)),
+    foreach (range(1, 6) as $number) {
+        array_push($dark_colors, [
+            'name'  => __('Dark ' . $number * 100, 'sage'),
+            'slug'  => 'dark-' . $number * 100,
+            'color' => adjustBrightness($dark_color, ($number * 0.04)),
+        ]);
+    }
+
+    $dark_light_colors = [];
+    foreach (range(1, 6) as $number) {
+        array_push($dark_light_colors, [
+            'name'  => __('Dark/Light ' . $number * 100, 'sage'),
+            'slug'  => 'dark-light-' . $number * 100,
+            'color' => adjustBrightness($dark_color, (1 - $number * 0.04)),
         ]);
     }
 
@@ -258,12 +287,14 @@ add_action('after_setup_theme', function () {
             'slug'  => 'light',
             'color' => get_theme_mod('custom_light_color', '#f8f9fa'),
         ],
+        ...$light_colors,
         [
             'name'  => __('Dark', 'sage'),
             'slug'  => 'dark',
             'color' => get_theme_mod('custom_dark_color', '#212529'),
         ],
-        ...$gray_colors
+        ...$dark_colors,
+        ...$dark_light_colors
     ]);
 
     /**

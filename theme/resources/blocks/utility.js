@@ -125,85 +125,122 @@ export const bootstrapBreakpoints = {
 /**
  * This is needed because by default if the image is smaller some image sizes are not
  */
-export const editorMainColors = [
+
+// export const editorStandardColors = [
+//     {name: 'Font', slug: 'font', color: `rgb(${getCssVariable('--custom-font-color')}`},
+//     {name: 'Link', slug: 'link', color: `rgb(${getCssVariable('--custom-link-color')}`},
+//     {name: 'Background', slug: 'light', color: `rgb(${getCssVariable('--custom-background-color')}`},
+// ];
+
+export const editorLightColors = [
+    {name: 'Light 100', slug: 'light-100', color: `rgb(${getCssVariable('--custom-light-100-color')})`},
+    {name: 'Light 200', slug: 'light-200', color: `rgb(${getCssVariable('--custom-light-200-color')})`},
+    {name: 'Light 300', slug: 'light-300', color: `rgb(${getCssVariable('--custom-light-300-color')})`},
+    {name: 'Light 400', slug: 'light-400', color: `rgb(${getCssVariable('--custom-light-400-color')})`},
+    {name: 'Light 500', slug: 'light-500', color: `rgb(${getCssVariable('--custom-light-500-color')})`},
+    {name: 'Light 600', slug: 'light-600', color: `rgb(${getCssVariable('--custom-light-600-color')})`},
+]
+
+export const editorDarkColors = [
+    {name: 'Dark 100', slug: 'dark-100', color: `rgb(${getCssVariable('--custom-dark-100-color')})`},
+    {name: 'Dark 200', slug: 'dark-200', color: `rgb(${getCssVariable('--custom-dark-200-color')})`},
+    {name: 'Dark 300', slug: 'dark-300', color: `rgb(${getCssVariable('--custom-dark-300-color')})`},
+    {name: 'Dark 400', slug: 'dark-400', color: `rgb(${getCssVariable('--custom-dark-400-color')})`},
+    {name: 'Dark 500', slug: 'dark-500', color: `rgb(${getCssVariable('--custom-dark-500-color')})`},
+    {name: 'Dark 600', slug: 'dark-600', color: `rgb(${getCssVariable('--custom-dark-600-color')})`},
+]
+
+export const editorDarkLightColors = [
+    {name: 'Dark/Light 100', slug: 'dark-light-100', color: `rgb(${getCssVariable('--custom-dark-light-100-color')})`},
+    {name: 'Dark/Light 200', slug: 'dark-light-200', color: `rgb(${getCssVariable('--custom-dark-light-200-color')})`},
+    {name: 'Dark/Light 300', slug: 'dark-light-300', color: `rgb(${getCssVariable('--custom-dark-light-300-color')})`},
+    {name: 'Dark/Light 400', slug: 'dark-light-400', color: `rgb(${getCssVariable('--custom-dark-light-400-color')})`},
+    {name: 'Dark/Light 500', slug: 'dark-light-500', color: `rgb(${getCssVariable('--custom-dark-light-500-color')})`},
+    {name: 'Dark/Light 600', slug: 'dark-light-600', color: `rgb(${getCssVariable('--custom-dark-light-600-color')})`},
+]
+
+export const editorColors = [
     {name: 'Primary', slug: 'primary', color: `rgb(${getCssVariable('--custom-primary-color')}`},
     {name: 'Secondary', slug: 'secondary', color: `rgb(${getCssVariable('--custom-secondary-color')}`},
     {name: 'Tertiary', slug: 'tertiary', color: `rgb(${getCssVariable('--custom-tertiary-color')}`},
     {name: 'Light', slug: 'light', color: `rgb(${getCssVariable('--custom-light-color')}`},
+    ...editorLightColors,
     {name: 'Dark', slug: 'dark', color: `rgb(${getCssVariable('--custom-dark-color')}`},
+    ...editorDarkColors,
+    ...editorDarkLightColors
+
 ];
 
-export const editorStandardColors = [
-    {name: 'Font', slug: 'font', color: `rgb(${getCssVariable('--custom-font-color')}`},
-    {name: 'Link', slug: 'link', color: `rgb(${getCssVariable('--custom-link-color')}`},
-    {name: 'Background', slug: 'light', color: `rgb(${getCssVariable('--custom-background-color')}`},
-];
+// export const editorGrayColors = [
+//     {name: 'Gray 100', slug: 'gray-100', color: `rgb(${getCssVariable('--custom-gray-100-color')})`},
+//     {name: 'Gray 200', slug: 'gray-200', color: `rgb(${getCssVariable('--custom-gray-200-color')})`},
+//     {name: 'Gray 300', slug: 'gray-300', color: `rgb(${getCssVariable('--custom-gray-300-color')})`},
+//     {name: 'Gray 400', slug: 'gray-400', color: `rgb(${getCssVariable('--custom-gray-400-color')})`},
+//     {name: 'Gray 500', slug: 'gray-500', color: `rgb(${getCssVariable('--custom-gray-500-color')})`},
+//     {name: 'Gray 600', slug: 'gray-600', color: `rgb(${getCssVariable('--custom-gray-600-color')})`},
+//     {name: 'Gray 700', slug: 'gray-700', color: `rgb(${getCssVariable('--custom-gray-700-color')})`},
+//     {name: 'Gray 800', slug: 'gray-800', color: `rgb(${getCssVariable('--custom-gray-800-color')})`},
+//     {name: 'Gray 900', slug: 'gray-900', color: `rgb(${getCssVariable('--custom-gray-900-color')})`},
+// ]
 
-export const editorGrayColors = [
-    {name: 'Gray 100', slug: 'gray-100', color: `rgb(${getCssVariable('--custom-gray-100-color')})`},
-    {name: 'Gray 200', slug: 'gray-200', color: `rgb(${getCssVariable('--custom-gray-200-color')})`},
-    {name: 'Gray 300', slug: 'gray-300', color: `rgb(${getCssVariable('--custom-gray-300-color')})`},
-    {name: 'Gray 400', slug: 'gray-400', color: `rgb(${getCssVariable('--custom-gray-400-color')})`},
-    {name: 'Gray 500', slug: 'gray-500', color: `rgb(${getCssVariable('--custom-gray-500-color')})`},
-    {name: 'Gray 600', slug: 'gray-600', color: `rgb(${getCssVariable('--custom-gray-600-color')})`},
-    {name: 'Gray 700', slug: 'gray-700', color: `rgb(${getCssVariable('--custom-gray-700-color')})`},
-    {name: 'Gray 800', slug: 'gray-800', color: `rgb(${getCssVariable('--custom-gray-800-color')})`},
-    {name: 'Gray 900', slug: 'gray-900', color: `rgb(${getCssVariable('--custom-gray-900-color')})`},
-]
+export const editorThemeColors = [...editorColors]
 
-export const editorThemeColors = [...editorMainColors, ...editorGrayColors]
+// export const fontAwesomeArray = [
+//     {class: 'fa-check', unicode: '\\f00c'},
+//     {class: 'fa-angle-up', unicode: '\\f106'},
+//     {class: 'fa-angle-right', unicode: '\\f105'},
+//     {class: 'fa-angle-down', unicode: '\\f107'},
+//     {class: 'fa-angle-left', unicode: '\\f104'},
+//     {class: 'fa-arrow-up', unicode: '\\f062'},
+//     {class: 'fa-arrow-right', unicode: '\\f061'},
+//     {class: 'fa-arrow-down', unicode: '\\f063'},
+//     {class: 'fa-arrow-left', unicode: '\\f060'},
+//     {class: 'fa-arrow-circle-up', unicode: '\\f0aa'},
+//     {class: 'fa-arrow-circle-right', unicode: '\\f0a9'},
+//     {class: 'fa-arrow-circle-down', unicode: '\\f0ab'},
+//     {class: 'fa-arrow-circle-left', unicode: '\\f0a8'},
+//     {class: 'fa-user-alt', unicode: '\\f406'},
+//     {class: 'fa-user-friends', unicode: '\\f500'},
+//     {class: 'fa-user-plus', unicode: '\\f234'},
+//     {class: 'fa-user-check', unicode: '\\f4fc'},
+//     {class: 'fa-smile', unicode: '\\f118'},
+//     {class: 'fa-meh', unicode: '\\f11a'},
+//     {class: 'fa-frown', unicode: '\\f119'},
+//     {class: 'fa-plus', unicode: '\\f067'},
+//     {class: 'fa-minus', unicode: '\\f068'},
+//     {class: 'fa-play', unicode: '\\f04b'},
+//     {class: 'fa-mobile-alt', unicode: '\\f3cd'},
+//     {class: 'fa-phone-alt', unicode: '\\f879'},
+//     {class: 'fa-microphone', unicode: '\\f130'},
+//     {class: 'fa-envelope', unicode: '\\f0e0'},
+//     {class: 'fa-headphones', unicode: '\\f025'},
+//     {class: 'fa-reply', unicode: '\\f3e5'},
+//     {class: 'fa-paper-plane', unicode: '\\f1d8'},
+//     {class: 'fa-at', unicode: '\\f1fa'},
+//     {class: 'fa-map-marker-alt', unicode: '\\f3c5'},
+//     {class: 'fa-map-marked-alt', unicode: '\\f5a0'},
+//     {class: 'fa-directions', unicode: '\\f5eb'},
+//     {class: 'fa-globe', unicode: '\\f0ac'},
+//     {class: 'fa-calculator', unicode: '\\f1ec'},
+//     {class: 'fa-file-signature', unicode: '\\f573'},
+//     {class: 'fa-file-invoice-dollar', unicode: '\\f571'},
+//     {class: 'fa-shield-alt', unicode: '\\f3ed'}
+// ];
 
-export const fontAwesomeArray = [
-    {class: 'fa-check', unicode: '\\f00c'},
-    {class: 'fa-angle-up', unicode: '\\f106'},
-    {class: 'fa-angle-right', unicode: '\\f105'},
-    {class: 'fa-angle-down', unicode: '\\f107'},
-    {class: 'fa-angle-left', unicode: '\\f104'},
-    {class: 'fa-arrow-up', unicode: '\\f062'},
-    {class: 'fa-arrow-right', unicode: '\\f061'},
-    {class: 'fa-arrow-down', unicode: '\\f063'},
-    {class: 'fa-arrow-left', unicode: '\\f060'},
-    {class: 'fa-arrow-circle-up', unicode: '\\f0aa'},
-    {class: 'fa-arrow-circle-right', unicode: '\\f0a9'},
-    {class: 'fa-arrow-circle-down', unicode: '\\f0ab'},
-    {class: 'fa-arrow-circle-left', unicode: '\\f0a8'},
-    {class: 'fa-user-alt', unicode: '\\f406'},
-    {class: 'fa-user-friends', unicode: '\\f500'},
-    {class: 'fa-user-plus', unicode: '\\f234'},
-    {class: 'fa-user-check', unicode: '\\f4fc'},
-    {class: 'fa-smile', unicode: '\\f118'},
-    {class: 'fa-meh', unicode: '\\f11a'},
-    {class: 'fa-frown', unicode: '\\f119'},
-    {class: 'fa-plus', unicode: '\\f067'},
-    {class: 'fa-minus', unicode: '\\f068'},
-    {class: 'fa-play', unicode: '\\f04b'},
-    {class: 'fa-mobile-alt', unicode: '\\f3cd'},
-    {class: 'fa-phone-alt', unicode: '\\f879'},
-    {class: 'fa-microphone', unicode: '\\f130'},
-    {class: 'fa-envelope', unicode: '\\f0e0'},
-    {class: 'fa-headphones', unicode: '\\f025'},
-    {class: 'fa-reply', unicode: '\\f3e5'},
-    {class: 'fa-paper-plane', unicode: '\\f1d8'},
-    {class: 'fa-at', unicode: '\\f1fa'},
-    {class: 'fa-map-marker-alt', unicode: '\\f3c5'},
-    {class: 'fa-map-marked-alt', unicode: '\\f5a0'},
-    {class: 'fa-directions', unicode: '\\f5eb'},
-    {class: 'fa-globe', unicode: '\\f0ac'},
-    {class: 'fa-calculator', unicode: '\\f1ec'},
-    {class: 'fa-file-signature', unicode: '\\f573'},
-    {class: 'fa-file-invoice-dollar', unicode: '\\f571'},
-    {class: 'fa-shield-alt', unicode: '\\f3ed'}
-];
-
-export const focalPositionInPixel = (value) => {
+export const focalPositionInPixel = (value, unit = 'px') => {
 
     if (typeof value === 'string') {
         value = value.replace('.', '');
         value = parseInt(value) / 100
     }
 
-    value = (-0.5 + value) * 1000;
+    let increment = 1000;
+    if (unit === '%') {
+        increment = 300;
+    }
+
+    value = (-0.5 + value) * increment;
     value = Math.round(value);
 
-    return `${value}px`;
+    return `${value + unit}`;
 }

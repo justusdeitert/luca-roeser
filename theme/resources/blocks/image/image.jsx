@@ -19,6 +19,10 @@ registerBlockType('custom/image', {
             type: 'object',
             default: ''
         },
+        imageSizeUnit: {
+            type: 'string',
+            default: 'px'
+        },
         imageSize: {
             type: 'number',
             default: 200
@@ -26,6 +30,10 @@ registerBlockType('custom/image', {
         imagePositioning: {
             type: 'string',
             default: 'static'
+        },
+        imagePositionUnit: {
+            type: 'string',
+            default: 'px'
         },
         imagePosition: {
             type: 'object',
@@ -38,12 +46,20 @@ registerBlockType('custom/image', {
             setAttributes({imageObject: imageObject});
         };
 
+        const onChangeImageSizeUnit = (value) => {
+            setAttributes({imageSizeUnit: value});
+        };
+
         const onChangeImageSize = (value) => {
             setAttributes({imageSize: value});
         };
 
         const onChangeImagePositioning = (value) => {
             setAttributes({imagePositioning: value});
+        };
+
+        const onChangeImagePositionUnit = (value) => {
+            setAttributes({imagePositionUnit: value});
         };
 
         const onChangeImagePosition = (value) => {
@@ -67,9 +83,9 @@ registerBlockType('custom/image', {
         };
 
         const imageStyle = {
-            width: `${attributes.imageSize}px`,
+            width: `${attributes.imageSize + attributes.imageSizeUnit}`,
             position: attributes.imagePositioning,
-            transform: `translate(${focalPositionInPixel(attributes.imagePosition.x)}, ${focalPositionInPixel(attributes.imagePosition.y)})`,
+            transform: `translate(${focalPositionInPixel(attributes.imagePosition.x, attributes.imagePositionUnit)}, ${focalPositionInPixel(attributes.imagePosition.y, attributes.imagePositionUnit)})`,
         };
 
         return (
@@ -84,23 +100,33 @@ registerBlockType('custom/image', {
                             // value={attributes.mediaID}
                             render={({open}) => (
                                 <Button variant="primary" className={'button'} onClick={open}>
-                                    {!attributes.imageObject ? __('Upload IMage', 'sage') : __('Change Image', 'sage')}
+                                    {!attributes.imageObject ? __('Upload Image', 'sage') : __('Change Image', 'sage')}
                                 </Button>
                             )}
                         />
                         <hr/>
-                        <p>{__('Image Size', 'sage')}</p>
+                        <p>{__('Size Unit', 'sage')}</p>
+                        <SelectControl
+                            // label={__('Horizontal', 'sage')}
+                            value={attributes.imageSizeUnit}
+                            options={[
+                                {label: __('Pixel', 'sage'), value: 'px'},
+                                {label: __('Percent', 'sage'), value: '%'},
+                            ]}
+                            onChange={onChangeImageSizeUnit}
+                        />
+                        <hr/>
+                        <p>{__('Size', 'sage')}</p>
                         <RangeControl
                             value={attributes.imageSize}
                             min={20}
-                            max={1000}
+                            max={attributes.imageSizeUnit === '%' ? 100 : 1000}
                             step={1}
                             onChange={onChangeImageSize}
                         />
                         <hr/>
-                        <p>{__('Image Positioning', 'sage')}</p>
+                        <p>{__('Positioning', 'sage')}</p>
                         <SelectControl
-                            // label={__('Horizontal', 'sage')}
                             value={attributes.imagePositioning}
                             options={[
                                 {label: __('Static', 'sage'), value: 'static'},
@@ -109,7 +135,17 @@ registerBlockType('custom/image', {
                             onChange={onChangeImagePositioning}
                         />
                         <hr/>
-                        <p>{__('Image Position', 'sage')}</p>
+                        <p>{__('Position Unit', 'sage')}</p>
+                        <SelectControl
+                            value={attributes.imagePositionUnit}
+                            options={[
+                                {label: __('Pixel', 'sage'), value: 'px'},
+                                {label: __('Percent', 'sage'), value: '%'},
+                            ]}
+                            onChange={onChangeImagePositionUnit}
+                        />
+                        <hr/>
+                        <p>{__('Position', 'sage')}</p>
                         <Button className={'button'}
                                 onClick={setBackImagePosition}
                                 style={{marginBottom: '20px'}}
@@ -142,9 +178,9 @@ registerBlockType('custom/image', {
     save: ({className, attributes}) => {
 
         const imageStyle = {
-            width: `${attributes.imageSize}px`,
+            width: `${attributes.imageSize + attributes.imageSizeUnit}`,
             position: attributes.imagePositioning,
-            transform: `translate(${focalPositionInPixel(attributes.imagePosition.x)}, ${focalPositionInPixel(attributes.imagePosition.y)})`,
+            transform: `translate(${focalPositionInPixel(attributes.imagePosition.x, attributes.imagePositionUnit)}, ${focalPositionInPixel(attributes.imagePosition.y, attributes.imagePositionUnit)})`,
         };
 
         return (

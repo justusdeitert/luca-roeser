@@ -88,12 +88,22 @@ function customizer_theme_styles() {
 
     /**
      * Gray/Shade Colors
-     * TODO: One Shade needs to be added and let it be adjustable...
      */
-    $gray_colors = [];
+    $light_colors = [];
+    $light_color = get_theme_mod('custom_light_color', '#f8f9fa');
+    foreach (range(1, 6) as $number) {
+        $light_colors[$number * 100] = convert_hex(adjustBrightness($light_color, -($number * 0.04)));
+    }
+
+    $dark_colors = [];
     $dark_color = get_theme_mod('custom_dark_color', '#212529');
-    foreach (range(1, 9) as $number) {
-        $gray_colors[$number * 100] = convert_hex(adjustBrightness($dark_color, (1 - $number * 0.03)));
+    foreach (range(1, 6) as $number) {
+        $dark_colors[$number * 100] = convert_hex(adjustBrightness($dark_color, ($number * 0.04)));
+    }
+
+    $dark_light_colors = [];
+    foreach (range(1, 6) as $number) {
+        $dark_light_colors[$number * 100] = convert_hex(adjustBrightness($dark_color, (1 - $number * 0.04)));
     }
 
     /**
@@ -156,9 +166,19 @@ function customizer_theme_styles() {
                 --custom-<?php echo $name; ?>-color: <?php echo $value; ?>;
             <?php } ?>
 
-            /* Gray Color Shades */
-            <?php foreach ($gray_colors as $name => $value) { ?>
-                --custom-gray-<?php echo $name; ?>-color: <?php echo $value; ?>;
+            /* Light Color Shades */
+            <?php foreach ($light_colors as $name => $value) { ?>
+                --custom-light-<?php echo $name; ?>-color: <?php echo $value; ?>;
+            <?php } ?>
+
+            /* Dark Color Shades */
+            <?php foreach ($dark_colors as $name => $value) { ?>
+                --custom-dark-<?php echo $name; ?>-color: <?php echo $value; ?>;
+            <?php } ?>
+
+            /* Dark/Light Color Shades */
+            <?php foreach ($dark_light_colors as $name => $value) { ?>
+                --custom-dark-light-<?php echo $name; ?>-color: <?php echo $value; ?>;
             <?php } ?>
 
             /* Navbar Settings */
@@ -227,15 +247,36 @@ function customizer_theme_styles() {
             }
         <?php } ?>
 
-        <?php foreach ($gray_colors as $name => $value) { ?>
-            .has-gray-<?php echo $name; ?>-color {
+        <?php foreach ($light_colors as $name => $value) { ?>
+            .has-light-<?php echo $name; ?>-color {
                 color: rgb(<?php echo $value; ?>);
             }
 
-            .has-gray-<?php echo $name; ?>-background-color {
+            .has-light-<?php echo $name; ?>-background-color {
                 background-color: rgb(<?php echo $value; ?>);
             }
         <?php } ?>
+
+        <?php foreach ($dark_colors as $name => $value) { ?>
+            .has-dark-<?php echo $name; ?>-color {
+                color: rgb(<?php echo $value; ?>);
+            }
+
+            .has-dark-<?php echo $name; ?>-background-color {
+                background-color: rgb(<?php echo $value; ?>);
+            }
+        <?php } ?>
+
+        <?php foreach ($dark_light_colors as $name => $value) { ?>
+            .has-dark-light-<?php echo $name; ?>-color {
+                color: rgb(<?php echo $value; ?>);
+            }
+
+            .has-dark-light-<?php echo $name; ?>-background-color {
+                background-color: rgb(<?php echo $value; ?>);
+            }
+        <?php } ?>
+
     </style>
 
     <?php
