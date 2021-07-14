@@ -68,6 +68,7 @@ $custom_blocks_normal_editor = [
     'custom/text-image',
     'custom/slider',
     'custom/image',
+    'custom/button',
 ];
 
 $custom_blocks_widget_editor = [
@@ -75,6 +76,7 @@ $custom_blocks_widget_editor = [
     'custom/text-image',
     'custom/slider',
     'custom/image',
+    'custom/button',
 ];
 
 add_filter('allowed_block_types_all', function ($allowed_block_types, $editor_context) {

@@ -1,7 +1,7 @@
 import {__} from '@wordpress/i18n';
 import {registerBlockType} from '@wordpress/blocks';
-import {Button, RangeControl, FocalPointPicker, SelectControl} from '@wordpress/components';
-import {MediaUpload, InspectorControls} from '@wordpress/block-editor';
+import {Button, RangeControl, FocalPointPicker, SelectControl, ToolbarGroup, ToolbarDropdownMenu} from '@wordpress/components';
+import {MediaUpload, InspectorControls, BlockControls} from '@wordpress/block-editor';
 import classNames from 'classnames';
 import {getImage, focalPositionInPixel} from '../utility';
 import {imageIcon} from '../icons';
@@ -13,8 +13,11 @@ registerBlockType('custom/image', {
     title: __('Image', 'sage'),
     icon: imageIcon,
     category: 'custom',
-    // multiple: false, // Use this block just once per post
     attributes: {
+        imageAlignment: {
+            type: 'string',
+            default: 'left'
+        },
         imageObject: {
             type: 'object',
             default: ''
@@ -82,6 +85,14 @@ registerBlockType('custom/image', {
             setAttributes({imagePosition: {x: 0.5, y: 0.5}});
         };
 
+        const onClickAlignment = (value) => {
+            setAttributes({imageAlignment: value});
+        }
+
+        const getAlignmentIcon = () => {
+            return 'align-' + attributes.imageAlignment;
+        }
+
         const imageStyle = {
             width: `${attributes.imageSize + attributes.imageSizeUnit}`,
             position: attributes.imagePositioning,
@@ -90,6 +101,31 @@ registerBlockType('custom/image', {
 
         return (
             <>
+                <BlockControls>
+                    <ToolbarGroup>
+                        <ToolbarDropdownMenu
+                            icon={getAlignmentIcon()}
+                            label={__('Select a position', 'sage')}
+                            controls={[
+                                {
+                                    title: 'Left',
+                                    icon: 'align-left',
+                                    onClick: () => onClickAlignment('left'),
+                                },
+                                {
+                                    title: 'Right',
+                                    icon: 'align-right',
+                                    onClick: () => onClickAlignment('right'),
+                                },
+                                {
+                                    title: 'Center',
+                                    icon: 'align-center',
+                                    onClick: () => onClickAlignment('center'),
+                                },
+                            ]}
+                        />
+                    </ToolbarGroup>
+                </BlockControls>
                 <InspectorControls>
                     <div className="inspector-controls-container">
                         <hr/>
@@ -159,19 +195,19 @@ registerBlockType('custom/image', {
                         />
                     </div>
                 </InspectorControls>
-                {attributes.imageObject.mime !== 'image/svg+xml' ?
-                    <img className={classNames(className, 'image-block')}
-                         style={imageStyle}
-                         alt={getImage(attributes.imageObject, 'alt')}
-                         srcSet={`${getImage(attributes.imageObject, 'tiny')} 768w, ${getImage(attributes.imageObject, 'small')} 1360w`}
-                         src={getImage(attributes.imageObject, 'tiny')}
-                    /> :
-                    <img className={classNames(className, 'image-block')}
-                         style={imageStyle}
-                         alt={getImage(attributes.imageObject, 'alt')}
-                         src={getImage(attributes.imageObject, 'tiny')}
-                    />
-                }
+                <div className={classNames(className, 'image-block', `justify-content-${attributes.imageAlignment}`)}>
+                    {attributes.imageObject.mime !== 'image/svg+xml' ?
+                        <img style={imageStyle}
+                             alt={getImage(attributes.imageObject, 'alt')}
+                             srcSet={`${getImage(attributes.imageObject, 'tiny')} 768w, ${getImage(attributes.imageObject, 'small')} 1360w`}
+                             src={getImage(attributes.imageObject, 'tiny')}
+                        /> :
+                        <img style={imageStyle}
+                             alt={getImage(attributes.imageObject, 'alt')}
+                             src={getImage(attributes.imageObject, 'tiny')}
+                        />
+                    }
+                </div>
             </>
         );
     },
@@ -185,19 +221,19 @@ registerBlockType('custom/image', {
 
         return (
             <>
-                {attributes.imageObject.mime !== 'image/svg+xml' ?
-                    <img className={classNames(className, 'image-block')}
-                         style={imageStyle}
-                         alt={getImage(attributes.imageObject, 'alt')}
-                         srcSet={`${getImage(attributes.imageObject, 'tiny')} 768w, ${getImage(attributes.imageObject, 'small')} 1360w`}
-                         src={getImage(attributes.imageObject, 'tiny')}
-                    /> :
-                    <img className={classNames(className, 'image-block')}
-                         style={imageStyle}
-                         alt={getImage(attributes.imageObject, 'alt')}
-                         src={getImage(attributes.imageObject, 'tiny')}
-                    />
-                }
+                <div className={classNames(className, 'image-block', `justify-content-${attributes.imageAlignment}`)}>
+                    {attributes.imageObject.mime !== 'image/svg+xml' ?
+                        <img style={imageStyle}
+                             alt={getImage(attributes.imageObject, 'alt')}
+                             srcSet={`${getImage(attributes.imageObject, 'tiny')} 768w, ${getImage(attributes.imageObject, 'small')} 1360w`}
+                             src={getImage(attributes.imageObject, 'tiny')}
+                        /> :
+                        <img style={imageStyle}
+                             alt={getImage(attributes.imageObject, 'alt')}
+                             src={getImage(attributes.imageObject, 'tiny')}
+                        />
+                    }
+                </div>
             </>
         );
     },

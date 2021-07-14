@@ -103,6 +103,7 @@ const ALLOWED_BLOCKS = [
     'core/list',
     'core/shortcode',
     'core/spacer',
+    'core/group',
     'custom/button',
     'custom/icon-text',
     'custom/row',
