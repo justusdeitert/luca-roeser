@@ -140,10 +140,7 @@ registerBlockType('custom/section', {
             setAttributes({innerWidth: value});
         };
 
-
         attributes.clientId = clientId;
-
-        console.log(attributes.innerWidth);
 
         return (
             <>
@@ -161,7 +158,8 @@ registerBlockType('custom/section', {
                             value={attributes.sectionClipPath}
                             options={[
                                 {label: __('None', 'sage'), value: 'none'},
-                                {label: __('Slope', 'sage'), value: 'slope'},
+                                {label: __('Slope 01', 'sage'), value: 'slope_01'},
+                                {label: __('Slope 02', 'sage'), value: 'slope_02'},
                                 {label: __('Curves 01', 'sage'), value: 'curves_01'},
                                 {label: __('Curves 02', 'sage'), value: 'curves_02'},
                                 {label: __('Waves 01', 'sage'), value: 'waves_01'},

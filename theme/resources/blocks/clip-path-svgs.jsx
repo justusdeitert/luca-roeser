@@ -4,11 +4,21 @@
  * @type {JSX.Element}
  */
 
-export const slope = (clipPathId) => {
+export const slope_01 = (clipPathId) => {
     return (
         <svg className="clip-path-svg">
             <clipPath id={clipPathId} clipPathUnits="objectBoundingBox">
                 <polygon points="0,0 0,0.93 1,1 1,0" />
+            </clipPath>
+        </svg>
+    )
+}
+
+export const slope_02 = (clipPathId) => {
+    return (
+        <svg className="clip-path-svg">
+            <clipPath id={clipPathId} clipPathUnits="objectBoundingBox">
+                <path d="M0,0 C0.667,0.047,1,0.07,1,0.07 C1,0.07,1,0.38,1,1 L0,0.931 L0,0"></path>
             </clipPath>
         </svg>
     )
