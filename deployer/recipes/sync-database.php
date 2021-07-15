@@ -79,7 +79,8 @@ task('pull:db', function () {
      * Cleanup exports on local machine
      */
     writeln("<comment>Replace https with http in wp_posts table</comment>");
-    runLocally("cd {{local_path}}/bedrock && wp search-replace 'https://' 'http://' --allow-root wp_posts");
+    // runLocally("cd {{local_path}}/bedrock && wp search-replace 'https://' 'http://' --allow-root wp_posts");
+    runLocally("cd {{local_path}}/bedrock && wp search-replace 'https://' 'http://' --allow-root");
 
     /**
      * Cleanup exports on local machine
@@ -160,7 +161,8 @@ task('push:db', function () {
      * Cleanup exports on local machine
      */
     writeln("<comment>Replace http with https in wp_posts table on server</comment>");
-    run("cd {{current_path}}/bedrock && {{bin/wp}} search-replace 'http://' 'https://' --allow-root wp_posts");
+    // run("cd {{current_path}}/bedrock && {{bin/wp}} search-replace 'http://' 'https://' --allow-root wp_posts");
+    run("cd {{current_path}}/bedrock && {{bin/wp}} search-replace 'http://' 'https://' --allow-root");
 
     /**
      * Cleanup uploaded file
