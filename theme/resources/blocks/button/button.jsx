@@ -32,6 +32,8 @@ const attributes = {
     },
 };
 
+// let lol = 0;
+
 registerBlockType('custom/button', {
     title: __('Button', 'sage'),
     icon: buttonIcon,
@@ -39,6 +41,9 @@ registerBlockType('custom/button', {
     // multiple: false, // Use this block just once per post
     attributes,
     edit: ({className, attributes, setAttributes}) => {
+
+        // lol++;
+        // console.log('button', lol);
 
         const onChangeButtonText = (value) => {
             setAttributes({buttonText: value});
@@ -83,14 +88,14 @@ registerBlockType('custom/button', {
                                     onClick: () => onClickAlignment('left'),
                                 },
                                 {
-                                    title: 'Right',
-                                    icon: 'align-right',
-                                    onClick: () => onClickAlignment('right'),
-                                },
-                                {
                                     title: 'Center',
                                     icon: 'align-center',
                                     onClick: () => onClickAlignment('center'),
+                                },
+                                {
+                                    title: 'Right',
+                                    icon: 'align-right',
+                                    onClick: () => onClickAlignment('right'),
                                 },
                             ]}
                         />

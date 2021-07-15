@@ -162,12 +162,12 @@ export const editorDarkLightColors = [
 ]
 
 export const editorColors = [
-    {name: 'Primary', slug: 'primary', color: `rgb(${getCssVariable('--custom-primary-color')}`},
-    {name: 'Secondary', slug: 'secondary', color: `rgb(${getCssVariable('--custom-secondary-color')}`},
-    {name: 'Tertiary', slug: 'tertiary', color: `rgb(${getCssVariable('--custom-tertiary-color')}`},
-    {name: 'Light', slug: 'light', color: `rgb(${getCssVariable('--custom-light-color')}`},
+    {name: 'Primary', slug: 'primary', color: `rgb(${getCssVariable('--custom-primary-color')})`},
+    {name: 'Secondary', slug: 'secondary', color: `rgb(${getCssVariable('--custom-secondary-color')})`},
+    {name: 'Tertiary', slug: 'tertiary', color: `rgb(${getCssVariable('--custom-tertiary-color')})`},
+    {name: 'Light', slug: 'light', color: `rgb(${getCssVariable('--custom-light-color')})`},
     ...editorLightColors,
-    {name: 'Dark', slug: 'dark', color: `rgb(${getCssVariable('--custom-dark-color')}`},
+    {name: 'Dark', slug: 'dark', color: `rgb(${getCssVariable('--custom-dark-color')})`},
     ...editorDarkColors,
     ...editorDarkLightColors
 
@@ -250,3 +250,17 @@ export const focalPositionInPixel = (value, unit = 'px') => {
 export const getColorObject = (color) => {
     return getColorObjectByColorValue(editorThemeColors, color)
 }
+
+export const ALLOWEDBLOCKS = [
+    'core/paragraph',
+    'core/heading',
+    'core/list',
+    'core/shortcode',
+    'core/spacer',
+    'core/group',
+    'custom/button',
+    'custom/icon-text',
+    'custom/row',
+    'custom/divider',
+    'custom/image'
+]

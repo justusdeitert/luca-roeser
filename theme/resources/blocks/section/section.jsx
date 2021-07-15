@@ -3,7 +3,7 @@ import {registerBlockType, createBlock} from '@wordpress/blocks';
 import {SelectControl, RangeControl, ToggleControl} from '@wordpress/components';
 import {InnerBlocks, InspectorControls, ColorPalette} from '@wordpress/block-editor';
 import classNames from 'classnames';
-import {buttonIcon} from '../icons';
+import {section} from '../icons';
 import {editorThemeColors, getColorObject} from "../utility";
 import * as clipPaths from "../clip-path-svgs"
 
@@ -51,7 +51,7 @@ const ALLOWEDBLOCKS = [
 registerBlockType('custom/section', {
     title: __('Section', 'sage'),
     category: 'custom',
-    icon: buttonIcon,
+    icon: section,
     attributes,
     supports: {
         anchor: true,

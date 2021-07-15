@@ -1,0 +1,62 @@
+/**
+ * Frontend & Editor
+ */
+.grid-list-block {
+
+    &__row {
+        display: flex;
+        flex-wrap: wrap;
+        @extend .row;
+    }
+
+    &__col {
+        display: flex;
+    }
+
+    &__inner {
+        height: 100%;
+        width: 100%;
+        padding: calc(var(--custom-block-spacing) / 2);
+        margin: 0;
+    }
+
+    .block-list-appender {
+        width: initial;
+    }
+}
+
+[data-columns="1"] {
+    @include row-cols(1);
+}
+
+[data-columns="2"] {
+    @include row-cols(2);
+}
+
+[data-columns="3"] {
+    @include row-cols(3);
+}
+
+[data-columns="4"] {
+    @include row-cols(4);
+}
+
+[data-columns="5"] {
+    @include row-cols(5);
+}
+
+[data-columns="6"] {
+    @include row-cols(6);
+}
+
+[data-columns="7"] {
+    @include row-cols(7);
+}
+
+[data-columns="8"] {
+    @include row-cols(8);
+}
+
+[data-columns="9"] {
+    @include row-cols(9);
+}

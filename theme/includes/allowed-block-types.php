@@ -72,6 +72,8 @@ $custom_blocks_normal_editor = [
     'custom/section',
     'custom/fluid-text',
     'custom/icon-text',
+    'custom/grid-list',
+    'custom/grid-list-inner', // grid-list as parent
 ];
 
 $custom_blocks_widget_editor = [

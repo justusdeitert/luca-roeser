@@ -3,7 +3,7 @@ import {registerBlockType   } from '@wordpress/blocks';
 import {InspectorControls, RichText, AlignmentToolbar, BlockControls} from '@wordpress/block-editor';
 import {SelectControl, ToolbarGroup, RangeControl} from '@wordpress/components';
 import classNames from 'classnames';
-import {buttonIcon} from '../icons';
+import {fluidText} from '../icons';
 
 const attributes = {
     clientId: {
@@ -47,7 +47,7 @@ const attributes = {
 registerBlockType('custom/fluid-text', {
     title: __('Fluid Text', 'sage'),
     category: 'custom',
-    icon: buttonIcon,
+    icon: fluidText,
     attributes,
     edit: ({setAttributes, attributes, className, clientId}) => {
 

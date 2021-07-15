@@ -9,3 +9,4 @@ import './button';
 import './section';
 import './fluid-text';
 import './icon-text';
+import './grid-list';

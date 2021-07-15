@@ -41,6 +41,7 @@ a {
     color: rgb(var(--custom-link-color));
     position: relative;
     z-index: 20;
+    word-break: break-word;
 
     &:hover {
         color: rgb(var(--custom-link-hover-color));
