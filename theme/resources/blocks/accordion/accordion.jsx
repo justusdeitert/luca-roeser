@@ -7,9 +7,10 @@ import {withState} from '@wordpress/compose';
 import classNames from 'classnames';
 import {cloneArray, editorThemeColors} from "../utility";
 import {accordionIcon} from "../icons";
+import {loremIpsum} from "lorem-ipsum";
 
 // TODO: Use Lorem Ipsum NPM Library!!
-const loremIpsum = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.'
+// const loremIpsum = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.'
 
 const attributes = {
     clientId: {
@@ -37,17 +38,20 @@ const attributes = {
             {
                 isOpen: false,
                 header: 'Lorem Ipsum',
-                body: loremIpsum,
+                bodyText:  loremIpsum({count: 4}),
+                bodyList:  '',
             },
             {
                 isOpen: false,
                 header: 'Lorem Ipsum',
-                body: loremIpsum,
+                bodyText: loremIpsum({count: 4}),
+                bodyList:  '',
             },
             {
                 isOpen: false,
                 header: 'Lorem Ipsum',
-                body: loremIpsum,
+                bodyText: loremIpsum({count: 4}),
+                bodyList:  '',
             },
         ],
     },
@@ -110,12 +114,26 @@ registerBlockType('custom/accordion', {
 
             const accordionRepeater = attributes.accordion.map((item, index) => {
 
-                const onChangeAccordionBody = (value) => {
+                const onChangeAccordionBodyText = (value) => {
 
                     // Iterate through slides and only change value of selected item
                     attributes.accordion.map((innerItem, innerIndex) => {
                         if(innerIndex === index) {
-                            innerItem.body = value;
+                            innerItem.bodyText = value;
+                        }
+                    });
+
+                    setAttributes({
+                        accordion: cloneArray(attributes.accordion), // Clone Array to fire reload in Editor
+                    });
+                };
+
+                const onChangeAccordionBodyList = (value) => {
+
+                    // Iterate through slides and only change value of selected item
+                    attributes.accordion.map((innerItem, innerIndex) => {
+                        if(innerIndex === index) {
+                            innerItem.bodyList = value;
                         }
                     });
 
@@ -159,7 +177,7 @@ registerBlockType('custom/accordion', {
                     let newItem = {
                         isOpen: false,
                         header: 'Lorem Ipsum',
-                        body: loremIpsum,
+                        body: loremIpsum({count: 4}),
                     };
 
                     attributes.accordion.splice(index + 1, 0, newItem); // Adds the new Item at position
@@ -267,10 +285,20 @@ registerBlockType('custom/accordion', {
                             >
                                 <RichText
                                     tagName="p"
-                                    placeholder={loremIpsum}
-                                    value={item.body}
+                                    placeholder={loremIpsum({count: 4})}
+                                    value={item.bodyText}
                                     // allowedFormats={['core/bold', 'core/italic', 'core/link']}
-                                    onChange={onChangeAccordionBody}
+                                    onChange={onChangeAccordionBodyText}
+                                />
+                                <RichText
+                                    multiline="li"
+                                    tagName="ul"
+                                    placeholder='Lorem ipsum dolor sit amet'
+                                    keepPlaceholderOnFocus={true}
+                                    value={item.bodyList}
+                                    // formattingControls={['bold', 'italic', 'link']}
+                                    allowedFormats={['core/bold', 'core/italic', 'core/link']}
+                                    onChange={onChangeAccordionBodyList}
                                 />
                             </div>
                         </div>
@@ -380,10 +408,19 @@ registerBlockType('custom/accordion', {
                                  padding: `${attributes.accordionSpacing / 16}rem`,
                              }}
                         >
-                            <RichText.Content
-                                tagName="p"
-                                value={item.body}
-                            />
+                            {item.bodyText &&
+                                <RichText.Content
+                                    tagName="p"
+                                    value={item.bodyText}
+                                />
+                            }
+
+                            {item.bodyList &&
+                                <RichText.Content
+                                    tagName="ul"
+                                    value={item.bodyList}
+                                />
+                            }
                         </div>
 
                     </div>
