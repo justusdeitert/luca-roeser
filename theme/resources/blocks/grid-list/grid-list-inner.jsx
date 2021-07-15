@@ -3,7 +3,9 @@ import {registerBlockType} from '@wordpress/blocks';
 import {InnerBlocks, InspectorControls, ColorPalette, useBlockProps, __experimentalUseInnerBlocksProps as useInnerBlocksProps} from '@wordpress/block-editor';
 import classNames from 'classnames';
 import {gridListInner} from '../icons';
-import {ALLOWEDBLOCKS, editorThemeColors, getColorObject, parentAttributes} from '../utility';
+import {ALLOWEDBLOCKS, editorThemeColors, getColorObject, parentAttributes, SelectClipPath} from '../utility';
+import * as clipPaths from "../clip-paths";
+
 
 const attributes = {
     clientId: {
@@ -17,6 +19,10 @@ const attributes = {
     generalBackgroundColor: {
         type: 'string',
         default: ''
+    },
+    clipPath: {
+        type: 'string',
+        default: 'none'
     },
 };
 
@@ -57,6 +63,10 @@ registerBlockType('custom/grid-list-inner', {
             setAttributes({backgroundColor: value});
         };
 
+        const onChangeClipPath = (value) => {
+            setAttributes({clipPath: value});
+        };
+
         if (parentAttributes(clientId).generalBackgroundColor) {
             attributes.generalBackgroundColor = parentAttributes(clientId).generalBackgroundColor;
         } else {
@@ -65,9 +75,7 @@ registerBlockType('custom/grid-list-inner', {
 
         let backgroundColorSlug = getBackgroundColorSlug(attributes.backgroundColor, attributes.generalBackgroundColor);
 
-        const blockProps = useBlockProps({
-            className: classNames(className, 'grid-list-block__inner', backgroundColorSlug && `has-${backgroundColorSlug}-background-color`),
-        });
+        const blockProps = useBlockProps();
 
         /**
          * useInnerBlocksProps is still experimental and will be ready in future versions
@@ -78,6 +86,8 @@ registerBlockType('custom/grid-list-inner', {
         //     templateLock: false,
         //     renderAppender: InnerBlocks.ButtonBlockAppender,
         // });
+
+        attributes.clientId = clientId;
 
         return (
             <>
@@ -90,11 +100,25 @@ registerBlockType('custom/grid-list-inner', {
                             value={attributes.backgroundColor}
                             onChange={onChangeBackgroundColor}
                         />
+                        <hr/>
+                        <p>{__('Section Clip Path', 'sage')}</p>
+                        <SelectClipPath clipPathsModules={clipPaths} clickFunction={onChangeClipPath} />
                     </div>
                 </InspectorControls>
-                <div className={classNames(className, 'grid-list-block__col')}>
-                    <div { ...blockProps }>
-                        <InnerBlocks templateLock={false} allowedBlocks={ALLOWEDBLOCKS} renderAppender={InnerBlocks.DefaultBlockAppender} />
+                <div className={classNames('grid-list-block__col')}>
+                    {clipPaths[attributes.clipPath] &&
+                        clipPaths[attributes.clipPath](`clip-path-${attributes.clientId}`)
+                    }
+                    <div { ...blockProps } style={{width: '100%', height: '100%'}}>
+                        <div className={classNames(className, 'grid-list-block__inner', backgroundColorSlug && `has-${backgroundColorSlug}-background-color`)}
+                             style={{
+                                 width: '100%',
+                                 height: '100%',
+                                 clipPath: clipPaths[attributes.clipPath] ? `url(#clip-path-${attributes.clientId})` : 'none',
+                             }}
+                        >
+                            <InnerBlocks templateLock={false} allowedBlocks={ALLOWEDBLOCKS} renderAppender={InnerBlocks.DefaultBlockAppender} />
+                        </div>
                     </div>
                 </div>
             </>
@@ -111,7 +135,16 @@ registerBlockType('custom/grid-list-inner', {
 
         return (
             <div {...blockProps}>
-                <div className={classNames('grid-list-block__inner', backgroundColorSlug && `has-${backgroundColorSlug}-background-color`)}>
+                {clipPaths[attributes.clipPath] &&
+                    clipPaths[attributes.clipPath](`clip-path-${attributes.clientId}`)
+                }
+                <div className={classNames('grid-list-block__inner', backgroundColorSlug && `has-${backgroundColorSlug}-background-color`)}
+                     style={{
+                        width: '100%',
+                        height: '100%',
+                        clipPath: clipPaths[attributes.clipPath] ? `url(#clip-path-${attributes.clientId})` : 'none',
+                    }}
+                >
                     <InnerBlocks.Content/>
                 </div>
             </div>

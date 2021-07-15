@@ -1,11 +1,11 @@
 import {__} from '@wordpress/i18n';
 import {registerBlockType, createBlock} from '@wordpress/blocks';
-import {SelectControl, RangeControl, ToggleControl} from '@wordpress/components';
+import {SelectControl, RangeControl, ToggleControl, Button} from '@wordpress/components';
 import {InnerBlocks, InspectorControls, ColorPalette} from '@wordpress/block-editor';
 import classNames from 'classnames';
 import {section} from '../icons';
-import {editorThemeColors, getColorObject} from "../utility";
-import * as clipPaths from "../clip-path-svgs"
+import {editorThemeColors, getColorObject, SelectClipPath} from "../utility";
+import * as clipPaths from "../clip-paths"
 
 const attributes = {
     clientId: {
@@ -153,24 +153,8 @@ registerBlockType('custom/section', {
                             onChange={onChangeSectionBackgroundColor}
                         />
                         <hr/>
-                        <SelectControl
-                            label={__('Section Clip Path', 'sage')}
-                            value={attributes.sectionClipPath}
-                            options={[
-                                {label: __('None', 'sage'), value: 'none'},
-                                {label: __('Slope 01', 'sage'), value: 'slope_01'},
-                                {label: __('Slope 02', 'sage'), value: 'slope_02'},
-                                {label: __('Curves 01', 'sage'), value: 'curves_01'},
-                                {label: __('Curves 02', 'sage'), value: 'curves_02'},
-                                {label: __('Waves 01', 'sage'), value: 'waves_01'},
-                                {label: __('Waves 02', 'sage'), value: 'waves_02'},
-                                {label: __('Waves 03', 'sage'), value: 'waves_03'},
-                                {label: __('Lines 01', 'sage'), value: 'lines_01'},
-                                {label: __('Lines 02', 'sage'), value: 'lines_02'},
-                                {label: __('Lines 03', 'sage'), value: 'lines_03'},
-                            ]}
-                            onChange={onChangeSectionClipPath}
-                        />
+                        <p>{__('Section Clip Path', 'sage')}</p>
+                        <SelectClipPath clipPathsModules={clipPaths} clickFunction={onChangeSectionClipPath} />
                         <hr/>
                         <p>{__('Border Radius', 'sage')}</p>
                         <RangeControl
@@ -204,11 +188,15 @@ registerBlockType('custom/section', {
                 </InspectorControls>
                 <section className={classNames(className, 'section-block', getColorObject(attributes.sectionBackgroundColor) && `has-${getColorObject(attributes.sectionBackgroundColor).slug}-background-color has-background`, 'custom-border-radius')}
                          style={{
-                             clipPath: attributes.sectionClipPath !== 'none' ? `url(#clip-path-${attributes.clientId})` : 'none',
+                             clipPath: clipPaths[attributes.sectionClipPath] ? `url(#clip-path-${attributes.clientId})` : 'none',
                              borderRadius: `${attributes.sectionBorderRadius}px`,
                          }}
                 >
-                    {attributes.sectionClipPath !== 'none' && clipPaths[attributes.sectionClipPath](`clip-path-${attributes.clientId}`)}
+
+                    {clipPaths[attributes.sectionClipPath] &&
+                        clipPaths[attributes.sectionClipPath](`clip-path-${attributes.clientId}`)
+                    }
+
                     {attributes.hasInnerWidth ?
                         <div className="section-block__inner" style={{maxWidth: `${attributes.innerWidth}px`}}>
                             <InnerBlocks templateLock={false} allowedBlocks={ALLOWEDBLOCKS}/>
@@ -230,7 +218,11 @@ registerBlockType('custom/section', {
                          borderRadius: `${attributes.sectionBorderRadius}px`,
                      }}
             >
-                {attributes.sectionClipPath !== 'none' && clipPaths[attributes.sectionClipPath](`clip-path-${attributes.clientId}`)}
+
+                {clipPaths[attributes.sectionClipPath] &&
+                    clipPaths[attributes.sectionClipPath](`clip-path-${attributes.clientId}`)
+                }
+
                 {attributes.hasInnerWidth ?
                     <div className="section-block__inner" style={{maxWidth: `${attributes.innerWidth}px`}}>
                         <InnerBlocks.Content/>

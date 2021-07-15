@@ -1,12 +1,11 @@
 import {__} from '@wordpress/i18n';
-import {registerBlockType, createBlock} from '@wordpress/blocks';
-import {SelectControl, RangeControl, ToggleControl} from '@wordpress/components';
+import {registerBlockType} from '@wordpress/blocks';
+import {RangeControl, ToggleControl} from '@wordpress/components';
 import {InnerBlocks, InspectorControls, ColorPalette, useBlockProps, __experimentalUseInnerBlocksProps as useInnerBlocksProps} from '@wordpress/block-editor';
-// import {useState} from '@wordpress/element';
 import classNames from 'classnames';
 import {gridList} from '../icons';
 import {ALLOWEDBLOCKS, editorThemeColors, getColorObject, updateInnerBlocks} from "../utility";
-import * as clipPaths from "../clip-path-svgs"
+import * as clipPaths from "../clip-paths"
 
 const attributes = {
     clientId: {

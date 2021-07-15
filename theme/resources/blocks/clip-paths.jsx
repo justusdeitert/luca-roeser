@@ -93,13 +93,3 @@ export const lines_02 = (clipPathId) => {
         </svg>
     )
 }
-
-export const lines_03 = (clipPathId) => {
-    return (
-        <svg className="clip-path-svg">
-            <clipPath id={clipPathId} clipPathUnits="objectBoundingBox">
-                <path d="M0,0 C0.667,0,1,0,1,0 C1,0,0.961,0.334,0.883,1 L0.166,0.931 L0,0"></path>
-            </clipPath>
-        </svg>
-    )
-}

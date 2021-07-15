@@ -1,5 +1,7 @@
+import {__} from '@wordpress/i18n';
 import {getColorObjectByColorValue} from '@wordpress/block-editor';
 import {select, dispatch} from "@wordpress/data";
+import {Button} from '@wordpress/components';
 
 /**
  * @param array
@@ -278,4 +280,46 @@ export const updateInnerBlocks = (clientId) => {
     parentBlock.innerBlocks.forEach((innerBlock) => {
         dispatch('core/editor').updateBlock(innerBlock.clientId, innerBlock)
     })
+}
+
+/**
+ * Select Clip Paths for Gutenberg InspectorControls
+ * @param clipPathsModules
+ * @param clickFunction
+ * @returns {JSX.Element}
+ * @constructor
+ */
+export const SelectClipPath = ({clipPathsModules, clickFunction}) => {
+
+    let clipPathArray = Object.entries(clipPathsModules);
+
+    let ClipPathEntries = clipPathArray.map((element, index) => {
+        return (
+            <div key={index} className={'clip-paths__wrapper'}>
+
+                {element[1](`clip-path-${index}`)}
+
+                <div className={`clip-paths__element`}
+                     style={{
+                         cursor: 'pointer',
+                         clipPath: `url(#clip-path-${index})`,
+                     }}
+                     onClick={() => clickFunction(element[0])}
+                />
+            </div>
+        )
+    });
+
+    return (
+        <>
+            <div className={'clip-paths'}>
+                <div className="clip-paths__remove-button-wrapper">
+                    <Button className="button button-sm clip-paths__remove-button" onClick={() => {clickFunction('none')}}>
+                        {__('Remove Clip Path', 'sage')}
+                    </Button>
+                </div>
+                {ClipPathEntries}
+            </div>
+        </>
+    );
 }

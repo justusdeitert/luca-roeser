@@ -4,8 +4,8 @@ import {RangeControl, Button, ToggleControl, SelectControl, PanelBody, ColorPale
 import {__experimentalAlignmentMatrixControl as AlignmentMatrixControl} from '@wordpress/components';
 import {MediaUpload, InspectorControls, InnerBlocks} from '@wordpress/block-editor';
 import classNames from 'classnames';
-import {editorThemeColors, getImage, focalPositionInPixel, getColorObject} from "../utility";
-import * as clipPaths from "../clip-path-svgs"
+import {editorThemeColors, getImage, focalPositionInPixel, getColorObject, SelectClipPath} from "../utility";
+import * as clipPaths from "../clip-paths"
 import {imageHeaderIcon} from "../icons";
 
 const attributes = {
@@ -252,6 +252,9 @@ registerBlockType('custom/image-header', {
                                     onChange={onChangeHeaderMobileHeight}
                                 />
                                 <hr/>
+                                <p>{__('Section Clip Path', 'sage')}</p>
+                                <SelectClipPath clipPathsModules={clipPaths} clickFunction={onChangeHeaderClipPath} />
+                                {/*<hr/>
                                 <SelectControl
                                     label={__('Header Clip Path', 'sage')}
                                     value={attributes.headerClipPath}
@@ -269,7 +272,7 @@ registerBlockType('custom/image-header', {
                                         {label: __('Lines 03', 'sage'), value: 'lines_03'},
                                     ]}
                                     onChange={onChangeHeaderClipPath}
-                                />
+                                />*/}
                             </>
                         }
                         <hr/>
@@ -351,7 +354,11 @@ registerBlockType('custom/image-header', {
                         clipPath: attributes.headerClipPath !== 'none' ? `url(#clip-path-${attributes.clientId})` : 'none'
                     }}
                 >
-                    {attributes.headerClipPath !== 'none' && clipPaths[attributes.headerClipPath](`clip-path-${attributes.clientId}`)}
+
+                    {clipPaths[attributes.headerClipPath] &&
+                        clipPaths[attributes.headerClipPath](`clip-path-${attributes.clientId}`)
+                    }
+
                     {!attributes.headerImageRemove &&
                         <img
                             className={classNames('image-header-block__image', attributes.headerImageBlur > 0 ? 'is-blurred' : '')}
@@ -434,7 +441,11 @@ registerBlockType('custom/image-header', {
                     // clipPath: attributes.headerFullHeight ? 'initial' : getClipPath(),
                 }}
             >
-                {attributes.headerClipPath !== 'none' && clipPaths[attributes.headerClipPath](`clip-path-${attributes.clientId}`)}
+
+                {clipPaths[attributes.headerClipPath] &&
+                    clipPaths[attributes.headerClipPath](`clip-path-${attributes.clientId}`)
+                }
+
                 {!attributes.headerImageRemove &&
                     <img className={classNames('image-header-block__image', attributes.headerImageBlur > 0 ? 'is-blurred' : '')}
                          style={{
