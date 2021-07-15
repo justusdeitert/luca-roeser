@@ -2,9 +2,10 @@ import {__} from '@wordpress/i18n';
 import {registerBlockType, createBlock} from '@wordpress/blocks';
 import {SelectControl, RangeControl, ToggleControl} from '@wordpress/components';
 import {InnerBlocks, InspectorControls, ColorPalette, useBlockProps, __experimentalUseInnerBlocksProps as useInnerBlocksProps} from '@wordpress/block-editor';
+// import {useState} from '@wordpress/element';
 import classNames from 'classnames';
 import {gridList} from '../icons';
-import {ALLOWEDBLOCKS, editorThemeColors, getColorObject} from "../utility";
+import {ALLOWEDBLOCKS, editorThemeColors, getColorObject, updateInnerBlocks} from "../utility";
 import * as clipPaths from "../clip-path-svgs"
 
 const attributes = {
@@ -15,6 +16,10 @@ const attributes = {
     columns: {
         type: 'number',
         default: 3
+    },
+    twoColumnsMobile: {
+        type: 'boolean',
+        default: false,
     },
     customSpacing: {
         type: 'boolean',
@@ -32,22 +37,14 @@ const attributes = {
         type: 'string',
         default: ''
     },
-    // sectionClipPath: {
-    //     type: 'string',
-    //     default: 'none',
-    // },
-    // sectionBorderRadius: {
-    //     type: 'number',
-    //     default: 0,
-    // },
-    // hasInnerWidth: {
-    //     type: 'boolean',
-    //     default: false,
-    // },
-    // innerWidth: {
-    //     type: 'number',
-    //     default: 800,
-    // },
+    hasCustomPadding: {
+        type: 'boolean',
+        default: false,
+    },
+    customPadding: {
+        type: 'number',
+        default: 32
+    },
 };
 
 registerBlockType('custom/grid-list', {
@@ -67,6 +64,10 @@ registerBlockType('custom/grid-list', {
             setAttributes({columns: value});
         };
 
+        const onChangeTwoColumnsMobile = (value) => {
+            setAttributes({twoColumnsMobile: value});
+        };
+
         const onChangeCustomSpacing = (value) => {
             setAttributes({customSpacing: value});
         };
@@ -81,14 +82,29 @@ registerBlockType('custom/grid-list', {
 
         const onChangeGeneralBackgroundColor = (value) => {
             setAttributes({generalBackgroundColor: value});
+            updateInnerBlocks(clientId);
+        };
+
+        const onChangeHasCustomPadding = (value) => {
+            setAttributes({hasCustomPadding: value});
+        };
+
+        const onChangeCustomPadding = (value) => {
+            setAttributes({customPadding: value});
         };
 
         attributes.clientId = clientId;
 
         const TEMPLATE = [
-            ['custom/grid-list-inner', {}],
-            ['custom/grid-list-inner', {}],
-            ['custom/grid-list-inner', {}],
+            ['custom/grid-list-inner', {}, [
+                ['core/paragraph', {placeholder: 'Lorem Ipsum...'}]
+            ]],
+            ['custom/grid-list-inner', {}, [
+                ['core/paragraph', {placeholder: 'Lorem Ipsum...'}]
+            ]],
+            ['custom/grid-list-inner', {}, [
+                ['core/paragraph', {placeholder: 'Lorem Ipsum...'}]
+            ]],
         ];
 
         const blockProps = useBlockProps({
@@ -101,8 +117,6 @@ registerBlockType('custom/grid-list', {
             template: TEMPLATE,
         });
 
-        console.log(getColorObject(attributes.generalBackgroundColor));
-
         return (
             <>
                 <InspectorControls>
@@ -112,9 +126,16 @@ registerBlockType('custom/grid-list', {
                         <RangeControl
                             value={attributes.columns}
                             min={1}
-                            max={9}
+                            max={6}
                             step={1}
                             onChange={onChangeColumns}
+                        />
+                        <hr/>
+                        <ToggleControl
+                            label={__('Mobile Two Columns', 'sage')}
+                            help={__('Select if you want two columns on the smallest screen resolution', 'sage')}
+                            checked={attributes.twoColumnsMobile}
+                            onChange={onChangeTwoColumnsMobile}
                         />
                         <hr/>
                         <ToggleControl
@@ -145,6 +166,25 @@ registerBlockType('custom/grid-list', {
                             </>
                         }
                         <hr/>
+                        <ToggleControl
+                            label={__('Has Custom Padding', 'sage')}
+                            checked={attributes.hasCustomPadding}
+                            onChange={onChangeHasCustomPadding}
+                        />
+                        {attributes.hasCustomPadding &&
+                        <>
+                            <hr/>
+                            <p>{__('Custom Padding', 'sage')}</p>
+                            <RangeControl
+                                value={attributes.customPadding}
+                                min={0}
+                                max={100}
+                                step={1}
+                                onChange={onChangeCustomPadding}
+                            />
+                        </>
+                        }
+                        <hr/>
                         <p>{__('General Background Color', 'sage')}</p>
                         <ColorPalette
                             colors={[...editorThemeColors]}
@@ -170,11 +210,11 @@ registerBlockType('custom/grid-list', {
                         `}
                         {`
                             .grid-list-${attributes.clientId} .grid-list-block__inner {
-                                background-color: ${getColorObject(attributes.generalBackgroundColor) ? getColorObject(attributes.generalBackgroundColor).color : 'initial'};
+                                ${attributes.hasCustomPadding ? `padding: ${attributes.customPadding / 16}rem` : ''}
                             }
                         `}
                     </style>
-                    <div className="grid-list-block__row" data-columns={attributes.columns}>
+                    <div className={classNames("grid-list-block__row", attributes.twoColumnsMobile && 'two-columns-mobile')} data-columns={attributes.columns}>
                         {innerBlocksProps.children}
                     </div>
                 </div>
@@ -204,16 +244,15 @@ registerBlockType('custom/grid-list', {
                                 padding-right: ${attributes.spaceBetweenX / 32}rem;
                                 padding-left: ${attributes.spaceBetweenX / 32}rem;
                             }
-
                         `}
                         {`
                             .grid-list-${attributes.clientId} .grid-list-block__inner {
-                                background-color: ${getColorObject(attributes.generalBackgroundColor) ? getColorObject(attributes.generalBackgroundColor).color : 'initial'};
+                                ${attributes.hasCustomPadding ? `padding: ${attributes.customPadding / 16}rem` : ''}
                             }
                         `}
                     </style>
-                <div className="grid-list-block__row" data-columns={attributes.columns}>
-                    <InnerBlocks.Content/>
+                <div className={classNames("grid-list-block__row", attributes.twoColumnsMobile && 'two-columns-mobile')} data-columns={attributes.columns}>
+                    <InnerBlocks.Content />
                 </div>
             </div>
         );

@@ -1,4 +1,5 @@
 import {getColorObjectByColorValue} from '@wordpress/block-editor';
+import {select, dispatch} from "@wordpress/data";
 
 /**
  * @param array
@@ -264,3 +265,17 @@ export const ALLOWEDBLOCKS = [
     'custom/divider',
     'custom/image'
 ]
+
+export const parentAttributes = (clientId) => {
+    const parentClientId = select('core/block-editor').getBlockHierarchyRootClientId(clientId);
+    const parentAttributes = select('core/block-editor').getBlockAttributes(parentClientId);
+    return parentAttributes;
+}
+
+
+export const updateInnerBlocks = (clientId) => {
+    var parentBlock = select('core/editor').getBlock(clientId)
+    parentBlock.innerBlocks.forEach((innerBlock) => {
+        dispatch('core/editor').updateBlock(innerBlock.clientId, innerBlock)
+    })
+}

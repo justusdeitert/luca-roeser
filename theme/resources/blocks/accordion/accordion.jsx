@@ -294,7 +294,7 @@ registerBlockType('custom/accordion', {
                                     multiline="li"
                                     tagName="ul"
                                     placeholder='Lorem ipsum dolor sit amet'
-                                    keepPlaceholderOnFocus={true}
+                                    // keepPlaceholderOnFocus={true}
                                     value={item.bodyList}
                                     // formattingControls={['bold', 'italic', 'link']}
                                     allowedFormats={['core/bold', 'core/italic', 'core/link']}

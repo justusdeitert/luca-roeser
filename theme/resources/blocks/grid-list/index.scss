@@ -49,14 +49,36 @@
     @include row-cols(6);
 }
 
-[data-columns="7"] {
-    @include row-cols(7);
+@include media-breakpoint-down(xxl) {
+    [data-columns="5"],
+    [data-columns="6"] {
+        @include row-cols(4);
+    }
 }
 
-[data-columns="8"] {
-    @include row-cols(8);
+@include media-breakpoint-down(xl) {
+    [data-columns="4"],
+    [data-columns="5"],
+    [data-columns="6"] {
+        @include row-cols(3);
+    }
 }
 
-[data-columns="9"] {
-    @include row-cols(9);
+@include media-breakpoint-down(lg) {
+    [data-columns="3"],
+    [data-columns="4"],
+    [data-columns="5"],
+    [data-columns="6"] {
+        @include row-cols(2);
+    }
+}
+
+@include media-breakpoint-down(md) {
+    [data-columns="2"],
+    [data-columns="3"],
+    [data-columns="4"],
+    [data-columns="5"],
+    [data-columns="6"] {
+        @include row-cols(1);
+    }
 }
