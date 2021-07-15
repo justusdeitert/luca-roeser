@@ -59,6 +59,8 @@ registerBlockType('custom/grid-list-inner', {
 
         if (parentAttributes(clientId).generalBackgroundColor) {
             attributes.generalBackgroundColor = parentAttributes(clientId).generalBackgroundColor;
+        } else {
+            attributes.generalBackgroundColor = '';
         }
 
         let backgroundColorSlug = getBackgroundColorSlug(attributes.backgroundColor, attributes.generalBackgroundColor);
