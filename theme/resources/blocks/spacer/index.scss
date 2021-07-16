@@ -1,0 +1,48 @@
+/*
+ * Strip Unit Function takes away the Unit at the end!
+ */
+@function strip-unit($number) {
+    @if type-of($number) == "number" and not unitless($number) {
+        @return $number / ($number * 0 + 1);
+    }
+
+    @return $number;
+}
+
+.spacer-block {
+    $min-height: var(--spacer-height-mobile);
+    $max-height: var(--spacer-height-desktop);
+    $min-vw: map-get($grid-breakpoints, xs);
+    $max-vw: map-get($grid-breakpoints, xl);
+    $min-max-height: var(--spacer-min-max-height);
+
+    /*
+     * Fluid Height Styles Start
+     */
+    height: #{$min-height};
+
+    @media screen and (min-width: $min-vw) {
+        height: calc(#{$min-height} + #{$min-max-height} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
+    }
+
+    @media screen and (min-width: $max-vw) {
+        height: #{$max-height};
+    }
+}
+
+
+//@mixin fluid-height($min-vw, $max-vw, $min-height, $max-height) {
+//
+//    // Check if all Units are Pixel Units..
+//    @if unit($min-vw) == unit($max-vw) and unit($min-vw) == unit($min-height) and  unit($min-vw) == unit($max-height) {
+//        height: $min-height;
+//
+//        @media screen and (min-width: $min-vw) {
+//            height: calc(#{$min-height} + #{strip-unit($max-height - $min-height)} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
+//        }
+//
+//        @media screen and (min-width: $max-vw) {
+//            height: $max-height;
+//        }
+//    }
+//}

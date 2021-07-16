@@ -259,13 +259,14 @@ export const ALLOWEDBLOCKS = [
     'core/heading',
     'core/list',
     'core/shortcode',
-    'core/spacer',
     'core/group',
     'custom/button',
     'custom/icon-text',
     'custom/row',
     'custom/divider',
-    'custom/image'
+    'custom/image',
+    'custom/grid-list',
+    'custom/spacer',
 ]
 
 export const parentAttributes = (clientId) => {

@@ -1,7 +1,7 @@
 import {__} from '@wordpress/i18n';
 import {registerBlockType   } from '@wordpress/blocks';
 import {InspectorControls, RichText, BlockControls, MediaUpload, BlockVerticalAlignmentToolbar, InnerBlocks} from '@wordpress/block-editor';
-import {SelectControl, ToolbarGroup, RangeControl, Button, ToolbarDropdownMenu} from '@wordpress/components';
+import {SelectControl, ToolbarGroup, RangeControl, Button, ToolbarDropdownMenu, ToggleControl} from '@wordpress/components';
 import classNames from 'classnames';
 import {iconText} from '../icons';
 import {getImage} from "../utility";
@@ -47,6 +47,10 @@ const attributes = {
         type: 'number',
         default: 40
     },
+    imageTopOnMobile: {
+        type: 'boolean',
+        default: true
+    }
 }
 
 const ALLOWEDBLOCKS = [
@@ -95,6 +99,10 @@ registerBlockType('custom/icon-text', {
 
         const onClickAlignment = (value) => {
             setAttributes({iconTextAlignment: value});
+        }
+
+        const onChangeImageTopOnMobile = (value) => {
+            setAttributes({imageTopOnMobile: value});
         }
 
         const getAlignmentIcon = () => {
@@ -197,9 +205,16 @@ registerBlockType('custom/icon-text', {
                             step={1}
                             onChange={onChangeBottomMargin}
                         />
+                        <hr/>
+                        <ToggleControl
+                            label={__('Image Top on Mobile', 'sage')}
+                            // help={ attributes.withHeadline ? 'Image is left' : 'Image is right' }
+                            checked={attributes.imageTopOnMobile}
+                            onChange={onChangeImageTopOnMobile}
+                        />
                     </div>
                 </InspectorControls>
-                <div className={classNames(className, 'icon-text-block')}>
+                <div className={classNames(className, 'icon-text-block', attributes.imageTopOnMobile && 'image-top-on-mobile')}>
                     <div className={classNames('icon-text-block__inner', `justify-content-${attributes.iconTextAlignment}`, `align-items-${attributes.verticalAlign}`)}
                          style={{marginBottom: `${attributes.bottomMargin}px`}}
                     >
@@ -234,7 +249,7 @@ registerBlockType('custom/icon-text', {
     save: ({attributes, className}) => {
         return (
             <>
-                <div className={classNames(className, 'icon-text-block')}>
+                <div className={classNames(className, 'icon-text-block', attributes.imageTopOnMobile && 'image-top-on-mobile')}>
                     <div className={classNames('icon-text-block__inner', `justify-content-${attributes.iconTextAlignment}`, `align-items-${attributes.verticalAlign}`)}
                          style={{marginBottom: `${attributes.bottomMargin}px`}}
                     >

@@ -4,7 +4,7 @@ import {SelectControl, RangeControl, ToggleControl, Button} from '@wordpress/com
 import {InnerBlocks, InspectorControls, ColorPalette} from '@wordpress/block-editor';
 import classNames from 'classnames';
 import {section} from '../icons';
-import {editorThemeColors, getColorObject, SelectClipPath} from "../utility";
+import {editorThemeColors, getColorObject, SelectClipPath, ALLOWEDBLOCKS} from "../utility";
 import * as clipPaths from "../clip-paths"
 
 const attributes = {
@@ -34,19 +34,19 @@ const attributes = {
     },
 };
 
-const ALLOWEDBLOCKS = [
-    'core/paragraph',
-    'core/heading',
-    'core/list',
-    'core/shortcode',
-    'core/spacer',
-    'core/group',
-    'custom/button',
-    'custom/icon-text',
-    'custom/row',
-    'custom/divider',
-    'custom/image'
-];
+// const ALLOWEDBLOCKS = [
+//     'core/paragraph',
+//     'core/heading',
+//     'core/list',
+//     'core/shortcode',
+//     'core/spacer',
+//     'core/group',
+//     'custom/button',
+//     'custom/icon-text',
+//     'custom/row',
+//     'custom/divider',
+//     'custom/image'
+// ];
 
 registerBlockType('custom/section', {
     title: __('Section', 'sage'),

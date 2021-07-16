@@ -29,7 +29,7 @@ $core_blocks = [
     // 'core/more',
     // 'core/nextpage',
     // 'core/separator',
-    'core/spacer',
+    // 'core/spacer',
     // 'core/site-logo',
     // 'core/site-tagline',
     // 'core/site-title',
@@ -74,6 +74,7 @@ $custom_blocks_normal_editor = [
     'custom/icon-text',
     'custom/grid-list',
     'custom/grid-list-inner', // grid-list as parent
+    'custom/spacer',
 ];
 
 $custom_blocks_widget_editor = [
