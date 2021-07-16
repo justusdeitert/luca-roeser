@@ -154,7 +154,11 @@ registerBlockType('custom/section', {
                         />
                         <hr/>
                         <p>{__('Section Clip Path', 'sage')}</p>
-                        <SelectClipPath clipPathsModules={clipPaths} clickFunction={onChangeSectionClipPath} />
+                        <SelectClipPath
+                            clipPathsModules={clipPaths}
+                            clickFunction={onChangeSectionClipPath}
+                            value={attributes.sectionClipPath}
+                        />
                         <hr/>
                         <p>{__('Border Radius', 'sage')}</p>
                         <RangeControl
@@ -167,7 +171,6 @@ registerBlockType('custom/section', {
                         <hr/>
                         <ToggleControl
                             label={__('Has Inner Width', 'sage')}
-                            // help={ attributes.switchContent ? 'Image is left' : 'Image is right' }
                             checked={attributes.hasInnerWidth}
                             onChange={onChangeHasInnerWidth}
                         />

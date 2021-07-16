@@ -2,7 +2,7 @@ import {__} from '@wordpress/i18n';
 import {registerBlockType} from '@wordpress/blocks';
 import {RangeControl, Button, ToggleControl, SelectControl, PanelBody, ColorPalette, FocalPointPicker} from '@wordpress/components';
 import {__experimentalAlignmentMatrixControl as AlignmentMatrixControl} from '@wordpress/components';
-import {MediaUpload, InspectorControls, InnerBlocks} from '@wordpress/block-editor';
+import {MediaUpload, InspectorControls, InnerBlocks, useBlockProps} from '@wordpress/block-editor';
 import classNames from 'classnames';
 import {editorThemeColors, getImage, focalPositionInPixel, getColorObject, SelectClipPath} from "../utility";
 import * as clipPaths from "../clip-paths"
@@ -220,6 +220,13 @@ registerBlockType('custom/image-header', {
 
         attributes.clientId = clientId;
 
+        const blockProps = useBlockProps({
+            className: className,
+            style: {
+                border: attributes.headerImageRemove ? '1px dashed var(--wp-admin-theme-color)' : 'none',
+            }
+        });
+
         return (
             <>
                 <InspectorControls>
@@ -253,7 +260,11 @@ registerBlockType('custom/image-header', {
                                 />
                                 <hr/>
                                 <p>{__('Section Clip Path', 'sage')}</p>
-                                <SelectClipPath clipPathsModules={clipPaths} clickFunction={onChangeHeaderClipPath} />
+                                <SelectClipPath
+                                    clipPathsModules={clipPaths}
+                                    clickFunction={onChangeHeaderClipPath}
+                                    value={attributes.headerClipPath}
+                                />
                                 {/*<hr/>
                                 <SelectControl
                                     label={__('Header Clip Path', 'sage')}
@@ -345,90 +356,90 @@ registerBlockType('custom/image-header', {
                         />
                     </PanelBody>
                 </InspectorControls>
-                <div
-                    className={classNames(className, 'image-header-block', getColorObject(attributes.headerBackgroundColor) && `has-${getColorObject(attributes.headerBackgroundColor).slug}-background-color`)}
-                    style={{
-                        maxHeight: attributes.headerFullHeight ? `initial` : `${attributes.headerHeight}px`,
-                        minHeight: attributes.headerFullHeight ? `initial` : `${attributes.headerMobileHeight}px`,
-                        height: attributes.headerFullHeight ? `100vh` : '60vw',
-                        clipPath: attributes.headerClipPath !== 'none' ? `url(#clip-path-${attributes.clientId})` : 'none'
-                    }}
-                >
+                <div {...blockProps}>
+                    <div
+                        className={classNames(className, 'image-header-block', getColorObject(attributes.headerBackgroundColor) && `has-${getColorObject(attributes.headerBackgroundColor).slug}-background-color`)}
+                        style={{
+                            maxHeight: attributes.headerFullHeight ? `initial` : `${attributes.headerHeight}px`,
+                            minHeight: attributes.headerFullHeight ? `initial` : `${attributes.headerMobileHeight}px`,
+                            height: attributes.headerFullHeight ? `100vh` : '60vw',
+                            clipPath: attributes.headerClipPath !== 'none' ? `url(#clip-path-${attributes.clientId})` : 'none'
+                        }}
+                    >
 
-                    {clipPaths[attributes.headerClipPath] &&
-                        clipPaths[attributes.headerClipPath](`clip-path-${attributes.clientId}`)
-                    }
+                        {clipPaths[attributes.headerClipPath] &&
+                            clipPaths[attributes.headerClipPath](`clip-path-${attributes.clientId}`)
+                        }
 
-                    {!attributes.headerImageRemove &&
-                        <img
-                            className={classNames('image-header-block__image', attributes.headerImageBlur > 0 ? 'is-blurred' : '')}
-                            style={{
-                                filter: `blur(${attributes.headerImageBlur}px)`,
-                                objectPosition: `${attributes.headerImageAlignment}`,
-                                opacity: attributes.headerImageOpacity,
-                            }}
-                            src={getImage(attributes.headerImage, 'x_large')}
-                            alt={getImage(attributes.headerImage, 'alt')}
-                            width={getImage(attributes.headerImage, 'width')}
-                            height={getImage(attributes.headerImage, 'height')}
-                        />
-                    }
-                    {attributes.headerBackgroundHasOverlay &&
-                        <div className="image-header-block__overlay"
-                             style={{
-                                 backgroundImage: getOverlayColor(attributes.headerBackgroundOverlayColor)
-                             }}
-                        />
-                    }
-                    <div className="container image-header-block__container">
-                        <div className="image-header-block__text-wrapper"
-                             style={{
-                                 transform: `translate(${focalPositionInPixel(attributes.textPosition.x)}, ${focalPositionInPixel(attributes.textPosition.y)})`,
-                             }}
-                        >
-                            <InnerBlocks template={TEMPLATE} allowedBlocks={ALLOWED_BLOCKS}/>
+                        {!attributes.headerImageRemove &&
+                            <img
+                                className={classNames('image-header-block__image', attributes.headerImageBlur > 0 ? 'is-blurred' : '')}
+                                style={{
+                                    filter: `blur(${attributes.headerImageBlur}px)`,
+                                    objectPosition: `${attributes.headerImageAlignment}`,
+                                    opacity: attributes.headerImageOpacity,
+                                }}
+                                src={getImage(attributes.headerImage, 'x_large')}
+                                alt={getImage(attributes.headerImage, 'alt')}
+                                width={getImage(attributes.headerImage, 'width')}
+                                height={getImage(attributes.headerImage, 'height')}
+                            />
+                        }
+                        {attributes.headerBackgroundHasOverlay &&
+                            <div className="image-header-block__overlay"
+                                 style={{
+                                     backgroundImage: getOverlayColor(attributes.headerBackgroundOverlayColor)
+                                 }}
+                            />
+                        }
+                        <div className="container image-header-block__container">
+                            <div className="image-header-block__text-wrapper"
+                                 style={{
+                                     transform: `translate(${focalPositionInPixel(attributes.textPosition.x)}, ${focalPositionInPixel(attributes.textPosition.y)})`,
+                                 }}
+                            >
+                                <InnerBlocks template={TEMPLATE} allowedBlocks={ALLOWED_BLOCKS}/>
+                            </div>
                         </div>
                     </div>
+                    <MediaUpload
+                        onSelect={onSelectHeaderImage}
+                        allowedTypes={[
+                            'image/jpeg',
+                            'image/jpg',
+                            'image/png',
+                            'image/gif'
+                        ]}
+                        // value={attributes.mediaID}
+                        render={({open}) => (
+                            <>
+                                <Button className={'button'}
+                                        onClick={open}
+                                        icon={'format-image'}
+                                        style={{
+                                            position: `absolute`,
+                                            right: `70px`,
+                                            bottom: `20px`
+                                        }}
+                                        text={__('Change Image', 'sage')}
+                                />
+                                <Button className={'button'}
+                                        onClick={headerImageRemove}
+                                        icon={!attributes.headerImageRemove ? 'visibility' : 'hidden'}
+                                        style={{
+                                            position: `absolute`,
+                                            right: `20px`,
+                                            bottom: `20px`
+                                        }}
+                                />
+                            </>
+                        )}
+                    />
                 </div>
-                <MediaUpload
-                    onSelect={onSelectHeaderImage}
-                    allowedTypes={[
-                        'image/jpeg',
-                        'image/jpg',
-                        'image/png',
-                        'image/gif'
-                    ]}
-                    // value={attributes.mediaID}
-                    render={({open}) => (
-                        <>
-                            <Button className={'button'}
-                                    onClick={open}
-                                    icon={'format-image'}
-                                    style={{
-                                        position: `absolute`,
-                                        right: `70px`,
-                                        bottom: `20px`
-                                    }}
-                                    text={__('Change Image', 'sage')}
-                            />
-                            <Button className={'button'}
-                                    onClick={headerImageRemove}
-                                    icon={!attributes.headerImageRemove ? 'visibility' : 'hidden'}
-                                    style={{
-                                        position: `absolute`,
-                                        right: `20px`,
-                                        bottom: `20px`
-                                    }}
-                            />
-                        </>
-                    )}
-                />
             </>
         );
     },
-    save: ({className, attributes}) => {
-
-        // console.log(className);
+    save: ({attributes}) => {
 
         return (
             <div

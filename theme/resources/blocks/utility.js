@@ -2,6 +2,7 @@ import {__} from '@wordpress/i18n';
 import {getColorObjectByColorValue} from '@wordpress/block-editor';
 import {select, dispatch} from "@wordpress/data";
 import {Button} from '@wordpress/components';
+import classNames from 'classnames';
 
 /**
  * @param array
@@ -287,10 +288,11 @@ export const updateInnerBlocks = (clientId) => {
  * Select Clip Paths for Gutenberg InspectorControls
  * @param clipPathsModules
  * @param clickFunction
+ * @param value
  * @returns {JSX.Element}
  * @constructor
  */
-export const SelectClipPath = ({clipPathsModules, clickFunction}) => {
+export const SelectClipPath = ({clipPathsModules, clickFunction, value = 'none'}) => {
 
     let clipPathArray = Object.entries(clipPathsModules);
 
@@ -300,7 +302,7 @@ export const SelectClipPath = ({clipPathsModules, clickFunction}) => {
 
                 {element[1](`clip-path-${index}`)}
 
-                <div className={`clip-paths__element`}
+                <div className={classNames(`clip-paths__element`, value === element[0] && 'is-active')}
                      style={{
                          cursor: 'pointer',
                          clipPath: `url(#clip-path-${index})`,
