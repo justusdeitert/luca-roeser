@@ -4,8 +4,8 @@ import {RangeControl, ToggleControl} from '@wordpress/components';
 import {InnerBlocks, InspectorControls, ColorPalette, useBlockProps, __experimentalUseInnerBlocksProps as useInnerBlocksProps} from '@wordpress/block-editor';
 import classNames from 'classnames';
 import {gridList} from '../icons';
-import {ALLOWEDBLOCKS, editorThemeColors, getColorObject, updateInnerBlocks} from "../utility";
-import * as clipPaths from "../clip-paths"
+import {editorThemeColors, updateInnerBlocks} from "../utility";
+// import * as clipPaths from "../clip-paths"
 
 const attributes = {
     clientId: {

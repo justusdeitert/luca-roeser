@@ -228,8 +228,10 @@ function customizer_theme_styles() {
         }
 
         <?php foreach ($standard_color_versions as $name => $value) { ?>
-            .has-<?php echo $name; ?>-color {
-                color: rgb(<?php echo $value; ?>);
+            .has-<?php echo $name; ?>-color,
+            .has-<?php echo $name; ?>-color *,
+            .has-<?php echo $name; ?>-color *:hover {
+                color: rgb(<?php echo $value; ?>) !important;
             }
 
             .has-<?php echo $name; ?>-background-color {
@@ -238,8 +240,10 @@ function customizer_theme_styles() {
         <?php } ?>
 
         <?php foreach ($theme_colors as $name => $value) { ?>
-            .has-<?php echo $name; ?>-color {
-                color: rgb(<?php echo $value; ?>);
+            .has-<?php echo $name; ?>-color,
+            .has-<?php echo $name; ?>-color *,
+            .has-<?php echo $name; ?>-color *:hover {
+                color: rgb(<?php echo $value; ?>) !important;
             }
 
             .has-<?php echo $name; ?>-background-color {
@@ -248,8 +252,10 @@ function customizer_theme_styles() {
         <?php } ?>
 
         <?php foreach ($light_colors as $name => $value) { ?>
-            .has-light-<?php echo $name; ?>-color {
-                color: rgb(<?php echo $value; ?>);
+            .has-light-<?php echo $name; ?>-color,
+            .has-<?php echo $name; ?>-color *,
+            .has-<?php echo $name; ?>-color *:hover {
+                color: rgb(<?php echo $value; ?>) !important;
             }
 
             .has-light-<?php echo $name; ?>-background-color {
@@ -258,8 +264,10 @@ function customizer_theme_styles() {
         <?php } ?>
 
         <?php foreach ($dark_colors as $name => $value) { ?>
-            .has-dark-<?php echo $name; ?>-color {
-                color: rgb(<?php echo $value; ?>);
+            .has-dark-<?php echo $name; ?>-color,
+            .has-<?php echo $name; ?>-color *,
+            .has-<?php echo $name; ?>-color *:hover {
+                color: rgb(<?php echo $value; ?>) !important;
             }
 
             .has-dark-<?php echo $name; ?>-background-color {
@@ -268,8 +276,10 @@ function customizer_theme_styles() {
         <?php } ?>
 
         <?php foreach ($dark_light_colors as $name => $value) { ?>
-            .has-dark-light-<?php echo $name; ?>-color {
-                color: rgb(<?php echo $value; ?>);
+            .has-dark-light-<?php echo $name; ?>-color,
+            .has-<?php echo $name; ?>-color *,
+            .has-<?php echo $name; ?>-color *:hover {
+                color: rgb(<?php echo $value; ?>) !important;
             }
 
             .has-dark-light-<?php echo $name; ?>-background-color {
