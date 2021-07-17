@@ -200,6 +200,7 @@ export const ALLOWEDBLOCKS = [
     'core/shortcode',
     'core/group',
     'custom/button',
+    'custom/section',
     'custom/icon-text',
     'custom/row',
     'custom/divider',

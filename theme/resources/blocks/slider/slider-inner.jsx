@@ -36,29 +36,29 @@ registerBlockType('custom/slider-inner', {
         attributes.parentId = parentAttributes(attributes.clientId).clientId;
 
         useEffect(() => {
-
             /**
-             * TODO: Don't run on Block Initialisation
-             * On block initialisation / Only run when sliderInstance is initialized
+             * On block initialisation
              */
             let slideInstance = window.sliderBlockInstances[attributes.parentId];
-
             if (slideInstance) {
-
-                let sliderActiveIndex = slideInstance ? window.sliderBlockInstances[attributes.parentId].activeIndex + 1 : 0;
+                let sliderActiveIndex = slideInstance.activeIndex + 1;
                 window.updateSliderBlockInstances();
+                // New query because slider has ben reinitialized
                 window.sliderBlockInstances[attributes.parentId].slideTo(sliderActiveIndex, 0)
-
-                /**
-                 * On Block Remove
-                 */
-                return () => {
-                    let sliderActiveIndex = window.sliderBlockInstances[attributes.parentId].activeIndex - 1;
-                    window.updateSliderBlockInstances();
-                    window.sliderBlockInstances[attributes.parentId].slideTo(sliderActiveIndex, 0)
-                };
             }
 
+            /**
+             * On Block Remove
+             */
+            return () => {
+                let slideInstance = window.sliderBlockInstances[attributes.parentId];
+                if (slideInstance) {
+                    let sliderActiveIndex = slideInstance.activeIndex - 1;
+                    window.updateSliderBlockInstances();
+                    // New query because slider has ben reinitialized
+                    window.sliderBlockInstances[attributes.parentId].slideTo(sliderActiveIndex, 0)
+                }
+            };
         }, []);
 
         const blockProps = useBlockProps({

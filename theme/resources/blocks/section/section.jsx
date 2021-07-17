@@ -4,7 +4,7 @@ import {SelectControl, RangeControl, ToggleControl, Button} from '@wordpress/com
 import {InnerBlocks, InspectorControls, ColorPalette, useBlockProps} from '@wordpress/block-editor';
 import classNames from 'classnames';
 import {section} from '../icons';
-import {editorThemeColors, getColorObject, SelectClipPath, ALLOWEDBLOCKS} from "../utility";
+import {editorThemeColors, getColorObject, SelectClipPath, ALLOWEDBLOCKS, removeArrayItems} from "../utility";
 import * as clipPaths from "../clip-paths"
 
 const attributes = {
@@ -205,16 +205,16 @@ registerBlockType('custom/section', {
                     >
 
                         {clipPaths[attributes.sectionClipPath] &&
-                        clipPaths[attributes.sectionClipPath](`clip-path-${attributes.clientId}`)
+                            clipPaths[attributes.sectionClipPath](`clip-path-${attributes.clientId}`)
                         }
 
                         {attributes.hasInnerWidth ?
                             <div className="section-block__inner" style={{maxWidth: `${attributes.innerWidth}px`}}>
-                                <InnerBlocks templateLock={false} allowedBlocks={ALLOWEDBLOCKS}/>
+                                <InnerBlocks templateLock={false} allowedBlocks={removeArrayItems(ALLOWEDBLOCKS, ['custom/section'])}/>
                             </div>
                             :
                             <div className="section-block__inner">
-                                <InnerBlocks templateLock={false} allowedBlocks={ALLOWEDBLOCKS}/>
+                                <InnerBlocks templateLock={false} allowedBlocks={removeArrayItems(ALLOWEDBLOCKS, ['custom/section'])}/>
                             </div>
                         }
                     </section>
