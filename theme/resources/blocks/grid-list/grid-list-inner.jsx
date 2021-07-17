@@ -68,14 +68,24 @@ registerBlockType('custom/grid-list-inner', {
         };
 
         if (parentAttributes(clientId).generalBackgroundColor) {
+            console.log(parentAttributes(clientId).generalBackgroundColor);
             attributes.generalBackgroundColor = parentAttributes(clientId).generalBackgroundColor;
         } else {
+            console.log('no general background');
             attributes.generalBackgroundColor = '';
         }
 
         let backgroundColorSlug = getBackgroundColorSlug(attributes.backgroundColor, attributes.generalBackgroundColor);
 
-        const blockProps = useBlockProps();
+        const blockProps = useBlockProps({
+            style: {
+                marginTop: '0',
+                marginBottom: '0',
+                width: '100%',
+                height: '100%',
+                border: !(attributes.backgroundColor || attributes.generalBackgroundColor) ? '1px dashed var(--wp-admin-theme-color)' : 'none',
+            }
+        });
 
         /**
          * useInnerBlocksProps is still experimental and will be ready in future versions
@@ -109,7 +119,7 @@ registerBlockType('custom/grid-list-inner', {
                     {clipPaths[attributes.clipPath] &&
                         clipPaths[attributes.clipPath](`clip-path-${attributes.clientId}`)
                     }
-                    <div { ...blockProps } style={{width: '100%', height: '100%'}}>
+                    <div { ...blockProps }>
                         <div className={classNames(className, 'grid-list-block__inner', backgroundColorSlug && `has-${backgroundColorSlug}-background-color`)}
                              style={{
                                  width: '100%',

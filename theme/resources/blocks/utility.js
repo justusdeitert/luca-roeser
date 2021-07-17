@@ -278,9 +278,12 @@ export const parentAttributes = (clientId) => {
 
 
 export const updateInnerBlocks = (clientId) => {
-    var parentBlock = select('core/editor').getBlock(clientId)
+    var parentBlock = select('core/block-editor').getBlock(clientId)
     parentBlock.innerBlocks.forEach((innerBlock) => {
-        dispatch('core/editor').updateBlock(innerBlock.clientId, innerBlock)
+
+        console.log('update');
+
+        dispatch('core/block-editor').updateBlock(innerBlock.clientId, innerBlock)
     })
 }
 

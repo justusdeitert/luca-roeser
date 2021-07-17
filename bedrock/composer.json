@@ -41,7 +41,7 @@
             "type": "package",
             "package": {
                 "name": "advanced-custom-fields/advanced-custom-fields-pro",
-                "version": "5.10.2",
+                "version": "5.11",
                 "type": "wordpress-plugin",
                 "dist": {
                     "type": "zip",
@@ -80,7 +80,7 @@
         "vlucas/phpdotenv": "^5.3",
         "oscarotero/env": "^2.1",
         "roots/bedrock-autoloader": "^1.0",
-        "roots/wordpress": "5.8.1",
+        "roots/wordpress": "5.8.2",
         "roots/wp-config": "1.0.0",
         "roots/wp-password-bcrypt": "1.0.0",
         "koodimonni-language/de_de": "*",
@@ -95,7 +95,7 @@
         "wpackagist-plugin/contact-form-cfdb7":"1.2.6.2",
         "wpackagist-plugin/one-click-demo-import":"3.0.2",
         "yoast/wordpress-seo": "17.5",
-        "advanced-custom-fields/advanced-custom-fields-pro": "5.10.2",
+        "advanced-custom-fields/advanced-custom-fields-pro": "5.11",
         "wpackagist-plugin/regenerate-thumbnails":"3.1.5",
         "wpackagist-plugin/imsanity":"2.7.2",
         "contact-form-7/de_de":"5.5.2"

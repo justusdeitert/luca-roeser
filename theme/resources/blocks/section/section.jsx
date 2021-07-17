@@ -1,7 +1,7 @@
 import {__} from '@wordpress/i18n';
 import {registerBlockType, createBlock} from '@wordpress/blocks';
 import {SelectControl, RangeControl, ToggleControl, Button} from '@wordpress/components';
-import {InnerBlocks, InspectorControls, ColorPalette} from '@wordpress/block-editor';
+import {InnerBlocks, InspectorControls, ColorPalette, useBlockProps} from '@wordpress/block-editor';
 import classNames from 'classnames';
 import {section} from '../icons';
 import {editorThemeColors, getColorObject, SelectClipPath, ALLOWEDBLOCKS} from "../utility";
@@ -142,6 +142,13 @@ registerBlockType('custom/section', {
 
         attributes.clientId = clientId;
 
+        const blockProps = useBlockProps({
+            style: {
+                border: !attributes.sectionBackgroundColor ? '1px dashed var(--wp-admin-theme-color)' : 'none',
+                padding: !attributes.sectionBackgroundColor ? '10px' : '0'
+            }
+        });
+
         return (
             <>
                 <InspectorControls>
@@ -189,27 +196,29 @@ registerBlockType('custom/section', {
                         }
                     </div>
                 </InspectorControls>
-                <section className={classNames(className, 'section-block', getColorObject(attributes.sectionBackgroundColor) && `has-${getColorObject(attributes.sectionBackgroundColor).slug}-background-color has-background`, 'custom-border-radius')}
-                         style={{
-                             clipPath: clipPaths[attributes.sectionClipPath] ? `url(#clip-path-${attributes.clientId})` : 'none',
-                             borderRadius: `${attributes.sectionBorderRadius}px`,
-                         }}
-                >
+                <div {...blockProps}>
+                    <section className={classNames(className, 'section-block', getColorObject(attributes.sectionBackgroundColor) && `has-${getColorObject(attributes.sectionBackgroundColor).slug}-background-color has-background`, 'custom-border-radius')}
+                             style={{
+                                 clipPath: clipPaths[attributes.sectionClipPath] ? `url(#clip-path-${attributes.clientId})` : 'none',
+                                 borderRadius: `${attributes.sectionBorderRadius}px`,
+                             }}
+                    >
 
-                    {clipPaths[attributes.sectionClipPath] &&
+                        {clipPaths[attributes.sectionClipPath] &&
                         clipPaths[attributes.sectionClipPath](`clip-path-${attributes.clientId}`)
-                    }
+                        }
 
-                    {attributes.hasInnerWidth ?
-                        <div className="section-block__inner" style={{maxWidth: `${attributes.innerWidth}px`}}>
-                            <InnerBlocks templateLock={false} allowedBlocks={ALLOWEDBLOCKS}/>
-                        </div>
-                        :
-                        <div className="section-block__inner">
-                            <InnerBlocks templateLock={false} allowedBlocks={ALLOWEDBLOCKS}/>
-                        </div>
-                    }
-                </section>
+                        {attributes.hasInnerWidth ?
+                            <div className="section-block__inner" style={{maxWidth: `${attributes.innerWidth}px`}}>
+                                <InnerBlocks templateLock={false} allowedBlocks={ALLOWEDBLOCKS}/>
+                            </div>
+                            :
+                            <div className="section-block__inner">
+                                <InnerBlocks templateLock={false} allowedBlocks={ALLOWEDBLOCKS}/>
+                            </div>
+                        }
+                    </section>
+                </div>
             </>
         );
     },

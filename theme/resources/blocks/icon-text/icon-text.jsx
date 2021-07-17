@@ -39,10 +39,10 @@ const attributes = {
     //     type: 'string',
     //     default: ''
     // },
-    iconTextElement: {
-        type: 'string',
-        default: 'p'
-    },
+    // iconTextElement: {
+    //     type: 'string',
+    //     default: 'p'
+    // },
     iconSize: {
         type: 'number',
         default: 40
@@ -226,17 +226,6 @@ registerBlockType('custom/icon-text', {
                             }}
                             alt={getImage(attributes.iconObject, 'alt')}
                         />
-                        {/*<RichText*/}
-                        {/*    tagName={attributes.iconTextElement}*/}
-                        {/*    onRemove={() => console.log('remove')}*/}
-                        {/*    className="icon-text-block__text"*/}
-                        {/*    style={{*/}
-                        {/*        marginLeft: `${attributes.textMargin}px`*/}
-                        {/*    }}*/}
-                        {/*    placeholder={'Lorem Ipsum'}*/}
-                        {/*    value={attributes.iconText}*/}
-                        {/*    onChange={onChangeFluidText}*/}
-                        {/*/>*/}
                         <div className="icon-text-block__text" style={{marginLeft: `${attributes.textMargin}px`}}>
                             <InnerBlocks templateLock={false} allowedBlocks={ALLOWEDBLOCKS}/>
                         </div>
@@ -266,14 +255,6 @@ registerBlockType('custom/icon-text', {
                         <div className="icon-text-block__text" style={{marginLeft: `${attributes.textMargin}px`}}>
                             <InnerBlocks.Content/>
                         </div>
-                        {/*<RichText.Content*/}
-                        {/*    tagName={attributes.iconTextElement}*/}
-                        {/*    className="icon-text-block__text"*/}
-                        {/*    style={{*/}
-                        {/*        marginLeft: `${attributes.textMargin}px`*/}
-                        {/*    }}*/}
-                        {/*    value={attributes.iconText}*/}
-                        {/*/>*/}
                     </div>
                 </div>
             </>
