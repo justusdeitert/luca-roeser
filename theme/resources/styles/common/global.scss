@@ -116,27 +116,27 @@ img {
 
 .has-font-size {
     &-tiny {
-        @extend h6;
+        @include font-size($h6-font-size);
     }
 
     &-small {
-        @extend h5;
+        @include font-size($h5-font-size);
     }
 
     &-normal {
-        @extend h4;
+        @include font-size($h4-font-size);
     }
 
     &-medium {
-        @extend h3;
+        @include font-size($h3-font-size);
     }
 
     &-large {
-        @extend h2;
+        @include font-size($h2-font-size);
     }
 
     &-huge {
-        @extend h1;
+        @include font-size($h1-font-size);
     }
 }
 

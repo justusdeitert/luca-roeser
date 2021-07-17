@@ -2,7 +2,6 @@
 
     &__item {
         border-bottom: 1px solid $gray-300;
-        position: relative;
 
         &:last-child {
             border-bottom: none;
@@ -10,7 +9,7 @@
     }
 
     &__item-header {
-        padding: 0.625rem;
+        padding: var(--accordion-spacing, 1rem);
         cursor: pointer;
         display: flex;
         align-items: center;
@@ -21,18 +20,37 @@
         }
 
         &.collapsed {
-            i{
+            i {
                 transform: rotate(-180deg);
             }
         }
     }
 
-    &__item-body {
-        padding: 0.625rem;
-        padding-top: 0 !important;
+    &__item-header-inner {
+        position: relative;
+    }
 
-        p {
-            //margin: 0;
+    &__item-body {
+        padding: var(--accordion-spacing, 1rem);
+        padding-top: 0 !important;
+    }
+
+    &.has-icon {
+        .accordion-block__item-header {
+            &:after {
+                @extend .custom-icon;
+                content: map-get($icons, chevron-down);
+                position: absolute;
+                right: 0;
+                transition: transform .2s ease-in-out;
+                color: rgb(var(--custom-controls-color))
+            }
+
+            &.collapsed {
+                &:after {
+                    transform: rotate(-180deg);
+                }
+            }
         }
     }
 

@@ -1,6 +1,6 @@
 import {__} from '@wordpress/i18n';
 import {getColorObjectByColorValue} from '@wordpress/block-editor';
-import {select, dispatch} from "@wordpress/data";
+import {select, dispatch, useSelect} from "@wordpress/data";
 import {Button} from '@wordpress/components';
 import classNames from 'classnames';
 
@@ -268,21 +268,29 @@ export const ALLOWEDBLOCKS = [
     'custom/image',
     'custom/grid-list',
     'custom/spacer',
+    'custom/accordion',
 ]
 
 export const parentAttributes = (clientId) => {
-    const parentClientId = select('core/block-editor').getBlockHierarchyRootClientId(clientId);
-    const parentAttributes = select('core/block-editor').getBlockAttributes(parentClientId);
-    return parentAttributes;
+
+    const parentAttributes = useSelect((select) => {
+        const parentClientIds = select('core/block-editor').getBlockParents(clientId, true);
+        const parentAttributes =  select('core/block-editor').getBlockAttributes(parentClientIds[0]);
+        return parentAttributes;
+    });
+
+    if (parentAttributes) {
+        return parentAttributes;
+    } else {
+        return false;
+    }
 }
 
 
 export const updateInnerBlocks = (clientId) => {
+
     var parentBlock = select('core/block-editor').getBlock(clientId)
     parentBlock.innerBlocks.forEach((innerBlock) => {
-
-        console.log('update');
-
         dispatch('core/block-editor').updateBlock(innerBlock.clientId, innerBlock)
     })
 }
@@ -328,4 +336,10 @@ export const SelectClipPath = ({clipPathsModules, clickFunction, value = 'none'}
             </div>
         </>
     );
+}
+
+export const removeItems = (array, itemsToRemove) => {
+    return array.filter(element => {
+        return !itemsToRemove.includes(element);
+    });
 }

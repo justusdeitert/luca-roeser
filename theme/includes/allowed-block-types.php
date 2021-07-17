@@ -25,7 +25,7 @@ $core_blocks = [
     // Design
     // 'core/buttons',
     'core/columns',
-    // 'core/group',
+    'core/group',
     // 'core/more',
     // 'core/nextpage',
     // 'core/separator',
@@ -63,6 +63,7 @@ $core_blocks = [
 $custom_blocks_normal_editor = [
     'custom/divider',
     'custom/accordion',
+    'custom/accordion-inner',
     get_theme_mod('custom_google_maps_api_key', false) ? 'custom/map' : '', // Check if google Maps Key is Set
     'custom/image-header',
     'custom/text-image',

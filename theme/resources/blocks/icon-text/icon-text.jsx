@@ -69,9 +69,9 @@ registerBlockType('custom/icon-text', {
         //     setAttributes({iconText: value});
         // };
 
-        const onChangeFluidTextElement = (value) => {
-            setAttributes({iconTextElement: value});
-        };
+        // const onChangeFluidTextElement = (value) => {
+        //     setAttributes({iconTextElement: value});
+        // };
 
         const onChangeVerticalAlign = (value) => {
             setAttributes({verticalAlign: value});
@@ -162,21 +162,6 @@ registerBlockType('custom/icon-text', {
                             max={attributes.iconSize}
                             step={1}
                             onChange={onChangeIconBorderRadius}
-                        />
-                        <hr/>
-                        <SelectControl
-                            label={__('Select Text Type', 'sage')}
-                            value={attributes.iconTextElement}
-                            options={[
-                                {label: __('P', 'sage'), value: 'p'},
-                                {label: __('H1', 'sage'), value: 'h1'},
-                                {label: __('H2', 'sage'), value: 'h2'},
-                                {label: __('H3', 'sage'), value: 'h3'},
-                                {label: __('H4', 'sage'), value: 'h4'},
-                                {label: __('H5', 'sage'), value: 'h5'},
-                                {label: __('H6', 'sage'), value: 'h6'},
-                            ]}
-                            onChange={onChangeFluidTextElement}
                         />
                         <hr/>
                         <p>{__('Icon Size', 'sage')}</p>

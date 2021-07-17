@@ -223,7 +223,7 @@ registerBlockType('custom/image-header', {
         const blockProps = useBlockProps({
             className: className,
             style: {
-                border: attributes.headerImageRemove ? '1px dashed var(--wp-admin-theme-color)' : 'none',
+                border: (attributes.headerImageRemove && !attributes.headerBackgroundColor) ? '1px dashed var(--wp-admin-theme-color)' : 'none',
             }
         });
 

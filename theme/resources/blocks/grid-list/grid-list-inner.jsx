@@ -68,10 +68,10 @@ registerBlockType('custom/grid-list-inner', {
         };
 
         if (parentAttributes(clientId).generalBackgroundColor) {
-            console.log(parentAttributes(clientId).generalBackgroundColor);
+            // console.log(parentAttributes(clientId).generalBackgroundColor);
             attributes.generalBackgroundColor = parentAttributes(clientId).generalBackgroundColor;
         } else {
-            console.log('no general background');
+            // console.log('no general background');
             attributes.generalBackgroundColor = '';
         }
 
