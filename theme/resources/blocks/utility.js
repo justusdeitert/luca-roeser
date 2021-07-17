@@ -327,12 +327,12 @@ export const SelectClipPath = ({clipPathsModules, clickFunction, value = 'none'}
     return (
         <>
             <div className={'clip-paths'}>
+                {ClipPathEntries}
                 <div className="clip-paths__remove-button-wrapper">
-                    <Button className="button button-sm clip-paths__remove-button" onClick={() => {clickFunction('none')}}>
+                    <Button className="is-secondary is-small clip-paths__remove-button" onClick={() => {clickFunction('none')}}>
                         {__('Remove Clip Path', 'sage')}
                     </Button>
                 </div>
-                {ClipPathEntries}
             </div>
         </>
     );

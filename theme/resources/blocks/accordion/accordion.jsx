@@ -1,14 +1,10 @@
 import {__} from '@wordpress/i18n';
 import {registerBlockType} from '@wordpress/blocks';
-// import {Component} from '@wordpress/element';
-import {RangeControl, ToggleControl, Button, Popover, ColorPalette, SelectControl} from '@wordpress/components';
-import {InnerBlocks, InspectorControls, RichText, getColorObjectByColorValue, useBlockProps, __experimentalUseInnerBlocksProps as useInnerBlocksProps} from '@wordpress/block-editor';
-// import {withState} from '@wordpress/compose';
+import {RangeControl, ToggleControl, ColorPalette, SelectControl} from '@wordpress/components';
+import {InnerBlocks, InspectorControls, useBlockProps, __experimentalUseInnerBlocksProps as useInnerBlocksProps} from '@wordpress/block-editor';
 import classNames from 'classnames';
-import {cloneArray, editorThemeColors, getColorObject, updateInnerBlocks} from "../utility";
+import {editorThemeColors, getColorObject, updateInnerBlocks} from "../utility";
 import {accordion} from "../icons";
-// import {loremIpsum} from "lorem-ipsum";
-
 const loremIpsum = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.';
 
 const attributes = {
