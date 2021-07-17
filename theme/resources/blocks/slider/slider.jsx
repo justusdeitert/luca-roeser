@@ -2,14 +2,14 @@ import {__} from '@wordpress/i18n';
 import {registerBlockType,} from '@wordpress/blocks';
 import {Button} from '@wordpress/components';
 import {ToggleControl, RangeControl, SelectControl, PanelBody, ColorPalette} from '@wordpress/components';
-import {createElement, Component} from '@wordpress/element';
-import {RichText, MediaUpload, InspectorControls, getColorObjectByColorValue} from '@wordpress/block-editor';
+import {createElement, Component, useEffect} from '@wordpress/element';
+import {InnerBlocks, RichText, MediaUpload, InspectorControls, getColorObjectByColorValue, useBlockProps, __experimentalUseInnerBlocksProps as useInnerBlocksProps, ButtonBlockAppender} from '@wordpress/block-editor';
 import classNames from 'classnames';
-import {cloneArray, editorThemeColors, getImage} from "../utility";
+import {cloneArray, editorThemeColors, getColorObject, getImage, loremIpsum} from "../utility";
 import {sliderIcon} from "../icons";
 
 const attributes = {
-    blockId: {
+    clientId: {
         type: 'string'
     },
 
@@ -91,638 +91,438 @@ const attributes = {
         type: 'string',
         default: '4x3',
     },
-
-    /**
-     * Slider Items
-     */
-    sliderItems: {
-        type: 'array',
-        default: [
-            {
-                headline: __('The Headline...', 'sage'),
-                text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.',
-                slideImage: false
-            },
-            {
-                headline: __('The Headline...', 'sage'),
-                text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.',
-                slideImage: false
-            },
-            {
-                headline: __('The Headline...', 'sage'),
-                text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.',
-                slideImage: false
-            },
-        ],
-    }
 }
 
+// let getInnerBlockLength = (blockList, blockName) => {
+//     let filteredBlockList = blockList.filter(block => {
+//         return block.name === blockName;
+//     });
+//
+//     let innerBlockCount = filteredBlockList.map(block => {
+//         return block.innerBlocks.length;
+//     });
+//
+//     return innerBlockCount;
+// }
+
+
+// const getBlockList = () => wp.data.select('core/editor').getBlocks();
+// let blockList = getBlockList();
+//
+// wp.data.subscribe(() => {
+//     let newBlockList = getBlockList();
+//     // let newBlockListInnerLength = getInnerBlockLength(newBlockList, 'custom/slider');
+//     // let blockListInnerLength = getInnerBlockLength(blockList, 'custom/slider');
+//     let blockListChanged = newBlockList !== blockList;
+//
+//     blockList = newBlockList;
+//
+//     if (blockListChanged) {
+//         console.log('change');
+//
+//         // setTimeout(() => {
+//         //     window.updateSliderBlockInstances();
+//         // }, 500)
+//
+//         window.updateSliderBlockInstances();
+//     }
+// });
+
 registerBlockType('custom/slider', {
+    apiVersion: 2,
     title: __('Slider', 'sage'),
     icon: sliderIcon,
     category: 'custom',
-    // supports: {
-    //     align: ['wide'],
-    // },
+    supports: {
+        align: ['wide', 'full'],
+    },
     attributes,
     // Access React Lifecycle Methods within gutenberg block
     // https://wordpress.org/gutenberg/handbook/block-api/block-edit-save/
     // https://dev.to/martinkr/create-a-wordpress-s-gutenberg-block-with-all-react-lifecycle-methods-in-5-minutes-213p
-    edit: class extends Component {
+    edit: ({setAttributes, attributes, className, clientId}) => {
 
-        //standard constructor for a component
-        constructor() {
-            super(...arguments);
-            // console.log(this.props.name, ": constructor()");
 
-            // example how to bind `this` to the current component for our callbacks
-            this.onChangeContent = this.onChangeContent.bind(this);
+        // useEffect(() => {
+        //     console.log('Parent Inserted');
+        //     return () => {
+        //         console.log('Parent Removed');
+        //     };
+        // }, []);
 
-            // some place for your state
-            this.state = {};
-        }
-
-        componentDidMount() {
-            // console.log(this.props.name, ": componentDidMount()");
+        /**
+         * Init Slider only once when block loads!
+         */
+        if (!window.sliderBlockInstances[clientId]) {
             window.initSliderBlockInstances();
         }
 
-        componentDidUpdate() {
-            // console.log(this.props.name, ": componentDidUpdate()");
-        }
+        /**
+         * Slider Properties
+         */
+        const onChangeSliderLoop = (value) => {
+            setAttributes({sliderLoop: value});
 
-        componentWillUnmount() {
-            // console.log(this.props.name, ": componentWillUnmount()");
-        }
+            setTimeout(() => {
+                window.updateSliderBlockInstances();
+            }, 300)
+        };
 
-        // update attributes when content is updated
-        onChangeContent(data) {
-            // set attribute the react way
-            this.props.setAttributes({content: data});
-        }
+        const onChangeSlidesPerView = (value) => {
+            setAttributes({slidesPerView: value});
 
-        render() {
+            setTimeout(() => {
+                window.updateSliderBlockInstances();
+            }, 300)
+        };
 
-            let {attributes, className, setAttributes, clientId} = this.props;
+        const onChangeSlidesBackgroundColor = (value) => {
+            setAttributes({slidesBackgroundColor: value});
+        };
 
-            const slidesBackgroundColor = getColorObjectByColorValue(editorThemeColors, attributes.slidesBackgroundColor);
+        /**
+         * Slider Controls
+         */
+        const onChangeControlsPosition = (value) => {
+            setAttributes({controlsPosition: value});
 
-            const repeaterSlides = attributes.sliderItems.map((item, index) => {
+            setTimeout(() => {
+                window.updateSliderBlockInstances();
+            }, 300)
+        };
 
-                const onChangeHeadline = (value) => {
+        const onChangeControlsStyle = (value) => {
+            setAttributes({controlsStyle: value});
+        };
 
-                    // Iterate through sliderItems and only change value of selected item
-                    attributes.sliderItems.map((innerItem, innerIndex) => {
-                        if (innerIndex === index) {
-                            innerItem.headline = value;
-                        }
-                    });
+        const onChangeShowPagination = (value) => {
+            setAttributes({showPagination: value});
 
-                    setAttributes({
-                        sliderItems: cloneArray(attributes.sliderItems) // Again... Clone Array to fire reload in Editor
-                    });
-                };
+            setTimeout(() => {
+                window.updateSliderBlockInstances();
+            }, 300)
+        };
 
-                const onChangeText = (value) => {
-                    // Iterate through sliderItems and only change value of selected item
-                    attributes.sliderItems.map((innerItem, innerIndex) => {
-                        if (innerIndex === index) {
-                            innerItem.text = value;
-                        }
-                    });
+        const onChangePaginationSize = (value) => {
+            setAttributes({paginationSize: value});
+        };
 
-                    setAttributes({
-                        sliderItems: cloneArray(attributes.sliderItems) // Again Clone Array to reload in Editor
-                    });
-                };
+        const onChangeShowArrows = (value) => {
+            setAttributes({showArrows: value});
+        };
 
-                const onSelectImage = (image) => {
-                    // Iterate through sliderItems and only change value of selected item
-                    attributes.sliderItems.map((innerItem, innerIndex) => {
-                        if (innerIndex === index) {
-                            innerItem.slideImage = image;
-                        }
-                    });
+        const onChangeArrowSize = (value) => {
+            setAttributes({arrowSize: value});
+        };
 
-                    setAttributes({
-                        sliderItems: cloneArray(attributes.sliderItems) // Again Clone Array to reload in Editor
-                    });
-                };
+        /**
+         * Text Properties
+         */
+        const onChangeSliderShowTextWrapper = (value) => {
+            setAttributes({sliderShowTextWrapper: value});
+        };
 
-                const addElementAfter = (index) => {
+        const onChangeSliderShowHeadline = (value) => {
+            setAttributes({sliderShowHeadline: value});
+        };
 
-                    let newItem = {
-                        headline: __('The Headline...', 'sage'),
-                        text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.',
-                        slideImage: false
-                    };
+        const onChangeHeadlineType = (value) => {
+            setAttributes({headlineType: value});
+        };
 
-                    attributes.sliderItems.splice(index + 1, 0, newItem) // Adds the new Item at position
+        const onChangeCenterText = (value) => {
+            setAttributes({centerText: value});
+        };
 
-                    setAttributes({
-                        sliderItems: [...attributes.sliderItems] // Replace With cool spread operator!!
-                    });
+        /**
+         * Image Properties
+         */
 
-                    setTimeout(() => {
-                        window.sliderBlockInstances[attributes.blockId].updateSlides()
+        const onChangeSliderShowImages = (value) => {
+            setAttributes({sliderShowImages: value});
+        };
 
-                        // slide to last if added at last position
-                        if (attributes.sliderItems.length - 1 === index + 1) {
-                            window.sliderBlockInstances[attributes.blockId].slideTo(index, 0);
-                        }
-                    }, 300)
-                };
+        const onChangeSliderImagesRatio = (value) => {
+            setAttributes({sliderImagesRatio: value});
+        };
 
-                const removeElement = (index) => {
-                    // let arrayPop = attributes.sliderItems.pop(); // Remove last Array Element
-                    attributes.sliderItems.splice(index, 1) // Removes item from position
+        const slideNext = () => {
+            window.sliderBlockInstances[attributes.clientId].slideNext(300);
+        };
 
-                    setAttributes({
-                        sliderItems: [...attributes.sliderItems] // Clone Array Otherwise there is not reload
-                    });
+        const slidePrev = () => {
+            window.sliderBlockInstances[attributes.clientId].slidePrev(300);
+        };
 
-                    setTimeout(() => {
-                        window.sliderBlockInstances[attributes.blockId].updateSlides();
+        attributes.clientId = clientId;
 
-                        // slide to second last if removed at last position
-                        if (attributes.sliderItems.length === index) {
-                            window.sliderBlockInstances[attributes.blockId].slideTo(index, 0);
-                        }
-                    }, 300)
-                };
+        const TEMPLATE = [
+            ['custom/slider-inner', {}, [
+                ['core/paragraph', {placeholder: loremIpsum, content: loremIpsum}]
+            ]],
+            ['custom/slider-inner', {}, [
+                ['core/paragraph', {placeholder: loremIpsum, content: loremIpsum}]
+            ]],
+            ['custom/slider-inner', {}, [
+                ['core/paragraph', {placeholder: loremIpsum, content: loremIpsum}],
+            ]],
+            ['custom/slider-inner', {}, [
+                ['core/paragraph', {placeholder: loremIpsum, content: loremIpsum}],
+            ]],
+        ];
 
+        const blockProps = useBlockProps({
+            className: classNames('slider-block', 'custom-spacing')
+        });
+
+        const innerBlocksProps = useInnerBlocksProps(blockProps, {
+            allowedBlocks: ['custom/slider-inner'],
+            orientation: 'horizontal', // default: 'vertical'
+            template: TEMPLATE,
+            renderAppender: false
+            // renderAppender: () => (
+            //     <div className="swiper-slide slider-block__slide">
+            //         <ButtonBlockAppender />
+            //     </div>
+            // )
+            // renderAppender: () => (
+            //     <ButtonBlockAppender rootClientId={clientId} className={'lol'} />
+            // )
+        });
+
+        const slideControls = () => {
+            if ((attributes.showPagination || attributes.showArrows)) {
                 return (
-                    <div key={index} className={'swiper-slide slider-block__slide'}>
-                        <div
-                            className={classNames('slider-block__slide-inner', 'custom-border', 'custom-border-radius', 'custom-shadow', slidesBackgroundColor && `has-${slidesBackgroundColor.slug}-background-color`)}>
-                            <Button icon={'plus'}
-                                    isSmall={true}
-                                    className={'button button--icon-only'}
-                                    // label={__('Add Item after', 'sage')}
-                                    onClick={() => {
-                                        addElementAfter(index)
-                                    }}
-                                    style={{
-                                        position: 'absolute',
-                                        right: '-15px',
-                                        top: '50%',
-                                        transform: 'translateY(-50%)',
-                                        zIndex: '100',
-                                    }}
-                            />
-                            <Button icon={'minus'}
-                                    isSmall={true}
-                                    className={'button button--icon-only'}
-                                    // label={__('Add Item after', 'sage')}
-                                    onClick={() => removeElement(index)}
-                                    style={{
-                                        position: 'absolute',
-                                        left: '20px',
-                                        top: '20px',
-                                        zIndex: '100',
-                                    }}
-                            />
-                            {attributes.sliderShowImages &&
-                            <div
-                                className={classNames('slider-block__image-wrapper', `ratio ratio-${attributes.sliderImagesRatio}`)}>
-                                <img alt={getImage(item.slideImage, 'alt')}
-                                     src={getImage(item.slideImage, 'medium', index)}
-                                     className={classNames('slider-block__image', 'custom-border-radius')}
-                                />
-
-                                <MediaUpload
-                                    onSelect={onSelectImage}
-                                    allowedTypes="image"
-                                    // value={item.imageID}
-                                    render={({open}) => (
-                                        <div>
-                                            <Button className={'button'}
-                                                    onClick={open}
-                                                    icon={'format-image'}
-                                                    isSmall={true}
-                                                    style={{
-                                                        position: 'absolute',
-                                                        right: '10px',
-                                                        top: '10px'
-                                                    }}
-                                            />
-                                        </div>
-                                    )}
-                                />
-                            </div>
-                            }
-                            {attributes.sliderShowTextWrapper &&
-                            <div className={'slider-block__text-wrapper'}
-                                 style={{
-                                     // minHeight: `${attributes.minimalTextHeight}px`,
-                                     alignItems: attributes.centerText ? 'center' : 'flex-start'
-                                 }}
-                            >
-                                {attributes.sliderShowHeadline &&
-                                <RichText
-                                    tagName={attributes.headlineType}
-                                    placeholder={__('The Headline...', 'sage')}
-                                    value={item.headline}
-                                    onChange={onChangeHeadline}
-                                    className="slider-block__headline"
-                                />
-                                }
-                                <RichText
-                                    tagName="p"
-                                    placeholder={'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'}
-                                    value={item.text}
-                                    onChange={onChangeText}
-                                    className="slider-block__text"
-                                />
-                            </div>
-                            }
+                    <div className={classNames("swiper-controls", `${attributes.controlsStyle}-position`)}>
+                        {attributes.showArrows &&
+                        <div className="swiper-button-prev">
+                            <i className="icon-arrow-left" style={{fontSize: `${attributes.arrowSize / 16}rem`}}/>
                         </div>
+                        }
+                        {attributes.showPagination &&
+                        <>
+                            <style>{`
+                                .slider-block .swiper-pagination-bullet {
+                                    width: ${attributes.paginationSize}px !important;
+                                    min-width: ${attributes.paginationSize}px !important;
+                                    height: ${attributes.paginationSize}px !important;
+                                }
+                            `}</style>
+                            <div className="swiper-pagination"/>
+                        </>
+                        }
+                        {attributes.showArrows &&
+                        <div className="swiper-button-next">
+                            <i className="icon-arrow-right" style={{fontSize: `${attributes.arrowSize / 16}rem`}}/>
+                        </div>
+                        }
                     </div>
                 )
-            });
-
-            /**
-             * Slider Properties
-             */
-            const onChangeSliderLoop = (value) => {
-                setAttributes({sliderLoop: value});
-
-                setTimeout(() => {
-                    window.updateSliderBlockInstances();
-                }, 300)
-            };
-
-            const onChangeSlidesPerView = (value) => {
-                setAttributes({slidesPerView: value});
-
-                setTimeout(() => {
-                    window.updateSliderBlockInstances();
-                }, 300)
-            };
-
-            const onChangeSlidesBackgroundColor = (value) => {
-                setAttributes({slidesBackgroundColor: value});
-            };
-
-            /**
-             * Slider Controls
-             */
-            const onChangeControlsPosition = (value) => {
-                setAttributes({controlsPosition: value});
-
-                setTimeout(() => {
-                    window.updateSliderBlockInstances();
-                }, 300)
-            };
-
-            const onChangeControlsStyle = (value) => {
-                setAttributes({controlsStyle: value});
-            };
-
-            const onChangeShowPagination = (value) => {
-                setAttributes({showPagination: value});
-
-                setTimeout(() => {
-                    window.updateSliderBlockInstances();
-                }, 300)
-            };
-
-            const onChangePaginationSize = (value) => {
-                setAttributes({paginationSize: value});
-            };
-
-            const onChangeShowArrows = (value) => {
-                setAttributes({showArrows: value});
-            };
-
-            const onChangeArrowSize = (value) => {
-                setAttributes({arrowSize: value});
-            };
-
-            /**
-             * Text Properties
-             */
-            const onChangeSliderShowTextWrapper = (value) => {
-                setAttributes({sliderShowTextWrapper: value});
-            };
-
-            const onChangeSliderShowHeadline = (value) => {
-                setAttributes({sliderShowHeadline: value});
-            };
-
-            const onChangeHeadlineType = (value) => {
-                setAttributes({headlineType: value});
-            };
-
-            // const onChangeMinimalTextHeight = (value) => {
-            //     setAttributes({minimalTextHeight: value});
-            //     window.sliderBlockInstances[attributes.blockId].updateAutoHeight(0)
-            // };
-
-            const onChangeCenterText = (value) => {
-                setAttributes({centerText: value});
-            };
-
-            /**
-             * Image Properties
-             */
-
-            const onChangeSliderShowImages = (value) => {
-                setAttributes({sliderShowImages: value});
-            };
-
-            const onChangeSliderImagesRatio = (value) => {
-                setAttributes({sliderImagesRatio: value});
-            };
-
-            const slideNext = () => {
-                window.sliderBlockInstances[attributes.blockId].slideNext(300);
-            };
-
-            const slidePrev = () => {
-                window.sliderBlockInstances[attributes.blockId].slidePrev(300);
-            };
-
-            attributes.blockId = clientId;
-
-            const slideControls = () => {
-                if ((attributes.showPagination || attributes.showArrows)) {
-                    return (
-                        <div className={classNames("swiper-controls", `${attributes.controlsStyle}-position`)}>
-                            {attributes.showArrows &&
-                            <div className="swiper-button-prev">
-                                <i className="icon-arrow-left" style={{fontSize: `${attributes.arrowSize / 16}rem`}}/>
-                            </div>
-                            }
-                            {attributes.showPagination &&
-                            <>
-                                <style>{`
-                                    .slider-block .swiper-pagination-bullet {
-                                        width: ${attributes.paginationSize}px !important;
-                                        min-width: ${attributes.paginationSize}px !important;
-                                        height: ${attributes.paginationSize}px !important;
-                                    }
-                                `}</style>
-                                <div className="swiper-pagination"/>
-                            </>
-                            }
-                            {attributes.showArrows &&
-                            <div className="swiper-button-next">
-                                <i className="icon-arrow-right" style={{fontSize: `${attributes.arrowSize / 16}rem`}}/>
-                            </div>
-                            }
-                        </div>
-                    )
-                }
             }
-
-            return (
-                <>
-                    <InspectorControls>
-                        <div className="inspector-controls-container">
-                            <Button icon={'arrow-left'}
-                                    className={'button'}
-                                    onClick={slidePrev}
-                                    iconPosition={'left'}
-                                    text={__('Slide Prev', 'sage')}
-                            />
-                            <Button icon={'arrow-right'}
-                                    className={'button'}
-                                    onClick={slideNext}
-                                    iconPosition={'right'}
-                                    text={__('Slide Next', 'sage')}
-                                    style={{marginLeft: '10px'}}
-                            />
-                        </div>
-                        <PanelBody title={__('Slider Properties', 'sage')} initialOpen={true}>
-                            <hr/>
-                            <ToggleControl
-                                label={__('Loop Slider', 'sage')}
-                                // help={ attributes.withHeadline ? 'Image is left' : 'Image is right' }
-                                checked={attributes.sliderLoop}
-                                onChange={onChangeSliderLoop}
-                            />
-                            <hr/>
-                            <p>{__('Slides per View', 'sage')}</p>
-                            <RangeControl
-                                value={attributes.slidesPerView}
-                                min={1}
-                                initialPosition={3}
-                                max={4}
-                                onChange={onChangeSlidesPerView}
-                            />
-                            <hr/>
-                            <p>{__('Slides Background Color', 'sage')}</p>
-                            <ColorPalette
-                                colors={[...editorThemeColors]}
-                                value={attributes.slidesBackgroundColor}
-                                onChange={onChangeSlidesBackgroundColor}
-                            />
-                        </PanelBody>
-                        <PanelBody title={__('Slider Controls', 'sage')} initialOpen={false}>
-                            <hr/>
-                            <p>{__('Controls Position', 'sage')}</p>
-                            <SelectControl
-                                value={attributes.controlsPosition}
-                                options={[
-                                    {label: __('Top'), value: 'top'},
-                                    {label: __('Bottom'), value: 'bottom'},
-                                ]}
-                                onChange={onChangeControlsPosition}
-                            />
-                            <hr/>
-                            <p>{__('Controls Style', 'sage')}</p>
-                            <SelectControl
-                                value={attributes.controlsStyle}
-                                options={[
-                                    {label: __('Left'), value: 'left'},
-                                    {label: __('Right'), value: 'right'},
-                                    {label: __('Center'), value: 'Center'},
-                                ]}
-                                onChange={onChangeControlsStyle}
-                            />
-                            <hr/>
-                            <ToggleControl
-                                label={__('Show Pagination', 'sage')}
-                                // help={ attributes.withHeadline ? 'Image is left' : 'Image is right' }
-                                checked={attributes.showPagination}
-                                onChange={onChangeShowPagination}
-                            />
-                            {attributes.showPagination &&
-                            <>
-                                <hr/>
-                                <p>{__('Pagination Size', 'sage')}</p>
-                                <RangeControl
-                                    value={attributes.paginationSize}
-                                    min={10}
-                                    initialPosition={10}
-                                    max={20}
-                                    onChange={onChangePaginationSize}
-                                />
-                            </>
-                            }
-                            <hr/>
-                            <ToggleControl
-                                label={__('Show Arrows', 'sage')}
-                                // help={ attributes.withHeadline ? 'Image is left' : 'Image is right' }
-                                checked={attributes.showArrows}
-                                onChange={onChangeShowArrows}
-                            />
-                            {attributes.showArrows &&
-                            <>
-                                <hr/>
-                                <p>{__('Arrow Size', 'sage')}</p>
-                                <RangeControl
-                                    value={attributes.arrowSize}
-                                    min={24}
-                                    initialPosition={40}
-                                    max={96}
-                                    onChange={onChangeArrowSize}
-                                />
-
-                            </>
-                            }
-                        </PanelBody>
-                        <PanelBody title={__('Text Properties', 'sage')} initialOpen={false}>
-                            <hr/>
-                            <ToggleControl
-                                label={__('Show Text Wrapper', 'sage')}
-                                // help={ attributes.withHeadline ? 'Image is left' : 'Image is right' }
-                                checked={attributes.sliderShowTextWrapper}
-                                onChange={onChangeSliderShowTextWrapper}
-                            />
-                            {attributes.sliderShowTextWrapper &&
-                            <>
-                                <hr/>
-                                <ToggleControl
-                                    label={__('Show Headline', 'sage')}
-                                    // help={ attributes.withHeadline ? 'Image is left' : 'Image is right' }
-                                    checked={attributes.sliderShowHeadline}
-                                    onChange={onChangeSliderShowHeadline}
-                                />
-                                {attributes.sliderShowHeadline &&
-                                <>
-                                    <hr/>
-                                    <p>{__('Headline Type', 'sage')}</p>
-                                    <SelectControl
-                                        value={attributes.headlineType}
-                                        options={[
-                                            {label: __('H4'), value: 'h4'},
-                                            {label: __('H5'), value: 'h5'},
-                                            {label: __('H6'), value: 'h6'},
-                                        ]}
-                                        onChange={onChangeHeadlineType}
-                                    />
-                                </>
-                                }
-                                {/*<hr/>
-                                <p>{__('Minimal Text Height', 'sage')}</p>
-                                <RangeControl
-                                    value={attributes.minimalTextHeight}
-                                    min={20}
-                                    initialPosition={110}
-                                    max={500}
-                                    step={1}
-                                    onChange={onChangeMinimalTextHeight}
-                                />*/}
-                                <hr/>
-                                <ToggleControl
-                                    label={__('Center Text', 'sage')}
-                                    // help={ attributes.sliderShowImages ? 'Image is left' : 'Image is right' }
-                                    checked={attributes.centerText}
-                                    onChange={onChangeCenterText}
-                                />
-                            </>
-                            }
-
-                        </PanelBody>
-                        <PanelBody title={__('Image Properties', 'sage')} initialOpen={false}>
-                            <hr/>
-                            <ToggleControl
-                                label={__('Show Images', 'sage')}
-                                // help={ attributes.sliderShowImages ? 'Image is left' : 'Image is right' }
-                                checked={attributes.sliderShowImages}
-                                onChange={onChangeSliderShowImages}
-                            />
-                            {attributes.sliderShowImages &&
-                            <>
-                                <hr/>
-                                <p>{__('Images Ratio', 'sage')}</p>
-                                <SelectControl
-                                    value={attributes.sliderImagesRatio}
-                                    options={[
-                                        {label: __('1x1'), value: '1x1'},
-                                        {label: __('4x3'), value: '4x3'},
-                                        {label: __('3x2'), value: '3x2'},
-                                        {label: __('16x9'), value: '16x9'},
-                                        {label: __('21x9'), value: '21x9'},
-                                    ]}
-                                    onChange={onChangeSliderImagesRatio}
-                                />
-                            </>
-                            }
-                        </PanelBody>
-                    </InspectorControls>
-                    <div className={classNames(className, 'slider-block', 'custom-spacing')}
-                         data-slides-per-view={attributes.slidesPerView}
-                         data-slider-id={attributes.blockId}
-                         data-slider-loop={attributes.sliderLoop}
-                    >
-                        <div className="swiper-container slider-block__container">
-                            {attributes.controlsPosition === 'top' &&
-                            slideControls()
-                            }
-                            <div className="swiper-wrapper slider-block__slides-wrapper">
-                                {repeaterSlides}
-                            </div>
-                            {attributes.controlsPosition === 'bottom' &&
-                            slideControls()
-                            }
-                        </div>
-                    </div>
-                </>
-            )
         }
+
+        return (
+            <>
+                <InspectorControls>
+                    <div className="inspector-controls-container">
+                        <Button icon={'arrow-left'}
+                                className={'button'}
+                                onClick={slidePrev}
+                                iconPosition={'left'}
+                                text={__('Slide Prev', 'sage')}
+                        />
+                        <Button icon={'arrow-right'}
+                                className={'button'}
+                                onClick={slideNext}
+                                iconPosition={'right'}
+                                text={__('Slide Next', 'sage')}
+                                style={{marginLeft: '10px'}}
+                        />
+                    </div>
+                    <PanelBody title={__('Slider Properties', 'sage')} initialOpen={true}>
+                        <hr/>
+                        <ToggleControl
+                            label={__('Loop Slider', 'sage')}
+                            // help={ attributes.withHeadline ? 'Image is left' : 'Image is right' }
+                            checked={attributes.sliderLoop}
+                            onChange={onChangeSliderLoop}
+                        />
+                        <hr/>
+                        <p>{__('Slides per View', 'sage')}</p>
+                        <RangeControl
+                            value={attributes.slidesPerView}
+                            min={1}
+                            initialPosition={3}
+                            max={4}
+                            onChange={onChangeSlidesPerView}
+                        />
+                        <hr/>
+                        <p>{__('Slides Background Color', 'sage')}</p>
+                        <ColorPalette
+                            colors={[...editorThemeColors]}
+                            value={attributes.slidesBackgroundColor}
+                            onChange={onChangeSlidesBackgroundColor}
+                        />
+                    </PanelBody>
+                    <PanelBody title={__('Slider Controls', 'sage')} initialOpen={false}>
+                        <hr/>
+                        <p>{__('Controls Position', 'sage')}</p>
+                        <SelectControl
+                            value={attributes.controlsPosition}
+                            options={[
+                                {label: __('Top'), value: 'top'},
+                                {label: __('Bottom'), value: 'bottom'},
+                            ]}
+                            onChange={onChangeControlsPosition}
+                        />
+                        <hr/>
+                        <p>{__('Controls Style', 'sage')}</p>
+                        <SelectControl
+                            value={attributes.controlsStyle}
+                            options={[
+                                {label: __('Left'), value: 'left'},
+                                {label: __('Right'), value: 'right'},
+                                {label: __('Center'), value: 'Center'},
+                            ]}
+                            onChange={onChangeControlsStyle}
+                        />
+                        <hr/>
+                        <ToggleControl
+                            label={__('Show Pagination', 'sage')}
+                            // help={ attributes.withHeadline ? 'Image is left' : 'Image is right' }
+                            checked={attributes.showPagination}
+                            onChange={onChangeShowPagination}
+                        />
+                        {attributes.showPagination &&
+                        <>
+                            <hr/>
+                            <p>{__('Pagination Size', 'sage')}</p>
+                            <RangeControl
+                                value={attributes.paginationSize}
+                                min={10}
+                                initialPosition={10}
+                                max={20}
+                                onChange={onChangePaginationSize}
+                            />
+                        </>
+                        }
+                        <hr/>
+                        <ToggleControl
+                            label={__('Show Arrows', 'sage')}
+                            // help={ attributes.withHeadline ? 'Image is left' : 'Image is right' }
+                            checked={attributes.showArrows}
+                            onChange={onChangeShowArrows}
+                        />
+                        {attributes.showArrows &&
+                        <>
+                            <hr/>
+                            <p>{__('Arrow Size', 'sage')}</p>
+                            <RangeControl
+                                value={attributes.arrowSize}
+                                min={24}
+                                initialPosition={40}
+                                max={96}
+                                onChange={onChangeArrowSize}
+                            />
+
+                        </>
+                        }
+                    </PanelBody>
+                    <PanelBody title={__('Text Properties', 'sage')} initialOpen={false}>
+                        <hr/>
+                        <ToggleControl
+                            label={__('Show Text Wrapper', 'sage')}
+                            // help={ attributes.withHeadline ? 'Image is left' : 'Image is right' }
+                            checked={attributes.sliderShowTextWrapper}
+                            onChange={onChangeSliderShowTextWrapper}
+                        />
+                        {attributes.sliderShowTextWrapper &&
+                        <>
+                            <hr/>
+                            <ToggleControl
+                                label={__('Show Headline', 'sage')}
+                                // help={ attributes.withHeadline ? 'Image is left' : 'Image is right' }
+                                checked={attributes.sliderShowHeadline}
+                                onChange={onChangeSliderShowHeadline}
+                            />
+                            {attributes.sliderShowHeadline &&
+                            <>
+                                <hr/>
+                                <p>{__('Headline Type', 'sage')}</p>
+                                <SelectControl
+                                    value={attributes.headlineType}
+                                    options={[
+                                        {label: __('H4'), value: 'h4'},
+                                        {label: __('H5'), value: 'h5'},
+                                        {label: __('H6'), value: 'h6'},
+                                    ]}
+                                    onChange={onChangeHeadlineType}
+                                />
+                            </>
+                            }
+                            <hr/>
+                            <ToggleControl
+                                label={__('Center Text', 'sage')}
+                                // help={ attributes.sliderShowImages ? 'Image is left' : 'Image is right' }
+                                checked={attributes.centerText}
+                                onChange={onChangeCenterText}
+                            />
+                        </>
+                        }
+
+                    </PanelBody>
+                    <PanelBody title={__('Image Properties', 'sage')} initialOpen={false}>
+                        <hr/>
+                        <ToggleControl
+                            label={__('Show Images', 'sage')}
+                            // help={ attributes.sliderShowImages ? 'Image is left' : 'Image is right' }
+                            checked={attributes.sliderShowImages}
+                            onChange={onChangeSliderShowImages}
+                        />
+                        {attributes.sliderShowImages &&
+                        <>
+                            <hr/>
+                            <p>{__('Images Ratio', 'sage')}</p>
+                            <SelectControl
+                                value={attributes.sliderImagesRatio}
+                                options={[
+                                    {label: __('1x1'), value: '1x1'},
+                                    {label: __('4x3'), value: '4x3'},
+                                    {label: __('3x2'), value: '3x2'},
+                                    {label: __('16x9'), value: '16x9'},
+                                    {label: __('21x9'), value: '21x9'},
+                                ]}
+                                onChange={onChangeSliderImagesRatio}
+                            />
+                        </>
+                        }
+                    </PanelBody>
+                </InspectorControls>
+                <div {...innerBlocksProps}
+                     data-slides-per-view={attributes.slidesPerView}
+                     data-slider-id={attributes.clientId}
+                     data-slider-loop={attributes.sliderLoop}
+                >
+                    <div className="swiper-container slider-block__container">
+                        {attributes.controlsPosition === 'top' &&
+                        slideControls()
+                        }
+                        <div className="swiper-wrapper slider-block__slides-wrapper">
+                            {innerBlocksProps.children}
+                        </div>
+                        {attributes.controlsPosition === 'bottom' &&
+                        slideControls()
+                        }
+                    </div>
+                </div>
+            </>
+        )
     },
 
     save: ({className, attributes}) => {
 
-        const slidesBackgroundColor = getColorObjectByColorValue(editorThemeColors, attributes.slidesBackgroundColor);
-
-        const repeaterSlides = attributes.sliderItems.map((item, index) => {
-
-            return (
-                <div key={index} className={'swiper-slide slider-block__slide'}>
-                    <div
-                        className={classNames('slider-block__slide-inner', 'custom-border', 'custom-border-radius', 'custom-shadow', slidesBackgroundColor && `has-${slidesBackgroundColor.slug}-background-color`)}>
-                        {attributes.sliderShowImages &&
-                        <div
-                            className={classNames('slider-block__image-wrapper', `ratio ratio-${attributes.sliderImagesRatio}`)}>
-                            <img alt={getImage(item.slideImage, 'alt')}
-                                 srcSet={`${getImage(item.slideImage, 'tiny')} 480w, ${getImage(item.slideImage, 'small')} 768w, ${getImage(item.slideImage, 'medium')} 1360w`}
-                                 src={getImage(item.slideImage, 'small', index)}
-                                 className={classNames('slider-block__image', 'custom-border-radius')}
-                            />
-                        </div>
-                        }
-                        {attributes.sliderShowTextWrapper &&
-                        <div className={'slider-block__text-wrapper'}
-                             style={{
-                                 // minHeight: `${attributes.minimalTextHeight}px`,
-                                 alignItems: attributes.centerText ? 'center' : 'flex-start'
-                             }}
-                        >
-                            {attributes.sliderShowHeadline &&
-                            <RichText.Content tagName={attributes.headlineType}
-                                              className="slider-block__headline"
-                                              value={item.headline}/>
-                            }
-                            <RichText.Content tagName="p" className="slider-block__text" value={item.text}/>
-                        </div>
-                        }
-                    </div>
-                </div>
-            )
+        const blockProps = useBlockProps.save({
+            className: classNames(className, 'slider-block', 'custom-spacing')
         });
 
         const slideControls = () => {
@@ -757,9 +557,9 @@ registerBlockType('custom/slider', {
         }
 
         return (
-            <div className={classNames(className, 'slider-block', 'custom-spacing')}
+            <div {...blockProps}
                  data-slides-per-view={attributes.slidesPerView}
-                 data-slider-id={attributes.blockId}
+                 data-slider-id={attributes.clientId}
                  data-slider-loop={attributes.sliderLoop}
             >
                 <div className="swiper-container slider-block__container">
@@ -767,7 +567,7 @@ registerBlockType('custom/slider', {
                         slideControls()
                     }
                     <div className="swiper-wrapper slider-block__slides-wrapper">
-                        {repeaterSlides}
+                        <InnerBlocks.Content />
                     </div>
                     {attributes.controlsPosition === 'bottom' &&
                         slideControls()

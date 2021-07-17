@@ -217,7 +217,6 @@ registerBlockType('custom/grid-list', {
                         {innerBlocksProps.children}
                     </div>
                 </div>
-
             </>
         );
     },

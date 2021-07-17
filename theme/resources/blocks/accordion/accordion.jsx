@@ -3,9 +3,8 @@ import {registerBlockType} from '@wordpress/blocks';
 import {RangeControl, ToggleControl, ColorPalette, SelectControl} from '@wordpress/components';
 import {InnerBlocks, InspectorControls, useBlockProps, __experimentalUseInnerBlocksProps as useInnerBlocksProps} from '@wordpress/block-editor';
 import classNames from 'classnames';
-import {editorThemeColors, getColorObject, updateInnerBlocks} from "../utility";
+import {editorThemeColors, getColorObject, updateInnerBlocks, loremIpsum} from "../utility";
 import {accordion} from "../icons";
-const loremIpsum = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.';
 
 const attributes = {
     clientId: {

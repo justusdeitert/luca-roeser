@@ -1,7 +1,7 @@
-import {__} from '@wordpress/i18n';
+// import {__} from '@wordpress/i18n';
 import '@wordpress/edit-post';
 import domReady from '@wordpress/dom-ready';
-import {registerBlockStyle} from '@wordpress/blocks';
+// import {registerBlockStyle} from '@wordpress/blocks';
 
 /**
  * External Dependencies

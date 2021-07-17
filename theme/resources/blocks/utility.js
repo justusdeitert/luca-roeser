@@ -129,15 +129,8 @@ export const bootstrapBreakpoints = {
 }
 
 /**
- * This is needed because by default if the image is smaller some image sizes are not
+ * Editor Colors
  */
-
-// export const editorStandardColors = [
-//     {name: 'Font', slug: 'font', color: `rgb(${getCssVariable('--custom-font-color')}`},
-//     {name: 'Link', slug: 'link', color: `rgb(${getCssVariable('--custom-link-color')}`},
-//     {name: 'Background', slug: 'light', color: `rgb(${getCssVariable('--custom-background-color')}`},
-// ];
-
 export const editorLightColors = [
     {name: 'Light 100', slug: 'light-100', color: `rgb(${getCssVariable('--custom-light-100-color')})`},
     {name: 'Light 200', slug: 'light-200', color: `rgb(${getCssVariable('--custom-light-200-color')})`},
@@ -174,64 +167,9 @@ export const editorColors = [
     {name: 'Dark', slug: 'dark', color: `rgb(${getCssVariable('--custom-dark-color')})`},
     ...editorDarkColors,
     ...editorDarkLightColors
-
 ];
 
-// export const editorGrayColors = [
-//     {name: 'Gray 100', slug: 'gray-100', color: `rgb(${getCssVariable('--custom-gray-100-color')})`},
-//     {name: 'Gray 200', slug: 'gray-200', color: `rgb(${getCssVariable('--custom-gray-200-color')})`},
-//     {name: 'Gray 300', slug: 'gray-300', color: `rgb(${getCssVariable('--custom-gray-300-color')})`},
-//     {name: 'Gray 400', slug: 'gray-400', color: `rgb(${getCssVariable('--custom-gray-400-color')})`},
-//     {name: 'Gray 500', slug: 'gray-500', color: `rgb(${getCssVariable('--custom-gray-500-color')})`},
-//     {name: 'Gray 600', slug: 'gray-600', color: `rgb(${getCssVariable('--custom-gray-600-color')})`},
-//     {name: 'Gray 700', slug: 'gray-700', color: `rgb(${getCssVariable('--custom-gray-700-color')})`},
-//     {name: 'Gray 800', slug: 'gray-800', color: `rgb(${getCssVariable('--custom-gray-800-color')})`},
-//     {name: 'Gray 900', slug: 'gray-900', color: `rgb(${getCssVariable('--custom-gray-900-color')})`},
-// ]
-
 export const editorThemeColors = [...editorColors]
-
-// export const fontAwesomeArray = [
-//     {class: 'fa-check', unicode: '\\f00c'},
-//     {class: 'fa-angle-up', unicode: '\\f106'},
-//     {class: 'fa-angle-right', unicode: '\\f105'},
-//     {class: 'fa-angle-down', unicode: '\\f107'},
-//     {class: 'fa-angle-left', unicode: '\\f104'},
-//     {class: 'fa-arrow-up', unicode: '\\f062'},
-//     {class: 'fa-arrow-right', unicode: '\\f061'},
-//     {class: 'fa-arrow-down', unicode: '\\f063'},
-//     {class: 'fa-arrow-left', unicode: '\\f060'},
-//     {class: 'fa-arrow-circle-up', unicode: '\\f0aa'},
-//     {class: 'fa-arrow-circle-right', unicode: '\\f0a9'},
-//     {class: 'fa-arrow-circle-down', unicode: '\\f0ab'},
-//     {class: 'fa-arrow-circle-left', unicode: '\\f0a8'},
-//     {class: 'fa-user-alt', unicode: '\\f406'},
-//     {class: 'fa-user-friends', unicode: '\\f500'},
-//     {class: 'fa-user-plus', unicode: '\\f234'},
-//     {class: 'fa-user-check', unicode: '\\f4fc'},
-//     {class: 'fa-smile', unicode: '\\f118'},
-//     {class: 'fa-meh', unicode: '\\f11a'},
-//     {class: 'fa-frown', unicode: '\\f119'},
-//     {class: 'fa-plus', unicode: '\\f067'},
-//     {class: 'fa-minus', unicode: '\\f068'},
-//     {class: 'fa-play', unicode: '\\f04b'},
-//     {class: 'fa-mobile-alt', unicode: '\\f3cd'},
-//     {class: 'fa-phone-alt', unicode: '\\f879'},
-//     {class: 'fa-microphone', unicode: '\\f130'},
-//     {class: 'fa-envelope', unicode: '\\f0e0'},
-//     {class: 'fa-headphones', unicode: '\\f025'},
-//     {class: 'fa-reply', unicode: '\\f3e5'},
-//     {class: 'fa-paper-plane', unicode: '\\f1d8'},
-//     {class: 'fa-at', unicode: '\\f1fa'},
-//     {class: 'fa-map-marker-alt', unicode: '\\f3c5'},
-//     {class: 'fa-map-marked-alt', unicode: '\\f5a0'},
-//     {class: 'fa-directions', unicode: '\\f5eb'},
-//     {class: 'fa-globe', unicode: '\\f0ac'},
-//     {class: 'fa-calculator', unicode: '\\f1ec'},
-//     {class: 'fa-file-signature', unicode: '\\f573'},
-//     {class: 'fa-file-invoice-dollar', unicode: '\\f571'},
-//     {class: 'fa-shield-alt', unicode: '\\f3ed'}
-// ];
 
 export const focalPositionInPixel = (value, unit = 'px') => {
 
@@ -289,7 +227,7 @@ export const parentAttributes = (clientId) => {
 
 export const updateInnerBlocks = (clientId) => {
 
-    var parentBlock = select('core/block-editor').getBlock(clientId)
+    let parentBlock = select('core/block-editor').getBlock(clientId)
     parentBlock.innerBlocks.forEach((innerBlock) => {
         dispatch('core/block-editor').updateBlock(innerBlock.clientId, innerBlock)
     })
@@ -338,8 +276,35 @@ export const SelectClipPath = ({clipPathsModules, clickFunction, value = 'none'}
     );
 }
 
-export const removeItems = (array, itemsToRemove) => {
+export const removeArrayItems = (array, itemsToRemove) => {
     return array.filter(element => {
         return !itemsToRemove.includes(element);
     });
 }
+
+export const loremIpsum = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.';
+
+/**
+ * Change Event for Slider Block & Children
+ * @returns {*}
+ */
+//
+// const onBlockChange = () => {
+//
+// }
+//
+// const getBlockList = () => select('core/editor').getBlocks();
+// let blockList = getBlockList();
+// wp.data.subscribe(() => {
+//     const newBlockList = getBlockList();
+//     const blockListChanged = newBlockList !== blockList;
+//     blockList = newBlockList;
+//     if (blockListChanged) {
+//         // console.log('changed');
+//         // You can trigger here any behavior when the block list in the post changes.
+//         // setTimeout(() => {
+//         //     window.updateSliderBlockInstances();
+//         // }, 400)
+//         window.updateSliderBlockInstances();
+//     }
+// });

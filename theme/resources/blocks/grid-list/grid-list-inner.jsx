@@ -79,8 +79,8 @@ registerBlockType('custom/grid-list-inner', {
 
         const blockProps = useBlockProps({
             style: {
-                marginTop: '0',
-                marginBottom: '0',
+                marginTop: 0,
+                marginBottom: 0,
                 width: '100%',
                 height: '100%',
                 border: !(attributes.backgroundColor || attributes.generalBackgroundColor) ? '1px dashed var(--wp-admin-theme-color)' : 'none',
@@ -90,12 +90,11 @@ registerBlockType('custom/grid-list-inner', {
         /**
          * useInnerBlocksProps is still experimental and will be ready in future versions
          */
-        // const innerBlocksProps = useInnerBlocksProps(blockProps, {
-        //     allowedBlocks: [ALLOWEDBLOCKS],
-        //     template: TEMPLATE,
-        //     templateLock: false,
-        //     renderAppender: InnerBlocks.ButtonBlockAppender,
-        // });
+        const innerBlocksProps = useInnerBlocksProps(blockProps, {
+            allowedBlocks: [ALLOWEDBLOCKS],
+            templateLock: false,
+            renderAppender: InnerBlocks.DefaultBlockAppender,
+        });
 
         attributes.clientId = clientId;
 
@@ -119,7 +118,7 @@ registerBlockType('custom/grid-list-inner', {
                     {clipPaths[attributes.clipPath] &&
                         clipPaths[attributes.clipPath](`clip-path-${attributes.clientId}`)
                     }
-                    <div { ...blockProps }>
+                    <div { ...innerBlocksProps }>
                         <div className={classNames(className, 'grid-list-block__inner', backgroundColorSlug && `has-${backgroundColorSlug}-background-color`)}
                              style={{
                                  width: '100%',
@@ -127,7 +126,8 @@ registerBlockType('custom/grid-list-inner', {
                                  clipPath: clipPaths[attributes.clipPath] ? `url(#clip-path-${attributes.clientId})` : 'none',
                              }}
                         >
-                            <InnerBlocks templateLock={false} allowedBlocks={ALLOWEDBLOCKS} renderAppender={InnerBlocks.DefaultBlockAppender} />
+                            {innerBlocksProps.children}
+                            {/*<InnerBlocks templateLock={false} allowedBlocks={ALLOWEDBLOCKS} renderAppender={InnerBlocks.DefaultBlockAppender} />*/}
                         </div>
                     </div>
                 </div>
