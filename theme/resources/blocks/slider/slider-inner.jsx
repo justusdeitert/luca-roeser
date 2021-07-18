@@ -85,7 +85,7 @@ registerBlockType('custom/slider-inner', {
             style: {
                 marginTop: 0,
                 marginBottom: 0,
-                border: '1px dashed var(--wp-admin-theme-color)',
+                border: !attributes.parentBackgroundColor && '1px dashed var(--wp-admin-theme-color)',
             }
         });
 

@@ -221,18 +221,8 @@ add_action('after_setup_theme', function () {
     add_theme_support('customize-selective-refresh-widgets');
 
     /**
-     * Adds gray color array
+     * Set Colors from Kirki to Gutenberg
      */
-    // $gray_colors = [];
-    // $dark_color = get_theme_mod('custom_dark_color', '#212529');
-    // foreach (range(1, 9) as $number) {
-    //     array_push($gray_colors, [
-    //         'name'  => __('Gray ' . $number * 100, 'sage'),
-    //         'slug'  => 'gray-' . $number * 100,
-    //         'color' => adjustBrightness($dark_color, (1 - $number * 0.03)),
-    //     ]);
-    // }
-
     $light_colors = [];
     $light_color = get_theme_mod('custom_light_color', '#f8f9fa');
     foreach (range(1, 6) as $number) {
@@ -327,32 +317,3 @@ add_action('widgets_init', function () {
         'description' => __('The Footer widget area is displayed on the bottom of each page.', 'sage'),
     ] + $config);
 });
-
-/**
- * TODO: Loading text domain does not work!
- * @link https://discourse.roots.io/t/language-po-and-mo-totally-ignored/12295/5
- * @link https://developer.wordpress.org/reference/functions/load_theme_textdomain/
- * @link https://roots.io/docs/sage/9.x/localization/#generating-language-files
- */
-// add_action('after_setup_theme', function () {
-//     load_theme_textdomain('sage', get_template_directory() . '/lang');
-// });
-//
-// /**
-//  * https://developer.wordpress.org/block-editor/how-to-guides/internationalization/
-//  */
-// add_action('init', function () {
-//     wp_set_script_translations('sage/editor', 'sage');
-//     load_theme_textdomain('sage', get_template_directory() . '/lang');
-// });
-
-
-// function myguten_set_script_translations() {
-//     wp_set_script_translations( 'myguten-script', 'myguten' );
-// }
-// add_action( 'init', 'myguten_set_script_translations' );
-
-
-// add_action( 'init', function() {
-//     wp_set_script_translations( 'sage/editor', 'sage', get_template_directory() . '/resources/lang');
-// });

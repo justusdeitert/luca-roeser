@@ -44,13 +44,17 @@ const attributes = {
         type: 'boolean',
         default: true,
     },
-    paginationSize: {
-        type: 'number',
-        default: 10,
-    },
     showArrows: {
         type: 'boolean',
         default: true,
+    },
+    controlsSize: {
+        type: 'number',
+        default: 16,
+    },
+    paginationSize: {
+        type: 'number',
+        default: 10,
     },
     arrowSize: {
         type: 'number',
@@ -87,7 +91,7 @@ registerBlockType('custom/slider', {
 
             setTimeout(() => {
                 window.updateSliderBlockInstances();
-            }, 300)
+            }, 300);
         };
 
         const onChangeSlidesPerView = (value) => {
@@ -95,7 +99,7 @@ registerBlockType('custom/slider', {
 
             setTimeout(() => {
                 window.updateSliderBlockInstances();
-            }, 300)
+            }, 300);
         };
 
         const onChangeSlidesBackgroundColor = (value) => {
@@ -106,36 +110,32 @@ registerBlockType('custom/slider', {
         /**
          * Slider Controls
          */
-        const onChangeControlsPosition = (value) => {
-            setAttributes({controlsPosition: value});
-
-            setTimeout(() => {
-                window.updateSliderBlockInstances();
-            }, 300)
-        };
-
-        const onChangeControlsStyle = (value) => {
-            setAttributes({controlsStyle: value});
-        };
-
         const onChangeShowPagination = (value) => {
             setAttributes({showPagination: value});
 
             setTimeout(() => {
                 window.updateSliderBlockInstances();
-            }, 300)
-        };
-
-        const onChangePaginationSize = (value) => {
-            setAttributes({paginationSize: value});
+            }, 300);
         };
 
         const onChangeShowArrows = (value) => {
             setAttributes({showArrows: value});
+
+            setTimeout(() => {
+                window.updateSliderBlockInstances();
+            }, 300);
         };
 
-        const onChangeArrowSize = (value) => {
-            setAttributes({arrowSize: value});
+        const onChangeControlsSize = (value) => {
+            setAttributes({controlsSize: value});
+        };
+
+        const onChangeControlsPosition = (value) => {
+            setAttributes({controlsPosition: value});
+        };
+
+        const onChangeControlsStyle = (value) => {
+            setAttributes({controlsStyle: value});
         };
 
         /**
@@ -183,28 +183,27 @@ registerBlockType('custom/slider', {
         const slideControls = () => {
             if ((attributes.showPagination || attributes.showArrows)) {
                 return (
-                    <div className={classNames("swiper-controls", `${attributes.controlsStyle}-position`)}>
+                    <div className={classNames("swiper-controls", `${attributes.controlsStyle}-position`)}
+                         style={{'--slider-controls-size': `${attributes.controlsSize / 16}rem`}}
+                    >
                         {attributes.showArrows &&
-                        <div className="swiper-button-prev">
-                            <i className="icon-arrow-left" style={{fontSize: `${attributes.arrowSize / 16}rem`}}/>
-                        </div>
+                        <>
+                            <div className="swiper-button-prev">
+                                <i className="icon-arrow-left"/>
+                            </div>
+                        </>
                         }
                         {attributes.showPagination &&
                         <>
-                            <style>{`
-                                .slider-block .swiper-pagination-bullet {
-                                    width: ${attributes.paginationSize}px !important;
-                                    min-width: ${attributes.paginationSize}px !important;
-                                    height: ${attributes.paginationSize}px !important;
-                                }
-                            `}</style>
-                            <div className="swiper-pagination"/>
+                            <div className="swiper-pagination" />
                         </>
                         }
                         {attributes.showArrows &&
-                        <div className="swiper-button-next">
-                            <i className="icon-arrow-right" style={{fontSize: `${attributes.arrowSize / 16}rem`}}/>
-                        </div>
+                        <>
+                            <div className="swiper-button-next">
+                                <i className="icon-arrow-right"/>
+                            </div>
+                        </>
                         }
                     </div>
                 )
@@ -256,6 +255,31 @@ registerBlockType('custom/slider', {
                         />
                     </div>
                     <PanelBody title={__('Slider Controls', 'sage')} initialOpen={false}>
+                        <div style={{height: '20px'}}/>
+                        <ToggleControl
+                            label={__('Show Pagination', 'sage')}
+                            checked={attributes.showPagination}
+                            onChange={onChangeShowPagination}
+                        />
+                        <ToggleControl
+                            label={__('Show Arrows', 'sage')}
+                            checked={attributes.showArrows}
+                            onChange={onChangeShowArrows}
+                        />
+                        {(attributes.showPagination || attributes.showArrows) &&
+                        <>
+                            <hr/>
+                            <p>{__('Controls Size', 'sage')}</p>
+                            <RangeControl
+                                value={attributes.controlsSize}
+                                min={8}
+                                initialPosition={16}
+                                max={36}
+                                onChange={onChangeControlsSize}
+                            />
+                        </>
+                        }
+                        <hr/>
                         <p>{__('Controls Position', 'sage')}</p>
                         <SelectControl
                             value={attributes.controlsPosition}
@@ -265,56 +289,16 @@ registerBlockType('custom/slider', {
                             ]}
                             onChange={onChangeControlsPosition}
                         />
-                        <hr/>
                         <p>{__('Controls Style', 'sage')}</p>
                         <SelectControl
                             value={attributes.controlsStyle}
                             options={[
                                 {label: __('Left'), value: 'left'},
                                 {label: __('Right'), value: 'right'},
-                                {label: __('Center'), value: 'Center'},
+                                {label: __('Center'), value: 'center'},
                             ]}
                             onChange={onChangeControlsStyle}
                         />
-                        <hr/>
-                        <ToggleControl
-                            label={__('Show Pagination', 'sage')}
-                            checked={attributes.showPagination}
-                            onChange={onChangeShowPagination}
-                        />
-                        {attributes.showPagination &&
-                        <>
-                            <hr/>
-                            <p>{__('Pagination Size', 'sage')}</p>
-                            <RangeControl
-                                value={attributes.paginationSize}
-                                min={10}
-                                initialPosition={10}
-                                max={20}
-                                onChange={onChangePaginationSize}
-                            />
-                        </>
-                        }
-                        <hr/>
-                        <ToggleControl
-                            label={__('Show Arrows', 'sage')}
-                            checked={attributes.showArrows}
-                            onChange={onChangeShowArrows}
-                        />
-                        {attributes.showArrows &&
-                        <>
-                            <hr/>
-                            <p>{__('Arrow Size', 'sage')}</p>
-                            <RangeControl
-                                value={attributes.arrowSize}
-                                min={24}
-                                initialPosition={40}
-                                max={96}
-                                onChange={onChangeArrowSize}
-                            />
-
-                        </>
-                        }
                     </PanelBody>
                 </InspectorControls>
                 <div {...innerBlocksProps}
@@ -347,28 +331,27 @@ registerBlockType('custom/slider', {
         const slideControls = () => {
             if ((attributes.showPagination || attributes.showArrows)) {
                 return (
-                    <div className={classNames("swiper-controls", `${attributes.controlsStyle}-position`)}>
+                    <div className={classNames("swiper-controls", `${attributes.controlsStyle}-position`)}
+                         style={{'--slider-controls-size': `${attributes.controlsSize / 16}rem`}}
+                    >
                         {attributes.showArrows &&
-                        <div className="swiper-button-prev">
-                            <i className="icon-arrow-left" style={{fontSize: `${attributes.arrowSize / 16}rem`}}/>
-                        </div>
+                        <>
+                            <div className="swiper-button-prev">
+                                <i className="icon-arrow-left"/>
+                            </div>
+                        </>
                         }
                         {attributes.showPagination &&
                         <>
-                            <style>{`
-                                    .slider-block .swiper-pagination-bullet {
-                                        width: ${attributes.paginationSize}px !important;
-                                        min-width: ${attributes.paginationSize}px !important;
-                                        height: ${attributes.paginationSize}px !important;
-                                    }
-                                `}</style>
-                            <div className="swiper-pagination"/>
+                            <div className="swiper-pagination" />
                         </>
                         }
                         {attributes.showArrows &&
-                        <div className="swiper-button-next">
-                            <i className="icon-arrow-right" style={{fontSize: `${attributes.arrowSize / 16}rem`}}/>
-                        </div>
+                        <>
+                            <div className="swiper-button-next">
+                                <i className="icon-arrow-right"/>
+                            </div>
+                        </>
                         }
                     </div>
                 )
@@ -383,13 +366,13 @@ registerBlockType('custom/slider', {
             >
                 <div className="swiper-container slider-block__container">
                     {attributes.controlsPosition === 'top' &&
-                        slideControls()
+                    slideControls()
                     }
                     <div className="swiper-wrapper slider-block__slides-wrapper">
-                        <InnerBlocks.Content />
+                        <InnerBlocks.Content/>
                     </div>
                     {attributes.controlsPosition === 'bottom' &&
-                        slideControls()
+                    slideControls()
                     }
                 </div>
             </div>

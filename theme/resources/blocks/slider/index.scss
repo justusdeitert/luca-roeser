@@ -39,6 +39,9 @@
     &__slide-inner {
         position: relative;
         height: 100%;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
     }
 
     &__image {
@@ -153,9 +156,9 @@
             }
 
             .swiper-pagination-bullet {
-                width: 10px;
-                min-width: 10px;
-                height: 10px;
+                width: calc(var(--slider-controls-size, 1rem) / 1.5);
+                min-width: calc(var(--slider-controls-size, 1rem) / 1.5);
+                height: calc(var(--slider-controls-size, 1rem) / 1.5);
                 margin: 5px;
                 border-radius: 50%;
                 background-color: rgba(var(--custom-controls-color), 0.3);
@@ -169,7 +172,7 @@
 
         i {
             color: rgb(var(--custom-controls-color));
-            font-size: 2.5rem;
+            font-size: calc(var(--slider-controls-size, 1rem) * 2.5);
         }
 
         &.right-position {
