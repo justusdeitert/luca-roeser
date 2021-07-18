@@ -4,9 +4,9 @@ import {RangeControl, Button, ToggleControl, SelectControl, PanelBody, ColorPale
 import {__experimentalAlignmentMatrixControl as AlignmentMatrixControl} from '@wordpress/components';
 import {MediaUpload, InspectorControls, InnerBlocks, useBlockProps} from '@wordpress/block-editor';
 import classNames from 'classnames';
-import {editorThemeColors, getImage, focalPositionInPixel, getColorObject, SelectClipPath} from "../utility";
+import {editorThemeColors, getImage, focalPositionInPixel, getColorObject, SelectClipPath, ALLOWED_BLOCKS} from "../utility";
 import * as clipPaths from "../clip-paths"
-import {imageHeaderIcon} from "../icons";
+import {heroIcon} from "../icons";
 
 const attributes = {
     /**
@@ -22,33 +22,33 @@ const attributes = {
         default: ''
     },
     /**
-     * Header Properties
+     * Hero Properties
      */
-    headerFullHeight: {
+    heroFullHeight: {
         type: 'boolean',
         default: false,
     },
-    headerHeight: {
+    heroHeight: {
         type: 'number',
         default: 500,
     },
-    headerMobileHeight: {
+    heroMobileHeight: {
         type: 'number',
         default: 300,
     },
-    headerClipPath: {
+    heroClipPath: {
         type: 'string',
         default: 'none',
     },
-    headerBackgroundColor: {
+    heroBackgroundColor: {
         type: 'string',
         default: ''
     },
-    headerBackgroundHasOverlay: {
+    heroBackgroundHasOverlay: {
         type: 'boolean',
         default: false,
     },
-    headerBackgroundOverlayColor: {
+    heroBackgroundOverlayColor: {
         type: 'string',
         default: 'light'
     },
@@ -56,23 +56,23 @@ const attributes = {
     /**
      * Image Properties
      */
-    headerImage: {
+    heroImage: {
         type: 'object',
         default: ''
     },
-    headerImageRemove: {
+    heroImageRemove: {
         type: 'boolean',
         default: false
     },
-    headerImageBlur: {
+    heroImageBlur: {
         type: 'number',
         default: 0,
     },
-    headerImageOpacity: {
+    heroImageOpacity: {
         type: 'number',
         default: 1,
     },
-    headerImageAlignment: {
+    heroImageAlignment: {
         type: 'string',
         default: 'center center'
     },
@@ -100,24 +100,9 @@ const getOverlayColor = (overlayColor) => {
 // For not firing update to often
 let onChangeTextPositionTimeout = true;
 
-const ALLOWED_BLOCKS = [
-    'core/paragraph',
-    'core/heading',
-    'core/list',
-    'core/shortcode',
-    'core/spacer',
-    'core/group',
-    'custom/button',
-    'custom/icon-text',
-    'custom/row',
-    'custom/divider',
-    'custom/image',
-    'custom/fluid-text'
-];
-
-registerBlockType('custom/image-header', {
-    title: __('Image Header', 'sage'),
-    icon: imageHeaderIcon,
+registerBlockType('custom/hero', {
+    title: __('Hero', 'sage'),
+    icon: heroIcon,
     category: 'custom',
     supports: {
         // align: true,
@@ -134,59 +119,59 @@ registerBlockType('custom/image-header', {
     edit: ({className, attributes, setAttributes, clientId}) => {
 
         /**
-         * Header Properties
+         * Hero Properties
          */
 
         const onChangeFullHeight = (value) => {
-            setAttributes({headerFullHeight: value});
+            setAttributes({heroFullHeight: value});
         };
 
-        const onChangeHeaderHeight = (value) => {
-            setAttributes({headerHeight: value});
+        const onChangeHeroHeight = (value) => {
+            setAttributes({heroHeight: value});
         };
 
-        const onChangeHeaderMobileHeight = (value) => {
-            setAttributes({headerMobileHeight: value});
+        const onChangeHeroMobileHeight = (value) => {
+            setAttributes({heroMobileHeight: value});
         };
 
-        const onChangeHeaderClipPath = (value) => {
-            setAttributes({headerClipPath: value});
+        const onChangeHeroClipPath = (value) => {
+            setAttributes({heroClipPath: value});
         };
 
-        const onChangeHeaderBackgroundColor = (value) => {
-            setAttributes({headerBackgroundColor: value});
+        const onChangeHeroBackgroundColor = (value) => {
+            setAttributes({heroBackgroundColor: value});
         };
 
-        const onChangeHeaderBackgroundHasOverlay = (value) => {
-            setAttributes({headerBackgroundHasOverlay: value});
+        const onChangeHeroBackgroundHasOverlay = (value) => {
+            setAttributes({heroBackgroundHasOverlay: value});
         };
 
-        const onChangeHeaderBackgroundOverlayColor = (value) => {
-            setAttributes({headerBackgroundOverlayColor: value});
+        const onChangeHeroBackgroundOverlayColor = (value) => {
+            setAttributes({heroBackgroundOverlayColor: value});
         };
 
         /**
          * Image Properties
          */
 
-        const onSelectHeaderImage = (imageObject) => {
-            setAttributes({headerImage: imageObject});
+        const onSelectHeroImage = (imageObject) => {
+            setAttributes({heroImage: imageObject});
         };
 
-        const headerImageRemove = () => {
-            setAttributes({headerImageRemove: !attributes.headerImageRemove});
+        const heroImageRemove = () => {
+            setAttributes({heroImageRemove: !attributes.heroImageRemove});
         };
 
-        const onChangeHeaderImageBlur = (value) => {
-            setAttributes({headerImageBlur: value});
+        const onChangeHeroImageBlur = (value) => {
+            setAttributes({heroImageBlur: value});
         };
 
-        const onChangeHeaderImageOpacity = (value) => {
-            setAttributes({headerImageOpacity: value});
+        const onChangeHeroImageOpacity = (value) => {
+            setAttributes({heroImageOpacity: value});
         };
 
-        const onChangeHeaderImageAlignment = (value) => {
-            setAttributes({headerImageAlignment: value});
+        const onChangeHeroImageAlignment = (value) => {
+            setAttributes({heroImageAlignment: value});
         };
 
         /**
@@ -223,120 +208,101 @@ registerBlockType('custom/image-header', {
         const blockProps = useBlockProps({
             className: className,
             style: {
-                border: (attributes.headerImageRemove && !attributes.headerBackgroundColor) ? '1px dashed var(--wp-admin-theme-color)' : 'none',
+                border: (attributes.heroImageRemove && !attributes.heroBackgroundColor) ? '1px dashed var(--wp-admin-theme-color)' : 'none',
             }
         });
 
         return (
             <>
                 <InspectorControls>
-                    <PanelBody title={__('Header Properties', 'sage')} initialOpen={false}>
+                    <PanelBody title={__('Hero Properties', 'sage')} initialOpen={false}>
                         <hr/>
                         <ToggleControl
                             label={__('Full Height', 'sage')}
                             // help={ attributes.switchContent ? 'Image is left' : 'Image is right' }
-                            checked={attributes.headerFullHeight}
+                            checked={attributes.heroFullHeight}
                             onChange={onChangeFullHeight}
                         />
-                        {!attributes.headerFullHeight &&
+                        {!attributes.heroFullHeight &&
                             <>
                                 <hr/>
-                                <p>{__('Header Height', 'sage')}</p>
+                                <p>{__('Hero Height', 'sage')}</p>
                                 <RangeControl
-                                    value={attributes.headerHeight}
-                                    min={attributes.headerMobileHeight}
+                                    value={attributes.heroHeight}
+                                    min={attributes.heroMobileHeight}
                                     max={800}
                                     step={10}
-                                    onChange={onChangeHeaderHeight}
+                                    onChange={onChangeHeroHeight}
                                 />
                                 <hr/>
-                                <p>{__('Mobile Header Height', 'sage')}</p>
+                                <p>{__('Mobile Hero Height', 'sage')}</p>
                                 <RangeControl
-                                    value={attributes.headerMobileHeight}
+                                    value={attributes.heroMobileHeight}
                                     min={200}
                                     max={500}
                                     step={10}
-                                    onChange={onChangeHeaderMobileHeight}
+                                    onChange={onChangeHeroMobileHeight}
                                 />
                                 <hr/>
                                 <p>{__('Section Clip Path', 'sage')}</p>
                                 <SelectClipPath
                                     clipPathsModules={clipPaths}
-                                    clickFunction={onChangeHeaderClipPath}
-                                    value={attributes.headerClipPath}
+                                    clickFunction={onChangeHeroClipPath}
+                                    value={attributes.heroClipPath}
                                 />
-                                {/*<hr/>
-                                <SelectControl
-                                    label={__('Header Clip Path', 'sage')}
-                                    value={attributes.headerClipPath}
-                                    options={[
-                                        {label: __('None', 'sage'), value: 'none'},
-                                        {label: __('Slope 01', 'sage'), value: 'slope_01'},
-                                        {label: __('Slope 02', 'sage'), value: 'slope_02'},
-                                        {label: __('Curves 01', 'sage'), value: 'curves_01'},
-                                        {label: __('Curves 02', 'sage'), value: 'curves_02'},
-                                        {label: __('Waves 01', 'sage'), value: 'waves_01'},
-                                        {label: __('Waves 02', 'sage'), value: 'waves_02'},
-                                        {label: __('Waves 03', 'sage'), value: 'waves_03'},
-                                        {label: __('Lines 01', 'sage'), value: 'lines_01'},
-                                        {label: __('Lines 02', 'sage'), value: 'lines_02'},
-                                        {label: __('Lines 03', 'sage'), value: 'lines_03'},
-                                    ]}
-                                    onChange={onChangeHeaderClipPath}
-                                />*/}
                             </>
                         }
                         <hr/>
-                        <p>{__('Header Background Color', 'sage')}</p>
+                        <p>{__('Hero Background Color', 'sage')}</p>
                         <ColorPalette
                             colors={[...editorThemeColors]}
-                            value={attributes.headerBackgroundColor}
-                            onChange={onChangeHeaderBackgroundColor}
+                            value={attributes.heroBackgroundColor}
+                            onChange={onChangeHeroBackgroundColor}
                         />
                         <hr/>
                         <ToggleControl
                             label={__('Background Overlay', 'sage')}
-                            checked={attributes.headerBackgroundHasOverlay}
-                            onChange={onChangeHeaderBackgroundHasOverlay}
+                            checked={attributes.heroBackgroundHasOverlay}
+                            onChange={onChangeHeroBackgroundHasOverlay}
                         />
-                        {attributes.headerBackgroundHasOverlay &&
+                        {attributes.heroBackgroundHasOverlay &&
                         <>
                             <SelectControl
                                 label={__('Select Overlay Color', 'sage')}
-                                value={attributes.headerBackgroundOverlayColor}
+                                value={attributes.heroBackgroundOverlayColor}
                                 options={[
                                     {label: __('Dark', 'sage'), value: 'dark'},
                                     {label: __('Light', 'sage'), value: 'light'},
                                 ]}
-                                onChange={onChangeHeaderBackgroundOverlayColor}
+                                onChange={onChangeHeroBackgroundOverlayColor}
                             />
                         </>
                         }
                     </PanelBody>
-                    {!attributes.headerImageRemove &&
+                    {!attributes.heroImageRemove &&
                         <PanelBody title={__('Background Image Properties', 'sage')} initialOpen={false}>
                             <hr/>
                             <p>{__('Image Blur', 'sage')}</p>
                             <RangeControl
-                                value={attributes.headerImageBlur}
+                                value={attributes.heroImageBlur}
                                 min={0}
                                 max={10}
-                                onChange={onChangeHeaderImageBlur}
+                                onChange={onChangeHeroImageBlur}
                             />
                             <hr/>
                             <p>{__('Image Opacity', 'sage')}</p>
                             <RangeControl
-                                value={attributes.headerImageOpacity}
+                                value={attributes.heroImageOpacity}
                                 min={0}
                                 max={1}
                                 step={0.05}
-                                onChange={onChangeHeaderImageOpacity}
+                                onChange={onChangeHeroImageOpacity}
                             />
                             <hr/>
                             <p>{__('Background Image Alignment', 'sage')}</p>
                             <AlignmentMatrixControl
-                                value={attributes.headerImageAlignment}
-                                onChange={onChangeHeaderImageAlignment}
+                                value={attributes.heroImageAlignment}
+                                onChange={onChangeHeroImageAlignment}
                             />
                         </PanelBody>
                     }
@@ -358,42 +324,42 @@ registerBlockType('custom/image-header', {
                 </InspectorControls>
                 <div {...blockProps}>
                     <div
-                        className={classNames(className, 'image-header-block', getColorObject(attributes.headerBackgroundColor) && `has-${getColorObject(attributes.headerBackgroundColor).slug}-background-color`)}
+                        className={classNames(className, 'hero-block', getColorObject(attributes.heroBackgroundColor) && `has-${getColorObject(attributes.heroBackgroundColor).slug}-background-color`)}
                         style={{
-                            maxHeight: attributes.headerFullHeight ? `initial` : `${attributes.headerHeight}px`,
-                            minHeight: attributes.headerFullHeight ? `initial` : `${attributes.headerMobileHeight}px`,
-                            height: attributes.headerFullHeight ? `100vh` : '60vw',
-                            clipPath: attributes.headerClipPath !== 'none' ? `url(#clip-path-${attributes.clientId})` : 'none'
+                            maxHeight: attributes.heroFullHeight ? `initial` : `${attributes.heroHeight}px`,
+                            minHeight: attributes.heroFullHeight ? `initial` : `${attributes.heroMobileHeight}px`,
+                            height: attributes.heroFullHeight ? `100vh` : '60vw',
+                            clipPath: attributes.heroClipPath !== 'none' ? `url(#clip-path-${attributes.clientId})` : 'none'
                         }}
                     >
 
-                        {clipPaths[attributes.headerClipPath] &&
-                            clipPaths[attributes.headerClipPath](`clip-path-${attributes.clientId}`)
+                        {clipPaths[attributes.heroClipPath] &&
+                            clipPaths[attributes.heroClipPath](`clip-path-${attributes.clientId}`)
                         }
 
-                        {!attributes.headerImageRemove &&
+                        {!attributes.heroImageRemove &&
                             <img
-                                className={classNames('image-header-block__image', attributes.headerImageBlur > 0 ? 'is-blurred' : '')}
+                                className={classNames('hero-block__image', attributes.heroImageBlur > 0 ? 'is-blurred' : '')}
                                 style={{
-                                    filter: `blur(${attributes.headerImageBlur}px)`,
-                                    objectPosition: `${attributes.headerImageAlignment}`,
-                                    opacity: attributes.headerImageOpacity,
+                                    filter: `blur(${attributes.heroImageBlur}px)`,
+                                    objectPosition: `${attributes.heroImageAlignment}`,
+                                    opacity: attributes.heroImageOpacity,
                                 }}
-                                src={getImage(attributes.headerImage, 'x_large')}
-                                alt={getImage(attributes.headerImage, 'alt')}
-                                width={getImage(attributes.headerImage, 'width')}
-                                height={getImage(attributes.headerImage, 'height')}
+                                src={getImage(attributes.heroImage, 'x_large')}
+                                alt={getImage(attributes.heroImage, 'alt')}
+                                width={getImage(attributes.heroImage, 'width')}
+                                height={getImage(attributes.heroImage, 'height')}
                             />
                         }
-                        {attributes.headerBackgroundHasOverlay &&
-                            <div className="image-header-block__overlay"
+                        {attributes.heroBackgroundHasOverlay &&
+                            <div className="hero-block__overlay"
                                  style={{
-                                     backgroundImage: getOverlayColor(attributes.headerBackgroundOverlayColor)
+                                     backgroundImage: getOverlayColor(attributes.heroBackgroundOverlayColor)
                                  }}
                             />
                         }
-                        <div className="container image-header-block__container">
-                            <div className="image-header-block__text-wrapper"
+                        <div className="container hero-block__container">
+                            <div className="hero-block__text-wrapper"
                                  style={{
                                      transform: `translate(${focalPositionInPixel(attributes.textPosition.x)}, ${focalPositionInPixel(attributes.textPosition.y)})`,
                                  }}
@@ -403,7 +369,7 @@ registerBlockType('custom/image-header', {
                         </div>
                     </div>
                     <MediaUpload
-                        onSelect={onSelectHeaderImage}
+                        onSelect={onSelectHeroImage}
                         allowedTypes={[
                             'image/jpeg',
                             'image/jpg',
@@ -424,8 +390,8 @@ registerBlockType('custom/image-header', {
                                         text={__('Change Image', 'sage')}
                                 />
                                 <Button className={'button'}
-                                        onClick={headerImageRemove}
-                                        icon={!attributes.headerImageRemove ? 'visibility' : 'hidden'}
+                                        onClick={heroImageRemove}
+                                        icon={!attributes.heroImageRemove ? 'visibility' : 'hidden'}
                                         style={{
                                             position: `absolute`,
                                             right: `20px`,
@@ -443,42 +409,42 @@ registerBlockType('custom/image-header', {
 
         return (
             <div
-                className={classNames('image-header-block', getColorObject(attributes.headerBackgroundColor) && `has-${getColorObject(attributes.headerBackgroundColor).slug}-background-color`)}
+                className={classNames('hero-block', getColorObject(attributes.heroBackgroundColor) && `has-${getColorObject(attributes.heroBackgroundColor).slug}-background-color`)}
                 style={{
-                    maxHeight: attributes.headerFullHeight ? `initial` : `${attributes.headerHeight}px`,
-                    minHeight: attributes.headerFullHeight ? `initial` : `${attributes.headerMobileHeight}px`,
-                    height: attributes.headerFullHeight ? `100vh` : '60vw',
-                    clipPath: attributes.headerClipPath !== 'none' ? `url(#clip-path-${attributes.clientId})` : 'none'
-                    // clipPath: attributes.headerFullHeight ? 'initial' : getClipPath(),
+                    maxHeight: attributes.heroFullHeight ? `initial` : `${attributes.heroHeight}px`,
+                    minHeight: attributes.heroFullHeight ? `initial` : `${attributes.heroMobileHeight}px`,
+                    height: attributes.heroFullHeight ? `100vh` : '60vw',
+                    clipPath: attributes.heroClipPath !== 'none' ? `url(#clip-path-${attributes.clientId})` : 'none'
+                    // clipPath: attributes.heroFullHeight ? 'initial' : getClipPath(),
                 }}
             >
 
-                {clipPaths[attributes.headerClipPath] &&
-                    clipPaths[attributes.headerClipPath](`clip-path-${attributes.clientId}`)
+                {clipPaths[attributes.heroClipPath] &&
+                    clipPaths[attributes.heroClipPath](`clip-path-${attributes.clientId}`)
                 }
 
-                {!attributes.headerImageRemove &&
-                    <img className={classNames('image-header-block__image', attributes.headerImageBlur > 0 ? 'is-blurred' : '')}
+                {!attributes.heroImageRemove &&
+                    <img className={classNames('hero-block__image', attributes.heroImageBlur > 0 ? 'is-blurred' : '')}
                          style={{
-                             filter: `blur(${attributes.headerImageBlur}px)`,
-                             objectPosition: `${attributes.headerImageAlignment}`,
-                             opacity: attributes.headerImageOpacity,
+                             filter: `blur(${attributes.heroImageBlur}px)`,
+                             objectPosition: `${attributes.heroImageAlignment}`,
+                             opacity: attributes.heroImageOpacity,
                          }}
-                         srcSet={`${getImage(attributes.headerImage, 'tiny')} 480w, ${getImage(attributes.headerImage, 'small')} 768w, ${getImage(attributes.headerImage, 'medium')} 1024w, ${getImage(attributes.headerImage, 'x_large')} 1360w`}
+                         srcSet={`${getImage(attributes.heroImage, 'tiny')} 480w, ${getImage(attributes.heroImage, 'small')} 768w, ${getImage(attributes.heroImage, 'medium')} 1024w, ${getImage(attributes.heroImage, 'x_large')} 1360w`}
                          sizes="100w"
-                         src={getImage(attributes.headerImage, 'medium')}
-                         alt={getImage(attributes.headerImage, 'alt')}
+                         src={getImage(attributes.heroImage, 'medium')}
+                         alt={getImage(attributes.heroImage, 'alt')}
                     />
                 }
-                {attributes.headerBackgroundHasOverlay &&
-                    <div className="image-header-block__overlay"
+                {attributes.heroBackgroundHasOverlay &&
+                    <div className="hero-block__overlay"
                          style={{
-                             backgroundImage: getOverlayColor(attributes.headerBackgroundOverlayColor)
+                             backgroundImage: getOverlayColor(attributes.heroBackgroundOverlayColor)
                          }}
                     />
                 }
-                <div className="container image-header-block__container">
-                    <div className="image-header-block__text-wrapper"
+                <div className="container hero-block__container">
+                    <div className="hero-block__text-wrapper"
                          style={{
                              transform: `translate(${focalPositionInPixel(attributes.textPosition.x)}, ${focalPositionInPixel(attributes.textPosition.y)})`,
                          }}

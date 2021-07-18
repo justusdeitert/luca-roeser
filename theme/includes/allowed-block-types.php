@@ -65,7 +65,7 @@ $custom_blocks_normal_editor = [
     'custom/accordion',
     'custom/accordion-inner',
     get_theme_mod('custom_google_maps_api_key', false) ? 'custom/map' : '', // Check if google Maps Key is Set
-    'custom/image-header',
+    'custom/hero',
     'custom/text-image',
     'custom/slider',
     'custom/slider-inner',
