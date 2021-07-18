@@ -1,9 +1,14 @@
 import {__} from '@wordpress/i18n';
 import {registerBlockType} from '@wordpress/blocks';
-import {InnerBlocks, RichText, InspectorControls, ColorPalette, useBlockProps, __experimentalUseInnerBlocksProps as useInnerBlocksProps} from '@wordpress/block-editor';
+import {InnerBlocks, useBlockProps} from '@wordpress/block-editor';
 import classNames from 'classnames';
-import {createElement, Component, useEffect} from '@wordpress/element';
-import {ALLOWEDBLOCKS, editorThemeColors, getColorObject, parentAttributes, SelectClipPath, removeArrayItems} from '../utility';
+import {useEffect} from '@wordpress/element';
+import {
+    ALLOWEDBLOCKS,
+    getColorObject,
+    parentAttributes,
+    removeArrayItems,
+} from '../utility';
 import {accordionInner} from '../icons';
 
 const attributes = {
@@ -12,6 +17,10 @@ const attributes = {
         default: ''
     },
     parentId: {
+        type: 'string',
+        default: ''
+    },
+    parentBackgroundColor: {
         type: 'string',
         default: ''
     },
@@ -34,7 +43,11 @@ registerBlockType('custom/slider-inner', {
 
         attributes.clientId = clientId;
         attributes.parentId = parentAttributes(attributes.clientId).clientId;
+        attributes.parentBackgroundColor = parentAttributes(attributes.clientId).slidesBackgroundColor;
 
+        /**
+         * Check for block updates and deletion
+         */
         useEffect(() => {
             /**
              * On block initialisation
@@ -62,7 +75,13 @@ registerBlockType('custom/slider-inner', {
         }, []);
 
         const blockProps = useBlockProps({
-            className: classNames('slider-block__slide-inner', 'custom-border', 'custom-border-radius', 'custom-shadow'),
+            className: classNames(
+                'slider-block__slide-inner',
+                'custom-border',
+                'custom-border-radius',
+                'custom-shadow',
+                getColorObject(attributes.parentBackgroundColor) && `has-${getColorObject(attributes.parentBackgroundColor).slug}-background-color`
+            ),
             style: {
                 marginTop: 0,
                 marginBottom: 0,
@@ -88,7 +107,13 @@ registerBlockType('custom/slider-inner', {
 
         // Need to use for passing classes to save function
         const blockProps = useBlockProps.save({
-            className: classNames('slider-block__slide-inner', 'custom-border', 'custom-border-radius', 'custom-shadow'),
+            className: classNames(
+                'slider-block__slide-inner',
+                'custom-border',
+                'custom-border-radius',
+                'custom-shadow',
+                getColorObject(attributes.parentBackgroundColor) && `has-${getColorObject(attributes.parentBackgroundColor).slug}-background-color`
+            ),
         });
 
         return (

@@ -11,6 +11,11 @@
         flex-wrap: initial;
         cursor: grab;
         margin: 3px 0; // for box-shadow
+
+        > .block-list-appender {
+            position: relative;
+            right: 65px;
+        }
     }
 
     &__slide {
@@ -18,7 +23,6 @@
         padding-left: calc(var(--custom-gutter-mobile-x) * .3);
         height: auto;
     }
-
 
     @include media-breakpoint-up(sm) {
         &__container {

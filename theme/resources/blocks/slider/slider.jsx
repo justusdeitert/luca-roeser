@@ -5,7 +5,7 @@ import {ToggleControl, RangeControl, SelectControl, PanelBody, ColorPalette} fro
 import {createElement, Component, useEffect} from '@wordpress/element';
 import {InnerBlocks, RichText, MediaUpload, InspectorControls, getColorObjectByColorValue, useBlockProps, __experimentalUseInnerBlocksProps as useInnerBlocksProps, ButtonBlockAppender} from '@wordpress/block-editor';
 import classNames from 'classnames';
-import {cloneArray, editorThemeColors, getColorObject, getImage, loremIpsum} from "../utility";
+import {cloneArray, editorThemeColors, getColorObject, getImage, loremIpsum, updateInnerBlocks} from "../utility";
 import {sliderIcon} from "../icons";
 
 const attributes = {
@@ -26,6 +26,7 @@ const attributes = {
     },
     slidesBackgroundColor: {
         type: 'string',
+        default: '',
     },
 
     /**
@@ -55,78 +56,7 @@ const attributes = {
         type: 'number',
         default: 32,
     },
-
-    /**
-     * Text Properties
-     */
-    sliderShowTextWrapper: {
-        type: 'boolean',
-        default: true,
-    },
-    sliderShowHeadline: {
-        type: 'boolean',
-        default: true,
-    },
-    headlineType: {
-        type: 'string',
-        default: 'h5'
-    },
-    // minimalTextHeight: {
-    //     type: 'number',
-    //     default: 110
-    // },
-    centerText: {
-        type: 'boolean',
-        default: false
-    },
-
-    /**
-     * Image Properties
-     */
-    sliderShowImages: {
-        type: 'boolean',
-        default: true,
-    },
-    sliderImagesRatio: {
-        type: 'string',
-        default: '4x3',
-    },
 }
-
-// let getInnerBlockLength = (blockList, blockName) => {
-//     let filteredBlockList = blockList.filter(block => {
-//         return block.name === blockName;
-//     });
-//
-//     let innerBlockCount = filteredBlockList.map(block => {
-//         return block.innerBlocks.length;
-//     });
-//
-//     return innerBlockCount;
-// }
-
-
-// const getBlockList = () => wp.data.select('core/editor').getBlocks();
-// let blockList = getBlockList();
-//
-// wp.data.subscribe(() => {
-//     let newBlockList = getBlockList();
-//     // let newBlockListInnerLength = getInnerBlockLength(newBlockList, 'custom/slider');
-//     // let blockListInnerLength = getInnerBlockLength(blockList, 'custom/slider');
-//     let blockListChanged = newBlockList !== blockList;
-//
-//     blockList = newBlockList;
-//
-//     if (blockListChanged) {
-//         console.log('change');
-//
-//         // setTimeout(() => {
-//         //     window.updateSliderBlockInstances();
-//         // }, 500)
-//
-//         window.updateSliderBlockInstances();
-//     }
-// });
 
 registerBlockType('custom/slider', {
     apiVersion: 2,
@@ -141,14 +71,6 @@ registerBlockType('custom/slider', {
     // https://wordpress.org/gutenberg/handbook/block-api/block-edit-save/
     // https://dev.to/martinkr/create-a-wordpress-s-gutenberg-block-with-all-react-lifecycle-methods-in-5-minutes-213p
     edit: ({setAttributes, attributes, className, clientId}) => {
-
-
-        // useEffect(() => {
-        //     console.log('Parent Inserted');
-        //     return () => {
-        //         console.log('Parent Removed');
-        //     };
-        // }, []);
 
         /**
          * Init Slider only once when block loads!
@@ -178,6 +100,7 @@ registerBlockType('custom/slider', {
 
         const onChangeSlidesBackgroundColor = (value) => {
             setAttributes({slidesBackgroundColor: value});
+            updateInnerBlocks(clientId);
         };
 
         /**
@@ -216,36 +139,8 @@ registerBlockType('custom/slider', {
         };
 
         /**
-         * Text Properties
+         * Prev & Next button controls
          */
-        const onChangeSliderShowTextWrapper = (value) => {
-            setAttributes({sliderShowTextWrapper: value});
-        };
-
-        const onChangeSliderShowHeadline = (value) => {
-            setAttributes({sliderShowHeadline: value});
-        };
-
-        const onChangeHeadlineType = (value) => {
-            setAttributes({headlineType: value});
-        };
-
-        const onChangeCenterText = (value) => {
-            setAttributes({centerText: value});
-        };
-
-        /**
-         * Image Properties
-         */
-
-        const onChangeSliderShowImages = (value) => {
-            setAttributes({sliderShowImages: value});
-        };
-
-        const onChangeSliderImagesRatio = (value) => {
-            setAttributes({sliderImagesRatio: value});
-        };
-
         const slideNext = () => {
             window.sliderBlockInstances[attributes.clientId].slideNext(300);
         };
@@ -279,12 +174,7 @@ registerBlockType('custom/slider', {
             allowedBlocks: ['custom/slider-inner'],
             orientation: 'horizontal', // default: 'vertical'
             template: TEMPLATE,
-            renderAppender: false
-            // renderAppender: () => (
-            //     <div className="swiper-slide slider-block__slide">
-            //         <ButtonBlockAppender />
-            //     </div>
-            // )
+            // renderAppender: false
             // renderAppender: () => (
             //     <ButtonBlockAppender rootClientId={clientId} className={'lol'} />
             // )
@@ -326,24 +216,24 @@ registerBlockType('custom/slider', {
                 <InspectorControls>
                     <div className="inspector-controls-container">
                         <Button icon={'arrow-left'}
-                                className={'button'}
+                                className={'is-secondary is-small'}
                                 onClick={slidePrev}
+                                text={__('Prev', 'sage')}
                                 iconPosition={'left'}
-                                text={__('Slide Prev', 'sage')}
+                                style={{float: 'left', width: 'initial', padding: 6}}
+
                         />
                         <Button icon={'arrow-right'}
-                                className={'button'}
+                                className={'is-secondary is-small'}
                                 onClick={slideNext}
+                                text={__('Next', 'sage')}
                                 iconPosition={'right'}
-                                text={__('Slide Next', 'sage')}
-                                style={{marginLeft: '10px'}}
+                                style={{marginLeft: '10px', width: 'initial', padding: 6}}
                         />
-                    </div>
-                    <PanelBody title={__('Slider Properties', 'sage')} initialOpen={true}>
                         <hr/>
                         <ToggleControl
                             label={__('Loop Slider', 'sage')}
-                            // help={ attributes.withHeadline ? 'Image is left' : 'Image is right' }
+                            help={__('Enable continuous loop mode (does not apply on the editor)', 'sage')}
                             checked={attributes.sliderLoop}
                             onChange={onChangeSliderLoop}
                         />
@@ -360,12 +250,12 @@ registerBlockType('custom/slider', {
                         <p>{__('Slides Background Color', 'sage')}</p>
                         <ColorPalette
                             colors={[...editorThemeColors]}
+                            disableCustomColors={true}
                             value={attributes.slidesBackgroundColor}
                             onChange={onChangeSlidesBackgroundColor}
                         />
-                    </PanelBody>
+                    </div>
                     <PanelBody title={__('Slider Controls', 'sage')} initialOpen={false}>
-                        <hr/>
                         <p>{__('Controls Position', 'sage')}</p>
                         <SelectControl
                             value={attributes.controlsPosition}
@@ -389,7 +279,6 @@ registerBlockType('custom/slider', {
                         <hr/>
                         <ToggleControl
                             label={__('Show Pagination', 'sage')}
-                            // help={ attributes.withHeadline ? 'Image is left' : 'Image is right' }
                             checked={attributes.showPagination}
                             onChange={onChangeShowPagination}
                         />
@@ -409,7 +298,6 @@ registerBlockType('custom/slider', {
                         <hr/>
                         <ToggleControl
                             label={__('Show Arrows', 'sage')}
-                            // help={ attributes.withHeadline ? 'Image is left' : 'Image is right' }
                             checked={attributes.showArrows}
                             onChange={onChangeShowArrows}
                         />
@@ -428,80 +316,11 @@ registerBlockType('custom/slider', {
                         </>
                         }
                     </PanelBody>
-                    <PanelBody title={__('Text Properties', 'sage')} initialOpen={false}>
-                        <hr/>
-                        <ToggleControl
-                            label={__('Show Text Wrapper', 'sage')}
-                            // help={ attributes.withHeadline ? 'Image is left' : 'Image is right' }
-                            checked={attributes.sliderShowTextWrapper}
-                            onChange={onChangeSliderShowTextWrapper}
-                        />
-                        {attributes.sliderShowTextWrapper &&
-                        <>
-                            <hr/>
-                            <ToggleControl
-                                label={__('Show Headline', 'sage')}
-                                // help={ attributes.withHeadline ? 'Image is left' : 'Image is right' }
-                                checked={attributes.sliderShowHeadline}
-                                onChange={onChangeSliderShowHeadline}
-                            />
-                            {attributes.sliderShowHeadline &&
-                            <>
-                                <hr/>
-                                <p>{__('Headline Type', 'sage')}</p>
-                                <SelectControl
-                                    value={attributes.headlineType}
-                                    options={[
-                                        {label: __('H4'), value: 'h4'},
-                                        {label: __('H5'), value: 'h5'},
-                                        {label: __('H6'), value: 'h6'},
-                                    ]}
-                                    onChange={onChangeHeadlineType}
-                                />
-                            </>
-                            }
-                            <hr/>
-                            <ToggleControl
-                                label={__('Center Text', 'sage')}
-                                // help={ attributes.sliderShowImages ? 'Image is left' : 'Image is right' }
-                                checked={attributes.centerText}
-                                onChange={onChangeCenterText}
-                            />
-                        </>
-                        }
-
-                    </PanelBody>
-                    <PanelBody title={__('Image Properties', 'sage')} initialOpen={false}>
-                        <hr/>
-                        <ToggleControl
-                            label={__('Show Images', 'sage')}
-                            // help={ attributes.sliderShowImages ? 'Image is left' : 'Image is right' }
-                            checked={attributes.sliderShowImages}
-                            onChange={onChangeSliderShowImages}
-                        />
-                        {attributes.sliderShowImages &&
-                        <>
-                            <hr/>
-                            <p>{__('Images Ratio', 'sage')}</p>
-                            <SelectControl
-                                value={attributes.sliderImagesRatio}
-                                options={[
-                                    {label: __('1x1'), value: '1x1'},
-                                    {label: __('4x3'), value: '4x3'},
-                                    {label: __('3x2'), value: '3x2'},
-                                    {label: __('16x9'), value: '16x9'},
-                                    {label: __('21x9'), value: '21x9'},
-                                ]}
-                                onChange={onChangeSliderImagesRatio}
-                            />
-                        </>
-                        }
-                    </PanelBody>
                 </InspectorControls>
                 <div {...innerBlocksProps}
                      data-slides-per-view={attributes.slidesPerView}
                      data-slider-id={attributes.clientId}
-                     data-slider-loop={attributes.sliderLoop}
+                     data-slider-loop={false}
                 >
                     <div className="swiper-container slider-block__container">
                         {attributes.controlsPosition === 'top' &&
