@@ -1,22 +1,24 @@
 .hero-block {
     position: relative;
     overflow: hidden;
+    display: flex;
+    align-items: center;
 
-    //&__image {
-    //    position: absolute;
-    //    width: 100%;
-    //    max-width: initial;
-    //    height: 100%;
-    //    object-fit: cover;
-    //    object-position: center;
-    //
-    //    &.is-blurred {
-    //        top: -13px;
-    //        left: -13px;
-    //        width: calc(100% + 26px);
-    //        height: calc(100% + 26px);
-    //    }
-    //}
+    &__image {
+        position: absolute;
+        width: 100%;
+        max-width: initial;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+
+        &.is-blurred {
+            top: -13px;
+            left: -13px;
+            width: calc(100% + 26px);
+            height: calc(100% + 26px);
+        }
+    }
 
     &__overlay {
         background-image: radial-gradient(at center top,hsla(0,0%,100%,.8) 20%,hsla(0,0%,100%,0) 80%);
@@ -40,5 +42,26 @@
     &__text-wrapper {
         display: inline-block;
         position: relative;
+    }
+}
+
+.hero-block {
+    $min-height: var(--hero-height-mobile);
+    $max-height: var(--hero-height-desktop);
+    $min-max-height: var(--hero-min-max-height);
+    $min-vw: map-get($grid-breakpoints, xs);
+    $max-vw: map-get($grid-breakpoints, xxl);
+
+    /*
+     * Fluid Height Styles Start
+     */
+    min-height: #{$min-height};
+
+    @media screen and (min-width: $min-vw) {
+        min-height: calc(#{$min-height} + #{$min-max-height} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
+    }
+
+    @media screen and (min-width: $max-vw) {
+        min-height: #{$max-height};
     }
 }

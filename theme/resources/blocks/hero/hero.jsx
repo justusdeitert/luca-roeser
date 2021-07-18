@@ -4,7 +4,7 @@ import {RangeControl, Button, ToggleControl, SelectControl, PanelBody, ColorPale
 import {__experimentalAlignmentMatrixControl as AlignmentMatrixControl} from '@wordpress/components';
 import {MediaUpload, InspectorControls, InnerBlocks, useBlockProps} from '@wordpress/block-editor';
 import classNames from 'classnames';
-import {editorThemeColors, getImage, focalPositionInPixel, getColorObject, SelectClipPath, ALLOWED_BLOCKS} from "../utility";
+import {editorThemeColors, getImage, focalPositionInPixel, getColorObject, ALLOWEDBLOCKS, removeArrayItems, SelectClipPath} from "../utility";
 import * as clipPaths from "../clip-paths"
 import {heroIcon} from "../icons";
 
@@ -215,8 +215,8 @@ registerBlockType('custom/hero', {
         return (
             <>
                 <InspectorControls>
-                    <PanelBody title={__('Hero Properties', 'sage')} initialOpen={false}>
-                        <hr/>
+                    <PanelBody title={__('Hero Properties', 'sage')} initialOpen={true}>
+                        <div style={{height: '20px'}}/>
                         <ToggleControl
                             label={__('Full Height', 'sage')}
                             // help={ attributes.switchContent ? 'Image is left' : 'Image is right' }
@@ -326,10 +326,13 @@ registerBlockType('custom/hero', {
                     <div
                         className={classNames(className, 'hero-block', getColorObject(attributes.heroBackgroundColor) && `has-${getColorObject(attributes.heroBackgroundColor).slug}-background-color`)}
                         style={{
-                            maxHeight: attributes.heroFullHeight ? `initial` : `${attributes.heroHeight}px`,
-                            minHeight: attributes.heroFullHeight ? `initial` : `${attributes.heroMobileHeight}px`,
-                            height: attributes.heroFullHeight ? `100vh` : '60vw',
-                            clipPath: attributes.heroClipPath !== 'none' ? `url(#clip-path-${attributes.clientId})` : 'none'
+                            // maxHeight: attributes.heroFullHeight ? `initial` : `${attributes.heroHeight}px`,
+                            // minHeight: attributes.heroFullHeight ? `initial` : `${attributes.heroMobileHeight}px`,
+                            // height: attributes.heroFullHeight ? `100vh` : '60vw',
+                            clipPath: attributes.heroClipPath !== 'none' ? `url(#clip-path-${attributes.clientId})` : 'none',
+                            '--hero-height-desktop': `${attributes.heroHeight}px`,
+                            '--hero-height-mobile': `${attributes.heroMobileHeight}px`,
+                            '--hero-min-max-height': `${attributes.heroHeight - attributes.heroMobileHeight}`,
                         }}
                     >
 
@@ -364,7 +367,7 @@ registerBlockType('custom/hero', {
                                      transform: `translate(${focalPositionInPixel(attributes.textPosition.x)}, ${focalPositionInPixel(attributes.textPosition.y)})`,
                                  }}
                             >
-                                <InnerBlocks template={TEMPLATE} allowedBlocks={ALLOWED_BLOCKS}/>
+                                <InnerBlocks template={TEMPLATE} allowedBlocks={removeArrayItems(ALLOWEDBLOCKS, ['custom/hero'])}/>
                             </div>
                         </div>
                     </div>
@@ -411,11 +414,13 @@ registerBlockType('custom/hero', {
             <div
                 className={classNames('hero-block', getColorObject(attributes.heroBackgroundColor) && `has-${getColorObject(attributes.heroBackgroundColor).slug}-background-color`)}
                 style={{
-                    maxHeight: attributes.heroFullHeight ? `initial` : `${attributes.heroHeight}px`,
-                    minHeight: attributes.heroFullHeight ? `initial` : `${attributes.heroMobileHeight}px`,
-                    height: attributes.heroFullHeight ? `100vh` : '60vw',
-                    clipPath: attributes.heroClipPath !== 'none' ? `url(#clip-path-${attributes.clientId})` : 'none'
-                    // clipPath: attributes.heroFullHeight ? 'initial' : getClipPath(),
+                    // maxHeight: attributes.heroFullHeight ? `initial` : `${attributes.heroHeight}px`,
+                    // minHeight: attributes.heroFullHeight ? `initial` : `${attributes.heroMobileHeight}px`,
+                    // height: attributes.heroFullHeight ? `100vh` : '60vw',
+                    clipPath: attributes.heroClipPath !== 'none' ? `url(#clip-path-${attributes.clientId})` : 'none',
+                    '--hero-height-desktop': `${attributes.heroHeight}px`,
+                    '--hero-height-mobile': `${attributes.heroMobileHeight}px`,
+                    '--hero-min-max-height': `${attributes.heroHeight - attributes.heroMobileHeight}`,
                 }}
             >
 

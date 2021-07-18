@@ -271,7 +271,7 @@ export const SelectClipPath = ({clipPathsModules, clickFunction, value = 'none'}
                 {ClipPathEntries}
                 <div className="clip-paths__remove-button-wrapper">
                     <Button className="is-secondary is-small clip-paths__remove-button" onClick={() => {clickFunction('none')}}>
-                        {__('Remove Clip Path', 'sage')}
+                        {__('Clear', 'sage')}
                     </Button>
                 </div>
             </div>
@@ -287,27 +287,4 @@ export const removeArrayItems = (array, itemsToRemove) => {
 
 export const loremIpsum = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.';
 
-/**
- * Change Event for Slider Block & Children
- * @returns {*}
- */
-//
-// const onBlockChange = () => {
-//
-// }
-//
-// const getBlockList = () => select('core/editor').getBlocks();
-// let blockList = getBlockList();
-// wp.data.subscribe(() => {
-//     const newBlockList = getBlockList();
-//     const blockListChanged = newBlockList !== blockList;
-//     blockList = newBlockList;
-//     if (blockListChanged) {
-//         // console.log('changed');
-//         // You can trigger here any behavior when the block list in the post changes.
-//         // setTimeout(() => {
-//         //     window.updateSliderBlockInstances();
-//         // }, 400)
-//         window.updateSliderBlockInstances();
-//     }
-// });
+// export const
