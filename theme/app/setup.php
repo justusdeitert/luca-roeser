@@ -126,7 +126,7 @@ add_action('after_setup_theme', function () {
      * Register the editor color gradient presets.
      * @link https://developer.wordpress.org/block-editor/developers/themes/theme-support/#block-gradient-presets
      */
-    add_theme_support('editor-gradient-presets', []);
+    // add_theme_support('editor-gradient-presets', []);
 
     /**
      * Register the editor font sizes.
@@ -162,7 +162,7 @@ add_action('after_setup_theme', function () {
      * Disable custom color gradients in the editor.
      * @link https://developer.wordpress.org/block-editor/developers/themes/theme-support/#disabling-custom-gradients
      */
-    add_theme_support('disable-custom-gradients');
+    // add_theme_support('disable-custom-gradients');
 
     /**
      * Disable custom font sizes in the editor.

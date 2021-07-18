@@ -25,7 +25,7 @@ $core_blocks = [
     // Design
     // 'core/buttons',
     'core/columns',
-    // 'core/group',
+    'core/group',
     // 'core/more',
     // 'core/nextpage',
     // 'core/separator',

@@ -1,8 +1,7 @@
 import {__} from '@wordpress/i18n';
 import {registerBlockType} from '@wordpress/blocks';
-import {RangeControl, Button, ToggleControl, SelectControl, PanelBody, ColorPalette, FocalPointPicker} from '@wordpress/components';
-import {__experimentalAlignmentMatrixControl as AlignmentMatrixControl} from '@wordpress/components';
-import {MediaUpload, InspectorControls, InnerBlocks, useBlockProps} from '@wordpress/block-editor';
+import {RangeControl, Button, ToggleControl, SelectControl, PanelBody, ColorPalette, FocalPointPicker, __experimentalAlignmentMatrixControl as AlignmentMatrixControl} from '@wordpress/components';
+import {MediaUpload, InspectorControls, InnerBlocks, useBlockProps, __experimentalColorGradientControl as ColorGradientControl} from '@wordpress/block-editor';
 import classNames from 'classnames';
 import {editorThemeColors, getImage, focalPositionInPixel, getColorObject, ALLOWEDBLOCKS, removeArrayItems, SelectClipPath} from "../utility";
 import * as clipPaths from "../clip-paths"
@@ -58,10 +57,6 @@ const attributes = {
      */
     heroImage: {
         type: 'object',
-        default: ''
-    },
-    heroImageRemove: {
-        type: 'boolean',
         default: false
     },
     heroImageBlur: {
@@ -158,8 +153,8 @@ registerBlockType('custom/hero', {
             setAttributes({heroImage: imageObject});
         };
 
-        const heroImageRemove = () => {
-            setAttributes({heroImageRemove: !attributes.heroImageRemove});
+        const removeHeroImage = () => {
+            setAttributes({heroImage: false});
         };
 
         const onChangeHeroImageBlur = (value) => {
@@ -195,7 +190,7 @@ registerBlockType('custom/hero', {
         };
 
         const setBackTextPosition = () => {
-            setAttributes({imagePosition: {x: 0.5, y: 0.5}});
+            setAttributes({textPosition: {x: 0.5, y: 0.5}});
         };
 
         const TEMPLATE = [
@@ -208,7 +203,7 @@ registerBlockType('custom/hero', {
         const blockProps = useBlockProps({
             className: className,
             style: {
-                border: (attributes.heroImageRemove && !attributes.heroBackgroundColor) ? '1px dashed var(--wp-admin-theme-color)' : 'none',
+                border: (!attributes.heroImage && !attributes.heroBackgroundColor) ? '1px dashed var(--wp-admin-theme-color)' : 'none',
             }
         });
 
@@ -230,7 +225,7 @@ registerBlockType('custom/hero', {
                                 <RangeControl
                                     value={attributes.heroHeight}
                                     min={attributes.heroMobileHeight}
-                                    max={800}
+                                    max={1000}
                                     step={10}
                                     onChange={onChangeHeroHeight}
                                 />
@@ -239,26 +234,60 @@ registerBlockType('custom/hero', {
                                 <RangeControl
                                     value={attributes.heroMobileHeight}
                                     min={200}
-                                    max={500}
+                                    max={700}
                                     step={10}
                                     onChange={onChangeHeroMobileHeight}
                                 />
-                                <hr/>
-                                <p>{__('Section Clip Path', 'sage')}</p>
-                                <SelectClipPath
-                                    clipPathsModules={clipPaths}
-                                    clickFunction={onChangeHeroClipPath}
-                                    value={attributes.heroClipPath}
-                                />
                             </>
                         }
-                        <hr/>
+                        {/*<hr/>
                         <p>{__('Hero Background Color', 'sage')}</p>
                         <ColorPalette
-                            colors={[...editorThemeColors]}
+                            colors={editorThemeColors}
                             value={attributes.heroBackgroundColor}
                             onChange={onChangeHeroBackgroundColor}
+                            disableCustomColors={true}
+                        />*/}
+                        <hr/>
+                        <p>{__('Hero Background Color', 'sage')}</p>
+                        <ColorGradientControl
+                            colorValue={attributes.heroBackgroundColor}
+                            gradientValue={attributes.gradientValue}
+                            colors={editorThemeColors}
+                            gradients={[
+                                {
+                                    name: 'Vivid cyan blue to vivid purple',
+                                    gradient:
+                                        'linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%)',
+                                    slug: 'vivid-cyan-blue-to-vivid-purple',
+                                },
+                                {
+                                    name: 'Light green cyan to vivid green cyan',
+                                    gradient:
+                                        'linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%)',
+                                    slug: 'light-green-cyan-to-vivid-green-cyan',
+                                },
+                                {
+                                    name: 'Luminous vivid amber to luminous vivid orange',
+                                    gradient:
+                                        'linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%)',
+                                    slug: 'luminous-vivid-amber-to-luminous-vivid-orange',
+                                },
+                            ]}
+                            onColorChange={(newValue) => setAttributes({colorValue: newValue})}
+                            onGradientChange={(newValue) => setAttributes({gradientValue: newValue})}
                         />
+                        {(attributes.heroImage || attributes.heroBackgroundColor) &&
+                        <>
+                            <hr/>
+                            <p>{__('Section Clip Path', 'sage')}</p>
+                            <SelectClipPath
+                                clipPathsModules={clipPaths}
+                                clickFunction={onChangeHeroClipPath}
+                                value={attributes.heroClipPath}
+                            />
+                        </>
+                        }
                         <hr/>
                         <ToggleControl
                             label={__('Background Overlay', 'sage')}
@@ -279,8 +308,8 @@ registerBlockType('custom/hero', {
                         </>
                         }
                     </PanelBody>
-                    {!attributes.heroImageRemove &&
-                        <PanelBody title={__('Background Image Properties', 'sage')} initialOpen={false}>
+                    {attributes.heroImage &&
+                        <PanelBody title={__('Background Image', 'sage')} initialOpen={false}>
                             <hr/>
                             <p>{__('Image Blur', 'sage')}</p>
                             <RangeControl
@@ -324,11 +353,13 @@ registerBlockType('custom/hero', {
                 </InspectorControls>
                 <div {...blockProps}>
                     <div
-                        className={classNames(className, 'hero-block', getColorObject(attributes.heroBackgroundColor) && `has-${getColorObject(attributes.heroBackgroundColor).slug}-background-color`)}
+                        className={classNames(
+                            className,
+                            'hero-block',
+                            getColorObject(attributes.heroBackgroundColor) && `has-${getColorObject(attributes.heroBackgroundColor).slug}-background-color`,
+                            attributes.heroFullHeight && 'full-height'
+                        )}
                         style={{
-                            // maxHeight: attributes.heroFullHeight ? `initial` : `${attributes.heroHeight}px`,
-                            // minHeight: attributes.heroFullHeight ? `initial` : `${attributes.heroMobileHeight}px`,
-                            // height: attributes.heroFullHeight ? `100vh` : '60vw',
                             clipPath: attributes.heroClipPath !== 'none' ? `url(#clip-path-${attributes.clientId})` : 'none',
                             '--hero-height-desktop': `${attributes.heroHeight}px`,
                             '--hero-height-mobile': `${attributes.heroMobileHeight}px`,
@@ -340,7 +371,7 @@ registerBlockType('custom/hero', {
                             clipPaths[attributes.heroClipPath](`clip-path-${attributes.clientId}`)
                         }
 
-                        {!attributes.heroImageRemove &&
+                        {attributes.heroImage &&
                             <img
                                 className={classNames('hero-block__image', attributes.heroImageBlur > 0 ? 'is-blurred' : '')}
                                 style={{
@@ -382,25 +413,28 @@ registerBlockType('custom/hero', {
                         // value={attributes.mediaID}
                         render={({open}) => (
                             <>
-                                <Button className={'button'}
+                                <div style={{
+                                    position: `absolute`,
+                                    right: `10px`,
+                                    bottom: `10px`
+                                }}>
+                                    <Button
+                                        className={'button'}
                                         onClick={open}
                                         icon={'format-image'}
-                                        style={{
-                                            position: `absolute`,
-                                            right: `70px`,
-                                            bottom: `20px`
-                                        }}
-                                        text={__('Change Image', 'sage')}
-                                />
-                                <Button className={'button'}
-                                        onClick={heroImageRemove}
-                                        icon={!attributes.heroImageRemove ? 'visibility' : 'hidden'}
-                                        style={{
-                                            position: `absolute`,
-                                            right: `20px`,
-                                            bottom: `20px`
-                                        }}
-                                />
+                                        text={attributes.heroImage ? __('Change Image', 'sage') : __('Upload Image', 'sage')}
+                                    />
+                                    {attributes.heroImage &&
+                                    <>
+                                        <Button
+                                            className={'button'}
+                                            onClick={removeHeroImage}
+                                            icon={'trash'}
+                                            style={{marginLeft: '10px'}}
+                                        />
+                                    </>
+                                    }
+                                </div>
                             </>
                         )}
                     />
@@ -412,11 +446,12 @@ registerBlockType('custom/hero', {
 
         return (
             <div
-                className={classNames('hero-block', getColorObject(attributes.heroBackgroundColor) && `has-${getColorObject(attributes.heroBackgroundColor).slug}-background-color`)}
+                className={classNames(
+                    'hero-block',
+                    getColorObject(attributes.heroBackgroundColor) && `has-${getColorObject(attributes.heroBackgroundColor).slug}-background-color`,
+                    attributes.heroFullHeight && 'full-height'
+                )}
                 style={{
-                    // maxHeight: attributes.heroFullHeight ? `initial` : `${attributes.heroHeight}px`,
-                    // minHeight: attributes.heroFullHeight ? `initial` : `${attributes.heroMobileHeight}px`,
-                    // height: attributes.heroFullHeight ? `100vh` : '60vw',
                     clipPath: attributes.heroClipPath !== 'none' ? `url(#clip-path-${attributes.clientId})` : 'none',
                     '--hero-height-desktop': `${attributes.heroHeight}px`,
                     '--hero-height-mobile': `${attributes.heroMobileHeight}px`,
@@ -428,7 +463,7 @@ registerBlockType('custom/hero', {
                     clipPaths[attributes.heroClipPath](`clip-path-${attributes.clientId}`)
                 }
 
-                {!attributes.heroImageRemove &&
+                {attributes.heroImage &&
                     <img className={classNames('hero-block__image', attributes.heroImageBlur > 0 ? 'is-blurred' : '')}
                          style={{
                              filter: `blur(${attributes.heroImageBlur}px)`,
