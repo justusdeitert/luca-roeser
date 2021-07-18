@@ -43,7 +43,7 @@ export const getImage = (image, size = 'full', placeholderWidth = 1800, placehol
         let x_large = image.sizes && image.sizes.x_large ? image.sizes.x_large.url : large;
 
         /**
-         * Old Image Definitions
+         * Old Image Definitions / Don't delete these..
          */
         // let original = image.url;
         // let full = image.sizes && image.sizes.full ? image.sizes.full.url : original;
@@ -115,7 +115,7 @@ export const getImage = (image, size = 'full', placeholderWidth = 1800, placehol
  * @param variableString
  * @returns {string}
  */
-const getCssVariable = (variableString) => {
+export const getCssVariable = (variableString) => {
     let style = getComputedStyle(document.body)
     return style.getPropertyValue(variableString)
 }
@@ -133,8 +133,38 @@ export const bootstrapBreakpoints = {
 }
 
 /**
+ * Helper Function to get array object by name key
+ * @param array
+ * @param slug
+ * @returns {*}
+ */
+export const getColorObjectFromSlug = (array, slug) => {
+    return array.find(object => object.slug === slug);
+}
+
+/**
+ * @param color
+ * @returns {*}
+ */
+export const getColorObject = (color) => {
+    return getColorObjectByColorValue(editorThemeColors, color)
+}
+
+/**
  * Editor Colors
  */
+export const editorStandardColors = [
+    {name: 'Primary', slug: 'primary', color: `rgb(${getCssVariable('--custom-primary-color')})`},
+    {name: 'Secondary', slug: 'secondary', color: `rgb(${getCssVariable('--custom-secondary-color')})`},
+    {name: 'Tertiary', slug: 'tertiary', color: `rgb(${getCssVariable('--custom-tertiary-color')})`},
+    {name: 'Light', slug: 'light', color: `rgb(${getCssVariable('--custom-light-color')})`},
+    {name: 'Dark', slug: 'dark', color: `rgb(${getCssVariable('--custom-dark-color')})`},
+    {name: 'Success', slug: 'success', color: `rgb(${getCssVariable('--custom-success-color')})`},
+    {name: 'Danger', slug: 'danger', color: `rgb(${getCssVariable('--custom-danger-color')})`},
+    {name: 'Warning', slug: 'warning', color: `rgb(${getCssVariable('--custom-warning-color')})`},
+    {name: 'Info', slug: 'info', color: `rgb(${getCssVariable('--custom-info-color')})`},
+]
+
 export const editorLightColors = [
     {name: 'Light 100', slug: 'light-100', color: `rgb(${getCssVariable('--custom-light-100-color')})`},
     {name: 'Light 200', slug: 'light-200', color: `rgb(${getCssVariable('--custom-light-200-color')})`},
@@ -163,14 +193,18 @@ export const editorDarkLightColors = [
 ]
 
 export const editorColors = [
-    {name: 'Primary', slug: 'primary', color: `rgb(${getCssVariable('--custom-primary-color')})`},
-    {name: 'Secondary', slug: 'secondary', color: `rgb(${getCssVariable('--custom-secondary-color')})`},
-    {name: 'Tertiary', slug: 'tertiary', color: `rgb(${getCssVariable('--custom-tertiary-color')})`},
-    {name: 'Light', slug: 'light', color: `rgb(${getCssVariable('--custom-light-color')})`},
+    getColorObjectFromSlug(editorStandardColors, 'primary'),
+    getColorObjectFromSlug(editorStandardColors, 'secondary'),
+    getColorObjectFromSlug(editorStandardColors, 'tertiary'),
+    getColorObjectFromSlug(editorStandardColors, 'success'),
+    getColorObjectFromSlug(editorStandardColors, 'danger'),
+    getColorObjectFromSlug(editorStandardColors, 'warning'),
+    getColorObjectFromSlug(editorStandardColors, 'info'),
+    getColorObjectFromSlug(editorStandardColors, 'light'),
     ...editorLightColors,
-    {name: 'Dark', slug: 'dark', color: `rgb(${getCssVariable('--custom-dark-color')})`},
+    getColorObjectFromSlug(editorStandardColors, 'dark'),
     ...editorDarkColors,
-    ...editorDarkLightColors
+    ...editorDarkLightColors,
 ];
 
 export const editorThemeColors = [...editorColors]
@@ -192,10 +226,6 @@ export const focalPositionInPixel = (value, unit = 'px') => {
     value = Math.round(value);
 
     return `${value + unit}`;
-}
-
-export const getColorObject = (color) => {
-    return getColorObjectByColorValue(editorThemeColors, color)
 }
 
 export const ALLOWEDBLOCKS = [
@@ -231,7 +261,6 @@ export const parentAttributes = (clientId) => {
         return false;
     }
 }
-
 
 export const updateInnerBlocks = (clientId) => {
 
@@ -291,3 +320,7 @@ export const removeArrayItems = (array, itemsToRemove) => {
 }
 
 export const loremIpsum = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.';
+
+export const removeBlock = (clientId) => {
+    dispatch('core/block-editor').removeBlock(clientId);
+}

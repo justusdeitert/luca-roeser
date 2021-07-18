@@ -2,7 +2,7 @@ import {__} from '@wordpress/i18n';
 import {registerBlockType} from '@wordpress/blocks';
 import {InnerBlocks, RichText, InspectorControls, ColorPalette, useBlockProps, __experimentalUseInnerBlocksProps as useInnerBlocksProps} from '@wordpress/block-editor';
 import classNames from 'classnames';
-import {ALLOWEDBLOCKS, editorThemeColors, getColorObject, parentAttributes, SelectClipPath, removeArrayItems} from '../utility';
+import {ALLOWEDBLOCKS, editorThemeColors, getColorObject, parentAttributes, SelectClipPath, removeArrayItems, getBlockIndex} from '../utility';
 import {accordionInnerIcon} from '../icons';
 
 const attributes = {
@@ -21,6 +21,10 @@ const attributes = {
     headerTextSize: {
         type: 'string',
         default: 'small',
+    },
+    isOpen: {
+        type: 'boolean',
+        default: false,
     },
 };
 
@@ -55,7 +59,7 @@ registerBlockType('custom/accordion-inner', {
         return (
             <>
                 <div { ...blockProps }>
-                    <div className="accordion-block__item-header custom-border"
+                    <div className={classNames("accordion-block__item-header custom-border", !attributes.isOpen && 'collapsed')}
                          id={`heading-${attributes.clientId}`}
                          aria-expanded="false"
                          data-bs-toggle="collapse"
@@ -73,7 +77,7 @@ registerBlockType('custom/accordion-inner', {
                         </div>
                     </div>
                     <div id={`collapse-${attributes.clientId}`}
-                         className="accordion-block__collapse collapse"
+                         className={classNames("accordion-block__collapse collapse", attributes.isOpen && 'show')}
                          aria-labelledby={`heading-${attributes.clientId}`}
                          data-bs-parent={`#block-${attributes.parentId}`}
                     >
@@ -94,7 +98,7 @@ registerBlockType('custom/accordion-inner', {
 
         return (
             <div {...blockProps}>
-                <div className="accordion-block__item-header custom-border"
+                <div className={classNames("accordion-block__item-header custom-border", !attributes.isOpen && 'collapsed')}
                      id={`heading-${attributes.clientId}`}
                      aria-expanded="false"
                      data-bs-toggle="collapse"
@@ -110,7 +114,7 @@ registerBlockType('custom/accordion-inner', {
                     </div>
                 </div>
                 <div id={`collapse-${attributes.clientId}`}
-                     className="accordion-block__collapse collapse"
+                     className={classNames("accordion-block__collapse collapse", attributes.isOpen && 'show')}
                      aria-labelledby={`heading-${attributes.clientId}`}
                      data-bs-parent={`#block-${attributes.parentId}`}
                 >

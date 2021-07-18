@@ -75,27 +75,11 @@ html {
 .editor-styles-wrapper, .block-editor-block-inspector {
     .components-button {
         display: inline-flex;
-        border-radius: 4px;
-
-        &:after {
-            border-radius: 4px;
-        }
-
-        &.has-icon {
-            span {
-                margin-left: 4px;
-                margin-right: 4px;
-            }
-        }
     }
 
     .block-editor-block-styles {
         display: none;
     }
-
-    //.block-editor-inner-blocks {
-    //    width: 100%;
-    //}
 }
 
 // Widget Area

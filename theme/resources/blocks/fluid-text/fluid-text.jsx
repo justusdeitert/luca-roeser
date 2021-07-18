@@ -4,6 +4,7 @@ import {InspectorControls, RichText, AlignmentToolbar, BlockControls} from '@wor
 import {SelectControl, ToolbarGroup, RangeControl} from '@wordpress/components';
 import classNames from 'classnames';
 import {fluidTextIcon} from '../icons';
+import {removeBlock} from "../utility";
 
 const attributes = {
     clientId: {
@@ -164,6 +165,7 @@ registerBlockType('custom/fluid-text', {
                     tagName={attributes.fluidTextElement}
                     className={classNames(`has-text-align-${attributes.textAlign}`, `fluid-text-${attributes.clientId}`)}
                     placeholder={'Lorem Ipsum'}
+                    onRemove={() => removeBlock(clientId)}
                     value={attributes.fluidText}
                     // allowedFormats={['core/bold', 'core/italic']}
                     onChange={onChangeFluidText}

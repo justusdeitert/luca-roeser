@@ -1,9 +1,10 @@
 import {__} from '@wordpress/i18n';
 import {registerBlockType} from '@wordpress/blocks';
-import {SelectControl, ToolbarGroup, ToolbarDropdownMenu, ToolbarButton, Popover, Dropdown} from '@wordpress/components';
-import {BlockControls, InspectorControls, RichText, __experimentalLinkControl as LinkControl, useBlockProps} from '@wordpress/block-editor';
+import {SelectControl, ToolbarGroup, ToolbarDropdownMenu, ToolbarButton, Popover, Dropdown, __experimentalRadio as Radio, __experimentalRadioGroup as RadioGroup} from '@wordpress/components';
+import {BlockControls, InspectorControls, RichText, __experimentalLinkControl as LinkControl, useBlockProps, ColorPalette} from '@wordpress/block-editor';
 import classNames from 'classnames';
 import {buttonIcon} from '../icons';
+import {editorStandardColors, getColorObjectFromSlug, getColorObject, removeBlock} from "../utility";
 
 const attributes = {
     buttonAlignment: {
@@ -20,7 +21,7 @@ const attributes = {
     },
     buttonSize: {
         type: 'string',
-        default: ''
+        default: false
     },
     buttonLink: {
         type: 'object',
@@ -38,14 +39,14 @@ registerBlockType('custom/button', {
     category: 'custom',
     // multiple: false, // Use this block just once per post
     attributes,
-    edit: ({className, attributes, setAttributes}) => {
+    edit: ({className, attributes, setAttributes, clientId}) => {
 
         const onChangeButtonText = (value) => {
             setAttributes({buttonText: value});
         };
 
         const onChangeButtonStyle = (value) => {
-            setAttributes({buttonStyle: value});
+            setAttributes({buttonStyle: getColorObject(value).slug});
         };
 
         const onChangeButtonSize = (value) => {
@@ -65,7 +66,15 @@ registerBlockType('custom/button', {
         };
 
         const blockProps = useBlockProps({
-            className: classNames(className, 'button-block', `justify-content-${attributes.buttonAlignment}`)
+            className: classNames(
+                'btn',
+                `btn-${attributes.buttonStyle}`,
+                attributes.buttonSize && `btn-${attributes.buttonSize}`
+            ),
+            style: {
+                marginLeft: 0,
+                marginRight: 0
+            }
         });
 
         return (
@@ -128,46 +137,36 @@ registerBlockType('custom/button', {
                 <InspectorControls>
                     <div className="inspector-controls-container">
                         <hr/>
-                        <SelectControl
-                            label={__('Button Style', 'sage')}
-                            value={attributes.buttonStyle}
-                            options={[
-                                {label: __('Primary', 'sage'), value: 'primary'},
-                                {label: __('Secondary', 'sage'), value: 'secondary'},
-                                {label: __('Tertiary', 'sage'), value: 'tertiary'},
-                                {label: __('Success', 'sage'), value: 'success'},
-                                {label: __('Danger', 'sage'), value: 'danger'},
-                                {label: __('Warning', 'sage'), value: 'warning'},
-                                {label: __('Info', 'sage'), value: 'info'},
-                                {label: __('Light', 'sage'), value: 'light'},
-                                {label: __('Dark', 'sage'), value: 'dark'},
-                                {label: __('lLink', 'sage'), value: 'link'},
-                            ]}
+                        <p>{__('Button Style', 'sage')}</p>
+                        <ColorPalette
+                            colors={editorStandardColors}
+                            value={getColorObjectFromSlug(editorStandardColors, attributes.buttonStyle).color}
                             onChange={onChangeButtonStyle}
+                            clearable={false}
                         />
                         <hr/>
-                        <SelectControl
-                            label={__('Button Size', 'sage')}
-                            value={attributes.buttonSize}
-                            options={[
-                                {label: __('Normal', 'sage'), value: false},
-                                {label: __('Small', 'sage'), value: 'sm'},
-                                {label: __('Large', 'sage'), value: 'lg'},
-                            ]}
+                        <p>{__('Button Size', 'sage')}</p>
+                        <RadioGroup
                             onChange={onChangeButtonSize}
-                        />
+                            checked={attributes.buttonSize}
+                            defaultChecked={false}
+                        >
+                            <Radio value="sm">{__('Small')}</Radio>
+                            <Radio value={false}>{__('Normal')}</Radio>
+                            <Radio value="lg">{__('Large')}</Radio>
+                        </RadioGroup>
                     </div>
                 </InspectorControls>
-                <div {...blockProps}>
+                <div className={classNames('button-block', `justify-content-${attributes.buttonAlignment}`)}>
                     <RichText
+                        {...blockProps}
                         tagName="div"
-                        className={classNames('btn', `btn-${attributes.buttonStyle}`, attributes.buttonSize && `btn-${attributes.buttonSize}`)}
                         role="button"
                         placeholder={__('Button Text', 'sage')}
-                        // allowedFormats={['core/bold', 'core/italic']}
                         allowedFormats={[]}
                         value={attributes.buttonText}
                         onChange={onChangeButtonText}
+                        onRemove={() => removeBlock(clientId)}
                     />
                 </div>
             </>
@@ -176,17 +175,21 @@ registerBlockType('custom/button', {
     save: ({attributes}) => {
 
         const blockProps = useBlockProps.save({
-            className: classNames('button-block', `justify-content-${attributes.buttonAlignment}`)
+            className: classNames(
+                'btn',
+                `btn-${attributes.buttonStyle}`,
+                attributes.buttonSize && `btn-${attributes.buttonSize}`
+            ),
         });
 
         return (
             <>
-                <div {...blockProps}>
-                    <a href={attributes.buttonLink.url}
+                <div className={classNames("button-block", `justify-content-${attributes.buttonAlignment}`)}>
+                    <a {...blockProps}
+                       href={attributes.buttonLink.url}
                        target={attributes.buttonLink.opensInNewTab ? '_blank' : '_self'}
                        rel={attributes.buttonLink.nofollow ? 'noopener nofollow' : 'noopener'}
                        role="button"
-                       className={classNames('btn', `btn-${attributes.buttonStyle}`, attributes.buttonSize && `btn-${attributes.buttonSize}`)}
                     >{attributes.buttonText}</a>
                 </div>
             </>

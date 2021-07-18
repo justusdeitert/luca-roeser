@@ -3,7 +3,7 @@ import {registerBlockType} from '@wordpress/blocks';
 import {RangeControl, ToggleControl, ColorPalette, SelectControl} from '@wordpress/components';
 import {InnerBlocks, InspectorControls, useBlockProps, __experimentalUseInnerBlocksProps as useInnerBlocksProps} from '@wordpress/block-editor';
 import classNames from 'classnames';
-import {editorThemeColors, getColorObject, updateInnerBlocks, loremIpsum} from "../utility";
+import {editorThemeColors, getColorObject, updateInnerBlocks, loremIpsum, parentAttributes} from "../utility";
 import {accordionIcon} from "../icons";
 
 const attributes = {
@@ -20,13 +20,17 @@ const attributes = {
         default: 16,
     },
     accordionHeadlineSize: {
-        type: 'number',
+        type: 'string',
         default: 'small',
     },
     accordionBackgroundColor: {
         type: 'string',
         default: ''
     },
+    accordionOpenIndex: {
+        type: 'number',
+        default: false,
+    }
 };
 
 registerBlockType('custom/accordion', {
@@ -88,6 +92,19 @@ registerBlockType('custom/accordion', {
             template: TEMPLATE,
         });
 
+        /**
+         * This Function sure can be implemented in an smarter way
+         * TODO: Make functionality for accordion item be Open
+         */
+        // let accordionElement = document.querySelector(`#block-${clientId}`);
+        //
+        // let accordionItems = accordionElement.querySelector('.accordion-block__item');
+        // accordionItems.forEach((item) => {
+        //     item.addEventListener('click', () => {
+        //
+        //     });
+        // });
+
         return (
             <>
                 <InspectorControls>
@@ -128,6 +145,7 @@ registerBlockType('custom/accordion', {
                             colors={[...editorThemeColors]}
                             value={attributes.accordionBackgroundColor}
                             onChange={onChangeAccordionBackgroundColor}
+                            disableCustomColors={true}
                         />
                     </div>
                 </InspectorControls>

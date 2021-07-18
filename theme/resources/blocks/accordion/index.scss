@@ -11,8 +11,6 @@
     &__item-header {
         padding: var(--accordion-spacing, 1rem);
         cursor: pointer;
-        display: flex;
-        align-items: center;
         width: 100%;
 
         p {
@@ -20,14 +18,18 @@
         }
 
         &.collapsed {
-            i {
-                transform: rotate(-180deg);
+            .accordion-block__item-header-inner {
+                &:after {
+                    transform: rotate(-180deg);
+                }
             }
         }
     }
 
     &__item-header-inner {
         position: relative;
+        display: flex;
+        align-items: center;
     }
 
     &__item-body {
@@ -36,20 +38,15 @@
     }
 
     &.has-icon {
-        .accordion-block__item-header {
+
+        .accordion-block__item-header-inner {
             &:after {
                 @extend .custom-icon;
-                content: map-get($icons, chevron-down);
+                content: map-get($icons, chevron-up);
                 position: absolute;
                 right: 0;
                 transition: transform .2s ease-in-out;
                 color: rgb(var(--custom-controls-color))
-            }
-
-            &.collapsed {
-                &:after {
-                    transform: rotate(-180deg);
-                }
             }
         }
     }
