@@ -1,7 +1,7 @@
 import {__} from '@wordpress/i18n';
 import {registerBlockType,} from '@wordpress/blocks';
 import {Button} from '@wordpress/components';
-import {ToggleControl, RangeControl, SelectControl, PanelBody, ColorPalette} from '@wordpress/components';
+import {ToggleControl, RangeControl, SelectControl, PanelBody, ColorPalette, __experimentalRadio as Radio, __experimentalRadioGroup as RadioGroup,} from '@wordpress/components';
 import {createElement, Component, useEffect} from '@wordpress/element';
 import {InnerBlocks, RichText, MediaUpload, InspectorControls, getColorObjectByColorValue, useBlockProps, __experimentalUseInnerBlocksProps as useInnerBlocksProps, ButtonBlockAppender} from '@wordpress/block-editor';
 import classNames from 'classnames';
@@ -62,6 +62,13 @@ const attributes = {
     },
 }
 
+const updateSlider = () => {
+    setTimeout(() => {
+        window.updateSliderBlockInstances();
+    }, 300);
+}
+
+
 registerBlockType('custom/slider', {
     apiVersion: 2,
     title: __('Slider', 'sage'),
@@ -88,18 +95,12 @@ registerBlockType('custom/slider', {
          */
         const onChangeSliderLoop = (value) => {
             setAttributes({sliderLoop: value});
-
-            setTimeout(() => {
-                window.updateSliderBlockInstances();
-            }, 300);
+            updateSlider();
         };
 
         const onChangeSlidesPerView = (value) => {
             setAttributes({slidesPerView: value});
-
-            setTimeout(() => {
-                window.updateSliderBlockInstances();
-            }, 300);
+            updateSlider();
         };
 
         const onChangeSlidesBackgroundColor = (value) => {
@@ -112,18 +113,12 @@ registerBlockType('custom/slider', {
          */
         const onChangeShowPagination = (value) => {
             setAttributes({showPagination: value});
-
-            setTimeout(() => {
-                window.updateSliderBlockInstances();
-            }, 300);
+            updateSlider();
         };
 
         const onChangeShowArrows = (value) => {
             setAttributes({showArrows: value});
-
-            setTimeout(() => {
-                window.updateSliderBlockInstances();
-            }, 300);
+            updateSlider();
         };
 
         const onChangeControlsSize = (value) => {
@@ -132,6 +127,7 @@ registerBlockType('custom/slider', {
 
         const onChangeControlsPosition = (value) => {
             setAttributes({controlsPosition: value});
+            updateSlider();
         };
 
         const onChangeControlsStyle = (value) => {
@@ -277,28 +273,30 @@ registerBlockType('custom/slider', {
                                 max={36}
                                 onChange={onChangeControlsSize}
                             />
+                            <hr/>
+                            <p>{__('Controls Position', 'sage')}</p>
+                            <RadioGroup
+                                onChange={onChangeControlsPosition}
+                                checked={attributes.controlsPosition}
+                                defaultChecked={'bottom'}
+                            >
+                                <Radio value="top">{__('Top')}</Radio>
+                                <Radio value="bottom">{__('Bottom')}</Radio>
+                            </RadioGroup>
+                            <hr/>
+                            <p>{__('Controls Style', 'sage')}</p>
+                            <RadioGroup
+                                onChange={onChangeControlsStyle}
+                                checked={attributes.controlsStyle}
+                                defaultChecked={'center'}
+                            >
+                                <Radio value="left">{__('Left')}</Radio>
+                                <Radio value="center">{__('Center')}</Radio>
+                                <Radio value="right">{__('Right')}</Radio>
+                            </RadioGroup>
                         </>
                         }
-                        <hr/>
-                        <p>{__('Controls Position', 'sage')}</p>
-                        <SelectControl
-                            value={attributes.controlsPosition}
-                            options={[
-                                {label: __('Top'), value: 'top'},
-                                {label: __('Bottom'), value: 'bottom'},
-                            ]}
-                            onChange={onChangeControlsPosition}
-                        />
-                        <p>{__('Controls Style', 'sage')}</p>
-                        <SelectControl
-                            value={attributes.controlsStyle}
-                            options={[
-                                {label: __('Left'), value: 'left'},
-                                {label: __('Right'), value: 'right'},
-                                {label: __('Center'), value: 'center'},
-                            ]}
-                            onChange={onChangeControlsStyle}
-                        />
+
                     </PanelBody>
                 </InspectorControls>
                 <div {...innerBlocksProps}

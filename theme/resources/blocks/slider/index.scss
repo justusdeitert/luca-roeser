@@ -109,8 +109,6 @@
         display: flex;
         margin-top: 0.75rem;
         margin-bottom: 0.75rem;
-        //align-items: center;
-        //justify-content: center;
         padding-right: calc(var(--custom-gutter-mobile-x) * .5);
         padding-left: calc(var(--custom-gutter-mobile-x) * .5);
 
@@ -176,6 +174,8 @@
         }
 
         &.right-position {
+            justify-content: flex-end;
+
             .swiper-pagination {
                 order: 1;
                 margin-right: auto;
@@ -191,6 +191,8 @@
         }
 
         &.left-position {
+            justify-content: flex-start;
+
             .swiper-pagination {
                 order: 3;
                 margin-left: auto;
@@ -203,6 +205,10 @@
                 order: 2;
                 margin: 0 auto 0 10px;
             }
+        }
+
+        &.center-position {
+            justify-content: center;
         }
 
         .swiper-button-prev, .swiper-button-next {
