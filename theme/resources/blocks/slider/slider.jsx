@@ -1,9 +1,9 @@
 import {__} from '@wordpress/i18n';
 import {registerBlockType,} from '@wordpress/blocks';
 import {Button} from '@wordpress/components';
-import {ToggleControl, RangeControl, SelectControl, PanelBody, ColorPalette, __experimentalRadio as Radio, __experimentalRadioGroup as RadioGroup,} from '@wordpress/components';
+import {ToggleControl, RangeControl, SelectControl, PanelBody, ColorPalette, __experimentalRadio as Radio, __experimentalRadioGroup as RadioGroup} from '@wordpress/components';
 import {createElement, Component, useEffect} from '@wordpress/element';
-import {InnerBlocks, RichText, MediaUpload, InspectorControls, getColorObjectByColorValue, useBlockProps, __experimentalUseInnerBlocksProps as useInnerBlocksProps, ButtonBlockAppender} from '@wordpress/block-editor';
+import {InnerBlocks, RichText, MediaUpload, InspectorControls, getColorObjectByColorValue, useBlockProps, __experimentalUseInnerBlocksProps as useInnerBlocksProps} from '@wordpress/block-editor';
 import classNames from 'classnames';
 import {cloneArray, editorThemeColors, getColorObject, getImage, loremIpsum, updateInnerBlocks} from "../utility";
 import {sliderIcon} from "../icons";
@@ -211,7 +211,7 @@ registerBlockType('custom/slider', {
                 <InspectorControls>
                     <div className="inspector-controls-container">
                         <Button icon={'arrow-left'}
-                                className={'is-secondary is-small'}
+                                className={'is-secondary'}
                                 onClick={slidePrev}
                                 text={__('Prev', 'sage')}
                                 iconPosition={'left'}
@@ -219,7 +219,7 @@ registerBlockType('custom/slider', {
 
                         />
                         <Button icon={'arrow-right'}
-                                className={'is-secondary is-small'}
+                                className={'is-secondary'}
                                 onClick={slideNext}
                                 text={__('Next', 'sage')}
                                 iconPosition={'right'}

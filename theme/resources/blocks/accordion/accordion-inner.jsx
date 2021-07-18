@@ -3,7 +3,7 @@ import {registerBlockType} from '@wordpress/blocks';
 import {InnerBlocks, RichText, InspectorControls, ColorPalette, useBlockProps, __experimentalUseInnerBlocksProps as useInnerBlocksProps} from '@wordpress/block-editor';
 import classNames from 'classnames';
 import {ALLOWEDBLOCKS, editorThemeColors, getColorObject, parentAttributes, SelectClipPath, removeArrayItems} from '../utility';
-import {accordionInner} from '../icons';
+import {accordionInnerIcon} from '../icons';
 
 const attributes = {
     clientId: {
@@ -28,7 +28,7 @@ registerBlockType('custom/accordion-inner', {
     apiVersion: 2,
     title: __('Accordion Inner', 'sage'),
     category: 'custom',
-    icon: accordionInner,
+    icon: accordionInnerIcon,
     attributes,
     parent: ['custom/accordion'],
     // supports: {

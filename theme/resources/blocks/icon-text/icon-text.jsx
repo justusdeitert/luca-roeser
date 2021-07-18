@@ -3,7 +3,7 @@ import {registerBlockType   } from '@wordpress/blocks';
 import {InspectorControls, RichText, BlockControls, MediaUpload, BlockVerticalAlignmentToolbar, InnerBlocks} from '@wordpress/block-editor';
 import {SelectControl, ToolbarGroup, RangeControl, Button, ToolbarDropdownMenu, ToggleControl} from '@wordpress/components';
 import classNames from 'classnames';
-import {iconText} from '../icons';
+import {iconTextIcon} from '../icons';
 import {getImage} from "../utility";
 
 const attributes = {
@@ -61,7 +61,7 @@ const ALLOWEDBLOCKS = [
 registerBlockType('custom/icon-text', {
     title: __('Icon Text', 'sage'),
     category: 'custom',
-    icon: iconText,
+    icon: iconTextIcon,
     attributes,
     edit: ({setAttributes, attributes, className, clientId}) => {
 

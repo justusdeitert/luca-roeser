@@ -3,7 +3,7 @@ import {registerBlockType, createBlock} from '@wordpress/blocks';
 import {SelectControl, RangeControl, ToggleControl, Button} from '@wordpress/components';
 import {InnerBlocks, InspectorControls, ColorPalette, useBlockProps} from '@wordpress/block-editor';
 import classNames from 'classnames';
-import {section} from '../icons';
+import {sectionIcon} from '../icons';
 import {editorThemeColors, getColorObject, SelectClipPath, ALLOWEDBLOCKS, removeArrayItems} from "../utility";
 import * as clipPaths from "../clip-paths"
 
@@ -51,7 +51,7 @@ const attributes = {
 registerBlockType('custom/section', {
     title: __('Section', 'sage'),
     category: 'custom',
-    icon: section,
+    icon: sectionIcon,
     attributes,
     supports: {
         anchor: true,

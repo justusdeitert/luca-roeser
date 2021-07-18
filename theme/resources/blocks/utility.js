@@ -26,9 +26,11 @@ export const getRandomInt = (max) => {
  * Helper function to print out Images in correct sizes
  * @param image
  * @param size
+ * @param placeholderWidth
+ * @param placeholderId
  * @returns {string|*|string}
  */
-export const getImage = (image, size = 'full', placeholderId = false) => {
+export const getImage = (image, size = 'full', placeholderWidth = 1800, placeholderId = false) => {
     if (image) {
         let original = image.url;
         let thumbnail = image.sizes && image.sizes.thumbnail ? image.sizes.thumbnail.url : original;
@@ -74,7 +76,7 @@ export const getImage = (image, size = 'full', placeholderId = false) => {
             case 'alt':
                 return image.alt ? image.alt : '';
             case 'description':
-                return image.description ? image.description : ''
+                return image.description ? image.description : '';
             case 'width-small':
                 return image.sizes && image.sizes.small ? image.sizes.small.width : '';
             case 'height-small':
@@ -87,20 +89,22 @@ export const getImage = (image, size = 'full', placeholderId = false) => {
                 return x_large;
         }
     } else {
+        let placeholderHeight = Math.round(placeholderWidth / 3 * 2);
+
         switch (size) {
             case 'alt':
                 return 'Lorem Picsum';
             case 'description':
-                return 'Lorem Picsum'
+                return 'Lorem Picsum';
             case 'width':
-                return '1800'
+                return `${placeholderWidth}`;
             case 'height':
-                return '1200'
+                return `${placeholderWidth / 3 * 2}`;
             default:
                 if(placeholderId) {
-                    return `https://picsum.photos/id/${placeholderId}/1800/1200`;
+                    return `https://picsum.photos/id/${placeholderId}/${placeholderWidth}/${placeholderHeight}`;
                 } else {
-                    return 'https://picsum.photos/1800/1200';
+                    return `https://picsum.photos/${placeholderWidth}/${placeholderHeight}`;
                 }
         }
     }
@@ -179,6 +183,7 @@ export const focalPositionInPixel = (value, unit = 'px') => {
     }
 
     let increment = 1000;
+
     if (unit === '%') {
         increment = 300;
     }
@@ -216,7 +221,7 @@ export const parentAttributes = (clientId) => {
 
     const parentAttributes = useSelect((select) => {
         const parentClientIds = select('core/block-editor').getBlockParents(clientId, true);
-        const parentAttributes =  select('core/block-editor').getBlockAttributes(parentClientIds[0]);
+        const parentAttributes = select('core/block-editor').getBlockAttributes(parentClientIds[0]);
         return parentAttributes;
     });
 
@@ -286,5 +291,3 @@ export const removeArrayItems = (array, itemsToRemove) => {
 }
 
 export const loremIpsum = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.';
-
-// export const

@@ -144,19 +144,22 @@ img {
     font-weight: 300;
 }
 
-//.justify-content {
-//    &-left {
-//        justify-content: flex-start;
-//    }
-//
-//    &-center {
-//        justify-content: center;
-//    }
-//
-//    &-right {
-//        justify-content: flex-end;
-//    }
-//}
+.align {
+    &-left {
+        margin-right: auto;
+        margin-left: initial;
+    }
+
+    &-center {
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    &-right {
+        margin-left: auto;
+        margin-right: initial;
+    }
+}
 
 .is-vertically-aligned {
     &-top {

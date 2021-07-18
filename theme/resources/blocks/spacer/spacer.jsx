@@ -5,11 +5,11 @@ import {MediaUpload, InspectorControls, BlockControls, useBlockProps} from '@wor
 import { useState, useEffect } from '@wordpress/element';
 import classNames from 'classnames';
 import {getImage, focalPositionInPixel} from '../utility';
-import {spacer} from '../icons';
+import {spacerIcon} from '../icons';
 
 registerBlockType('custom/spacer', {
     title: __('Spacer', 'sage'),
-    icon: spacer,
+    icon: spacerIcon,
     category: 'custom',
     attributes: {
         desktopHeight: {

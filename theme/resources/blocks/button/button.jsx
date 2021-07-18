@@ -1,8 +1,7 @@
 import {__} from '@wordpress/i18n';
 import {registerBlockType} from '@wordpress/blocks';
 import {SelectControl, ToolbarGroup, ToolbarDropdownMenu, ToolbarButton, Popover, Dropdown} from '@wordpress/components';
-import {BlockControls, InspectorControls, RichText, __experimentalLinkControl as LinkControl} from '@wordpress/block-editor';
-import {useState} from '@wordpress/element';
+import {BlockControls, InspectorControls, RichText, __experimentalLinkControl as LinkControl, useBlockProps} from '@wordpress/block-editor';
 import classNames from 'classnames';
 import {buttonIcon} from '../icons';
 
@@ -32,18 +31,14 @@ const attributes = {
     },
 };
 
-// let lol = 0;
-
 registerBlockType('custom/button', {
+    apiVersion: 2,
     title: __('Button', 'sage'),
     icon: buttonIcon,
     category: 'custom',
     // multiple: false, // Use this block just once per post
     attributes,
     edit: ({className, attributes, setAttributes}) => {
-
-        // lol++;
-        // console.log('button', lol);
 
         const onChangeButtonText = (value) => {
             setAttributes({buttonText: value});
@@ -69,10 +64,9 @@ registerBlockType('custom/button', {
             setAttributes({buttonLink: value});
         };
 
-        // const [isVisible, setIsVisible] = useState(false);
-        // const toggleVisible = () => {
-        //     setIsVisible((state) => !state);
-        // };
+        const blockProps = useBlockProps({
+            className: classNames(className, 'button-block', `justify-content-${attributes.buttonAlignment}`)
+        });
 
         return (
             <>
@@ -99,14 +93,7 @@ registerBlockType('custom/button', {
                                 },
                             ]}
                         />
-                        {/*<ToolbarButton
-                            icon="admin-links"
-                            label="Edit Link"
-                            onClick={toggleVisible}
-                        />*/}
                         <Dropdown
-                            // className="my-container-class-name"
-                            // contentClassName="my-popover-content-classname"
                             position="bottom right"
                             renderToggle={({isOpen, onToggle}) => (
                                 <ToolbarButton
@@ -171,7 +158,7 @@ registerBlockType('custom/button', {
                         />
                     </div>
                 </InspectorControls>
-                <div className={classNames(className, 'button-block', `justify-content-${attributes.buttonAlignment}`)}>
+                <div {...blockProps}>
                     <RichText
                         tagName="div"
                         className={classNames('btn', `btn-${attributes.buttonStyle}`, attributes.buttonSize && `btn-${attributes.buttonSize}`)}
@@ -182,35 +169,19 @@ registerBlockType('custom/button', {
                         value={attributes.buttonText}
                         onChange={onChangeButtonText}
                     />
-                    {/*{isVisible &&
-                        <Popover>
-                            <div style={{padding: "16px"}}>
-                                <LinkControl
-                                    value={attributes.buttonLink}
-                                    onChange={onChangeButtonLink}
-                                    withCreateSuggestion={true}
-                                    settings={[
-                                        {
-                                            id: 'opensInNewTab',
-                                            title: __('Open in new tab', 'sage'),
-                                        },
-                                        {
-                                            id: 'customDifferentSetting',
-                                            title: 'Has this custom setting?'
-                                        }
-                                    ]}
-                                />
-                            </div>
-                        </Popover>
-                    }*/}
                 </div>
             </>
         );
     },
-    save: ({className, attributes}) => {
+    save: ({attributes}) => {
+
+        const blockProps = useBlockProps.save({
+            className: classNames('button-block', `justify-content-${attributes.buttonAlignment}`)
+        });
+
         return (
             <>
-                <div className={classNames(className, 'button-block', `justify-content-${attributes.buttonAlignment}`)}>
+                <div {...blockProps}>
                     <a href={attributes.buttonLink.url}
                        target={attributes.buttonLink.opensInNewTab ? '_blank' : '_self'}
                        rel={attributes.buttonLink.nofollow ? 'noopener nofollow' : 'noopener'}

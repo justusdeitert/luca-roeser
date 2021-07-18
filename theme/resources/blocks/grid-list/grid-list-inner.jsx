@@ -2,7 +2,7 @@ import {__} from '@wordpress/i18n';
 import {registerBlockType} from '@wordpress/blocks';
 import {InnerBlocks, InspectorControls, ColorPalette, useBlockProps, __experimentalUseInnerBlocksProps as useInnerBlocksProps} from '@wordpress/block-editor';
 import classNames from 'classnames';
-import {gridListInner} from '../icons';
+import {gridListInnerIcon} from '../icons';
 import {ALLOWEDBLOCKS, editorThemeColors, getColorObject, parentAttributes, SelectClipPath} from '../utility';
 import * as clipPaths from "../clip-paths";
 
@@ -49,7 +49,7 @@ registerBlockType('custom/grid-list-inner', {
     apiVersion: 2,
     title: __('Grid List Inner', 'sage'),
     category: 'custom',
-    icon: gridListInner,
+    icon: gridListInnerIcon,
     attributes,
     parent: ['custom/grid-list'],
     // supports: {

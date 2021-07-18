@@ -1,5 +1,9 @@
 .image-block {
     display: flex;
+
+    &__wrapper {
+        position: relative;
+    }
 }
 
 /**

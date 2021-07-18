@@ -9,7 +9,7 @@ import {
     parentAttributes,
     removeArrayItems,
 } from '../utility';
-import {accordionInner} from '../icons';
+import {accordionInnerIcon} from '../icons';
 
 const attributes = {
     clientId: {
@@ -30,7 +30,7 @@ registerBlockType('custom/slider-inner', {
     apiVersion: 2,
     title: __('Slider Inner', 'sage'),
     category: 'custom',
-    icon: accordionInner,
+    icon: accordionInnerIcon,
     attributes,
     parent: ['custom/slider'],
     // supports: {

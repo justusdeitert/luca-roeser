@@ -12,9 +12,6 @@ Swiper.use([Navigation, Pagination]);
 window.sliderBlockInstances = {};
 
 window.initSliderBlockInstances = () => {
-
-    console.log('window.initSliderBlockInstances');
-
     document.querySelectorAll('.slider-block').forEach(sliderBlock => {
 
         let sliderContainer = sliderBlock.querySelector('.slider-block__container')

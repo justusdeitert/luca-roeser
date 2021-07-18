@@ -3,7 +3,7 @@ import {registerBlockType} from '@wordpress/blocks';
 import {RangeControl, ToggleControl} from '@wordpress/components';
 import {InnerBlocks, InspectorControls, ColorPalette, useBlockProps, __experimentalUseInnerBlocksProps as useInnerBlocksProps} from '@wordpress/block-editor';
 import classNames from 'classnames';
-import {gridList} from '../icons';
+import {gridListIcon} from '../icons';
 import {editorThemeColors, updateInnerBlocks} from "../utility";
 // import * as clipPaths from "../clip-paths"
 
@@ -50,7 +50,7 @@ registerBlockType('custom/grid-list', {
     apiVersion: 2,
     title: __('Grid List', 'sage'),
     category: 'custom',
-    icon: gridList,
+    icon: gridListIcon,
     attributes,
     supports: {
         anchor: true,

@@ -4,7 +4,7 @@ import {RangeControl, ToggleControl, ColorPalette, SelectControl} from '@wordpre
 import {InnerBlocks, InspectorControls, useBlockProps, __experimentalUseInnerBlocksProps as useInnerBlocksProps} from '@wordpress/block-editor';
 import classNames from 'classnames';
 import {editorThemeColors, getColorObject, updateInnerBlocks, loremIpsum} from "../utility";
-import {accordion} from "../icons";
+import {accordionIcon} from "../icons";
 
 const attributes = {
     clientId: {
@@ -32,7 +32,7 @@ const attributes = {
 registerBlockType('custom/accordion', {
     apiVersion: 2,
     title: __('Accordion', 'sage'),
-    icon: accordion,
+    icon: accordionIcon,
     category: 'custom',
     attributes,
     // multiple: false,

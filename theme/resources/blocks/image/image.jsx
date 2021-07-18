@@ -1,7 +1,7 @@
 import {__} from '@wordpress/i18n';
 import {registerBlockType} from '@wordpress/blocks';
 import {Button, RangeControl, FocalPointPicker, SelectControl, ToolbarGroup, ToolbarDropdownMenu} from '@wordpress/components';
-import {MediaUpload, InspectorControls, BlockControls} from '@wordpress/block-editor';
+import {MediaUpload, InspectorControls, BlockControls, useBlockProps} from '@wordpress/block-editor';
 import classNames from 'classnames';
 import {getImage, focalPositionInPixel} from '../utility';
 import {imageIcon} from '../icons';
@@ -10,6 +10,7 @@ import {imageIcon} from '../icons';
 let onChangeImagePositionTimeout = true;
 
 registerBlockType('custom/image', {
+    apiVersion: 2,
     title: __('Image', 'sage'),
     icon: imageIcon,
     category: 'custom',
@@ -93,11 +94,22 @@ registerBlockType('custom/image', {
             return 'align-' + attributes.imageAlignment;
         }
 
-        const imageStyle = {
-            width: `${attributes.imageSize + attributes.imageSizeUnit}`,
-            position: attributes.imagePositioning,
-            transform: `translate(${focalPositionInPixel(attributes.imagePosition.x, attributes.imagePositionUnit)}, ${focalPositionInPixel(attributes.imagePosition.y, attributes.imagePositionUnit)})`,
-        };
+        // const imageStyle = {
+        //     width: `${attributes.imageSize + attributes.imageSizeUnit}`,
+        //     position: attributes.imagePositioning,
+        //     transform: `translate(${focalPositionInPixel(attributes.imagePosition.x, attributes.imagePositionUnit)}, ${focalPositionInPixel(attributes.imagePosition.y, attributes.imagePositionUnit)})`,
+        // };
+
+        const blockProps = useBlockProps({
+            className: classNames(className, 'image-block', `align-${attributes.imageAlignment}`),
+            style: {
+                marginTop: 0,
+                marginBottom: 0,
+                width: `${attributes.imageSize + attributes.imageSizeUnit}`,
+                position: attributes.imagePositioning,
+                transform: `translate(${focalPositionInPixel(attributes.imagePosition.x, attributes.imagePositionUnit)}, ${focalPositionInPixel(attributes.imagePosition.y, attributes.imagePositionUnit)})`,
+            }
+        });
 
         return (
             <>
@@ -128,18 +140,6 @@ registerBlockType('custom/image', {
                 </BlockControls>
                 <InspectorControls>
                     <div className="inspector-controls-container">
-                        <hr/>
-                        <p>{__('Choose your Image', 'sage')}</p>
-                        <MediaUpload
-                            onSelect={onSelectImage}
-                            allowedTypes={['image']}
-                            // value={attributes.mediaID}
-                            render={({open}) => (
-                                <Button variant="primary" className={'button'} onClick={open}>
-                                    {!attributes.imageObject ? __('Upload Image', 'sage') : __('Change Image', 'sage')}
-                                </Button>
-                            )}
-                        />
                         <hr/>
                         <p>{__('Size Unit', 'sage')}</p>
                         <SelectControl
@@ -195,42 +195,77 @@ registerBlockType('custom/image', {
                         />
                     </div>
                 </InspectorControls>
-                <div className={classNames(className, 'image-block', `justify-content-${attributes.imageAlignment}`)}>
-                    {attributes.imageObject.mime !== 'image/svg+xml' ?
-                        <img style={imageStyle}
-                             alt={getImage(attributes.imageObject, 'alt')}
-                             srcSet={`${getImage(attributes.imageObject, 'tiny')} 768w, ${getImage(attributes.imageObject, 'small')} 1360w`}
-                             src={getImage(attributes.imageObject, 'tiny')}
-                        /> :
-                        <img style={imageStyle}
-                             alt={getImage(attributes.imageObject, 'alt')}
-                             src={getImage(attributes.imageObject, 'tiny')}
+                <div {...blockProps}>
+                    {/*<div className="image-block__wrapper">*/}
+                        <MediaUpload
+                            onSelect={onSelectImage}
+                            allowedTypes={['image']}
+                            // value={attributes.mediaID}
+                            // render={({open}) => (
+                            //     <Button variant="primary" className={'is-secondary'} onClick={open}>
+                            //         {!attributes.imageObject ? __('Upload Image', 'sage') : __('Change Image', 'sage')}
+                            //     </Button>
+                            // )}
+                            render={({open}) => (
+                                <Button
+                                    className={'button'}
+                                    onClick={open}
+                                    icon={'format-image'}
+                                    isSmall={true}
+                                    style={{
+                                        position: 'absolute',
+                                        right: '10px',
+                                        bottom: '10px',
+                                        zIndex: '10'
+                                    }}
+                                />
+                            )}
                         />
-                    }
+                        {attributes.imageObject.mime !== 'image/svg+xml' ?
+                            <img alt={getImage(attributes.imageObject, 'alt')}
+                                 srcSet={`${getImage(attributes.imageObject, 'tiny', 400)} 768w, ${getImage(attributes.imageObject, 'small', 400)} 1360w`}
+                                 src={getImage(attributes.imageObject, 'tiny', 400)}
+                                 style={{width: '100%'}}
+                            /> :
+                            <img alt={getImage(attributes.imageObject, 'alt')}
+                                 src={getImage(attributes.imageObject, 'tiny', 400)}
+                                 style={{width: '100%'}}
+                            />
+                        }
+                    {/*</div>*/}
                 </div>
             </>
         );
     },
     save: ({className, attributes}) => {
 
-        const imageStyle = {
-            width: `${attributes.imageSize + attributes.imageSizeUnit}`,
-            position: attributes.imagePositioning,
-            transform: `translate(${focalPositionInPixel(attributes.imagePosition.x, attributes.imagePositionUnit)}, ${focalPositionInPixel(attributes.imagePosition.y, attributes.imagePositionUnit)})`,
-        };
+        // const imageStyle = {
+        //     width: `${attributes.imageSize + attributes.imageSizeUnit}`,
+        //     position: attributes.imagePositioning,
+        //     transform: `translate(${focalPositionInPixel(attributes.imagePosition.x, attributes.imagePositionUnit)}, ${focalPositionInPixel(attributes.imagePosition.y, attributes.imagePositionUnit)})`,
+        // };
+
+        const blockProps = useBlockProps.save({
+            className: classNames(className, 'image-block', `align-${attributes.imageAlignment}`),
+            style: {
+                width: `${attributes.imageSize + attributes.imageSizeUnit}`,
+                position: attributes.imagePositioning,
+                transform: `translate(${focalPositionInPixel(attributes.imagePosition.x, attributes.imagePositionUnit)}, ${focalPositionInPixel(attributes.imagePosition.y, attributes.imagePositionUnit)})`,
+            }
+        });
 
         return (
             <>
-                <div className={classNames(className, 'image-block', `justify-content-${attributes.imageAlignment}`)}>
+                <div {...blockProps}>
                     {attributes.imageObject.mime !== 'image/svg+xml' ?
-                        <img style={imageStyle}
-                             alt={getImage(attributes.imageObject, 'alt')}
-                             srcSet={`${getImage(attributes.imageObject, 'tiny')} 768w, ${getImage(attributes.imageObject, 'small')} 1360w`}
-                             src={getImage(attributes.imageObject, 'tiny')}
+                        <img alt={getImage(attributes.imageObject, 'alt')}
+                             srcSet={`${getImage(attributes.imageObject, 'tiny', 400)} 768w, ${getImage(attributes.imageObject, 'small', 400)} 1360w`}
+                             src={getImage(attributes.imageObject, 'tiny', 400)}
+                             style={{width: '100%'}}
                         /> :
-                        <img style={imageStyle}
-                             alt={getImage(attributes.imageObject, 'alt')}
-                             src={getImage(attributes.imageObject, 'tiny')}
+                        <img alt={getImage(attributes.imageObject, 'alt')}
+                             src={getImage(attributes.imageObject, 'tiny', 400)}
+                             style={{width: '100%'}}
                         />
                     }
                 </div>
