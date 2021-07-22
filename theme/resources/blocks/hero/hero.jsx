@@ -23,23 +23,23 @@ const attributes = {
     /**
      * Hero Properties
      */
-    heroFullHeight: {
+    isFullHeight: {
         type: 'boolean',
         default: false,
     },
-    heroHeight: {
+    desktopHeight: {
         type: 'number',
         default: 500,
     },
-    heroMobileHeight: {
+    mobileHeight: {
         type: 'number',
         default: 300,
     },
-    heroClipPath: {
+    clipPath: {
         type: 'string',
         default: 'none',
     },
-    heroBackgroundColor: {
+    backgroundColor: {
         type: 'string',
         default: ''
     },
@@ -47,7 +47,7 @@ const attributes = {
     //     type: 'string',
     //     default: ''
     // },
-    heroBackgroundHasOverlay: {
+    hasOverlay: {
         type: 'boolean',
         default: false,
     },
@@ -55,30 +55,30 @@ const attributes = {
     //     type: 'string',
     //     default: 'light'
     // },
-    heroBackgroundOverlayGradient: {
+    overlayGradient: {
         type: 'string',
-        default: 'linear-gradient(0deg,rgba(0,0,0,0.) 0%,rgba(0,0,0,0) 100%)'
+        default: 'radial-gradient(rgba(0,0,0,0.3) 0%,rgba(0,0,0,0) 100%)'
     },
-    heroBackgroundOverlayGradientPosition: {
+    overlayGradientPosition: {
         type: 'string',
         default: 'center center'
     },
     /**
      * Image Properties
      */
-    heroImage: {
+    backgroundImage: {
         type: 'object',
         default: false
     },
-    heroImageBlur: {
+    backgroundImageBlur: {
         type: 'number',
         default: 0,
     },
-    heroImageOpacity: {
+    backgroundImageOpacity: {
         type: 'number',
         default: 1,
     },
-    heroImageAlignment: {
+    backgroundImageAlignment: {
         type: 'string',
         default: 'center top'
     },
@@ -133,37 +133,37 @@ registerBlockType('custom/hero', {
          */
 
         const onChangeFullHeight = (value) => {
-            setAttributes({heroFullHeight: value});
+            setAttributes({isFullHeight: value});
         };
 
-        const onChangeHeroHeight = (value) => {
-            setAttributes({heroHeight: value});
+        const onChangeHeight = (value) => {
+            setAttributes({desktopHeight: value});
         };
 
-        const onChangeHeroMobileHeight = (value) => {
-            setAttributes({heroMobileHeight: value});
+        const onChangeMobileHeight = (value) => {
+            setAttributes({mobileHeight: value});
         };
 
-        const onChangeHeroClipPath = (value) => {
-            setAttributes({heroClipPath: value});
+        const onChangeClipPath = (value) => {
+            setAttributes({clipPath: value});
         };
 
-        const onChangeHeroBackgroundColor = (value) => {
-            setAttributes({heroBackgroundColor: value});
+        const onChangeBackgroundColor = (value) => {
+            setAttributes({backgroundColor: value});
         };
 
-        const onChangeHeroBackgroundHasOverlay = (value) => {
-            setAttributes({heroBackgroundHasOverlay: value});
+        const onChangeHasOverlay = (value) => {
+            setAttributes({hasOverlay: value});
         };
 
-        const onChangeHeroBackgroundOverlayGradient = (value) => {
+        const onChangeOverlayGradient = (value) => {
             if (value) {
-                setAttributes({heroBackgroundOverlayGradient: value});
+                setAttributes({overlayGradient: value});
             }
         };
 
-        const onChangeHeroBackgroundOverlayGradientPosition = (value) => {
-            setAttributes({heroBackgroundOverlayGradientPosition: value});
+        const onChangeOverlayGradientPosition = (value) => {
+            setAttributes({overlayGradientPosition: value});
         };
 
         /**
@@ -171,23 +171,23 @@ registerBlockType('custom/hero', {
          */
 
         const onSelectHeroImage = (imageObject) => {
-            setAttributes({heroImage: imageObject});
+            setAttributes({backgroundImage: imageObject});
         };
 
         const removeHeroImage = () => {
-            setAttributes({heroImage: false});
+            setAttributes({backgroundImage: false});
         };
 
-        const onChangeHeroImageBlur = (value) => {
-            setAttributes({heroImageBlur: value});
+        const onChangeImageBlur = (value) => {
+            setAttributes({backgroundImageBlur: value});
         };
 
-        const onChangeHeroImageOpacity = (value) => {
-            setAttributes({heroImageOpacity: value});
+        const onChangeImageOpacity = (value) => {
+            setAttributes({backgroundImageOpacity: value});
         };
 
-        const onChangeHeroImageAlignment = (value) => {
-            setAttributes({heroImageAlignment: value});
+        const onChangeImageAlignment = (value) => {
+            setAttributes({backgroundImageAlignment: value});
         };
 
         /**
@@ -210,8 +210,6 @@ registerBlockType('custom/hero', {
             }
         };
 
-        // console.log(adjustOverlayPosition(attributes.heroBackgroundOverlayGradient, attributes.heroBackgroundOverlayGradientPosition));
-
         const setBackTextPosition = () => {
             setAttributes({textPosition: {x: 0.5, y: 0.5}});
         };
@@ -226,7 +224,7 @@ registerBlockType('custom/hero', {
         const blockProps = useBlockProps({
             className: className,
             style: {
-                border: (!attributes.heroImage && !attributes.heroBackgroundColor) ? '1px dashed var(--wp-admin-theme-color)' : 'none',
+                border: (!attributes.backgroundImage && !attributes.backgroundColor) ? '1px dashed var(--wp-admin-theme-color)' : 'none',
             }
         });
 
@@ -238,46 +236,46 @@ registerBlockType('custom/hero', {
                         <ToggleControl
                             label={__('Full Height', 'sage')}
                             // help={ attributes.switchContent ? 'Image is left' : 'Image is right' }
-                            checked={attributes.heroFullHeight}
+                            checked={attributes.isFullHeight}
                             onChange={onChangeFullHeight}
                         />
-                        {!attributes.heroFullHeight &&
+                        {!attributes.isFullHeight &&
                             <>
                                 <hr/>
-                                <MobileSwitch headline={__('Hero Height', 'sage')}>
+                                <MobileSwitch headline={__('Height', 'sage')}>
                                     <MobileSwitchInner type={'desktop'}>
                                         <RangeControl
-                                            value={attributes.heroHeight}
-                                            min={attributes.heroMobileHeight}
+                                            value={attributes.desktopHeight}
+                                            min={attributes.mobileHeight}
                                             max={1000}
                                             step={10}
-                                            onChange={onChangeHeroHeight}
+                                            onChange={onChangeHeight}
                                         />
                                     </MobileSwitchInner>
                                     <MobileSwitchInner type={'mobile'}>
                                         <RangeControl
-                                            value={attributes.heroMobileHeight}
+                                            value={attributes.mobileHeight}
                                             min={200}
                                             max={700}
                                             step={10}
-                                            onChange={onChangeHeroMobileHeight}
+                                            onChange={onChangeMobileHeight}
                                         />
                                     </MobileSwitchInner>
                                 </MobileSwitch>
                             </>
                         }
                         <hr/>
-                        <p>{__('Hero Background Color', 'sage')}</p>
+                        <p>{__('Background Color', 'sage')}</p>
                         <ColorPalette
                             colors={editorThemeColors}
-                            value={attributes.heroBackgroundColor}
-                            onChange={onChangeHeroBackgroundColor}
+                            value={attributes.backgroundColor}
+                            onChange={onChangeBackgroundColor}
                             disableCustomColors={true}
                         />
                         {/*<p>{__('Hero Background Color', 'sage')}</p>
                         <ColorGradientControl
-                            colorValue={attributes.heroBackgroundColor}
-                            gradientValue={attributes.heroBackgroundOverlayGradient}
+                            colorValue={attributes.backgroundColor}
+                            gradientValue={attributes.overlayGradient}
                             colors={editorThemeColors}
                             gradients={[
                                 {
@@ -296,31 +294,31 @@ registerBlockType('custom/hero', {
                                     slug: 'luminous-vivid-amber-to-luminous-vivid-orange',
                                 },
                             ]}
-                            onColorChange={onChangeHeroBackgroundColor}
-                            onGradientChange={onChangeHeroBackgroundOverlayGradient}
+                            onColorChange={onChangeBackgroundColor}
+                            onGradientChange={onChangeOverlayGradient}
                         />*/}
-                        {(attributes.heroImage || attributes.heroBackgroundColor) &&
+                        {(attributes.backgroundImage || attributes.backgroundColor) &&
                         <>
                             <hr/>
                             <p>{__('Section Clip Path', 'sage')}</p>
                             <SelectClipPath
                                 clipPathsModules={clipPaths}
-                                clickFunction={onChangeHeroClipPath}
-                                value={attributes.heroClipPath}
+                                clickFunction={onChangeClipPath}
+                                value={attributes.clipPath}
                             />
                         </>
                         }
                         <hr/>
                         <ToggleControl
                             label={__('Background Overlay', 'sage')}
-                            checked={attributes.heroBackgroundHasOverlay}
-                            onChange={onChangeHeroBackgroundHasOverlay}
+                            checked={attributes.hasOverlay}
+                            onChange={onChangeHasOverlay}
                         />
-                        {attributes.heroBackgroundHasOverlay &&
+                        {attributes.hasOverlay &&
                         <>
                             <GradientPicker
-                                value={attributes.heroBackgroundOverlayGradient}
-                                onChange={onChangeHeroBackgroundOverlayGradient}
+                                value={attributes.overlayGradient}
+                                onChange={onChangeOverlayGradient}
                                 // disableCustomGradients={true}
                                 gradients={[
                                     {
@@ -345,43 +343,43 @@ registerBlockType('custom/hero', {
                                     },
                                 ]}
                             />
-                            {attributes.heroBackgroundOverlayGradient.includes('radial-gradient') &&
+                            {attributes.overlayGradient.includes('radial-gradient') &&
                                 <>
                                     {/*<hr/>*/}
                                     <p>{__('Radial Overlay Position', 'sage')}</p>
                                     <AlignmentMatrixControl
-                                        value={attributes.heroBackgroundOverlayGradientPosition}
-                                        onChange={onChangeHeroBackgroundOverlayGradientPosition}
+                                        value={attributes.overlayGradientPosition}
+                                        onChange={onChangeOverlayGradientPosition}
                                     />
                                 </>
                             }
                         </>
                         }
                     </PanelBody>
-                    {attributes.heroImage &&
+                    {attributes.backgroundImage &&
                         <PanelBody title={__('Background Image', 'sage')} initialOpen={false}>
                             <div style={{height: '20px'}}/>
                             <p>{__('Image Blur', 'sage')}</p>
                             <RangeControl
-                                value={attributes.heroImageBlur}
+                                value={attributes.backgroundImageBlur}
                                 min={0}
                                 max={10}
-                                onChange={onChangeHeroImageBlur}
+                                onChange={onChangeImageBlur}
                             />
                             <hr/>
                             <p>{__('Image Opacity', 'sage')}</p>
                             <RangeControl
-                                value={attributes.heroImageOpacity}
+                                value={attributes.backgroundImageOpacity}
                                 min={0}
                                 max={1}
                                 step={0.05}
-                                onChange={onChangeHeroImageOpacity}
+                                onChange={onChangeImageOpacity}
                             />
                             <hr/>
                             <p>{__('Background Image Alignment', 'sage')}</p>
                             <AlignmentMatrixControl
-                                value={attributes.heroImageAlignment}
-                                onChange={onChangeHeroImageAlignment}
+                                value={attributes.backgroundImageAlignment}
+                                onChange={onChangeImageAlignment}
                             />
                         </PanelBody>
                     }
@@ -411,40 +409,40 @@ registerBlockType('custom/hero', {
                         className={classNames(
                             className,
                             'hero-block',
-                            getColorObject(attributes.heroBackgroundColor) && `has-${getColorObject(attributes.heroBackgroundColor).slug}-background-color`,
-                            attributes.heroFullHeight && 'full-height'
+                            getColorObject(attributes.backgroundColor) && `has-${getColorObject(attributes.backgroundColor).slug}-background-color`,
+                            attributes.isFullHeight && 'full-height'
                         )}
                         style={{
-                            clipPath: attributes.heroClipPath !== 'none' ? `url(#clip-path-${attributes.clientId})` : 'none',
-                            '--hero-height-desktop': `${attributes.heroHeight}px`,
-                            '--hero-height-mobile': `${attributes.heroMobileHeight}px`,
-                            '--hero-min-max-height': `${attributes.heroHeight - attributes.heroMobileHeight}`,
+                            clipPath: attributes.clipPath !== 'none' ? `url(#clip-path-${attributes.clientId})` : 'none',
+                            '--hero-height-desktop': `${attributes.desktopHeight}px`,
+                            '--hero-height-mobile': `${attributes.mobileHeight}px`,
+                            '--hero-min-max-height': `${attributes.desktopHeight - attributes.mobileHeight}`,
                         }}
                     >
 
-                        {clipPaths[attributes.heroClipPath] &&
-                            clipPaths[attributes.heroClipPath](`clip-path-${attributes.clientId}`)
+                        {clipPaths[attributes.clipPath] &&
+                            clipPaths[attributes.clipPath](`clip-path-${attributes.clientId}`)
                         }
 
-                        {attributes.heroImage &&
+                        {attributes.backgroundImage &&
                             <img
-                                className={classNames('hero-block__image', attributes.heroImageBlur > 0 ? 'is-blurred' : '')}
+                                className={classNames('hero-block__image', attributes.backgroundImageBlur > 0 ? 'is-blurred' : '')}
                                 style={{
-                                    filter: `blur(${attributes.heroImageBlur}px)`,
-                                    objectPosition: `${attributes.heroImageAlignment}`,
-                                    opacity: attributes.heroImageOpacity,
+                                    filter: `blur(${attributes.backgroundImageBlur}px)`,
+                                    objectPosition: `${attributes.backgroundImageAlignment}`,
+                                    opacity: attributes.backgroundImageOpacity,
                                 }}
-                                src={getImage(attributes.heroImage, 'x_large')}
-                                alt={getImage(attributes.heroImage, 'alt')}
-                                width={getImage(attributes.heroImage, 'width')}
-                                height={getImage(attributes.heroImage, 'height')}
+                                src={getImage(attributes.backgroundImage, 'x_large')}
+                                alt={getImage(attributes.backgroundImage, 'alt')}
+                                width={getImage(attributes.backgroundImage, 'width')}
+                                height={getImage(attributes.backgroundImage, 'height')}
                             />
                         }
-                        {attributes.heroBackgroundHasOverlay &&
+                        {attributes.hasOverlay &&
                             <div className="hero-block__overlay"
                                  style={{
                                      // backgroundImage: getOverlayColor(attributes.heroBackgroundOverlayColor)
-                                     backgroundImage: adjustOverlayPosition(attributes.heroBackgroundOverlayGradient, attributes.heroBackgroundOverlayGradientPosition)
+                                     backgroundImage: adjustOverlayPosition(attributes.overlayGradient, attributes.overlayGradientPosition)
                                  }}
                             />
                         }
@@ -478,9 +476,9 @@ registerBlockType('custom/hero', {
                                         className={'button'}
                                         onClick={open}
                                         icon={'format-image'}
-                                        text={attributes.heroImage ? __('Change Image', 'sage') : __('Upload Image', 'sage')}
+                                        text={attributes.backgroundImage ? __('Change Image', 'sage') : __('Upload Image', 'sage')}
                                     />
-                                    {attributes.heroImage &&
+                                    {attributes.backgroundImage &&
                                     <>
                                         <Button
                                             className={'button'}
@@ -504,39 +502,39 @@ registerBlockType('custom/hero', {
             <div
                 className={classNames(
                     'hero-block',
-                    getColorObject(attributes.heroBackgroundColor) && `has-${getColorObject(attributes.heroBackgroundColor).slug}-background-color`,
-                    attributes.heroFullHeight && 'full-height'
+                    getColorObject(attributes.backgroundColor) && `has-${getColorObject(attributes.backgroundColor).slug}-background-color`,
+                    attributes.isFullHeight && 'full-height'
                 )}
                 style={{
-                    clipPath: attributes.heroClipPath !== 'none' ? `url(#clip-path-${attributes.clientId})` : 'none',
-                    '--hero-height-desktop': `${attributes.heroHeight}px`,
-                    '--hero-height-mobile': `${attributes.heroMobileHeight}px`,
-                    '--hero-min-max-height': `${attributes.heroHeight - attributes.heroMobileHeight}`,
+                    clipPath: attributes.clipPath !== 'none' ? `url(#clip-path-${attributes.clientId})` : 'none',
+                    '--hero-height-desktop': `${attributes.desktopHeight}px`,
+                    '--hero-height-mobile': `${attributes.mobileHeight}px`,
+                    '--hero-min-max-height': `${attributes.desktopHeight - attributes.mobileHeight}`,
                 }}
             >
 
-                {clipPaths[attributes.heroClipPath] &&
-                    clipPaths[attributes.heroClipPath](`clip-path-${attributes.clientId}`)
+                {clipPaths[attributes.clipPath] &&
+                    clipPaths[attributes.clipPath](`clip-path-${attributes.clientId}`)
                 }
 
-                {attributes.heroImage &&
-                    <img className={classNames('hero-block__image', attributes.heroImageBlur > 0 ? 'is-blurred' : '')}
+                {attributes.backgroundImage &&
+                    <img className={classNames('hero-block__image', attributes.backgroundImageBlur > 0 ? 'is-blurred' : '')}
                          style={{
-                             filter: `blur(${attributes.heroImageBlur}px)`,
-                             objectPosition: `${attributes.heroImageAlignment}`,
-                             opacity: attributes.heroImageOpacity,
+                             filter: `blur(${attributes.backgroundImageBlur}px)`,
+                             objectPosition: `${attributes.backgroundImageAlignment}`,
+                             opacity: attributes.backgroundImageOpacity,
                          }}
-                         srcSet={`${getImage(attributes.heroImage, 'tiny')} 480w, ${getImage(attributes.heroImage, 'small')} 768w, ${getImage(attributes.heroImage, 'medium')} 1024w, ${getImage(attributes.heroImage, 'x_large')} 1360w`}
+                         srcSet={`${getImage(attributes.backgroundImage, 'tiny')} 480w, ${getImage(attributes.backgroundImage, 'small')} 768w, ${getImage(attributes.backgroundImage, 'medium')} 1024w, ${getImage(attributes.backgroundImage, 'x_large')} 1360w`}
                          sizes="100w"
-                         src={getImage(attributes.heroImage, 'medium')}
-                         alt={getImage(attributes.heroImage, 'alt')}
+                         src={getImage(attributes.backgroundImage, 'medium')}
+                         alt={getImage(attributes.backgroundImage, 'alt')}
                     />
                 }
-                {attributes.heroBackgroundHasOverlay &&
+                {attributes.hasOverlay &&
                     <div className="hero-block__overlay"
                          style={{
                              // backgroundImage: getOverlayColor(attributes.heroBackgroundOverlayColor),
-                             backgroundImage: adjustOverlayPosition(attributes.heroBackgroundOverlayGradient, attributes.heroBackgroundOverlayGradientPosition)
+                             backgroundImage: adjustOverlayPosition(attributes.overlayGradient, attributes.overlayGradientPosition)
                          }}
                     />
                 }
