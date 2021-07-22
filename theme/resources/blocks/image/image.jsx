@@ -114,15 +114,8 @@ registerBlockType('custom/image', {
             return 'align-' + attributes.imageAlignment;
         }
 
-        // const imageStyle = {
-        //     width: `${attributes.imageSize + attributes.imageSizeUnit}`,
-        //     position: attributes.imagePositioning,
-        //     transform: `translate(${focalPositionInPixel(attributes.imagePosition.x, attributes.imagePositionUnit)}, ${focalPositionInPixel(attributes.imagePosition.y, attributes.imagePositionUnit)})`,
-        // };
-        // <div className={`ratio ratio-${attributes.imagesRatio}`}>
-
         const blockProps = useBlockProps({
-            className: classNames(className, 'image-block', `align-${attributes.imageAlignment}`, attributes.hasRatio && `ratio ratio-${attributes.imagesRatio}`),
+            className: classNames(className, 'image-block', `align-${attributes.imageAlignment}`),
             style: {
                 marginTop: 0,
                 marginBottom: 0,
@@ -255,20 +248,7 @@ registerBlockType('custom/image', {
                         />
                     </div>
                 </InspectorControls>
-                <div style={{position: 'relative'}}>
-                    <div {...blockProps}>
-                        {attributes.imageObject.mime !== 'image/svg+xml' ?
-                            <img alt={getImage(attributes.imageObject, 'alt')}
-                                 srcSet={`${getImage(attributes.imageObject, 'tiny', 400)} 768w, ${getImage(attributes.imageObject, 'small', 400)} 1360w`}
-                                 src={getImage(attributes.imageObject, 'tiny', 400)}
-                                 style={{width: '100%'}}
-                            /> :
-                            <img alt={getImage(attributes.imageObject, 'alt')}
-                                 src={getImage(attributes.imageObject, 'tiny', 400)}
-                                 style={{width: '100%'}}
-                            />
-                        }
-                    </div>
+                <div {...blockProps}>
                     <MediaUpload
                         onSelect={onSelectImage}
                         allowedTypes={['image']}
@@ -287,6 +267,19 @@ registerBlockType('custom/image', {
                             />
                         )}
                     />
+                    <div className={attributes.hasRatio && `ratio ratio-${attributes.imagesRatio}`}>
+                        {attributes.imageObject.mime !== 'image/svg+xml' ?
+                            <img alt={getImage(attributes.imageObject, 'alt')}
+                                 srcSet={`${getImage(attributes.imageObject, 'tiny', 400)} 768w, ${getImage(attributes.imageObject, 'small', 400)} 1360w`}
+                                 src={getImage(attributes.imageObject, 'tiny', 400)}
+                                 style={{width: '100%'}}
+                            /> :
+                            <img alt={getImage(attributes.imageObject, 'alt')}
+                                 src={getImage(attributes.imageObject, 'tiny', 400)}
+                                 style={{width: '100%'}}
+                            />
+                        }
+                    </div>
                 </div>
 
             </>
