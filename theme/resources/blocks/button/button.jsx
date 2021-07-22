@@ -165,9 +165,9 @@ registerBlockType('custom/button', {
                             checked={attributes.buttonSize}
                             defaultChecked={false}
                         >
-                            <Radio value="sm">{__('Small')}</Radio>
-                            <Radio value={false}>{__('Normal')}</Radio>
-                            <Radio value="lg">{__('Large')}</Radio>
+                            <Radio value="sm">{__('Small', 'sage')}</Radio>
+                            <Radio value={false}>{__('Normal', 'sage')}</Radio>
+                            <Radio value="lg">{__('Large', 'sage')}</Radio>
                         </RadioGroup>
                         <hr/>
                         <p>{__('Border Radius', 'sage')}</p>

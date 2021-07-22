@@ -2,10 +2,10 @@ import {__} from '@wordpress/i18n';
 import {registerBlockType,} from '@wordpress/blocks';
 import {Button} from '@wordpress/components';
 import {Component} from '@wordpress/element';
-import {ToggleControl, ColorPalette, RangeControl, SelectControl} from '@wordpress/components';
+import {ToggleControl, ColorPalette, RangeControl, SelectControl, __experimentalRadio as Radio, __experimentalRadioGroup as RadioGroup} from '@wordpress/components';
 import {MediaUpload, InspectorControls, InnerBlocks, getColorObjectByColorValue} from '@wordpress/block-editor';
 import classNames from 'classnames';
-import {editorThemeColors, getImage} from '../utility';
+import {editorThemeColors, getImage, ALLOWEDBLOCKS, removeArrayItems} from '../utility';
 import {textImageIcon} from '../icons';
 import {loremIpsum} from "lorem-ipsum";
 
@@ -39,20 +39,6 @@ const attributes = {
         default: true
     }
 };
-
-const ALLOWED_BLOCKS = [
-    'core/paragraph',
-    'core/heading',
-    'core/list',
-    'core/shortcode',
-    'core/spacer',
-    'core/columns',
-    'custom/button',
-    'custom/icon-text',
-    'custom/row',
-    'custom/divider',
-    'custom/accordion'
-];
 
 registerBlockType('custom/text-image', {
     title: __('Text Image', 'sage'),
@@ -149,16 +135,17 @@ registerBlockType('custom/text-image', {
                                 'image/gif'
                             ]}
                             render={({open}) => (
-                                <Button className={'button'}
-                                        icon={'format-gallery'}
-                                        onClick={open}
-                                        style={{
-                                            position: 'absolute',
-                                            left: '20px',
-                                            top: '20px',
-                                            zIndex: '30'
-                                        }}
-                                        text={!attributes.contentImages ? __('Upload Images', 'sage') : __('Change Images', 'sage')}
+                                <Button
+                                    className={'button'}
+                                    icon={'format-gallery'}
+                                    onClick={open}
+                                    style={{
+                                        position: 'absolute',
+                                        left: '20px',
+                                        top: '20px',
+                                        zIndex: '30'
+                                    }}
+                                    text={!attributes.contentImages ? __('Upload Images', 'sage') : __('Change Images', 'sage')}
                                 />
                             )}
                         />
@@ -167,13 +154,13 @@ registerBlockType('custom/text-image', {
                                 attributes.contentImages.map((contentImage, index) => {
                                     if (index < attributes.imageCount) {
                                         return (
-                                            <div className={'text-image-block__image-wrapper'}>
+                                            <div key={index} className={'text-image-block__image-wrapper'}>
                                                 <div className={classNames("custom-border custom-border-radius custom-shadow", imagesBackgroundColor && `has-${imagesBackgroundColor.slug}-background-color`)}>
                                                     <div className={`ratio ratio-${attributes.imagesRatio}`}>
                                                         <img className={classNames('custom-border-radius')}
                                                              alt={getImage(contentImage, 'alt')}
-                                                             srcSet={`${getImage(contentImage, 'tiny')} 768w, ${getImage(contentImage, 'small')} 1360w`}
-                                                             src={getImage(contentImage, 'tiny')}
+                                                             srcSet={`${getImage(contentImage, 'tiny', 800)} 768w, ${getImage(contentImage, 'small', 800)} 1360w`}
+                                                             src={getImage(contentImage, 'tiny', 800)}
                                                         />
                                                     </div>
                                                 </div>
@@ -190,10 +177,18 @@ registerBlockType('custom/text-image', {
             const textColumn = (
                 <div className={classNames(`text-image-block__text-column`, `col-12 col-md-6 col-xl-${12 - attributes.columnRange}`)}>
                     <div className={classNames("text-image-block__text-column-inner")}>
-                        <InnerBlocks template={TEMPLATE} allowedBlocks={ALLOWED_BLOCKS}/>
+                        <InnerBlocks template={TEMPLATE} allowedBlocks={removeArrayItems(ALLOWEDBLOCKS, ['custom/text-image'])}/>
                     </div>
                 </div>
             );
+
+            let maxImagesCount = () => {
+                if(attributes.contentImages.length <= 4) {
+                    return attributes.contentImages.length;
+                } else {
+                    return 4;
+                }
+            }
 
             return (
                 <div className={classNames(className, 'text-image-block', 'custom-spacing', 'no-gallery')}>
@@ -214,29 +209,34 @@ registerBlockType('custom/text-image', {
                                 max={8}
                                 onChange={onChangeColumnRange}
                             />
-                            <hr/>
-                            <p>{__('Adjust visible Images', 'sage')}</p>
-                            <RangeControl
-                                value={attributes.imageCount}
-                                min={1}
-                                initialPosition={1}
-                                max={4}
-                                step={1}
-                                onChange={onChangeImageCount}
-                            />
+                            {(maxImagesCount() > 1) &&
+                            <>
+                                <hr/>
+                                <p>{__('Adjust visible Images', 'sage')}</p>
+                                <RangeControl
+                                    value={attributes.imageCount}
+                                    min={1}
+                                    initialPosition={1}
+                                    max={maxImagesCount()}
+                                    step={1}
+                                    onChange={onChangeImageCount}
+                                />
+                            </>
+                            }
+
                             <hr/>
                             <p>{__('Images Ratio', 'sage')}</p>
-                            <SelectControl
-                                value={attributes.imagesRatio}
-                                options={[
-                                    {label: __('1x1'), value: '1x1'},
-                                    {label: __('4x3'), value: '4x3'},
-                                    {label: __('3x2'), value: '3x2'},
-                                    {label: __('16x9'), value: '16x9'},
-                                    {label: __('21x9'), value: '21x9'},
-                                ]}
+                            <RadioGroup
                                 onChange={onChangeImagesRatio}
-                            />
+                                checked={attributes.imagesRatio}
+                                defaultChecked={'3x2'}
+                            >
+                                <Radio value="1x1">{__('1x1', 'sage')}</Radio>
+                                <Radio value="4x3">{__('4x3', 'sage')}</Radio>
+                                <Radio value="3x2">{__('3x2', 'sage')}</Radio>
+                                <Radio value="16x9">{__('16x9', 'sage')}</Radio>
+                                <Radio value="21x9">{__('21x9', 'sage')}</Radio>
+                            </RadioGroup>
                             <hr/>
                             <ToggleControl
                                 label={__('Has Gallery', 'sage')}
@@ -279,8 +279,8 @@ registerBlockType('custom/text-image', {
                                             <div className={`ratio ratio-${attributes.imagesRatio}`}>
                                                 <img className={classNames('custom-border-radius')}
                                                      alt={getImage(contentImage, 'alt')}
-                                                     srcSet={`${getImage(contentImage, 'tiny')} 768w, ${getImage(contentImage, 'small')} 1360w`}
-                                                     src={getImage(contentImage, 'tiny')}
+                                                     srcSet={`${getImage(contentImage, 'tiny', 800)} 768w, ${getImage(contentImage, 'small', 800)} 1360w`}
+                                                     src={getImage(contentImage, 'tiny', 800)}
                                                 />
                                             </div>
                                         </div>
@@ -289,13 +289,13 @@ registerBlockType('custom/text-image', {
                             } else {
                                 if (index < attributes.imageCount) {
                                     return (
-                                        <div className={'text-image-block__image-wrapper'}>
+                                        <div key={index} className={'text-image-block__image-wrapper'}>
                                             <div className={classNames("custom-border custom-border-radius custom-shadow", imagesBackgroundColor && `has-${imagesBackgroundColor.slug}-background-color`)}>
                                                 <div className={`ratio ratio-${attributes.imagesRatio}`}>
                                                     <img className={classNames('custom-border-radius')}
                                                          alt={getImage(contentImage, 'alt')}
-                                                         srcSet={`${getImage(contentImage, 'tiny')} 768w, ${getImage(contentImage, 'small')} 1360w`}
-                                                         src={getImage(contentImage, 'tiny')}
+                                                         srcSet={`${getImage(contentImage, 'tiny', 800)} 768w, ${getImage(contentImage, 'small', 800)} 1360w`}
+                                                         src={getImage(contentImage, 'tiny', 800)}
                                                     />
                                                 </div>
                                             </div>

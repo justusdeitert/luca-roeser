@@ -4,21 +4,18 @@ import {Button, RangeControl, FocalPointPicker, SelectControl, ToolbarGroup, Too
 import {MediaUpload, InspectorControls, BlockControls, useBlockProps} from '@wordpress/block-editor';
 import { useState, useEffect } from '@wordpress/element';
 import classNames from 'classnames';
-import {getImage, focalPositionInPixel} from '../utility';
+import {MobileSwitch, MobileSwitchInner} from '../utility';
 import {spacerIcon} from '../icons';
 
 registerBlockType('custom/spacer', {
     title: __('Spacer', 'sage'),
     icon: spacerIcon,
+    description: __('By default the mobile height of spacer block will be half the size of desktop', 'sage'),
     category: 'custom',
     attributes: {
         desktopHeight: {
             type: 'number',
             default: 50
-        },
-        customMobileHeight: {
-            type: 'boolean',
-            default: false
         },
         mobileHeight: {
             type: 'number',
@@ -34,13 +31,9 @@ registerBlockType('custom/spacer', {
         const onChangeDesktopHeight = (value) => {
             setAttributes({desktopHeight: value});
 
-            if (!attributes.customMobileHeight) {
+            if (attributes.mobileHeight * 2 === attributes.desktopHeight) {
                 setAttributes({mobileHeight: value / 2});
             }
-        };
-
-        const onChangeCustomMobileHeight = (value) => {
-            setAttributes({customMobileHeight: value});
         };
 
         const onChangeMobileHeight = (value) => {
@@ -57,7 +50,7 @@ registerBlockType('custom/spacer', {
             let newHeight = attributes.desktopHeight + delta.height;
             setAttributes({desktopHeight: newHeight});
 
-            if (!attributes.customMobileHeight) {
+            if (attributes.mobileHeight * 2 === attributes.desktopHeight) {
                 setAttributes({mobileHeight: newHeight / 2});
             }
         }
@@ -67,30 +60,29 @@ registerBlockType('custom/spacer', {
                 <InspectorControls>
                     <div className="inspector-controls-container">
                         <hr/>
-                        <p>{__('Desktop Height', 'sage')}</p>
-                        <RangeControl
-                            value={attributes.desktopHeight}
-                            min={minSpacerHeight}
-                            max={maxSpacerHeight}
-                            step={5}
-                            onChange={onChangeDesktopHeight}
-                        />
-                        <hr/>
-                        <ToggleControl
-                            label={__('Custom Mobile Height', 'sage')}
-                            checked={attributes.customMobileHeight}
-                            onChange={onChangeCustomMobileHeight}
-                        />
-                        <hr/>
-                        <p>{__('Mobile Height', 'sage')}</p>
-                        <RangeControl
-                            disabled={!attributes.customMobileHeight}
-                            value={attributes.customMobileHeight ? attributes.mobileHeight : attributes.desktopHeight / 2}
-                            min={minSpacerHeight}
-                            max={attributes.desktopHeight}
-                            step={5}
-                            onChange={onChangeMobileHeight}
-                        />
+                        <MobileSwitch headline={__('Height', 'sage')}>
+                            <MobileSwitchInner type={'desktop'}>
+                                <RangeControl
+                                    value={attributes.desktopHeight}
+                                    min={minSpacerHeight}
+                                    max={maxSpacerHeight}
+                                    step={5}
+                                    onChange={onChangeDesktopHeight}
+                                />
+                            </MobileSwitchInner>
+                            <MobileSwitchInner type={'mobile'}>
+                                <RangeControl
+                                    // disabled={!attributes.customMobileHeight}
+                                    value={attributes.mobileHeight}
+                                    min={minSpacerHeight}
+                                    max={attributes.desktopHeight}
+                                    step={5}
+                                    onChange={onChangeMobileHeight}
+                                    allowReset={true}
+                                    resetFallbackValue={attributes.desktopHeight / 2}
+                                />
+                            </MobileSwitchInner>
+                        </MobileSwitch>
                     </div>
                 </InspectorControls>
                 <ResizableBox

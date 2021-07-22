@@ -2,7 +2,6 @@
     &__images-wrapper {
         display: flex;
         flex-wrap: wrap;
-        //margin: -0.625rem;
         margin: calc(var(--custom-gutter-mobile-y) * -.3) calc(var(--custom-gutter-mobile-x) * -.3);
 
         > a, > div {

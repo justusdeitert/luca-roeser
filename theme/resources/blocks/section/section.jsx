@@ -24,29 +24,15 @@ const attributes = {
         type: 'number',
         default: 0,
     },
-    hasInnerWidth: {
-        type: 'boolean',
-        default: false,
-    },
+    // hasInnerWidth: {
+    //     type: 'boolean',
+    //     default: false,
+    // },
     innerWidth: {
         type: 'number',
-        default: 800,
+        default: 0,
     },
 };
-
-// const ALLOWEDBLOCKS = [
-//     'core/paragraph',
-//     'core/heading',
-//     'core/list',
-//     'core/shortcode',
-//     'core/spacer',
-//     'core/group',
-//     'custom/button',
-//     'custom/icon-text',
-//     'custom/row',
-//     'custom/divider',
-//     'custom/image'
-// ];
 
 registerBlockType('custom/section', {
     title: __('Section', 'sage'),
@@ -125,7 +111,11 @@ registerBlockType('custom/section', {
         };
 
         const onChangeSectionClipPath = (value) => {
-            setAttributes({sectionClipPath: value});
+            if (value !== attributes.sectionClipPath) {
+                setAttributes({sectionClipPath: value});
+            } else {
+                setAttributes({sectionClipPath: 'none'});
+            }
         };
 
         const onChangeSectionBorderRadius = (value) => {
@@ -166,41 +156,47 @@ registerBlockType('custom/section', {
                             clickFunction={onChangeSectionClipPath}
                             value={attributes.sectionClipPath}
                         />
-                        <hr/>
-                        <p>{__('Border Radius', 'sage')}</p>
-                        <RangeControl
-                            value={attributes.sectionBorderRadius}
-                            min={0}
-                            max={180}
-                            step={1}
-                            onChange={onChangeSectionBorderRadius}
-                        />
-                        <hr/>
-                        <ToggleControl
-                            label={__('Has Inner Width', 'sage')}
-                            checked={attributes.hasInnerWidth}
-                            onChange={onChangeHasInnerWidth}
-                        />
-                        {attributes.hasInnerWidth &&
-                            <>
-                                <hr/>
-                                <p>{__('Inner Width', 'sage')}</p>
-                                <RangeControl
-                                    value={attributes.innerWidth}
-                                    min={100}
-                                    max={1200}
-                                    step={10}
-                                    onChange={onChangeInnerWidth}
-                                />
-                            </>
+                        {attributes.sectionClipPath === 'none' &&
+                        <>
+                            <hr/>
+                            <p>{__('Border Radius', 'sage')}</p>
+                            <RangeControl
+                                value={attributes.sectionBorderRadius}
+                                min={0}
+                                max={180}
+                                step={1}
+                                onChange={onChangeSectionBorderRadius}
+                                allowReset={true}
+                                resetFallbackValue={0}
+                            />
+                        </>
                         }
+                        {/*<hr/>*/}
+                        {/*<ToggleControl*/}
+                        {/*    label={__('Has Inner Width', 'sage')}*/}
+                        {/*    checked={attributes.hasInnerWidth}*/}
+                        {/*    onChange={onChangeHasInnerWidth}*/}
+                        {/*/>*/}
+                        <>
+                            <hr/>
+                            <p>{__('Inner Width', 'sage')}</p>
+                            <RangeControl
+                                value={attributes.innerWidth}
+                                min={200}
+                                max={1200}
+                                step={10}
+                                onChange={onChangeInnerWidth}
+                                allowReset={true}
+                                resetFallbackValue={0}
+                            />
+                        </>
                     </div>
                 </InspectorControls>
                 <div {...blockProps}>
                     <section className={classNames(className, 'section-block', getColorObject(attributes.sectionBackgroundColor) && `has-${getColorObject(attributes.sectionBackgroundColor).slug}-background-color has-background`, 'custom-border-radius')}
                              style={{
                                  clipPath: clipPaths[attributes.sectionClipPath] ? `url(#clip-path-${attributes.clientId})` : 'none',
-                                 borderRadius: `${attributes.sectionBorderRadius}px`,
+                                 borderRadius: attributes.sectionClipPath === 'none' ? `${attributes.sectionBorderRadius}px` : 'none',
                              }}
                     >
 
@@ -208,7 +204,7 @@ registerBlockType('custom/section', {
                             clipPaths[attributes.sectionClipPath](`clip-path-${attributes.clientId}`)
                         }
 
-                        {attributes.hasInnerWidth ?
+                        {attributes.innerWidth ?
                             <div className="section-block__inner" style={{maxWidth: `${attributes.innerWidth}px`}}>
                                 <InnerBlocks templateLock={false} allowedBlocks={removeArrayItems(ALLOWEDBLOCKS, ['custom/section'])}/>
                             </div>
@@ -227,7 +223,7 @@ registerBlockType('custom/section', {
             <section className={classNames(className, 'section-block', getColorObject(attributes.sectionBackgroundColor) && `has-${getColorObject(attributes.sectionBackgroundColor).slug}-background-color has-background`, 'custom-border-radius')}
                      style={{
                          clipPath: attributes.sectionClipPath !== 'none' ? `url(#clip-path-${attributes.clientId})` : 'none',
-                         borderRadius: `${attributes.sectionBorderRadius}px`,
+                         borderRadius: attributes.sectionClipPath === 'none' ? `${attributes.sectionBorderRadius}px` : 'none',
                      }}
             >
 
@@ -235,7 +231,7 @@ registerBlockType('custom/section', {
                     clipPaths[attributes.sectionClipPath](`clip-path-${attributes.clientId}`)
                 }
 
-                {attributes.hasInnerWidth ?
+                {attributes.innerWidth ?
                     <div className="section-block__inner" style={{maxWidth: `${attributes.innerWidth}px`}}>
                         <InnerBlocks.Content/>
                     </div>

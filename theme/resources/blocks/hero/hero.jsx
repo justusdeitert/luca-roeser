@@ -387,7 +387,7 @@ registerBlockType('custom/hero', {
                         {/*<hr/>*/}
                         <div style={{height: '20px'}}/>
                         <p>{__('Text Position', 'sage')}</p>
-                        <Button className={'button'}
+                        <Button className={'is-secondary'}
                                 onClick={setBackTextPosition}
                                 style={{marginBottom: '20px'}}
                                 text={__('Default Position', 'sage')}

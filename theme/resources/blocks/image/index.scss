@@ -1,24 +1,5 @@
-//.image-block {
-    //display: flex;
-
-    //&__wrapper {
-    //    position: relative;
-    //}
-//}
-
-/**
- * Only Editor Style
- */
-
-//[data-type="custom/image"] {
-//    &.is-selected {
-//        img {
-//            box-shadow: 0 0 0 var(--wp-admin-border-width-focus) #fff;
-//            border-radius: 2px;
-//        }
-//
-//        &:after {
-//            display: none;
-//        }
-//    }
-//}
+.image-block {
+    img {
+        object-fit: cover;
+    }
+}

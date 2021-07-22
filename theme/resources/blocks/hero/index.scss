@@ -49,24 +49,20 @@
     }
 
     &:not(.full-height) {
-
-        /*
-         * Fluid Height Implementation
-         */
-        $min-height: var(--hero-height-mobile);
-        $max-height: var(--hero-height-desktop);
-        $min-max-height: var(--hero-min-max-height);
+        $min-value: var(--hero-height-mobile);
+        $max-value: var(--hero-height-desktop);
+        $min-max-value: var(--hero-min-max-height);
         $min-vw: map-get($grid-breakpoints, xs);
         $max-vw: map-get($grid-breakpoints, xxl);
 
-        min-height: #{$min-height};
+        min-height: #{$min-value};
 
         @media screen and (min-width: $min-vw) {
-            min-height: calc(#{$min-height} + #{$min-max-height} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
+            min-height: calc(#{$min-value} + #{$min-max-value} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
         }
 
         @media screen and (min-width: $max-vw) {
-            min-height: #{$max-height};
+            min-height: #{$max-value};
         }
     }
 }

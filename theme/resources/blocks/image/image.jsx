@@ -1,6 +1,6 @@
 import {__} from '@wordpress/i18n';
 import {registerBlockType} from '@wordpress/blocks';
-import {Button, RangeControl, FocalPointPicker, SelectControl, ToolbarGroup, ToolbarDropdownMenu} from '@wordpress/components';
+import {ToggleControl, Button, RangeControl, FocalPointPicker, SelectControl, ToolbarGroup, ToolbarDropdownMenu, __experimentalRadio as Radio, __experimentalRadioGroup as RadioGroup} from '@wordpress/components';
 import {MediaUpload, InspectorControls, BlockControls, useBlockProps} from '@wordpress/block-editor';
 import classNames from 'classnames';
 import {getImage, focalPositionInPixel} from '../utility';
@@ -22,6 +22,14 @@ registerBlockType('custom/image', {
         imageObject: {
             type: 'object',
             default: ''
+        },
+        hasRatio: {
+            type: 'boolean',
+            default: false,
+        },
+        imagesRatio: {
+            type: 'string',
+            default: '3x2',
         },
         imageSizeUnit: {
             type: 'string',
@@ -50,7 +58,19 @@ registerBlockType('custom/image', {
             setAttributes({imageObject: imageObject});
         };
 
+        const onChangeImagesRatio = (value) => {
+            setAttributes({imageRatio: value});
+        }
+
+        const onChangeHasRatio = (value) => {
+            setAttributes({hasRatio: value});
+        }
+
         const onChangeImageSizeUnit = (value) => {
+            if (value === '%' && attributes.imageSize > 100) {
+                setAttributes({imageSize: 100});
+            }
+
             setAttributes({imageSizeUnit: value});
         };
 
@@ -99,9 +119,10 @@ registerBlockType('custom/image', {
         //     position: attributes.imagePositioning,
         //     transform: `translate(${focalPositionInPixel(attributes.imagePosition.x, attributes.imagePositionUnit)}, ${focalPositionInPixel(attributes.imagePosition.y, attributes.imagePositionUnit)})`,
         // };
+        // <div className={`ratio ratio-${attributes.imagesRatio}`}>
 
         const blockProps = useBlockProps({
-            className: classNames(className, 'image-block', `align-${attributes.imageAlignment}`),
+            className: classNames(className, 'image-block', `align-${attributes.imageAlignment}`, attributes.hasRatio && `ratio ratio-${attributes.imagesRatio}`),
             style: {
                 marginTop: 0,
                 marginBottom: 0,
@@ -141,16 +162,38 @@ registerBlockType('custom/image', {
                 <InspectorControls>
                     <div className="inspector-controls-container">
                         <hr/>
-                        <p>{__('Size Unit', 'sage')}</p>
-                        <SelectControl
-                            // label={__('Horizontal', 'sage')}
-                            value={attributes.imageSizeUnit}
-                            options={[
-                                {label: __('Pixel', 'sage'), value: 'px'},
-                                {label: __('Percent', 'sage'), value: '%'},
-                            ]}
-                            onChange={onChangeImageSizeUnit}
+                        <ToggleControl
+                            label={__('Image has Ratio', 'sage')}
+                            checked={attributes.hasRatio}
+                            onChange={onChangeHasRatio}
                         />
+                        {attributes.hasRatio &&
+                        <>
+                            <hr/>
+                            <p>{__('Images Ratio', 'sage')}</p>
+                            <RadioGroup
+                                onChange={onChangeImagesRatio}
+                                checked={attributes.imagesRatio}
+                                defaultChecked={'3x2'}
+                            >
+                                <Radio value="1x1">{__('1x1', 'sage')}</Radio>
+                                <Radio value="4x3">{__('4x3', 'sage')}</Radio>
+                                <Radio value="3x2">{__('3x2', 'sage')}</Radio>
+                                <Radio value="16x9">{__('16x9', 'sage')}</Radio>
+                                <Radio value="21x9">{__('21x9', 'sage')}</Radio>
+                            </RadioGroup>
+                        </>
+                        }
+                        <hr/>
+                        <p>{__('Size Unit', 'sage')}</p>
+                        <RadioGroup
+                            onChange={onChangeImageSizeUnit}
+                            checked={attributes.imageSizeUnit}
+                            defaultChecked={"px"}
+                        >
+                            <Radio value="px">{__('Pixel', 'sage')}</Radio>
+                            <Radio value="%">{__('%', 'sage')}</Radio>
+                        </RadioGroup>
                         <hr/>
                         <p>{__('Size', 'sage')}</p>
                         <RangeControl
@@ -162,31 +205,48 @@ registerBlockType('custom/image', {
                         />
                         <hr/>
                         <p>{__('Positioning', 'sage')}</p>
-                        <SelectControl
+                        {/*<SelectControl
                             value={attributes.imagePositioning}
                             options={[
                                 {label: __('Static', 'sage'), value: 'static'},
                                 {label: __('Absolute', 'sage'), value: 'absolute'},
                             ]}
                             onChange={onChangeImagePositioning}
-                        />
-                        <hr/>
-                        <p>{__('Position Unit', 'sage')}</p>
-                        <SelectControl
+                        />*/}
+                        <RadioGroup
+                            onChange={onChangeImagePositioning}
+                            checked={attributes.imagePositioning}
+                            defaultChecked={"static"}
+                        >
+                            <Radio value="static">{__('Static', 'sage')}</Radio>
+                            <Radio value="absolute">{__('Absolute', 'sage')}</Radio>
+                        </RadioGroup>
+                        {/*<SelectControl
                             value={attributes.imagePositionUnit}
                             options={[
                                 {label: __('Pixel', 'sage'), value: 'px'},
                                 {label: __('Percent', 'sage'), value: '%'},
                             ]}
                             onChange={onChangeImagePositionUnit}
-                        />
+                        />*/}
                         <hr/>
                         <p>{__('Position', 'sage')}</p>
-                        <Button className={'button'}
+                        <div style={{display: 'flex', marginBottom: '20px'}}>
+                            <RadioGroup
+                                onChange={onChangeImagePositionUnit}
+                                checked={attributes.imagePositionUnit}
+                                defaultChecked={"px"}
+                            >
+                                <Radio value="px">{__('Pixel', 'sage')}</Radio>
+                                <Radio value="%">{__('%', 'sage')}</Radio>
+                            </RadioGroup>
+                            <Button
+                                className={'is-secondary'}
                                 onClick={setBackImagePosition}
-                                style={{marginBottom: '20px'}}
-                                text={__('Default Position', 'sage')}
-                        />
+                                text={__('Reset', 'sage')}
+                                style={{marginLeft: '10px'}}
+                            />
+                        </div>
                         <FocalPointPicker
                             className={'no-picker-controls'}
                             value={attributes.imagePosition}
@@ -195,32 +255,8 @@ registerBlockType('custom/image', {
                         />
                     </div>
                 </InspectorControls>
-                <div {...blockProps}>
-                    {/*<div className="image-block__wrapper">*/}
-                        <MediaUpload
-                            onSelect={onSelectImage}
-                            allowedTypes={['image']}
-                            // value={attributes.mediaID}
-                            // render={({open}) => (
-                            //     <Button variant="primary" className={'is-secondary'} onClick={open}>
-                            //         {!attributes.imageObject ? __('Upload Image', 'sage') : __('Change Image', 'sage')}
-                            //     </Button>
-                            // )}
-                            render={({open}) => (
-                                <Button
-                                    className={'button'}
-                                    onClick={open}
-                                    icon={'format-image'}
-                                    isSmall={true}
-                                    style={{
-                                        position: 'absolute',
-                                        right: '10px',
-                                        bottom: '10px',
-                                        zIndex: '10'
-                                    }}
-                                />
-                            )}
-                        />
+                <div style={{position: 'relative'}}>
+                    <div {...blockProps}>
                         {attributes.imageObject.mime !== 'image/svg+xml' ?
                             <img alt={getImage(attributes.imageObject, 'alt')}
                                  srcSet={`${getImage(attributes.imageObject, 'tiny', 400)} 768w, ${getImage(attributes.imageObject, 'small', 400)} 1360w`}
@@ -232,21 +268,34 @@ registerBlockType('custom/image', {
                                  style={{width: '100%'}}
                             />
                         }
-                    {/*</div>*/}
+                    </div>
+                    <MediaUpload
+                        onSelect={onSelectImage}
+                        allowedTypes={['image']}
+                        render={({open}) => (
+                            <Button
+                                className={'button'}
+                                onClick={open}
+                                icon={'format-image'}
+                                isSmall={true}
+                                style={{
+                                    position: 'absolute',
+                                    right: '10px',
+                                    bottom: '10px',
+                                    zIndex: '10'
+                                }}
+                            />
+                        )}
+                    />
                 </div>
+
             </>
         );
     },
     save: ({className, attributes}) => {
 
-        // const imageStyle = {
-        //     width: `${attributes.imageSize + attributes.imageSizeUnit}`,
-        //     position: attributes.imagePositioning,
-        //     transform: `translate(${focalPositionInPixel(attributes.imagePosition.x, attributes.imagePositionUnit)}, ${focalPositionInPixel(attributes.imagePosition.y, attributes.imagePositionUnit)})`,
-        // };
-
         const blockProps = useBlockProps.save({
-            className: classNames(className, 'image-block', `align-${attributes.imageAlignment}`),
+            className: classNames(className, 'image-block', `align-${attributes.imageAlignment}`, attributes.hasRatio && `ratio ratio-${attributes.imagesRatio}`),
             style: {
                 width: `${attributes.imageSize + attributes.imageSizeUnit}`,
                 position: attributes.imagePositioning,

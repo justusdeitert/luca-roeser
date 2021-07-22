@@ -194,6 +194,12 @@ img {
     padding-left: var(--container-padding-mobile);
     padding-right: var(--container-padding-mobile);
 
+    @include media-breakpoint-up(md) {
+        max-width: calc(var(--max-container-width) + (var(--container-padding-desktop) * 2));
+        padding-left: var(--container-padding-desktop);
+        padding-right: var(--container-padding-desktop);
+    }
+
     @include media-breakpoint-up(sm) {
         max-width: calc(var(--max-container-width) + (var(--container-padding-desktop) * 2));
         padding-left: var(--container-padding-desktop);

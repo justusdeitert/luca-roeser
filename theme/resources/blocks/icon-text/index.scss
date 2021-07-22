@@ -1,4 +1,6 @@
 .icon-text-block {
+    margin-bottom: 2rem;
+
     &__inner {
         display: flex;
         margin-bottom: 1rem;
@@ -6,7 +8,7 @@
 
     &__text {
         margin-left: 1rem;
-        width: 100%;
+        //width: 100%;
 
         *:last-child {
             margin: 0;
@@ -28,6 +30,24 @@
                     margin-left: 0 !important;
                 }
             }
+        }
+    }
+
+    img {
+        $min-value: var(--icon-text-height-mobile);
+        $max-value: var(--icon-text-height-desktop);
+        $min-max-value: var(--icon-text-min-max-height);
+        $min-vw: map-get($grid-breakpoints, xs);
+        $max-vw: map-get($grid-breakpoints, xxl);
+
+        height: #{$min-value};
+
+        @media screen and (min-width: $min-vw) {
+            height: calc(#{$min-value} + #{$min-max-value} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
+        }
+
+        @media screen and (min-width: $max-vw) {
+            height: #{$max-value};
         }
     }
 }

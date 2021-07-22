@@ -27,22 +27,22 @@ const attributes = {
         type: 'string',
         default: 'p'
     },
-    minFontSize: {
+    fontSizeMobile: {
         type: 'number',
         default: 16
     },
-    minWindowSize: {
-        type: 'number',
-        default: 320
-    },
-    maxFontSize: {
+    fontSizeDesktop: {
         type: 'number',
         default: 50
     },
-    maxWindowSize: {
-        type: 'number',
-        default: 1400
-    }
+    // minWindowSize: {
+    //     type: 'number',
+    //     default: 320
+    // },
+    // maxWindowSize: {
+    //     type: 'number',
+    //     default: 1400
+    // }
 }
 
 registerBlockType('custom/fluid-text', {
@@ -64,29 +64,23 @@ registerBlockType('custom/fluid-text', {
             setAttributes({textAlign: value});
         };
 
-        const onChangeMinFontSize = (value) => {
-            setAttributes({minFontSize: value});
+        const onChangeFontSizeMobile = (value) => {
+            setAttributes({fontSizeMobile: value});
         };
 
-        const onChangeMinWindowSize = (value) => {
-            setAttributes({minWindowSize: value});
+        // const onChangeMinWindowSize = (value) => {
+        //     setAttributes({minWindowSize: value});
+        // };
+
+        const onChangeFontSizeDesktop = (value) => {
+            setAttributes({fontSizeDesktop: value});
         };
 
-        const onChangeMaxFontSize = (value) => {
-            setAttributes({maxFontSize: value});
-        };
-
-        const onChangeMaxWindowSize = (value) => {
-            setAttributes({maxWindowSize: value});
-        };
+        // const onChangeMaxWindowSize = (value) => {
+        //     setAttributes({maxWindowSize: value});
+        // };
 
         attributes.clientId = clientId;
-
-        const units = [
-            { value: 'px', label: 'px', default: 0 },
-            { value: '%', label: '%', default: 10 },
-            { value: 'em', label: 'em', default: 0 },
-        ];
 
         return (
             <>
@@ -116,68 +110,71 @@ registerBlockType('custom/fluid-text', {
                             onChange={onChangeFluidTextElement}
                         />
                         <hr/>
-                        <MobileSwitch>
+                        <MobileSwitch headline={__('Font Size', 'sage')}>
                             <MobileSwitchInner type={'desktop'}>
-                                <p>{__('Max Font Size', 'sage')}</p>
+                                {/*<p>{__('Max Font Size', 'sage')}</p>*/}
                                 <RangeControl
-                                    value={attributes.maxFontSize}
-                                    min={attributes.minFontSize}
+                                    value={attributes.fontSizeDesktop}
+                                    min={attributes.fontSizeMobile}
                                     max={120}
                                     step={1}
-                                    onChange={onChangeMaxFontSize}
+                                    onChange={onChangeFontSizeDesktop}
                                 />
-                                <p>{__('Max Window Size', 'sage')}</p>
+                                {/*<p>{__('Max Window Size', 'sage')}</p>
                                 <RangeControl
                                     value={attributes.maxWindowSize}
                                     min={attributes.minWindowSize}
                                     max={1400}
                                     step={10}
                                     onChange={onChangeMaxWindowSize}
-                                />
+                                />*/}
                             </MobileSwitchInner>
                             <MobileSwitchInner type={'mobile'}>
-                                <p>{__('Min Font Size', 'sage')}</p>
+                                {/*<p>{__('Min Font Size', 'sage')}</p>*/}
                                 <RangeControl
-                                    value={attributes.minFontSize}
+                                    value={attributes.fontSizeMobile}
                                     min={12}
                                     max={60}
                                     step={1}
-                                    // allowReset={true}
-                                    // resetFallbackValue={'18'}
-                                    onChange={onChangeMinFontSize}
+                                    onChange={onChangeFontSizeMobile}
                                 />
-                                <p>{__('Min Window Size', 'sage')}</p>
+                                {/*<p>{__('Min Window Size', 'sage')}</p>
                                 <RangeControl
                                     value={attributes.minWindowSize}
                                     min={320}
                                     max={1400}
                                     step={10}
                                     onChange={onChangeMinWindowSize}
-                                />
+                                />*/}
                             </MobileSwitchInner>
                         </MobileSwitch>
                     </div>
                 </InspectorControls>
-                <style>{`
+                {/*<style>{`
                     .fluid-text-${attributes.clientId} {
-                         font-size: ${attributes.minFontSize}px !important;
+                         font-size: ${attributes.fontSizeMobile}px !important;
                     }
 
-                    @media only screen and (min-width: 320px) {
+                    @media only screen and (min-width: ${attributes.minWindowSize}px) {
                         .fluid-text-${attributes.clientId} {
-                            font-size: calc(${attributes.minFontSize}px + ${attributes.maxFontSize - attributes.minFontSize} * ((100vw - ${320}px) / ${1400 - 320})) !important;
+                            font-size: calc(${attributes.fontSizeMobile}px + ${attributes.fontSizeDesktop - attributes.fontSizeMobile} * ((100vw - ${attributes.minWindowSize}px) / ${attributes.maxWindowSize - attributes.minWindowSize})) !important;
                         }
                     }
 
-                    @media only screen and (min-width: 1400px) {
+                    @media only screen and (min-width: ${attributes.maxWindowSize}px) {
                         .fluid-text-${attributes.clientId} {
-                              font-size: ${attributes.maxFontSize}px !important;
+                              font-size: ${attributes.fontSizeDesktop}px !important;
                         }
                     }
-                `}</style>
+                `}</style>*/}
                 <RichText
                     tagName={attributes.fluidTextElement}
-                    className={classNames(`has-text-align-${attributes.textAlign}`, `fluid-text-${attributes.clientId}`)}
+                    className={classNames('fluid-text-block', `has-text-align-${attributes.textAlign}`, `fluid-text-${attributes.clientId}`)}
+                    style={{
+                        '--fluid-text-size-desktop': `${attributes.fontSizeDesktop}px`,
+                        '--fluid-text-size-mobile': `${attributes.fontSizeMobile}px`,
+                        '--fluid-text-desktop-mobile': `${attributes.fontSizeDesktop - attributes.fontSizeMobile}`,
+                    }}
                     placeholder={'Lorem Ipsum'}
                     onRemove={() => removeBlock(clientId)}
                     value={attributes.fluidText}
@@ -191,27 +188,15 @@ registerBlockType('custom/fluid-text', {
     save: ({attributes, className}) => {
         return (
             <>
-                <style>{`
-                    .fluid-text-${attributes.clientId} {
-                         font-size: ${attributes.minFontSize}px !important;
-                    }
-
-                    @media only screen and (min-width: ${attributes.minWindowSize}px) {
-                        .fluid-text-${attributes.clientId} {
-                            font-size: calc(${attributes.minFontSize}px + ${attributes.maxFontSize - attributes.minFontSize} * ((100vw - ${attributes.minWindowSize}px) / ${attributes.maxWindowSize - attributes.minWindowSize})) !important;
-                        }
-                    }
-
-                    @media only screen and (min-width: ${attributes.maxWindowSize}px) {
-                        .fluid-text-${attributes.clientId} {
-                              font-size: ${attributes.maxFontSize}px !important;
-                        }
-                    }
-                `}</style>
                 <RichText.Content
                     tagName={attributes.fluidTextElement}
-                    className={classNames(`has-text-align-${attributes.textAlign}`, `fluid-text-${attributes.clientId}`)}
+                    className={classNames('fluid-text-block', `has-text-align-${attributes.textAlign}`, `fluid-text-${attributes.clientId}`)}
                     value={attributes.fluidText}
+                    style={{
+                        '--fluid-text-size-desktop': `${attributes.fontSizeDesktop}px`,
+                        '--fluid-text-size-mobile': `${attributes.fontSizeMobile}px`,
+                        '--fluid-text-desktop-mobile': `${attributes.fontSizeDesktop - attributes.fontSizeMobile}`,
+                    }}
                 />
             </>
         );

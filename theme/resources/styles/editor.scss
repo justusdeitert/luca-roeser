@@ -103,10 +103,14 @@ html {
     }
 }
 
-.components-focal-point-picker-control {
-    &.no-picker-controls {
-        .focal-point-picker__controls {
-            display: none;
+.components-focal-point-picker {
+    width: 100%;
+
+    &-control {
+        &.no-picker-controls {
+            .focal-point-picker__controls {
+                // display: none;
+            }
         }
     }
 }
@@ -164,10 +168,6 @@ h1, h2, h3, h4, h5, h6 {
     &__gradient-bar, &__control-point-button {
         border: 1px dashed var(--wp-admin-theme-color) !important;
     }
-}
-
-.components-focal-point-picker {
-    width: 100%;
 }
 
 .components-circular-option-picker {
