@@ -3,7 +3,7 @@ import {registerBlockType} from '@wordpress/blocks';
 import {RangeControl, Button, ToggleControl, SelectControl, PanelBody, ColorPalette, FocalPointPicker, __experimentalAlignmentMatrixControl as AlignmentMatrixControl} from '@wordpress/components';
 import {MediaUpload, InspectorControls, InnerBlocks, useBlockProps, __experimentalColorGradientControl as ColorGradientControl, __experimentalGradientPicker as GradientPicker} from '@wordpress/block-editor';
 import classNames from 'classnames';
-import {editorThemeColors, getImage, focalPositionInPixel, getColorObject, ALLOWEDBLOCKS, removeArrayItems, SelectClipPath} from "../utility";
+import {editorThemeColors, getImage, focalPositionInPixel, getColorObject, ALLOWEDBLOCKS, removeArrayItems, SelectClipPath, MobileSwitch, MobileSwitchInner} from "../utility";
 import * as clipPaths from "../clip-paths"
 import {heroIcon} from "../icons";
 
@@ -57,7 +57,7 @@ const attributes = {
     // },
     heroBackgroundOverlayGradient: {
         type: 'string',
-        default: 'linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.5) 100%)'
+        default: 'linear-gradient(0deg,rgba(0,0,0,0.) 0%,rgba(0,0,0,0) 100%)'
     },
     heroBackgroundOverlayGradientPosition: {
         type: 'string',
@@ -92,17 +92,6 @@ const attributes = {
     },
 }
 
-// const getOverlayColor = (overlayColor) => {
-//     switch (overlayColor) {
-//         case 'light':
-//             return `radial-gradient(at center top, rgba(255, 255, 255, 0.8) 20%, rgba(255, 255, 255, 0) 80%)`
-//         case 'dark':
-//             return `radial-gradient(at center top, rgba(0, 0, 0, 0.5) 20%, rgba(0, 0, 0, 0) 80%)`
-//         default:
-//             return `radial-gradient(at center top, rgba(255, 255, 255, 0.5) 20%, rgba(255, 255, 255, 0) 80%)`
-//     }
-// }
-
 // For not firing update to often
 let onChangeTextPositionTimeout = true;
 
@@ -110,6 +99,7 @@ let onChangeTextPositionTimeout = true;
  * Adds Position to Radial Gradient String
  * @param value
  * @param position
+ * @param defaultGradient
  * @returns {*}
  */
 const adjustOverlayPosition = (value, position) => {
@@ -167,7 +157,9 @@ registerBlockType('custom/hero', {
         };
 
         const onChangeHeroBackgroundOverlayGradient = (value) => {
-            setAttributes({heroBackgroundOverlayGradient: value});
+            if (value) {
+                setAttributes({heroBackgroundOverlayGradient: value});
+            }
         };
 
         const onChangeHeroBackgroundOverlayGradientPosition = (value) => {
@@ -252,23 +244,26 @@ registerBlockType('custom/hero', {
                         {!attributes.heroFullHeight &&
                             <>
                                 <hr/>
-                                <p>{__('Hero Height', 'sage')}</p>
-                                <RangeControl
-                                    value={attributes.heroHeight}
-                                    min={attributes.heroMobileHeight}
-                                    max={1000}
-                                    step={10}
-                                    onChange={onChangeHeroHeight}
-                                />
-                                <hr/>
-                                <p>{__('Mobile Hero Height', 'sage')}</p>
-                                <RangeControl
-                                    value={attributes.heroMobileHeight}
-                                    min={200}
-                                    max={700}
-                                    step={10}
-                                    onChange={onChangeHeroMobileHeight}
-                                />
+                                <MobileSwitch headline={__('Hero Height', 'sage')}>
+                                    <MobileSwitchInner type={'desktop'}>
+                                        <RangeControl
+                                            value={attributes.heroHeight}
+                                            min={attributes.heroMobileHeight}
+                                            max={1000}
+                                            step={10}
+                                            onChange={onChangeHeroHeight}
+                                        />
+                                    </MobileSwitchInner>
+                                    <MobileSwitchInner type={'mobile'}>
+                                        <RangeControl
+                                            value={attributes.heroMobileHeight}
+                                            min={200}
+                                            max={700}
+                                            step={10}
+                                            onChange={onChangeHeroMobileHeight}
+                                        />
+                                    </MobileSwitchInner>
+                                </MobileSwitch>
                             </>
                         }
                         <hr/>
@@ -282,7 +277,7 @@ registerBlockType('custom/hero', {
                         {/*<p>{__('Hero Background Color', 'sage')}</p>
                         <ColorGradientControl
                             colorValue={attributes.heroBackgroundColor}
-                            gradientValue={attributes.heroBackgroundGradient}
+                            gradientValue={attributes.heroBackgroundOverlayGradient}
                             colors={editorThemeColors}
                             gradients={[
                                 {
@@ -302,9 +297,8 @@ registerBlockType('custom/hero', {
                                 },
                             ]}
                             onColorChange={onChangeHeroBackgroundColor}
-                            onGradientChange={onChangeHeroBackgroundGradient}
-                        />
-                        */}
+                            onGradientChange={onChangeHeroBackgroundOverlayGradient}
+                        />*/}
                         {(attributes.heroImage || attributes.heroBackgroundColor) &&
                         <>
                             <hr/>
@@ -331,22 +325,22 @@ registerBlockType('custom/hero', {
                                 gradients={[
                                     {
                                         name: 'Dark Radial',
-                                        gradient: 'radial-gradient(rgba(0,0,0,0.5) 0%,rgba(0,0,0,0) 100%)',
+                                        gradient: 'radial-gradient(rgba(0,0,0,0.3) 0%,rgba(0,0,0,0) 100%)',
                                         slug: 'dark-radial',
                                     },
                                     {
                                         name: 'Dark Linear',
-                                        gradient: 'linear-gradient(90deg,rgba(0,0,0,0.5) 0%,rgba(0,0,0,0) 100%)',
+                                        gradient: 'linear-gradient(0deg,rgba(0,0,0,0.3) 0%,rgba(0,0,0,0) 100%)',
                                         slug: 'dark-linear',
                                     },
                                     {
                                         name: 'Light Radial',
-                                        gradient: 'radial-gradient(rgba(255,255,255,0.5) 0%,rgba(255,255,255,0) 100%)',
+                                        gradient: 'radial-gradient(rgba(255,255,255,0.3) 0%,rgba(255,255,255,0) 100%)',
                                         slug: 'dark-radial',
                                     },
                                     {
                                         name: 'Light Linear',
-                                        gradient: 'linear-gradient(90deg,rgba(255,255,255,0.5) 0%,rgba(255,255,255,0) 100%)',
+                                        gradient: 'linear-gradient(0deg,rgba(255,255,255,0.5) 0%,rgba(255,255,255,0) 100%)',
                                         slug: 'dark-radial',
                                     },
                                 ]}
@@ -366,7 +360,7 @@ registerBlockType('custom/hero', {
                     </PanelBody>
                     {attributes.heroImage &&
                         <PanelBody title={__('Background Image', 'sage')} initialOpen={false}>
-                            <hr/>
+                            <div style={{height: '20px'}}/>
                             <p>{__('Image Blur', 'sage')}</p>
                             <RangeControl
                                 value={attributes.heroImageBlur}
@@ -392,7 +386,8 @@ registerBlockType('custom/hero', {
                         </PanelBody>
                     }
                     <PanelBody title={__('Text Properties', 'sage')} initialOpen={false}>
-                        <hr/>
+                        {/*<hr/>*/}
+                        <div style={{height: '20px'}}/>
                         <p>{__('Text Position', 'sage')}</p>
                         <Button className={'button'}
                                 onClick={setBackTextPosition}
@@ -404,6 +399,10 @@ registerBlockType('custom/hero', {
                             value={attributes.textPosition}
                             onChange={onChangeTextPosition}
                             onDrag={onChangeTextPosition}
+                            // dimensions={{
+                            //     width: 400,
+                            //     height: 100,
+                            // }}
                         />
                     </PanelBody>
                 </InspectorControls>

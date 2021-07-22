@@ -1,6 +1,7 @@
 import {__} from '@wordpress/i18n';
 import {getColorObjectByColorValue} from '@wordpress/block-editor';
 import {select, dispatch, useSelect} from "@wordpress/data";
+import {useState, cloneElement} from "@wordpress/element";
 import {Button} from '@wordpress/components';
 import classNames from 'classnames';
 
@@ -322,3 +323,67 @@ export const loremIpsum = 'Lorem ipsum dolor sit amet, consectetur adipiscing el
 export const removeBlock = (clientId) => {
     dispatch('core/block-editor').removeBlock(clientId);
 }
+
+
+/**
+ * Implements Mobile Switch & Children
+ * @param props
+ * @returns {JSX.Element}
+ * @constructor
+ */
+export const MobileSwitch = (props) => {
+
+    const [activeTab, setActiveTab] = useState('desktop');
+
+    let Buttons = props.children.map((element, index) => {
+
+        let buttonProps = {
+            key: index,
+            isSmall: true,
+            style: {
+                marginLeft: '5px'
+            },
+            onClick: () => setActiveTab(element.props.type),
+            isPressed: activeTab === element.props.type
+        }
+
+        switch (element.props.type) {
+            case 'desktop':
+                return <Button {...buttonProps} icon={'laptop'} />
+            case 'tablet':
+                return <Button {...buttonProps} icon={'tablet'} />
+            case 'mobile':
+                return <Button {...buttonProps} icon={'smartphone'} />
+            default:
+                return false
+        }
+    });
+
+    let Children = props.children.map((child, index) => {
+        if (child.type.name === 'MobileSwitchInner') {
+            return cloneElement(child, {
+                key: index,
+                isActive: (activeTab === child.props.type)
+            });
+        }
+    });
+
+    return (
+        <div className={'mobile-switch'}>
+            <div className="mobile-switch__headline-wrapper" style={{display: 'flex', marginBottom: '5px'}}>
+                <p className={'mobile-switch__headline'} style={{marginRight: 'auto'}}>{props.headline}</p>
+                {Buttons}
+            </div>
+            {Children}
+        </div>
+    )
+}
+
+export const MobileSwitchInner = (props) => {
+    return (
+        <div className={classNames('mobile-switch__inner')} style={{display: props.isActive ? 'block' : 'none'}}>
+            {props.children}
+        </div>
+    )
+}
+
