@@ -1,6 +1,6 @@
 import {__} from '@wordpress/i18n';
 import {registerBlockType} from '@wordpress/blocks';
-import {SelectControl, ToolbarGroup, ToolbarDropdownMenu, ToolbarButton, Popover, Dropdown, __experimentalRadio as Radio, __experimentalRadioGroup as RadioGroup} from '@wordpress/components';
+import {SelectControl, ToolbarGroup, ToolbarDropdownMenu, ToolbarButton, Popover, Dropdown, __experimentalRadio as Radio, __experimentalRadioGroup as RadioGroup, RangeControl} from '@wordpress/components';
 import {BlockControls, InspectorControls, RichText, __experimentalLinkControl as LinkControl, useBlockProps, ColorPalette} from '@wordpress/block-editor';
 import classNames from 'classnames';
 import {buttonIcon} from '../icons';
@@ -29,6 +29,10 @@ const attributes = {
             opensInNewTab: false,
             nofollow: false
         }
+    },
+    customBorderRadius: {
+        type: 'number',
+        default: 0
     },
 };
 
@@ -65,16 +69,26 @@ registerBlockType('custom/button', {
             setAttributes({buttonLink: value});
         };
 
+        const onChangeCustomBorderRadius = (value) => {
+            setAttributes({customBorderRadius: value});
+        };
+
+        let customStyles = {
+            marginLeft: 0,
+            marginRight: 0
+        };
+
+        if (attributes.customBorderRadius) {
+            customStyles.borderRadius = attributes.customBorderRadius;
+        }
+
         const blockProps = useBlockProps({
             className: classNames(
                 'btn',
                 `btn-${attributes.buttonStyle}`,
                 attributes.buttonSize && `btn-${attributes.buttonSize}`
             ),
-            style: {
-                marginLeft: 0,
-                marginRight: 0
-            }
+            style: customStyles
         });
 
         return (
@@ -155,6 +169,17 @@ registerBlockType('custom/button', {
                             <Radio value={false}>{__('Normal')}</Radio>
                             <Radio value="lg">{__('Large')}</Radio>
                         </RadioGroup>
+                        <hr/>
+                        <p>{__('Border Radius', 'sage')}</p>
+                        <RangeControl
+                            value={attributes.customBorderRadius}
+                            min={0}
+                            max={50}
+                            step={1}
+                            onChange={onChangeCustomBorderRadius}
+                            allowReset={true}
+                            resetFallbackValue={0}
+                        />
                     </div>
                 </InspectorControls>
                 <div className={classNames('button-block', `justify-content-${attributes.buttonAlignment}`)}>
