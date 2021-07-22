@@ -1,7 +1,7 @@
 import {__} from '@wordpress/i18n';
 import {registerBlockType} from '@wordpress/blocks';
 import {RangeControl, Button, ToggleControl, SelectControl, PanelBody, ColorPalette, FocalPointPicker, __experimentalAlignmentMatrixControl as AlignmentMatrixControl} from '@wordpress/components';
-import {MediaUpload, InspectorControls, InnerBlocks, useBlockProps, __experimentalColorGradientControl as ColorGradientControl} from '@wordpress/block-editor';
+import {MediaUpload, InspectorControls, InnerBlocks, useBlockProps, __experimentalColorGradientControl as ColorGradientControl, __experimentalGradientPicker as GradientPicker} from '@wordpress/block-editor';
 import classNames from 'classnames';
 import {editorThemeColors, getImage, focalPositionInPixel, getColorObject, ALLOWEDBLOCKS, removeArrayItems, SelectClipPath} from "../utility";
 import * as clipPaths from "../clip-paths"
@@ -43,15 +43,26 @@ const attributes = {
         type: 'string',
         default: ''
     },
+    // heroBackgroundGradient: {
+    //     type: 'string',
+    //     default: ''
+    // },
     heroBackgroundHasOverlay: {
         type: 'boolean',
         default: false,
     },
-    heroBackgroundOverlayColor: {
+    // heroBackgroundOverlayColor: {
+    //     type: 'string',
+    //     default: 'light'
+    // },
+    heroBackgroundOverlayGradient: {
         type: 'string',
-        default: 'light'
+        default: 'linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.5) 100%)'
     },
-
+    heroBackgroundOverlayGradientPosition: {
+        type: 'string',
+        default: 'center center'
+    },
     /**
      * Image Properties
      */
@@ -69,7 +80,7 @@ const attributes = {
     },
     heroImageAlignment: {
         type: 'string',
-        default: 'center center'
+        default: 'center top'
     },
 
     /**
@@ -81,19 +92,33 @@ const attributes = {
     },
 }
 
-const getOverlayColor = (overlayColor) => {
-    switch (overlayColor) {
-        case 'light':
-            return `radial-gradient(at center top, rgba(255, 255, 255, 0.8) 20%, rgba(255, 255, 255, 0) 80%)`
-        case 'dark':
-            return `radial-gradient(at center top, rgba(0, 0, 0, 0.5) 20%, rgba(0, 0, 0, 0) 80%)`
-        default:
-            return `radial-gradient(at center top, rgba(255, 255, 255, 0.5) 20%, rgba(255, 255, 255, 0) 80%)`
-    }
-}
+// const getOverlayColor = (overlayColor) => {
+//     switch (overlayColor) {
+//         case 'light':
+//             return `radial-gradient(at center top, rgba(255, 255, 255, 0.8) 20%, rgba(255, 255, 255, 0) 80%)`
+//         case 'dark':
+//             return `radial-gradient(at center top, rgba(0, 0, 0, 0.5) 20%, rgba(0, 0, 0, 0) 80%)`
+//         default:
+//             return `radial-gradient(at center top, rgba(255, 255, 255, 0.5) 20%, rgba(255, 255, 255, 0) 80%)`
+//     }
+// }
 
 // For not firing update to often
 let onChangeTextPositionTimeout = true;
+
+/**
+ * Adds Position to Radial Gradient String
+ * @param value
+ * @param position
+ * @returns {*}
+ */
+const adjustOverlayPosition = (value, position) => {
+    if (value.includes('radial-gradient')) {
+        return value.replace('radial-gradient(', `radial-gradient(at ${position},`)
+    }
+
+    return value;
+};
 
 registerBlockType('custom/hero', {
     title: __('Hero', 'sage'),
@@ -141,8 +166,12 @@ registerBlockType('custom/hero', {
             setAttributes({heroBackgroundHasOverlay: value});
         };
 
-        const onChangeHeroBackgroundOverlayColor = (value) => {
-            setAttributes({heroBackgroundOverlayColor: value});
+        const onChangeHeroBackgroundOverlayGradient = (value) => {
+            setAttributes({heroBackgroundOverlayGradient: value});
+        };
+
+        const onChangeHeroBackgroundOverlayGradientPosition = (value) => {
+            setAttributes({heroBackgroundOverlayGradientPosition: value});
         };
 
         /**
@@ -188,6 +217,8 @@ registerBlockType('custom/hero', {
                 }, 30);
             }
         };
+
+        // console.log(adjustOverlayPosition(attributes.heroBackgroundOverlayGradient, attributes.heroBackgroundOverlayGradientPosition));
 
         const setBackTextPosition = () => {
             setAttributes({textPosition: {x: 0.5, y: 0.5}});
@@ -240,43 +271,40 @@ registerBlockType('custom/hero', {
                                 />
                             </>
                         }
-                        {/*<hr/>
+                        <hr/>
                         <p>{__('Hero Background Color', 'sage')}</p>
                         <ColorPalette
                             colors={editorThemeColors}
                             value={attributes.heroBackgroundColor}
                             onChange={onChangeHeroBackgroundColor}
                             disableCustomColors={true}
-                        />*/}
-                        <hr/>
-                        <p>{__('Hero Background Color', 'sage')}</p>
+                        />
+                        {/*<p>{__('Hero Background Color', 'sage')}</p>
                         <ColorGradientControl
                             colorValue={attributes.heroBackgroundColor}
-                            gradientValue={attributes.gradientValue}
+                            gradientValue={attributes.heroBackgroundGradient}
                             colors={editorThemeColors}
                             gradients={[
                                 {
                                     name: 'Vivid cyan blue to vivid purple',
-                                    gradient:
-                                        'linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%)',
+                                    gradient: 'linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%)',
                                     slug: 'vivid-cyan-blue-to-vivid-purple',
                                 },
                                 {
                                     name: 'Light green cyan to vivid green cyan',
-                                    gradient:
-                                        'linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%)',
+                                        gradient: 'linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%)',
                                     slug: 'light-green-cyan-to-vivid-green-cyan',
                                 },
                                 {
                                     name: 'Luminous vivid amber to luminous vivid orange',
-                                    gradient:
-                                        'linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%)',
+                                    gradient: 'linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%)',
                                     slug: 'luminous-vivid-amber-to-luminous-vivid-orange',
                                 },
                             ]}
-                            onColorChange={(newValue) => setAttributes({colorValue: newValue})}
-                            onGradientChange={(newValue) => setAttributes({gradientValue: newValue})}
+                            onColorChange={onChangeHeroBackgroundColor}
+                            onGradientChange={onChangeHeroBackgroundGradient}
                         />
+                        */}
                         {(attributes.heroImage || attributes.heroBackgroundColor) &&
                         <>
                             <hr/>
@@ -296,15 +324,43 @@ registerBlockType('custom/hero', {
                         />
                         {attributes.heroBackgroundHasOverlay &&
                         <>
-                            <SelectControl
-                                label={__('Select Overlay Color', 'sage')}
-                                value={attributes.heroBackgroundOverlayColor}
-                                options={[
-                                    {label: __('Dark', 'sage'), value: 'dark'},
-                                    {label: __('Light', 'sage'), value: 'light'},
+                            <GradientPicker
+                                value={attributes.heroBackgroundOverlayGradient}
+                                onChange={onChangeHeroBackgroundOverlayGradient}
+                                // disableCustomGradients={true}
+                                gradients={[
+                                    {
+                                        name: 'Dark Radial',
+                                        gradient: 'radial-gradient(rgba(0,0,0,0.5) 0%,rgba(0,0,0,0) 100%)',
+                                        slug: 'dark-radial',
+                                    },
+                                    {
+                                        name: 'Dark Linear',
+                                        gradient: 'linear-gradient(90deg,rgba(0,0,0,0.5) 0%,rgba(0,0,0,0) 100%)',
+                                        slug: 'dark-linear',
+                                    },
+                                    {
+                                        name: 'Light Radial',
+                                        gradient: 'radial-gradient(rgba(255,255,255,0.5) 0%,rgba(255,255,255,0) 100%)',
+                                        slug: 'dark-radial',
+                                    },
+                                    {
+                                        name: 'Light Linear',
+                                        gradient: 'linear-gradient(90deg,rgba(255,255,255,0.5) 0%,rgba(255,255,255,0) 100%)',
+                                        slug: 'dark-radial',
+                                    },
                                 ]}
-                                onChange={onChangeHeroBackgroundOverlayColor}
                             />
+                            {attributes.heroBackgroundOverlayGradient.includes('radial-gradient') &&
+                                <>
+                                    {/*<hr/>*/}
+                                    <p>{__('Radial Overlay Position', 'sage')}</p>
+                                    <AlignmentMatrixControl
+                                        value={attributes.heroBackgroundOverlayGradientPosition}
+                                        onChange={onChangeHeroBackgroundOverlayGradientPosition}
+                                    />
+                                </>
+                            }
                         </>
                         }
                     </PanelBody>
@@ -388,7 +444,8 @@ registerBlockType('custom/hero', {
                         {attributes.heroBackgroundHasOverlay &&
                             <div className="hero-block__overlay"
                                  style={{
-                                     backgroundImage: getOverlayColor(attributes.heroBackgroundOverlayColor)
+                                     // backgroundImage: getOverlayColor(attributes.heroBackgroundOverlayColor)
+                                     backgroundImage: adjustOverlayPosition(attributes.heroBackgroundOverlayGradient, attributes.heroBackgroundOverlayGradientPosition)
                                  }}
                             />
                         }
@@ -479,7 +536,8 @@ registerBlockType('custom/hero', {
                 {attributes.heroBackgroundHasOverlay &&
                     <div className="hero-block__overlay"
                          style={{
-                             backgroundImage: getOverlayColor(attributes.heroBackgroundOverlayColor)
+                             // backgroundImage: getOverlayColor(attributes.heroBackgroundOverlayColor),
+                             backgroundImage: adjustOverlayPosition(attributes.heroBackgroundOverlayGradient, attributes.heroBackgroundOverlayGradientPosition)
                          }}
                     />
                 }

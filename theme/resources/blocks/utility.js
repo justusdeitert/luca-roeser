@@ -192,7 +192,7 @@ export const editorDarkLightColors = [
     {name: 'Dark/Light 600', slug: 'dark-light-600', color: `rgb(${getCssVariable('--custom-dark-light-600-color')})`},
 ]
 
-export const editorColors = [
+export const editorThemeColors = [
     getColorObjectFromSlug(editorStandardColors, 'primary'),
     getColorObjectFromSlug(editorStandardColors, 'secondary'),
     getColorObjectFromSlug(editorStandardColors, 'tertiary'),
@@ -206,8 +206,6 @@ export const editorColors = [
     ...editorDarkColors,
     ...editorDarkLightColors,
 ];
-
-export const editorThemeColors = [...editorColors]
 
 export const focalPositionInPixel = (value, unit = 'px') => {
 
