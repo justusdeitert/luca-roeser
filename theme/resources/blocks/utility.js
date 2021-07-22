@@ -371,8 +371,12 @@ export const MobileSwitch = (props) => {
     return (
         <div className={'mobile-switch'}>
             <div className="mobile-switch__headline-wrapper" style={{display: 'flex', marginBottom: '5px'}}>
-                <p className={'mobile-switch__headline'} style={{marginRight: 'auto'}}>{props.headline}</p>
-                {Buttons}
+                {props.headline &&
+                    <p className={'mobile-switch__headline'}>{props.headline}</p>
+                }
+                <div className="mobile-switch__buttons-wrapper" style={{marginLeft: 'auto', display: 'flex'}}>
+                    {Buttons}
+                </div>
             </div>
             {Children}
         </div>

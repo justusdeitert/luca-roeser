@@ -1,10 +1,10 @@
 import {__} from '@wordpress/i18n';
 import {registerBlockType   } from '@wordpress/blocks';
 import {InspectorControls, RichText, AlignmentToolbar, BlockControls} from '@wordpress/block-editor';
-import {SelectControl, ToolbarGroup, RangeControl} from '@wordpress/components';
+import {SelectControl, ToolbarGroup, RangeControl, __experimentalUnitControl as UnitControl} from '@wordpress/components';
 import classNames from 'classnames';
 import {fluidTextIcon} from '../icons';
-import {removeBlock} from "../utility";
+import {removeBlock, MobileSwitch, MobileSwitchInner} from "../utility";
 
 const attributes = {
     clientId: {
@@ -82,6 +82,12 @@ registerBlockType('custom/fluid-text', {
 
         attributes.clientId = clientId;
 
+        const units = [
+            { value: 'px', label: 'px', default: 0 },
+            { value: '%', label: '%', default: 10 },
+            { value: 'em', label: 'em', default: 0 },
+        ];
+
         return (
             <>
                 <BlockControls>
@@ -94,6 +100,7 @@ registerBlockType('custom/fluid-text', {
                 </BlockControls>
                 <InspectorControls>
                     <div className="inspector-controls-container">
+                        {/*<UnitControl value={'10px'} units={units}/>*/}
                         <SelectControl
                             label={__('Select Text Type', 'sage')}
                             value={attributes.fluidTextElement}
@@ -109,39 +116,46 @@ registerBlockType('custom/fluid-text', {
                             onChange={onChangeFluidTextElement}
                         />
                         <hr/>
-                        <p>{__('Min Font Size', 'sage')}</p>
-                        <RangeControl
-                            value={attributes.minFontSize}
-                            min={12}
-                            max={60}
-                            step={1}
-                            onChange={onChangeMinFontSize}
-                        />
-                        <p>{__('Min Window Size', 'sage')}</p>
-                        <RangeControl
-                            value={attributes.minWindowSize}
-                            min={320}
-                            max={1400}
-                            step={10}
-                            onChange={onChangeMinWindowSize}
-                        />
-                        <hr/>
-                        <p>{__('Max Font Size', 'sage')}</p>
-                        <RangeControl
-                            value={attributes.maxFontSize}
-                            min={attributes.minFontSize}
-                            max={120}
-                            step={1}
-                            onChange={onChangeMaxFontSize}
-                        />
-                        <p>{__('Max Window Size', 'sage')}</p>
-                        <RangeControl
-                            value={attributes.maxWindowSize}
-                            min={attributes.minWindowSize}
-                            max={1400}
-                            step={10}
-                            onChange={onChangeMaxWindowSize}
-                        />
+                        <MobileSwitch>
+                            <MobileSwitchInner type={'desktop'}>
+                                <p>{__('Max Font Size', 'sage')}</p>
+                                <RangeControl
+                                    value={attributes.maxFontSize}
+                                    min={attributes.minFontSize}
+                                    max={120}
+                                    step={1}
+                                    onChange={onChangeMaxFontSize}
+                                />
+                                <p>{__('Max Window Size', 'sage')}</p>
+                                <RangeControl
+                                    value={attributes.maxWindowSize}
+                                    min={attributes.minWindowSize}
+                                    max={1400}
+                                    step={10}
+                                    onChange={onChangeMaxWindowSize}
+                                />
+                            </MobileSwitchInner>
+                            <MobileSwitchInner type={'mobile'}>
+                                <p>{__('Min Font Size', 'sage')}</p>
+                                <RangeControl
+                                    value={attributes.minFontSize}
+                                    min={12}
+                                    max={60}
+                                    step={1}
+                                    // allowReset={true}
+                                    // resetFallbackValue={'18'}
+                                    onChange={onChangeMinFontSize}
+                                />
+                                <p>{__('Min Window Size', 'sage')}</p>
+                                <RangeControl
+                                    value={attributes.minWindowSize}
+                                    min={320}
+                                    max={1400}
+                                    step={10}
+                                    onChange={onChangeMinWindowSize}
+                                />
+                            </MobileSwitchInner>
+                        </MobileSwitch>
                     </div>
                 </InspectorControls>
                 <style>{`
