@@ -93,3 +93,14 @@
         }
     }
 }
+
+/**
+ * Editor Styles Only
+ */
+[data-type="custom/grid-list"] {
+    &.is-selected {
+        .grid-list-block__row {
+            margin-top: initial;
+        }
+    }
+}

@@ -3,7 +3,7 @@ import {registerBlockType} from '@wordpress/blocks';
 import {ToggleControl} from '@wordpress/components';
 import {Component} from '@wordpress/element';
 import {RangeControl, ColorPalette} from '@wordpress/components';
-import {InspectorControls} from '@wordpress/block-editor';
+import {InspectorControls, useBlockProps} from '@wordpress/block-editor';
 import classNames from 'classnames';
 import {editorThemeColors, MobileSwitch, MobileSwitchInner} from "../utility";
 import {dividerIcon} from "../icons";
@@ -108,6 +108,8 @@ registerBlockType('custom/divider', {
                 setAttributes({color: value});
             };
 
+            // const blockProps = useBlockProps();
+
             return (
                 <>
                     <InspectorControls>
@@ -180,9 +182,10 @@ registerBlockType('custom/divider', {
                         </div>
                     </InspectorControls>
                     <div className={classNames(className, 'divider-block')} style={{
-                        padding: `${attributes.spacingDesktop / 16}rem 0`,
-                        '--desktop-divider-spacing': `${attributes.spacingDesktop / 16}rem`,
-                        '--mobile-divider-spacing': `${attributes.spacingMobile / 16}rem`
+                        padding: `26px 0`,
+                        '--divider-spacing-desktop': `${attributes.spacingDesktop}px`,
+                        '--divider-spacing-mobile': `${attributes.spacingMobile}px`,
+                        '--divider-spacing-desktop-mobile': `${attributes.spacingDesktop - attributes.spacingMobile}`
                     }}>
                         <hr className='divider-block__hr'
                             style={{
@@ -198,10 +201,14 @@ registerBlockType('custom/divider', {
         }
     },
     save: ({className, attributes}) => {
+
+        // const blockProps = useBlockProps.save();
+
         return (
             <div className={classNames(className, 'divider-block')} style={{
-                '--desktop-divider-spacing': `${attributes.spacingDesktop / 16}rem`,
-                '--mobile-divider-spacing': `${attributes.spacingMobile / 16}rem`
+                '--divider-spacing-desktop': `${attributes.spacingDesktop}px`,
+                '--divider-spacing-mobile': `${attributes.spacingMobile}px`,
+                '--divider-spacing-desktop-mobile': `${attributes.spacingDesktop - attributes.spacingMobile}`
             }} >
                 <hr className='divider-block__hr'
                     style={{
