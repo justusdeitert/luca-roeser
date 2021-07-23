@@ -136,6 +136,7 @@ registerBlockType('custom/grid-list-inner', {
                             colors={[...editorThemeColors]}
                             value={attributes.backgroundColor}
                             onChange={onChangeBackgroundColor}
+                            disableCustomColors={true}
                         />
                         <hr/>
                         <p>{__('Section Clip Path', 'sage')}</p>

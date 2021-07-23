@@ -5,7 +5,7 @@ import {Component} from '@wordpress/element';
 import {RangeControl, ColorPalette} from '@wordpress/components';
 import {InspectorControls} from '@wordpress/block-editor';
 import classNames from 'classnames';
-import {editorThemeColors} from "../utility";
+import {editorThemeColors, MobileSwitch, MobileSwitchInner} from "../utility";
 import {dividerIcon} from "../icons";
 
 registerBlockType('custom/divider', {
@@ -36,13 +36,9 @@ registerBlockType('custom/divider', {
             type: 'number',
             default: 1
         },
-        hasFullWidth: {
-            type: 'boolean',
-            default: true
-        },
         width: {
             type: 'number',
-            default: 50
+            default: 100
         },
     },
     // Access React Lifecycle Methods within gutenberg block
@@ -90,6 +86,10 @@ registerBlockType('custom/divider', {
 
             const onChangeSpacingDesktop = (value) => {
                 setAttributes({spacingDesktop: value});
+
+                if (attributes.spacingMobile * 2 === attributes.spacingDesktop) {
+                    setAttributes({spacingMobile: value / 2});
+                }
             };
 
             const onChangeSpacingMobile = (value) => {
@@ -98,10 +98,6 @@ registerBlockType('custom/divider', {
 
             const onChangeThickness = (value) => {
                 setAttributes({thickness: value});
-            };
-
-            const onChangeHasFullWidth = (value) => {
-                setAttributes({hasFullWidth: value});
             };
 
             const onChangeWidth = (value) => {
@@ -124,25 +120,32 @@ registerBlockType('custom/divider', {
                                 max={1}
                                 step={0.05}
                                 onChange={onChangeOpacity}
+                                allowReset={true}
+                                resetFallbackValue={1}
                             />
                             <hr/>
-                            <p>{__('Change Spacing (Desktop)', 'sage')}</p>
-                            <RangeControl
-                                value={attributes.spacingDesktop}
-                                min={0}
-                                max={140}
-                                step={10}
-                                onChange={onChangeSpacingDesktop}
-                            />
-                            <hr/>
-                            <p>{__('Change Spacing (Mobile)', 'sage')}</p>
-                            <RangeControl
-                                value={attributes.spacingMobile}
-                                min={0}
-                                max={100}
-                                step={10}
-                                onChange={onChangeSpacingMobile}
-                            />
+                            <MobileSwitch headline={__('Spacing', 'sage')}>
+                                <MobileSwitchInner type={'desktop'}>
+                                    <RangeControl
+                                        value={attributes.spacingDesktop}
+                                        min={0}
+                                        max={140}
+                                        step={10}
+                                        onChange={onChangeSpacingDesktop}
+                                    />
+                                </MobileSwitchInner>
+                                <MobileSwitchInner type={'mobile'}>
+                                    <RangeControl
+                                        value={attributes.spacingMobile}
+                                        min={0}
+                                        max={attributes.spacingDesktop}
+                                        step={10}
+                                        onChange={onChangeSpacingMobile}
+                                        allowReset={true}
+                                        resetFallbackValue={attributes.spacingDesktop / 2}
+                                    />
+                                </MobileSwitchInner>
+                            </MobileSwitch>
                             <hr/>
                             <p>{__('Change Thickness', 'sage')}</p>
                             <RangeControl
@@ -151,33 +154,27 @@ registerBlockType('custom/divider', {
                                 max={3}
                                 step={1}
                                 onChange={onChangeThickness}
+                                allowReset={true}
+                                resetFallbackValue={1}
                             />
                             <hr/>
-                            <ToggleControl
-                                label={__('Full Width', 'sage')}
-                                // help={ attributes.switchContent ? 'Image is left' : 'Image is right' }
-                                checked={attributes.hasFullWidth}
-                                onChange={onChangeHasFullWidth}
+                            <p>{__('Change Width in %', 'sage')}</p>
+                            <RangeControl
+                                value={attributes.width}
+                                min={10}
+                                max={100}
+                                step={1}
+                                onChange={onChangeWidth}
+                                allowReset={true}
+                                resetFallbackValue={100}
                             />
-                            {!attributes.hasFullWidth &&
-                                <>
-                                    <hr/>
-                                    <p>{__('Change Width in %', 'sage')}</p>
-                                    <RangeControl
-                                        value={attributes.width}
-                                        min={10}
-                                        max={100}
-                                        step={1}
-                                        onChange={onChangeWidth}
-                                    />
-                                </>
-                            }
                             <hr/>
                             <p>{__('Change Color', 'sage')}</p>
                             <ColorPalette
                                 colors={editorThemeColors}
                                 value={attributes.color}
                                 onChange={onChangeColor}
+                                disableCustomColors={true}
                                 // clearable={false}
                             />
                         </div>
@@ -190,7 +187,7 @@ registerBlockType('custom/divider', {
                         <hr className='divider-block__hr'
                             style={{
                                 height: `${attributes.thickness}px`,
-                                maxWidth: attributes.hasFullWidth ? 'initial' : `${attributes.width}%`,
+                                maxWidth: `${attributes.width}%`,
                                 opacity: attributes.opacity,
                                 backgroundColor: attributes.color,
                             }}
@@ -209,7 +206,7 @@ registerBlockType('custom/divider', {
                 <hr className='divider-block__hr'
                     style={{
                         height: `${attributes.thickness}px`,
-                        maxWidth: attributes.hasFullWidth ? 'initial' : `${attributes.width}%`,
+                        maxWidth: `${attributes.width}%`,
                         opacity: attributes.opacity,
                         backgroundColor: attributes.color,
                     }}
