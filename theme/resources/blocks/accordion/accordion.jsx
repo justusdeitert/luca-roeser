@@ -123,6 +123,8 @@ registerBlockType('custom/accordion', {
                             initialPosition={16}
                             max={32}
                             onChange={onChangeAccordionSpacing}
+                            allowReset={true}
+                            resetFallbackValue={16}
                         />
                         <hr/>
                         <SelectControl

@@ -264,7 +264,7 @@ registerBlockType('custom/text-image', {
     },
     save: ({className, attributes}) => {
 
-        const imagesBackgroundColor = getColorObjectByColorValue(editorThemeColors, attributes.imagesBackgroundColor);
+        // const imagesBackgroundColor = getColorObjectByColorValue(editorThemeColors, attributes.imagesBackgroundColor);
 
         const imageColumn = (
             <div className={classNames(`text-image-block__images-column`, `col-12 col-md-6 col-xl-${attributes.columnRange}`)}>

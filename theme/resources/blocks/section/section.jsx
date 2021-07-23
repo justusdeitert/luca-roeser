@@ -22,7 +22,7 @@ const attributes = {
     },
     sectionBorderRadius: {
         type: 'number',
-        default: 0,
+        default: false,
     },
     // hasInnerWidth: {
     //     type: 'boolean',
@@ -30,7 +30,7 @@ const attributes = {
     // },
     innerWidth: {
         type: 'number',
-        default: 0,
+        default: false,
     },
 };
 
@@ -167,16 +167,16 @@ registerBlockType('custom/section', {
                                 step={1}
                                 onChange={onChangeSectionBorderRadius}
                                 allowReset={true}
-                                resetFallbackValue={0}
+                                resetFallbackValue={false}
                             />
                         </>
                         }
-                        {/*<hr/>*/}
-                        {/*<ToggleControl*/}
-                        {/*    label={__('Has Inner Width', 'sage')}*/}
-                        {/*    checked={attributes.hasInnerWidth}*/}
-                        {/*    onChange={onChangeHasInnerWidth}*/}
-                        {/*/>*/}
+                        {/*<hr/>
+                        <ToggleControl
+                            label={__('Has Inner Width', 'sage')}
+                            checked={attributes.hasInnerWidth}
+                            onChange={onChangeHasInnerWidth}
+                        />*/}
                         <>
                             <hr/>
                             <p>{__('Inner Width', 'sage')}</p>
@@ -187,7 +187,7 @@ registerBlockType('custom/section', {
                                 step={10}
                                 onChange={onChangeInnerWidth}
                                 allowReset={true}
-                                resetFallbackValue={0}
+                                resetFallbackValue={false}
                             />
                         </>
                     </div>
@@ -196,7 +196,7 @@ registerBlockType('custom/section', {
                     <section className={classNames(className, 'section-block', getColorObject(attributes.sectionBackgroundColor) && `has-${getColorObject(attributes.sectionBackgroundColor).slug}-background-color has-background`, 'custom-border-radius')}
                              style={{
                                  clipPath: clipPaths[attributes.sectionClipPath] ? `url(#clip-path-${attributes.clientId})` : 'none',
-                                 borderRadius: attributes.sectionClipPath === 'none' ? `${attributes.sectionBorderRadius}px` : 'none',
+                                 borderRadius: (attributes.sectionClipPath === 'none' && attributes.sectionBorderRadius) ? `${attributes.sectionBorderRadius}px` : 0,
                              }}
                     >
 
@@ -223,7 +223,7 @@ registerBlockType('custom/section', {
             <section className={classNames(className, 'section-block', getColorObject(attributes.sectionBackgroundColor) && `has-${getColorObject(attributes.sectionBackgroundColor).slug}-background-color has-background`, 'custom-border-radius')}
                      style={{
                          clipPath: attributes.sectionClipPath !== 'none' ? `url(#clip-path-${attributes.clientId})` : 'none',
-                         borderRadius: attributes.sectionClipPath === 'none' ? `${attributes.sectionBorderRadius}px` : 'none',
+                         borderRadius: (attributes.sectionClipPath === 'none' && attributes.sectionBorderRadius) ? `${attributes.sectionBorderRadius}px` : 0,
                      }}
             >
 

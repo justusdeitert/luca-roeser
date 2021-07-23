@@ -32,7 +32,7 @@ const attributes = {
     },
     customBorderRadius: {
         type: 'number',
-        default: 0
+        default: false
     },
 };
 
@@ -178,7 +178,7 @@ registerBlockType('custom/button', {
                             step={1}
                             onChange={onChangeCustomBorderRadius}
                             allowReset={true}
-                            resetFallbackValue={0}
+                            resetFallbackValue={false}
                         />
                     </div>
                 </InspectorControls>

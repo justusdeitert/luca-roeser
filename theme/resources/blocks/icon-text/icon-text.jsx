@@ -161,7 +161,7 @@ registerBlockType('custom/icon-text', {
                         <RangeControl
                             value={attributes.iconBorderRadius}
                             min={0}
-                            max={100}
+                            max={200}
                             step={1}
                             onChange={onChangeIconBorderRadius}
                             allowReset={true}
@@ -198,6 +198,8 @@ registerBlockType('custom/icon-text', {
                             max={120}
                             step={1}
                             onChange={onChangeBottomTextMargin}
+                            allowReset={true}
+                            resetFallbackValue={16}
                         />
                         {/*<hr/>
                         <p>{__('Bottom Margin', 'sage')}</p>
