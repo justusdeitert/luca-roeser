@@ -69,15 +69,9 @@ registerBlockType('custom/icon-text', {
     attributes,
     edit: ({setAttributes, attributes, className, clientId}) => {
 
-        // const onChangeFluidText = (value) => {
-        //     setAttributes({iconText: value});
-        // };
-
-        // const onChangeFluidTextElement = (value) => {
-        //     setAttributes({iconTextElement: value});
-        // };
-
         const onChangeVerticalAlign = (value) => {
+            if (value === 'top') {value = 'start';}
+            if (value === 'bottom') {value = 'end';}
             setAttributes({verticalAlign: value});
         };
 

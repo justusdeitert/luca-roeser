@@ -122,9 +122,9 @@ registerBlockType('custom/section', {
             setAttributes({sectionBorderRadius: value});
         };
 
-        const onChangeHasInnerWidth = (value) => {
-            setAttributes({hasInnerWidth: value});
-        };
+        // const onChangeHasInnerWidth = (value) => {
+        //     setAttributes({hasInnerWidth: value});
+        // };
 
         const onChangeInnerWidth = (value) => {
             setAttributes({innerWidth: value});

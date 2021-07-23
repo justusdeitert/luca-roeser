@@ -145,7 +145,11 @@ registerBlockType('custom/hero', {
         };
 
         const onChangeClipPath = (value) => {
-            setAttributes({clipPath: value});
+            if (value !== attributes.clipPath) {
+                setAttributes({clipPath: value});
+            } else {
+                setAttributes({clipPath: 'none'});
+            }
         };
 
         const onChangeBackgroundColor = (value) => {
@@ -228,6 +232,8 @@ registerBlockType('custom/hero', {
             }
         });
 
+
+
         return (
             <>
                 <InspectorControls>
@@ -297,7 +303,7 @@ registerBlockType('custom/hero', {
                             onColorChange={onChangeBackgroundColor}
                             onGradientChange={onChangeOverlayGradient}
                         />*/}
-                        {(attributes.backgroundImage || attributes.backgroundColor) &&
+                        {/*{(attributes.backgroundImage || attributes.backgroundColor) &&*/}
                         <>
                             <hr/>
                             <p>{__('Section Clip Path', 'sage')}</p>
@@ -307,7 +313,7 @@ registerBlockType('custom/hero', {
                                 value={attributes.clipPath}
                             />
                         </>
-                        }
+                        {/*}*/}
                         <hr/>
                         <ToggleControl
                             label={__('Background Overlay', 'sage')}

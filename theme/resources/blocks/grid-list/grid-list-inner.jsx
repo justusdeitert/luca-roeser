@@ -1,9 +1,17 @@
 import {__} from '@wordpress/i18n';
 import {registerBlockType} from '@wordpress/blocks';
-import {InnerBlocks, InspectorControls, ColorPalette, useBlockProps, __experimentalUseInnerBlocksProps as useInnerBlocksProps} from '@wordpress/block-editor';
+import {InnerBlocks, InspectorControls, ColorPalette, useBlockProps, __experimentalUseInnerBlocksProps as useInnerBlocksProps, BlockControls, BlockVerticalAlignmentToolbar} from '@wordpress/block-editor';
+import {ToolbarGroup} from '@wordpress/components';
 import classNames from 'classnames';
 import {gridListInnerIcon} from '../icons';
-import {ALLOWEDBLOCKS, editorThemeColors, getColorObject, parentAttributes, SelectClipPath} from '../utility';
+import {
+    ALLOWEDBLOCKS,
+    editorThemeColors,
+    getColorObject,
+    parentAttributes,
+    removeArrayItems,
+    SelectClipPath
+} from '../utility';
 import * as clipPaths from "../clip-paths";
 
 
@@ -23,6 +31,10 @@ const attributes = {
     clipPath: {
         type: 'string',
         default: 'none'
+    },
+    verticalAlign: {
+        type: 'string',
+        default: 'center'
     },
 };
 
@@ -64,14 +76,22 @@ registerBlockType('custom/grid-list-inner', {
         };
 
         const onChangeClipPath = (value) => {
-            setAttributes({clipPath: value});
+            if (value !== attributes.clipPath) {
+                setAttributes({clipPath: value});
+            } else {
+                setAttributes({clipPath: 'none'});
+            }
         };
 
+        const onChangeVerticalAlign = (value) => {
+            if (value === 'top') {value = 'start';}
+            if (value === 'bottom') {value = 'end';}
+            setAttributes({verticalAlign: value});
+        }
+
         if (parentAttributes(clientId).generalBackgroundColor) {
-            // console.log(parentAttributes(clientId).generalBackgroundColor);
             attributes.generalBackgroundColor = parentAttributes(clientId).generalBackgroundColor;
         } else {
-            // console.log('no general background');
             attributes.generalBackgroundColor = '';
         }
 
@@ -100,6 +120,14 @@ registerBlockType('custom/grid-list-inner', {
 
         return (
             <>
+                <BlockControls>
+                    <ToolbarGroup>
+                        <BlockVerticalAlignmentToolbar
+                            value={attributes.verticalAlign}
+                            onChange={onChangeVerticalAlign}
+                        />
+                    </ToolbarGroup>
+                </BlockControls>
                 <InspectorControls>
                     <div className="inspector-controls-container">
                         <hr/>
@@ -111,7 +139,11 @@ registerBlockType('custom/grid-list-inner', {
                         />
                         <hr/>
                         <p>{__('Section Clip Path', 'sage')}</p>
-                        <SelectClipPath clipPathsModules={clipPaths} clickFunction={onChangeClipPath} />
+                        <SelectClipPath
+                            clipPathsModules={clipPaths}
+                            clickFunction={onChangeClipPath}
+                            value={attributes.clipPath}
+                        />
                     </div>
                 </InspectorControls>
                 <div className={classNames('grid-list-block__col')}>
@@ -119,15 +151,14 @@ registerBlockType('custom/grid-list-inner', {
                         clipPaths[attributes.clipPath](`clip-path-${attributes.clientId}`)
                     }
                     <div { ...innerBlocksProps }>
-                        <div className={classNames(className, 'grid-list-block__inner', backgroundColorSlug && `has-${backgroundColorSlug}-background-color`)}
+                        <div className={classNames(className, 'grid-list-block__inner', backgroundColorSlug && `has-background has-${backgroundColorSlug}-background-color`, `align-items-${attributes.verticalAlign}`)}
                              style={{
-                                 width: '100%',
-                                 height: '100%',
                                  clipPath: clipPaths[attributes.clipPath] ? `url(#clip-path-${attributes.clientId})` : 'none',
                              }}
                         >
-                            {innerBlocksProps.children}
-                            {/*<InnerBlocks templateLock={false} allowedBlocks={ALLOWEDBLOCKS} renderAppender={InnerBlocks.DefaultBlockAppender} />*/}
+                            <div className="grid-list-block__wrapper">
+                                <InnerBlocks templateLock={false} allowedBlocks={removeArrayItems(ALLOWEDBLOCKS, ['custom/grid-list'])} renderAppender={InnerBlocks.DefaultBlockAppender} />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -140,7 +171,7 @@ registerBlockType('custom/grid-list-inner', {
 
         // Need to use for passing classes to save function
         const blockProps = useBlockProps.save({
-            className: `grid-list-block__col`
+            className: classNames(`grid-list-block__col`)
         });
 
         return (
@@ -148,14 +179,14 @@ registerBlockType('custom/grid-list-inner', {
                 {clipPaths[attributes.clipPath] &&
                     clipPaths[attributes.clipPath](`clip-path-${attributes.clientId}`)
                 }
-                <div className={classNames('grid-list-block__inner', backgroundColorSlug && `has-${backgroundColorSlug}-background-color`)}
+                <div className={classNames('grid-list-block__inner', backgroundColorSlug && `has-background has-${backgroundColorSlug}-background-color`, `align-items-${attributes.verticalAlign}`)}
                      style={{
-                        width: '100%',
-                        height: '100%',
                         clipPath: clipPaths[attributes.clipPath] ? `url(#clip-path-${attributes.clientId})` : 'none',
                     }}
                 >
-                    <InnerBlocks.Content/>
+                    <div className="grid-list-block__wrapper">
+                        <InnerBlocks.Content/>
+                    </div>
                 </div>
             </div>
         );

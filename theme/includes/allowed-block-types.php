@@ -83,8 +83,15 @@ $custom_blocks_widget_editor = [
     'custom/divider',
     'custom/text-image',
     'custom/slider',
+    'custom/slider-inner',
     'custom/image',
     'custom/button',
+    'custom/section',
+    'custom/fluid-text',
+    'custom/icon-text',
+    'custom/grid-list',
+    'custom/grid-list-inner', // grid-list as parent
+    'custom/spacer',
 ];
 
 add_filter('allowed_block_types_all', function ($allowed_block_types, $editor_context) {

@@ -27,7 +27,7 @@ registerBlockType('custom/image', {
             type: 'boolean',
             default: false,
         },
-        imagesRatio: {
+        imageRatio: {
             type: 'string',
             default: '3x2',
         },
@@ -110,10 +110,6 @@ registerBlockType('custom/image', {
             setAttributes({imageAlignment: value});
         }
 
-        const getAlignmentIcon = () => {
-            return 'align-' + attributes.imageAlignment;
-        }
-
         const blockProps = useBlockProps({
             className: classNames(className, 'image-block', `align-${attributes.imageAlignment}`),
             style: {
@@ -130,7 +126,7 @@ registerBlockType('custom/image', {
                 <BlockControls>
                     <ToolbarGroup>
                         <ToolbarDropdownMenu
-                            icon={getAlignmentIcon()}
+                            icon={`align-${attributes.imageAlignment}`}
                             label={__('Select a position', 'sage')}
                             controls={[
                                 {
@@ -166,7 +162,7 @@ registerBlockType('custom/image', {
                             <p>{__('Images Ratio', 'sage')}</p>
                             <RadioGroup
                                 onChange={onChangeImagesRatio}
-                                checked={attributes.imagesRatio}
+                                checked={attributes.imageRatio}
                                 defaultChecked={'3x2'}
                             >
                                 <Radio value="1x1">{__('1x1', 'sage')}</Radio>
@@ -198,14 +194,6 @@ registerBlockType('custom/image', {
                         />
                         <hr/>
                         <p>{__('Positioning', 'sage')}</p>
-                        {/*<SelectControl
-                            value={attributes.imagePositioning}
-                            options={[
-                                {label: __('Static', 'sage'), value: 'static'},
-                                {label: __('Absolute', 'sage'), value: 'absolute'},
-                            ]}
-                            onChange={onChangeImagePositioning}
-                        />*/}
                         <RadioGroup
                             onChange={onChangeImagePositioning}
                             checked={attributes.imagePositioning}
@@ -214,14 +202,6 @@ registerBlockType('custom/image', {
                             <Radio value="static">{__('Static', 'sage')}</Radio>
                             <Radio value="absolute">{__('Absolute', 'sage')}</Radio>
                         </RadioGroup>
-                        {/*<SelectControl
-                            value={attributes.imagePositionUnit}
-                            options={[
-                                {label: __('Pixel', 'sage'), value: 'px'},
-                                {label: __('Percent', 'sage'), value: '%'},
-                            ]}
-                            onChange={onChangeImagePositionUnit}
-                        />*/}
                         <hr/>
                         <p>{__('Position', 'sage')}</p>
                         <div style={{display: 'flex', marginBottom: '20px'}}>
@@ -267,7 +247,7 @@ registerBlockType('custom/image', {
                             />
                         )}
                     />
-                    <div className={attributes.hasRatio && `ratio ratio-${attributes.imagesRatio}`}>
+                    <div className={attributes.hasRatio && `ratio ratio-${attributes.imageRatio}`}>
                         {attributes.imageObject.mime !== 'image/svg+xml' ?
                             <img alt={getImage(attributes.imageObject, 'alt')}
                                  srcSet={`${getImage(attributes.imageObject, 'tiny', 400)} 768w, ${getImage(attributes.imageObject, 'small', 400)} 1360w`}
@@ -288,7 +268,7 @@ registerBlockType('custom/image', {
     save: ({className, attributes}) => {
 
         const blockProps = useBlockProps.save({
-            className: classNames(className, 'image-block', `align-${attributes.imageAlignment}`, attributes.hasRatio && `ratio ratio-${attributes.imagesRatio}`),
+            className: classNames(className, 'image-block', `align-${attributes.imageAlignment}`, attributes.hasRatio && `ratio ratio-${attributes.imageRatio}`),
             style: {
                 width: `${attributes.imageSize + attributes.imageSizeUnit}`,
                 position: attributes.imagePositioning,
