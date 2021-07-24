@@ -41,7 +41,7 @@ registerBlockType('custom/image', {
         },
         imagePositioning: {
             type: 'string',
-            default: 'static'
+            default: 'relative'
         },
         imagePositionUnit: {
             type: 'string',
@@ -197,9 +197,9 @@ registerBlockType('custom/image', {
                         <RadioGroup
                             onChange={onChangeImagePositioning}
                             checked={attributes.imagePositioning}
-                            defaultChecked={"static"}
+                            defaultChecked={"relative"}
                         >
-                            <Radio value="static">{__('Static', 'sage')}</Radio>
+                            <Radio value="relative">{__('Relative', 'sage')}</Radio>
                             <Radio value="absolute">{__('Absolute', 'sage')}</Radio>
                         </RadioGroup>
                         <hr/>
