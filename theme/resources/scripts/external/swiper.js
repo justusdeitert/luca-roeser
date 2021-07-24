@@ -134,7 +134,7 @@ window.initSliderBlockInstances = () => {
         let swiperPagination = sliderBlock.querySelector('.swiper-pagination');
         if(swiperPagination) {
             let addDynamicBulletClass = () => {
-                if(window.innerWidth < parseInt(bootstrapBreakpoints.xs)) {
+                if(window.innerWidth < parseInt(bootstrapBreakpoints.sm)) {
                     swiperPagination.classList.add('swiper-pagination-bullets-dynamic')
                 } else {
                     swiperPagination.classList.remove('swiper-pagination-bullets-dynamic')
