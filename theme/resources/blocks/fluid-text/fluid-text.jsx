@@ -1,5 +1,5 @@
 import {__} from '@wordpress/i18n';
-import {registerBlockType   } from '@wordpress/blocks';
+import {registerBlockType} from '@wordpress/blocks';
 import {InspectorControls, RichText, AlignmentToolbar, BlockControls} from '@wordpress/block-editor';
 import {SelectControl, ToolbarGroup, RangeControl, __experimentalUnitControl as UnitControl} from '@wordpress/components';
 import classNames from 'classnames';

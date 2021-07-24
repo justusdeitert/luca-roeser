@@ -1,7 +1,7 @@
 import {__} from '@wordpress/i18n';
 import {registerBlockType, createBlock} from '@wordpress/blocks';
 import {SelectControl, RangeControl, ToggleControl, Button} from '@wordpress/components';
-import {InnerBlocks, InspectorControls, ColorPalette, useBlockProps} from '@wordpress/block-editor';
+import {InnerBlocks, InspectorControls, ColorPalette, useBlockProps, __experimentalUseInnerBlocksProps as useInnerBlocksProps} from '@wordpress/block-editor';
 import classNames from 'classnames';
 import {sectionIcon} from '../icons';
 import {editorThemeColors, getColorObject, SelectClipPath, ALLOWEDBLOCKS, removeArrayItems} from "../utility";
@@ -30,6 +30,14 @@ const attributes = {
     // },
     innerWidth: {
         type: 'number',
+        default: false,
+    },
+    customPadding: {
+        type: 'number',
+        default: false,
+    },
+    fullHeight: {
+        type: 'boolean',
         default: false,
     },
 };
@@ -122,12 +130,16 @@ registerBlockType('custom/section', {
             setAttributes({sectionBorderRadius: value});
         };
 
-        // const onChangeHasInnerWidth = (value) => {
-        //     setAttributes({hasInnerWidth: value});
-        // };
-
         const onChangeInnerWidth = (value) => {
             setAttributes({innerWidth: value});
+        };
+
+        const onChangeCustomPadding = (value) => {
+            setAttributes({customPadding: value});
+        };
+
+        const onChangeFullHeight = (value) => {
+            setAttributes({fullHeight: value});
         };
 
         attributes.clientId = clientId;
@@ -135,9 +147,21 @@ registerBlockType('custom/section', {
         const blockProps = useBlockProps({
             style: {
                 border: !attributes.sectionBackgroundColor ? '1px dashed var(--wp-admin-theme-color)' : 'none',
-                padding: !attributes.sectionBackgroundColor ? '10px' : '0'
+                // padding: !attributes.sectionBackgroundColor ? '10px' : '0'
+                height: attributes.fullHeight ? '100%' : 'initial'
             }
         });
+
+        // <InnerBlocks templateLock={false} allowedBlocks={removeArrayItems(ALLOWEDBLOCKS, ['custom/section'])}/>
+
+        const innerBlocksProps = useInnerBlocksProps(blockProps, {
+            allowedBlocks: removeArrayItems(ALLOWEDBLOCKS, ['custom/section']),
+            templateLock: false,
+        });
+
+        let sectionInnerStyles = {}
+        if (attributes.innerWidth) {sectionInnerStyles.maxWidth = `${attributes.innerWidth}px`;}
+        if (typeof attributes.customPadding !== 'undefined') {sectionInnerStyles.padding = `${attributes.customPadding}px`;}
 
         return (
             <>
@@ -171,12 +195,6 @@ registerBlockType('custom/section', {
                             />
                         </>
                         }
-                        {/*<hr/>
-                        <ToggleControl
-                            label={__('Has Inner Width', 'sage')}
-                            checked={attributes.hasInnerWidth}
-                            onChange={onChangeHasInnerWidth}
-                        />*/}
                         <>
                             <hr/>
                             <p>{__('Inner Width', 'sage')}</p>
@@ -190,57 +208,84 @@ registerBlockType('custom/section', {
                                 resetFallbackValue={false}
                             />
                         </>
+                        <>
+                            <hr/>
+                            <p>{__('Custom Padding', 'sage')}</p>
+                            <RangeControl
+                                value={attributes.customPadding}
+                                min={0}
+                                max={100}
+                                step={1}
+                                onChange={onChangeCustomPadding}
+                                allowReset={true}
+                                resetFallbackValue={false}
+                            />
+                        </>
+                        <hr/>
+                        {/*<p>{__('Custom Padding', 'sage')}</p>*/}
+                        <ToggleControl
+                            label={__('Full Height', 'sage')}
+                            checked={attributes.fullHeight}
+                            onChange={onChangeFullHeight}
+                        />
                     </div>
                 </InspectorControls>
-                <div {...blockProps}>
-                    <section className={classNames(className, 'section-block', getColorObject(attributes.sectionBackgroundColor) && `has-${getColorObject(attributes.sectionBackgroundColor).slug}-background-color has-background`, 'custom-border-radius')}
-                             style={{
-                                 clipPath: clipPaths[attributes.sectionClipPath] ? `url(#clip-path-${attributes.clientId})` : 'none',
-                                 borderRadius: (attributes.sectionClipPath === 'none' && attributes.sectionBorderRadius) ? `${attributes.sectionBorderRadius}px` : 0,
-                             }}
+                <div {...innerBlocksProps}>
+                    <div
+                        className={classNames(
+                            className,
+                            'section-block',
+                            getColorObject(attributes.sectionBackgroundColor) && `has-${getColorObject(attributes.sectionBackgroundColor).slug}-background-color has-background`,
+                            'custom-border-radius'
+                        )}
+                         style={{
+                             clipPath: clipPaths[attributes.sectionClipPath] ? `url(#clip-path-${attributes.clientId})` : 'none',
+                             borderRadius: (attributes.sectionClipPath === 'none' && attributes.sectionBorderRadius) ? `${attributes.sectionBorderRadius}px` : 0,
+                         }}
                     >
 
                         {clipPaths[attributes.sectionClipPath] &&
                             clipPaths[attributes.sectionClipPath](`clip-path-${attributes.clientId}`)
                         }
 
-                        {attributes.innerWidth ?
-                            <div className="section-block__inner" style={{maxWidth: `${attributes.innerWidth}px`}}>
-                                <InnerBlocks templateLock={false} allowedBlocks={removeArrayItems(ALLOWEDBLOCKS, ['custom/section'])}/>
-                            </div>
-                            :
-                            <div className="section-block__inner">
-                                <InnerBlocks templateLock={false} allowedBlocks={removeArrayItems(ALLOWEDBLOCKS, ['custom/section'])}/>
-                            </div>
-                        }
-                    </section>
+                        <div className="section-block__inner" style={sectionInnerStyles}>
+                            {innerBlocksProps.children}
+                            {/*<InnerBlocks templateLock={false} allowedBlocks={removeArrayItems(ALLOWEDBLOCKS, ['custom/section'])}/>*/}
+                        </div>
+                    </div>
                 </div>
             </>
         );
     },
     save: ({attributes, className}) => {
+
+        let sectionInnerStyles = {}
+        if (attributes.innerWidth) {sectionInnerStyles.maxWidth = `${attributes.innerWidth}px`;}
+        if (typeof attributes.customPadding !== 'undefined') {sectionInnerStyles.padding = `${attributes.customPadding}px`;}
+
         return (
-            <section className={classNames(className, 'section-block', getColorObject(attributes.sectionBackgroundColor) && `has-${getColorObject(attributes.sectionBackgroundColor).slug}-background-color has-background`, 'custom-border-radius')}
-                     style={{
-                         clipPath: attributes.sectionClipPath !== 'none' ? `url(#clip-path-${attributes.clientId})` : 'none',
-                         borderRadius: (attributes.sectionClipPath === 'none' && attributes.sectionBorderRadius) ? `${attributes.sectionBorderRadius}px` : 0,
-                     }}
+            <div
+                className={classNames(
+                    className,
+                    'section-block',
+                    getColorObject(attributes.sectionBackgroundColor) && `has-${getColorObject(attributes.sectionBackgroundColor).slug}-background-color has-background`,
+                    'custom-border-radius'
+                )}
+                 style={{
+                     clipPath: attributes.sectionClipPath !== 'none' ? `url(#clip-path-${attributes.clientId})` : 'none',
+                     borderRadius: (attributes.sectionClipPath === 'none' && attributes.sectionBorderRadius) ? `${attributes.sectionBorderRadius}px` : 0,
+                     height: attributes.fullHeight ? '100%' : 'initial'
+                 }}
             >
 
                 {clipPaths[attributes.sectionClipPath] &&
                     clipPaths[attributes.sectionClipPath](`clip-path-${attributes.clientId}`)
                 }
 
-                {attributes.innerWidth ?
-                    <div className="section-block__inner" style={{maxWidth: `${attributes.innerWidth}px`}}>
-                        <InnerBlocks.Content/>
-                    </div>
-                    :
-                    <div className="section-block__inner">
-                        <InnerBlocks.Content/>
-                    </div>
-                }
-            </section>
+                <div className="section-block__inner" style={sectionInnerStyles}>
+                    <InnerBlocks.Content/>
+                </div>
+            </div>
         );
     },
 });

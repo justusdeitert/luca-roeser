@@ -31,7 +31,7 @@ window.initSliderBlockInstances = () => {
 
         if (sliderBlock.dataset.slidesPerView === "2") {
             breakpoints = {
-                [parseInt(bootstrapBreakpoints.xs)]: {
+                [parseInt(bootstrapBreakpoints.sm)]: {
                     slidesPerView: 2,
                     pagination: {
                         dynamicBullets: false,
@@ -42,7 +42,7 @@ window.initSliderBlockInstances = () => {
 
         if (sliderBlock.dataset.slidesPerView === "3") {
             breakpoints = {
-                [parseInt(bootstrapBreakpoints.xs)]: {
+                [parseInt(bootstrapBreakpoints.sm)]: {
                     slidesPerView: 2,
                     pagination: {
                         dynamicBullets: false,
@@ -59,7 +59,7 @@ window.initSliderBlockInstances = () => {
 
         if (sliderBlock.dataset.slidesPerView === "4") {
             breakpoints = {
-                [parseInt(bootstrapBreakpoints.xs)]: {
+                [parseInt(bootstrapBreakpoints.sm)]: {
                     slidesPerView: 2,
                     pagination: {
                         dynamicBullets: false,

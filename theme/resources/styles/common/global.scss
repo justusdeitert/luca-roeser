@@ -205,8 +205,13 @@ img {
         padding-left: var(--container-padding-desktop);
         padding-right: var(--container-padding-desktop);
     }
+
+
 }
 
+/**
+ * Has no Max Width
+ */
 .container-fluid {
     padding-left: var(--container-padding-mobile);
     padding-right: var(--container-padding-mobile);
