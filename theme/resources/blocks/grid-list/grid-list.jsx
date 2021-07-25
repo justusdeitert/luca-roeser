@@ -59,39 +59,6 @@ registerBlockType('custom/grid-list', {
     },
     edit: ({setAttributes, attributes, className, clientId}) => {
 
-        const onChangeColumns = (value) => {
-            setAttributes({columns: value});
-        };
-
-        const onChangeTwoColumnsMobile = (value) => {
-            setAttributes({twoColumnsMobile: value});
-        };
-
-        const onChangeCustomSpacing = (value) => {
-            setAttributes({customSpacing: value});
-        };
-
-        const onChangeSpaceBetweenX = (value) => {
-            setAttributes({spaceBetweenX: value});
-        };
-
-        const onChangeSpaceBetweenY = (value) => {
-            setAttributes({spaceBetweenY: value});
-        };
-
-        const onChangeGeneralBackgroundColor = (value) => {
-            setAttributes({generalBackgroundColor: value});
-            updateInnerBlocks(clientId);
-        };
-
-        const onChangeHasCustomPadding = (value) => {
-            setAttributes({hasCustomPadding: value});
-        };
-
-        const onChangeCustomPadding = (value) => {
-            setAttributes({customPadding: value});
-        };
-
         attributes.clientId = clientId;
 
         const TEMPLATE = [
@@ -127,20 +94,20 @@ registerBlockType('custom/grid-list', {
                             min={1}
                             max={6}
                             step={1}
-                            onChange={onChangeColumns}
+                            onChange={(value) => setAttributes({columns: value})}
                         />
                         <hr/>
                         <ToggleControl
                             label={__('Mobile Two Columns', 'sage')}
                             help={__('Select if you want two columns on the smallest screen resolution', 'sage')}
                             checked={attributes.twoColumnsMobile}
-                            onChange={onChangeTwoColumnsMobile}
+                            onChange={(value) => setAttributes({twoColumnsMobile: value})}
                         />
                         <hr/>
                         <ToggleControl
                             label={__('Custom Spacing', 'sage')}
                             checked={attributes.customSpacing}
-                            onChange={onChangeCustomSpacing}
+                            onChange={(value) => setAttributes({customSpacing: value})}
                         />
                         {attributes.customSpacing &&
                             <>
@@ -151,7 +118,7 @@ registerBlockType('custom/grid-list', {
                                     min={0}
                                     max={160}
                                     step={1}
-                                    onChange={onChangeSpaceBetweenX}
+                                    onChange={(value) => setAttributes({spaceBetweenX: value})}
                                 />
                                 <hr/>
                                 <p>{__('Space Between Y', 'sage')}</p>
@@ -160,7 +127,7 @@ registerBlockType('custom/grid-list', {
                                     min={0}
                                     max={160}
                                     step={1}
-                                    onChange={onChangeSpaceBetweenY}
+                                    onChange={(value) => setAttributes({spaceBetweenY: value})}
                                 />
                             </>
                         }
@@ -168,7 +135,7 @@ registerBlockType('custom/grid-list', {
                         <ToggleControl
                             label={__('Has Custom Padding', 'sage')}
                             checked={attributes.hasCustomPadding}
-                            onChange={onChangeHasCustomPadding}
+                            onChange={(value) => setAttributes({hasCustomPadding: value})}
                         />
                         {attributes.hasCustomPadding &&
                         <>
@@ -179,7 +146,7 @@ registerBlockType('custom/grid-list', {
                                 min={0}
                                 max={100}
                                 step={1}
-                                onChange={onChangeCustomPadding}
+                                onChange={(value) => setAttributes({customPadding: value})}
                             />
                         </>
                         }
@@ -188,7 +155,10 @@ registerBlockType('custom/grid-list', {
                         <ColorPalette
                             colors={[...editorThemeColors]}
                             value={attributes.generalBackgroundColor}
-                            onChange={onChangeGeneralBackgroundColor}
+                            onChange={(value) => {
+                                setAttributes({generalBackgroundColor: value});
+                                updateInnerBlocks(clientId);
+                            }}
                         />
                     </div>
                 </InspectorControls>

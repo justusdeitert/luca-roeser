@@ -71,24 +71,6 @@ registerBlockType('custom/grid-list-inner', {
     // },
     edit: ({setAttributes, attributes, className, clientId}) => {
 
-        const onChangeBackgroundColor = (value) => {
-            setAttributes({backgroundColor: value});
-        };
-
-        const onChangeClipPath = (value) => {
-            if (value !== attributes.clipPath) {
-                setAttributes({clipPath: value});
-            } else {
-                setAttributes({clipPath: 'none'});
-            }
-        };
-
-        const onChangeVerticalAlign = (value) => {
-            if (value === 'top') {value = 'start';}
-            if (value === 'bottom') {value = 'end';}
-            setAttributes({verticalAlign: value});
-        }
-
         if (parentAttributes(clientId).generalBackgroundColor) {
             attributes.generalBackgroundColor = parentAttributes(clientId).generalBackgroundColor;
         } else {
@@ -124,7 +106,11 @@ registerBlockType('custom/grid-list-inner', {
                     <ToolbarGroup>
                         <BlockVerticalAlignmentToolbar
                             value={attributes.verticalAlign}
-                            onChange={onChangeVerticalAlign}
+                            onChange={(value) => {
+                                if (value === 'top') {value = 'start';}
+                                if (value === 'bottom') {value = 'end';}
+                                setAttributes({verticalAlign: value});
+                            }}
                         />
                     </ToolbarGroup>
                 </BlockControls>
@@ -135,14 +121,20 @@ registerBlockType('custom/grid-list-inner', {
                         <ColorPalette
                             colors={[...editorThemeColors]}
                             value={attributes.backgroundColor}
-                            onChange={onChangeBackgroundColor}
+                            onChange={(value) => setAttributes({backgroundColor: value})}
                             disableCustomColors={true}
                         />
                         <hr/>
                         <p>{__('Section Clip Path', 'sage')}</p>
                         <SelectClipPath
                             clipPathsModules={clipPaths}
-                            clickFunction={onChangeClipPath}
+                            clickFunction={(value) => {
+                                if (value !== attributes.clipPath) {
+                                    setAttributes({clipPath: value});
+                                } else {
+                                    setAttributes({clipPath: 'none'});
+                                }
+                            }}
                             value={attributes.clipPath}
                         />
                     </div>
