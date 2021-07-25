@@ -69,48 +69,6 @@ registerBlockType('custom/icon-text', {
     attributes,
     edit: ({setAttributes, attributes, className, clientId}) => {
 
-        const onChangeVerticalAlign = (value) => {
-            if (value === 'top') {value = 'start';}
-            if (value === 'bottom') {value = 'end';}
-            setAttributes({verticalAlign: value});
-        };
-
-        const onSelectIconObject = (value) => {
-            setAttributes({iconObject: value});
-        };
-
-        const onChangeIconSizeDesktop = (value) => {
-            setAttributes({iconSizeDesktop: value});
-
-            if (attributes.iconSizeMobile === attributes.iconSizeDesktop) {
-                setAttributes({iconSizeMobile: value});
-            }
-        }
-
-        const onChangeIconSizeMobile = (value) => {
-            setAttributes({iconSizeMobile: value});
-        }
-
-        const onChangeIconBorderRadius = (value) => {
-            setAttributes({iconBorderRadius: value});
-        }
-
-        const onChangeBottomTextMargin = (value) => {
-            setAttributes({bottomTextMargin: value});
-        }
-
-        // const onChangeBottomMargin = (value) => {
-        //     setAttributes({bottomMargin: value});
-        // }
-
-        const onClickAlignment = (value) => {
-            setAttributes({iconTextAlignment: value});
-        }
-
-        const onChangeImageTopOnMobile = (value) => {
-            setAttributes({imageTopOnMobile: value});
-        }
-
         attributes.clientId = clientId;
 
         return (
@@ -124,23 +82,27 @@ registerBlockType('custom/icon-text', {
                                 {
                                     title: 'Left',
                                     icon: 'align-left',
-                                    onClick: () => onClickAlignment('left'),
+                                    onClick: () => setAttributes({iconTextAlignment: 'left'}),
                                 },
                                 {
                                     title: 'Center',
                                     icon: 'align-center',
-                                    onClick: () => onClickAlignment('center'),
+                                    onClick: () => setAttributes({iconTextAlignment: 'center'}),
                                 },
                                 {
                                     title: 'Right',
                                     icon: 'align-right',
-                                    onClick: () => onClickAlignment('right'),
+                                    onClick: () => setAttributes({iconTextAlignment: 'right'}),
                                 },
                             ]}
                         />
                         <BlockVerticalAlignmentToolbar
                             value={attributes.verticalAlign}
-                            onChange={onChangeVerticalAlign}
+                            onChange={(value) => {
+                                if (value === 'top') {value = 'start';}
+                                if (value === 'bottom') {value = 'end';}
+                                setAttributes({verticalAlign: value});
+                            }}
                         />
                     </ToolbarGroup>
                 </BlockControls>
@@ -148,7 +110,7 @@ registerBlockType('custom/icon-text', {
                     <div className="inspector-controls-container">
                         <p>{__('Choose your Icon', 'sage')}</p>
                         <MediaUpload
-                            onSelect={onSelectIconObject}
+                            onSelect={(value) => setAttributes({iconObject: value})}
                             allowedTypes={['image']}
                             render={({open}) => (
                                 <Button variant="primary" className={'button'} onClick={open}>
@@ -163,7 +125,7 @@ registerBlockType('custom/icon-text', {
                             min={0}
                             max={200}
                             step={1}
-                            onChange={onChangeIconBorderRadius}
+                            onChange={(value) => setAttributes({iconBorderRadius: value})}
                             allowReset={true}
                             resetFallbackValue={0}
                         />
@@ -175,7 +137,13 @@ registerBlockType('custom/icon-text', {
                                     min={20}
                                     max={200}
                                     step={1}
-                                    onChange={onChangeIconSizeDesktop}
+                                    onChange={(value) => {
+                                        setAttributes({iconSizeDesktop: value});
+
+                                        if (attributes.iconSizeMobile === attributes.iconSizeDesktop) {
+                                            setAttributes({iconSizeMobile: value});
+                                        }
+                                    }}
                                 />
                             </MobileSwitchInner>
                             <MobileSwitchInner type={'mobile'}>
@@ -184,7 +152,7 @@ registerBlockType('custom/icon-text', {
                                     min={20}
                                     max={attributes.iconSizeDesktop}
                                     step={1}
-                                    onChange={onChangeIconSizeMobile}
+                                    onChange={(value) => setAttributes({iconSizeMobile: value})}
                                     allowReset={true}
                                     resetFallbackValue={attributes.iconSizeDesktop}
                                 />
@@ -197,7 +165,7 @@ registerBlockType('custom/icon-text', {
                             min={0}
                             max={120}
                             step={1}
-                            onChange={onChangeBottomTextMargin}
+                            onChange={(value) => setAttributes({bottomTextMargin: value})}
                             allowReset={true}
                             resetFallbackValue={16}
                         />
@@ -215,7 +183,7 @@ registerBlockType('custom/icon-text', {
                             label={__('Icon top on mobile', 'sage')}
                             help={__('Lets the icon sit above the text on mobile', 'sage')}
                             checked={attributes.imageTopOnMobile}
-                            onChange={onChangeImageTopOnMobile}
+                            onChange={(value) => setAttributes({imageTopOnMobile: value})}
                         />
                     </div>
                 </InspectorControls>
@@ -240,7 +208,6 @@ registerBlockType('custom/icon-text', {
                     </div>
                 </div>
             </>
-
         );
     },
     save: ({attributes, className}) => {
