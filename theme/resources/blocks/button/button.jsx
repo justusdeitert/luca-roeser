@@ -45,34 +45,6 @@ registerBlockType('custom/button', {
     attributes,
     edit: ({className, attributes, setAttributes, clientId}) => {
 
-        const onChangeButtonText = (value) => {
-            setAttributes({buttonText: value});
-        };
-
-        const onChangeButtonStyle = (value) => {
-            setAttributes({buttonStyle: getColorObject(value).slug});
-        };
-
-        const onChangeButtonSize = (value) => {
-            setAttributes({buttonSize: value});
-        };
-
-        const onClickAlignment = (value) => {
-            setAttributes({buttonAlignment: value});
-        }
-
-        const getAlignmentIcon = () => {
-            return 'align-' + attributes.buttonAlignment;
-        }
-
-        const onChangeButtonLink = (value) => {
-            setAttributes({buttonLink: value});
-        };
-
-        const onChangeCustomBorderRadius = (value) => {
-            setAttributes({customBorderRadius: value});
-        };
-
         let customStyles = {
             marginLeft: 0,
             marginRight: 0
@@ -91,28 +63,34 @@ registerBlockType('custom/button', {
             style: customStyles
         });
 
+        let iconClass = (icon) => {
+            if(icon === 'start') return 'left';
+            if(icon === 'end') return 'right';
+            return icon;
+        }
+
         return (
             <>
                 <BlockControls>
                     <ToolbarGroup>
                         <ToolbarDropdownMenu
-                            icon={getAlignmentIcon()}
+                            icon={'align-' + iconClass(attributes.buttonAlignment)}
                             label={__('Select a position', 'sage')}
                             controls={[
                                 {
                                     title: 'Left',
                                     icon: 'align-left',
-                                    onClick: () => onClickAlignment('left'),
+                                    onClick: () => setAttributes({buttonAlignment: 'start'}),
                                 },
                                 {
                                     title: 'Center',
                                     icon: 'align-center',
-                                    onClick: () => onClickAlignment('center'),
+                                    onClick: () => setAttributes({buttonAlignment: 'center'}),
                                 },
                                 {
                                     title: 'Right',
                                     icon: 'align-right',
-                                    onClick: () => onClickAlignment('right'),
+                                    onClick: () => setAttributes({buttonAlignment: 'end'}),
                                 },
                             ]}
                         />
@@ -130,7 +108,7 @@ registerBlockType('custom/button', {
                                 <div style={{padding: "16px"}}>
                                     <LinkControl
                                         value={attributes.buttonLink}
-                                        onChange={onChangeButtonLink}
+                                        onChange={(value) => setAttributes({buttonLink: value})}
                                         withCreateSuggestion={true}
                                         settings={[
                                             {
@@ -155,14 +133,14 @@ registerBlockType('custom/button', {
                         <ColorPalette
                             colors={editorStandardColors}
                             value={getColorObjectFromSlug(editorStandardColors, attributes.buttonStyle).color}
-                            onChange={onChangeButtonStyle}
+                            onChange={(value) => setAttributes({buttonStyle: getColorObject(value).slug})}
                             clearable={false}
                         />
                         <hr/>
                         <p>{__('Button Size', 'sage')}</p>
                         <RadioGroup
-                            onChange={onChangeButtonSize}
                             checked={attributes.buttonSize}
+                            onChange={(value) => setAttributes({buttonSize: value})}
                             defaultChecked={false}
                         >
                             <Radio value="sm">{__('Small', 'sage')}</Radio>
@@ -176,7 +154,7 @@ registerBlockType('custom/button', {
                             min={0}
                             max={50}
                             step={1}
-                            onChange={onChangeCustomBorderRadius}
+                            onChange={(value) => setAttributes({customBorderRadius: value})}
                             allowReset={true}
                             resetFallbackValue={false}
                         />
@@ -190,7 +168,7 @@ registerBlockType('custom/button', {
                         placeholder={__('Button Text', 'sage')}
                         allowedFormats={[]}
                         value={attributes.buttonText}
-                        onChange={onChangeButtonText}
+                        onChange={(value) => setAttributes({buttonText: value})}
                         onRemove={() => removeBlock(clientId)}
                     />
                 </div>
