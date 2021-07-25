@@ -70,10 +70,6 @@ registerBlockType('custom/image', {
             }
         };
 
-        const onClickAlignment = (value) => {
-            setAttributes({imageAlignment: value});
-        }
-
         const blockProps = useBlockProps({
             className: classnames(className, 'image-block', `align-${attributes.imageAlignment}`),
             style: {
@@ -96,17 +92,17 @@ registerBlockType('custom/image', {
                                 {
                                     title: 'Left',
                                     icon: 'align-left',
-                                    onClick: () => onClickAlignment('left'),
+                                    onClick: () => setAttributes({imageAlignment: 'left'}),
                                 },
                                 {
                                     title: 'Center',
                                     icon: 'align-center',
-                                    onClick: () => onClickAlignment('center'),
+                                    onClick: () => setAttributes({imageAlignment: 'center'}),
                                 },
                                 {
                                     title: 'Right',
                                     icon: 'align-right',
-                                    onClick: () => onClickAlignment('right'),
+                                    onClick: () => setAttributes({imageAlignment: 'right'}),
                                 },
                             ]}
                         />
