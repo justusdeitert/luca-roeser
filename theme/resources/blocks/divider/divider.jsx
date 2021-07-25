@@ -80,36 +80,6 @@ registerBlockType('custom/divider', {
 
             let {attributes, className, setAttributes} = this.props;
 
-            const onChangeOpacity = (value) => {
-                setAttributes({opacity: value});
-            };
-
-            const onChangeSpacingDesktop = (value) => {
-                setAttributes({spacingDesktop: value});
-
-                if (attributes.spacingMobile * 2 === attributes.spacingDesktop) {
-                    setAttributes({spacingMobile: value / 2});
-                }
-            };
-
-            const onChangeSpacingMobile = (value) => {
-                setAttributes({spacingMobile: value});
-            };
-
-            const onChangeThickness = (value) => {
-                setAttributes({thickness: value});
-            };
-
-            const onChangeWidth = (value) => {
-                setAttributes({width: value});
-            };
-
-            const onChangeColor = (value) => {
-                setAttributes({color: value});
-            };
-
-            // const blockProps = useBlockProps();
-
             return (
                 <>
                     <InspectorControls>
@@ -121,7 +91,7 @@ registerBlockType('custom/divider', {
                                 min={0}
                                 max={1}
                                 step={0.05}
-                                onChange={onChangeOpacity}
+                                onChange={(value) => setAttributes({opacity: value})}
                                 allowReset={true}
                                 resetFallbackValue={1}
                             />
@@ -133,7 +103,13 @@ registerBlockType('custom/divider', {
                                         min={0}
                                         max={140}
                                         step={10}
-                                        onChange={onChangeSpacingDesktop}
+                                        onChange={(value) => {
+                                            setAttributes({spacingDesktop: value});
+
+                                            if (attributes.spacingMobile * 2 === attributes.spacingDesktop) {
+                                                setAttributes({spacingMobile: value / 2});
+                                            }
+                                        }}
                                     />
                                 </MobileSwitchInner>
                                 <MobileSwitchInner type={'mobile'}>
@@ -142,7 +118,7 @@ registerBlockType('custom/divider', {
                                         min={0}
                                         max={attributes.spacingDesktop}
                                         step={10}
-                                        onChange={onChangeSpacingMobile}
+                                        onChange={(value) => setAttributes({spacingMobile: value})}
                                         allowReset={true}
                                         resetFallbackValue={attributes.spacingDesktop / 2}
                                     />
@@ -155,7 +131,7 @@ registerBlockType('custom/divider', {
                                 min={1}
                                 max={3}
                                 step={1}
-                                onChange={onChangeThickness}
+                                onChange={(value) => setAttributes({thickness: value})}
                                 allowReset={true}
                                 resetFallbackValue={1}
                             />
@@ -166,7 +142,7 @@ registerBlockType('custom/divider', {
                                 min={10}
                                 max={100}
                                 step={1}
-                                onChange={onChangeWidth}
+                                onChange={(value) => setAttributes({width: value})}
                                 allowReset={true}
                                 resetFallbackValue={100}
                             />
@@ -175,7 +151,7 @@ registerBlockType('custom/divider', {
                             <ColorPalette
                                 colors={editorThemeColors}
                                 value={attributes.color}
-                                onChange={onChangeColor}
+                                onChange={(value) => setAttributes({color: value})}
                                 disableCustomColors={true}
                                 // clearable={false}
                             />
