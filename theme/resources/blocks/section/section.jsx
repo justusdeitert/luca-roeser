@@ -1,13 +1,17 @@
 import {__} from '@wordpress/i18n';
 import {registerBlockType, createBlock} from '@wordpress/blocks';
-import {SelectControl, RangeControl, ToggleControl, Button} from '@wordpress/components';
+import {SelectControl, RangeControl, ToggleControl, Button, PanelBody, __experimentalRadio as Radio, __experimentalRadioGroup as RadioGroup} from '@wordpress/components';
 import {InnerBlocks, InspectorControls, ColorPalette, useBlockProps, __experimentalUseInnerBlocksProps as useInnerBlocksProps} from '@wordpress/block-editor';
-import classNames from 'classnames';
+import classnames from 'classnames';
 import {sectionIcon} from '../icons';
-import {editorThemeColors, getColorObject, SelectClipPath, ALLOWEDBLOCKS, removeArrayItems} from "../utility";
-import * as clipPaths from "../clip-paths"
+import {editorThemeColors, getColorObject, ALLOWEDBLOCKS, removeArrayItems, SelectSectionShapes, getCssVariable} from "../utility";
+import * as sectionShapes from "../section-shapes"
 
 const attributes = {
+
+    /**
+     * Default Attributes
+     */
     clientId: {
         type: 'string',
         default: ''
@@ -16,18 +20,10 @@ const attributes = {
         type: 'string',
         default: ''
     },
-    sectionClipPath: {
-        type: 'string',
-        default: 'none',
-    },
     sectionBorderRadius: {
         type: 'number',
         default: false,
     },
-    // hasInnerWidth: {
-    //     type: 'boolean',
-    //     default: false,
-    // },
     innerWidth: {
         type: 'number',
         default: false,
@@ -39,6 +35,30 @@ const attributes = {
     fullHeight: {
         type: 'boolean',
         default: false,
+    },
+
+    /**
+     * Shape Settings
+     */
+    sectionShape: {
+        type: 'string',
+        default: 'none',
+    },
+    sectionShapeHeight: {
+        type: 'number',
+        default: 60,
+    },
+    sectionShapeTopClass: {
+        type: 'string',
+        default: 'none',
+    },
+    sectionShapeBottomClass: {
+        type: 'string',
+        default: 'normal',
+    },
+    sectionShapeBgColor: {
+        type: 'string',
+        default: `rgb(${getCssVariable('--custom-body-background-color')})`,
     },
 };
 
@@ -114,54 +134,30 @@ registerBlockType('custom/section', {
     },
     edit: ({setAttributes, attributes, className, clientId}) => {
 
-        const onChangeSectionBackgroundColor = (value) => {
-            setAttributes({sectionBackgroundColor: value});
-        };
-
-        const onChangeSectionClipPath = (value) => {
-            if (value !== attributes.sectionClipPath) {
-                setAttributes({sectionClipPath: value});
-            } else {
-                setAttributes({sectionClipPath: 'none'});
-            }
-        };
-
-        const onChangeSectionBorderRadius = (value) => {
-            setAttributes({sectionBorderRadius: value});
-        };
-
-        const onChangeInnerWidth = (value) => {
-            setAttributes({innerWidth: value});
-        };
-
-        const onChangeCustomPadding = (value) => {
-            setAttributes({customPadding: value});
-        };
-
-        const onChangeFullHeight = (value) => {
-            setAttributes({fullHeight: value});
-        };
-
         attributes.clientId = clientId;
 
         const blockProps = useBlockProps({
             style: {
                 border: !attributes.sectionBackgroundColor ? '1px dashed var(--wp-admin-theme-color)' : 'none',
-                // padding: !attributes.sectionBackgroundColor ? '10px' : '0'
-                height: attributes.fullHeight ? '100%' : 'initial'
+                height: attributes.fullHeight ? '100%' : 'initial',
+                paddingTop: (attributes.sectionShape !== 'none') ? `${attributes.sectionShapeHeight + 10}px` : 0,
+                paddingBottom: (attributes.sectionShape !== 'none') ? `${attributes.sectionShapeHeight + 10}px` : 0,
             }
         });
-
-        // <InnerBlocks templateLock={false} allowedBlocks={removeArrayItems(ALLOWEDBLOCKS, ['custom/section'])}/>
 
         const innerBlocksProps = useInnerBlocksProps(blockProps, {
             allowedBlocks: removeArrayItems(ALLOWEDBLOCKS, ['custom/section']),
             templateLock: false,
         });
 
-        let sectionInnerStyles = {}
+        let sectionInnerStyles = {};
         if (attributes.innerWidth) {sectionInnerStyles.maxWidth = `${attributes.innerWidth}px`;}
         if (typeof attributes.customPadding !== 'undefined') {sectionInnerStyles.padding = `${attributes.customPadding}px`;}
+
+        if (attributes.sectionShape !== 'none') {
+            sectionInnerStyles.paddingTop = 0;
+            sectionInnerStyles.paddingBottom = 0;
+        }
 
         return (
             <>
@@ -171,14 +167,7 @@ registerBlockType('custom/section', {
                         <ColorPalette
                             colors={[...editorThemeColors]}
                             value={attributes.sectionBackgroundColor}
-                            onChange={onChangeSectionBackgroundColor}
-                        />
-                        <hr/>
-                        <p>{__('Section Clip Path', 'sage')}</p>
-                        <SelectClipPath
-                            clipPathsModules={clipPaths}
-                            clickFunction={onChangeSectionClipPath}
-                            value={attributes.sectionClipPath}
+                            onChange={(value) => setAttributes({sectionBackgroundColor: value})}
                         />
                         {attributes.sectionClipPath === 'none' &&
                         <>
@@ -189,7 +178,7 @@ registerBlockType('custom/section', {
                                 min={0}
                                 max={180}
                                 step={1}
-                                onChange={onChangeSectionBorderRadius}
+                                onChange={(value) => setAttributes({sectionBorderRadius: value})}
                                 allowReset={true}
                                 resetFallbackValue={false}
                             />
@@ -203,7 +192,7 @@ registerBlockType('custom/section', {
                                 min={200}
                                 max={1200}
                                 step={10}
-                                onChange={onChangeInnerWidth}
+                                onChange={(value) => setAttributes({innerWidth: value})}
                                 allowReset={true}
                                 resetFallbackValue={false}
                             />
@@ -216,42 +205,110 @@ registerBlockType('custom/section', {
                                 min={0}
                                 max={100}
                                 step={1}
-                                onChange={onChangeCustomPadding}
+                                onChange={(value) => setAttributes({customPadding: value})}
                                 allowReset={true}
                                 resetFallbackValue={false}
                             />
                         </>
                         <hr/>
-                        {/*<p>{__('Custom Padding', 'sage')}</p>*/}
                         <ToggleControl
                             label={__('Full Height', 'sage')}
                             checked={attributes.fullHeight}
-                            onChange={onChangeFullHeight}
+                            onChange={(value) => setAttributes({fullHeight: value})}
                         />
                     </div>
+                    <PanelBody title={__('Section Shape', 'sage')}>
+                        <div style={{height: '20px'}}/>
+                        <p>{__('Section Shape', 'sage')}</p>
+                        <SelectSectionShapes
+                            sectionShapes={sectionShapes}
+                            clickFunction={(value) => {
+                                if (value !== attributes.sectionShape) {
+                                    setAttributes({sectionShape: value});
+                                } else {
+                                    setAttributes({sectionShape: 'none'});
+                                }
+                            }}
+                            value={attributes.sectionShape}
+                        />
+                        {(attributes.sectionShape !== 'none') &&
+                        <>
+                            <hr/>
+                            <p>{__('Shape Height', 'sage')}</p>
+                            <RangeControl
+                                value={attributes.sectionShapeHeight}
+                                min={20}
+                                max={300}
+                                step={1}
+                                onChange={(value) => setAttributes({sectionShapeHeight: value})}
+                                allowReset={true}
+                                resetFallbackValue={100}
+                            />
+                            <hr/>
+                            <p>{__('Top Shape', 'sage')}</p>
+                            <RadioGroup
+                                checked={attributes.sectionShapeTopClass}
+                                onChange={(value) => setAttributes({sectionShapeTopClass: value})}
+                                defaultChecked={'none'}
+                            >
+                                <Radio value="none">{__('None', 'sage')}</Radio>
+                                <Radio value="normal">{__('Normal', 'sage')}</Radio>
+                                <Radio value="inverted">{__('Inverted', 'sage')}</Radio>
+                            </RadioGroup>
+                            <hr/>
+                            <p>{__('Bottom Shape', 'sage')}</p>
+                            <RadioGroup
+                                checked={attributes.sectionShapeBottomClass}
+                                onChange={(value) => setAttributes({sectionShapeBottomClass: value})}
+                                defaultChecked={'normal'}
+                            >
+                                <Radio value="none">{__('None', 'sage')}</Radio>
+                                <Radio value="normal">{__('Normal', 'sage')}</Radio>
+                                <Radio value="inverted">{__('Inverted', 'sage')}</Radio>
+                            </RadioGroup>
+                            <hr/>
+                            <p>{__('Shape Background Color', 'sage')}</p>
+                            <ColorPalette
+                                colors={editorThemeColors}
+                                value={attributes.sectionShapeBgColor}
+                                onChange={(value) => setAttributes({sectionShapeBgColor: value})}
+                                disableCustomColors={true}
+                            />
+                        </>
+                        }
+                    </PanelBody>
                 </InspectorControls>
                 <div {...innerBlocksProps}>
                     <div
-                        className={classNames(
+                        className={classnames(
                             className,
                             'section-block',
                             getColorObject(attributes.sectionBackgroundColor) && `has-${getColorObject(attributes.sectionBackgroundColor).slug}-background-color has-background`,
                             'custom-border-radius'
                         )}
                          style={{
-                             clipPath: clipPaths[attributes.sectionClipPath] ? `url(#clip-path-${attributes.clientId})` : 'none',
                              borderRadius: (attributes.sectionClipPath === 'none' && attributes.sectionBorderRadius) ? `${attributes.sectionBorderRadius}px` : 0,
                          }}
                     >
 
-                        {clipPaths[attributes.sectionClipPath] &&
-                            clipPaths[attributes.sectionClipPath](`clip-path-${attributes.clientId}`)
-                        }
+                        {(sectionShapes[attributes.sectionShape] && attributes.sectionShapeTopClass !== 'none') && sectionShapes[attributes.sectionShape](
+                            attributes.sectionShapeBgColor,
+                            'top',
+                            `${attributes.sectionShapeHeight}px`,
+                            attributes.sectionShapeTopClass,
+                        )}
 
                         <div className="section-block__inner" style={sectionInnerStyles}>
                             {innerBlocksProps.children}
                             {/*<InnerBlocks templateLock={false} allowedBlocks={removeArrayItems(ALLOWEDBLOCKS, ['custom/section'])}/>*/}
                         </div>
+
+                        {(sectionShapes[attributes.sectionShape] && attributes.sectionShapeBottomClass !== 'none') && sectionShapes[attributes.sectionShape](
+                            attributes.sectionShapeBgColor,
+                            'bottom',
+                            `${attributes.sectionShapeHeight}px`,
+                            attributes.sectionShapeBottomClass,
+                        )}
                     </div>
                 </div>
             </>
@@ -259,32 +316,48 @@ registerBlockType('custom/section', {
     },
     save: ({attributes, className}) => {
 
-        let sectionInnerStyles = {}
+        let sectionInnerStyles = {};
         if (attributes.innerWidth) {sectionInnerStyles.maxWidth = `${attributes.innerWidth}px`;}
         if (typeof attributes.customPadding !== 'undefined') {sectionInnerStyles.padding = `${attributes.customPadding}px`;}
 
+        if (attributes.sectionShape !== 'none') {
+            sectionInnerStyles.paddingTop = 0;
+            sectionInnerStyles.paddingBottom = 0;
+        }
+
         return (
             <div
-                className={classNames(
+                className={classnames(
                     className,
                     'section-block',
                     getColorObject(attributes.sectionBackgroundColor) && `has-${getColorObject(attributes.sectionBackgroundColor).slug}-background-color has-background`,
                     'custom-border-radius'
                 )}
                  style={{
-                     clipPath: attributes.sectionClipPath !== 'none' ? `url(#clip-path-${attributes.clientId})` : 'none',
                      borderRadius: (attributes.sectionClipPath === 'none' && attributes.sectionBorderRadius) ? `${attributes.sectionBorderRadius}px` : 0,
-                     height: attributes.fullHeight ? '100%' : 'initial'
+                     height: attributes.fullHeight ? '100%' : 'initial',
+                     paddingTop: (attributes.sectionShape !== 'none') ? `${attributes.sectionShapeHeight + 10}px` : 0,
+                     paddingBottom: (attributes.sectionShape !== 'none') ? `${attributes.sectionShapeHeight + 10}px` : 0,
                  }}
             >
 
-                {clipPaths[attributes.sectionClipPath] &&
-                    clipPaths[attributes.sectionClipPath](`clip-path-${attributes.clientId}`)
-                }
+                {(sectionShapes[attributes.sectionShape] && attributes.sectionShapeTopClass !== 'none') && sectionShapes[attributes.sectionShape](
+                    attributes.sectionShapeBgColor,
+                    'top',
+                    `${attributes.sectionShapeHeight}px`,
+                    attributes.sectionShapeTopClass,
+                )}
 
                 <div className="section-block__inner" style={sectionInnerStyles}>
                     <InnerBlocks.Content/>
                 </div>
+
+                {(sectionShapes[attributes.sectionShape] && attributes.sectionShapeBottomClass !== 'none') && sectionShapes[attributes.sectionShape](
+                    attributes.sectionShapeBgColor,
+                    'bottom',
+                    `${attributes.sectionShapeHeight}px`,
+                    attributes.sectionShapeBottomClass,
+                )}
             </div>
         );
     },

@@ -1,13 +1,15 @@
 import {__} from '@wordpress/i18n';
 import {registerBlockType} from '@wordpress/blocks';
-import {RangeControl, Button, ToggleControl, SelectControl, PanelBody, ColorPalette, FocalPointPicker, __experimentalAlignmentMatrixControl as AlignmentMatrixControl} from '@wordpress/components';
+import {RangeControl, Button, ToggleControl, SelectControl, PanelBody, ColorPalette, FocalPointPicker, __experimentalAlignmentMatrixControl as AlignmentMatrixControl, __experimentalRadio as Radio, __experimentalRadioGroup as RadioGroup} from '@wordpress/components';
 import {MediaUpload, InspectorControls, InnerBlocks, useBlockProps, __experimentalColorGradientControl as ColorGradientControl, __experimentalGradientPicker as GradientPicker} from '@wordpress/block-editor';
 import classNames from 'classnames';
-import {editorThemeColors, getImage, focalPositionInPixel, getColorObject, ALLOWEDBLOCKS, removeArrayItems, SelectClipPath, MobileSwitch, MobileSwitchInner} from "../utility";
-import * as clipPaths from "../clip-paths"
+import {editorThemeColors, getImage, focalPositionInPixel, getColorObject, ALLOWEDBLOCKS, removeArrayItems, SelectClipPath, MobileSwitch, MobileSwitchInner, SelectSectionShapes, getCssVariable} from "../utility";
+// import * as clipPaths from "../clip-paths"
 import {heroIcon} from "../icons";
+import * as sectionShapes from "../section-shapes";
 
 const attributes = {
+
     /**
      * Default Attributes
      * @link https://developer.wordpress.org/block-editor/reference-guides/block-api/block-supports/#align
@@ -20,6 +22,7 @@ const attributes = {
         type: 'string',
         default: ''
     },
+
     /**
      * Hero Properties
      */
@@ -43,18 +46,10 @@ const attributes = {
         type: 'string',
         default: ''
     },
-    // heroBackgroundGradient: {
-    //     type: 'string',
-    //     default: ''
-    // },
     hasOverlay: {
         type: 'boolean',
         default: false,
     },
-    // heroBackgroundOverlayColor: {
-    //     type: 'string',
-    //     default: 'light'
-    // },
     overlayGradient: {
         type: 'string',
         default: 'radial-gradient(rgba(0,0,0,0.3) 0%,rgba(0,0,0,0) 100%)'
@@ -63,6 +58,7 @@ const attributes = {
         type: 'string',
         default: 'center center'
     },
+
     /**
      * Image Properties
      */
@@ -84,6 +80,30 @@ const attributes = {
     },
 
     /**
+     * Section Shape
+     */
+    sectionShape: {
+        type: 'string',
+        default: 'none',
+    },
+    sectionShapeHeight: {
+        type: 'number',
+        default: 60,
+    },
+    sectionShapeTopClass: {
+        type: 'string',
+        default: 'none',
+    },
+    sectionShapeBottomClass: {
+        type: 'string',
+        default: 'normal',
+    },
+    sectionShapeBgColor: {
+        type: 'string',
+        default: `rgb(${getCssVariable('--custom-body-background-color')})`,
+    },
+
+    /**
      * Text Properties
      */
     textPosition: {
@@ -92,7 +112,10 @@ const attributes = {
     },
 }
 
-// For not firing update to often
+/**
+ * For not firing update function to often
+ * @type {boolean}
+ */
 let onChangeTextPositionTimeout = true;
 
 /**
@@ -128,76 +151,6 @@ registerBlockType('custom/hero', {
     // },
     edit: ({className, attributes, setAttributes, clientId}) => {
 
-        /**
-         * Hero Properties
-         */
-
-        const onChangeFullHeight = (value) => {
-            setAttributes({isFullHeight: value});
-        };
-
-        const onChangeHeight = (value) => {
-            setAttributes({desktopHeight: value});
-        };
-
-        const onChangeMobileHeight = (value) => {
-            setAttributes({mobileHeight: value});
-        };
-
-        const onChangeClipPath = (value) => {
-            if (value !== attributes.clipPath) {
-                setAttributes({clipPath: value});
-            } else {
-                setAttributes({clipPath: 'none'});
-            }
-        };
-
-        const onChangeBackgroundColor = (value) => {
-            setAttributes({backgroundColor: value});
-        };
-
-        const onChangeHasOverlay = (value) => {
-            setAttributes({hasOverlay: value});
-        };
-
-        const onChangeOverlayGradient = (value) => {
-            if (value) {
-                setAttributes({overlayGradient: value});
-            }
-        };
-
-        const onChangeOverlayGradientPosition = (value) => {
-            setAttributes({overlayGradientPosition: value});
-        };
-
-        /**
-         * Image Properties
-         */
-
-        const onSelectHeroImage = (imageObject) => {
-            setAttributes({backgroundImage: imageObject});
-        };
-
-        const removeHeroImage = () => {
-            setAttributes({backgroundImage: false});
-        };
-
-        const onChangeImageBlur = (value) => {
-            setAttributes({backgroundImageBlur: value});
-        };
-
-        const onChangeImageOpacity = (value) => {
-            setAttributes({backgroundImageOpacity: value});
-        };
-
-        const onChangeImageAlignment = (value) => {
-            setAttributes({backgroundImageAlignment: value});
-        };
-
-        /**
-         * Text Properties
-         */
-
         const onChangeTextPosition = (value) => {
 
             /**
@@ -210,12 +163,8 @@ registerBlockType('custom/hero', {
 
                 setTimeout(function () {
                     onChangeTextPositionTimeout = true;
-                }, 30);
+                }, 50);
             }
-        };
-
-        const setBackTextPosition = () => {
-            setAttributes({textPosition: {x: 0.5, y: 0.5}});
         };
 
         const TEMPLATE = [
@@ -232,8 +181,6 @@ registerBlockType('custom/hero', {
             }
         });
 
-
-
         return (
             <>
                 <InspectorControls>
@@ -243,7 +190,7 @@ registerBlockType('custom/hero', {
                             label={__('Full Height', 'sage')}
                             // help={ attributes.switchContent ? 'Image is left' : 'Image is right' }
                             checked={attributes.isFullHeight}
-                            onChange={onChangeFullHeight}
+                            onChange={(value) => setAttributes({isFullHeight: value})}
                         />
                         {!attributes.isFullHeight &&
                             <>
@@ -255,7 +202,7 @@ registerBlockType('custom/hero', {
                                             min={attributes.mobileHeight}
                                             max={1000}
                                             step={10}
-                                            onChange={onChangeHeight}
+                                            onChange={(value) => setAttributes({desktopHeight: value})}
                                         />
                                     </MobileSwitchInner>
                                     <MobileSwitchInner type={'mobile'}>
@@ -264,7 +211,7 @@ registerBlockType('custom/hero', {
                                             min={200}
                                             max={700}
                                             step={10}
-                                            onChange={onChangeMobileHeight}
+                                            onChange={(value) => setAttributes({mobileHeight: value})}
                                         />
                                     </MobileSwitchInner>
                                 </MobileSwitch>
@@ -275,36 +222,10 @@ registerBlockType('custom/hero', {
                         <ColorPalette
                             colors={editorThemeColors}
                             value={attributes.backgroundColor}
-                            onChange={onChangeBackgroundColor}
+                            onChange={(value) => setAttributes({backgroundColor: value})}
                             disableCustomColors={true}
                         />
-                        {/*<p>{__('Hero Background Color', 'sage')}</p>
-                        <ColorGradientControl
-                            colorValue={attributes.backgroundColor}
-                            gradientValue={attributes.overlayGradient}
-                            colors={editorThemeColors}
-                            gradients={[
-                                {
-                                    name: 'Vivid cyan blue to vivid purple',
-                                    gradient: 'linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%)',
-                                    slug: 'vivid-cyan-blue-to-vivid-purple',
-                                },
-                                {
-                                    name: 'Light green cyan to vivid green cyan',
-                                        gradient: 'linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%)',
-                                    slug: 'light-green-cyan-to-vivid-green-cyan',
-                                },
-                                {
-                                    name: 'Luminous vivid amber to luminous vivid orange',
-                                    gradient: 'linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%)',
-                                    slug: 'luminous-vivid-amber-to-luminous-vivid-orange',
-                                },
-                            ]}
-                            onColorChange={onChangeBackgroundColor}
-                            onGradientChange={onChangeOverlayGradient}
-                        />*/}
-                        {/*{(attributes.backgroundImage || attributes.backgroundColor) &&*/}
-                        <>
+                        {/*<>
                             <hr/>
                             <p>{__('Section Clip Path', 'sage')}</p>
                             <SelectClipPath
@@ -312,19 +233,18 @@ registerBlockType('custom/hero', {
                                 clickFunction={onChangeClipPath}
                                 value={attributes.clipPath}
                             />
-                        </>
-                        {/*}*/}
+                        </>*/}
                         <hr/>
                         <ToggleControl
                             label={__('Background Overlay', 'sage')}
                             checked={attributes.hasOverlay}
-                            onChange={onChangeHasOverlay}
+                            onChange={(value) => setAttributes({hasOverlay: value})}
                         />
                         {attributes.hasOverlay &&
                         <>
                             <GradientPicker
                                 value={attributes.overlayGradient}
-                                onChange={onChangeOverlayGradient}
+                                onChange={(value) => value && setAttributes({overlayGradient: value})}
                                 // disableCustomGradients={true}
                                 gradients={[
                                     {
@@ -351,11 +271,10 @@ registerBlockType('custom/hero', {
                             />
                             {attributes.overlayGradient.includes('radial-gradient') &&
                                 <>
-                                    {/*<hr/>*/}
                                     <p>{__('Radial Overlay Position', 'sage')}</p>
                                     <AlignmentMatrixControl
                                         value={attributes.overlayGradientPosition}
-                                        onChange={onChangeOverlayGradientPosition}
+                                        onChange={(value) => setAttributes({overlayGradientPosition: value})}
                                     />
                                 </>
                             }
@@ -370,7 +289,7 @@ registerBlockType('custom/hero', {
                                 value={attributes.backgroundImageBlur}
                                 min={0}
                                 max={10}
-                                onChange={onChangeImageBlur}
+                                onChange={(value) => setAttributes({backgroundImageBlur: value})}
                             />
                             <hr/>
                             <p>{__('Image Opacity', 'sage')}</p>
@@ -379,22 +298,81 @@ registerBlockType('custom/hero', {
                                 min={0}
                                 max={1}
                                 step={0.05}
-                                onChange={onChangeImageOpacity}
+                                onChange={(value) => setAttributes({backgroundImageOpacity: value})}
                             />
                             <hr/>
                             <p>{__('Background Image Alignment', 'sage')}</p>
                             <AlignmentMatrixControl
                                 value={attributes.backgroundImageAlignment}
-                                onChange={onChangeImageAlignment}
+                                onChange={(value) => setAttributes({backgroundImageAlignment: value})}
                             />
                         </PanelBody>
                     }
+                    <PanelBody title={__('Hero Shape', 'sage')}>
+                        <div style={{height: '20px'}}/>
+                        <p>{__('Section Shape', 'sage')}</p>
+                        <SelectSectionShapes
+                            sectionShapes={sectionShapes}
+                            clickFunction={(value) => {
+                                if (value !== attributes.sectionShape) {
+                                    setAttributes({sectionShape: value});
+                                } else {
+                                    setAttributes({sectionShape: 'none'});
+                                }
+                            }}
+                            value={attributes.sectionShape}
+                        />
+                        {(attributes.sectionShape !== 'none') &&
+                        <>
+                            <hr/>
+                            <p>{__('Shape Height', 'sage')}</p>
+                            <RangeControl
+                                value={attributes.sectionShapeHeight}
+                                min={20}
+                                max={300}
+                                step={1}
+                                onChange={(value) => setAttributes({sectionShapeHeight: value})}
+                                allowReset={true}
+                                resetFallbackValue={100}
+                            />
+                            <hr/>
+                            <p>{__('Top Shape', 'sage')}</p>
+                            <RadioGroup
+                                checked={attributes.sectionShapeTopClass}
+                                onChange={(value) => setAttributes({sectionShapeTopClass: value})}
+                                defaultChecked={'none'}
+                            >
+                                <Radio value="none">{__('None', 'sage')}</Radio>
+                                <Radio value="normal">{__('Normal', 'sage')}</Radio>
+                                <Radio value="inverted">{__('Inverted', 'sage')}</Radio>
+                            </RadioGroup>
+                            <hr/>
+                            <p>{__('Bottom Shape', 'sage')}</p>
+                            <RadioGroup
+                                checked={attributes.sectionShapeBottomClass}
+                                onChange={(value) => setAttributes({sectionShapeBottomClass: value})}
+                                defaultChecked={'normal'}
+                            >
+                                <Radio value="none">{__('None', 'sage')}</Radio>
+                                <Radio value="normal">{__('Normal', 'sage')}</Radio>
+                                <Radio value="inverted">{__('Inverted', 'sage')}</Radio>
+                            </RadioGroup>
+                            <hr/>
+                            <p>{__('Shape Background Color', 'sage')}</p>
+                            <ColorPalette
+                                colors={editorThemeColors}
+                                value={attributes.sectionShapeBgColor}
+                                onChange={(value) => setAttributes({sectionShapeBgColor: value})}
+                                disableCustomColors={true}
+                            />
+                        </>
+                        }
+                    </PanelBody>
                     <PanelBody title={__('Text Properties', 'sage')} initialOpen={false}>
-                        {/*<hr/>*/}
                         <div style={{height: '20px'}}/>
                         <p>{__('Text Position', 'sage')}</p>
                         <Button className={'is-secondary'}
-                                onClick={setBackTextPosition}
+                                onClick={() => setAttributes({textPosition: {x: 0.5, y: 0.5}})}
                                 style={{marginBottom: '20px'}}
                                 text={__('Default Position', 'sage')}
                         />
@@ -419,16 +397,13 @@ registerBlockType('custom/hero', {
                             attributes.isFullHeight && 'full-height'
                         )}
                         style={{
-                            clipPath: attributes.clipPath !== 'none' ? `url(#clip-path-${attributes.clientId})` : 'none',
                             '--hero-height-desktop': `${attributes.desktopHeight}px`,
                             '--hero-height-mobile': `${attributes.mobileHeight}px`,
                             '--hero-min-max-height': `${attributes.desktopHeight - attributes.mobileHeight}`,
+                            paddingTop: `${attributes.sectionShapeHeight}px`,
+                            paddingBottom: `${attributes.sectionShapeHeight}px`,
                         }}
                     >
-
-                        {clipPaths[attributes.clipPath] &&
-                            clipPaths[attributes.clipPath](`clip-path-${attributes.clientId}`)
-                        }
 
                         {attributes.backgroundImage &&
                             <img
@@ -444,6 +419,7 @@ registerBlockType('custom/hero', {
                                 height={getImage(attributes.backgroundImage, 'height')}
                             />
                         }
+
                         {attributes.hasOverlay &&
                             <div className="hero-block__overlay"
                                  style={{
@@ -452,6 +428,7 @@ registerBlockType('custom/hero', {
                                  }}
                             />
                         }
+
                         <div className="container hero-block__container">
                             <div className="hero-block__text-wrapper"
                                  style={{
@@ -461,9 +438,24 @@ registerBlockType('custom/hero', {
                                 <InnerBlocks template={TEMPLATE} allowedBlocks={removeArrayItems(ALLOWEDBLOCKS, ['custom/hero'])}/>
                             </div>
                         </div>
+
+                        {(sectionShapes[attributes.sectionShape] && attributes.sectionShapeTopClass !== 'none') && sectionShapes[attributes.sectionShape](
+                            attributes.sectionShapeBgColor,
+                            'top',
+                            `${attributes.sectionShapeHeight}px`,
+                            attributes.sectionShapeTopClass,
+                        )}
+
+                        {(sectionShapes[attributes.sectionShape] && attributes.sectionShapeBottomClass !== 'none') && sectionShapes[attributes.sectionShape](
+                            attributes.sectionShapeBgColor,
+                            'bottom',
+                            `${attributes.sectionShapeHeight}px`,
+                            attributes.sectionShapeBottomClass,
+                        )}
+
                     </div>
                     <MediaUpload
-                        onSelect={onSelectHeroImage}
+                        onSelect={(value) => setAttributes({backgroundImage: value})}
                         allowedTypes={[
                             'image/jpeg',
                             'image/jpg',
@@ -488,7 +480,7 @@ registerBlockType('custom/hero', {
                                     <>
                                         <Button
                                             className={'button'}
-                                            onClick={removeHeroImage}
+                                            onClick={() => setAttributes({backgroundImage: false})}
                                             icon={'trash'}
                                             style={{marginLeft: '10px'}}
                                         />
@@ -512,16 +504,14 @@ registerBlockType('custom/hero', {
                     attributes.isFullHeight && 'full-height'
                 )}
                 style={{
-                    clipPath: attributes.clipPath !== 'none' ? `url(#clip-path-${attributes.clientId})` : 'none',
+                    // clipPath: attributes.clipPath !== 'none' ? `url(#clip-path-${attributes.clientId})` : 'none',
                     '--hero-height-desktop': `${attributes.desktopHeight}px`,
                     '--hero-height-mobile': `${attributes.mobileHeight}px`,
                     '--hero-min-max-height': `${attributes.desktopHeight - attributes.mobileHeight}`,
+                    paddingTop: `${attributes.sectionShapeHeight}px`,
+                    paddingBottom: `${attributes.sectionShapeHeight}px`,
                 }}
             >
-
-                {clipPaths[attributes.clipPath] &&
-                    clipPaths[attributes.clipPath](`clip-path-${attributes.clientId}`)
-                }
 
                 {attributes.backgroundImage &&
                     <img className={classNames('hero-block__image', attributes.backgroundImageBlur > 0 ? 'is-blurred' : '')}
@@ -536,6 +526,7 @@ registerBlockType('custom/hero', {
                          alt={getImage(attributes.backgroundImage, 'alt')}
                     />
                 }
+
                 {attributes.hasOverlay &&
                     <div className="hero-block__overlay"
                          style={{
@@ -544,6 +535,7 @@ registerBlockType('custom/hero', {
                          }}
                     />
                 }
+
                 <div className="container hero-block__container">
                     <div className="hero-block__text-wrapper"
                          style={{
@@ -553,6 +545,21 @@ registerBlockType('custom/hero', {
                         <InnerBlocks.Content/>
                     </div>
                 </div>
+
+                {(sectionShapes[attributes.sectionShape] && attributes.sectionShapeTopClass !== 'none') && sectionShapes[attributes.sectionShape](
+                    attributes.sectionShapeBgColor,
+                    'top',
+                    `${attributes.sectionShapeHeight}px`,
+                    attributes.sectionShapeTopClass,
+                )}
+
+                {(sectionShapes[attributes.sectionShape] && attributes.sectionShapeBottomClass !== 'none') && sectionShapes[attributes.sectionShape](
+                    attributes.sectionShapeBgColor,
+                    'bottom',
+                    `${attributes.sectionShapeHeight}px`,
+                    attributes.sectionShapeBottomClass,
+                )}
+
             </div>
         );
     },

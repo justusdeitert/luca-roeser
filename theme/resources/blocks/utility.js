@@ -3,7 +3,7 @@ import {getColorObjectByColorValue} from '@wordpress/block-editor';
 import {select, dispatch, useSelect} from "@wordpress/data";
 import {useState, cloneElement} from "@wordpress/element";
 import {Button} from '@wordpress/components';
-import classNames from 'classnames';
+import classnames from 'classnames';
 
 /**
  * @param array
@@ -288,7 +288,7 @@ export const SelectClipPath = ({clipPathsModules, clickFunction, value = 'none'}
 
                 {element[1](`clip-path-${index}`)}
 
-                <div className={classNames(`clip-paths__element`, value === element[0] && 'is-active')}
+                <div className={classnames(`clip-paths__element`, value === element[0] && 'is-active')}
                      style={{
                          cursor: 'pointer',
                          clipPath: `url(#clip-path-${index})`,
@@ -386,9 +386,49 @@ export const MobileSwitch = (props) => {
 
 export const MobileSwitchInner = (props) => {
     return (
-        <div className={classNames('mobile-switch__inner')} style={{display: props.isActive ? 'block' : 'none'}}>
+        <div className={classnames('mobile-switch__inner')} style={{display: props.isActive ? 'block' : 'none'}}>
             {props.children}
         </div>
     )
 }
 
+/**
+ * Select Clip Paths for Gutenberg InspectorControls
+ * @param clipPathsModules
+ * @param clickFunction
+ * @param value
+ * @returns {JSX.Element}
+ * @constructor
+ */
+export const SelectSectionShapes = ({sectionShapes, clickFunction, value = 'none'}) => {
+
+    let sectionShapesArray = Object.entries(sectionShapes);
+
+    let ClipPathEntries = sectionShapesArray.map((element, index) => {
+        return (
+            <div key={index} className={classnames('section-shapes__wrapper', value === element[0] && 'is-active')}>
+                {element[1]('#FFF', 'top', '10px')}
+                <div
+                    key={index}
+                    style={{cursor: 'pointer'}}
+                    className={classnames('section-shapes__element')}
+                    onClick={() => clickFunction(element[0])}
+                />
+                {element[1]('#FFF', 'bottom', '10px')}
+            </div>
+        )
+    });
+
+    return (
+        <>
+            <div className={'section-shapes'}>
+                {ClipPathEntries}
+                <div className="section-shapes__remove-button-wrapper">
+                    <Button className="is-secondary is-small section-shapes__remove-button" onClick={() => {clickFunction('none')}}>
+                        {__('Clear', 'sage')}
+                    </Button>
+                </div>
+            </div>
+        </>
+    );
+}

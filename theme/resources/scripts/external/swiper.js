@@ -30,7 +30,8 @@ window.initSliderBlockInstances = () => {
             if (sliderBlock.dataset.sliderAutoplay !== 'false') {
                 return {
                     delay: parseInt(sliderBlock.dataset.sliderAutoplay),
-                    pauseOnMouseEnter: isGutenbergEditor()
+                    pauseOnMouseEnter: true, // Could cause problems on Gutenberg Editor (when wanting to edit)
+                    disableOnInteraction: false
                 }
             } else {
                 return false;

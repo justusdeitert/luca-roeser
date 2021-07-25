@@ -3,6 +3,20 @@
     overflow: hidden;
     display: flex;
     align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    //.section-shape {
+    //    position: absolute;
+    //
+    //    &.shape-top {
+    //        top: -1px;
+    //    }
+    //
+    //    &.shape-bottom {
+    //        bottom: -1px;
+    //    }
+    //}
 
     &__image {
         position: absolute;
