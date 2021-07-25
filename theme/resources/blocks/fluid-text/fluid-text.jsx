@@ -52,34 +52,6 @@ registerBlockType('custom/fluid-text', {
     attributes,
     edit: ({setAttributes, attributes, className, clientId}) => {
 
-        const onChangeFluidText = (value) => {
-            setAttributes({fluidText: value});
-        };
-
-        const onChangeFluidTextElement = (value) => {
-            setAttributes({fluidTextElement: value});
-        };
-
-        const onChangeTextAlign = (value) => {
-            setAttributes({textAlign: value});
-        };
-
-        const onChangeFontSizeMobile = (value) => {
-            setAttributes({fontSizeMobile: value});
-        };
-
-        // const onChangeMinWindowSize = (value) => {
-        //     setAttributes({minWindowSize: value});
-        // };
-
-        const onChangeFontSizeDesktop = (value) => {
-            setAttributes({fontSizeDesktop: value});
-        };
-
-        // const onChangeMaxWindowSize = (value) => {
-        //     setAttributes({maxWindowSize: value});
-        // };
-
         attributes.clientId = clientId;
 
         return (
@@ -88,7 +60,7 @@ registerBlockType('custom/fluid-text', {
                     <ToolbarGroup>
                         <AlignmentToolbar
                             value={attributes.textAlign}
-                            onChange={onChangeTextAlign}
+                            onChange={(value) => setAttributes({textAlign: value})}
                         />
                     </ToolbarGroup>
                 </BlockControls>
@@ -107,7 +79,7 @@ registerBlockType('custom/fluid-text', {
                                 {label: __('H5', 'sage'), value: 'h5'},
                                 {label: __('H6', 'sage'), value: 'h6'},
                             ]}
-                            onChange={onChangeFluidTextElement}
+                            onChange={(value) => setAttributes({fluidTextElement: value})}
                         />
                         <hr/>
                         <MobileSwitch headline={__('Font Size', 'sage')}>
@@ -118,7 +90,7 @@ registerBlockType('custom/fluid-text', {
                                     min={attributes.fontSizeMobile}
                                     max={120}
                                     step={1}
-                                    onChange={onChangeFontSizeDesktop}
+                                    onChange={(value) => setAttributes({fontSizeDesktop: value})}
                                 />
                                 {/*<p>{__('Max Window Size', 'sage')}</p>
                                 <RangeControl
@@ -136,7 +108,7 @@ registerBlockType('custom/fluid-text', {
                                     min={12}
                                     max={60}
                                     step={1}
-                                    onChange={onChangeFontSizeMobile}
+                                    onChange={(value) => setAttributes({fontSizeMobile: value})}
                                 />
                                 {/*<p>{__('Min Window Size', 'sage')}</p>
                                 <RangeControl
@@ -150,23 +122,6 @@ registerBlockType('custom/fluid-text', {
                         </MobileSwitch>
                     </div>
                 </InspectorControls>
-                {/*<style>{`
-                    .fluid-text-${attributes.clientId} {
-                         font-size: ${attributes.fontSizeMobile}px !important;
-                    }
-
-                    @media only screen and (min-width: ${attributes.minWindowSize}px) {
-                        .fluid-text-${attributes.clientId} {
-                            font-size: calc(${attributes.fontSizeMobile}px + ${attributes.fontSizeDesktop - attributes.fontSizeMobile} * ((100vw - ${attributes.minWindowSize}px) / ${attributes.maxWindowSize - attributes.minWindowSize})) !important;
-                        }
-                    }
-
-                    @media only screen and (min-width: ${attributes.maxWindowSize}px) {
-                        .fluid-text-${attributes.clientId} {
-                              font-size: ${attributes.fontSizeDesktop}px !important;
-                        }
-                    }
-                `}</style>*/}
                 <RichText
                     tagName={attributes.fluidTextElement}
                     className={classNames('fluid-text-block', `has-text-align-${attributes.textAlign}`, `fluid-text-${attributes.clientId}`)}
@@ -179,7 +134,7 @@ registerBlockType('custom/fluid-text', {
                     onRemove={() => removeBlock(clientId)}
                     value={attributes.fluidText}
                     // allowedFormats={['core/bold', 'core/italic']}
-                    onChange={onChangeFluidText}
+                    onChange={(value) => setAttributes({fluidText: value})}
                 />
             </>
 
