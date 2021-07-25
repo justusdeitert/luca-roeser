@@ -13,7 +13,7 @@ const attributes = {
     },
     showIcon: {
         type: 'boolean',
-        default: true,
+        default: false,
     },
     accordionSpacing: {
         type: 'number',

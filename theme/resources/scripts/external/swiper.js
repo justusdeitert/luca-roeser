@@ -1,13 +1,13 @@
 /**
  * core version + navigation, pagination modules:
  */
-import Swiper, { Navigation, Pagination } from 'swiper/core';
-import {bootstrapBreakpoints, objectIsEmpty} from '../utility'
+import Swiper, { Navigation, Pagination, Autoplay} from 'swiper/core';
+import {bootstrapBreakpoints, objectIsEmpty, isGutenbergEditor} from '../utility'
 
 /**
  * configure Swiper to use modules
  */
-Swiper.use([Navigation, Pagination]);
+Swiper.use([Navigation, Pagination, Autoplay]);
 
 window.sliderBlockInstances = {};
 
@@ -21,8 +21,20 @@ window.initSliderBlockInstances = () => {
         //     dynamicBullets: false,
         // }
         let initialSlidesPerView = 1;
+
         let sliderLoop = () => {
             return sliderBlock.dataset.sliderLoop === 'true';
+        }
+
+        let sliderAutoplay = () => {
+            if (sliderBlock.dataset.sliderAutoplay !== 'false') {
+                return {
+                    delay: parseInt(sliderBlock.dataset.sliderAutoplay),
+                    pauseOnMouseEnter: isGutenbergEditor()
+                }
+            } else {
+                return false;
+            }
         }
 
         if (sliderBlock.dataset.slidesPerView === "1") {
@@ -31,7 +43,7 @@ window.initSliderBlockInstances = () => {
 
         if (sliderBlock.dataset.slidesPerView === "2") {
             breakpoints = {
-                [parseInt(bootstrapBreakpoints.sm)]: {
+                [parseInt(bootstrapBreakpoints.md)]: {
                     slidesPerView: 2,
                     pagination: {
                         dynamicBullets: false,
@@ -42,13 +54,13 @@ window.initSliderBlockInstances = () => {
 
         if (sliderBlock.dataset.slidesPerView === "3") {
             breakpoints = {
-                [parseInt(bootstrapBreakpoints.sm)]: {
+                [parseInt(bootstrapBreakpoints.md)]: {
                     slidesPerView: 2,
                     pagination: {
                         dynamicBullets: false,
                     },
                 },
-                [parseInt(bootstrapBreakpoints.md)]: {
+                [parseInt(bootstrapBreakpoints.lg)]: {
                     slidesPerView: 3,
                     pagination: {
                         dynamicBullets: false,
@@ -59,19 +71,19 @@ window.initSliderBlockInstances = () => {
 
         if (sliderBlock.dataset.slidesPerView === "4") {
             breakpoints = {
-                [parseInt(bootstrapBreakpoints.sm)]: {
+                [parseInt(bootstrapBreakpoints.md)]: {
                     slidesPerView: 2,
                     pagination: {
                         dynamicBullets: false,
                     },
                 },
-                [parseInt(bootstrapBreakpoints.md)]: {
+                [parseInt(bootstrapBreakpoints.lg)]: {
                     slidesPerView: 3,
                     pagination: {
                         dynamicBullets: false,
                     },
                 },
-                [parseInt(bootstrapBreakpoints.lg)]: {
+                [parseInt(bootstrapBreakpoints.xl)]: {
                     slidesPerView: 4,
                     pagination: {
                         dynamicBullets: false,
@@ -79,6 +91,7 @@ window.initSliderBlockInstances = () => {
                 },
             }
         }
+
 
         let swiperInstance = new Swiper(sliderContainer, {
             // loop: true,
@@ -122,6 +135,12 @@ window.initSliderBlockInstances = () => {
              * Set to true to enable continuous loop mode
              */
             loop: sliderLoop(),
+
+            /**
+             * Delay between transitions (in ms)
+             * @link https://swiperjs.com/swiper-api#param-autoplay
+             */
+            autoplay: sliderAutoplay(),
 
             /**
              * Base for breakpoints (beta). Can be window or container.

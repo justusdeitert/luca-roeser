@@ -31,3 +31,8 @@ export const bootstrapBreakpoints = {
 export const objectIsEmpty = (obj) => {
     return Object.keys(obj).length === 0;
 }
+
+export const isGutenbergEditor = () => {
+    return document.querySelector('body').classList.contains('wp-admin')
+        && !!document.querySelector('.block-editor');
+};

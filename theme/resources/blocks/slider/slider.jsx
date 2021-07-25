@@ -20,6 +20,14 @@ const attributes = {
         type: 'boolean',
         default: false,
     },
+    // sliderAutoplay: {
+    //     type: 'boolean',
+    //     default: false,
+    // },
+    sliderAutoplaySeconds: {
+        type: 'number',
+        default: false,
+    },
     slidesPerView: {
         type: 'number',
         default: 3,
@@ -68,6 +76,7 @@ const updateSlider = () => {
     }, 300);
 }
 
+let autoplayTreshold = true;
 
 registerBlockType('custom/slider', {
     apiVersion: 2,
@@ -96,6 +105,24 @@ registerBlockType('custom/slider', {
         const onChangeSliderLoop = (value) => {
             setAttributes({sliderLoop: value});
             updateSlider();
+        };
+
+        // const onChangeSliderAutoplay = (value) => {
+        //     setAttributes({sliderAutoplay: value});
+        //     updateSlider();
+        // };
+
+        const onChangeSliderAutoplaySeconds = (value) => {
+            setAttributes({sliderAutoplaySeconds: value});
+
+            if (autoplayTreshold) {
+                updateSlider();
+                autoplayTreshold = false;
+
+                setTimeout(() => {
+                    autoplayTreshold = true;
+                }, 500);
+            }
         };
 
         const onChangeSlidesPerView = (value) => {
@@ -227,10 +254,29 @@ registerBlockType('custom/slider', {
                         />
                         <hr/>
                         <ToggleControl
-                            label={__('Loop Slider', 'sage')}
+                            label={__('Loop', 'sage')}
                             help={__('Enable continuous loop mode (does not apply on the editor)', 'sage')}
                             checked={attributes.sliderLoop}
                             onChange={onChangeSliderLoop}
+                        />
+                        {/*<hr/>
+                        <ToggleControl
+                            label={__('Autoplay', 'sage')}
+                            help={__('Enable autoplay', 'sage')}
+                            checked={attributes.sliderAutoplay}
+                            onChange={onChangeSliderAutoplay}
+                        />*/}
+                        <hr/>
+                        <p>{__('Autoplay Seconds', 'sage')}</p>
+                        <RangeControl
+                            value={attributes.sliderAutoplaySeconds}
+                            min={1}
+                            // initialPosition={false}
+                            step={0.1}
+                            max={15}
+                            onChange={onChangeSliderAutoplaySeconds}
+                            allowReset={true}
+                            resetFallbackValue={false}
                         />
                         <hr/>
                         <p>{__('Slides per View', 'sage')}</p>
@@ -303,6 +349,7 @@ registerBlockType('custom/slider', {
                      data-slides-per-view={attributes.slidesPerView}
                      data-slider-id={attributes.clientId}
                      data-slider-loop={false}
+                     data-slider-autoplay={attributes.sliderAutoplaySeconds ? attributes.sliderAutoplaySeconds * 1000 : false}
                 >
                     <div className="swiper-container slider-block__container">
                         {attributes.controlsPosition === 'top' &&
@@ -361,6 +408,7 @@ registerBlockType('custom/slider', {
                  data-slides-per-view={attributes.slidesPerView}
                  data-slider-id={attributes.clientId}
                  data-slider-loop={attributes.sliderLoop}
+                 data-slider-autoplay={attributes.sliderAutoplaySeconds ? attributes.sliderAutoplaySeconds * 1000 : false}
             >
                 <div className="swiper-container slider-block__container">
                     {attributes.controlsPosition === 'top' &&
