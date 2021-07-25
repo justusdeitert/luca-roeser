@@ -2,6 +2,8 @@
  * Gutenberg Blocks
  */
 
+/* purgecss start ignore */
+
 @import 'map';
 @import 'hero';
 @import 'text-image';
@@ -15,3 +17,5 @@
 @import 'icon-text';
 @import 'grid-list';
 @import 'spacer';
+
+/* purgecss end ignore */

@@ -140,8 +140,6 @@ registerBlockType('custom/section', {
             style: {
                 border: !attributes.sectionBackgroundColor ? '1px dashed var(--wp-admin-theme-color)' : 'none',
                 height: attributes.fullHeight ? '100%' : 'initial',
-                paddingTop: (attributes.sectionShape !== 'none') ? `${attributes.sectionShapeHeight + 10}px` : 0,
-                paddingBottom: (attributes.sectionShape !== 'none') ? `${attributes.sectionShapeHeight + 10}px` : 0,
             }
         });
 
@@ -288,8 +286,14 @@ registerBlockType('custom/section', {
                         )}
                          style={{
                              borderRadius: (attributes.sectionClipPath === 'none' && attributes.sectionBorderRadius) ? `${attributes.sectionBorderRadius}px` : 0,
+                             paddingTop: (attributes.sectionShape !== 'none') ? `${attributes.sectionShapeHeight + 10}px` : 0,
+                             paddingBottom: (attributes.sectionShape !== 'none') ? `${attributes.sectionShapeHeight + 10}px` : 0,
                          }}
                     >
+
+                        <div className="section-block__inner" style={sectionInnerStyles}>
+                            {innerBlocksProps.children}
+                        </div>
 
                         {(sectionShapes[attributes.sectionShape] && attributes.sectionShapeTopClass !== 'none') && sectionShapes[attributes.sectionShape](
                             attributes.sectionShapeBgColor,
@@ -297,11 +301,6 @@ registerBlockType('custom/section', {
                             `${attributes.sectionShapeHeight}px`,
                             attributes.sectionShapeTopClass,
                         )}
-
-                        <div className="section-block__inner" style={sectionInnerStyles}>
-                            {innerBlocksProps.children}
-                            {/*<InnerBlocks templateLock={false} allowedBlocks={removeArrayItems(ALLOWEDBLOCKS, ['custom/section'])}/>*/}
-                        </div>
 
                         {(sectionShapes[attributes.sectionShape] && attributes.sectionShapeBottomClass !== 'none') && sectionShapes[attributes.sectionShape](
                             attributes.sectionShapeBgColor,
@@ -341,16 +340,16 @@ registerBlockType('custom/section', {
                  }}
             >
 
+                <div className="section-block__inner" style={sectionInnerStyles}>
+                    <InnerBlocks.Content/>
+                </div>
+
                 {(sectionShapes[attributes.sectionShape] && attributes.sectionShapeTopClass !== 'none') && sectionShapes[attributes.sectionShape](
                     attributes.sectionShapeBgColor,
                     'top',
                     `${attributes.sectionShapeHeight}px`,
                     attributes.sectionShapeTopClass,
                 )}
-
-                <div className="section-block__inner" style={sectionInnerStyles}>
-                    <InnerBlocks.Content/>
-                </div>
 
                 {(sectionShapes[attributes.sectionShape] && attributes.sectionShapeBottomClass !== 'none') && sectionShapes[attributes.sectionShape](
                     attributes.sectionShapeBgColor,
