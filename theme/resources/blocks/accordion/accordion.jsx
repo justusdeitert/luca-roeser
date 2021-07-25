@@ -44,23 +44,6 @@ registerBlockType('custom/accordion', {
 
         attributes.clientId = clientId;
 
-        const onChangeShowIcon = (value) => {
-            setAttributes({showIcon: value});
-        };
-
-        const onChangeAccordionSpacing = (value) => {
-            setAttributes({accordionSpacing: value});
-        };
-
-        const onChangeAccordionHeadlineSize = (value) => {
-            setAttributes({accordionHeadlineSize: value});
-            updateInnerBlocks(clientId);
-        };
-
-        const onChangeAccordionBackgroundColor = (value) => {
-            setAttributes({accordionBackgroundColor: value});
-        };
-
         const TEMPLATE = [
             ['custom/accordion-inner', {}, [
                 ['core/paragraph', {placeholder: loremIpsum, content: loremIpsum}]
@@ -113,7 +96,7 @@ registerBlockType('custom/accordion', {
                         <ToggleControl
                             label={__('Show Icon', 'sage')}
                             checked={attributes.showIcon}
-                            onChange={onChangeShowIcon}
+                            onChange={(value) => setAttributes({showIcon: value})}
                         />
                         <hr/>
                         <p>{__('Accordion Spacing', 'sage')}</p>
@@ -122,7 +105,7 @@ registerBlockType('custom/accordion', {
                             min={8}
                             initialPosition={16}
                             max={32}
-                            onChange={onChangeAccordionSpacing}
+                            onChange={(value) => setAttributes({accordionSpacing: value})}
                             allowReset={true}
                             resetFallbackValue={16}
                         />
@@ -139,14 +122,17 @@ registerBlockType('custom/accordion', {
                                 {label: __('Large (H2)', 'sage'), value: 'large'},
                                 {label: __('Huge (H1)', 'sage'), value: 'huge'},
                             ]}
-                            onChange={onChangeAccordionHeadlineSize}
+                            onChange={(value) => {
+                                setAttributes({accordionHeadlineSize: value});
+                                updateInnerBlocks(clientId);
+                            }}
                         />
                         <hr/>
                         <p>{__('Accordion Background Color', 'sage')}</p>
                         <ColorPalette
                             colors={[...editorThemeColors]}
                             value={attributes.accordionBackgroundColor}
-                            onChange={onChangeAccordionBackgroundColor}
+                            onChange={(value) => setAttributes({accordionBackgroundColor: value})}
                             disableCustomColors={true}
                         />
                     </div>

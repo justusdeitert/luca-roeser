@@ -43,10 +43,6 @@ registerBlockType('custom/accordion-inner', {
     // },
     edit: ({setAttributes, attributes, className, clientId}) => {
 
-        const onChangeHeaderText = (value) => {
-            setAttributes({headerText: value});
-        };
-
         const blockProps = useBlockProps({
             className: classNames(className, 'accordion-block__item'),
             style: {marginTop: 0, marginBottom: 0}
@@ -72,7 +68,7 @@ registerBlockType('custom/accordion-inner', {
                                 className={`has-font-size-${attributes.headerTextSize}`}
                                 value={attributes.headerText}
                                 allowedFormats={['core/bold', 'core/italic']}
-                                onChange={onChangeHeaderText}
+                                onChange={(value) => setAttributes({headerText: value})}
                             />
                         </div>
                     </div>
