@@ -163,7 +163,7 @@ registerBlockType('custom/section', {
                     <div className="inspector-controls-container">
                         <p>{__('Background Color', 'sage')}</p>
                         <ColorPalette
-                            colors={[...editorThemeColors]}
+                            colors={editorThemeColors}
                             value={attributes.sectionBackgroundColor}
                             onChange={(value) => setAttributes({sectionBackgroundColor: value})}
                         />

@@ -28,3 +28,45 @@ if (acfCodeField) {
         editor.save()
     })
 }
+
+/**
+ * Custom Font Colors Select
+ */
+window.generalColors = false;
+
+window.getGeneralThemeColors = () => {
+    let iFrame = document.querySelector('#customize-preview iframe');
+    let iFrameDocument = iFrame.contentWindow.document;
+
+    if (iFrameDocument.body) {
+        let style = getComputedStyle(iFrameDocument.body);
+        let getProperty = (property) => style.getPropertyValue(property);
+
+        window.generalColors = {
+            primary: getProperty('--custom-primary-color'),
+            secondary: getProperty('--custom-secondary-color'),
+            tertiary: getProperty('--custom-tertiary-color'),
+            quaternary: getProperty('--custom-quaternary-color'),
+            light: getProperty('--custom-light-color'),
+            dark: getProperty('--custom-dark-color'),
+            success: getProperty('--custom-success-color'),
+            danger: getProperty('--custom-danger-color'),
+            warning: getProperty('--custom-warning-color'),
+            info: getProperty('--custom-info-color'),
+        }
+
+        /**
+         * Apply styles to Customizer dom
+         * @type {Element}
+         */
+        let root = document.querySelector(':root');
+        Object.entries(window.generalColors).forEach(generalColor => {
+            root.style.setProperty(`--custom-${generalColor[0]}-color`, generalColor[1]);
+        });
+    }
+
+}
+
+setInterval(() => {
+    window.getGeneralThemeColors();
+}, 1000);

@@ -19,10 +19,28 @@ body {
     flex-direction: column;
 }
 
-/**
- * Make Content Set Unter Navigation
- * TODO: Condition for if navigation exists
- */
+.xdebug-var-dump {
+    z-index: 1000;
+    background-color: #000;
+    border-radius: 6px;
+    margin: 20px;
+    padding: 10px;
+    max-width: calc(100vw - 40px);
+    display: none;
+    color: #FFF;
+}
+
+.xdebug-wrapper {
+    position: absolute;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+
+    .xdebug-var-dump {
+        display: inline-block;
+        max-height: 530px;
+    }
+}
 
 main {
     > *:first-child {
@@ -71,8 +89,8 @@ img {
 
 .edit-post-link {
     position: fixed;
-    bottom: var(--custom-block-spacing);
-    right: var(--custom-block-spacing);
+    bottom: 20px;
+    right: 20px;
     background-color: rgb(var(--custom-body-background-color));
     border-radius: 50%;
     box-shadow: var(--custom-box-shadow);
@@ -81,8 +99,9 @@ img {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
+    font-size: 0.875em;
 
     &:hover {
         color: rgb(var(--custom-font-color));
@@ -210,8 +229,8 @@ img {
 }
 
 /**
- * Has no Max Width
- */
+* Has no Max Width
+*/
 .container-fluid {
     padding-left: var(--container-padding-mobile);
     padding-right: var(--container-padding-mobile);

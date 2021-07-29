@@ -39,3 +39,18 @@ document.addEventListener('DOMContentLoaded', () => {
 window.addEventListener('load', () => {
     // console.log('Window loaded');
 });
+
+/**
+ * Adjust xdebug error notices
+ * @type {NodeListOf<Element>}
+ */
+let xdebugElements = document.querySelectorAll('.xdebug-var-dump');
+let xdebugWrapper = document.createElement('div');
+xdebugWrapper.classList.add('xdebug-wrapper')
+
+if (xdebugElements) {
+    xdebugElements.forEach(element => {
+        xdebugWrapper.appendChild(element);
+    })
+    document.body.insertBefore(xdebugWrapper, document.getElementById('app'));
+}

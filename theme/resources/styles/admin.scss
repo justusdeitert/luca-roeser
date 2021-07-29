@@ -5,9 +5,7 @@
 // Adjusting Kirki Customizer Controls
 #customize-controls {
     [id^="customize-control-custom_border"],
-    [id^="customize-control-custom_spacing"],
-    [id^="customize-control-custom_text"],
-    [id^="customize-control-custom_headline"] {
+    [id^="customize-control-custom_spacing"] {
         display: list-item !important;
         margin-bottom: 0;
 
@@ -28,6 +26,10 @@
         img {
             max-width: 50%;
         }
+    }
+
+    .select2-selection__clear {
+        display: none;
     }
 }
 
@@ -64,6 +66,145 @@
         &-sizer {
             width: 0;
             min-width: 0 !important;
+        }
+    }
+}
+
+//#input_custom_color_select
+
+.buttonset[id^="input_custom_color_select"] {
+    .switch-label {
+        width: 26px;
+        height: 26px;
+        max-width: 26px;
+        margin-right: 7px !important;
+        margin-bottom: 7px !important;
+        border-radius: 50%;
+        font-size: 0;
+        opacity: 0.4;
+        border: 1px solid #3582c4 !important;
+    }
+
+    .switch-input:checked + .switch-label {
+        width: 29px;
+        height: 29px;
+        max-width: 29px;
+        opacity: 1;
+        border: 3px solid #3582c4 !important;
+    }
+}
+
+.buttonset {
+    .switch-label {
+        color: var(--wp-admin-theme-color-darker-10);
+        box-shadow: inset 0 0 0 1px var(--wp-admin-theme-color-darker-10);
+        //box-shadow: inset 0 0 0 1px var(--wp-admin-theme-color);
+        outline: 1px solid transparent;
+        white-space: nowrap;
+        //color: var(--wp-admin-theme-color);
+        background: #FFF !important;
+        border-radius: 2px;
+        flex-grow: initial !important;
+        margin: 0 5px 5px 0 !important;
+    }
+
+    .switch-input:checked + .switch-label {
+        background-color: #00a0d2 !important;
+        color: rgba(255, 255, 255, 0.8);
+    }
+}
+
+
+
+.customize-control-kirki-radio[id^="customize-control-custom_color_select"] {
+    .kirki-input-container {
+        display: flex;
+        flex-wrap: wrap;
+        position: relative;
+        padding-bottom: 30px;
+
+        .customize-control-title {
+            width: 100%;
+            margin-bottom: 16px;
+        }
+
+        label {
+            font-size: 0;
+            display: inline-flex;
+            min-height: 36px;
+
+            input {
+                width: 16px;
+                height: 16px;
+                max-width: 16px;
+                border-radius: 50%;
+                font-size: 0;
+                border: none;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                //margin: 0;
+                margin-right: 7px;
+                margin-bottom: 7px;
+
+                $color_slugs: 'primary', 'secondary', 'tertiary', 'quaternary', 'light', 'dark', 'success', 'danger', 'warning', 'info';
+
+                @each $color_slug in $color_slugs {
+                    .icon-#{$color_slug} {
+                        font-size: $color_slug;
+                        height: $color_slug;
+                        width: $color_slug;
+                    }
+
+                    &[value=#{$color_slug}] {
+                        background-color: rgb(var(--custom-#{$color_slug}-color))
+                    }
+                }
+
+                &[value="light"] {
+                    border: 1px solid #3582c4;
+                }
+
+                &:before {
+                    content: '';
+                    float: left;
+                    display: inline-block;
+                    border-radius: 50%;
+                    background-color: rgba(255, 255, 255, 0.7);
+                    width: calc(100% - 6px);
+                    height: calc(100% - 6px);
+                    margin: 3px;
+                }
+            }
+
+            input:checked {
+                width: 36px;
+                height: 36px;
+                max-width: 36px;
+                //border: 1px solid #3582c4;
+                border: none;
+                position: absolute;
+                left: 0;
+                bottom: 0;
+
+                &[value="light"] {
+                    border: 2px solid #3582c4;
+
+                    &:focus {
+                        border: 2px solid #3582c4;
+                    }
+                }
+
+                &:focus {
+                    border: none;
+                    box-shadow: none;
+                    outline: none;
+                }
+
+                &:before {
+                    background-color: rgba(255, 255, 255, 0);
+                }
+            }
         }
     }
 }

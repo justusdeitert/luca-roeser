@@ -6,7 +6,10 @@ import {getCssVariable} from "../utility"
  * @link https://orestbida.com/demo-projects/cookieconsent/
  */
 let cookieconsent = initCookieConsent();
-cookieconsent.run(cookieConsentConfig);
+
+if(typeof cookieConsentConfig !== 'undefined') {
+    cookieconsent.run(cookieConsentConfig);
+}
 
 /**
  * Get css variable and add classes to cookie consent buttons
