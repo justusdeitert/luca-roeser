@@ -153,7 +153,7 @@ registerBlockType('custom/grid-list', {
                         <hr/>
                         <p>{__('General Background Color', 'sage')}</p>
                         <ColorPalette
-                            colors={[...editorThemeColors]}
+                            colors={editorThemeColors}
                             value={attributes.generalBackgroundColor}
                             onChange={(value) => {
                                 setAttributes({generalBackgroundColor: value});
