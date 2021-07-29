@@ -28,18 +28,6 @@ registerBlockType('custom/spacer', {
         let minSpacerHeight = 20;
         let maxSpacerHeight = 600;
 
-        const onChangeDesktopHeight = (value) => {
-            setAttributes({desktopHeight: value});
-
-            if (attributes.mobileHeight * 2 === attributes.desktopHeight) {
-                setAttributes({mobileHeight: value / 2});
-            }
-        };
-
-        const onChangeMobileHeight = (value) => {
-            setAttributes({mobileHeight: value});
-        };
-
         const handleOnResizeStart = () => {
             setIsResizing(true);
         }
@@ -67,7 +55,13 @@ registerBlockType('custom/spacer', {
                                     min={minSpacerHeight}
                                     max={maxSpacerHeight}
                                     step={5}
-                                    onChange={onChangeDesktopHeight}
+                                    onChange={(value) => {
+                                        setAttributes({desktopHeight: value});
+
+                                        if (attributes.mobileHeight * 2 === attributes.desktopHeight) {
+                                            setAttributes({mobileHeight: value / 2});
+                                        }
+                                    }}
                                 />
                             </MobileSwitchInner>
                             <MobileSwitchInner type={'mobile'}>
@@ -77,7 +71,7 @@ registerBlockType('custom/spacer', {
                                     min={minSpacerHeight}
                                     max={attributes.desktopHeight}
                                     step={5}
-                                    onChange={onChangeMobileHeight}
+                                    onChange={(value) => setAttributes({mobileHeight: value})}
                                     allowReset={true}
                                     resetFallbackValue={attributes.desktopHeight / 2}
                                 />
