@@ -92,41 +92,19 @@ registerBlockType('custom/text-image', {
                 ['core/paragraph', {content: loremIpsum({count: 3})}],
             ];
 
-            const onSelectImage = (object) => {
-                setAttributes({contentImages: object});
-            };
-
-            const onChangeColumnRange = (value) => {
-                setAttributes({columnRange: value});
-            };
-
-            const onChangeImageCount = (value) => {
-                setAttributes({imageCount: value});
-            };
-
-            const onChangeSwitchContent = (value) => {
-                setAttributes({switchContent: value});
-            };
-
-            // const onChangeImagesBackgroundColor = (value) => {
-            //     setAttributes({imagesBackgroundColor: value});
-            // };
-
-            const onChangeImagesRatio = (value) => {
-                setAttributes({imagesRatio: value});
-            };
-
-            const onChangeHasGallery = (value) => {
-                setAttributes({hasGallery: value});
-            };
-
-            // const imagesBackgroundColor = getColorObjectByColorValue(editorThemeColors, attributes.imagesBackgroundColor);
+            let maxImagesCount = () => {
+                if(attributes.contentImages.length <= 4) {
+                    return attributes.contentImages.length;
+                } else {
+                    return 4;
+                }
+            }
 
             const imageColumn = (
                 <div className={classNames('text-image-block__image-column', `col-12 col-md-6 col-xl-${attributes.columnRange}`)}>
                     <div style={{position: 'relative', display: 'inline-block', width: '100%'}}>
                         <MediaUpload
-                            onSelect={onSelectImage}
+                            onSelect={(value) => setAttributes({contentImages: value})}
                             multiple={true}
                             allowedTypes={[
                                 'image/jpeg',
@@ -182,14 +160,6 @@ registerBlockType('custom/text-image', {
                 </div>
             );
 
-            let maxImagesCount = () => {
-                if(attributes.contentImages.length <= 4) {
-                    return attributes.contentImages.length;
-                } else {
-                    return 4;
-                }
-            }
-
             return (
                 <div className={classNames(className, 'text-image-block', 'custom-spacing', 'no-gallery')}>
                     <InspectorControls>
@@ -198,7 +168,7 @@ registerBlockType('custom/text-image', {
                             <ToggleControl
                                 label={__('Switch content order', 'sage')}
                                 checked={attributes.switchContent}
-                                onChange={onChangeSwitchContent}
+                                onChange={(value) => setAttributes({switchContent: value})}
                             />
                             <hr/>
                             <p>{__('Adjust Column Range', 'sage')}</p>
@@ -207,7 +177,7 @@ registerBlockType('custom/text-image', {
                                 min={4}
                                 initialPosition={7}
                                 max={8}
-                                onChange={onChangeColumnRange}
+                                onChange={(value) => setAttributes({columnRange: value})}
                             />
                             {(maxImagesCount() > 1) &&
                             <>
@@ -219,7 +189,7 @@ registerBlockType('custom/text-image', {
                                     initialPosition={1}
                                     max={maxImagesCount()}
                                     step={1}
-                                    onChange={onChangeImageCount}
+                                    onChange={(value) => setAttributes({imageCount: value})}
                                 />
                             </>
                             }
@@ -227,8 +197,8 @@ registerBlockType('custom/text-image', {
                             <hr/>
                             <p>{__('Images Ratio', 'sage')}</p>
                             <RadioGroup
-                                onChange={onChangeImagesRatio}
                                 checked={attributes.imagesRatio}
+                                onChange={(value) => setAttributes({imagesRatio: value})}
                                 defaultChecked={'3x2'}
                             >
                                 <Radio value="1x1">{__('1x1', 'sage')}</Radio>
@@ -242,7 +212,7 @@ registerBlockType('custom/text-image', {
                                 label={__('Has Gallery', 'sage')}
                                 help={__('Turn this on if the Gallery should appear when clicking on image elements', 'sage')}
                                 checked={attributes.hasGallery}
-                                onChange={onChangeHasGallery}
+                                onChange={(value) => setAttributes({hasGallery: value})}
                             />
                             {/*<hr/>
                             <p>{__('Background Color', 'sage')}</p>
