@@ -14,7 +14,6 @@ import {
 } from '../utility';
 import * as clipPaths from "../clip-paths";
 
-
 const attributes = {
     clientId: {
         type: 'string',
@@ -24,7 +23,7 @@ const attributes = {
         type: 'string',
         default: ''
     },
-    generalBackgroundColor: {
+    parentBackgroundColor: {
         type: 'string',
         default: ''
     },
@@ -37,25 +36,6 @@ const attributes = {
         default: 'center'
     },
 };
-
-/**
- * Returns background color slug
- * @param backgroundColor
- * @param fallbackColor
- */
-const getBackgroundColorSlug = (backgroundColor, fallbackColor) => {
-    let backgroundColorSlug = false;
-
-    if (getColorObject(fallbackColor)) {
-        backgroundColorSlug = getColorObject(fallbackColor).slug;
-    }
-
-    if (getColorObject(backgroundColor)) {
-        backgroundColorSlug = getColorObject(backgroundColor).slug;
-    }
-
-    return backgroundColorSlug;
-}
 
 registerBlockType('custom/grid-list-inner', {
     apiVersion: 2,
@@ -71,11 +51,8 @@ registerBlockType('custom/grid-list-inner', {
     // },
     edit: ({setAttributes, attributes, className, clientId}) => {
 
-        if (parentAttributes(clientId).generalBackgroundColor) {
-            attributes.generalBackgroundColor = parentAttributes(clientId).generalBackgroundColor;
-        }
-
-        let backgroundColorSlug = getBackgroundColorSlug(attributes.backgroundColor, attributes.generalBackgroundColor);
+        attributes.clientId = clientId;
+        attributes.parentBackgroundColor = parentAttributes(attributes.clientId).generalBackgroundColor;
 
         const blockProps = useBlockProps({
             style: {
@@ -83,20 +60,15 @@ registerBlockType('custom/grid-list-inner', {
                 marginBottom: 0,
                 width: '100%',
                 height: '100%',
-                border: !(attributes.backgroundColor || attributes.generalBackgroundColor) ? '1px dashed var(--wp-admin-theme-color)' : 'none',
+                border: !(attributes.backgroundColor || attributes.parentBackgroundColor) ? '1px dashed var(--wp-admin-theme-color)' : 'none',
             }
         });
 
-        /**
-         * useInnerBlocksProps is still experimental and will be ready in future versions
-         */
         const innerBlocksProps = useInnerBlocksProps(blockProps, {
             allowedBlocks: [ALLOWEDBLOCKS],
             templateLock: false,
             renderAppender: InnerBlocks.DefaultBlockAppender,
         });
-
-        attributes.clientId = clientId;
 
         return (
             <>
@@ -142,7 +114,12 @@ registerBlockType('custom/grid-list-inner', {
                         clipPaths[attributes.clipPath](`clip-path-${attributes.clientId}`)
                     }
                     <div { ...innerBlocksProps }>
-                        <div className={classNames(className, 'grid-list-block__inner', backgroundColorSlug && `has-background has-${backgroundColorSlug}-background-color`, `align-items-${attributes.verticalAlign}`)}
+                        <div className={classNames(
+                                className,
+                                'grid-list-block__inner',
+                                getColorObject(attributes.parentBackgroundColor) && `has-background has-${getColorObject(attributes.parentBackgroundColor).slug}-background-color`,
+                                `align-items-${attributes.verticalAlign}`
+                            )}
                              style={{
                                  clipPath: clipPaths[attributes.clipPath] ? `url(#clip-path-${attributes.clientId})` : 'none',
                              }}
@@ -158,8 +135,6 @@ registerBlockType('custom/grid-list-inner', {
     },
     save: ({attributes}) => {
 
-        let backgroundColorSlug = getBackgroundColorSlug(attributes.backgroundColor, attributes.generalBackgroundColor);
-
         // Need to use for passing classes to save function
         const blockProps = useBlockProps.save({
             className: classNames(`grid-list-block__col`)
@@ -170,7 +145,11 @@ registerBlockType('custom/grid-list-inner', {
                 {clipPaths[attributes.clipPath] &&
                     clipPaths[attributes.clipPath](`clip-path-${attributes.clientId}`)
                 }
-                <div className={classNames('grid-list-block__inner', backgroundColorSlug && `has-background has-${backgroundColorSlug}-background-color`, `align-items-${attributes.verticalAlign}`)}
+                <div className={classNames(
+                        'grid-list-block__inner',
+                        getColorObject(attributes.parentBackgroundColor) && `has-background has-${getColorObject(attributes.parentBackgroundColor).slug}-background-color`,
+                        `align-items-${attributes.verticalAlign}`
+                    )}
                      style={{
                         clipPath: clipPaths[attributes.clipPath] ? `url(#clip-path-${attributes.clientId})` : 'none',
                     }}

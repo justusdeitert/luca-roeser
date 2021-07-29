@@ -80,7 +80,7 @@ registerBlockType('custom/slider-inner', {
                 'custom-border',
                 'custom-border-radius',
                 'custom-shadow',
-                getColorObject(attributes.parentBackgroundColor) && `has-${getColorObject(attributes.parentBackgroundColor).slug}-background-color`
+                getColorObject(attributes.parentBackgroundColor) && `has-background has-${getColorObject(attributes.parentBackgroundColor).slug}-background-color`
             ),
             style: {
                 marginTop: 0,
@@ -112,7 +112,7 @@ registerBlockType('custom/slider-inner', {
                 'custom-border',
                 'custom-border-radius',
                 'custom-shadow',
-                getColorObject(attributes.parentBackgroundColor) && `has-${getColorObject(attributes.parentBackgroundColor).slug}-background-color`
+                getColorObject(attributes.parentBackgroundColor) && `has-background has-${getColorObject(attributes.parentBackgroundColor).slug}-background-color`
             ),
         });
 
