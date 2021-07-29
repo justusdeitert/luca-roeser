@@ -98,33 +98,13 @@ registerBlockType('custom/map', {
 
             let {attributes, className, setAttributes } = this.props;
 
-            const onSelectMarkerImage = (image) => {
-                setAttributes({markerImage: image});
-            };
-
-            const removeMarkerImage = () => {
-                setAttributes({markerImage: false});
-            };
-
-            const onChangeAddress = (address) => {
-                setAttributes({address: address});
-            };
-
-            const onChangeZoom = (value) => {
-                setAttributes({zoom: value});
-            };
-
-            const onChangeGoogleMapsLink = (value) => {
-                setAttributes({googleMapsLink: value});
-            };
-
             return (
                 <div className={classNames(className, 'map-block', 'custom-border custom-border-radius custom-shadow custom-spacing')}>
                     <InspectorControls>
                         <div className="inspector-controls-container">
                             <hr/>
                             <MediaUpload
-                                onSelect={onSelectMarkerImage}
+                                onSelect={(value) => setAttributes({markerImage: value})}
                                 allowedTypes={[
                                     'image/svg+xml',
                                     'image/png',
@@ -137,20 +117,25 @@ registerBlockType('custom/map', {
                             />
                             {attributes.markerImage &&
                                 <Tooltip text={__('Remove Marker Image', 'sage')}>
-                                    <Icon icon="trash" size={32} onClick={removeMarkerImage} style={{marginLeft: '10px', cursor: 'pointer'}} />
+                                    <Icon
+                                        icon="trash"
+                                        size={32}
+                                        onClick={() => setAttributes({markerImage: false})}
+                                        style={{marginLeft: '10px', cursor: 'pointer'}}
+                                    />
                                 </Tooltip>
                             }
                             <hr/>
                             <TextControl
                                 label={__('Address', 'sage')}
                                 value={attributes.address}
-                                onChange={onChangeAddress}
+                                onChange={(value) => setAttributes({address: value})}
                             />
                             <hr/>
                             <TextControl
                                 label={__('Google Maps Link', 'sage')}
                                 value={attributes.googleMapsLink}
-                                onChange={onChangeGoogleMapsLink}
+                                onChange={(value) => setAttributes({googleMapsLink: value})}
                             />
                             <hr />
                             <p>{__('Adjust Zoom Level', 'sage')}</p>
@@ -158,7 +143,7 @@ registerBlockType('custom/map', {
                                 value={attributes.zoom}
                                 min={6}
                                 max={22}
-                                onChange={onChangeZoom}
+                                onChange={(value) => setAttributes({zoom: value})}
                             />
                         </div>
                     </InspectorControls>
