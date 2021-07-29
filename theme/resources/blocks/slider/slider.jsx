@@ -100,68 +100,6 @@ registerBlockType('custom/slider', {
         }
 
         /**
-         * Slider Properties
-         */
-        const onChangeSliderLoop = (value) => {
-            setAttributes({sliderLoop: value});
-            updateSlider();
-        };
-
-        // const onChangeSliderAutoplay = (value) => {
-        //     setAttributes({sliderAutoplay: value});
-        //     updateSlider();
-        // };
-
-        const onChangeSliderAutoplaySeconds = (value) => {
-            setAttributes({sliderAutoplaySeconds: value});
-
-            if (autoplayTreshold) {
-                updateSlider();
-                autoplayTreshold = false;
-
-                setTimeout(() => {
-                    autoplayTreshold = true;
-                }, 500);
-            }
-        };
-
-        const onChangeSlidesPerView = (value) => {
-            setAttributes({slidesPerView: value});
-            updateSlider();
-        };
-
-        const onChangeSlidesBackgroundColor = (value) => {
-            setAttributes({slidesBackgroundColor: value});
-            updateInnerBlocks(clientId);
-        };
-
-        /**
-         * Slider Controls
-         */
-        const onChangeShowPagination = (value) => {
-            setAttributes({showPagination: value});
-            updateSlider();
-        };
-
-        const onChangeShowArrows = (value) => {
-            setAttributes({showArrows: value});
-            updateSlider();
-        };
-
-        const onChangeControlsSize = (value) => {
-            setAttributes({controlsSize: value});
-        };
-
-        const onChangeControlsPosition = (value) => {
-            setAttributes({controlsPosition: value});
-            updateSlider();
-        };
-
-        const onChangeControlsStyle = (value) => {
-            setAttributes({controlsStyle: value});
-        };
-
-        /**
          * Prev & Next button controls
          */
         const slideNext = () => {
@@ -257,7 +195,10 @@ registerBlockType('custom/slider', {
                             label={__('Loop', 'sage')}
                             help={__('Enable continuous loop mode (does not apply on the editor)', 'sage')}
                             checked={attributes.sliderLoop}
-                            onChange={onChangeSliderLoop}
+                            onChange={(value) => {
+                                setAttributes({sliderLoop: value});
+                                updateSlider();
+                            }}
                         />
                         {/*<hr/>
                         <ToggleControl
@@ -274,7 +215,18 @@ registerBlockType('custom/slider', {
                             // initialPosition={false}
                             step={0.1}
                             max={15}
-                            onChange={onChangeSliderAutoplaySeconds}
+                            onChange={(value) => {
+                                setAttributes({sliderAutoplaySeconds: value});
+
+                                if (autoplayTreshold) {
+                                    updateSlider();
+                                    autoplayTreshold = false;
+
+                                    setTimeout(() => {
+                                        autoplayTreshold = true;
+                                    }, 500);
+                                }
+                            }}
                             allowReset={true}
                             resetFallbackValue={false}
                         />
@@ -285,7 +237,10 @@ registerBlockType('custom/slider', {
                             min={1}
                             initialPosition={3}
                             max={4}
-                            onChange={onChangeSlidesPerView}
+                            onChange={(value) => {
+                                setAttributes({slidesPerView: value});
+                                updateSlider();
+                            }}
                         />
                         <hr/>
                         <p>{__('Slides Background Color', 'sage')}</p>
@@ -293,7 +248,10 @@ registerBlockType('custom/slider', {
                             colors={[...editorThemeColors]}
                             disableCustomColors={true}
                             value={attributes.slidesBackgroundColor}
-                            onChange={onChangeSlidesBackgroundColor}
+                            onChange={(value) => {
+                                setAttributes({slidesBackgroundColor: value});
+                                updateInnerBlocks(clientId);
+                            }}
                         />
                     </div>
                     <PanelBody title={__('Slider Controls', 'sage')} initialOpen={false}>
@@ -301,12 +259,18 @@ registerBlockType('custom/slider', {
                         <ToggleControl
                             label={__('Show Pagination', 'sage')}
                             checked={attributes.showPagination}
-                            onChange={onChangeShowPagination}
+                            onChange={(value) => {
+                                setAttributes({showPagination: value});
+                                updateSlider();
+                            }}
                         />
                         <ToggleControl
                             label={__('Show Arrows', 'sage')}
                             checked={attributes.showArrows}
-                            onChange={onChangeShowArrows}
+                            onChange={(value) => {
+                                setAttributes({showArrows: value});
+                                updateSlider();
+                            }}
                         />
                         {(attributes.showPagination || attributes.showArrows) &&
                         <>
@@ -317,13 +281,16 @@ registerBlockType('custom/slider', {
                                 min={8}
                                 initialPosition={16}
                                 max={36}
-                                onChange={onChangeControlsSize}
+                                onChange={(value) => setAttributes({controlsSize: value})}
                             />
                             <hr/>
                             <p>{__('Controls Position', 'sage')}</p>
                             <RadioGroup
-                                onChange={onChangeControlsPosition}
                                 checked={attributes.controlsPosition}
+                                onChange={(value) => {
+                                    setAttributes({controlsPosition: value});
+                                    updateSlider();
+                                }}
                                 defaultChecked={'bottom'}
                             >
                                 <Radio value="top">{__('Top')}</Radio>
@@ -332,8 +299,8 @@ registerBlockType('custom/slider', {
                             <hr/>
                             <p>{__('Controls Style', 'sage')}</p>
                             <RadioGroup
-                                onChange={onChangeControlsStyle}
                                 checked={attributes.controlsStyle}
+                                onChange={(value) => setAttributes({controlsStyle: value})}
                                 defaultChecked={'center'}
                             >
                                 <Radio value="left">{__('Left')}</Radio>
