@@ -92,11 +92,11 @@ function customizer_theme_styles() {
         /**
          * Cookie Colors
          */
-        'cookie-background' => get_theme_mod('custom_color_select_cookie_background', 'light'),
-        'cookie-background-highlight' => get_theme_mod('custom_color_select_cookie_background_highlight', 'secondary'),
-        'cookie-font' => get_theme_mod('custom_color_select_cookie_font', 'dark'),
-        'cookie-link' => get_theme_mod('custom_color_select_cookie_link', 'primary'),
-        'cookie-link-hover' => get_theme_mod('custom_color_select_cookie_link_hover', 'primary'),
+        'consent-modal-background' => get_theme_mod('custom_color_select_consent_modal_background', 'light'),
+        'consent-modal-background-highlight' => get_theme_mod('custom_color_select_consent_modal_background_highlight', 'secondary'),
+        'consent-modal-font' => get_theme_mod('custom_color_select_consent_modal_font', 'dark'),
+        'consent-modal-link' => get_theme_mod('custom_color_select_consent_modal_link', 'primary'),
+        'consent-modal-link-hover' => get_theme_mod('custom_color_select_consent_modal_link_hover', 'primary'),
     ];
 
     /**
@@ -252,6 +252,7 @@ function customizer_theme_styles() {
             }
         <?php } ?>
 
+        <!-- TODO: NEED TO CHECK IF COLOR CLASSES ARE NOT BROKEN! -->
         <?php /*foreach ($theme_colors as $name => $value) { */?>/*
             .has-<?php /*echo $name; */?>-color,
             .has-<?php /*echo $name; */?>-color *,

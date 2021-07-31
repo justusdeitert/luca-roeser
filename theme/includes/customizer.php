@@ -25,8 +25,11 @@ $GLOBALS['standard_google_fonts'] = [
     'Inter' => 'sans-serif',
 ];
 
-// General Colors
+/**
+ * General Colors
+ */
 $GLOBALS['general_colors'] = [
+
     // Standard Colors
     'primary' => '#0d6efd',
     'secondary' => '#6c757d',
@@ -34,61 +37,12 @@ $GLOBALS['general_colors'] = [
     'quaternary' => '#6c757d',
     'light' => '#f8f9fa',
     'dark' => '#212529',
+
     // Alert Colors
     'success' => '#198754',
     'danger' => '#dc3545',
     'warning' => '#ffc107',
     'info' => '#0dcaf0',
-];
-
-// Font Colors
-$GLOBALS['font_colors'] = [
-    'font' => '#212529',
-    'link' => '#0d6efd',
-    'link_hover' => '#0d6efd',
-];
-
-// Content Colors
-$GLOBALS['content_colors'] = [
-    'body_background' => '#f8f9fa',
-    'controls' => '#212529',
-];
-
-// Menu Colors
-$GLOBALS['menu_colors'] = [
-    'navbar_background' => '#f8f9fa',
-    'navbar_font' => '#212529',
-    'navbar_font_active' => '#f8f9fa',
-    'navbar_background_active' => '#f8f9fa',
-    'navbar_submenu_background' => '#f8f9fa',
-    'navbar_submenu_font' => '#212529',
-    'navbar_submenu_font_active' => '#212529',
-    'navbar_submenu_background_active' => '#f8f9fa',
-];
-
-// Form colors
-$GLOBALS['form_colors'] = [
-    'form_font' => '#212529',
-    'form_focus' => '#0d6efd',
-    'form_background' => '#f8f9fa',
-    'form_border' => '#6c757d',
-];
-
-// Footer colors
-$GLOBALS['footer_colors'] = [
-    'footer_background' => '#f8f9fa',
-    'footer_font' => '#212529',
-    'footer_link' => '#0d6efd',
-    'footer_link_hover' => '#0d6efd',
-];
-
-// Footer colors
-$GLOBALS['cookie_colors'] = [
-    'cookie_background' => '#f8f9fa',
-    'cookie_background_highlight' => '#e3e3e3',
-    'cookie_font' => '#212529',
-    'cookie_link' => '#0d6efd',
-    'cookie_link_hover' => '#0d6efd',
 ];
 
 /**
@@ -1099,23 +1053,23 @@ if (class_exists('Kirki')) {
 
             custom_kirki_border('section_cookie_settings_id');
 
-            custom_color_select('cookie_background', 'light', 'section_cookie_settings_id');
+            custom_color_select('consent_modal_background', 'light', 'section_cookie_settings_id');
 
             custom_kirki_border('section_cookie_settings_id');
 
-            custom_color_select('cookie_background_highlight', 'secondary', 'section_cookie_settings_id');
+            custom_color_select('consent_modal_background_highlight', 'secondary', 'section_cookie_settings_id');
 
             custom_kirki_border('section_cookie_settings_id');
 
-            custom_color_select('cookie_font', 'dark', 'section_cookie_settings_id');
+            custom_color_select('consent_modal_font', 'dark', 'section_cookie_settings_id');
 
             custom_kirki_border('section_cookie_settings_id');
 
-            custom_color_select('cookie_link', 'dark', 'section_cookie_settings_id');
+            custom_color_select('consent_modal_link', 'dark', 'section_cookie_settings_id');
 
             custom_kirki_border('section_cookie_settings_id');
 
-            custom_color_select('cookie_link_hover', 'dark', 'section_cookie_settings_id');
+            custom_color_select('consent_modal_link_hover', 'dark', 'section_cookie_settings_id');
 
             custom_kirki_border('section_cookie_settings_id');
 
@@ -1195,13 +1149,13 @@ if (class_exists('Kirki')) {
                     'left' => __('Left', 'sage'),
                     'right' => __('Right', 'sage'),
                 ],
-                'active_callback' => [
-                    [
-                        'setting'  => 'custom_cookie_settings_layout',
-                        'operator' => '===',
-                        'value'    => 'bar',
-                    ]
-                ]
+                // 'active_callback' => [
+                //     [
+                //         'setting'  => 'custom_cookie_settings_layout',
+                //         'operator' => '===',
+                //         'value'    => 'bar',
+                //     ]
+                // ]
             ]);
 
             custom_kirki_border('section_cookie_settings_id');

@@ -1,8 +1,8 @@
 @import "~vanilla-cookieconsent/src/cookieconsent.css";
 
 :root {
-    --cc-bg: rgb(var(--custom-cookie-background-color));
-    --cc-text: rgb(var(--custom-cookie-font-color));
+    --cc-bg: rgb(var(--custom-consent-modal-background-color));
+    --cc-text: rgb(var(--custom-consent-modal-font-color));
 
     //--cc-btn-primary-bg: #2d4156;
     //--cc-btn-primary-text: var(--cc-bg);
@@ -12,19 +12,19 @@
     //--cc-btn-secondary-text: var(--cc-text);
     //--cc-btn-secondary-hover-bg: #d8e0e6;
 
-    --cc-toggle-bg-off: rgba(var(--custom-cookie-font-color), 0.5);
-    --cc-toggle-bg-on: rgba(var(--custom-cookie-font-color), 1);
-    --cc-toggle-bg-readonly: rgba(var(--custom-cookie-font-color), 0.2);
-    --cc-toggle-knob-bg: rgb(var(--custom-cookie-background-color));
-    --cc-toggle-knob-icon-color: rgb(var(--custom-cookie-background-color));
+    --cc-toggle-bg-off: rgba(var(--custom-consent-modal-font-color), 0.5);
+    --cc-toggle-bg-on: rgba(var(--custom-consent-modal-font-color), 1);
+    --cc-toggle-bg-readonly: rgba(var(--custom-consent-modal-font-color), 0.2);
+    --cc-toggle-knob-bg: rgb(var(--custom-consent-modal-background-color));
+    --cc-toggle-knob-icon-color: rgb(var(--custom-consent-modal-background-color));
 
-    --cc-block-text: rgb(var(--custom-cookie-font-color));
+    --cc-block-text: rgb(var(--custom-consent-modal-font-color));
 
-    --cc-cookie-category-block-bg: rgb(var(--custom-cookie-background-highlight-color));
-    --cc-cookie-category-block-bg-hover: rgb(var(--custom-cookie-background-highlight-color));
+    --cc-cookie-category-block-bg: rgb(var(--custom-consent-modal-background-highlight-color));
+    --cc-cookie-category-block-bg-hover: rgb(var(--custom-consent-modal-background-highlight-color));
 
-    --cc-section-border: rgba(var(--custom-cookie-font-color), 0.2);
-    --cc-cookie-table-border: rgba(var(--custom-cookie-font-color), 0.2);
+    --cc-section-border: rgba(var(--custom-consent-modal-font-color), 0.2);
+    --cc-cookie-table-border: rgba(var(--custom-consent-modal-font-color), 0.2);
     --cc-overlay-bg: rgba(4, 6, 8, .85);
     //--cc-webkit-scrollbar-bg-hover: #9199a0;
     //--cc-webkit-scrollbar-bg: #cfd5db;
@@ -60,9 +60,7 @@
 }
 
 #s-bl {
-    //overflow-y: initial;
-    //overflow-x: initial;
-    overflow: scroll !important;
+    // overflow: scroll !important;
 
     td, th {
         font-size: var(--custom-font-size);
@@ -92,7 +90,6 @@
  * Buttons
  */
 #c-bns, #s-bns {
-    //color: rgba(var(--custom-cookie-font-color));
     display: flex !important;
     min-width: auto !important;
     margin-left: auto;
@@ -100,6 +97,8 @@
     .c-bn {
         @extend .btn;
         width: auto;
+        margin-bottom: auto !important;
+        white-space: nowrap;
 
         // Accept
         &#c-p-bn, &#s-all-bn {
@@ -131,7 +130,6 @@
     border-radius: var(--custom-border-radius);
     box-shadow: var(--custom-box-shadow);
     bottom: var(--container-padding-mobile);
-    //background-color: rgba(var(--custom-cookie-background-color));
 
     &[role="dialog"] {
         padding: var(--custom-cookie-consent-padding);
@@ -190,28 +188,25 @@
         #c-ttl {
             @extend h5;
             font-weight: 500 !important;
-            //color: rgba(var(--custom-cookie-font-color));
         }
 
-        // Cookie Consent TExt
+        // Cookie Consent Text
         #c-txt {
             font-size: var(--custom-font-size);
-            //color: rgba(var(--custom-cookie-font-color));
             margin-bottom: 0;
 
             a, button {
                 text-decoration: underline;
-                color: rgba(var(--custom-cookie-link-color));
+                color: rgba(var(--custom-consent-modal-link-color));
                 font-weight: 500;
 
                 &:hover {
-                    color: rgba(var(--custom-cookie-link-hover-color));
+                    color: rgba(var(--custom-consent-modal-link-hover-color));
                 }
             }
         }
     }
 
-    // Styles
     &.box {
         #c-inr {
             flex-direction: column;
@@ -310,7 +305,6 @@
     #s-ttl {
         @extend h5;
         font-weight: 500 !important;
-        //color: rgba(var(--custom-cookie-font-color));
     }
 
     // Settings Inner
@@ -323,19 +317,18 @@
 
         a {
             text-decoration: underline;
-            color: rgba(var(--custom-cookie-link-color));
+            color: rgba(var(--custom-consent-modal-link-color));
             font-weight: 500;
             border-bottom: 0;
 
             &:hover {
-                color: rgba(var(--custom-cookie-link-hover-color));
+                color: rgba(var(--custom-consent-modal-link-hover-color));
             }
         }
 
         #s-hdr {
             position: initial;
             height: initial;
-            //border-color: rgba(var(--custom-cookie-background-highlight-color));
             padding: var(--custom-cookie-consent-padding);
 
             #s-c-bnc {
@@ -363,10 +356,6 @@
                     &:after {
                         display: none;
                     }
-
-                    //&:hover {
-                    //    background-color: transparent;
-                    //}
                 }
             }
         }
@@ -374,14 +363,9 @@
         #s-bl {
             padding: var(--custom-cookie-consent-padding);
 
-            .b-ex {
-                //background-color: rgba(var(--custom-cookie-background-highlight-color));
-            }
-
             .c-bl:not(.b-ex) {
                 transition: none;
                 padding: 0;
-                /* margin-top: 0; */
                 border: none;
                 margin-bottom: 2em;
 
@@ -393,9 +377,6 @@
 
         #s-bns {
             position: initial;
-            //background-color: transparent;
-            //border-color: rgba(var(--custom-cookie-background-highlight-color));
-            //padding: var(--custom-cookie-consent-padding);
             padding: calc(var(--custom-cookie-consent-padding) - 0.5rem) var(--custom-cookie-consent-padding);
             width: 100%;
             height: auto;
@@ -405,14 +386,6 @@
             .c-bn {
                 margin: 0.5rem 1rem 0.5rem 0;
             }
-
-            //@include media-breakpoint-down(sm) {
-            //    padding: calc(var(--custom-cookie-consent-padding) - 1rem) var(--custom-cookie-consent-padding);
-            //
-            //    .c-bn {
-            //        margin: 0.5rem 1rem 0.5rem 0;
-            //    }
-            //}
         }
     }
 }
