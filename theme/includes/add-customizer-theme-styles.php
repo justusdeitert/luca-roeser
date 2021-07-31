@@ -99,49 +99,6 @@ function customizer_theme_styles() {
         'cookie-link-hover' => get_theme_mod('custom_color_select_cookie_link_hover', 'primary'),
     ];
 
-    $theme_colors = [
-
-        // Font Colors
-        // 'font' => convert_hex(get_theme_mod('custom_font_color', '#212529')),
-        // 'link' => convert_hex(get_theme_mod('custom_link_color', '#0d6efd')),
-        // 'link-hover' => convert_hex(get_theme_mod('custom_link_hover_color', '#0d6efd')),
-
-        // Content Colors
-        // 'body-background' => convert_hex(get_theme_mod('custom_body_background_color', '#f8f9fa')),
-        // 'controls' => convert_hex(get_theme_mod('custom_controls_color', '#212529')),
-
-        // Menu Colors
-        // 'navbar-background' => convert_hex(get_theme_mod('custom_navbar_background_color', '#f8f9fa')),
-        // 'navbar-font' => convert_hex(get_theme_mod('custom_navbar_font_color', '#212529')),
-        // 'navbar-font-active' => convert_hex(get_theme_mod('custom_navbar_font_active_color', '#f8f9fa')),
-        // 'navbar-background-active' => convert_hex(get_theme_mod('custom_navbar_background_active_color', '#f8f9fa')),
-        // 'navbar-submenu-background' => convert_hex(get_theme_mod('custom_navbar_submenu_background_color', '#f8f9fa')),
-        // 'navbar-submenu-font' => convert_hex(get_theme_mod('custom_navbar_submenu_font_color', '#212529')),
-        // 'navbar-submenu-font-active' => convert_hex(get_theme_mod('custom_navbar_submenu_font_active_color', '#212529')),
-        // 'navbar-submenu-background-active' => convert_hex(get_theme_mod('custom_navbar_submenu_background_active_color', '#f8f9fa')),
-
-        // Form Colors
-        // 'form-font' => convert_hex(get_theme_mod('custom_form_font_color', '#212529')),
-        // 'form-focus' => convert_hex(get_theme_mod('custom_form_focus_color', '#0d6efd')),
-        // 'form-background' => convert_hex(get_theme_mod('custom_form_background_color', '#f8f9fa')),
-        // 'form-border' => convert_hex(get_theme_mod('custom_form_border_color', '#6c757d')),
-
-        // Footer Colors
-        // 'footer-background' => convert_hex(get_theme_mod('custom_footer_background_color', '#f8f9fa')),
-        // 'footer-font' => convert_hex(get_theme_mod('custom_footer_font_color', '#212529')),
-        // 'footer-link' => convert_hex(get_theme_mod('custom_footer_link_color', '#0d6efd')),
-        // 'footer-link-hover' => convert_hex(get_theme_mod('custom_footer_link_hover_color', '#0d6efd')),
-
-        // Cookie Colors
-        // 'cookie-background' => convert_hex(get_theme_mod('custom_cookie_background_color', '#f8f9fa')),
-        // 'cookie-background-highlight' => convert_hex(get_theme_mod('custom_cookie_background_highlight_color', '#e3e3e3')),
-        // 'cookie-font' => convert_hex(get_theme_mod('custom_cookie_font_color', '#212529')),
-        // 'cookie-link' => convert_hex(get_theme_mod('custom_cookie_link_color', '#0d6efd')),
-        // 'cookie-link-hover' => convert_hex(get_theme_mod('custom_cookie_link_hover_color', '#0d6efd')),
-    ];
-
-    // var_dump($theme_colors);
-
     /**
      * Gray/Shade Colors
      */
@@ -217,13 +174,9 @@ function customizer_theme_styles() {
                 --custom-<?php echo $name; ?>-color: <?php echo $value; ?>;
             <?php } ?>
 
+            /* Theme Colors */
             <?php foreach ($custom_theme_colors as $name => $value) { ?>
                 --custom-<?php echo $name; ?>-color: var(--custom-<?php echo $value; ?>-color);
-            <?php } ?>
-
-            /* Theme Colors */
-            <?php foreach ($theme_colors as $name => $value) { ?>
-                --custom-<?php echo $name; ?>-color: <?php echo $value; ?>;
             <?php } ?>
 
             /* Light Color Shades */
@@ -242,7 +195,7 @@ function customizer_theme_styles() {
             <?php } ?>
 
             /* Navbar Settings */
-            --custom-navbar-height:  <?php echo get_theme_mod('custom_navbar_height', 60); ?>px;
+            --custom-navbar-height: <?php echo get_theme_mod('custom_navbar_height', 60); ?>px;
 
             /*
              * Custom Navbar Positioning
@@ -299,17 +252,17 @@ function customizer_theme_styles() {
             }
         <?php } ?>
 
-        <?php foreach ($theme_colors as $name => $value) { ?>
-            .has-<?php echo $name; ?>-color,
-            .has-<?php echo $name; ?>-color *,
-            .has-<?php echo $name; ?>-color *:hover {
-                color: rgb(<?php echo $value; ?>) !important;
+        <?php /*foreach ($theme_colors as $name => $value) { */?>/*
+            .has-<?php /*echo $name; */?>-color,
+            .has-<?php /*echo $name; */?>-color *,
+            .has-<?php /*echo $name; */?>-color *:hover {
+                color: rgb(<?php /*echo $value; */?>) !important;
             }
 
-            .has-<?php echo $name; ?>-background-color {
-                background-color: rgb(<?php echo $value; ?>);
+            .has-<?php /*echo $name; */?>-background-color {
+                background-color: rgb(<?php /*echo $value; */?>);
             }
-        <?php } ?>
+        */<?php /*} */?>
 
         <?php foreach ($light_colors as $name => $value) { ?>
             .has-light-<?php echo $name; ?>-color,
