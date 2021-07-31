@@ -14,8 +14,8 @@ if(typeof cookieConsentConfig !== 'undefined') {
 /**
  * Get css variable and add classes to cookie consent buttons
  */
-let primaryButtonColor = getCssVariable('--custom-cookie-primary-button-style')
-let secondaryButtonColor = getCssVariable('--custom-cookie-secondary-button-style')
+let primaryButtonColor = getCssVariable('--custom-consent-modal-primary-button-color');
+let secondaryButtonColor = getCssVariable('--custom-consent-modal-secondary-button-color');
 
 let primaryButtons = document.querySelectorAll('#s-all-bn, #c-p-bn');
 primaryButtons.forEach(primaryButton => {

@@ -225,7 +225,7 @@ add_action('after_setup_theme', function () {
      */
     $light_colors = [];
     $light_color = get_theme_mod('custom_light_color', '#f8f9fa');
-    foreach (range(1, 6) as $number) {
+    foreach (range(1, 3) as $number) {
         array_push($light_colors, [
             'name'  => __('Light ' . $number * 100, 'sage'),
             'slug'  => 'light-' . $number * 100,
@@ -235,7 +235,7 @@ add_action('after_setup_theme', function () {
 
     $dark_colors = [];
     $dark_color = get_theme_mod('custom_dark_color', '#212529');
-    foreach (range(1, 6) as $number) {
+    foreach (range(1, 3) as $number) {
         array_push($dark_colors, [
             'name'  => __('Dark ' . $number * 100, 'sage'),
             'slug'  => 'dark-' . $number * 100,
@@ -244,7 +244,7 @@ add_action('after_setup_theme', function () {
     }
 
     $dark_light_colors = [];
-    foreach (range(1, 6) as $number) {
+    foreach (range(1, 3) as $number) {
         array_push($dark_light_colors, [
             'name'  => __('Dark/Light ' . $number * 100, 'sage'),
             'slug'  => 'dark-light-' . $number * 100,

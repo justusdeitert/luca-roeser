@@ -170,27 +170,27 @@ export const editorLightColors = [
     {name: 'Light 100', slug: 'light-100', color: `rgb(${getCssVariable('--custom-light-100-color')})`},
     {name: 'Light 200', slug: 'light-200', color: `rgb(${getCssVariable('--custom-light-200-color')})`},
     {name: 'Light 300', slug: 'light-300', color: `rgb(${getCssVariable('--custom-light-300-color')})`},
-    {name: 'Light 400', slug: 'light-400', color: `rgb(${getCssVariable('--custom-light-400-color')})`},
-    {name: 'Light 500', slug: 'light-500', color: `rgb(${getCssVariable('--custom-light-500-color')})`},
-    {name: 'Light 600', slug: 'light-600', color: `rgb(${getCssVariable('--custom-light-600-color')})`},
+    // {name: 'Light 400', slug: 'light-400', color: `rgb(${getCssVariable('--custom-light-400-color')})`},
+    // {name: 'Light 500', slug: 'light-500', color: `rgb(${getCssVariable('--custom-light-500-color')})`},
+    // {name: 'Light 600', slug: 'light-600', color: `rgb(${getCssVariable('--custom-light-600-color')})`},
 ]
 
 export const editorDarkColors = [
     {name: 'Dark 100', slug: 'dark-100', color: `rgb(${getCssVariable('--custom-dark-100-color')})`},
     {name: 'Dark 200', slug: 'dark-200', color: `rgb(${getCssVariable('--custom-dark-200-color')})`},
     {name: 'Dark 300', slug: 'dark-300', color: `rgb(${getCssVariable('--custom-dark-300-color')})`},
-    {name: 'Dark 400', slug: 'dark-400', color: `rgb(${getCssVariable('--custom-dark-400-color')})`},
-    {name: 'Dark 500', slug: 'dark-500', color: `rgb(${getCssVariable('--custom-dark-500-color')})`},
-    {name: 'Dark 600', slug: 'dark-600', color: `rgb(${getCssVariable('--custom-dark-600-color')})`},
+    // {name: 'Dark 400', slug: 'dark-400', color: `rgb(${getCssVariable('--custom-dark-400-color')})`},
+    // {name: 'Dark 500', slug: 'dark-500', color: `rgb(${getCssVariable('--custom-dark-500-color')})`},
+    // {name: 'Dark 600', slug: 'dark-600', color: `rgb(${getCssVariable('--custom-dark-600-color')})`},
 ]
 
 export const editorDarkLightColors = [
     {name: 'Dark/Light 100', slug: 'dark-light-100', color: `rgb(${getCssVariable('--custom-dark-light-100-color')})`},
     {name: 'Dark/Light 200', slug: 'dark-light-200', color: `rgb(${getCssVariable('--custom-dark-light-200-color')})`},
     {name: 'Dark/Light 300', slug: 'dark-light-300', color: `rgb(${getCssVariable('--custom-dark-light-300-color')})`},
-    {name: 'Dark/Light 400', slug: 'dark-light-400', color: `rgb(${getCssVariable('--custom-dark-light-400-color')})`},
-    {name: 'Dark/Light 500', slug: 'dark-light-500', color: `rgb(${getCssVariable('--custom-dark-light-500-color')})`},
-    {name: 'Dark/Light 600', slug: 'dark-light-600', color: `rgb(${getCssVariable('--custom-dark-light-600-color')})`},
+    // {name: 'Dark/Light 400', slug: 'dark-light-400', color: `rgb(${getCssVariable('--custom-dark-light-400-color')})`},
+    // {name: 'Dark/Light 500', slug: 'dark-light-500', color: `rgb(${getCssVariable('--custom-dark-light-500-color')})`},
+    // {name: 'Dark/Light 600', slug: 'dark-light-600', color: `rgb(${getCssVariable('--custom-dark-light-600-color')})`},
 ]
 
 export const editorThemeColors = [

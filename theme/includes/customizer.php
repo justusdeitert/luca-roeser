@@ -102,7 +102,7 @@ if (class_exists('Kirki')) {
             ]);
         }
 
-        function custom_color_select($color_name, $default_color, $section) {
+        function custom_button_color_select($color_name, $default_color, $section) {
             $color_name_adjusted = str_replace('_', ' ', $color_name);
             Kirki::add_field('custom_color_select_' . $color_name . '_id', [
                 'type' => 'radio',
@@ -118,6 +118,55 @@ if (class_exists('Kirki')) {
                     'quaternary' => __('Quaternary', 'sage'),
                     'light' => __('Light', 'sage'),
                     'dark' => __('Dark', 'sage'),
+
+                    // Alert Colors
+                    'success' => __('Success', 'sage'),
+                    'danger' => __('Danger', 'sage'),
+                    'warning' => __('Warning', 'sage'),
+                    'info' => __('Info', 'sage')
+                ],
+            ]);
+        }
+
+        function custom_color_select($color_name, $default_color, $section) {
+            $color_name_adjusted = str_replace('_', ' ', $color_name);
+            Kirki::add_field('custom_color_select_' . $color_name . '_id', [
+                'type' => 'radio',
+                'settings' => 'custom_color_select_' . $color_name,
+                'label' => __(ucwords($color_name_adjusted) . ' Color', 'sage'),
+                'section' => $section,
+                'default' => $default_color,
+                'choices' => [
+                    // Standard Colors
+                    'primary' => __('Primary', 'sage'),
+                    'secondary' => __('Secondary', 'sage'),
+                    'tertiary' => __('Tertiary', 'sage'),
+                    'quaternary' => __('Quaternary', 'sage'),
+
+                    // Light Variations
+                    'light' => __('Light', 'sage'),
+                    'light-100' => __('Light 100', 'sage'),
+                    'light-200' => __('Light 200', 'sage'),
+                    'light-300' => __('Light 300', 'sage'),
+                    // 'light-400' => __('Light 400', 'sage'),
+                    // 'light-500' => __('Light 500', 'sage'),
+                    // 'light-600' => __('Light 600', 'sage'),
+
+                    // Dark Variations
+                    'dark' => __('Dark', 'sage'),
+                    'dark-100' => __('Dark 100', 'sage'),
+                    'dark-200' => __('Dark 200', 'sage'),
+                    'dark-300' => __('Dark 300', 'sage'),
+
+                    // Dark/Light Variation
+                    'dark-light-100' => __('Dark/Light 100', 'sage'),
+                    'dark-light-200' => __('Dark/Light 200', 'sage'),
+                    'dark-light-300' => __('Dark/Light 300', 'sage'),
+
+                    // 'dark-400' => __('Dark 400', 'sage'),
+                    // 'dark-500' => __('Dark 500', 'sage'),
+                    // 'dark-600' => __('Dark 600', 'sage'),
+
                     // Alert Colors
                     'success' => __('Success', 'sage'),
                     'danger' => __('Danger', 'sage'),
@@ -902,43 +951,43 @@ if (class_exists('Kirki')) {
                 ],
             ]);
 
-            custom_kirki_border('section_cookie_settings_id');
+            // custom_kirki_border('section_cookie_settings_id');
 
-            $button_style_choices = [
-                'primary' => __('Primary', 'sage'),
-                'secondary' => __('Secondary', 'sage'),
-                'tertiary' => __('Tertiary', 'sage'),
-                'success' => __('Success', 'sage'),
-                'danger' => __('Danger', 'sage'),
-                'warning' => __('Warning', 'sage'),
-                'info' => __('Info', 'sage'),
-                'light' => __('Light', 'sage'),
-                'dark' => __('Dark', 'sage'),
-            ];
+            // $button_style_choices = [
+            //     'primary' => __('Primary', 'sage'),
+            //     'secondary' => __('Secondary', 'sage'),
+            //     'tertiary' => __('Tertiary', 'sage'),
+            //     'success' => __('Success', 'sage'),
+            //     'danger' => __('Danger', 'sage'),
+            //     'warning' => __('Warning', 'sage'),
+            //     'info' => __('Info', 'sage'),
+            //     'light' => __('Light', 'sage'),
+            //     'dark' => __('Dark', 'sage'),
+            // ];
 
-            Kirki::add_field('custom_cookie_primary_button_style_id', [
-                'type' => 'select',
-                'settings' => 'custom_cookie_primary_button_style',
-                'label' => __('Primary Button Style', 'sage'),
-                'section' => 'section_cookie_settings_id',
-                'default' => 'primary',
-                'placeholder' => __('Select an option...', 'sage'),
-                'multiple' => 1,
-                'choices' => $button_style_choices,
-            ]);
+            // Kirki::add_field('custom_cookie_primary_button_style_id', [
+            //     'type' => 'select',
+            //     'settings' => 'custom_cookie_primary_button_style',
+            //     'label' => __('Primary Button Style', 'sage'),
+            //     'section' => 'section_cookie_settings_id',
+            //     'default' => 'primary',
+            //     'placeholder' => __('Select an option...', 'sage'),
+            //     'multiple' => 1,
+            //     'choices' => $button_style_choices,
+            // ]);
 
-            custom_kirki_border('section_cookie_settings_id');
 
-            Kirki::add_field('custom_cookie_secondary_button_style_id', [
-                'type' => 'select',
-                'settings' => 'custom_cookie_secondary_button_style',
-                'label' => __('Secondary Button Style', 'sage'),
-                'section' => 'section_cookie_settings_id',
-                'default' => 'secondary',
-                'placeholder' => __('Select an option...', 'sage'),
-                'multiple' => 1,
-                'choices' => $button_style_choices,
-            ]);
+
+            // Kirki::add_field('custom_cookie_secondary_button_style_id', [
+            //     'type' => 'select',
+            //     'settings' => 'custom_cookie_secondary_button_style',
+            //     'label' => __('Secondary Button Style', 'sage'),
+            //     'section' => 'section_cookie_settings_id',
+            //     'default' => 'secondary',
+            //     'placeholder' => __('Select an option...', 'sage'),
+            //     'multiple' => 1,
+            //     'choices' => $button_style_choices,
+            // ]);
 
             custom_kirki_border('section_cookie_settings_id');
 
@@ -1053,11 +1102,19 @@ if (class_exists('Kirki')) {
 
             custom_kirki_border('section_cookie_settings_id');
 
+            custom_button_color_select('consent_modal_primary_button', 'primary', 'section_cookie_settings_id');
+
+            custom_kirki_border('section_cookie_settings_id');
+
+            custom_button_color_select('consent_modal_secondary_button', 'secondary', 'section_cookie_settings_id');
+
+            custom_kirki_border('section_cookie_settings_id');
+
             custom_color_select('consent_modal_background', 'light', 'section_cookie_settings_id');
 
             custom_kirki_border('section_cookie_settings_id');
 
-            custom_color_select('consent_modal_background_highlight', 'secondary', 'section_cookie_settings_id');
+            custom_color_select('consent_modal_background_highlight', 'light-200', 'section_cookie_settings_id');
 
             custom_kirki_border('section_cookie_settings_id');
 

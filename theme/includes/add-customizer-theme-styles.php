@@ -80,7 +80,6 @@ function customizer_theme_styles() {
         'form-background' => get_theme_mod('custom_color_select_form_background', 'light'),
         'form-border' => get_theme_mod('custom_color_select_form_border', 'secondary'),
 
-
         /**
          * Footer Colors
          */
@@ -104,18 +103,18 @@ function customizer_theme_styles() {
      */
     $light_colors = [];
     $light_color = get_theme_mod('custom_light_color', '#f8f9fa');
-    foreach (range(1, 6) as $number) {
+    foreach (range(1, 3) as $number) {
         $light_colors[$number * 100] = convert_hex(adjustBrightness($light_color, -($number * 0.04)));
     }
 
     $dark_colors = [];
     $dark_color = get_theme_mod('custom_dark_color', '#212529');
-    foreach (range(1, 6) as $number) {
+    foreach (range(1, 3) as $number) {
         $dark_colors[$number * 100] = convert_hex(adjustBrightness($dark_color, ($number * 0.04)));
     }
 
     $dark_light_colors = [];
-    foreach (range(1, 6) as $number) {
+    foreach (range(1, 3) as $number) {
         $dark_light_colors[$number * 100] = convert_hex(adjustBrightness($dark_color, (1 - $number * 0.04)));
     }
 
@@ -223,12 +222,13 @@ function customizer_theme_styles() {
             --custom-navbar-submenu-item-height:  <?php echo get_theme_mod('custom_navbar_submenu_item_height', 40); ?>px;
 
             /*
-             * Custom Cookie Consent Variables
+             * Custom Cookie Consent Modal Variables
              */
             --custom-cookie-consent-padding:  <?php echo get_theme_mod('custom_cookie_consent_padding', 25); ?>px;
-            --custom-cookie-primary-button-style:  <?php echo get_theme_mod('custom_cookie_primary_button_style', 'primary'); ?>;
-            --custom-cookie-secondary-button-style:  <?php echo get_theme_mod('custom_cookie_secondary_button_style', 'secondary'); ?>;
-
+            /*--custom-cookie-primary-button-style:  */<?php //echo get_theme_mod('custom_cookie_primary_button_style', 'primary'); ?>/*;*/
+            /*--custom-cookie-secondary-button-style:  */<?php //echo get_theme_mod('custom_cookie_secondary_button_style', 'secondary'); ?>/*;*/
+            --custom-consent-modal-primary-button-color:  <?php echo get_theme_mod('custom_color_select_consent_modal_primary_button', 'primary'); ?>;
+            --custom-consent-modal-secondary-button-color:  <?php echo get_theme_mod('custom_color_select_consent_modal_secondary_button', 'secondary'); ?>;
         }
 
         /* Icon Settings */
@@ -252,7 +252,6 @@ function customizer_theme_styles() {
             }
         <?php } ?>
 
-        <!-- TODO: NEED TO CHECK IF COLOR CLASSES ARE NOT BROKEN! -->
         <?php /*foreach ($theme_colors as $name => $value) { */?>/*
             .has-<?php /*echo $name; */?>-color,
             .has-<?php /*echo $name; */?>-color *,

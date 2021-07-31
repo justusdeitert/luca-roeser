@@ -45,12 +45,15 @@ window.addEventListener('load', () => {
  * @type {NodeListOf<Element>}
  */
 let xdebugElements = document.querySelectorAll('.xdebug-var-dump');
-let xdebugWrapper = document.createElement('div');
-xdebugWrapper.classList.add('xdebug-wrapper')
 
-if (xdebugElements) {
+if (xdebugElements.length) {
+
+    let xdebugWrapper = document.createElement('div');
+    xdebugWrapper.classList.add('xdebug-wrapper');
+
     xdebugElements.forEach(element => {
         xdebugWrapper.appendChild(element);
-    })
+    });
+
     document.body.insertBefore(xdebugWrapper, document.getElementById('app'));
 }
