@@ -70,30 +70,6 @@
     }
 }
 
-//#input_custom_color_select
-
-.buttonset[id^="input_custom_color_select"] {
-    .switch-label {
-        width: 26px;
-        height: 26px;
-        max-width: 26px;
-        margin-right: 7px !important;
-        margin-bottom: 7px !important;
-        border-radius: 50%;
-        font-size: 0;
-        opacity: 0.4;
-        border: 1px solid #3582c4 !important;
-    }
-
-    .switch-input:checked + .switch-label {
-        width: 29px;
-        height: 29px;
-        max-width: 29px;
-        opacity: 1;
-        border: 3px solid #3582c4 !important;
-    }
-}
-
 /**
  * Custom Radio Buttonset has a small bug and window is jumping to top
  * that's why iam  not using it anymore..
