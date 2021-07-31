@@ -428,9 +428,6 @@ if (class_exists('Kirki')) {
                 ],
             ]);
 
-            // custom_kirki_headline('section_font_settings_id', 'Font Colors', 'h2');
-            // custom_kirki_spacing('section_font_settings_id', 24);
-
             custom_kirki_border('section_font_settings_id');
 
             custom_color_select('font', 'dark', 'section_font_settings_id');
@@ -528,197 +525,6 @@ if (class_exists('Kirki')) {
                 custom_kirki_border('section_color_settings_id');
             }
 
-            // Kirki::add_field('custom_general_colors_multicolor_id', [
-            //     'type' => 'multicolor',
-            //     'settings' => 'custom_general_colors_multicolor',
-            //     'label' => __('Custom Colors', 'sage'),
-            //     'section' => 'section_color_settings_id',
-            //     'choices' => [
-            //         // 'link' => esc_html__('Color', 'kirki'),
-            //         // 'hover' => esc_html__('Hover', 'kirki'),
-            //         // 'active' => esc_html__('Active', 'kirki'),
-            //
-            //         // Standard Colors
-            //         'primary' => __('Primary', 'sage'),
-            //         'secondary' => __('Secondary', 'sage'),
-            //         'tertiary' => __('Tertiary', 'sage'),
-            //         'quaternary' => __('Quaternary', 'sage'),
-            //         'light' => __('Light', 'sage'),
-            //         'dark' => __('Dark', 'sage'),
-            //
-            //         // Alert Colors
-            //         'success' => __('Success', 'sage'),
-            //         'danger' => __('Danger', 'sage'),
-            //         'warning' => __('Warning', 'sage'),
-            //         'info' => __('Info', 'sage'),
-            //     ],
-            //     'default' => [
-            //
-            //         // Standard Colors
-            //         'primary' => '#0d6efd',
-            //         'secondary' => '#6c757d',
-            //         'tertiary' => '#6c757d',
-            //         'quaternary' => '#6c757d',
-            //         'light' => '#f8f9fa',
-            //         'dark' => '#212529',
-            //
-            //         // Alert Colors
-            //         'success' => '#198754',
-            //         'danger' => '#dc3545',
-            //         'warning' => '#ffc107',
-            //         'info' => '#0dcaf0',
-            //     ],
-            // ]);
-
-            // foreach ($GLOBALS['font_colors'] as $color => $value) {
-            //     Kirki::add_field('custom_' . $color . '_color_id', [
-            //         'type' => 'color',
-            //         'settings' => 'custom_' . $color . '_color',
-            //         'label' => __(cleanColorName($color) . ' Color', 'sage'),
-            //         'section' => 'section_color_settings_id',
-            //         'default' => $value,
-            //     ]);
-            // }
-
-
-            // foreach ($GLOBALS['content_colors'] as $color => $value) {
-            //     Kirki::add_field('custom_' . $color . '_color_id', [
-            //         'type' => 'color',
-            //         'settings' => 'custom_' . $color . '_color',
-            //         'label' => __(cleanColorName($color) . ' Color', 'sage'),
-            //         'section' => 'section_color_settings_id',
-            //         'default' => $value,
-            //     ]);
-            // }
-
-            // custom_kirki_border('section_color_settings_id');
-            // custom_kirki_headline('section_color_settings_id', 'Alert Colors', 'h2');
-            //
-            // foreach ($GLOBALS['alert_colors'] as $color => $value) {
-            //     Kirki::add_field('custom_' . $color . '_color_id', [
-            //         'type' => 'color',
-            //         'settings' => 'custom_' . $color . '_color',
-            //         'label' => __(cleanColorName($color) . ' Color', 'sage'),
-            //         'section' => 'section_color_settings_id',
-            //         'default' => $value,
-            //     ]);
-            // }
-
-            // custom_kirki_border('section_color_settings_id');
-            // custom_kirki_headline('section_color_settings_id', 'Menu Colors', 'h2');
-
-            // foreach ($GLOBALS['menu_colors'] as $color => $value) {
-            //     Kirki::add_field('custom_' . $color . '_color_id', [
-            //         'type' => 'color',
-            //         'settings' => 'custom_' . $color . '_color',
-            //         'label' => __(cleanColorName($color) . ' Color', 'sage'),
-            //         'section' => 'section_color_settings_id',
-            //         'choices'     => [
-            //             'alpha' => true,
-            //         ],
-            //         'default' => $value,
-            //     ]);
-            // }
-
-            // 'navbar_background' => '#f8f9fa',
-            // 'navbar_font' => '#212529',
-            // 'navbar_font_active' => '#f8f9fa',
-            // 'navbar_background_active' => '#f8f9fa',
-            // 'navbar_submenu_background' => '#f8f9fa',
-            // 'navbar_submenu_font' => '#212529',
-            // 'navbar_submenu_font_active' => '#212529',
-            // 'navbar_submenu_background_active' => '#f8f9fa',
-
-            // custom_color_select('navbar_background', 'light', 'section_color_settings_id');
-            // custom_color_select('navbar_font', 'dark', 'section_color_settings_id');
-            // custom_color_select('navbar_background_active', 'light', 'section_color_settings_id');
-            // custom_color_select('navbar_submenu_background', 'light', 'section_color_settings_id');
-            // custom_color_select('navbar_submenu_font', 'dark', 'section_color_settings_id');
-            // custom_color_select('navbar_submenu_font_active', 'dark', 'section_color_settings_id');
-            // custom_color_select('navbar_submenu_background_active', 'light', 'section_color_settings_id');
-
-            // custom_kirki_border('section_color_settings_id');
-            // custom_kirki_headline('section_color_settings_id', 'Form Colors', 'h2');
-
-            // foreach ($GLOBALS['form_colors'] as $color => $value) {
-            //     Kirki::add_field('custom_' . $color . '_color_id', [
-            //         'type' => 'color',
-            //         'settings' => 'custom_' . $color . '_color',
-            //         'label' => __(cleanColorName($color) . ' Color', 'sage'),
-            //         'section' => 'section_color_settings_id',
-            //         'default' => $value,
-            //     ]);
-            // }
-
-            // custom_color_select('form_font', 'dark', 'section_color_settings_id');
-            // custom_color_select('form_focus', 'info', 'section_color_settings_id');
-            // custom_color_select('form_background', 'light', 'section_color_settings_id');
-            // custom_color_select('form_border', 'secondary', 'section_color_settings_id');
-
-            // custom_kirki_border('section_color_settings_id');
-            // custom_kirki_headline('section_color_settings_id', 'Footer Colors', 'h2');
-
-
-
-            // foreach ($GLOBALS['footer_colors'] as $color => $value) {
-            //     Kirki::add_field('custom_' . $color . '_color_id', [
-            //         'type' => 'color',
-            //         'settings' => 'custom_' . $color . '_color',
-            //         'label' => __(cleanColorName($color) . ' Color', 'sage'),
-            //         'section' => 'section_color_settings_id',
-            //         'default' => $value,
-            //     ]);
-            // }
-
-            // custom_kirki_border('section_color_settings_id');
-            // custom_kirki_headline('section_color_settings_id', 'Cookie Notice Colors', 'h2');
-
-            // foreach ($GLOBALS['cookie_colors'] as $color => $value) {
-            //     Kirki::add_field('custom_' . $color . '_color_id', [
-            //         'type' => 'color',
-            //         'settings' => 'custom_' . $color . '_color',
-            //         'label' => __(cleanColorName($color) . ' Color', 'sage'),
-            //         'section' => 'section_color_settings_id',
-            //         'default' => $value,
-            //     ]);
-            // }
-
-            // custom_color_select('cookie_background', 'light', 'section_color_settings_id');
-            // custom_color_select('cookie_background_highlight', 'secondary', 'section_color_settings_id');
-            // custom_color_select('cookie_font', 'dark', 'section_color_settings_id');
-            // custom_color_select('cookie_link', 'dark', 'section_color_settings_id');
-            // custom_color_select('cookie_link_hover', 'dark', 'section_color_settings_id');
-            // custom_kirki_border('section_color_settings_id');
-
-            /**
-             * Sorted theme color selection / Remove Dark Color
-             * TODO: Make A bigger Color Palette Available
-             */
-            // $selected_theme_colors = [];
-            // foreach (array_merge($general_colors) as $key => $value) {
-            //     if (gettype($key) === 'integer') {
-            //         return;
-            //     }
-            //     if ($key === 'dark') {
-            //         return;
-            //     }
-            //     $selected_theme_colors[$key] = cleanColorName($key);
-            // }
-            //
-            // var_dump($selected_theme_colors);
-            //
-            // Kirki::add_field('brightness_color_id', [
-            //     'type' => 'select',
-            //     'settings' => 'brightness_color',
-            //     'label' => __('Select Brightness Color', 'sage'),
-            //     'section' => 'section_color_settings_id',
-            //     'description' => __('Define which of the above colors should be splittet into multiple lighter colors and shown within the editor', 'sage'),
-            //     'default' => 'primary',
-            //     'placeholder' => __('Select an option...', 'sage'),
-            //     'priority' => 10,
-            //     'multiple' => 1,
-            //     'choices' => $selected_theme_colors,
-            // ]);
         }
 
         /**
@@ -1123,14 +929,6 @@ if (class_exists('Kirki')) {
             custom_kirki_border('section_form_settings_id');
 
             custom_color_select('form_border', 'secondary', 'section_form_settings_id');
-
-            // Kirki::add_field('custom_google_maps_api_key_id', [
-            //     'type' => 'text',
-            //     'settings' => 'custom_google_maps_api_key',
-            //     'label' => __('Google Maps Api Key', 'sage'),
-            //     'section' => 'section_api_settings_id',
-            //     'description' => __('Set the API Key to enable the Maps Block', 'sage'),
-            // ]);
         }
 
         /**
@@ -1227,8 +1025,6 @@ if (class_exists('Kirki')) {
                 'multiple' => 1,
                 'choices' => $button_style_choices,
             ]);
-
-            // custom_kirki_border('section_cookie_settings_id');
 
             custom_kirki_border('section_cookie_settings_id');
 
