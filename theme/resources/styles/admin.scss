@@ -94,27 +94,58 @@
     }
 }
 
-.buttonset {
-    .switch-label {
-        color: var(--wp-admin-theme-color-darker-10);
-        box-shadow: inset 0 0 0 1px var(--wp-admin-theme-color-darker-10);
-        //box-shadow: inset 0 0 0 1px var(--wp-admin-theme-color);
-        outline: 1px solid transparent;
-        white-space: nowrap;
-        //color: var(--wp-admin-theme-color);
-        background: #FFF !important;
-        border-radius: 2px;
-        flex-grow: initial !important;
-        margin: 0 5px 5px 0 !important;
-    }
+/**
+ * Custom Radio Buttonset has a small bug and window is jumping to top
+ * that's why iam  not using it anymore..
+ */
+//.buttonset {
+//    .switch-label {
+//        color: var(--wp-admin-theme-color-darker-10);
+//        box-shadow: inset 0 0 0 1px var(--wp-admin-theme-color-darker-10);
+//        //box-shadow: inset 0 0 0 1px var(--wp-admin-theme-color);
+//        outline: 1px solid transparent;
+//        white-space: nowrap;
+//        //color: var(--wp-admin-theme-color);
+//        background: #FFF !important;
+//        border-radius: 2px;
+//        flex-grow: initial !important;
+//        margin: 0 5px 5px 0 !important;
+//    }
+//
+//    .switch-input:checked + .switch-label {
+//        background-color: #00a0d2 !important;
+//        color: rgba(255, 255, 255, 0.8);
+//    }
+//}
 
-    .switch-input:checked + .switch-label {
-        background-color: #00a0d2 !important;
-        color: rgba(255, 255, 255, 0.8);
+.customize-control-kirki-radio:not([id^="customize-control-custom_color_select"]) {
+    .kirki-input-container {
+        display: flex;
+        flex-wrap: wrap;
+
+        .customize-control-title {
+            width: 100%;
+            margin-bottom: 16px;
+        }
+
+        label {
+            margin-right: 12px;
+
+            input {
+                width: 22px;
+                height: 22px;
+
+                &:checked {
+
+                    &:before {
+                        width: 14px;
+                        height: 14px;
+                    }
+                }
+            }
+        }
     }
 }
-
-
 
 .customize-control-kirki-radio[id^="customize-control-custom_color_select"] {
     .kirki-input-container {
@@ -143,7 +174,6 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                //margin: 0;
                 margin-right: 7px;
                 margin-bottom: 7px;
 
@@ -181,7 +211,6 @@
                 width: 36px;
                 height: 36px;
                 max-width: 36px;
-                //border: 1px solid #3582c4;
                 border: none;
                 position: absolute;
                 left: 0;
