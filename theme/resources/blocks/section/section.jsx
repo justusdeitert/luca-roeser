@@ -56,7 +56,11 @@ const attributes = {
         type: 'string',
         default: 'normal',
     },
-    sectionShapeBgColor: {
+    sectionTopShapeBgColor: {
+        type: 'string',
+        default: `rgb(${getCssVariable('--custom-body-background-color')})`,
+    },
+    sectionBottomShapeBgColor: {
         type: 'string',
         default: `rgb(${getCssVariable('--custom-body-background-color')})`,
     },
@@ -166,6 +170,7 @@ registerBlockType('custom/section', {
                             colors={editorThemeColors}
                             value={attributes.sectionBackgroundColor}
                             onChange={(value) => setAttributes({sectionBackgroundColor: value})}
+                            disableCustomColors={true}
                         />
                         {attributes.sectionClipPath === 'none' &&
                         <>
@@ -254,6 +259,21 @@ registerBlockType('custom/section', {
                                 <Radio value="inverted">{__('Inverted', 'sage')}</Radio>
                             </RadioGroup>
                             <hr/>
+                            <p>{__('Top Shape Background Color', 'sage')}</p>
+                            <ColorPalette
+                                colors={editorThemeColors}
+                                value={attributes.sectionTopShapeBgColor}
+                                onChange={(value) => {
+                                    if (value) {
+                                        setAttributes({sectionTopShapeBgColor: value})
+                                    } else {
+                                        setAttributes({sectionTopShapeBgColor: `rgb(${getCssVariable('--custom-body-background-color')})`})
+                                    }
+                                }}
+                                disableCustomColors={true}
+                                defaultValue={`rgb(${getCssVariable('--custom-body-background-color')})`}
+                            />
+                            <hr/>
                             <p>{__('Bottom Shape', 'sage')}</p>
                             <RadioGroup
                                 checked={attributes.sectionShapeBottomClass}
@@ -265,12 +285,19 @@ registerBlockType('custom/section', {
                                 <Radio value="inverted">{__('Inverted', 'sage')}</Radio>
                             </RadioGroup>
                             <hr/>
-                            <p>{__('Shape Background Color', 'sage')}</p>
+                            <p>{__('Bottom Shape Background Color', 'sage')}</p>
                             <ColorPalette
                                 colors={editorThemeColors}
-                                value={attributes.sectionShapeBgColor}
-                                onChange={(value) => setAttributes({sectionShapeBgColor: value})}
+                                value={attributes.sectionBottomShapeBgColor}
+                                onChange={(value) => {
+                                    if (value) {
+                                        setAttributes({sectionBottomShapeBgColor: value})
+                                    } else {
+                                        setAttributes({sectionBottomShapeBgColor: `rgb(${getCssVariable('--custom-body-background-color')})`})
+                                    }
+                                }}
                                 disableCustomColors={true}
+                                defaultValue={`rgb(${getCssVariable('--custom-body-background-color')})`}
                             />
                         </>
                         }
@@ -296,17 +323,15 @@ registerBlockType('custom/section', {
                         </div>
 
                         {(sectionShapes[attributes.sectionShape] && attributes.sectionShapeTopClass !== 'none') && sectionShapes[attributes.sectionShape](
-                            attributes.sectionShapeBgColor,
                             'top',
                             `${attributes.sectionShapeHeight}px`,
-                            attributes.sectionShapeTopClass,
+                            classnames(attributes.sectionShapeTopClass, getColorObject(attributes.sectionTopShapeBgColor) && `has-${getColorObject(attributes.sectionTopShapeBgColor).slug}-fill-color`),
                         )}
 
                         {(sectionShapes[attributes.sectionShape] && attributes.sectionShapeBottomClass !== 'none') && sectionShapes[attributes.sectionShape](
-                            attributes.sectionShapeBgColor,
                             'bottom',
                             `${attributes.sectionShapeHeight}px`,
-                            attributes.sectionShapeBottomClass,
+                            classnames(attributes.sectionShapeBottomClass, getColorObject(attributes.sectionBottomShapeBgColor) && `has-${getColorObject(attributes.sectionBottomShapeBgColor).slug}-fill-color`),
                         )}
                     </div>
                 </div>
@@ -345,17 +370,17 @@ registerBlockType('custom/section', {
                 </div>
 
                 {(sectionShapes[attributes.sectionShape] && attributes.sectionShapeTopClass !== 'none') && sectionShapes[attributes.sectionShape](
-                    attributes.sectionShapeBgColor,
                     'top',
                     `${attributes.sectionShapeHeight}px`,
-                    attributes.sectionShapeTopClass,
+                    // classnames(attributes.sectionShapeTopClass),
+                    classnames(attributes.sectionShapeTopClass, getColorObject(attributes.sectionTopShapeBgColor) && `has-${getColorObject(attributes.sectionTopShapeBgColor).slug}-fill-color`),
                 )}
 
                 {(sectionShapes[attributes.sectionShape] && attributes.sectionShapeBottomClass !== 'none') && sectionShapes[attributes.sectionShape](
-                    attributes.sectionShapeBgColor,
                     'bottom',
                     `${attributes.sectionShapeHeight}px`,
-                    attributes.sectionShapeBottomClass,
+                    // classnames(attributes.sectionShapeTopClass),
+                    classnames(attributes.sectionShapeBottomClass, getColorObject(attributes.sectionBottomShapeBgColor) && `has-${getColorObject(attributes.sectionBottomShapeBgColor).slug}-fill-color`),
                 )}
             </div>
         );

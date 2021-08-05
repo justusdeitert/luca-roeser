@@ -117,8 +117,9 @@ export const getImage = (image, size = 'full', placeholderWidth = 1800, placehol
  * @returns {string}
  */
 export const getCssVariable = (variableString) => {
-    let style = getComputedStyle(document.body)
-    return style.getPropertyValue(variableString)
+    let style = getComputedStyle(document.body);
+    let value = style.getPropertyValue(variableString);
+    return  value.replaceAll(' ', '');
 }
 
 /**
@@ -148,7 +149,7 @@ export const getColorObjectFromSlug = (array, slug) => {
  * @returns {*}
  */
 export const getColorObject = (color) => {
-    return getColorObjectByColorValue(editorThemeColors, color)
+    return getColorObjectByColorValue(editorThemeColors, color);
 }
 
 /**
@@ -407,14 +408,14 @@ export const SelectSectionShapes = ({sectionShapes, clickFunction, value = 'none
     let ClipPathEntries = sectionShapesArray.map((element, index) => {
         return (
             <div key={index} className={classnames('section-shapes__wrapper', value === element[0] && 'is-active')}>
-                {element[1]('#FFF', 'top', '10px')}
+                {element[1]('top', '10px')}
                 <div
                     key={index}
                     style={{cursor: 'pointer'}}
                     className={classnames('section-shapes__element')}
                     onClick={() => clickFunction(element[0])}
                 />
-                {element[1]('#FFF', 'bottom', '10px')}
+                {element[1]('bottom', '10px')}
             </div>
         )
     });

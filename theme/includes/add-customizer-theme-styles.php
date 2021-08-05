@@ -174,29 +174,29 @@ function customizer_theme_styles() {
             --custom-form-height: <?php echo get_theme_mod('custom_form_height'); ?>px;
 
             /* General Colors */
-        <?php foreach ($standard_color_versions as $name => $value) { ?>
-            --custom-<?php echo $name; ?>-color: <?php echo $value; ?>;
-        <?php } ?>
-
-            /* Theme Colors */
-        <?php foreach ($custom_theme_colors as $name => $value) { ?>
-            --custom-<?php echo $name; ?>-color: var(--custom-<?php echo $value; ?>-color);
-        <?php } ?>
+            <?php foreach ($standard_color_versions as $name => $value) { ?>
+                --custom-<?php echo $name; ?>-color: <?php echo $value; ?>;
+            <?php } ?>
 
             /* Light Color Shades */
-        <?php foreach ($light_colors as $name => $value) { ?>
-            --custom-light-<?php echo $name; ?>-color: <?php echo $value; ?>;
-        <?php } ?>
+            <?php foreach ($light_colors as $name => $value) { ?>
+                --custom-light-<?php echo $name; ?>-color: <?php echo $value; ?>;
+            <?php } ?>
 
             /* Dark Color Shades */
-        <?php foreach ($dark_colors as $name => $value) { ?>
-            --custom-dark-<?php echo $name; ?>-color: <?php echo $value; ?>;
-        <?php } ?>
+            <?php foreach ($dark_colors as $name => $value) { ?>
+                --custom-dark-<?php echo $name; ?>-color: <?php echo $value; ?>;
+            <?php } ?>
 
             /* Dark/Light Color Shades */
-        <?php foreach ($dark_light_colors as $name => $value) { ?>
-            --custom-dark-light-<?php echo $name; ?>-color: <?php echo $value; ?>;
-        <?php } ?>
+            <?php foreach ($dark_light_colors as $name => $value) { ?>
+                --custom-dark-light-<?php echo $name; ?>-color: <?php echo $value; ?>;
+            <?php } ?>
+
+            /* Theme Colors */
+            <?php foreach ($custom_theme_colors as $name => $value) { ?>
+                --custom-<?php echo $name; ?>-color: var(--custom-<?php echo $value; ?>-color);
+            <?php } ?>
 
             /* Navbar Settings */
             --custom-navbar-height: <?php echo get_theme_mod('custom_navbar_height', 60); ?>px;
@@ -255,19 +255,11 @@ function customizer_theme_styles() {
         .has-<?php echo $name; ?>-background-color {
             background-color: rgb(<?php echo $value; ?>);
         }
+
+        .has-<?php echo $name; ?>-fill-color {
+            fill: rgb(<?php echo $value; ?>);
+        }
         <?php } ?>
-
-        <?php /*foreach ($theme_colors as $name => $value) { */?>/*
-            .has-<?php /*echo $name; */?>-color,
-            .has-<?php /*echo $name; */?>-color *,
-            .has-<?php /*echo $name; */?>-color *:hover {
-                color: rgb(<?php /*echo $value; */?>) !important;
-            }
-
-            .has-<?php /*echo $name; */?>-background-color {
-                background-color: rgb(<?php /*echo $value; */?>);
-            }
-        */<?php /*} */?>
 
         <?php foreach ($light_colors as $name => $value) { ?>
         .has-light-<?php echo $name; ?>-color,
@@ -278,6 +270,10 @@ function customizer_theme_styles() {
 
         .has-light-<?php echo $name; ?>-background-color {
             background-color: rgb(<?php echo $value; ?>);
+        }
+
+        .has-light-<?php echo $name; ?>-fill-color {
+            fill: rgb(<?php echo $value; ?>);
         }
         <?php } ?>
 
@@ -291,6 +287,10 @@ function customizer_theme_styles() {
         .has-dark-<?php echo $name; ?>-background-color {
             background-color: rgb(<?php echo $value; ?>);
         }
+
+        .has-dark-<?php echo $name; ?>-fill-color {
+            fill: rgb(<?php echo $value; ?>);
+        }
         <?php } ?>
 
         <?php foreach ($dark_light_colors as $name => $value) { ?>
@@ -302,6 +302,10 @@ function customizer_theme_styles() {
 
         .has-dark-light-<?php echo $name; ?>-background-color {
             background-color: rgb(<?php echo $value; ?>);
+        }
+
+        .has-dark-light-<?php echo $name; ?>-fill-color {
+            fill: rgb(<?php echo $value; ?>);
         }
         <?php } ?>
 
