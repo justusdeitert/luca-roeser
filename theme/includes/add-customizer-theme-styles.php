@@ -92,10 +92,16 @@ function customizer_theme_styles() {
          * Cookie Colors
          */
         'consent-modal-background' => get_theme_mod('custom_color_select_consent_modal_background', 'light'),
-        'consent-modal-background-highlight' => get_theme_mod('custom_color_select_consent_modal_background_highlight', 'secondary'),
+        // 'consent-modal-background-highlight' => get_theme_mod('custom_color_select_consent_modal_background_highlight', 'light-200'),
         'consent-modal-font' => get_theme_mod('custom_color_select_consent_modal_font', 'dark'),
         'consent-modal-link' => get_theme_mod('custom_color_select_consent_modal_link', 'primary'),
         'consent-modal-link-hover' => get_theme_mod('custom_color_select_consent_modal_link_hover', 'primary'),
+
+        'consent-settings-background' => get_theme_mod('custom_color_select_consent_settings_background', 'light'),
+        'consent-settings-background-highlight' => get_theme_mod('custom_color_select_consent_settings_background_highlight', 'light-200'),
+        'consent-settings-font' => get_theme_mod('custom_color_select_consent_settings_font', 'dark'),
+        'consent-settings-link' => get_theme_mod('custom_color_select_consent_settings_link', 'primary'),
+        'consent-settings-link-hover' => get_theme_mod('custom_color_select_consent_settings_link_hover', 'primary'),
     ];
 
     /**
@@ -140,7 +146,6 @@ function customizer_theme_styles() {
          * @link https://metabox.io/load-google-fonts-faster-wordpress/
          */
     ?>
-    <link href="<?php echo $custom_google_font_string; ?>" rel="preload" as="style" onload="this.rel='stylesheet'">
     <style>
         :root {
             /* Content Settings */
@@ -169,29 +174,29 @@ function customizer_theme_styles() {
             --custom-form-height: <?php echo get_theme_mod('custom_form_height'); ?>px;
 
             /* General Colors */
-            <?php foreach ($standard_color_versions as $name => $value) { ?>
-                --custom-<?php echo $name; ?>-color: <?php echo $value; ?>;
-            <?php } ?>
+        <?php foreach ($standard_color_versions as $name => $value) { ?>
+            --custom-<?php echo $name; ?>-color: <?php echo $value; ?>;
+        <?php } ?>
 
             /* Theme Colors */
-            <?php foreach ($custom_theme_colors as $name => $value) { ?>
-                --custom-<?php echo $name; ?>-color: var(--custom-<?php echo $value; ?>-color);
-            <?php } ?>
+        <?php foreach ($custom_theme_colors as $name => $value) { ?>
+            --custom-<?php echo $name; ?>-color: var(--custom-<?php echo $value; ?>-color);
+        <?php } ?>
 
             /* Light Color Shades */
-            <?php foreach ($light_colors as $name => $value) { ?>
-                --custom-light-<?php echo $name; ?>-color: <?php echo $value; ?>;
-            <?php } ?>
+        <?php foreach ($light_colors as $name => $value) { ?>
+            --custom-light-<?php echo $name; ?>-color: <?php echo $value; ?>;
+        <?php } ?>
 
             /* Dark Color Shades */
-            <?php foreach ($dark_colors as $name => $value) { ?>
-                --custom-dark-<?php echo $name; ?>-color: <?php echo $value; ?>;
-            <?php } ?>
+        <?php foreach ($dark_colors as $name => $value) { ?>
+            --custom-dark-<?php echo $name; ?>-color: <?php echo $value; ?>;
+        <?php } ?>
 
             /* Dark/Light Color Shades */
-            <?php foreach ($dark_light_colors as $name => $value) { ?>
-                --custom-dark-light-<?php echo $name; ?>-color: <?php echo $value; ?>;
-            <?php } ?>
+        <?php foreach ($dark_light_colors as $name => $value) { ?>
+            --custom-dark-light-<?php echo $name; ?>-color: <?php echo $value; ?>;
+        <?php } ?>
 
             /* Navbar Settings */
             --custom-navbar-height: <?php echo get_theme_mod('custom_navbar_height', 60); ?>px;
@@ -199,17 +204,17 @@ function customizer_theme_styles() {
             /*
              * Custom Navbar Positioning
              */
-            <?php
-                $custom_navbar_position = 'static';
-                $custom_navbar_behavior = get_theme_mod('custom_navbar_behavior', 'moving');
-                $custom_navbar_top_position = get_theme_mod('custom_navbar_top_position', 0);
+        <?php
+            $custom_navbar_position = 'static';
+            $custom_navbar_behavior = get_theme_mod('custom_navbar_behavior', 'moving');
+            $custom_navbar_top_position = get_theme_mod('custom_navbar_top_position', 0);
 
-                if ($custom_navbar_top_position === '0') {
-                    $custom_navbar_position = ($custom_navbar_behavior === 'moving') ? 'sticky' : 'static';
-                } else {
-                    $custom_navbar_position = ($custom_navbar_behavior === 'moving') ? 'fixed' : 'absolute';
-                }
-            ?>
+            if ($custom_navbar_top_position === '0') {
+                $custom_navbar_position = ($custom_navbar_behavior === 'moving') ? 'sticky' : 'static';
+            } else {
+                $custom_navbar_position = ($custom_navbar_behavior === 'moving') ? 'fixed' : 'absolute';
+            }
+        ?>
 
             --custom-navbar-position:  <?php echo $custom_navbar_position; ?>;
             --custom-navbar-top-position:  <?php echo $custom_navbar_top_position; ?>px;
@@ -222,13 +227,13 @@ function customizer_theme_styles() {
             --custom-navbar-submenu-item-height:  <?php echo get_theme_mod('custom_navbar_submenu_item_height', 40); ?>px;
 
             /*
-             * Custom Cookie Consent Modal Variables
+             * Custom Cookie Consent Modal/Setting Variables
              */
             --custom-cookie-consent-padding:  <?php echo get_theme_mod('custom_cookie_consent_padding', 25); ?>px;
-            /*--custom-cookie-primary-button-style:  */<?php //echo get_theme_mod('custom_cookie_primary_button_style', 'primary'); ?>/*;*/
-            /*--custom-cookie-secondary-button-style:  */<?php //echo get_theme_mod('custom_cookie_secondary_button_style', 'secondary'); ?>/*;*/
             --custom-consent-modal-primary-button-color:  <?php echo get_theme_mod('custom_color_select_consent_modal_primary_button', 'primary'); ?>;
             --custom-consent-modal-secondary-button-color:  <?php echo get_theme_mod('custom_color_select_consent_modal_secondary_button', 'secondary'); ?>;
+            --custom-consent-settings-primary-button-color:  <?php echo get_theme_mod('custom_color_select_consent_settings_primary_button', 'primary'); ?>;
+            --custom-consent-settings-secondary-button-color:  <?php echo get_theme_mod('custom_color_select_consent_settings_secondary_button', 'secondary'); ?>;
         }
 
         /* Icon Settings */
@@ -241,15 +246,15 @@ function customizer_theme_styles() {
         }
 
         <?php foreach ($standard_color_versions as $name => $value) { ?>
-            .has-<?php echo $name; ?>-color,
-            .has-<?php echo $name; ?>-color *,
-            .has-<?php echo $name; ?>-color *:hover {
-                color: rgb(<?php echo $value; ?>) !important;
-            }
+        .has-<?php echo $name; ?>-color,
+        .has-<?php echo $name; ?>-color *,
+        .has-<?php echo $name; ?>-color *:hover {
+            color: rgb(<?php echo $value; ?>) !important;
+        }
 
-            .has-<?php echo $name; ?>-background-color {
-                background-color: rgb(<?php echo $value; ?>);
-            }
+        .has-<?php echo $name; ?>-background-color {
+            background-color: rgb(<?php echo $value; ?>);
+        }
         <?php } ?>
 
         <?php /*foreach ($theme_colors as $name => $value) { */?>/*
@@ -265,42 +270,43 @@ function customizer_theme_styles() {
         */<?php /*} */?>
 
         <?php foreach ($light_colors as $name => $value) { ?>
-            .has-light-<?php echo $name; ?>-color,
-            .has-<?php echo $name; ?>-color *,
-            .has-<?php echo $name; ?>-color *:hover {
-                color: rgb(<?php echo $value; ?>) !important;
-            }
+        .has-light-<?php echo $name; ?>-color,
+        .has-<?php echo $name; ?>-color *,
+        .has-<?php echo $name; ?>-color *:hover {
+            color: rgb(<?php echo $value; ?>) !important;
+        }
 
-            .has-light-<?php echo $name; ?>-background-color {
-                background-color: rgb(<?php echo $value; ?>);
-            }
+        .has-light-<?php echo $name; ?>-background-color {
+            background-color: rgb(<?php echo $value; ?>);
+        }
         <?php } ?>
 
         <?php foreach ($dark_colors as $name => $value) { ?>
-            .has-dark-<?php echo $name; ?>-color,
-            .has-<?php echo $name; ?>-color *,
-            .has-<?php echo $name; ?>-color *:hover {
-                color: rgb(<?php echo $value; ?>) !important;
-            }
+        .has-dark-<?php echo $name; ?>-color,
+        .has-<?php echo $name; ?>-color *,
+        .has-<?php echo $name; ?>-color *:hover {
+            color: rgb(<?php echo $value; ?>) !important;
+        }
 
-            .has-dark-<?php echo $name; ?>-background-color {
-                background-color: rgb(<?php echo $value; ?>);
-            }
+        .has-dark-<?php echo $name; ?>-background-color {
+            background-color: rgb(<?php echo $value; ?>);
+        }
         <?php } ?>
 
         <?php foreach ($dark_light_colors as $name => $value) { ?>
-            .has-dark-light-<?php echo $name; ?>-color,
-            .has-<?php echo $name; ?>-color *,
-            .has-<?php echo $name; ?>-color *:hover {
-                color: rgb(<?php echo $value; ?>) !important;
-            }
+        .has-dark-light-<?php echo $name; ?>-color,
+        .has-<?php echo $name; ?>-color *,
+        .has-<?php echo $name; ?>-color *:hover {
+            color: rgb(<?php echo $value; ?>) !important;
+        }
 
-            .has-dark-light-<?php echo $name; ?>-background-color {
-                background-color: rgb(<?php echo $value; ?>);
-            }
+        .has-dark-light-<?php echo $name; ?>-background-color {
+            background-color: rgb(<?php echo $value; ?>);
+        }
         <?php } ?>
 
     </style>
+    <link href="<?php echo $custom_google_font_string; ?>" rel="preload" as="style" onload="this.rel='stylesheet'">
 
     <?php if (class_exists('ACF') && get_field('cookie_code', 'options')) {  ?>
         <?php echo get_field('cookie_code', 'options'); ?>

@@ -20,8 +20,8 @@
 
     --cc-block-text: rgb(var(--custom-consent-modal-font-color));
 
-    --cc-cookie-category-block-bg: rgb(var(--custom-consent-modal-background-highlight-color));
-    --cc-cookie-category-block-bg-hover: rgb(var(--custom-consent-modal-background-highlight-color));
+    --cc-cookie-category-block-bg: rgb(var(--custom-consent-settings-background-highlight-color));
+    --cc-cookie-category-block-bg-hover: rgb(var(--custom-consent-settings-background-highlight-color));
 
     --cc-section-border: rgba(var(--custom-consent-modal-font-color), 0.2);
     --cc-cookie-table-border: rgba(var(--custom-consent-modal-font-color), 0.2);
@@ -65,23 +65,48 @@
     }
 }
 
-#s-cnt {
-    .p {
-        font-size: var(--custom-font-size);
-    }
-
-    .b-bn {
-        .b-tl {
-            font-size: var(--custom-font-size);
-        }
-    }
-}
+#s-cnt #s-inr #s-bns .c-bn
 
 // Cookie Consent Container
 #cc_div {
     font-size: var(--custom-font-size);
     font-weight: var(--custom-font-weight);
     font-family: var(--custom-text-font-family);
+
+    #s-cnt {
+        color: rgba(var(--custom-consent-settings-font-color));
+
+        #s-c-bnc {
+            .c-bn {
+                color: rgba(var(--custom-consent-settings-font-color));
+            }
+        }
+
+        .p {
+            font-size: var(--custom-font-size);
+            color: rgba(var(--custom-consent-settings-font-color));
+        }
+
+        #s-inr {
+            a {
+                color: rgba(var(--custom-consent-settings-link-color));
+
+                &:hover {
+                    color: rgba(var(--custom-consent-settings-link-hover-color));
+                }
+            }
+        }
+
+        .b-bn {
+            .b-tl {
+                font-size: var(--custom-font-size);
+
+                &:before {
+                    border-color: rgba(var(--custom-consent-settings-font-color));
+                }
+            }
+        }
+    }
 }
 
 /**
@@ -296,6 +321,9 @@
     }
 }
 
+#s-inr, #s-hdr, #s-bns {
+    background-color: rgb(var(--custom-consent-settings-background-color));
+}
 
 // Cookie Settings Container
 #s-cnt {
@@ -312,6 +340,10 @@
         display: flex;
         flex-direction: column;
         padding: 0;
+
+        #s-bns .c-bn {
+            margin: 1rem 1rem 0 0 !important;
+        }
 
         a {
             text-decoration: underline;
@@ -375,7 +407,7 @@
 
         #s-bns {
             position: initial;
-            padding: calc(var(--custom-cookie-consent-padding) - 0.5rem) var(--custom-cookie-consent-padding);
+            padding: calc(var(--custom-cookie-consent-padding) - 1rem) var(--custom-cookie-consent-padding);
             width: 100%;
             height: auto;
             display: flex;

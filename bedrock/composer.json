@@ -66,10 +66,10 @@
             "package": {
                 "name": "contact-form-7/de_de",
                 "type": "wordpress-language",
-                "version": "5.5.2",
+                "version": "5.5.3",
                 "dist": {
                     "type": "zip",
-                    "url": "https://downloads.wordpress.org/translation/plugin/contact-form-7/5.5.2/de_DE.zip"
+                    "url": "https://downloads.wordpress.org/translation/plugin/contact-form-7/5.5.3/de_DE.zip"
                 }
             }
         }
@@ -91,14 +91,14 @@
         "wpackagist-plugin/disable-blogging":"2.1.0",
         "wpackagist-plugin/modern-images-wp":"1.0.3",
         "wpackagist-plugin/duplicate-post":"4.2",
-        "wpackagist-plugin/contact-form-7":"5.5.2",
+        "wpackagist-plugin/contact-form-7":"5.5.3",
         "wpackagist-plugin/contact-form-cfdb7":"1.2.6.2",
         "wpackagist-plugin/one-click-demo-import":"3.0.2",
         "yoast/wordpress-seo": "17.6",
         "advanced-custom-fields/advanced-custom-fields-pro": "5.11",
         "wpackagist-plugin/regenerate-thumbnails":"3.1.5",
         "wpackagist-plugin/imsanity":"2.7.2",
-        "contact-form-7/de_de":"5.5.2"
+        "contact-form-7/de_de":"5.5.3"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.6.0",

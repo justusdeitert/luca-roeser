@@ -1114,10 +1114,6 @@ if (class_exists('Kirki')) {
 
             custom_kirki_border('section_cookie_settings_id');
 
-            custom_color_select('consent_modal_background_highlight', 'light-200', 'section_cookie_settings_id');
-
-            custom_kirki_border('section_cookie_settings_id');
-
             custom_color_select('consent_modal_font', 'dark', 'section_cookie_settings_id');
 
             custom_kirki_border('section_cookie_settings_id');
@@ -1228,6 +1224,36 @@ if (class_exists('Kirki')) {
                     'zoom' => __('Zoom', 'sage'),
                 ],
             ]);
+
+            custom_kirki_border('section_cookie_settings_id');
+
+            custom_button_color_select('consent_settings_primary_button', 'primary', 'section_cookie_settings_id');
+
+            custom_kirki_border('section_cookie_settings_id');
+
+            custom_button_color_select('consent_settings_secondary_button', 'secondary', 'section_cookie_settings_id');
+
+            custom_kirki_border('section_cookie_settings_id');
+
+            custom_color_select('consent_settings_background', 'light', 'section_cookie_settings_id');
+
+            custom_kirki_border('section_cookie_settings_id');
+
+            custom_color_select('consent_settings_background_highlight', 'light-200', 'section_cookie_settings_id');
+
+            custom_kirki_border('section_cookie_settings_id');
+
+            custom_color_select('consent_settings_font', 'dark', 'section_cookie_settings_id');
+
+            custom_kirki_border('section_cookie_settings_id');
+
+            custom_color_select('consent_settings_link', 'dark', 'section_cookie_settings_id');
+
+            custom_kirki_border('section_cookie_settings_id');
+
+            custom_color_select('consent_settings_link_hover', 'dark', 'section_cookie_settings_id');
+
+            custom_kirki_border('section_cookie_settings_id');
         }
 
         /**

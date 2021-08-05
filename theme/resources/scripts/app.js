@@ -41,7 +41,7 @@ window.addEventListener('load', () => {
 });
 
 /**
- * Adjust xdebug error notices
+ * Adjust xdebug var dump notices
  * @type {NodeListOf<Element>}
  */
 let xdebugElements = document.querySelectorAll('.xdebug-var-dump');

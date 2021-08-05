@@ -36,9 +36,9 @@ window.generalColors = false;
 
 window.getGeneralThemeColors = () => {
     let iFrame = document.querySelector('#customize-preview iframe');
-    let iFrameDocument = iFrame.contentWindow.document;
 
-    if (iFrameDocument.body) {
+    if (iFrame) {
+        let iFrameDocument = iFrame.contentWindow.document;
         let style = getComputedStyle(iFrameDocument.body);
         let getProperty = (property) => style.getPropertyValue(property);
 
@@ -51,9 +51,6 @@ window.getGeneralThemeColors = () => {
             'light-100': getProperty('--custom-light-100-color'),
             'light-200': getProperty('--custom-light-200-color'),
             'light-300': getProperty('--custom-light-300-color'),
-            // 'light-400': getProperty('--custom-light-400-color'),
-            // 'light-500': getProperty('--custom-light-500-color'),
-            // 'light-600': getProperty('--custom-light-500-color'),
             dark: getProperty('--custom-dark-color'),
             'dark-100': getProperty('--custom-dark-100-color'),
             'dark-200': getProperty('--custom-dark-200-color'),
@@ -61,9 +58,6 @@ window.getGeneralThemeColors = () => {
             'dark-light-100': getProperty('--custom-dark-light-100-color'),
             'dark-light-200': getProperty('--custom-dark-light-200-color'),
             'dark-light-300': getProperty('--custom-dark-light-300-color'),
-            // 'dark-400': getProperty('--custom-dark-400-color'),
-            // 'dark-500': getProperty('--custom-dark-500-color'),
-            // 'dark-600': getProperty('--custom-dark-600-color'),
             success: getProperty('--custom-success-color'),
             danger: getProperty('--custom-danger-color'),
             warning: getProperty('--custom-warning-color'),
@@ -80,8 +74,15 @@ window.getGeneralThemeColors = () => {
         });
     }
 
+    // if (iFrameDocument.body) {
+    //
+    // }
+
 }
 
-setInterval(() => {
-    window.getGeneralThemeColors();
-}, 1000);
+// Check if code is better off in customizer.js
+if (document.querySelector('body').classList.contains('wp-customizer')) {
+    setInterval(() => {
+        window.getGeneralThemeColors();
+    }, 1000);
+}
