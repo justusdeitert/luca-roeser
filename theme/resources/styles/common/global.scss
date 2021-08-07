@@ -102,6 +102,7 @@ img {
     width: 40px;
     height: 40px;
     font-size: 0.875em;
+    z-index: 2000000;
 
     &:hover {
         color: rgb(var(--custom-font-color));

@@ -5,6 +5,7 @@ import {SelectControl, ToolbarGroup, RangeControl, __experimentalUnitControl as 
 import classNames from 'classnames';
 import {fluidTextIcon} from '../icons';
 import {removeBlock, MobileSwitch, MobileSwitchInner, editorThemeColors, getColorObject} from "../utility";
+import { createBlock, getDefaultBlockName } from '@wordpress/blocks';
 
 const attributes = {
     clientId: {
@@ -43,6 +44,10 @@ const attributes = {
         type: 'string',
         default: ''
     },
+    fluidTextLineHeight: {
+        type: 'number',
+        default: false
+    },
     // minWindowSize: {
     //     type: 'number',
     //     default: 320
@@ -61,6 +66,11 @@ registerBlockType('custom/fluid-text', {
     edit: ({setAttributes, attributes, className, clientId}) => {
 
         attributes.clientId = clientId;
+
+        let additionalStyles = {};
+        if (attributes.fluidTextLineHeight) {
+            additionalStyles.lineHeight = attributes.fluidTextLineHeight
+        }
 
         return (
             <>
@@ -154,6 +164,17 @@ registerBlockType('custom/fluid-text', {
                             </MobileSwitchInner>
                         </MobileSwitch>
                         <hr/>
+                        <p>{__('Line Height', 'sage')}</p>
+                        <RangeControl
+                            value={attributes.fluidTextLineHeight}
+                            min={0.7}
+                            max={2}
+                            step={0.1}
+                            allowReset={true}
+                            resetFallbackValue={false}
+                            onChange={(value) => setAttributes({fluidTextLineHeight: value})}
+                        />
+                        <hr/>
                         <p>{__('Color', 'sage')}</p>
                         <ColorPalette
                             colors={editorThemeColors}
@@ -176,18 +197,32 @@ registerBlockType('custom/fluid-text', {
                         '--fluid-text-size-desktop': `${attributes.fontSizeDesktop}px`,
                         '--fluid-text-size-mobile': `${attributes.fontSizeMobile}px`,
                         '--fluid-text-desktop-mobile': `${attributes.fontSizeDesktop - attributes.fontSizeMobile}`,
+                        ...additionalStyles
                     }}
                     placeholder={'Lorem Ipsum'}
                     onRemove={() => removeBlock(clientId)}
                     value={attributes.fluidText}
                     // allowedFormats={['core/bold', 'core/italic']}
                     onChange={(value) => setAttributes({fluidText: value})}
+                    onReplace={() => {
+                        // TODO: Set up new Paragraph Block and Line Break!!
+                        // console.log('onReplace');
+                    }}
+                    onSplit={() => {
+                        // console.log('onSplit')
+                    }}
                 />
             </>
 
         );
     },
     save: ({attributes, className}) => {
+
+        let additionalStyles = {};
+        if (attributes.fluidTextLineHeight) {
+            additionalStyles.lineHeight = attributes.fluidTextLineHeight
+        }
+
         return (
             <>
                 <RichText.Content
@@ -204,6 +239,7 @@ registerBlockType('custom/fluid-text', {
                         '--fluid-text-size-desktop': `${attributes.fontSizeDesktop}px`,
                         '--fluid-text-size-mobile': `${attributes.fontSizeMobile}px`,
                         '--fluid-text-desktop-mobile': `${attributes.fontSizeDesktop - attributes.fontSizeMobile}`,
+                        ...additionalStyles
                     }}
                 />
             </>
