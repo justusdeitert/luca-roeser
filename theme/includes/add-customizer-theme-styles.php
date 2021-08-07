@@ -47,6 +47,7 @@ function customizer_theme_styles() {
     }
 
     $custom_theme_colors = [
+
         /**
          * Font Colors
          */
@@ -64,12 +65,12 @@ function customizer_theme_styles() {
          *  Menu Colors
          */
         'navbar-background' => get_theme_mod('custom_color_select_navbar_background', 'light'),
-        'navbar-font' => get_theme_mod('custom_color_select_navbar_font', 'light'),
-        'navbar-font-active' => get_theme_mod('custom_color_select_navbar_font_active', 'light'),
+        'navbar-font' => get_theme_mod('custom_color_select_navbar_font', 'dark'),
+        'navbar-font-active' => get_theme_mod('custom_color_select_navbar_font_active', 'dark'),
         'navbar-background-active' => get_theme_mod('custom_color_select_navbar_background_active', 'light'),
-        'navbar-submenu-background' => get_theme_mod('custom_color_select_body_background', 'light'),
-        'navbar-submenu-font' => get_theme_mod('custom_color_select_submenu_font_color', 'light'),
-        'navbar-submenu-font-active' => get_theme_mod('custom_color_select_navbar_submenu_font_active', 'light'),
+        'navbar-submenu-background' => get_theme_mod('custom_color_select_navbar_submenu_background', 'light'),
+        'navbar-submenu-font' => get_theme_mod('custom_color_select_submenu_font', 'dark'),
+        'navbar-submenu-font-active' => get_theme_mod('custom_color_select_navbar_submenu_font_active', 'dark'),
         'navbar-submenu-background-active' => get_theme_mod('custom_color_select_navbar_submenu_background_active', 'light'),
 
         /**
@@ -92,11 +93,9 @@ function customizer_theme_styles() {
          * Cookie Colors
          */
         'consent-modal-background' => get_theme_mod('custom_color_select_consent_modal_background', 'light'),
-        // 'consent-modal-background-highlight' => get_theme_mod('custom_color_select_consent_modal_background_highlight', 'light-200'),
         'consent-modal-font' => get_theme_mod('custom_color_select_consent_modal_font', 'dark'),
         'consent-modal-link' => get_theme_mod('custom_color_select_consent_modal_link', 'primary'),
         'consent-modal-link-hover' => get_theme_mod('custom_color_select_consent_modal_link_hover', 'primary'),
-
         'consent-settings-background' => get_theme_mod('custom_color_select_consent_settings_background', 'light'),
         'consent-settings-background-highlight' => get_theme_mod('custom_color_select_consent_settings_background_highlight', 'light-200'),
         'consent-settings-font' => get_theme_mod('custom_color_select_consent_settings_font', 'dark'),
@@ -204,17 +203,17 @@ function customizer_theme_styles() {
             /*
              * Custom Navbar Positioning
              */
-        <?php
-            $custom_navbar_position = 'static';
-            $custom_navbar_behavior = get_theme_mod('custom_navbar_behavior', 'moving');
-            $custom_navbar_top_position = get_theme_mod('custom_navbar_top_position', 0);
+            <?php
+                $custom_navbar_position = 'static';
+                $custom_navbar_behavior = get_theme_mod('custom_navbar_behavior', 'moving');
+                $custom_navbar_top_position = get_theme_mod('custom_navbar_top_position', 0);
 
-            if ($custom_navbar_top_position === '0') {
-                $custom_navbar_position = ($custom_navbar_behavior === 'moving') ? 'sticky' : 'static';
-            } else {
-                $custom_navbar_position = ($custom_navbar_behavior === 'moving') ? 'fixed' : 'absolute';
-            }
-        ?>
+                if ($custom_navbar_top_position === '0') {
+                    $custom_navbar_position = ($custom_navbar_behavior === 'moving') ? 'sticky' : 'static';
+                } else {
+                    $custom_navbar_position = ($custom_navbar_behavior === 'moving') ? 'fixed' : 'absolute';
+                }
+            ?>
 
             --custom-navbar-position:  <?php echo $custom_navbar_position; ?>;
             --custom-navbar-top-position:  <?php echo $custom_navbar_top_position; ?>px;
@@ -310,6 +309,7 @@ function customizer_theme_styles() {
         <?php } ?>
 
     </style>
+
     <link href="<?php echo $custom_google_font_string; ?>" rel="preload" as="style" onload="this.rel='stylesheet'">
 
     <?php if (class_exists('ACF') && get_field('cookie_code', 'options')) {  ?>

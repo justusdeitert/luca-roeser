@@ -1,10 +1,10 @@
 import {__} from '@wordpress/i18n';
 import {registerBlockType} from '@wordpress/blocks';
-import {InspectorControls, RichText, AlignmentToolbar, BlockControls} from '@wordpress/block-editor';
-import {SelectControl, ToolbarGroup, RangeControl, __experimentalUnitControl as UnitControl} from '@wordpress/components';
+import {InspectorControls, RichText, AlignmentToolbar, BlockControls, ColorPalette} from '@wordpress/block-editor';
+import {SelectControl, ToolbarGroup, RangeControl, __experimentalUnitControl as UnitControl, __experimentalRadio as Radio, __experimentalRadioGroup as RadioGroup} from '@wordpress/components';
 import classNames from 'classnames';
 import {fluidTextIcon} from '../icons';
-import {removeBlock, MobileSwitch, MobileSwitchInner} from "../utility";
+import {removeBlock, MobileSwitch, MobileSwitchInner, editorThemeColors, getColorObject} from "../utility";
 
 const attributes = {
     clientId: {
@@ -34,6 +34,14 @@ const attributes = {
     fontSizeDesktop: {
         type: 'number',
         default: 50
+    },
+    fluidTextColor: {
+        type: 'string',
+        default: ''
+    },
+    fluidTextStyle: {
+        type: 'string',
+        default: ''
     },
     // minWindowSize: {
     //     type: 'number',
@@ -67,7 +75,7 @@ registerBlockType('custom/fluid-text', {
                 <InspectorControls>
                     <div className="inspector-controls-container">
                         {/*<UnitControl value={'10px'} units={units}/>*/}
-                        <SelectControl
+                        {/*<SelectControl
                             label={__('Select Text Type', 'sage')}
                             value={attributes.fluidTextElement}
                             options={[
@@ -80,7 +88,32 @@ registerBlockType('custom/fluid-text', {
                                 {label: __('H6', 'sage'), value: 'h6'},
                             ]}
                             onChange={(value) => setAttributes({fluidTextElement: value})}
-                        />
+                        />*/}
+                        {/*<hr/>*/}
+                        <p>{__('Select Text Type', 'sage')}</p>
+                        <RadioGroup
+                            checked={attributes.fluidTextElement}
+                            onChange={(value) => setAttributes({fluidTextElement: value})}
+                            defaultChecked={"relative"}
+                        >
+                            <Radio value="p">{__('P', 'sage')}</Radio>
+                            <Radio value="h1">{__('H1', 'sage')}</Radio>
+                            <Radio value="h2">{__('H2', 'sage')}</Radio>
+                            <Radio value="h3">{__('H3', 'sage')}</Radio>
+                            <Radio value="h4">{__('H4', 'sage')}</Radio>
+                            <Radio value="h5">{__('H5', 'sage')}</Radio>
+                            <Radio value="h6">{__('H6', 'sage')}</Radio>
+                        </RadioGroup>
+                        <hr/>
+                        <p>{__('Custom Style', 'sage')}</p>
+                        <RadioGroup
+                            checked={attributes.fluidTextStyle}
+                            onChange={(value) => setAttributes({fluidTextStyle: value})}
+                            defaultChecked={"relative"}
+                        >
+                            <Radio value=''>{__('None', 'sage')}</Radio>
+                            <Radio value='shadow'>{__('Shadow', 'sage')}</Radio>
+                        </RadioGroup>
                         <hr/>
                         <MobileSwitch headline={__('Font Size', 'sage')}>
                             <MobileSwitchInner type={'desktop'}>
@@ -120,11 +153,25 @@ registerBlockType('custom/fluid-text', {
                                 />*/}
                             </MobileSwitchInner>
                         </MobileSwitch>
+                        <hr/>
+                        <p>{__('Color', 'sage')}</p>
+                        <ColorPalette
+                            colors={editorThemeColors}
+                            value={attributes.fluidTextColor}
+                            onChange={(value) => setAttributes({fluidTextColor: value})}
+                            disableCustomColors={true}
+                        />
                     </div>
                 </InspectorControls>
                 <RichText
                     tagName={attributes.fluidTextElement}
-                    className={classNames('fluid-text-block', `has-text-align-${attributes.textAlign}`, `fluid-text-${attributes.clientId}`)}
+                    className={classNames(
+                        'fluid-text-block',
+                        `has-text-align-${attributes.textAlign}`,
+                        `fluid-text-${attributes.clientId}`,
+                        getColorObject(attributes.fluidTextColor) && `has-${getColorObject(attributes.fluidTextColor).slug}-color`,
+                        attributes.fluidTextStyle && `has-style-${attributes.fluidTextStyle}`
+                    )}
                     style={{
                         '--fluid-text-size-desktop': `${attributes.fontSizeDesktop}px`,
                         '--fluid-text-size-mobile': `${attributes.fontSizeMobile}px`,
@@ -145,7 +192,13 @@ registerBlockType('custom/fluid-text', {
             <>
                 <RichText.Content
                     tagName={attributes.fluidTextElement}
-                    className={classNames('fluid-text-block', `has-text-align-${attributes.textAlign}`, `fluid-text-${attributes.clientId}`)}
+                    className={classNames(
+                        'fluid-text-block',
+                        `has-text-align-${attributes.textAlign}`,
+                        `fluid-text-${attributes.clientId}`,
+                        getColorObject(attributes.fluidTextColor) && `has-${getColorObject(attributes.fluidTextColor).slug}-color`,
+                        attributes.fluidTextStyle && `has-style-${attributes.fluidTextStyle}`
+                    )}
                     value={attributes.fluidText}
                     style={{
                         '--fluid-text-size-desktop': `${attributes.fontSizeDesktop}px`,

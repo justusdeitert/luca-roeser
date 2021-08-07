@@ -807,6 +807,10 @@ if (class_exists('Kirki')) {
 
             custom_kirki_border('section_navbar_settings_id');
 
+            custom_color_select('navbar_font_active', 'dark', 'section_navbar_settings_id');
+
+            custom_kirki_border('section_navbar_settings_id');
+
             custom_color_select('navbar_background_active', 'light', 'section_navbar_settings_id');
 
             custom_kirki_border('section_navbar_settings_id');

@@ -11,7 +11,7 @@ import {addFilter} from '@wordpress/hooks';
 // import {Fragment} from '@wordpress/element';
 import {InspectorControls} from '@wordpress/block-editor';
 import {createHigherOrderComponent} from '@wordpress/compose';
-import {SelectControl, PanelBody} from '@wordpress/components';
+import {SelectControl, PanelBody, __experimentalRadio as Radio, __experimentalRadioGroup as RadioGroup} from '@wordpress/components';
 
 // restrict to specific block names
 const allowedBlocks = [
@@ -93,8 +93,8 @@ const withAdvancedControls = createHigherOrderComponent((BlockEdit) => {
                 <BlockEdit {...props} />
                 <InspectorControls>
                     <PanelBody title={__('Styles', 'sage')} initialOpen={false}>
-                        <hr/>
-                        <SelectControl
+                        {/*<hr/>*/}
+                        {/*<SelectControl
                             label={__('Custom Style', 'sage')}
                             value={attributes.customStyle}
                             options={[
@@ -102,8 +102,17 @@ const withAdvancedControls = createHigherOrderComponent((BlockEdit) => {
                                 {label: __('Shadow', 'sage'), value: 'shadow'},
                             ]}
                             onChange={onChangeCustomStyle}
-                        />
-                        <hr/>
+                        />*/}
+                        <p>{__('Custom Style', 'sage')}</p>
+                        <RadioGroup
+                            checked={attributes.customStyle}
+                            onChange={onChangeCustomStyle}
+                            defaultChecked={"relative"}
+                        >
+                            <Radio value=''>{__('None', 'sage')}</Radio>
+                            <Radio value='shadow'>{__('Shadow', 'sage')}</Radio>
+                        </RadioGroup>
+                        {/*<hr/>
                         <SelectControl
                             label={__('Custom Font Size', 'sage')}
                             value={attributes.customFontSize}
@@ -117,7 +126,22 @@ const withAdvancedControls = createHigherOrderComponent((BlockEdit) => {
                                 {label: __('Huge (H1)', 'sage'), value: 'huge'},
                             ]}
                             onChange={onChangeCustomFontSize}
-                        />
+                        />*/}
+                        <hr/>
+                        <p>{__('Custom Font Size', 'sage')}</p>
+                        <RadioGroup
+                            checked={attributes.customFontSize}
+                            onChange={onChangeCustomFontSize}
+                            defaultChecked={"relative"}
+                        >
+                            <Radio value=''>{__('None', 'sage')}</Radio>
+                            <Radio value='tiny'>{__('Tiny', 'sage')}</Radio>
+                            <Radio value='small'>{__('Small', 'sage')}</Radio>
+                            <Radio value='normal'>{__('Normal', 'sage')}</Radio>
+                            <Radio value='medium'>{__('Medium', 'sage')}</Radio>
+                            <Radio value='large'>{__('Large', 'sage')}</Radio>
+                            <Radio value='huge'>{__('Huge', 'sage')}</Radio>
+                        </RadioGroup>
                     </PanelBody>
                 </InspectorControls>
             </>
