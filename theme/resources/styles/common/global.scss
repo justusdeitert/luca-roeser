@@ -130,8 +130,15 @@ img {
     text-align: right;
 }
 
-.has-style-shadow {
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+.has-style {
+    &-shadow {
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    }
+
+    &-no-list {
+        list-style: none;
+        padding: 0;
+    }
 }
 
 .has-font-size {

@@ -17,14 +17,13 @@ import {SelectControl, PanelBody, __experimentalRadio as Radio, __experimentalRa
 const allowedBlocks = [
     'core/paragraph',
     'core/heading',
-    // 'custom/fluid-text',
+    'core/list',
 ];
 
 /**
  * Add custom attribute for mobile visibility.
  *
  * @param {Object} settings Settings for the block.
- *
  * @return {Object} settings Modified settings.
  */
 function addAttributes(settings) {
@@ -53,7 +52,6 @@ function addAttributes(settings) {
  * Add mobile visibility controls on Advanced Block Panel.
  *
  * @param {function} BlockEdit Block edit component.
- *
  * @return {function} BlockEdit Modified block edit component.
  */
 const withAdvancedControls = createHigherOrderComponent((BlockEdit) => {
@@ -93,16 +91,6 @@ const withAdvancedControls = createHigherOrderComponent((BlockEdit) => {
                 <BlockEdit {...props} />
                 <InspectorControls>
                     <PanelBody title={__('Styles', 'sage')} initialOpen={false}>
-                        {/*<hr/>*/}
-                        {/*<SelectControl
-                            label={__('Custom Style', 'sage')}
-                            value={attributes.customStyle}
-                            options={[
-                                {label: __('None', 'sage'), value: ''},
-                                {label: __('Shadow', 'sage'), value: 'shadow'},
-                            ]}
-                            onChange={onChangeCustomStyle}
-                        />*/}
                         <p>{__('Custom Style', 'sage')}</p>
                         <RadioGroup
                             checked={attributes.customStyle}
@@ -111,22 +99,8 @@ const withAdvancedControls = createHigherOrderComponent((BlockEdit) => {
                         >
                             <Radio value=''>{__('None', 'sage')}</Radio>
                             <Radio value='shadow'>{__('Shadow', 'sage')}</Radio>
+                            <Radio value='no-list'>{__('No List', 'sage')}</Radio>
                         </RadioGroup>
-                        {/*<hr/>
-                        <SelectControl
-                            label={__('Custom Font Size', 'sage')}
-                            value={attributes.customFontSize}
-                            options={[
-                                {label: __('None', 'sage'), value: ''},
-                                {label: __('Tiny (H6)', 'sage'), value: 'tiny'},
-                                {label: __('Small (H5)', 'sage'), value: 'small'},
-                                {label: __('Normal (H4)', 'sage'), value: 'normal'},
-                                {label: __('Medium (H3)', 'sage'), value: 'medium'},
-                                {label: __('Large (H2)', 'sage'), value: 'large'},
-                                {label: __('Huge (H1)', 'sage'), value: 'huge'},
-                            ]}
-                            onChange={onChangeCustomFontSize}
-                        />*/}
                         <hr/>
                         <p>{__('Custom Font Size', 'sage')}</p>
                         <RadioGroup
@@ -150,30 +124,8 @@ const withAdvancedControls = createHigherOrderComponent((BlockEdit) => {
 }, 'withAdvancedControls');
 
 /**
- * Add custom element class in save element.
- *
- * @param {Object} extraProps     Block element.
- * @param {Object} blockType      Blocks object.
- * @param {Object} attributes     Blocks attributes.
- *
- * @return {Object} extraProps Modified block element.
+ * Add filters
  */
-// function applyExtraClass(extraProps, blockType, attributes) {
-//
-//     // check if attribute exists for old Gutenberg version compatibility
-//     // add class only when visibleOnMobile = false
-//     // add allowedBlocks restriction
-//     if (attributes.customStyle !== '' && allowedBlocks.includes(blockType.name)) {
-//         extraProps.className = classnames(extraProps.className, `has-style-${attributes.customStyle}`);
-//     }
-//
-//     return extraProps;
-// }
-
-/**
- * add filters
- */
-
 addFilter(
     'blocks.registerBlockType',
     'sage/custom-attributes',
@@ -185,9 +137,3 @@ addFilter(
     'sage/custom-advanced-control',
     withAdvancedControls
 );
-
-// addFilter(
-//     'blocks.getSaveContent.extraProps',
-//     'sage/applyExtraClass',
-//     applyExtraClass
-// );
