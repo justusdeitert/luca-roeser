@@ -142,12 +142,14 @@
             input {
                 width: 24px;
                 height: 24px;
+                border: 2px solid #8c8f94;
 
                 &:checked {
 
                     &:before {
                         width: 16px;
                         height: 16px;
+                        margin: 2px;
                     }
                 }
             }
@@ -248,10 +250,12 @@
                 //width: 36px;
                 //height: 36px;
                 //max-width: 36px;
-                border: none;
+                //border: none;
                 //position: absolute;
                 //left: 0;
                 //bottom: 0;
+                border: 2px solid #FFF;
+                box-shadow: 0 0 0 2px #8c8f94;
 
                 &:before {
                     position: absolute;
@@ -272,8 +276,8 @@
                 //}
 
                 &:focus {
-                    border: none;
-                    box-shadow: none;
+                    border: 2px solid #FFF;
+                    box-shadow: 0 0 0 2px #8c8f94;
                     outline: none;
                 }
 

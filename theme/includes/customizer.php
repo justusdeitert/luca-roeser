@@ -305,7 +305,7 @@ if (class_exists('Kirki')) {
             Kirki::add_field('custom_border_width_id', [
                 'type' => 'slider',
                 'settings' => 'custom_border_width',
-                'label' => __('Border Width', 'sage'),
+                'label' => __('Elements Border Width', 'sage'),
                 'section' => 'section_content_settings_id',
                 'default' => 0,
                 'choices' => [
@@ -317,10 +317,14 @@ if (class_exists('Kirki')) {
 
             custom_kirki_border('section_content_settings_id');
 
+            custom_color_select('elements_background', 'light', 'section_content_settings_id');
+
+            custom_kirki_border('section_content_settings_id');
+
             Kirki::add_field('custom_border_radius_id', [
                 'type' => 'slider',
                 'settings' => 'custom_border_radius',
-                'label' => __('Border Radius', 'sage'),
+                'label' => __('Elements Border Radius', 'sage'),
                 'section' => 'section_content_settings_id',
                 'default' => 0,
                 'choices' => [
