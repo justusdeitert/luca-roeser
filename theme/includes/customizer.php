@@ -959,44 +959,6 @@ if (class_exists('Kirki')) {
                 ],
             ]);
 
-            // custom_kirki_border('section_cookie_settings_id');
-
-            // $button_style_choices = [
-            //     'primary' => __('Primary', 'sage'),
-            //     'secondary' => __('Secondary', 'sage'),
-            //     'tertiary' => __('Tertiary', 'sage'),
-            //     'success' => __('Success', 'sage'),
-            //     'danger' => __('Danger', 'sage'),
-            //     'warning' => __('Warning', 'sage'),
-            //     'info' => __('Info', 'sage'),
-            //     'light' => __('Light', 'sage'),
-            //     'dark' => __('Dark', 'sage'),
-            // ];
-
-            // Kirki::add_field('custom_cookie_primary_button_style_id', [
-            //     'type' => 'select',
-            //     'settings' => 'custom_cookie_primary_button_style',
-            //     'label' => __('Primary Button Style', 'sage'),
-            //     'section' => 'section_cookie_settings_id',
-            //     'default' => 'primary',
-            //     'placeholder' => __('Select an option...', 'sage'),
-            //     'multiple' => 1,
-            //     'choices' => $button_style_choices,
-            // ]);
-
-
-
-            // Kirki::add_field('custom_cookie_secondary_button_style_id', [
-            //     'type' => 'select',
-            //     'settings' => 'custom_cookie_secondary_button_style',
-            //     'label' => __('Secondary Button Style', 'sage'),
-            //     'section' => 'section_cookie_settings_id',
-            //     'default' => 'secondary',
-            //     'placeholder' => __('Select an option...', 'sage'),
-            //     'multiple' => 1,
-            //     'choices' => $button_style_choices,
-            // ]);
-
             custom_kirki_border('section_cookie_settings_id');
 
             custom_kirki_headline('section_cookie_settings_id', 'Consent Modal', 'h2');
@@ -1119,6 +1081,10 @@ if (class_exists('Kirki')) {
             custom_kirki_border('section_cookie_settings_id');
 
             custom_color_select('consent_modal_background', 'light', 'section_cookie_settings_id');
+
+            custom_kirki_border('section_cookie_settings_id');
+
+            custom_color_select('consent_modal_border', 'light', 'section_cookie_settings_id');
 
             custom_kirki_border('section_cookie_settings_id');
 

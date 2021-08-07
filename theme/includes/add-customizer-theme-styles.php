@@ -94,6 +94,7 @@ function customizer_theme_styles() {
          * Cookie Colors
          */
         'consent-modal-background' => get_theme_mod('custom_color_select_consent_modal_background', 'light'),
+        'consent-modal-border' => get_theme_mod('custom_color_select_consent_modal_border', 'light'),
         'consent-modal-font' => get_theme_mod('custom_color_select_consent_modal_font', 'dark'),
         'consent-modal-link' => get_theme_mod('custom_color_select_consent_modal_link', 'primary'),
         'consent-modal-link-hover' => get_theme_mod('custom_color_select_consent_modal_link_hover', 'primary'),
