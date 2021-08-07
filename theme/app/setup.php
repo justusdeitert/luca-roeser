@@ -15,9 +15,9 @@ use function Roots\asset;
  */
 add_action('wp_enqueue_scripts', function () {
 
-    wp_enqueue_script('sage/manifest', asset('scripts/manifest.js')->uri(), null, null, true);
+    // wp_enqueue_script('sage/manifest', asset('scripts/manifest.js')->uri(), null, null, true);
     // wp_enqueue_script('sage/vendor', asset('scripts/vendor.js')->uri(), ['sage/manifest'], null, true);
-    wp_enqueue_script('sage/app', asset('scripts/app.js')->uri(), ['sage/manifest'], null, true);
+    wp_enqueue_script('sage/app', asset('scripts/app.js')->uri(), [], null, true);
 
     // No Need for Inline Script anymore as we defer all resources
     // wp_add_inline_script('sage/vendor', asset('scripts/manifest.js')->contents(), 'before');
@@ -47,9 +47,9 @@ add_action('wp_enqueue_scripts', function () {
 add_action('enqueue_block_editor_assets', function () {
     if ($manifest = asset('scripts/editor.asset.php')->load()) { // Important for Editor
 
-        wp_enqueue_script('sage/manifest', asset('scripts/manifest.js')->uri(), ...array_values($manifest));
+        // wp_enqueue_script('sage/manifest', asset('scripts/manifest.js')->uri(), ...array_values($manifest));
         // wp_enqueue_script('sage/vendor', asset('scripts/vendor.js')->uri(), ['sage/manifest'], null, true);
-        wp_enqueue_script('sage/editor', asset('scripts/editor.js')->uri(), ['sage/manifest'], null, true);
+        wp_enqueue_script('sage/editor', asset('scripts/editor.js')->uri(), [], null, true);
 
         // No Need for Inline Script anymore as we defer all resources
         // wp_add_inline_script('sage/vendor', asset('scripts/manifest.js')->contents(), 'before');
@@ -71,10 +71,10 @@ add_action('enqueue_block_editor_assets', function () {
  */
 add_action('admin_enqueue_scripts', function() {
 
-    wp_enqueue_script('sage/manifest', asset('scripts/manifest.js')->uri(), null, null, true);
+    // wp_enqueue_script('sage/manifest', asset('scripts/manifest.js')->uri(), null, null, true);
     // wp_enqueue_script('sage/vendor', asset('scripts/vendor.js')->uri(), ['sage/manifest'], null, true);
     // wp_enqueue_script('sage/vendor-admin', asset('scripts/vendor-admin.js')->uri(), ['sage/vendor'], null, true);
-    wp_enqueue_script('sage/admin', asset('scripts/admin.js')->uri(), ['sage/manifest'], null, true);
+    wp_enqueue_script('sage/admin', asset('scripts/admin.js')->uri(), [], null, true);
 
     // No Need for Inline Script anymore as we defer all resources
     // wp_add_inline_script('sage/vendor', asset('scripts/manifest.js')->contents(), 'before');

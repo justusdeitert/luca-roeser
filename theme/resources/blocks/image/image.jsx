@@ -219,10 +219,14 @@ registerBlockType('custom/image', {
                                  srcSet={`${getImage(attributes.imageObject, 'tiny', 400)} 768w, ${getImage(attributes.imageObject, 'small', 400)} 1360w`}
                                  src={getImage(attributes.imageObject, 'tiny', 400)}
                                  style={{width: '100%'}}
+                                 width={getImage(attributes.imageObject, 'width')}
+                                 height={getImage(attributes.imageObject, 'height')}
                             /> :
                             <img alt={getImage(attributes.imageObject, 'alt')}
                                  src={getImage(attributes.imageObject, 'tiny', 400)}
                                  style={{width: '100%'}}
+                                 width={getImage(attributes.imageObject, 'width')}
+                                 height={getImage(attributes.imageObject, 'height')}
                             />
                         }
                     </div>
@@ -250,10 +254,14 @@ registerBlockType('custom/image', {
                              srcSet={`${getImage(attributes.imageObject, 'tiny', 400)} 768w, ${getImage(attributes.imageObject, 'small', 400)} 1360w`}
                              src={getImage(attributes.imageObject, 'tiny', 400)}
                              style={{width: '100%'}}
+                             width={getImage(attributes.imageObject, 'width')}
+                             height={getImage(attributes.imageObject, 'height')}
                         /> :
                         <img alt={getImage(attributes.imageObject, 'alt')}
                              src={getImage(attributes.imageObject, 'tiny', 400)}
                              style={{width: '100%'}}
+                             width={getImage(attributes.imageObject, 'width')}
+                             height={getImage(attributes.imageObject, 'height')}
                         />
                     }
                 </div>

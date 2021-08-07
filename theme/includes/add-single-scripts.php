@@ -27,7 +27,7 @@ function add_single_scripts() {
      *
      */
     if (is_gutenberg_editor() || has_block('custom/text-image', get_the_ID())) {
-        wp_enqueue_script('lightgallery', asset('scripts/lightgallery.js')->uri(), ['sage/manifest'], null, true);
+        wp_enqueue_script('lightgallery', asset('scripts/lightgallery.js')->uri(), [], null, true);
     }
 
     /**
@@ -35,7 +35,7 @@ function add_single_scripts() {
      * @link https://swiperjs.com/get-started
      */
     if (is_gutenberg_editor() || has_block('custom/slider', get_the_ID())) {
-        wp_enqueue_script('swiper', asset('scripts/swiper.js')->uri(), ['sage/manifest'], null, true);
+        wp_enqueue_script('swiper', asset('scripts/swiper.js')->uri(), [], null, true);
     }
 
     /**
@@ -43,7 +43,7 @@ function add_single_scripts() {
      * @link https://getbootstrap.com/docs/5.0/getting-started/introduction/
      */
     if (is_gutenberg_editor() || has_block('custom/accordion', get_the_ID())) {
-        wp_enqueue_script('bootstrap', asset('scripts/bootstrap.js')->uri(), ['sage/manifest'], null, true);
+        wp_enqueue_script('bootstrap', asset('scripts/bootstrap.js')->uri(), [], null, true);
     }
 }
 

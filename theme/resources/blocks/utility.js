@@ -78,14 +78,10 @@ export const getImage = (image, size = 'full', placeholderWidth = 1800, placehol
                 return image.alt ? image.alt : '';
             case 'description':
                 return image.description ? image.description : '';
-            case 'width-small':
-                return image.sizes && image.sizes.small ? image.sizes.small.width : '';
-            case 'height-small':
-                return image.sizes && image.sizes.small ? image.sizes.small.height : '';
-            case 'width-large':
-                return image.sizes && image.sizes.large ? image.sizes.large.width : image.sizes.full.width;
-            case 'height-large':
-                return image.sizes && image.sizes.large ? image.sizes.large.height : image.sizes.full.height;
+            case 'width':
+                return image.width ? image.width : '';
+            case 'height':
+                return image.height ? image.height : '';
             default:
                 return x_large;
         }
