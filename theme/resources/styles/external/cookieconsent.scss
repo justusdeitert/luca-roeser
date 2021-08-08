@@ -407,7 +407,7 @@
 
         #s-bns {
             position: initial;
-            padding: calc(var(--custom-cookie-consent-padding) - 1rem) var(--custom-cookie-consent-padding);
+            padding: calc(var(--custom-cookie-consent-padding) - 1rem) var(--custom-cookie-consent-padding) var(--custom-cookie-consent-padding);
             width: 100%;
             height: auto;
             display: flex;
