@@ -408,14 +408,14 @@ export const SelectSectionShapes = ({sectionShapes, clickFunction, value = 'none
     let ClipPathEntries = sectionShapesArray.map((element, index) => {
         return (
             <div key={index} className={classnames('section-shapes__wrapper', value === element[0] && 'is-active')}>
-                {element[1]('top', '10px')}
+                {element[1]('top', '10px', 'normal', '#FFF')}
                 <div
                     key={index}
                     style={{cursor: 'pointer'}}
                     className={classnames('section-shapes__element')}
                     onClick={() => clickFunction(element[0])}
                 />
-                {element[1]('bottom', '10px')}
+                {element[1]('bottom', '10px', 'normal', '#FFF')}
             </div>
         )
     });

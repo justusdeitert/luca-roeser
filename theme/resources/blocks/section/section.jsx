@@ -372,14 +372,12 @@ registerBlockType('custom/section', {
                 {(sectionShapes[attributes.sectionShape] && attributes.sectionShapeTopClass !== 'none') && sectionShapes[attributes.sectionShape](
                     'top',
                     `${attributes.sectionShapeHeight}px`,
-                    // classnames(attributes.sectionShapeTopClass),
                     classnames(attributes.sectionShapeTopClass, getColorObject(attributes.sectionTopShapeBgColor) && `has-${getColorObject(attributes.sectionTopShapeBgColor).slug}-fill-color`),
                 )}
 
                 {(sectionShapes[attributes.sectionShape] && attributes.sectionShapeBottomClass !== 'none') && sectionShapes[attributes.sectionShape](
                     'bottom',
                     `${attributes.sectionShapeHeight}px`,
-                    // classnames(attributes.sectionShapeTopClass),
                     classnames(attributes.sectionShapeBottomClass, getColorObject(attributes.sectionBottomShapeBgColor) && `has-${getColorObject(attributes.sectionBottomShapeBgColor).slug}-fill-color`),
                 )}
             </div>
