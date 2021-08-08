@@ -12,22 +12,22 @@
     //--cc-btn-secondary-text: var(--cc-text);
     //--cc-btn-secondary-hover-bg: #d8e0e6;
 
-    --cc-toggle-bg-off: rgba(var(--custom-consent-modal-font-color), 0.5);
-    --cc-toggle-bg-on: rgba(var(--custom-consent-modal-font-color), 1);
-    --cc-toggle-bg-readonly: rgba(var(--custom-consent-modal-font-color), 0.2);
-    --cc-toggle-knob-bg: rgb(var(--custom-consent-modal-background-color));
-    --cc-toggle-knob-icon-color: rgb(var(--custom-consent-modal-background-color));
+    --cc-toggle-bg-off: rgba(var(--custom-consent-settings-font-color), 0.6);
+    --cc-toggle-bg-on: rgba(var(--custom-consent-settings-font-color), 1);
+    --cc-toggle-bg-readonly: rgba(var(--custom-consent-settings-font-color), 0.4);
+    --cc-toggle-knob-bg: rgb(var(--custom-consent-settings-background-color));
+    --cc-toggle-knob-icon-color: rgb(var(--custom-consent-settings-background-color));
 
     --cc-block-text: rgb(var(--custom-consent-modal-font-color));
 
     --cc-cookie-category-block-bg: rgb(var(--custom-consent-settings-background-highlight-color));
     --cc-cookie-category-block-bg-hover: rgb(var(--custom-consent-settings-background-highlight-color));
 
-    --cc-section-border: rgba(var(--custom-consent-modal-font-color), 0.2);
-    --cc-cookie-table-border: rgba(var(--custom-consent-modal-font-color), 0.2);
+    --cc-section-border: rgba(var(--custom-consent-settings-font-color), 0.2);
+    --cc-cookie-table-border: rgba(var(--custom-consent-settings-font-color), 0.2);
     --cc-overlay-bg: rgba(4, 6, 8, .85);
-    //--cc-webkit-scrollbar-bg-hover: #9199a0;
-    //--cc-webkit-scrollbar-bg: #cfd5db;
+    --cc-webkit-scrollbar-bg-hover: rgba(var(--custom-consent-settings-font-color), 0.8);
+    --cc-webkit-scrollbar-bg: rgba(var(--custom-consent-settings-font-color), 0.5);
 }
 
 #cc--main {
@@ -64,8 +64,6 @@
         font-size: var(--custom-font-size);
     }
 }
-
-#s-cnt #s-inr #s-bns .c-bn
 
 // Cookie Consent Container
 #cc_div {
@@ -104,6 +102,16 @@
                 &:before {
                     border-color: rgba(var(--custom-consent-settings-font-color));
                 }
+            }
+        }
+
+        //.c-tgl {
+        //    background-color: rgba(var(--custom-consent-settings-font-color));
+        //}
+
+        @media screen and (min-width: 688px) {
+            #s-bl::-webkit-scrollbar-thumb {
+                border: 0.25em solid rgba(var(--custom-consent-settings-background-color));
             }
         }
     }
