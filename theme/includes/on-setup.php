@@ -11,11 +11,12 @@ $GLOBALS['standard_plugins'] = [
     '/imsanity/imsanity.php',
     '/kirki/kirki.php', // TODO: Include within theme automatically
     '/modern-images-wp/modern-images-wp.php',
+    '/one-click-demo-import/one-click-demo-import.php',
     '/regenerate-thumbnails/regenerate-thumbnails.php',
     '/svg-support/svg-support.php',
     '/user-switching/user-switching.php',
     '/duplicate-post/duplicate-post.php',
-    '/wordpress-seo/index.php',
+    '/wordpress-seo/wp-seo.php',
 ];
 
 $GLOBALS['default_theme_options'] = [

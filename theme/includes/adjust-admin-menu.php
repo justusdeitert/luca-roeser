@@ -42,3 +42,21 @@ add_action('admin_menu', function () {
     }
 }, 99);
 
+/**
+ * Rename menu items
+ */
+add_action('admin_menu', function() {
+    global $menu; // Global to get menu array
+
+    foreach ($menu as $key => $value) {
+
+        /**
+         * Define any rules to find your menu item
+         */
+
+        // Advanced Custom Fields
+        if ($value[2] === 'edit.php?post_type=acf-field-group') {
+            $menu[$key][0] = 'ACF';
+        }
+    }
+});
