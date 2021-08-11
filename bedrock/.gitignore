@@ -10,7 +10,7 @@ web/app/languages/*
 
 # WordPress
 web/wp
-web/.htaccess
+# web/.htaccess
 
 # Logs
 *.log

@@ -21,11 +21,10 @@ $GLOBALS['standard_plugins'] = [
 $GLOBALS['default_theme_options'] = [
     'show_on_front' => 'page',
     'page_on_front' => 2,
-    'permalink_structure' => '/%postname%/',
 ];
 
 // check if plugins and options not already set
-if (!get_option('theme_settings_activated')) {
+if (!get_option('theme_was_installed')) {
 
     // Activate default plugins
     activate_plugins($GLOBALS['standard_plugins']);
@@ -41,5 +40,19 @@ if (!get_option('theme_settings_activated')) {
         update_option($key, $value);
     }
 
-    add_option('theme_settings_activated', true);
+    add_option('theme_was_installed', true);
 };
+
+
+if (!get_option('admin_was_called')) {
+
+    // Adjust permalink structure on setup
+    add_action('admin_init', function() {
+
+        global $wp_rewrite;
+        $wp_rewrite->set_permalink_structure('/%postname%/');
+        $wp_rewrite->flush_rules(true);
+
+        add_option('admin_was_called', true);
+    });
+}
