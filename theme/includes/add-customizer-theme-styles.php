@@ -60,7 +60,7 @@ function customizer_theme_styles() {
          */
         'body-background' => get_theme_mod('custom_color_select_body_background', 'light'),
         'controls' => get_theme_mod('custom_color_select_controls', 'dark'),
-        'elements-background' => get_theme_mod('custom_color_select_elements_background', 'light'),
+        // 'elements-background' => get_theme_mod('custom_color_select_elements_background', 'light'),
 
         /**
          *  Menu Colors

@@ -315,9 +315,9 @@ if (class_exists('Kirki')) {
                 ],
             ]);
 
-            custom_kirki_border('section_content_settings_id');
-
-            custom_color_select('elements_background', 'light', 'section_content_settings_id');
+            // custom_kirki_border('section_content_settings_id');
+            //
+            // custom_color_select('elements_background', 'light', 'section_content_settings_id');
 
             custom_kirki_border('section_content_settings_id');
 
