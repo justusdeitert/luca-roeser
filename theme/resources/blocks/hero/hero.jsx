@@ -101,11 +101,11 @@ const attributes = {
     },
     sectionTopShapeBgColor: {
         type: 'string',
-        default: `rgb(${getCssVariable('--custom-body-background-color')})`,
+        default: '',
     },
     sectionBottomShapeBgColor: {
         type: 'string',
-        default: `rgb(${getCssVariable('--custom-body-background-color')})`,
+        default: '',
     },
 
     /**
@@ -356,13 +356,7 @@ registerBlockType('custom/hero', {
                             <ColorPalette
                                 colors={editorThemeColors}
                                 value={attributes.sectionTopShapeBgColor}
-                                onChange={(value) => {
-                                    if (value) {
-                                        setAttributes({sectionTopShapeBgColor: value})
-                                    } else {
-                                        setAttributes({sectionTopShapeBgColor: `rgb(${getCssVariable('--custom-body-background-color')})`})
-                                    }
-                                }}
+                                onChange={(value) => setAttributes({sectionTopShapeBgColor: value})}
                                 disableCustomColors={true}
                                 defaultValue={`rgb(${getCssVariable('--custom-body-background-color')})`}
                             />
@@ -382,13 +376,7 @@ registerBlockType('custom/hero', {
                             <ColorPalette
                                 colors={editorThemeColors}
                                 value={attributes.sectionBottomShapeBgColor}
-                                onChange={(value) => {
-                                    if (value) {
-                                        setAttributes({sectionBottomShapeBgColor: value})
-                                    } else {
-                                        setAttributes({sectionBottomShapeBgColor: `rgb(${getCssVariable('--custom-body-background-color')})`})
-                                    }
-                                }}
+                                onChange={(value) => setAttributes({sectionBottomShapeBgColor: value})}
                                 disableCustomColors={true}
                                 defaultValue={`rgb(${getCssVariable('--custom-body-background-color')})`}
                             />
@@ -469,13 +457,15 @@ registerBlockType('custom/hero', {
                         {(sectionShapes[attributes.sectionShape] && attributes.sectionShapeTopClass !== 'none') && sectionShapes[attributes.sectionShape](
                             'top',
                             `${attributes.sectionShapeHeight}px`,
-                            classnames(attributes.sectionShapeTopClass, getColorObject(attributes.sectionTopShapeBgColor) && `has-${getColorObject(attributes.sectionTopShapeBgColor).slug}-fill-color`),
+                            classnames(attributes.sectionShapeTopClass),
+                            getColorObject(attributes.sectionTopShapeBgColor) ? `rgb(var(--custom-${getColorObject(attributes.sectionTopShapeBgColor).slug}-color))` : 'rgb(var(--custom-body-background-color))'
                         )}
 
                         {(sectionShapes[attributes.sectionShape] && attributes.sectionShapeBottomClass !== 'none') && sectionShapes[attributes.sectionShape](
                             'bottom',
                             `${attributes.sectionShapeHeight}px`,
-                            classnames(attributes.sectionShapeBottomClass, getColorObject(attributes.sectionBottomShapeBgColor) && `has-${getColorObject(attributes.sectionBottomShapeBgColor).slug}-fill-color`),
+                            classnames(attributes.sectionShapeBottomClass),
+                            getColorObject(attributes.sectionBottomShapeBgColor) ? `rgb(var(--custom-${getColorObject(attributes.sectionBottomShapeBgColor).slug}-color))` : 'rgb(var(--custom-body-background-color))',
                         )}
 
                     </div>
@@ -574,13 +564,15 @@ registerBlockType('custom/hero', {
                 {(sectionShapes[attributes.sectionShape] && attributes.sectionShapeTopClass !== 'none') && sectionShapes[attributes.sectionShape](
                     'top',
                     `${attributes.sectionShapeHeight}px`,
-                    classnames(attributes.sectionShapeTopClass, getColorObject(attributes.sectionTopShapeBgColor) && `has-${getColorObject(attributes.sectionTopShapeBgColor).slug}-fill-color`),
+                    classnames(attributes.sectionShapeTopClass),
+                    getColorObject(attributes.sectionTopShapeBgColor) ? `rgb(var(--custom-${getColorObject(attributes.sectionTopShapeBgColor).slug}-color))` : 'rgb(var(--custom-body-background-color))'
                 )}
 
                 {(sectionShapes[attributes.sectionShape] && attributes.sectionShapeBottomClass !== 'none') && sectionShapes[attributes.sectionShape](
                     'bottom',
                     `${attributes.sectionShapeHeight}px`,
-                    classnames(attributes.sectionShapeBottomClass, getColorObject(attributes.sectionBottomShapeBgColor) && `has-${getColorObject(attributes.sectionBottomShapeBgColor).slug}-fill-color`),
+                    classnames(attributes.sectionShapeBottomClass),
+                    getColorObject(attributes.sectionBottomShapeBgColor) ? `rgb(var(--custom-${getColorObject(attributes.sectionBottomShapeBgColor).slug}-color))` : 'rgb(var(--custom-body-background-color))'
                 )}
 
             </div>

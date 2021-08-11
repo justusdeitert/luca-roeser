@@ -6,6 +6,7 @@ import classnames from 'classnames';
 export const slope = (position = 'top', sectionHeight = '100px', sectionClass = 'normal', sectionFill = false) => {
 
     let sectionStyles = {height: sectionHeight};
+
     if (sectionFill) {
         sectionStyles.fill = sectionFill;
     }
@@ -20,6 +21,7 @@ export const slope = (position = 'top', sectionHeight = '100px', sectionClass = 
 export const curves = (position = 'top', sectionHeight = '100px', sectionClass = 'normal', sectionFill = false) => {
 
     let sectionStyles = {height: sectionHeight};
+
     if (sectionFill) {
         sectionStyles.fill = sectionFill;
     }
@@ -30,3 +32,4 @@ export const curves = (position = 'top', sectionHeight = '100px', sectionClass =
         </svg>
     )
 }
+
