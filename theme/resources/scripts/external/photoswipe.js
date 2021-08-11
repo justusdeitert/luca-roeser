@@ -1,3 +1,7 @@
+/**
+ * Currently not used!!
+ */
+
 import PhotoSwipeLightbox from 'photoswipe/dist/photoswipe-lightbox.esm.js';
 import PhotoSwipe from 'photoswipe/dist/photoswipe.esm.js';
 

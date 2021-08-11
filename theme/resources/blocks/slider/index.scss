@@ -62,6 +62,45 @@
        margin: 0;
     }
 
+    &.two-slides-on-mobile {
+        $slides: 1, 2, 3, 4;
+        @each $slide in $slides {
+            &[data-slides-per-view="#{$slide}"] {
+                .slider-block__slide {
+                    @if $slide == 2 {
+                        @include media-breakpoint-down(sm) {
+                            width: calc(100% / #{$slide});
+                        }
+
+                        @include media-breakpoint-down(xs) {
+                            width: calc(100% / #{$slide - 1});
+                        }
+                    }
+
+                    @if $slide == 3 {
+                        @include media-breakpoint-down(sm) {
+                            width: calc(100% / #{$slide - 1});
+                        }
+
+                        @include media-breakpoint-down(xs) {
+                            width: calc(100% / #{$slide - 2});
+                        }
+                    }
+
+                    @if $slide == 4 {
+                        @include media-breakpoint-down(sm) {
+                            width: calc(100% / #{$slide - 2});
+                        }
+
+                        @include media-breakpoint-down(xs) {
+                            width: calc(100% / #{$slide - 3});
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     // Interate trough slides
     $slides: 1, 2, 3, 4;
     @each $slide in $slides {
@@ -70,7 +109,7 @@
                 width: calc(100% / #{$slide});
 
                 @if $slide == 2 {
-                    @include media-breakpoint-down(xs) {
+                    @include media-breakpoint-down(sm) {
                         width: calc(100% / #{$slide - 1});
                     }
                 }
@@ -80,7 +119,7 @@
                         width: calc(100% / #{$slide - 1});
                     }
 
-                    @include media-breakpoint-down(xs) {
+                    @include media-breakpoint-down(sm) {
                         width: calc(100% / #{$slide - 2});
                     }
                 }
@@ -94,7 +133,7 @@
                         width: calc(100% / #{$slide - 2});
                     }
 
-                    @include media-breakpoint-down(xs) {
+                    @include media-breakpoint-down(sm) {
                         width: calc(100% / #{$slide - 3});
                     }
                 }

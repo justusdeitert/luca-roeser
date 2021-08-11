@@ -20,10 +20,6 @@ const attributes = {
         type: 'boolean',
         default: false,
     },
-    // sliderAutoplay: {
-    //     type: 'boolean',
-    //     default: false,
-    // },
     sliderAutoplaySeconds: {
         type: 'number',
         default: false,
@@ -35,6 +31,10 @@ const attributes = {
     slidesBackgroundColor: {
         type: 'string',
         default: '',
+    },
+    twoSlidesOnMobile: {
+        type: 'boolean',
+        default: false,
     },
 
     /**
@@ -128,7 +128,7 @@ registerBlockType('custom/slider', {
         ];
 
         const blockProps = useBlockProps({
-            className: classNames('slider-block', 'custom-spacing')
+            className: classNames('slider-block', 'custom-spacing', attributes.twoSlidesOnMobile && 'two-slides-on-mobile')
         });
 
         const innerBlocksProps = useInnerBlocksProps(blockProps, {
@@ -200,13 +200,6 @@ registerBlockType('custom/slider', {
                                 updateSlider();
                             }}
                         />
-                        {/*<hr/>
-                        <ToggleControl
-                            label={__('Autoplay', 'sage')}
-                            help={__('Enable autoplay', 'sage')}
-                            checked={attributes.sliderAutoplay}
-                            onChange={onChangeSliderAutoplay}
-                        />*/}
                         <hr/>
                         <p>{__('Autoplay Seconds', 'sage')}</p>
                         <RangeControl
@@ -239,6 +232,16 @@ registerBlockType('custom/slider', {
                             max={4}
                             onChange={(value) => {
                                 setAttributes({slidesPerView: value});
+                                updateSlider();
+                            }}
+                        />
+                        <hr/>
+                        <ToggleControl
+                            label={__('Two Slides on Mobile', 'sage')}
+                            help={__('On activation the slider will show two slides on the second smallest breakpoint', 'sage')}
+                            checked={attributes.twoSlidesOnMobile}
+                            onChange={(value) => {
+                                setAttributes({twoSlidesOnMobile: value});
                                 updateSlider();
                             }}
                         />
@@ -337,7 +340,7 @@ registerBlockType('custom/slider', {
     save: ({className, attributes}) => {
 
         const blockProps = useBlockProps.save({
-            className: classNames(className, 'slider-block', 'custom-spacing')
+            className: classNames(className, 'slider-block', 'custom-spacing', attributes.twoSlidesOnMobile && 'two-slides-on-mobile')
         });
 
         const slideControls = () => {
