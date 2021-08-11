@@ -6,8 +6,6 @@
 
 function customizer_theme_styles() {
 
-    global $default_cookie_message;
-
     /**
      * Custom google font
      * TODO: Better Google Font Implementation
@@ -351,7 +349,7 @@ function customizer_theme_styles() {
                 en: {
                     consent_modal: {
                         title: '<?php echo get_theme_mod('custom_cookie_consent_title', 'I use cookies'); ?>',
-                        description: '<?php echo get_theme_mod('custom_cookie_consent_description', $default_cookie_message); ?>',
+                        description: '<?php echo get_theme_mod('custom_cookie_consent_description', $GLOBALS['default_cookie_message']); ?>',
                         primary_btn: {
                             text: '<?php echo get_theme_mod('custom_cookie_consent_primary_button_text', 'Accept'); ?>',
                             role: 'accept_all'  /* 'accept_selected' or 'accept_all' */
