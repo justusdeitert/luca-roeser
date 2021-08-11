@@ -2,16 +2,17 @@ import {__} from '@wordpress/i18n';
 import {registerBlockType,} from '@wordpress/blocks';
 import {Button} from '@wordpress/components';
 import {createElement, Component} from '@wordpress/element';
-import {TextControl, RangeControl} from '@wordpress/components';
+import {TextControl, RangeControl, ColorPalette} from '@wordpress/components';
 import {Icon, Tooltip} from '@wordpress/components';
 import {MediaUpload, InspectorControls} from '@wordpress/block-editor';
 import classNames from "classnames";
-import {getImage} from '../utility';
+import {editorThemeColors, getColorObject, getImage} from '../utility';
 import {mapIcon} from '../icons';
 
 const attributes = {
     markerImageURL: {
         type: 'string',
+        default: ''
     },
     markerImage: {
         type: 'object',
@@ -23,11 +24,16 @@ const attributes = {
     },
     googleMapsLink: {
         type: 'string',
+        default: ''
     },
     zoom: {
         type: 'number',
         default: 16,
     },
+    backgroundColor: {
+        type: 'string',
+        default: ''
+    }
 };
 
 registerBlockType('custom/map', {
@@ -72,7 +78,7 @@ registerBlockType('custom/map', {
             /**
              * Is Updated with refresh Gap to not Call the API to often..
              */
-            if(window.refreshGap) {
+            if (window.refreshGap) {
                 window.initMaps();
                 window.refreshGap = false;
             }
@@ -96,10 +102,10 @@ registerBlockType('custom/map', {
         // Creates a <p class='wp-block-cgb-block-react-lifecycle-block'></p>.
         render() {
 
-            let {attributes, className, setAttributes } = this.props;
+            let {attributes, className, setAttributes} = this.props;
 
             return (
-                <div className={classNames(className, 'map-block', 'custom-border custom-border-radius custom-shadow custom-spacing')}>
+                <>
                     <InspectorControls>
                         <div className="inspector-controls-container">
                             <hr/>
@@ -116,6 +122,7 @@ registerBlockType('custom/map', {
                                 )}
                             />
                             {attributes.markerImage &&
+                            <>
                                 <Tooltip text={__('Remove Marker Image', 'sage')}>
                                     <Icon
                                         icon="trash"
@@ -124,6 +131,7 @@ registerBlockType('custom/map', {
                                         style={{marginLeft: '10px', cursor: 'pointer'}}
                                     />
                                 </Tooltip>
+                            </>
                             }
                             <hr/>
                             <TextControl
@@ -137,7 +145,7 @@ registerBlockType('custom/map', {
                                 value={attributes.googleMapsLink}
                                 onChange={(value) => setAttributes({googleMapsLink: value})}
                             />
-                            <hr />
+                            <hr/>
                             <p>{__('Adjust Zoom Level', 'sage')}</p>
                             <RangeControl
                                 value={attributes.zoom}
@@ -145,28 +153,46 @@ registerBlockType('custom/map', {
                                 max={22}
                                 onChange={(value) => setAttributes({zoom: value})}
                             />
+                            <hr/>
+                            <p>{__('Background Color', 'sage')}</p>
+                            <ColorPalette
+                                colors={editorThemeColors}
+                                value={attributes.backgroundColor}
+                                onChange={(value) => setAttributes({backgroundColor: value})}
+                                disableCustomColors={true}
+                            />
                         </div>
                     </InspectorControls>
-                    <div className="map-block__wrapper">
-                        <div className="map-block__map"
-                             data-marker-url={attributes.markerImage ? getImage(attributes.markerImage, 'original') : ''}
-                             data-marker-address={attributes.address}
-                             data-zoom-level={attributes.zoom}
-                        />
-                        {attributes.googleMapsLink &&
-                            <a href={attributes.googleMapsLink} className="map-block__route-link" target="_blank" rel="noopener noreferrer">
-                                <span>Zu Google Maps</span>
-                                <i class={'icon-arrow-right-circle'}></i>
-                            </a>
-                        }
+                    <div className={classNames(className, 'map-block', 'custom-border custom-border-radius custom-shadow custom-spacing', getColorObject(attributes.backgroundColor) && `has-${getColorObject(attributes.backgroundColor).slug}-background-color`)}>
+                        <div className="map-block__wrapper">
+                            <div className="map-block__map"
+                                 data-marker-url={attributes.markerImage ? getImage(attributes.markerImage, 'original') : ''}
+                                 data-marker-address={attributes.address}
+                                 data-zoom-level={attributes.zoom}
+                            />
+                            {attributes.googleMapsLink &&
+                            <>
+                                <a
+                                    href={attributes.googleMapsLink}
+                                    className={classNames("map-block__route-link")}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    style={getColorObject(attributes.backgroundColor) && {backgroundColor: `rgb(var(--custom-${getColorObject(attributes.backgroundColor).slug}-color))`}}
+                                >
+                                    <span>Zu Google Maps</span>
+                                    <i className={'icon-arrow-right-circle'}></i>
+                                </a>
+                            </>
+                            }
+                        </div>
                     </div>
-                </div>
+                </>
             )
         }
     },
     save: ({className, attributes}) => {
         return (
-            <div className={classNames(className, 'map-block', 'custom-border custom-border-radius custom-shadow custom-spacing')}>
+            <div className={classNames(className, 'map-block', 'custom-border custom-border-radius custom-shadow custom-spacing', getColorObject(attributes.backgroundColor) && `has-${getColorObject(attributes.backgroundColor).slug}-background-color`)}>
                 <div className="map-block__wrapper">
                     <div className="map-block__map"
                          data-marker-url={attributes.markerImage ? getImage(attributes.markerImage, 'original') : ''}
@@ -174,10 +200,18 @@ registerBlockType('custom/map', {
                          data-zoom-level={attributes.zoom}
                     />
                     {attributes.googleMapsLink &&
-                        <a href={attributes.googleMapsLink} className="map-block__route-link" target="_blank" rel="noopener noreferrer">
+                    <>
+                        <a
+                            href={attributes.googleMapsLink}
+                            className={classNames("map-block__route-link")}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={getColorObject(attributes.backgroundColor) && {backgroundColor: `rgb(var(--custom-${getColorObject(attributes.backgroundColor).slug}-color))`}}
+                        >
                             <span>Zu Google Maps</span>
                             <i className={'icon-arrow-right-circle'}></i>
                         </a>
+                    </>
                     }
                 </div>
             </div>

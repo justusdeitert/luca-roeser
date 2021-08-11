@@ -5,7 +5,7 @@ import {Component} from '@wordpress/element';
 import {ToggleControl, ColorPalette, RangeControl, SelectControl, __experimentalRadio as Radio, __experimentalRadioGroup as RadioGroup} from '@wordpress/components';
 import {MediaUpload, InspectorControls, InnerBlocks, getColorObjectByColorValue} from '@wordpress/block-editor';
 import classNames from 'classnames';
-import {editorThemeColors, getImage, ALLOWEDBLOCKS, removeArrayItems} from '../utility';
+import {editorThemeColors, getImage, ALLOWEDBLOCKS, removeArrayItems, getColorObject} from '../utility';
 import {textImageIcon} from '../icons';
 import {loremIpsum} from "lorem-ipsum";
 
@@ -26,10 +26,10 @@ const attributes = {
         type: 'number',
         default: 1
     },
-    // imagesBackgroundColor: {
-    //     type: 'string',
-    //     default: ''
-    // },
+    imagesBackgroundColor: {
+        type: 'string',
+        default: ''
+    },
     imagesRatio: {
         type: 'string',
         default: '3x2',
@@ -133,7 +133,7 @@ registerBlockType('custom/text-image', {
                                     if (index < attributes.imageCount) {
                                         return (
                                             <div key={index} className={'text-image-block__image-wrapper'}>
-                                                <div className={classNames("custom-border custom-border-radius custom-shadow")}>
+                                                <div className={classNames("custom-border custom-border-radius custom-shadow", getColorObject(attributes.imagesBackgroundColor) && `has-${getColorObject(attributes.imagesBackgroundColor).slug}-background-color`)}>
                                                     <div className={`ratio ratio-${attributes.imagesRatio}`}>
                                                         <img className={classNames('custom-border-radius')}
                                                              alt={getImage(contentImage, 'alt')}
@@ -214,14 +214,14 @@ registerBlockType('custom/text-image', {
                                 checked={attributes.hasGallery}
                                 onChange={(value) => setAttributes({hasGallery: value})}
                             />
-                            {/*<hr/>
+                            <hr/>
                             <p>{__('Background Color', 'sage')}</p>
                             <ColorPalette
                                 colors={editorThemeColors}
                                 value={attributes.imagesBackgroundColor}
-                                onChange={onChangeImagesBackgroundColor}
+                                onChange={(value) => setAttributes({imagesBackgroundColor: value})}
                                 disableCustomColors={true}
-                            />*/}
+                            />
                         </div>
                     </InspectorControls>
                     <div className="text-image-block__row row">
@@ -246,7 +246,7 @@ registerBlockType('custom/text-image', {
                                     <a key={index} href={getImage(contentImage, 'x_large')}
                                        data-lg-size={`${getImage(contentImage, 'width-large')}-${getImage(contentImage, 'height-large')}`}
                                     >
-                                        <div className={classNames("custom-border custom-border-radius custom-shadow")}>
+                                        <div className={classNames("custom-border custom-border-radius custom-shadow", getColorObject(attributes.imagesBackgroundColor) && `has-${getColorObject(attributes.imagesBackgroundColor).slug}-background-color`)}>
                                             <div className={`ratio ratio-${attributes.imagesRatio}`}>
                                                 <img className={classNames('custom-border-radius')}
                                                      alt={getImage(contentImage, 'alt')}
@@ -261,7 +261,7 @@ registerBlockType('custom/text-image', {
                                 if (index < attributes.imageCount) {
                                     return (
                                         <div key={index} className={'text-image-block__image-wrapper'}>
-                                            <div className={classNames("custom-border custom-border-radius custom-shadow")}>
+                                            <div className={classNames("custom-border custom-border-radius custom-shadow", getColorObject(attributes.imagesBackgroundColor) && `has-${getColorObject(attributes.imagesBackgroundColor).slug}-background-color`)}>
                                                 <div className={`ratio ratio-${attributes.imagesRatio}`}>
                                                     <img className={classNames('custom-border-radius')}
                                                          alt={getImage(contentImage, 'alt')}
