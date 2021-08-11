@@ -304,16 +304,21 @@
         margin-left: 0;
         margin-right: 0;
 
+        border-left: 0;
+        border-right: 0;
+
         #c-inr {
             max-width: var(--max-container-width);
         }
 
         &.top {
             top: 0;
+            border-top: 0;
         }
 
         &.bottom {
             bottom: 0;
+            border-bottom: 0;
         }
 
         @include media-breakpoint-down(md) {

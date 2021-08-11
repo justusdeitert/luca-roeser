@@ -1047,13 +1047,13 @@ if (class_exists('Kirki')) {
                     'left' => __('Left', 'sage'),
                     'right' => __('Right', 'sage'),
                 ],
-                'active_callback' => [
-                    [
-                        'setting'  => 'custom_cookie_consent_layout',
-                        'operator' => '!==',
-                        'value'    => 'bar',
-                    ]
-                ]
+                // 'active_callback' => [
+                //     [
+                //         'setting'  => 'custom_cookie_consent_layout',
+                //         'operator' => '!==',
+                //         'value'    => 'bar',
+                //     ]
+                // ]
             ]);
 
             custom_kirki_border('section_cookie_settings_id');
