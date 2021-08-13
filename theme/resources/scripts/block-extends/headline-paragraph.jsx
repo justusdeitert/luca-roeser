@@ -40,6 +40,10 @@ function addAttributes(settings) {
             customFontSize: {
                 type: 'string',
                 default: '',
+            },
+            customFontWeight: {
+                type: 'string',
+                default: '',
             }
         });
 
@@ -70,20 +74,49 @@ const withAdvancedControls = createHigherOrderComponent((BlockEdit) => {
             );
         }
 
-        const fontSizeClass = (fontSize) => {
-            return (fontSize !== '') ? `has-font-size-${fontSize}` : '';
-        };
-
         const styleClass = (style) => {
             return (style !== '') ? `has-style-${style}` : '';
         };
 
+        const fontSizeClass = (fontSize) => {
+            return (fontSize !== '') ? `has-font-size-${fontSize}` : '';
+        };
+
+        const fontWeightClass = (fontWeight) => {
+            return (fontWeight !== '') ? `fw-${fontWeight}` : '';
+        };
+
         const onChangeCustomStyle = (value) => {
-            setAttributes({customStyle: value, className: classnames(styleClass(value), fontSizeClass(attributes.customFontSize))})
+            setAttributes({
+                customStyle: value,
+                className: classnames(
+                    styleClass(value),
+                    fontSizeClass(attributes.customFontSize),
+                    fontWeightClass(attributes.customFontWeight)
+                )
+            })
         };
 
         const onChangeCustomFontSize = (value) => {
-            setAttributes({customFontSize: value, className: classnames(fontSizeClass(value), styleClass(attributes.customStyle))})
+            setAttributes({
+                customFontSize: value,
+                className: classnames(
+                    fontSizeClass(value),
+                    styleClass(attributes.customStyle),
+                    fontWeightClass(attributes.customFontWeight)
+                )
+            })
+        };
+
+        const onChangeCustomFontWeight = (value) => {
+            setAttributes({
+                customFontSize: value,
+                className: classnames(
+                    fontWeightClass(value),
+                    fontSizeClass(attributes.customFontSize),
+                    styleClass(attributes.customStyle)
+                )
+            })
         };
 
         return (
@@ -115,6 +148,18 @@ const withAdvancedControls = createHigherOrderComponent((BlockEdit) => {
                             <Radio value='medium'>{__('Medium', 'sage')}</Radio>
                             <Radio value='large'>{__('Large', 'sage')}</Radio>
                             <Radio value='huge'>{__('Huge', 'sage')}</Radio>
+                        </RadioGroup>
+                        <hr/>
+                        <p>{__('Custom Font Weight', 'sage')}</p>
+                        <RadioGroup
+                            checked={attributes.customFontWeight}
+                            onChange={onChangeCustomFontWeight}
+                            defaultChecked={"relative"}
+                        >
+                            <Radio value=''>{__('Initial', 'sage')}</Radio>
+                            <Radio value='light'>{__('Light', 'sage')}</Radio>
+                            <Radio value='normal'>{__('Normal', 'sage')}</Radio>
+                            <Radio value='bold'>{__('Bold', 'sage')}</Radio>
                         </RadioGroup>
                     </PanelBody>
                 </InspectorControls>

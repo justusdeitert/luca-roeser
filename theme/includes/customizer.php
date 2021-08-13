@@ -389,8 +389,8 @@ if (class_exists('Kirki')) {
                 'section' => 'section_font_settings_id',
                 'default' => '400',
                 'choices' => [
-                    '300' => __('Thin', 'sage'),
-                    '400' => __('Medium', 'sage'),
+                    '300' => __('Light', 'sage'),
+                    '400' => __('Normal', 'sage'),
                     '500' => __('Bold', 'sage'),
                 ],
             ]);
@@ -404,8 +404,8 @@ if (class_exists('Kirki')) {
                 'section' => 'section_font_settings_id',
                 'default' => '400',
                 'choices' => [
-                    '300' => __('Thin', 'sage'),
-                    '400' => __('Medium', 'sage'),
+                    '300' => __('Light', 'sage'),
+                    '400' => __('Normal', 'sage'),
                     '500' => __('Bold', 'sage'),
                 ],
             ]);
@@ -718,8 +718,8 @@ if (class_exists('Kirki')) {
                 'section' => 'section_navbar_settings_id',
                 'default' => '400',
                 'choices' => [
-                    '300' => __('Thin', 'sage'),
-                    '400' => __('Medium', 'sage'),
+                    '300' => __('Light', 'sage'),
+                    '400' => __('Normal', 'sage'),
                     '500' => __('Bold', 'sage'),
                 ],
             ]);
