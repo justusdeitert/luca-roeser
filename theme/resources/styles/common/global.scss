@@ -1,6 +1,5 @@
 html {
     font-size: var(--custom-font-size);
-    // height: 100%;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -10,7 +9,6 @@ body {
     background-color: rgb(var(--custom-body-background-color));
     font-weight: var(--custom-font-weight);
     font-family: var(--custom-text-font-family);
-    // min-height: 100%;
 }
 
 #app {
@@ -222,13 +220,8 @@ img {
         padding-left: var(--container-padding-desktop);
         padding-right: var(--container-padding-desktop);
     }
-
-
 }
 
-/**
-* Has no Max Width
-*/
 .container-fluid {
     padding-left: var(--container-padding-mobile);
     padding-right: var(--container-padding-mobile);
@@ -277,20 +270,14 @@ img {
     box-shadow: var(--custom-box-shadow);
 }
 
-//.custom-spacing {
-//    margin-top: var(--custom-vertical-spacing);
-//    margin-bottom: var(--custom-vertical-spacing);
-//
-//    .custom-spacing {
-//        margin-top: initial;
-//        margin-bottom: initial;
-//    }
-//}
-
 /**
  * Remember to add recaptcha gdpr notice
  * @link https://developers.google.com/recaptcha/docs/faq#id-like-to-hide-the-recaptcha-badge.-what-is-allowed
  */
 .grecaptcha-badge {
     visibility: hidden;
+}
+
+.page-wrapper {
+    margin-bottom: calc(var(--custom-vertical-spacing, 2rem) * 2);
 }

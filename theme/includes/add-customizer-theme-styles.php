@@ -170,14 +170,14 @@ function customizer_theme_styles() {
             --custom-box-shadow: <?php echo $custom_shadows[get_theme_mod('custom_shadow', 'no-shadow')]; ?>;
 
             /* Font Settings */
-            --custom-font-size: <?php echo get_theme_mod('custom_font_size'); ?>px;
+            --custom-font-size: <?php echo get_theme_mod('custom_font_size', 16); ?>px;
             --custom-font-weight: <?php echo get_theme_mod('custom_font_weight', '400'); ?>;
             --custom-headline-weight: <?php echo get_theme_mod('custom_headline_weight', '400'); ?>;
             --custom-text-font-family: <?php echo css_font_family_string($custom_text_font); ?>;
             --custom-headline-font-family: <?php echo css_font_family_string($custom_headline_font); ?>;
 
             /* Font Settings */
-            --custom-form-height: <?php echo get_theme_mod('custom_form_height'); ?>px;
+            --custom-form-height: <?php echo get_theme_mod('custom_form_height', 40); ?>px;
 
             /* General Colors */
             <?php foreach ($standard_color_versions as $name => $value) { ?>

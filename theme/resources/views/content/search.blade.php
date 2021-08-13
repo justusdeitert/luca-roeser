@@ -10,6 +10,16 @@
     </header>
 
     <div class="entry-summary">
-        @php(the_excerpt())
+        <?php
+        /**
+         * Create excerpt from get_the_content
+         * TODO: Create better page excerpts
+         */
+        $start = strpos(get_the_content(), '<p>');
+        $end = strpos(get_the_content(), '</p>', $start);
+        $paragraph = substr(get_the_content(), $start, $end - $start + 4);
+        ?>
+
+        {!! $paragraph !!}
     </div>
 </article>
