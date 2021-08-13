@@ -63,6 +63,12 @@
     td, th {
         font-size: var(--custom-font-size);
     }
+
+    td {
+        &:before {
+            color: rgba(var(--custom-consent-settings-font-color)) !important;
+        }
+    }
 }
 
 // Cookie Consent Container

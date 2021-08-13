@@ -1241,7 +1241,7 @@ if (class_exists('Kirki')) {
 
             custom_kirki_border('section_cookie_settings_id');
 
-            custom_color_select('consent_settings_background_highlight', 'light-200', 'section_cookie_settings_id');
+            custom_color_select('consent_settings_background_highlight', 'light-100', 'section_cookie_settings_id');
 
             custom_kirki_border('section_cookie_settings_id');
 

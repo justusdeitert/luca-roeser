@@ -104,7 +104,7 @@ function customizer_theme_styles() {
         'consent-modal-link' => get_theme_mod('custom_color_select_consent_modal_link', 'primary'),
         'consent-modal-link-hover' => get_theme_mod('custom_color_select_consent_modal_link_hover', 'primary'),
         'consent-settings-background' => get_theme_mod('custom_color_select_consent_settings_background', 'light'),
-        'consent-settings-background-highlight' => get_theme_mod('custom_color_select_consent_settings_background_highlight', 'light-200'),
+        'consent-settings-background-highlight' => get_theme_mod('custom_color_select_consent_settings_background_highlight', 'light-100'),
         'consent-settings-font' => get_theme_mod('custom_color_select_consent_settings_font', 'dark'),
         'consent-settings-link' => get_theme_mod('custom_color_select_consent_settings_link', 'primary'),
         'consent-settings-link-hover' => get_theme_mod('custom_color_select_consent_settings_link_hover', 'primary'),
