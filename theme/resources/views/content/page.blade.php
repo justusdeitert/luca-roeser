@@ -1,3 +1,16 @@
-@php(the_content())
+@if(!empty(get_the_content()))
 
-{!! wp_link_pages(['echo' => 0, 'before' => '<nav class="page-nav"><p>' . __('Pages:', 'sage'), 'after' => '</p></nav>']) !!}
+    @php(the_content())
+@else
+
+    @include('partials.page-header')
+
+    <x-alert type="warning">
+        {!! __('Sorry, but the current page has no content yet.', 'sage') !!}
+    </x-alert>
+
+    @if(isset($post) && current_user_can('edit_post', $post->ID))
+        <a class="btn btn-primary" href="{!! get_edit_post_link() !!}">{!! __('Edit', 'sage') !!}</a>
+    @endif
+@endif
+
