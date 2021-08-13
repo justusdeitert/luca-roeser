@@ -62,7 +62,6 @@ registerBlockType('custom/accordion', {
                 'accordion-block',
                 'custom-shadow',
                 'custom-border-radius',
-                'custom-spacing',
                 getColorObject(attributes.accordionBackgroundColor) && `has-${getColorObject(attributes.accordionBackgroundColor).slug}-background-color`,
                 attributes.showIcon && 'has-icon'
             ),
@@ -151,7 +150,6 @@ registerBlockType('custom/accordion', {
                 'accordion-block',
                 'custom-shadow',
                 'custom-border-radius',
-                'custom-spacing',
                 getColorObject(attributes.accordionBackgroundColor) && `has-${getColorObject(attributes.accordionBackgroundColor).slug}-background-color`,
                 attributes.showIcon && 'has-icon'
             ),

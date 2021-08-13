@@ -282,10 +282,10 @@ if (class_exists('Kirki')) {
 
             custom_kirki_border('section_content_settings_id');
 
-            Kirki::add_field('custom_block_spacing_id', [
+            Kirki::add_field('custom_vertical_spacing_id', [
                 'type' => 'slider',
-                'settings' => 'custom_block_spacing',
-                'label' => __('Block spacing', 'sage'),
+                'settings' => 'custom_vertical_spacing',
+                'label' => __('Vertical spacing', 'sage'),
                 'section' => 'section_content_settings_id',
                 'default' => 48,
                 'choices' => [

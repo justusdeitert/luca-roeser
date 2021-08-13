@@ -5,8 +5,8 @@
 
     &__inner {
         @extend .container;
-        padding-top: var(--custom-block-spacing, 2rem);
-        padding-bottom: var(--custom-block-spacing, 2rem);
+        padding-top: var(--custom-vertical-spacing, 2rem);
+        padding-bottom: var(--custom-vertical-spacing, 2rem);
     }
 }
 
@@ -14,8 +14,8 @@ main > .section-block {
     &:not(.has-background) {
         .section-block__inner {
             padding: 0;
-            margin-top: var(--custom-block-spacing, 2rem);
-            margin-bottom: var(--custom-block-spacing, 2rem);
+            margin-top: var(--custom-vertical-spacing, 2rem);
+            margin-bottom: var(--custom-vertical-spacing, 2rem);
         }
     }
 }

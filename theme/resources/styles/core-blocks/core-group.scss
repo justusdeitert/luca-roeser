@@ -3,8 +3,8 @@
 
     &__inner-container {
         @extend .container;
-        padding-top: var(--custom-block-spacing, 2rem);
-        padding-bottom: var(--custom-block-spacing, 2rem);
+        padding-top: var(--custom-vertical-spacing, 2rem);
+        padding-bottom: var(--custom-vertical-spacing, 2rem);
     }
 
     &.has-background:not(.alignfull) {
@@ -14,8 +14,8 @@
     &:not(.has-background) {
         .wp-block-group__inner-container {
             padding: 0;
-            margin-top: var(--custom-block-spacing, 2rem);
-            margin-bottom: var(--custom-block-spacing, 2rem);
+            margin-top: var(--custom-vertical-spacing, 2rem);
+            margin-bottom: var(--custom-vertical-spacing, 2rem);
         }
     }
 }
