@@ -186,7 +186,7 @@ registerBlockType('custom/map', {
                             }
                         </div>
                     </div>
-                </>
+                </div>
             )
         }
     },
