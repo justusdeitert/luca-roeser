@@ -161,7 +161,7 @@ registerBlockType('custom/text-image', {
             );
 
             return (
-                <div className={classNames(className, 'text-image-block', 'custom-spacing', 'no-gallery')}>
+                <div className={classNames(className, 'text-image-block', 'no-gallery')}>
                     <InspectorControls>
                         <div className="inspector-controls-container">
                             <hr/>
@@ -289,7 +289,7 @@ registerBlockType('custom/text-image', {
         );
 
         return (
-            <div className={classNames(className, 'text-image-block', 'custom-spacing', !attributes.hasGallery && 'no-gallery')}>
+            <div className={classNames(className, 'text-image-block', !attributes.hasGallery && 'no-gallery')}>
                 <div className="text-image-block__row row">
                     {!attributes.switchContent ? imageColumn : textColumn}
                     {!attributes.switchContent ? textColumn : imageColumn}

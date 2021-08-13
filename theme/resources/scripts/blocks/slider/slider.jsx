@@ -36,6 +36,10 @@ const attributes = {
         type: 'boolean',
         default: false,
     },
+    sliderSpacing: {
+        type: 'number',
+        default: 20,
+    },
 
     /**
      * Slider Controls
@@ -128,7 +132,10 @@ registerBlockType('custom/slider', {
         ];
 
         const blockProps = useBlockProps({
-            className: classNames('slider-block', 'custom-spacing', attributes.twoSlidesOnMobile && 'two-slides-on-mobile')
+            className: classNames('slider-block', attributes.twoSlidesOnMobile && 'two-slides-on-mobile'),
+            style: {
+                '--slider-spacing': `${attributes.sliderSpacing}px`
+            }
         });
 
         const innerBlocksProps = useInnerBlocksProps(blockProps, {
@@ -224,7 +231,7 @@ registerBlockType('custom/slider', {
                             resetFallbackValue={false}
                         />
                         <hr/>
-                        <p>{__('Slides per View', 'sage')}</p>
+                        <p>{__('Slides per view', 'sage')}</p>
                         <RangeControl
                             value={attributes.slidesPerView}
                             min={1}
@@ -233,6 +240,18 @@ registerBlockType('custom/slider', {
                             onChange={(value) => {
                                 setAttributes({slidesPerView: value});
                                 updateSlider();
+                            }}
+                        />
+                        <hr/>
+                        <p>{__('Slider spacing', 'sage')}</p>
+                        <RangeControl
+                            value={attributes.sliderSpacing}
+                            min={0}
+                            initialPosition={20}
+                            max={80}
+                            step={1}
+                            onChange={(value) => {
+                                setAttributes({sliderSpacing: value});
                             }}
                         />
                         <hr/>
@@ -340,7 +359,10 @@ registerBlockType('custom/slider', {
     save: ({className, attributes}) => {
 
         const blockProps = useBlockProps.save({
-            className: classNames(className, 'slider-block', 'custom-spacing', attributes.twoSlidesOnMobile && 'two-slides-on-mobile')
+            className: classNames(className, 'slider-block', attributes.twoSlidesOnMobile && 'two-slides-on-mobile'),
+            style: {
+                '--slider-spacing': `${attributes.sliderSpacing}px`
+            }
         });
 
         const slideControls = () => {

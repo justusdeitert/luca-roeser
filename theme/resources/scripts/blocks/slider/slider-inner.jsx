@@ -79,7 +79,7 @@ registerBlockType('custom/slider-inner', {
                 'slider-block__slide-inner',
                 'custom-border',
                 'custom-border-radius',
-                'custom-shadow',
+                getColorObject(attributes.parentBackgroundColor) && 'custom-shadow',
                 getColorObject(attributes.parentBackgroundColor) && `has-background has-${getColorObject(attributes.parentBackgroundColor).slug}-background-color`
             ),
             style: {
@@ -111,7 +111,7 @@ registerBlockType('custom/slider-inner', {
                 'slider-block__slide-inner',
                 'custom-border',
                 'custom-border-radius',
-                'custom-shadow',
+                getColorObject(attributes.parentBackgroundColor) && 'custom-shadow',
                 getColorObject(attributes.parentBackgroundColor) && `has-background has-${getColorObject(attributes.parentBackgroundColor).slug}-background-color`
             ),
         });

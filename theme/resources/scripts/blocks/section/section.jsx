@@ -1,6 +1,6 @@
 import {__} from '@wordpress/i18n';
 import {registerBlockType, createBlock} from '@wordpress/blocks';
-import {SelectControl, RangeControl, ToggleControl, Button, PanelBody, __experimentalRadio as Radio, __experimentalRadioGroup as RadioGroup} from '@wordpress/components';
+import {SelectControl, RangeControl, ToggleControl, Button, PanelBody, __experimentalRadio as Radio, __experimentalRadioGroup as RadioGroup, __experimentalBoxControl as BoxControl} from '@wordpress/components';
 import {InnerBlocks, InspectorControls, ColorPalette, useBlockProps, __experimentalUseInnerBlocksProps as useInnerBlocksProps} from '@wordpress/block-editor';
 import classnames from 'classnames';
 import {sectionIcon} from '../icons';
@@ -154,7 +154,7 @@ registerBlockType('custom/section', {
 
         let sectionInnerStyles = {};
         if (attributes.innerWidth) {sectionInnerStyles.maxWidth = `${attributes.innerWidth}px`;}
-        if (typeof attributes.customPadding !== 'undefined') {sectionInnerStyles.padding = `${attributes.customPadding}px`;}
+        if (attributes.customPadding) {sectionInnerStyles.padding = `${attributes.customPadding}px`;}
 
         if (attributes.sectionShape !== 'none') {
             sectionInnerStyles.paddingTop = 0;
@@ -332,7 +332,7 @@ registerBlockType('custom/section', {
 
         let sectionInnerStyles = {};
         if (attributes.innerWidth) {sectionInnerStyles.maxWidth = `${attributes.innerWidth}px`;}
-        if (typeof attributes.customPadding !== 'undefined') {sectionInnerStyles.padding = `${attributes.customPadding}px`;}
+        if (attributes.customPadding) {sectionInnerStyles.padding = `${attributes.customPadding}px`;}
 
         if (attributes.sectionShape !== 'none') {
             sectionInnerStyles.paddingTop = 0;
