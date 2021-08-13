@@ -244,7 +244,7 @@ add_action('after_setup_theme', function () {
     }
 
     $dark_light_colors = [];
-    foreach (range(1, 3) as $number) {
+    foreach (range(1, 4) as $number) {
         array_push($dark_light_colors, [
             'name'  => __('Dark/Light ' . $number * 100, 'sage'),
             'slug'  => 'dark-light-' . $number * 100,

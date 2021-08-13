@@ -16,7 +16,7 @@ import '../blocks';
 /**
  * Block Scripts & Plugins
  */
-import './block-scripts';
+import './editor-scripts';
 
 /**
  * Gutenberg Block Formats

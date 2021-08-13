@@ -9,20 +9,20 @@
  * Custom Theme Font Array
  */
 $GLOBALS['standard_google_fonts'] = [
-    'Montserrat' => 'sans-serif',
-    'Montserrat Alternates' => 'sans-serif',
-    'Source Sans Pro' => 'sans-serif',
-    'Oswald' => 'sans-serif',
-    'Lato' => 'sans-serif',
-    'Lora' => 'serif',
-    'Open Sans' => 'sans-serif',
-    'Raleway' => 'sans-serif',
-    'Roboto' => 'sans-serif',
-    'Roboto Slab' => 'serif',
-    'Barlow' => 'sans-serif',
-    'Quicksand' => 'sans-serif',
-    'Poppins' => 'sans-serif',
-    'Inter' => 'sans-serif',
+    'montserrat' => 'sans-serif',
+    'montserrat+alternates' => 'sans-serif',
+    'source+sans+pro' => 'sans-serif',
+    'oswald' => 'sans-serif',
+    'lato' => 'sans-serif',
+    'lora' => 'serif',
+    'open+sans' => 'sans-serif',
+    'raleway' => 'sans-serif',
+    'roboto' => 'sans-serif',
+    'roboto+slab' => 'serif',
+    'barlow' => 'sans-serif',
+    'quicksand' => 'sans-serif',
+    'poppins' => 'sans-serif',
+    'inter' => 'sans-serif',
 ];
 
 /**
@@ -343,7 +343,7 @@ if (class_exists('Kirki')) {
                 'section' => 'section_content_settings_id',
                 'default' => 'no-shadow',
                 'placeholder' => __('Select an option...', 'sage'),
-                'priority' => 10,
+                // 'priority' => 10,
                 'multiple' => 1,
                 'choices' => $GLOBALS['box_shadows'],
             ]);
@@ -356,7 +356,9 @@ if (class_exists('Kirki')) {
 
             $standard_google_fonts_array = [];
             foreach ($GLOBALS['standard_google_fonts'] as $key => $value) {
-                $standard_google_fonts_array[$key] = $key . ' (' . ucfirst($value) . ')';
+                $standard_google_fonts_array[strtolower(str_replace(' ', '+', $key))] = $key . ' (' . ucfirst($value) . ')';
+                $changed_key = str_replace('+', ' ', $key);
+                $standard_google_fonts_array[$key] = ucwords($changed_key, ' ') . ' (' . ucfirst($value) . ')';
             }
 
             Kirki::add_section('section_font_settings_id', array(
@@ -425,12 +427,12 @@ if (class_exists('Kirki')) {
             Kirki::add_field('custom_headline_font_id', [
                 'type' => 'select',
                 'settings' => 'custom_headline_font',
-                'label' => __('Headline Font', 'sage'),
+                'label' => __('Headline font', 'sage'),
                 'section' => 'section_font_settings_id',
                 // 'description' => __('Font used for all Headline Types.<br>H1, H2, H3, H4, H5, H6', 'sage'),
-                'default' => 'Roboto',
+                'default' => 'roboto',
                 'placeholder' => __('Select an option...', 'sage'),
-                'priority' => 10,
+                // 'priority' => 10,
                 'multiple' => 1,
                 'choices' => $standard_google_fonts_array,
             ]);
@@ -440,12 +442,12 @@ if (class_exists('Kirki')) {
             Kirki::add_field('custom_text_font_id', [
                 'type' => 'select',
                 'settings' => 'custom_text_font',
-                'label' => __('Text Font', 'sage'),
+                'label' => __('Text font', 'sage'),
                 'section' => 'section_font_settings_id',
                 // 'description' => __('Font used for all Texts.', 'sage'),
-                'default' => 'Roboto',
+                'default' => 'roboto',
                 'placeholder' => __('Select an option...', 'sage'),
-                'priority' => 10,
+                // 'priority' => 10,
                 'multiple' => 1,
                 'choices' => $standard_google_fonts_array,
             ]);
@@ -466,7 +468,7 @@ if (class_exists('Kirki')) {
                 // 'description' => __('Select the custom Icon font.', 'sage'),
                 'default' => 'bootstrap-icons',
                 'placeholder' => __('Select an option...', 'sage'),
-                'priority' => 10,
+                // 'priority' => 10,
                 'multiple' => 1,
                 'choices' => $standard_icon_sets,
             ]);

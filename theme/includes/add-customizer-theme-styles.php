@@ -7,22 +7,27 @@
 function customizer_theme_styles() {
 
     /**
-     * Custom google font
-     * TODO: Better Google Font Implementation
+     * Custom google font implementation
      */
-    $custom_text_font = get_theme_mod('custom_text_font', 'Montserrat');
-    $custom_text_font_plus = str_replace(' ', '+', $custom_text_font); /* replace space with + */
-    $custom_headline_font = get_theme_mod('custom_headline_font', 'Montserrat');
-    $custom_headline_font_plus = str_replace(' ', '+', $custom_headline_font); /* replace space with + */
-    $custom_google_font_string = 'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600&display=swap';
+    $custom_text_font = get_theme_mod('custom_text_font', 'roboto');
+    $custom_headline_font = get_theme_mod('custom_headline_font', 'roboto');
+    $fonts_array = [
+        $custom_text_font,
+        $custom_headline_font
+    ];
 
-    // var_dump($custom_text_font);
-    // var_dump($custom_headline_font);
+    function create_google_font_string($fonts_array) {
+        $new_font_array = [];
+        foreach($fonts_array as $key => $value) {
+            $new_font_array[$key] = 'family=' . ucwords($value, '+') . ':wght@300;400;500;600&';
+        }
+        return 'https://fonts.googleapis.com/css2?' . implode($new_font_array) . 'display=swap';
+    }
 
-    if ($custom_text_font !== $custom_headline_font) {
-        $custom_google_font_string = 'https://fonts.googleapis.com/css2?family=' . $custom_text_font_plus . ':wght@300;400;500;600&family=' . $custom_headline_font_plus . ':wght@300;400;500;600&display=swap';
-    } else {
-        $custom_google_font_string = 'https://fonts.googleapis.com/css2?family=' . $custom_text_font_plus . ':wght@300;400;500;600&display=swap';
+    function font_family_string($custom_font) {
+        $font_type = $GLOBALS['standard_google_fonts'][$custom_font];
+        $font_name = str_replace('+', ' ', ucwords($custom_font, '+'));
+        return  '\'' .$font_name . '\', ' . $font_type;
     }
 
     /**
@@ -112,18 +117,18 @@ function customizer_theme_styles() {
     $light_colors = [];
     $light_color = get_theme_mod('custom_light_color', '#f8f9fa');
     foreach (range(1, 3) as $number) {
-        $light_colors[$number * 100] = convert_hex(adjustBrightness($light_color, -($number * 0.04)));
+        $light_colors[$number * 100] = convert_hex(adjustBrightness($light_color, -($number * 0.05)));
     }
 
     $dark_colors = [];
     $dark_color = get_theme_mod('custom_dark_color', '#212529');
     foreach (range(1, 3) as $number) {
-        $dark_colors[$number * 100] = convert_hex(adjustBrightness($dark_color, ($number * 0.04)));
+        $dark_colors[$number * 100] = convert_hex(adjustBrightness($dark_color, ($number * 0.05)));
     }
 
     $dark_light_colors = [];
-    foreach (range(1, 3) as $number) {
-        $dark_light_colors[$number * 100] = convert_hex(adjustBrightness($dark_color, (1 - $number * 0.04)));
+    foreach (range(1, 4) as $number) {
+        $dark_light_colors[$number * 100] = convert_hex(adjustBrightness($dark_color, (1 - $number * 0.05)));
     }
 
     /**
@@ -141,6 +146,7 @@ function customizer_theme_styles() {
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="<?php echo create_google_font_string($fonts_array) ?>" rel="preload" as="style" onload="this.rel='stylesheet'">
 
     <?php
         /**
@@ -167,11 +173,8 @@ function customizer_theme_styles() {
             /* Font Settings */
             --custom-font-size: <?php echo get_theme_mod('custom_font_size'); ?>px;
             --custom-font-weight: <?php echo get_theme_mod('custom_font_weight', '400'); ?>;
-            --custom-headline-weight: <?php echo get_theme_mod('custom_headline_weight', '400'); ?>;
-            --custom-headline-font: <?php echo get_theme_mod('custom_headline_font', 'Roboto'); ?>;
-            --custom-text-font: <?php echo get_theme_mod('custom_text_font', 'Roboto'); ?>;
-            --custom-headline-font-family: '<?php echo $custom_headline_font; ?>', <?php echo $GLOBALS['standard_google_fonts'][$custom_headline_font]; ?>;
-            --custom-text-font-family: '<?php echo $custom_text_font; ?>', <?php echo $GLOBALS['standard_google_fonts'][$custom_text_font]; ?>;
+            --custom-text-font-family: <?php echo font_family_string($custom_text_font); ?>;
+            --custom-headline-font-family: <?php echo font_family_string($custom_headline_font); ?>;
 
             /* Font Settings */
             --custom-form-height: <?php echo get_theme_mod('custom_form_height'); ?>px;
@@ -203,9 +206,7 @@ function customizer_theme_styles() {
 
             /* Navbar Settings */
             --custom-navbar-height: <?php echo get_theme_mod('custom_navbar_height', 60); ?>px;
-            /*--custom-navbar-position:  */<?php //echo $custom_navbar_position; ?>/*;*/
             --custom-navbar-position:  <?php echo get_theme_mod('custom_navbar_positioning', 'static'); ?>;
-            /*--custom-navbar-top-position:  */<?php //echo $custom_navbar_top_position; ?>/*px;*/
             --custom-navbar-top-position:  <?php echo get_theme_mod('custom_navbar_top_position', 0); ?>;
             --custom-navbar-box-shadow: <?php echo $custom_shadows[get_theme_mod('custom_navbar_shadow', 'no-shadow')]; ?>;
             --custom-navbar-logo-height:  <?php echo get_theme_mod('custom_navbar_logo_height', 100); ?>%;
@@ -299,8 +300,6 @@ function customizer_theme_styles() {
         <?php } ?>
 
     </style>
-
-    <link href="<?php echo $custom_google_font_string; ?>" rel="preload" as="style" onload="this.rel='stylesheet'">
 
     <?php if (class_exists('ACF') && get_field('cookie_code', 'options')) {  ?>
         <?php echo get_field('cookie_code', 'options'); ?>

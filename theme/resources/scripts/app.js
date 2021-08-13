@@ -9,12 +9,12 @@
 import './external';
 
 /**
- * Block Scripts & Plugins
+ * Editor & Frontend Scripts
  */
-import './block-scripts';
+import './editor-scripts';
 
 /**
- * App - Frontend Scripts
+ * App - Frontend Only
  */
 import './app-scripts';
 

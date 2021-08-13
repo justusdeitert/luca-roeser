@@ -185,6 +185,7 @@ export const editorDarkLightColors = [
     {name: 'Dark/Light 100', slug: 'dark-light-100', color: `rgb(${getCssVariable('--custom-dark-light-100-color')})`},
     {name: 'Dark/Light 200', slug: 'dark-light-200', color: `rgb(${getCssVariable('--custom-dark-light-200-color')})`},
     {name: 'Dark/Light 300', slug: 'dark-light-300', color: `rgb(${getCssVariable('--custom-dark-light-300-color')})`},
+    {name: 'Dark/Light 400', slug: 'dark-light-400', color: `rgb(${getCssVariable('--custom-dark-light-400-color')})`},
     // {name: 'Dark/Light 400', slug: 'dark-light-400', color: `rgb(${getCssVariable('--custom-dark-light-400-color')})`},
     // {name: 'Dark/Light 500', slug: 'dark-light-500', color: `rgb(${getCssVariable('--custom-dark-light-500-color')})`},
     // {name: 'Dark/Light 600', slug: 'dark-light-600', color: `rgb(${getCssVariable('--custom-dark-light-600-color')})`},
