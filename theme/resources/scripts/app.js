@@ -17,6 +17,7 @@ import './editor-scripts';
  * App - Frontend Only
  */
 import './app-scripts';
+import {getCssVariable} from "./utility";
 
 /**
  * jQuery Ready
@@ -30,7 +31,12 @@ import './app-scripts';
  * DOM Ready
  */
 document.addEventListener('DOMContentLoaded', () => {
-    // console.log('Document loaded');
+
+    // Logger Welcome Message
+    let lightColor = `rgb(${getCssVariable('--custom-light-color')})`;
+    let darkColor = `rgb(${getCssVariable('--custom-dark-color')})`;
+    let primaryColor = `rgb(${getCssVariable('--custom-primary-color')})`;
+    console.log('%c Welcome Visitor!', `font-weight: bold; font-size: 30px; color: ${lightColor}; text-shadow: -3px -3px ${primaryColor}, 3px 3px 0 ${darkColor}`);
 });
 
 /**

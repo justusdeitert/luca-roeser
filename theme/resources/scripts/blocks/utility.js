@@ -243,6 +243,7 @@ export const ALLOWEDBLOCKS = [
     'custom/spacer',
     'custom/accordion',
     'custom/fluid-text',
+    'custom/slider',
 ]
 
 export const parentAttributes = (clientId) => {

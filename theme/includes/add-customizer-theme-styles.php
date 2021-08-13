@@ -17,14 +17,13 @@ function customizer_theme_styles() {
     ];
 
     function create_google_font_string($fonts_array) {
-        $new_font_array = [];
         foreach($fonts_array as $key => $value) {
             $new_font_array[$key] = 'family=' . ucwords($value, '+') . ':wght@300;400;500;600&';
         }
         return 'https://fonts.googleapis.com/css2?' . implode($new_font_array) . 'display=swap';
     }
 
-    function font_family_string($custom_font) {
+    function css_font_family_string($custom_font) {
         $font_type = $GLOBALS['standard_google_fonts'][$custom_font];
         $font_name = str_replace('+', ' ', ucwords($custom_font, '+'));
         return  '\'' .$font_name . '\', ' . $font_type;
@@ -173,8 +172,9 @@ function customizer_theme_styles() {
             /* Font Settings */
             --custom-font-size: <?php echo get_theme_mod('custom_font_size'); ?>px;
             --custom-font-weight: <?php echo get_theme_mod('custom_font_weight', '400'); ?>;
-            --custom-text-font-family: <?php echo font_family_string($custom_text_font); ?>;
-            --custom-headline-font-family: <?php echo font_family_string($custom_headline_font); ?>;
+            --custom-headline-weight: <?php echo get_theme_mod('custom_headline_weight', '400'); ?>;
+            --custom-text-font-family: <?php echo css_font_family_string($custom_text_font); ?>;
+            --custom-headline-font-family: <?php echo css_font_family_string($custom_headline_font); ?>;
 
             /* Font Settings */
             --custom-form-height: <?php echo get_theme_mod('custom_form_height'); ?>px;

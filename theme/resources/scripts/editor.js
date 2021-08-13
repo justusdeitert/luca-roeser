@@ -11,7 +11,7 @@ import './external';
 /**
  * Gutenberg Blocks
  */
-import '../blocks';
+import './blocks';
 
 /**
  * Block Scripts & Plugins
@@ -21,12 +21,12 @@ import './editor-scripts';
 /**
  * Gutenberg Block Formats
  */
-import '../block-formats';
+import './block-formats';
 
 /**
  * Core Block Extends
  */
-import '../block-extends';
+import './block-extends';
 
 domReady(() => {
     // registerBlockStyle('core/heading', [

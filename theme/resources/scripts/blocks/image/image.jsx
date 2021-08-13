@@ -110,6 +110,23 @@ registerBlockType('custom/image', {
                 </BlockControls>
                 <InspectorControls>
                     <div className="inspector-controls-container">
+                        {(attributes.imageSize < 20) &&
+                        <>
+                            <MediaUpload
+                                onSelect={(value) => setAttributes({imageObject: value})}
+                                allowedTypes={['image']}
+                                render={({open}) => (
+                                    <Button
+                                        className={'button'}
+                                        onClick={open}
+                                        icon={'format-image'}
+                                        // isSmall={true}
+                                        text={attributes.imageObject ? __('Change Image', 'sage') : __('Upload Image', 'sage')}
+                                    />
+                                )}
+                            />
+                        </>
+                        }
                         <hr/>
                         <ToggleControl
                             label={__('Image has Ratio', 'sage')}
@@ -153,7 +170,7 @@ registerBlockType('custom/image', {
                         <p>{__('Size', 'sage')}</p>
                         <RangeControl
                             value={attributes.imageSize}
-                            min={20}
+                            min={5}
                             max={attributes.imageSizeUnit === '%' ? 100 : 1000}
                             step={1}
                             onChange={(value) => setAttributes({imageSize: value})}
@@ -195,24 +212,28 @@ registerBlockType('custom/image', {
                     </div>
                 </InspectorControls>
                 <div {...blockProps}>
-                    <MediaUpload
-                        onSelect={(value) => setAttributes({imageObject: value})}
-                        allowedTypes={['image']}
-                        render={({open}) => (
-                            <Button
-                                className={'button'}
-                                onClick={open}
-                                icon={'format-image'}
-                                isSmall={true}
-                                style={{
-                                    position: 'absolute',
-                                    right: '10px',
-                                    top: '10px',
-                                    zIndex: '10'
-                                }}
-                            />
-                        )}
-                    />
+                    {(attributes.imageSize >= 20) &&
+                    <>
+                        <MediaUpload
+                            onSelect={(value) => setAttributes({imageObject: value})}
+                            allowedTypes={['image']}
+                            render={({open}) => (
+                                <Button
+                                    className={'button'}
+                                    onClick={open}
+                                    icon={'format-image'}
+                                    isSmall={true}
+                                    style={{
+                                        position: 'absolute',
+                                        right: '10px',
+                                        top: '10px',
+                                        zIndex: '10'
+                                    }}
+                                />
+                            )}
+                        />
+                    </>
+                    }
                     <div className={attributes.hasRatio ? `ratio ratio-${attributes.imageRatio}` : ''}>
                         {attributes.imageObject.mime !== 'image/svg+xml' ?
                             <img alt={getImage(attributes.imageObject, 'alt')}
