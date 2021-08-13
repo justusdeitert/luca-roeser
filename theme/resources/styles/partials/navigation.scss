@@ -141,14 +141,14 @@
 
                 &:hover {
                     color: rgb(var(--custom-navbar-font-active-color));
-                    background-color: rgb(var(--custom-navbar-font-active-background-color));
+                    background-color: rgb(var(--custom-navbar-background-active-color));
                 }
             }
 
             &.current-menu-item {
                 > a {
                     color: rgb(var(--custom-navbar-font-active-color));
-                    background-color: rgb(var(--custom-navbar-font-active-background-color));
+                    background-color: rgb(var(--custom-navbar-background-active-color));
                 }
             }
         }

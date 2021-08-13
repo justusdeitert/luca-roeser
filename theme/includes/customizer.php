@@ -553,17 +553,32 @@ if (class_exists('Kirki')) {
 
             custom_kirki_border('section_navbar_settings_id');
 
-            Kirki::add_field('custom_navbar_behavior_id', [
+            // Kirki::add_field('custom_navbar_behavior_id', [
+            //     'type' => 'radio',
+            //     'settings' => 'custom_navbar_behavior',
+            //     'label' => __('Navbar Positioning', 'sage'),
+            //     'section' => 'section_navbar_settings_id',
+            //     'default' => 'moving',
+            //     'choices' => [
+            //         'moving' => __('Moving', 'sage'),
+            //         'fixed' => __('Fixed', 'sage'),
+            //     ],
+            // ]);
+
+            Kirki::add_field('custom_navbar_positioning_id', [
                 'type' => 'radio',
-                'settings' => 'custom_navbar_behavior',
-                'label' => __('Navbar Behavior', 'sage'),
+                'settings' => 'custom_navbar_positioning',
+                'label' => __('Navbar Positioning', 'sage'),
                 'section' => 'section_navbar_settings_id',
-                'default' => 'moving',
+                'default' => 'static',
                 'choices' => [
-                    'moving' => __('Moving', 'sage'),
+                    'static' => __('Static', 'sage'),
+                    'sticky' => __('Sticky', 'sage'),
                     'fixed' => __('Fixed', 'sage'),
+                    'absolute' => __('Absolute', 'sage'),
                 ],
             ]);
+
 
             custom_kirki_border('section_navbar_settings_id');
 
@@ -681,16 +696,29 @@ if (class_exists('Kirki')) {
 
             custom_kirki_border('section_navbar_settings_id');
 
+            // Kirki::add_field('custom_navbar_font_weight_id', [
+            //     'type' => 'slider',
+            //     'settings' => 'custom_navbar_font_weight',
+            //     'label' => __('Navbar Font Weight', 'sage'),
+            //     'section' => 'section_navbar_settings_id',
+            //     'default' => 400,
+            //     'choices' => [
+            //         'min' => 300,
+            //         'max' => 500,
+            //         'step' => 100,
+            //     ],
+            // ]);
+
             Kirki::add_field('custom_navbar_font_weight_id', [
-                'type' => 'slider',
+                'type' => 'radio',
                 'settings' => 'custom_navbar_font_weight',
-                'label' => __('Navbar Font Weight', 'sage'),
+                'label' => __('Navbar font weight', 'sage'),
                 'section' => 'section_navbar_settings_id',
-                'default' => 400,
+                'default' => '400',
                 'choices' => [
-                    'min' => 300,
-                    'max' => 500,
-                    'step' => 100,
+                    '300' => __('Thin', 'sage'),
+                    '400' => __('Medium', 'sage'),
+                    '500' => __('Bold', 'sage'),
                 ],
             ]);
 

@@ -16,6 +16,9 @@ function customizer_theme_styles() {
     $custom_headline_font_plus = str_replace(' ', '+', $custom_headline_font); /* replace space with + */
     $custom_google_font_string = 'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600&display=swap';
 
+    // var_dump($custom_text_font);
+    // var_dump($custom_headline_font);
+
     if ($custom_text_font !== $custom_headline_font) {
         $custom_google_font_string = 'https://fonts.googleapis.com/css2?family=' . $custom_text_font_plus . ':wght@300;400;500;600&family=' . $custom_headline_font_plus . ':wght@300;400;500;600&display=swap';
     } else {
@@ -135,6 +138,7 @@ function customizer_theme_styles() {
     ];
 
     ob_start(); ?>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -199,29 +203,15 @@ function customizer_theme_styles() {
 
             /* Navbar Settings */
             --custom-navbar-height: <?php echo get_theme_mod('custom_navbar_height', 60); ?>px;
-
-            /*
-             * Custom Navbar Positioning
-             */
-            <?php
-                $custom_navbar_position = 'static';
-                $custom_navbar_behavior = get_theme_mod('custom_navbar_behavior', 'moving');
-                $custom_navbar_top_position = get_theme_mod('custom_navbar_top_position', 0);
-
-                if ($custom_navbar_top_position === '0') {
-                    $custom_navbar_position = ($custom_navbar_behavior === 'moving') ? 'sticky' : 'static';
-                } else {
-                    $custom_navbar_position = ($custom_navbar_behavior === 'moving') ? 'fixed' : 'absolute';
-                }
-            ?>
-
-            --custom-navbar-position:  <?php echo $custom_navbar_position; ?>;
-            --custom-navbar-top-position:  <?php echo $custom_navbar_top_position; ?>px;
+            /*--custom-navbar-position:  */<?php //echo $custom_navbar_position; ?>/*;*/
+            --custom-navbar-position:  <?php echo get_theme_mod('custom_navbar_positioning', 'static'); ?>;
+            /*--custom-navbar-top-position:  */<?php //echo $custom_navbar_top_position; ?>/*px;*/
+            --custom-navbar-top-position:  <?php echo get_theme_mod('custom_navbar_top_position', 0); ?>;
             --custom-navbar-box-shadow: <?php echo $custom_shadows[get_theme_mod('custom_navbar_shadow', 'no-shadow')]; ?>;
             --custom-navbar-logo-height:  <?php echo get_theme_mod('custom_navbar_logo_height', 100); ?>%;
             --custom-navbar-logo-wrapper-width:  <?php echo get_theme_mod('custom_navbar_logo_wrapper_width', 100); ?>px;
             --custom-navbar-font-size:  <?php echo get_theme_mod('custom_navbar_font_size', 16) / 16; ?>rem;
-            --custom-navbar-font-weight:  <?php echo get_theme_mod('custom_navbar_font_weight', 300); ?>;
+            --custom-navbar-font-weight:  <?php echo get_theme_mod('custom_navbar_font_weight', 400); ?>;
             --custom-navbar-item-spacing:  <?php echo get_theme_mod('custom_navbar_item_spacing', 5); ?>px;
             --custom-navbar-submenu-item-height:  <?php echo get_theme_mod('custom_navbar_submenu_item_height', 40); ?>px;
 
