@@ -48,6 +48,10 @@ registerBlockType('custom/image', {
             default: 'px'
         },
         imagePosition: {
+            type: 'string',
+            default: 'left'
+        },
+        imageMove: {
             type: 'object',
             default: {x: 0.5, y: 0.5}
         },
@@ -60,7 +64,7 @@ registerBlockType('custom/image', {
              * Timeout for Image Position On Change
              */
             if (onChangeImagePositionTimeout) {
-                setAttributes({imagePosition: value});
+                setAttributes({imageMove: value});
 
                 onChangeImagePositionTimeout = false;
 
@@ -71,43 +75,52 @@ registerBlockType('custom/image', {
         };
 
         const blockProps = useBlockProps({
-            className: classnames(className, 'image-block', `align-${attributes.imageAlignment}`),
+            className: classnames(
+                className,
+                'image-block',
+                `align-${attributes.imageAlignment}`,
+                attributes.imagePosition === 'right' && 'end-0'
+            ),
             style: {
                 marginTop: 0,
                 marginBottom: 0,
                 width: `${attributes.imageSize + attributes.imageSizeUnit}`,
                 position: attributes.imagePositioning,
-                transform: `translate(${focalPositionInPixel(attributes.imagePosition.x, attributes.imagePositionUnit)}, ${focalPositionInPixel(attributes.imagePosition.y, attributes.imagePositionUnit)})`,
+                transform: `translate(${focalPositionInPixel(attributes.imageMove.x, attributes.imagePositionUnit)}, ${focalPositionInPixel(attributes.imageMove.y, attributes.imagePositionUnit)})`,
             }
         });
 
         return (
             <>
-                <BlockControls>
-                    <ToolbarGroup>
-                        <ToolbarDropdownMenu
-                            icon={`align-${attributes.imageAlignment}`}
-                            label={__('Select a position', 'sage')}
-                            controls={[
-                                {
-                                    title: 'Left',
-                                    icon: 'align-left',
-                                    onClick: () => setAttributes({imageAlignment: 'left'}),
-                                },
-                                {
-                                    title: 'Center',
-                                    icon: 'align-center',
-                                    onClick: () => setAttributes({imageAlignment: 'center'}),
-                                },
-                                {
-                                    title: 'Right',
-                                    icon: 'align-right',
-                                    onClick: () => setAttributes({imageAlignment: 'right'}),
-                                },
-                            ]}
-                        />
-                    </ToolbarGroup>
-                </BlockControls>
+                {(attributes.imagePositioning !== 'absolute') &&
+                <>
+                    <BlockControls>
+                        <ToolbarGroup>
+                            <ToolbarDropdownMenu
+                                icon={`align-${attributes.imageAlignment}`}
+                                label={__('Select a position', 'sage')}
+                                controls={[
+                                    {
+                                        title: 'Left',
+                                        icon: 'align-left',
+                                        onClick: () => setAttributes({imageAlignment: 'left'}),
+                                    },
+                                    {
+                                        title: 'Center',
+                                        icon: 'align-center',
+                                        onClick: () => setAttributes({imageAlignment: 'center'}),
+                                    },
+                                    {
+                                        title: 'Right',
+                                        icon: 'align-right',
+                                        onClick: () => setAttributes({imageAlignment: 'right'}),
+                                    },
+                                ]}
+                            />
+                        </ToolbarGroup>
+                    </BlockControls>
+                </>
+                }
                 <InspectorControls>
                     <div className="inspector-controls-container">
                         {(attributes.imageSize < 20) &&
@@ -180,13 +193,27 @@ registerBlockType('custom/image', {
                         <RadioGroup
                             onChange={(value) => setAttributes({imagePositioning: value})}
                             checked={attributes.imagePositioning}
-                            defaultChecked={"relative"}
+                            defaultChecked={'relative'}
                         >
                             <Radio value="relative">{__('Relative', 'sage')}</Radio>
                             <Radio value="absolute">{__('Absolute', 'sage')}</Radio>
                         </RadioGroup>
+                        {(attributes.imagePositioning === 'absolute') &&
+                        <>
+                            <hr/>
+                            <p>{__('Position', 'sage')}</p>
+                            <RadioGroup
+                                onChange={(value) => setAttributes({imagePosition: value})}
+                                checked={attributes.imagePosition}
+                                defaultChecked={'left'}
+                            >
+                                <Radio value="left">{__('Left', 'sage')}</Radio>
+                                <Radio value="right">{__('Right', 'sage')}</Radio>
+                            </RadioGroup>
+                        </>
+                        }
                         <hr/>
-                        <p>{__('Position', 'sage')}</p>
+                        <p>{__('Movement', 'sage')}</p>
                         <div style={{display: 'flex', marginBottom: '20px'}}>
                             <RadioGroup
                                 onChange={(value) => setAttributes({imagePositionUnit: value})}
@@ -198,14 +225,14 @@ registerBlockType('custom/image', {
                             </RadioGroup>
                             <Button
                                 className={'is-secondary'}
-                                onClick={() => setAttributes({imagePosition: {x: 0.5, y: 0.5}})}
+                                onClick={() => setAttributes({imageMove: {x: 0.5, y: 0.5}})}
                                 text={__('Reset', 'sage')}
                                 style={{marginLeft: '10px'}}
                             />
                         </div>
                         <FocalPointPicker
                             className={'no-picker-controls'}
-                            value={attributes.imagePosition}
+                            value={attributes.imageMove}
                             onChange={onChangeImagePosition}
                             onDrag={onChangeImagePosition}
                         />
@@ -259,11 +286,16 @@ registerBlockType('custom/image', {
     save: ({attributes}) => {
 
         const blockProps = useBlockProps.save({
-            className: classnames('image-block', `align-${attributes.imageAlignment}`, attributes.hasRatio ? `ratio ratio-${attributes.imageRatio}` : ''),
+            className: classnames(
+                'image-block',
+                `align-${attributes.imageAlignment}`,
+                attributes.hasRatio ? `ratio ratio-${attributes.imageRatio}` : '',
+                attributes.imagePosition === 'right' && 'end-0'
+            ),
             style: {
                 width: `${attributes.imageSize + attributes.imageSizeUnit}`,
                 position: attributes.imagePositioning,
-                transform: `translate(${focalPositionInPixel(attributes.imagePosition.x, attributes.imagePositionUnit)}, ${focalPositionInPixel(attributes.imagePosition.y, attributes.imagePositionUnit)})`,
+                transform: `translate(${focalPositionInPixel(attributes.imageMove.x, attributes.imagePositionUnit)}, ${focalPositionInPixel(attributes.imageMove.y, attributes.imagePositionUnit)})`,
             }
         });
 

@@ -301,19 +301,11 @@ add_action('after_setup_theme', function () {
  * @return void
  */
 add_action('widgets_init', function () {
-    $config = [
-        'before_widget' => '<div class="footer__widget container %1$s %2$s">',
-        'after_widget' => '</div>'
-    ];
-
-    // register_sidebar([
-    //     'name' => __('Primary', 'sage'),
-    //     'id' => 'sidebar-primary'
-    // ] + $config);
-
     register_sidebar([
         'name' => __('Footer', 'sage'),
         'id' => 'sidebar-footer',
         'description' => __('The Footer widget area is displayed on the bottom of each page.', 'sage'),
-    ] + $config);
+        'before_widget' => '<div class="footer__widget container %1$s %2$s">',
+        'after_widget' => '</div>'
+    ]);
 });

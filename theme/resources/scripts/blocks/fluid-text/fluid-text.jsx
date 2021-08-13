@@ -48,6 +48,10 @@ const attributes = {
         type: 'number',
         default: false
     },
+    fluidTextFontWeight: {
+        type: 'string',
+        default: ''
+    },
     // minWindowSize: {
     //     type: 'number',
     //     default: 320
@@ -175,6 +179,18 @@ registerBlockType('custom/fluid-text', {
                             onChange={(value) => setAttributes({fluidTextLineHeight: value})}
                         />
                         <hr/>
+                        <p>{__('Font Weight', 'sage')}</p>
+                        <RadioGroup
+                            checked={attributes.fluidTextFontWeight}
+                            onChange={(value) => setAttributes({fluidTextFontWeight: value})}
+                            defaultChecked={''}
+                        >
+                            <Radio value=''>{__('Initial', 'sage')}</Radio>
+                            <Radio value='light'>{__('Light', 'sage')}</Radio>
+                            <Radio value='normal'>{__('Normal', 'sage')}</Radio>
+                            <Radio value='bold'>{__('Bold', 'sage')}</Radio>
+                        </RadioGroup>
+                        <hr/>
                         <p>{__('Color', 'sage')}</p>
                         <ColorPalette
                             colors={editorThemeColors}
@@ -191,7 +207,8 @@ registerBlockType('custom/fluid-text', {
                         `has-text-align-${attributes.textAlign}`,
                         `fluid-text-${attributes.clientId}`,
                         getColorObject(attributes.fluidTextColor) && `has-${getColorObject(attributes.fluidTextColor).slug}-color`,
-                        attributes.fluidTextStyle && `has-style-${attributes.fluidTextStyle}`
+                        attributes.fluidTextStyle && `has-style-${attributes.fluidTextStyle}`,
+                        attributes.fluidTextFontWeight && `fw-${attributes.fluidTextFontWeight}`,
                     )}
                     style={{
                         '--fluid-text-size-desktop': `${attributes.fontSizeDesktop}px`,
@@ -232,7 +249,8 @@ registerBlockType('custom/fluid-text', {
                         `has-text-align-${attributes.textAlign}`,
                         `fluid-text-${attributes.clientId}`,
                         getColorObject(attributes.fluidTextColor) && `has-${getColorObject(attributes.fluidTextColor).slug}-color`,
-                        attributes.fluidTextStyle && `has-style-${attributes.fluidTextStyle}`
+                        attributes.fluidTextStyle && `has-style-${attributes.fluidTextStyle}`,
+                        attributes.fluidTextFontWeight && `fw-${attributes.fluidTextFontWeight}`,
                     )}
                     value={attributes.fluidText}
                     style={{

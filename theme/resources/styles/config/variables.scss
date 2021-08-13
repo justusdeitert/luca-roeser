@@ -27,6 +27,9 @@ $aspect-ratios: (
 // scss-docs-end aspect-ratios
 
 // scss-docs-start font-variables
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-bold: 500;
 $font-size-base: 1rem;
 $h1-font-size: $font-size-base * 3.5;
 $h2-font-size: $font-size-base * 2.75;
