@@ -30,7 +30,7 @@ const attributes = {
     },
     customPadding: {
         type: 'number',
-        default: 32
+        default: 0
     },
     customGutter: {
         type: 'number',
@@ -65,12 +65,18 @@ registerBlockType('custom/grid-list', {
             ]],
         ];
 
+        let blockStyles = {
+            '--grid-list-inner-spacing' : `${attributes.customPadding / 16}em`
+        };
+
+        if(attributes.customGutter !== false && attributes.customGutter !== undefined) {
+            blockStyles['--custom-gutter-desktop'] = `${attributes.customGutter / 16}em`
+            blockStyles['--custom-gutter-mobile'] = `${attributes.customGutter / 16}em`
+        }
+
         const blockProps = useBlockProps({
             className: classNames(className, 'grid-list-block', `grid-list-${attributes.clientId}`),
-            style: (attributes.customGutter !== false && attributes.customGutter !== undefined) && {
-                '--custom-gutter-desktop': `${attributes.customGutter / 16}em`,
-                '--custom-gutter-mobile': `${attributes.customGutter / 16}em`
-            }
+            style: blockStyles
         });
 
         const innerBlocksProps = useInnerBlocksProps(blockProps, {
@@ -93,13 +99,6 @@ registerBlockType('custom/grid-list', {
                             onChange={(value) => setAttributes({columns: value})}
                         />
                         <hr/>
-                        <ToggleControl
-                            label={__('Mobile Two Columns', 'sage')}
-                            help={__('Select if you want two columns on the smallest screen resolution', 'sage')}
-                            checked={attributes.twoColumnsMobile}
-                            onChange={(value) => setAttributes({twoColumnsMobile: value})}
-                        />
-                        <hr/>
                         <p>{__('Gutter', 'sage')}</p>
                         <RangeControl
                             value={attributes.customGutter}
@@ -114,24 +113,23 @@ registerBlockType('custom/grid-list', {
                             }}
                         />
                         <hr/>
-                        <ToggleControl
-                            label={__('Has Custom Padding', 'sage')}
-                            checked={attributes.hasCustomPadding}
-                            onChange={(value) => setAttributes({hasCustomPadding: value})}
+                        <p>{__('Padding', 'sage')}</p>
+                        <RangeControl
+                            value={attributes.customPadding}
+                            min={0}
+                            max={100}
+                            step={1}
+                            allowReset={true}
+                            resetFallbackValue={0}
+                            onChange={(value) => setAttributes({customPadding: value})}
                         />
-                        {attributes.hasCustomPadding &&
-                        <>
-                            <hr/>
-                            <p>{__('Custom Padding', 'sage')}</p>
-                            <RangeControl
-                                value={attributes.customPadding}
-                                min={0}
-                                max={100}
-                                step={1}
-                                onChange={(value) => setAttributes({customPadding: value})}
-                            />
-                        </>
-                        }
+                        <hr/>
+                        <ToggleControl
+                            label={__('Mobile Two Columns', 'sage')}
+                            help={__('Select if you want two columns on the smallest screen resolution', 'sage')}
+                            checked={attributes.twoColumnsMobile}
+                            onChange={(value) => setAttributes({twoColumnsMobile: value})}
+                        />
                         <hr/>
                         <p>{__('General Background Color', 'sage')}</p>
                         <ColorPalette
@@ -139,6 +137,7 @@ registerBlockType('custom/grid-list', {
                             value={attributes.generalBackgroundColor}
                             onChange={(value) => {
                                 setAttributes({generalBackgroundColor: value});
+                                setAttributes({customPadding: 16});
                                 updateInnerBlocks(clientId);
                             }}
                         />
@@ -154,13 +153,19 @@ registerBlockType('custom/grid-list', {
     },
     save: ({attributes}) => {
 
+        let blockStyles = {
+            '--grid-list-inner-spacing' : `${attributes.customPadding / 16}em`
+        };
+
+        if(attributes.customGutter !== false && attributes.customGutter !== undefined) {
+            blockStyles['--custom-gutter-desktop'] = `${attributes.customGutter / 16}em`
+            blockStyles['--custom-gutter-mobile'] = `${attributes.customGutter / 16}em`
+        }
+
         // Need to use for passing classes to save function
         const blockProps = useBlockProps.save({
             className: `grid-list-${attributes.clientId}`,
-            style: (attributes.customGutter !== false && attributes.customGutter !== undefined) && {
-                '--custom-gutter-desktop': `${attributes.customGutter / 16}em`,
-                '--custom-gutter-mobile': `${attributes.customGutter / 16}em`
-            }
+            style: blockStyles
         });
 
         return (

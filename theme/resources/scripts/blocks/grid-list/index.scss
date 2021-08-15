@@ -18,10 +18,11 @@
         width: 100%;
         display: flex;
         margin: 0;
+        padding: var(--grid-list-inner-spacing);
 
-        &.has-background {
-            padding: calc(var(--custom-vertical-spacing) / 2);
-        }
+        //&.has-background {
+        //    padding: var(--grid-list-inner-spacing);
+        //}
     }
 
     &__wrapper {
