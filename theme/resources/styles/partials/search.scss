@@ -1,0 +1,7 @@
+.search {
+    .section-block {
+        &:nth-child(even) {
+            background-color: rgb(var(--custom-dark-light-400-color));
+        }
+    }
+}

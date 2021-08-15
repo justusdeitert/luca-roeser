@@ -321,8 +321,16 @@ main {
     }
 }
 
+.page-header {
+    margin-bottom: calc(var(--custom-vertical-spacing, 2rem) / 2)
+}
+
 .page-wrapper {
-    margin-bottom: var(--custom-vertical-spacing, 2rem);
+    margin-bottom: calc(var(--custom-vertical-spacing, 2rem) * 2);
+
+    @include media-breakpoint-down(sm) {
+        margin-bottom: var(--custom-vertical-spacing, 2rem);
+    }
 }
 
 article {

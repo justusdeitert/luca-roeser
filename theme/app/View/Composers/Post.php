@@ -54,7 +54,7 @@ class Post extends Composer
         if (is_search()) {
             return sprintf(
                 /* translators: %s is replaced with the search query */
-                __('Search Results for %s', 'sage'),
+                __('Search for: %s', 'sage'),
                 get_search_query()
             );
         }

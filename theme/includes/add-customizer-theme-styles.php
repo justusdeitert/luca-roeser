@@ -24,9 +24,17 @@ function customizer_theme_styles() {
     }
 
     function css_font_family_string($custom_font) {
-        $font_type = $GLOBALS['standard_google_fonts'][$custom_font];
-        $font_name = str_replace('+', ' ', ucwords($custom_font, '+'));
-        return  '\'' .$font_name . '\', ' . $font_type;
+
+        if (isset($GLOBALS['standard_google_fonts'][$custom_font])) {
+
+            $font_type = $GLOBALS['standard_google_fonts'][$custom_font];
+            $font_name = str_replace('+', ' ', ucwords($custom_font, '+'));
+            return '\'' . $font_name . '\', ' . $font_type;
+
+        } else {
+            return '\'' . 'Roboto' . '\', ' . 'sans-serif';
+        }
+
     }
 
     /**
