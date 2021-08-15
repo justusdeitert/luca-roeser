@@ -2,19 +2,19 @@
     &__images-wrapper {
         display: flex;
         flex-wrap: wrap;
-        margin: calc(var(--custom-gutter-mobile-y) * -.3) calc(var(--custom-gutter-mobile-x) * -.3);
+        margin: calc(var(--custom-gutter-mobile, 2rem) * -.3);
 
         > a, > div {
             display: none;
-            padding: calc(var(--custom-gutter-mobile-y) * .3) calc(var(--custom-gutter-mobile-x) * .3);
+            padding: calc(var(--custom-gutter-mobile, 2rem) * .3);
             width: 100%;
         }
 
         @include media-breakpoint-up(sm) {
-            margin: calc(var(--custom-gutter-desktop-y) * -.3) calc(var(--custom-gutter-desktop-x) * -.3);
+            margin: calc(var(--custom-gutter-desktope, 2rem) * -.3);
 
             > a, > div {
-                padding: calc(var(--custom-gutter-desktop-y) * .3) calc(var(--custom-gutter-desktop-x) * .3);
+                padding: calc(var(--custom-gutter-desktope, 2rem) * .3);
             }
         }
 
