@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Berlin 0.0.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/theme\n"
-"POT-Creation-Date: 2021-12-07 10:41+0100\n"
-"PO-Revision-Date: 2021-12-08 14:37+0100\n"
+"POT-Creation-Date: 2021-12-09T12:45:25+00:00\n"
+"PO-Revision-Date: 2021-12-09 14:00+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -13,90 +13,25 @@ msgstr ""
 "X-Generator: Poedit 3.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: resources/views/404.blade.php:8
-#: storage/framework/views/8e657fa7ab0660026fd2a05f4307e80bec79cab6.php:11
-msgid "Sorry, but the page you are trying to view does not exist."
-msgstr ""
-"Entschuldigung, aber die Seite, die Du Dir ansehen willst, existiert nicht."
+#. Theme Name of the theme
+msgid "Berlin"
+msgstr "Berlin"
 
-#: resources/views/content/page.blade.php:10
-#: storage/framework/views/603a1a964a0315b7d3d8201bb87f02b5990bd35b.php:15
-msgid "Sorry, but the current page has no content yet."
-msgstr "Sorry, aber die aktuelle Seite hat noch keinen Inhalt."
+#. Theme URI of the theme
+msgid "https://roots.io/sage/"
+msgstr "https://roots.io/sage/"
 
-#: resources/views/content/page.blade.php:14
-#: storage/framework/views/603a1a964a0315b7d3d8201bb87f02b5990bd35b.php:25
-msgid "Edit"
-msgstr "Bearbeiten"
+#. Description of the theme
+msgid "The first Multipurpose Wordpress Theme from WandelDigital."
+msgstr "Das erste Mehrzweck-Wordpress-Theme von WandelDigital."
 
-#: resources/views/content/single.blade.php:15
-#: storage/framework/views/2ad3a13e99b001cd0a6e3f4d75ba1fd24f780fdf.php:16
-msgid "Pages:"
-msgstr "Seiten:"
+#. Author of the theme
+msgid "WandelDigital"
+msgstr "WandelDigital"
 
-#: resources/views/index.blade.php:8 resources/views/search.blade.php:8
-#: storage/framework/views/561f847e14d9fa1c6338c224f8ea45d646a17d34.php:11
-#: storage/framework/views/a502b95149c354df811793f53e750bde49c3cd0e.php:11
-msgid "Sorry, no results were found."
-msgstr "Sorry, keine Ergebnisse gefunden."
-
-#: resources/views/partials/comments.blade.php:5
-#: storage/framework/views/1ff0be488eb39453860b8fea2e50bcb926f2257f.php:5
-#, php-format
-msgctxt "comments title"
-msgid "One response to &ldquo;%2$s&rdquo;"
-msgid_plural "%1$s responses to &ldquo;%2$s&rdquo;"
-msgstr[0] "Eine Antwort zu &ldquo;%2$s&rdquo;"
-msgstr[1] "%1$s Antworten zu &ldquo;%2$s&rdquo;"
-
-#: resources/views/partials/comments.blade.php:17
-#: storage/framework/views/1ff0be488eb39453860b8fea2e50bcb926f2257f.php:19
-msgid "&larr; Older comments"
-msgstr "&larr; Ältere Kommentare"
-
-#: resources/views/partials/comments.blade.php:23
-#: storage/framework/views/1ff0be488eb39453860b8fea2e50bcb926f2257f.php:26
-msgid "Newer comments &rarr;"
-msgstr "Neuere Kommentare &rarr;"
-
-#: resources/views/partials/comments.blade.php:33
-#: storage/framework/views/1ff0be488eb39453860b8fea2e50bcb926f2257f.php:42
-msgid "Comments are closed."
-msgstr "Kommentare sind geschlossen."
-
-#: resources/views/partials/entry-meta.blade.php:6
-#: storage/framework/views/d000596e151103cdad14953753ca75a64cbb7658.php:7
-msgid "By"
-msgstr "Von"
-
-#: resources/views/partials/navigation.blade.php:107
-#: storage/framework/views/06e62138f63c073091bfb1066a1e681bef4eddd9.php:107
-msgid "Business hours"
-msgstr "Öffnungszeiten"
-
-#: resources/views/partials/navigation.blade.php:111
-#: storage/framework/views/06e62138f63c073091bfb1066a1e681bef4eddd9.php:112
-msgid "Now open"
-msgstr "Jetzt geöffnet"
-
-#: resources/views/partials/navigation.blade.php:111
-#: storage/framework/views/06e62138f63c073091bfb1066a1e681bef4eddd9.php:112
-msgid "Now closed"
-msgstr "Jetzt geschlossen"
-
-#: app/View/Composers/Post.php:47
-msgid "Latest Posts"
-msgstr "Neueste Beiträge"
-
-#. translators: %s is replaced with the search query
-#: app/View/Composers/Post.php:57
-#, php-format
-msgid "Search Results for %s"
-msgstr "Suchergebnisse für %s"
-
-#: app/View/Composers/Post.php:63
-msgid "Not Found"
-msgstr "Nicht gefunden"
+#. Author URI of the theme
+msgid "https://wandeldigital.de"
+msgstr "https://wandeldigital.de"
 
 #: app/filters.php:15
 msgid "Continued"
@@ -126,29 +61,30 @@ msgstr "Dark "
 msgid "Dark/Light "
 msgstr "Dark/Light "
 
-#: app/setup.php:261 includes/customizer.php:115 includes/customizer.php:141
+#: app/setup.php:261 includes/customizer.php:110 includes/customizer.php:136
 msgid "Primary"
 msgstr "Primär"
 
-#: app/setup.php:266 includes/customizer.php:116 includes/customizer.php:142
+#: app/setup.php:266 includes/customizer.php:111 includes/customizer.php:137
 msgid "Secondary"
 msgstr "Sekundär"
 
-#: app/setup.php:271 includes/customizer.php:117 includes/customizer.php:143
+#: app/setup.php:271 includes/customizer.php:112 includes/customizer.php:138
 msgid "Tertiary"
 msgstr "Tertiär"
 
-#: app/setup.php:276 includes/customizer.php:119 includes/customizer.php:147
-#: includes/customizer.php:392 includes/customizer.php:407
-#: includes/customizer.php:721
+#: app/setup.php:276 includes/customizer.php:114 includes/customizer.php:142
+#: includes/customizer.php:387 includes/customizer.php:402
+#: includes/customizer.php:716
+#: resources/scripts/block-extends/headline-paragraph.jsx:160
 msgid "Light"
 msgstr "Light"
 
-#: app/setup.php:282 includes/customizer.php:120 includes/customizer.php:156
+#: app/setup.php:282 includes/customizer.php:115 includes/customizer.php:151
 msgid "Dark"
 msgstr "Dark"
 
-#: app/setup.php:305 includes/customizer.php:872
+#: app/setup.php:305 includes/customizer.php:867
 msgid "Footer"
 msgstr "Footer"
 
@@ -156,9 +92,21 @@ msgstr "Footer"
 msgid "The Footer widget area is displayed on the bottom of each page."
 msgstr "Der Bereich Fußzeilen-Widget wird unten auf jeder Seite angezeigt."
 
+#: app/View/Composers/Post.php:47
+msgid "Latest Posts"
+msgstr "Neueste Beiträge"
+
+#. translators: %s is replaced with the search query
+#: app/View/Composers/Post.php:57
+msgid "Search Results for %s"
+msgstr "Suchergebnisse für %s"
+
+#: app/View/Composers/Post.php:63
+msgid "Not Found"
+msgstr "Nicht gefunden"
+
 #. translators: %s is replaced with the relative file path
 #: bootstrap/app.php:33
-#, php-format
 msgid "Error locating <code>%s</code> for inclusion."
 msgstr ""
 "Es trat ein Fehler beim Auffinden von <code>%s</code> für die Einbindung auf."
@@ -168,6 +116,51 @@ msgid "Error locating autoloader. Please run <code>composer install</code>."
 msgstr ""
 "Fehler beim Suchen des Autoloaders. Bitte führen Sie <code>composer install</"
 "code> aus."
+
+#: includes/add-customizer-theme-styles.php:340 includes/customizer.php:994
+msgid "We use cookies"
+msgstr "Wir verwenden Cookies"
+
+#: includes/add-customizer-theme-styles.php:341 includes/customizer.php:1005
+msgid ""
+"This website uses essential cookies to ensure its proper operation. It also "
+"uses tracking cookies to understand user interaction. The latter will be set "
+"only upon approval. <button type=\"button\" data-cc=\"c-settings\" aria-"
+"haspopup=\"dialog\">Cookie Settings</button>"
+msgstr ""
+"Diese Website verwendet essentielle Cookies, um den Betrieb zu "
+"gewährleisten. Es werden auch Tracking-Cookies verwendet, um die "
+"Benutzerinteraktion zu verstehen. Letztere werden erst nach Genehmigung "
+"aktiviert. <button type=\"button\" data-cc=\"c-settings\" aria-haspopup="
+"\"dialog\">Einstellungen</button>"
+
+#: includes/add-customizer-theme-styles.php:343 includes/customizer.php:1018
+msgid "Accept"
+msgstr "Akzeptieren"
+
+#: includes/add-customizer-theme-styles.php:347
+msgid "Reject"
+msgstr "Ablehnen"
+
+#: includes/add-customizer-theme-styles.php:352 includes/customizer.php:1133
+msgid "Cookie Settings"
+msgstr "Cookie Einstellungen"
+
+#: includes/add-customizer-theme-styles.php:353 includes/customizer.php:1143
+msgid "Save settings"
+msgstr "Einstellungen speichern"
+
+#: includes/add-customizer-theme-styles.php:354 includes/customizer.php:1153
+msgid "Accept all"
+msgstr "Alle akzeptieren"
+
+#: includes/add-customizer-theme-styles.php:355 includes/customizer.php:1163
+msgid "Reject all"
+msgstr "Alle ablehnen"
+
+#: includes/add-customizer-theme-styles.php:356 includes/customizer.php:1173
+msgid "Close"
+msgstr "Schließen"
 
 #: includes/add-customizer-theme-styles.php:358
 msgid "Cookie Name"
@@ -225,12 +218,12 @@ msgstr ""
 "policies.google.com/privacy?hl=de</a>"
 
 #: includes/add-options-page.php:15 includes/add-options-page.php:16
-#: includes/customizer.php:778 includes/customizer.php:790
+#: includes/customizer.php:773 includes/customizer.php:785
 msgid "Business Hours"
 msgstr "Öffnungszeiten"
 
 #: includes/add-options-page.php:24 includes/add-options-page.php:25
-#: includes/customizer.php:961
+#: includes/customizer.php:956
 msgid "Cookie Notice"
 msgstr "Cookie Notice"
 
@@ -240,10 +233,13 @@ msgstr "Platzhalter"
 
 #: includes/adjust-media-image-sizes.php:23
 #: includes/adjust-media-image-sizes.php:24
+#: resources/scripts/block-extends/headline-paragraph.jsx:145
 msgid "Tiny"
 msgstr "Sehr klein"
 
 #: includes/adjust-media-image-sizes.php:25
+#: resources/scripts/block-extends/headline-paragraph.jsx:146
+#: resources/scripts/blocks/button/button.jsx:146
 msgid "Small"
 msgstr "Klein"
 
@@ -255,443 +251,463 @@ msgstr "Extra Groß"
 msgid "Custom Blocks"
 msgstr "Benutzerdefinierte Blöcke"
 
-#: includes/customizer.php:64
-msgid ""
-"This website uses essential cookies to ensure its proper operation and "
-"tracking cookies to understand how the user interacts with it. The latter "
-"will be set only upon approval. <button type=\"button\" data-cc=\"c-settings"
-"\" aria-haspopup=\"dialog\">Cookie Settings</button>"
-msgstr ""
-"Diese Website verwendet essentielle Cookies, um einen ordnungsgemäßen "
-"Betrieb sicherzustellen, und Tracking-Cookies, um zu verstehen, wie der "
-"Benutzer mit der Website interagiert. Letztere werden erst nach Genehmigung "
-"festgelegt. <button type=“button” data-cc=“c-settings” aria-"
-"haspopup=“dialog”>Cookie-Einstellungen</button>"
-
-#: includes/customizer.php:110 includes/customizer.php:136
-#: includes/customizer.php:497
-msgid " Color"
-msgstr " Farbe"
-
-#: includes/customizer.php:118 includes/customizer.php:144
+#: includes/customizer.php:113 includes/customizer.php:139
 msgid "Quaternary"
 msgstr "Quaternär"
 
-#: includes/customizer.php:123 includes/customizer.php:171
+#: includes/customizer.php:118 includes/customizer.php:166
 msgid "Success"
 msgstr "Erfolg"
 
-#: includes/customizer.php:124 includes/customizer.php:172
+#: includes/customizer.php:119 includes/customizer.php:167
 msgid "Danger"
 msgstr "Gefahr"
 
-#: includes/customizer.php:125 includes/customizer.php:173
+#: includes/customizer.php:120 includes/customizer.php:168
 msgid "Warning"
 msgstr "Warnung"
 
-#: includes/customizer.php:126 includes/customizer.php:174
+#: includes/customizer.php:121 includes/customizer.php:169
 msgid "Info"
 msgstr "Info"
 
-#: includes/customizer.php:148
+#: includes/customizer.php:143
 msgid "Light 100"
 msgstr "Light 100"
 
-#: includes/customizer.php:149
+#: includes/customizer.php:144
 msgid "Light 200"
 msgstr "Light 200"
 
-#: includes/customizer.php:150
+#: includes/customizer.php:145
 msgid "Light 300"
 msgstr "Light 300"
 
-#: includes/customizer.php:157
+#: includes/customizer.php:152
 msgid "Dark 100"
 msgstr "Dark 100"
 
-#: includes/customizer.php:158
+#: includes/customizer.php:153
 msgid "Dark 200"
 msgstr "Dark 200"
 
-#: includes/customizer.php:159
+#: includes/customizer.php:154
 msgid "Dark 300"
 msgstr "Dark 300"
 
-#: includes/customizer.php:162
+#: includes/customizer.php:157
 msgid "Dark/Light 100"
 msgstr "Dark/Light 100"
 
-#: includes/customizer.php:163
+#: includes/customizer.php:158
 msgid "Dark/Light 200"
 msgstr "Dark/Light 200"
 
-#: includes/customizer.php:164
+#: includes/customizer.php:159
 msgid "Dark/Light 300"
 msgstr "Dark/Light 300"
 
-#: includes/customizer.php:184
+#: includes/customizer.php:179
 msgid "Theme Settings"
 msgstr "Theme Einstellungen"
 
-#: includes/customizer.php:185
+#: includes/customizer.php:180
 msgid "Custom Theme Settings"
 msgstr "Benutzerdefinierte Design Einstellungen"
 
-#: includes/customizer.php:194
+#: includes/customizer.php:189
 msgid "Content"
 msgstr "Inhalt"
 
-#: includes/customizer.php:203
+#: includes/customizer.php:198
 msgid "Maximum Container width"
 msgstr "Maximale Containerbreite"
 
-#: includes/customizer.php:228
+#: includes/customizer.php:223
 msgid "Container padding (Mobile)"
 msgstr "Container padding (Mobile)"
 
-#: includes/customizer.php:243
+#: includes/customizer.php:238
 msgid "Container padding (Desktop)"
 msgstr "Container padding (Desktop)"
 
-#: includes/customizer.php:258
+#: includes/customizer.php:253
 msgid "Gutter size (Mobile)"
 msgstr "Gutter size (Mobile)"
 
-#: includes/customizer.php:273
+#: includes/customizer.php:268
 msgid "Gutter size (Desktop)"
 msgstr "Gutter size (Desktop)"
 
-#: includes/customizer.php:288
+#: includes/customizer.php:283
 msgid "Vertical spacing"
 msgstr "Vertikaler Abstand"
 
-#: includes/customizer.php:301
+#: includes/customizer.php:296
 msgid "Box Settings"
 msgstr "Box Einstellungen"
 
-#: includes/customizer.php:308
+#: includes/customizer.php:303
 msgid "Elements Border Width"
 msgstr "Rahmenbreite der Elemente"
 
-#: includes/customizer.php:327
+#: includes/customizer.php:322
 msgid "Elements Border Radius"
 msgstr "Elementrandradius"
 
-#: includes/customizer.php:342
+#: includes/customizer.php:337
+#: resources/scripts/block-extends/headline-paragraph.jsx:134
 msgid "Shadow"
 msgstr "Schatten"
 
-#: includes/customizer.php:345 includes/customizer.php:434
-#: includes/customizer.php:449 includes/customizer.php:470
-#: includes/customizer.php:619 includes/customizer.php:750
+#: includes/customizer.php:340 includes/customizer.php:429
+#: includes/customizer.php:444 includes/customizer.php:465
+#: includes/customizer.php:614 includes/customizer.php:745
 msgid "Select an option..."
 msgstr "Wählen Sie eine Option…"
 
-#: includes/customizer.php:365
+#: includes/customizer.php:360
 msgid "Font"
 msgstr "Schriftart"
 
-#: includes/customizer.php:372
+#: includes/customizer.php:367
 msgid "Font Size"
 msgstr "Schriftgröße"
 
-#: includes/customizer.php:388
+#: includes/customizer.php:383
 msgid "Font Weight"
 msgstr "Schriftstärke"
 
-#: includes/customizer.php:393 includes/customizer.php:408
-#: includes/customizer.php:722
+#: includes/customizer.php:388 includes/customizer.php:403
+#: includes/customizer.php:717
+#: resources/scripts/block-extends/headline-paragraph.jsx:147
+#: resources/scripts/block-extends/headline-paragraph.jsx:161
+#: resources/scripts/blocks/button/button.jsx:147
+#: resources/scripts/blocks/hero/hero.jsx:351
+#: resources/scripts/blocks/hero/hero.jsx:371
 msgid "Normal"
 msgstr "Normal"
 
-#: includes/customizer.php:394 includes/customizer.php:409
-#: includes/customizer.php:723
+#: includes/customizer.php:389 includes/customizer.php:404
+#: includes/customizer.php:718
+#: resources/scripts/block-extends/headline-paragraph.jsx:162
 msgid "Bold"
 msgstr "Bold"
 
-#: includes/customizer.php:403
+#: includes/customizer.php:398
 msgid "Headline Weight"
 msgstr "Überschrift Stärke"
 
-#: includes/customizer.php:430
+#: includes/customizer.php:425
 msgid "Headline font"
 msgstr "Schriftart der Überschriften"
 
-#: includes/customizer.php:445
+#: includes/customizer.php:440
 msgid "Text font"
 msgstr "Text Schriftart"
 
-#: includes/customizer.php:466
+#: includes/customizer.php:461
 msgid "Icon Set"
 msgstr "Icon Set"
 
-#: includes/customizer.php:483
+#: includes/customizer.php:478
 msgid "Colors"
 msgstr "Farben"
 
-#: includes/customizer.php:512
+#: includes/customizer.php:507
 msgid "Navbar"
 msgstr "Navigationsleiste"
 
-#: includes/customizer.php:521
+#: includes/customizer.php:516
 msgid "Mobile Menu Only"
 msgstr "Nur mobiles Menü"
 
-#: includes/customizer.php:535
+#: includes/customizer.php:530
 msgid "Add Opening Hours"
 msgstr "Öffnungszeiten hinzufügen"
 
-#: includes/customizer.php:546
+#: includes/customizer.php:541
 msgid "Navbar Height"
 msgstr "Höhe der Navigationsleiste"
 
-#: includes/customizer.php:573
+#: includes/customizer.php:568
 msgid "Navbar Positioning"
 msgstr "Obere Position der Navigationsleiste"
 
-#: includes/customizer.php:577
+#: includes/customizer.php:572
 msgid "Static"
 msgstr "Static"
 
-#: includes/customizer.php:578
+#: includes/customizer.php:573
 msgid "Sticky"
 msgstr "Sticky"
 
-#: includes/customizer.php:579
+#: includes/customizer.php:574
 msgid "Fixed"
 msgstr "Fixiert"
 
-#: includes/customizer.php:580
+#: includes/customizer.php:575 resources/scripts/blocks/image/image.jsx:199
 msgid "Absolute"
 msgstr "Absolut"
 
-#: includes/customizer.php:590
+#: includes/customizer.php:585
 msgid "Navbar Top Position"
 msgstr "Obere Position der Navigationsleiste"
 
-#: includes/customizer.php:605
+#: includes/customizer.php:600
 msgid "Full Width Navbar"
 msgstr "Navigationsleiste in voller Breite"
 
-#: includes/customizer.php:615
+#: includes/customizer.php:610
 msgid "Navbar Shadow"
 msgstr "Schatten der Navigationsleiste"
 
-#: includes/customizer.php:630
+#: includes/customizer.php:625
 msgid "Navbar Logo"
 msgstr "Hauptmenü Logo"
 
-#: includes/customizer.php:646
+#: includes/customizer.php:641
 msgid "Navbar Logo Height (in %)"
 msgstr "Höhe des Navbar-Logos (in %)"
 
-#: includes/customizer.php:667
+#: includes/customizer.php:662
 msgid "Navbar Logo Wrapper Width"
 msgstr "Breite des Navbar-Logo-Wrappers"
 
-#: includes/customizer.php:689
+#: includes/customizer.php:684
 msgid "Navbar Font Size"
 msgstr "Schriftgröße"
 
-#: includes/customizer.php:717
+#: includes/customizer.php:712
 msgid "Navbar font weight"
 msgstr "Navigationsleiste Schriftstärke"
 
-#: includes/customizer.php:732
+#: includes/customizer.php:727
 msgid "Navbar Item Spacing"
 msgstr "Abstand der Navigationselemente"
 
-#: includes/customizer.php:747
+#: includes/customizer.php:742
 msgid "Navbar Item Separator"
 msgstr "Navbar-Trennzeichen"
 
-#: includes/customizer.php:754
+#: includes/customizer.php:749
 msgid "No Separator"
 msgstr "Kein Separator"
 
-#: includes/customizer.php:767
+#: includes/customizer.php:762
 msgid "Navbar Item Order"
 msgstr "Navbar Artikelreihenfolge"
 
-#: includes/customizer.php:777 includes/customizer.php:789
+#: includes/customizer.php:772 includes/customizer.php:784
 msgid "Logo"
 msgstr "Logo"
 
-#: includes/customizer.php:779 includes/customizer.php:791
+#: includes/customizer.php:774 includes/customizer.php:786
 msgid "Primary Menu"
 msgstr "Hauptmenü"
 
-#: includes/customizer.php:780 includes/customizer.php:792
+#: includes/customizer.php:775 includes/customizer.php:787
 msgid "Secondary Menu"
 msgstr "Sekundäres Menü"
 
-#: includes/customizer.php:781 includes/customizer.php:793
+#: includes/customizer.php:776 includes/customizer.php:788
 msgid "Burger Menu Icon"
 msgstr "Burger Menü Icon"
 
-#: includes/customizer.php:809
-msgid " Spacing"
-msgstr " Abstand"
-
-#: includes/customizer.php:813 includes/customizer.php:1075
-#: includes/customizer.php:1204
+#: includes/customizer.php:808 includes/customizer.php:1070
+#: includes/customizer.php:1199 resources/scripts/blocks/image/image.jsx:210
+#: resources/scripts/blocks/slider/slider.jsx:330
 msgid "Left"
 msgstr "Links"
 
-#: includes/customizer.php:814 includes/customizer.php:1076
-#: includes/customizer.php:1205
+#: includes/customizer.php:809 includes/customizer.php:1071
+#: includes/customizer.php:1200 resources/scripts/blocks/image/image.jsx:211
+#: resources/scripts/blocks/slider/slider.jsx:332
 msgid "Right"
 msgstr "Rechts"
 
-#: includes/customizer.php:824
+#: includes/customizer.php:819
 msgid "Navbar Submenu Item Height"
 msgstr "Höhe der Navigationselemente"
 
-#: includes/customizer.php:898
+#: includes/customizer.php:893
 msgid "Forms"
 msgstr "Formulare"
 
-#: includes/customizer.php:907
+#: includes/customizer.php:902
 msgid "Form Height"
 msgstr "Formular Höhe"
 
-#: includes/customizer.php:940
+#: includes/customizer.php:935
 msgid "API"
 msgstr "API"
 
-#: includes/customizer.php:949
+#: includes/customizer.php:944
 msgid "Google Maps Api Key"
 msgstr "Google Maps Api Key"
 
-#: includes/customizer.php:970
+#: includes/customizer.php:965
 msgid "Force Cookie Consent"
 msgstr "Cookie Content erzwingen"
 
-#: includes/customizer.php:997
+#: includes/customizer.php:992
 msgid "Cookie consent title"
 msgstr "Titel des Cookie Consents"
 
-#: includes/customizer.php:999
-msgid "I use cookies"
-msgstr "Ich verwende Cookies"
-
-#: includes/customizer.php:1007
+#: includes/customizer.php:1002
 msgid "Your cookie consent message here"
 msgstr "Ihre Cookie-Einwilligungsnachricht hier"
 
-#: includes/customizer.php:1008
+#: includes/customizer.php:1003
 msgid "Simply create a button or link with data-cc=\"c-settings\" attribute"
 msgstr ""
 "Erstellen Sie einfach eine Schaltfläche oder einen Link mit dem Attribut "
 "data-cc=“c-settings”"
 
-#: includes/customizer.php:1021
+#: includes/customizer.php:1016
 msgid "Primary Button"
 msgstr "Primär Button"
 
-#: includes/customizer.php:1023
-msgid "Accept"
-msgstr "Akzeptieren"
-
-#: includes/customizer.php:1041
+#: includes/customizer.php:1036
 msgid "Consent Layout"
 msgstr "Consent Layout"
 
-#: includes/customizer.php:1045 includes/customizer.php:1190
+#: includes/customizer.php:1040 includes/customizer.php:1185
 msgid "Box"
 msgstr "Box"
 
-#: includes/customizer.php:1046
+#: includes/customizer.php:1041
 msgid "Cloud"
 msgstr "Cloud"
 
-#: includes/customizer.php:1047 includes/customizer.php:1191
+#: includes/customizer.php:1042 includes/customizer.php:1186
 msgid "Bar"
 msgstr "Bar"
 
-#: includes/customizer.php:1056
+#: includes/customizer.php:1051
 msgid "Consent Position Y"
 msgstr "Consent Position Y"
 
-#: includes/customizer.php:1060
+#: includes/customizer.php:1055 resources/scripts/blocks/slider/slider.jsx:320
 msgid "Top"
 msgstr "Oben"
 
-#: includes/customizer.php:1061
+#: includes/customizer.php:1056 resources/scripts/blocks/slider/slider.jsx:321
 msgid "Bottom"
 msgstr "Unten"
 
-#: includes/customizer.php:1070
+#: includes/customizer.php:1065
 msgid "Consent Position X"
 msgstr "Consent Position X"
 
-#: includes/customizer.php:1074
+#: includes/customizer.php:1069 resources/scripts/blocks/slider/slider.jsx:331
 msgid "Center"
 msgstr "Zentriert"
 
-#: includes/customizer.php:1092
+#: includes/customizer.php:1087
 msgid "Consent Animation"
 msgstr "Consent Animation"
 
-#: includes/customizer.php:1096 includes/customizer.php:1225
+#: includes/customizer.php:1091 includes/customizer.php:1220
 msgid "Slide"
 msgstr "Slide"
 
-#: includes/customizer.php:1097 includes/customizer.php:1226
+#: includes/customizer.php:1092 includes/customizer.php:1221
 msgid "Zoom"
 msgstr "Zoom"
 
-#: includes/customizer.php:1136
+#: includes/customizer.php:1131
 msgid "Cookie Settings Title"
 msgstr "Titel der Cookie-Einstellungen"
 
-#: includes/customizer.php:1138
-msgid "Cookie Settings"
-msgstr "Cookie Einstellungen"
-
-#: includes/customizer.php:1146
+#: includes/customizer.php:1141
 msgid "Save Button Text"
 msgstr "Speichern Button text"
 
-#: includes/customizer.php:1148
-msgid "Save settings"
-msgstr "Einstellungen speichern"
-
-#: includes/customizer.php:1156
+#: includes/customizer.php:1151
 msgid "Accept All Button Text"
 msgstr "Alle akzeptieren Button Text"
 
-#: includes/customizer.php:1158
-msgid "Accept all"
-msgstr "Alle akzeptieren"
-
-#: includes/customizer.php:1166
+#: includes/customizer.php:1161
 msgid "Reject All Button Text"
 msgstr "Alle ablehnen Button Text"
 
-#: includes/customizer.php:1168
-msgid "Reject all"
-msgstr "Alle ablehnen"
-
-#: includes/customizer.php:1176
+#: includes/customizer.php:1171
 msgid "Close Button Text"
 msgstr "Schließen Button Text"
 
-#: includes/customizer.php:1178
-msgid "Close"
-msgstr "Schließen"
-
-#: includes/customizer.php:1186
+#: includes/customizer.php:1181
 msgid "Cookie Setting Layout"
 msgstr "Cookie Einstellunglayout"
 
-#: includes/customizer.php:1200
+#: includes/customizer.php:1195
 msgid "Cookie Setting Position"
 msgstr "Cookie Einstellungsposition"
 
-#: includes/customizer.php:1221
+#: includes/customizer.php:1216
 msgid "Cookie Settings Animation"
 msgstr "Animation der Cookie-Einstellungen"
+
+#. Template Name of the theme
+msgid "Custom Template"
+msgstr "Template"
+
+#: storage/framework/views/06e62138f63c073091bfb1066a1e681bef4eddd9.php:107
+msgid "Business hours"
+msgstr "Öffnungszeiten"
+
+#: storage/framework/views/06e62138f63c073091bfb1066a1e681bef4eddd9.php:112
+msgid "Now open"
+msgstr "Jetzt geöffnet"
+
+#: storage/framework/views/06e62138f63c073091bfb1066a1e681bef4eddd9.php:112
+msgid "Now closed"
+msgstr "Jetzt geschlossen"
+
+#: storage/framework/views/1ff0be488eb39453860b8fea2e50bcb926f2257f.php:5
+msgctxt "comments title"
+msgid "One response to &ldquo;%2$s&rdquo;"
+msgid_plural "%1$s responses to &ldquo;%2$s&rdquo;"
+msgstr[0] "Eine Antwort zu &ldquo;%2$s&rdquo;"
+msgstr[1] "%1$s Antworten zu &ldquo;%2$s&rdquo;"
+
+#: storage/framework/views/1ff0be488eb39453860b8fea2e50bcb926f2257f.php:19
+msgid "&larr; Older comments"
+msgstr "&larr; Ältere Kommentare"
+
+#: storage/framework/views/1ff0be488eb39453860b8fea2e50bcb926f2257f.php:26
+msgid "Newer comments &rarr;"
+msgstr "Neuere Kommentare &rarr;"
+
+#: storage/framework/views/1ff0be488eb39453860b8fea2e50bcb926f2257f.php:42
+msgid "Comments are closed."
+msgstr "Kommentare sind geschlossen."
+
+#: storage/framework/views/2ad3a13e99b001cd0a6e3f4d75ba1fd24f780fdf.php:16
+msgid "Pages:"
+msgstr "Seiten:"
+
+#: storage/framework/views/8e657fa7ab0660026fd2a05f4307e80bec79cab6.php:12
+msgid "Sorry, but the page you are trying to view does not exist."
+msgstr ""
+"Entschuldigung, aber die Seite, die Du Dir ansehen willst, existiert nicht."
+
+#: storage/framework/views/561f847e14d9fa1c6338c224f8ea45d646a17d34.php:11
+#: storage/framework/views/a502b95149c354df811793f53e750bde49c3cd0e.php:12
+msgid "Sorry, no results were found."
+msgstr "Sorry, keine Ergebnisse gefunden."
+
+#: storage/framework/views/603a1a964a0315b7d3d8201bb87f02b5990bd35b.php:13
+msgid "Sorry, but the current page has no content yet."
+msgstr "Sorry, aber die aktuelle Seite hat noch keinen Inhalt."
+
+#: storage/framework/views/603a1a964a0315b7d3d8201bb87f02b5990bd35b.php:23
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: storage/framework/views/d000596e151103cdad14953753ca75a64cbb7658.php:7
+msgid "By"
+msgstr "Von"
 
 #: storage/framework/views/f9d9845cca0e891d89f66d5d28aadf91fc3a3062.php:6
 msgctxt "placeholder"
@@ -703,33 +719,607 @@ msgctxt "submit button"
 msgid "Search"
 msgstr "Suche"
 
-#. Theme Name of the plugin/theme
-msgid "Berlin"
-msgstr "Berlin"
+#: resources/scripts/block-extends/headline-paragraph.jsx:126
+msgid "Styles"
+msgstr "Stile"
 
-#. Theme URI of the plugin/theme
-msgid "https://roots.io/sage/"
-msgstr "https://roots.io/sage/"
+#: resources/scripts/block-extends/headline-paragraph.jsx:127
+msgid "Custom Style"
+msgstr "Benutzerdefinitierter Stil"
 
-#. Description of the plugin/theme
-msgid "The first Multipurpose Wordpress Theme from WandelDigital."
-msgstr "Das erste Mehrzweck-Wordpress-Theme von WandelDigital."
+#: resources/scripts/block-extends/headline-paragraph.jsx:133
+#: resources/scripts/block-extends/headline-paragraph.jsx:144
+#: resources/scripts/blocks/accordion/accordion.jsx:116
+#: resources/scripts/blocks/hero/hero.jsx:350
+#: resources/scripts/blocks/hero/hero.jsx:370
+msgid "None"
+msgstr "Keine"
 
-#. Author of the plugin/theme
-msgid "WandelDigital"
-msgstr "WandelDigital"
+#: resources/scripts/block-extends/headline-paragraph.jsx:135
+msgid "No List"
+msgstr "Keine Liste"
 
-#. Author URI of the plugin/theme
-msgid "https://wandeldigital.de"
-msgstr "https://wandeldigital.de"
+#: resources/scripts/block-extends/headline-paragraph.jsx:138
+#: resources/scripts/blocks/accordion/accordion.jsx:113
+msgid "Custom Font Size"
+msgstr "Benutzerdefinierte Schriftgröße"
+
+#: resources/scripts/block-extends/headline-paragraph.jsx:148
+msgid "Medium"
+msgstr "Medium"
+
+#: resources/scripts/block-extends/headline-paragraph.jsx:149
+#: resources/scripts/blocks/button/button.jsx:148
+msgid "Large"
+msgstr "Large"
+
+#: resources/scripts/block-extends/headline-paragraph.jsx:150
+msgid "Huge"
+msgstr "Huge"
+
+#: resources/scripts/block-extends/headline-paragraph.jsx:153
+msgid "Custom Font Weight"
+msgstr "Benutzerdefinierte Schriftgewicht"
+
+#: resources/scripts/block-extends/headline-paragraph.jsx:159
+msgid "Initial"
+msgstr "Initial"
+
+#: resources/scripts/block-formats/bold-span.jsx:40
+msgid "Bold Span"
+msgstr "Bold Span"
+
+#: resources/scripts/block-formats/custom-link.jsx:61
+#: resources/scripts/blocks/button/button.jsx:116
+msgid "Open in new tab"
+msgstr "Öffne in neuem Tab"
+
+#: resources/scripts/block-formats/custom-link.jsx:67
+msgid "noopener"
+msgstr "noopener"
+
+#: resources/scripts/block-formats/custom-link.jsx:72
+msgid "noreferrer"
+msgstr "noreferrer"
+
+#: resources/scripts/block-formats/custom-link.jsx:77
+msgid "nofollow"
+msgstr "nofollow"
+
+#: resources/scripts/block-formats/light-span.jsx:40
+msgid "Light Span"
+msgstr "Light Span"
+
+#: resources/scripts/block-formats/non-breaking-space.jsx:41
+msgid "Non Breaking Space"
+msgstr "Nicht brechendes Leerzeichen"
+
+#: resources/scripts/block-formats/small-span.jsx:45
+msgid "Small Span"
+msgstr "Small Span"
+
+#: resources/scripts/block-formats/text-shadow.jsx:45
+msgid "Text Shadow"
+msgstr "Textschatten"
+
+#: resources/scripts/blocks/accordion/accordion-inner.jsx:33
+msgid "Accordion Inner"
+msgstr "Akkordeon Innerhalb"
+
+#: resources/scripts/blocks/accordion/accordion.jsx:38
+msgid "Accordion"
+msgstr "Akkordeon"
+
+#: resources/scripts/blocks/accordion/accordion.jsx:96
+msgid "Show Icon"
+msgstr "Icon zeigen"
+
+#: resources/scripts/blocks/accordion/accordion.jsx:101
+msgid "Accordion Spacing"
+msgstr "Akkordeonabstand"
+
+#: resources/scripts/blocks/accordion/accordion.jsx:117
+msgid "Tiny (H6)"
+msgstr "Tiny (H6)"
+
+#: resources/scripts/blocks/accordion/accordion.jsx:118
+msgid "Small (H5)"
+msgstr "Small (H5)"
+
+#: resources/scripts/blocks/accordion/accordion.jsx:119
+msgid "Normal (H4)"
+msgstr "Normal (H4)"
+
+#: resources/scripts/blocks/accordion/accordion.jsx:120
+msgid "Medium (H3)"
+msgstr "Medium (H3)"
+
+#: resources/scripts/blocks/accordion/accordion.jsx:121
+msgid "Large (H2)"
+msgstr "Large (H2)"
+
+#: resources/scripts/blocks/accordion/accordion.jsx:122
+msgid "Huge (H1)"
+msgstr "Huge (H1)"
+
+#: resources/scripts/blocks/accordion/accordion.jsx:130
+msgid "Accordion Background Color"
+msgstr "Akkordeon Hintergrundfarbe"
+
+#: resources/scripts/blocks/button/button.jsx:41
+msgid "Button"
+msgstr "Button"
+
+#: resources/scripts/blocks/button/button.jsx:78
+#: resources/scripts/blocks/icon-text/icon-text.jsx:80
+#: resources/scripts/blocks/image/image.jsx:101
+msgid "Select a position"
+msgstr "Wählen Sie eine Position"
+
+#: resources/scripts/blocks/button/button.jsx:120
+msgid "Search engines should ignore this link (nofollow)"
+msgstr "Suchmaschinen sollten diesen Link ignorieren (nofollow)"
+
+#: resources/scripts/blocks/button/button.jsx:132
+msgid "Button Style"
+msgstr "Button Stil"
+
+#: resources/scripts/blocks/button/button.jsx:140
+msgid "Button Size"
+msgstr "Button Größe"
+
+#: resources/scripts/blocks/button/button.jsx:151
+msgid "Border Radius"
+msgstr "Border Radius"
+
+#: resources/scripts/blocks/button/button.jsx:168
+msgid "Button Text"
+msgstr "Button Text"
+
+#: resources/scripts/blocks/divider/divider.jsx:12
+msgid "Divider"
+msgstr "Trenner"
+
+#: resources/scripts/blocks/divider/divider.jsx:88
+msgid "Change Opacity"
+msgstr "Deckkraft ändern"
+
+#: resources/scripts/blocks/divider/divider.jsx:99
+msgid "Spacing"
+msgstr "Abstand"
+
+#: resources/scripts/blocks/divider/divider.jsx:128
+msgid "Change Thickness"
+msgstr "Dicke ändern"
+
+#: resources/scripts/blocks/divider/divider.jsx:139
+msgid "Change Width in %"
+msgstr "Breite in % ändern"
+
+#: resources/scripts/blocks/divider/divider.jsx:150
+msgid "Change Color"
+msgstr "Farbe ändern"
+
+#: resources/scripts/blocks/grid-list/grid-list-inner.jsx:42
+msgid "Grid List Inner"
+msgstr "Grid List Inner"
+
+#: resources/scripts/blocks/grid-list/grid-list-inner.jsx:90
+#: resources/scripts/blocks/hero/hero.jsx:226
+#: resources/scripts/blocks/map/map.jsx:164
+#: resources/scripts/blocks/text-image/text-image.jsx:218
+msgid "Background Color"
+msgstr "Hintergrundfarbe"
+
+#: resources/scripts/blocks/grid-list/grid-list-inner.jsx:98
+msgid "Section Clip Path"
+msgstr "Section Clip Path"
+
+#: resources/scripts/blocks/grid-list/grid-list.jsx:51
+msgid "Grid List"
+msgstr "Grid List"
+
+#: resources/scripts/blocks/grid-list/grid-list.jsx:91
+msgid "Grid Columns"
+msgstr "Grid Columns"
+
+#: resources/scripts/blocks/grid-list/grid-list.jsx:101
+msgid "Mobile Two Columns"
+msgstr "Mobile zwei Columns"
+
+#: resources/scripts/blocks/grid-list/grid-list.jsx:102
+msgid "Select if you want two columns on the smallest screen resolution"
+msgstr ""
+"Wählen Sie aus, ob Sie zwei Spalten auf der kleinsten Bildschirmauflösung "
+"haben möchten"
+
+#: resources/scripts/blocks/grid-list/grid-list.jsx:108
+msgid "Custom Spacing"
+msgstr "Benutzerdefinierter Abstand"
+
+#: resources/scripts/blocks/grid-list/grid-list.jsx:115
+msgid "Space Between X"
+msgstr "Space Between X"
+
+#: resources/scripts/blocks/grid-list/grid-list.jsx:124
+msgid "Space Between Y"
+msgstr "Space Between Y"
+
+#: resources/scripts/blocks/grid-list/grid-list.jsx:136
+msgid "Has Custom Padding"
+msgstr "Hat benutzerdefiniertes Pudding"
+
+#: resources/scripts/blocks/grid-list/grid-list.jsx:143
+msgid "Custom Padding"
+msgstr "Individueller Abstand nach Innen (Padding)"
+
+#: resources/scripts/blocks/grid-list/grid-list.jsx:154
+msgid "General Background Color"
+msgstr "Allgemeine Hintergrundfarbe"
+
+#: resources/scripts/blocks/hero/hero.jsx:142
+msgid "Hero"
+msgstr "Hero"
+
+#: resources/scripts/blocks/hero/hero.jsx:192
+msgid "Hero Properties"
+msgstr "Hero Eigenschaften"
+
+#: resources/scripts/blocks/hero/hero.jsx:195
+msgid "Full Height"
+msgstr "Volle Höhe"
+
+#: resources/scripts/blocks/hero/hero.jsx:203
+#: resources/scripts/blocks/spacer/spacer.jsx:51
+msgid "Height"
+msgstr "Höhe"
+
+#: resources/scripts/blocks/hero/hero.jsx:244
+msgid "Background Overlay"
+msgstr "Hintergrund Überlagerung"
+
+#: resources/scripts/blocks/hero/hero.jsx:279
+msgid "Radial Overlay Position"
+msgstr "Radiale Überlagerungsposition"
+
+#: resources/scripts/blocks/hero/hero.jsx:290
+msgid "Background Image"
+msgstr "Hintergrundbild"
+
+#: resources/scripts/blocks/hero/hero.jsx:292
+msgid "Image Blur"
+msgstr "Bildunschärfe"
+
+#: resources/scripts/blocks/hero/hero.jsx:300
+msgid "Image Opacity"
+msgstr "Bild Transparenz"
+
+#: resources/scripts/blocks/hero/hero.jsx:309
+msgid "Background Image Alignment"
+msgstr "Ausrichtung des Hintergrundbildes"
+
+#: resources/scripts/blocks/hero/hero.jsx:316
+msgid "Hero Shape"
+msgstr "Hero Shape"
+
+#: resources/scripts/blocks/hero/hero.jsx:318
+msgid "Section Shape"
+msgstr "Section Shape"
+
+#: resources/scripts/blocks/hero/hero.jsx:333
+msgid "Shape Height"
+msgstr "Shape Höhe"
+
+#: resources/scripts/blocks/hero/hero.jsx:344
+msgid "Top Shape"
+msgstr "Oberer Shape"
+
+#: resources/scripts/blocks/hero/hero.jsx:352
+#: resources/scripts/blocks/hero/hero.jsx:372
+msgid "Inverted"
+msgstr "Umgekehrt"
+
+#: resources/scripts/blocks/hero/hero.jsx:355
+msgid "Top Shape Background Color"
+msgstr "Oberer Shape Hintergrundfarbe"
+
+#: resources/scripts/blocks/hero/hero.jsx:364
+msgid "Bottom Shape"
+msgstr "Unterer Shape"
+
+#: resources/scripts/blocks/hero/hero.jsx:375
+msgid "Bottom Shape Background Color"
+msgstr "Hintergrundfarbe des unteren Shakes"
+
+#: resources/scripts/blocks/hero/hero.jsx:386
+msgid "Text Properties"
+msgstr "Texteigenschaften"
+
+#: resources/scripts/blocks/hero/hero.jsx:388
+msgid "Text Position"
+msgstr "Textposition"
+
+#: resources/scripts/blocks/hero/hero.jsx:392
+msgid "Default Position"
+msgstr "Standardposition"
+
+#: resources/scripts/blocks/hero/hero.jsx:492
+#: resources/scripts/blocks/icon-text/icon-text.jsx:117
+#: resources/scripts/blocks/image/image.jsx:137
+msgid "Change Image"
+msgstr "Bild ändern"
+
+#: resources/scripts/blocks/hero/hero.jsx:492
+#: resources/scripts/blocks/icon-text/icon-text.jsx:117
+#: resources/scripts/blocks/image/image.jsx:137
+msgid "Upload Image"
+msgstr "Bild hochladen"
+
+#: resources/scripts/blocks/icon-text/icon-text.jsx:66
+msgid "Icon Text"
+msgstr "Icon Text"
+
+#: resources/scripts/blocks/icon-text/icon-text.jsx:111
+msgid "Choose your Icon"
+msgstr "Wählen Sie Ihr Icon"
+
+#: resources/scripts/blocks/icon-text/icon-text.jsx:122
+msgid "Icon Border Radius"
+msgstr "Icon Rahmen Radius"
+
+#: resources/scripts/blocks/icon-text/icon-text.jsx:133
+msgid "Icon Size"
+msgstr "Icon Größe"
+
+#: resources/scripts/blocks/icon-text/icon-text.jsx:162
+msgid "Bottom Text Margin"
+msgstr "Unterer Textrand"
+
+#: resources/scripts/blocks/icon-text/icon-text.jsx:183
+msgid "Icon top on mobile"
+msgstr "Symbol oben auf dem Handy"
+
+#: resources/scripts/blocks/icon-text/icon-text.jsx:184
+msgid "Lets the icon sit above the text on mobile"
+msgstr "Lässt das Symbol auf dem Handy über dem Text sitzen"
+
+#: resources/scripts/blocks/image/image.jsx:14
+msgid "Image"
+msgstr "Bild"
+
+#: resources/scripts/blocks/image/image.jsx:145
+msgid "Image has Ratio"
+msgstr "Bild hat Seitenverhältnis"
+
+#: resources/scripts/blocks/image/image.jsx:152
+#: resources/scripts/blocks/text-image/text-image.jsx:198
+msgid "Images Ratio"
+msgstr "Images Ratio"
+
+#: resources/scripts/blocks/image/image.jsx:158
+#: resources/scripts/blocks/text-image/text-image.jsx:204
+msgid "1x1"
+msgstr "1x1"
+
+#: resources/scripts/blocks/image/image.jsx:159
+#: resources/scripts/blocks/text-image/text-image.jsx:205
+msgid "4x3"
+msgstr "4x3"
+
+#: resources/scripts/blocks/image/image.jsx:160
+#: resources/scripts/blocks/text-image/text-image.jsx:206
+msgid "3x2"
+msgstr "3x2"
+
+#: resources/scripts/blocks/image/image.jsx:161
+#: resources/scripts/blocks/text-image/text-image.jsx:207
+msgid "16x9"
+msgstr "16x9"
+
+#: resources/scripts/blocks/image/image.jsx:162
+#: resources/scripts/blocks/text-image/text-image.jsx:208
+msgid "21x9"
+msgstr "21x9"
+
+#: resources/scripts/blocks/image/image.jsx:167
+msgid "Size Unit"
+msgstr "Größeneinheit"
+
+#: resources/scripts/blocks/image/image.jsx:179
+#: resources/scripts/blocks/image/image.jsx:223
+msgid "Pixel"
+msgstr "Pixel"
+
+#: resources/scripts/blocks/image/image.jsx:180
+#: resources/scripts/blocks/image/image.jsx:224
+msgid "%"
+msgstr "%"
+
+#: resources/scripts/blocks/image/image.jsx:183
+msgid "Size"
+msgstr "Größe"
+
+#: resources/scripts/blocks/image/image.jsx:192
+msgid "Positioning"
+msgstr "Positionierung"
+
+#: resources/scripts/blocks/image/image.jsx:198
+msgid "Relative"
+msgstr "Relativ"
+
+#: resources/scripts/blocks/image/image.jsx:204
+msgid "Position"
+msgstr "Position"
+
+#: resources/scripts/blocks/image/image.jsx:216
+msgid "Movement"
+msgstr "Bewegung"
+
+#: resources/scripts/blocks/image/image.jsx:229
+msgid "Reset"
+msgstr "Zurücksetzen"
+
+#: resources/scripts/blocks/map/map.jsx:40
+msgid "Map"
+msgstr "Karte"
+
+#: resources/scripts/blocks/map/map.jsx:127
+msgid "Upload Map Marker"
+msgstr "Marker hochladen"
+
+#: resources/scripts/blocks/map/map.jsx:127
+msgid "Update Map Marker"
+msgstr "Marker aktualisieren"
+
+#: resources/scripts/blocks/map/map.jsx:133
+msgid "Remove Marker Image"
+msgstr "Marker entfernen"
+
+#: resources/scripts/blocks/map/map.jsx:145
+msgid "Address"
+msgstr "Adresse"
+
+#: resources/scripts/blocks/map/map.jsx:151
+msgid "Google Maps Link"
+msgstr "Google Maps Link"
+
+#: resources/scripts/blocks/map/map.jsx:156
+msgid "Adjust Zoom Level"
+msgstr "Zoomstufe anpassen"
+
+#: resources/scripts/blocks/slider/slider-inner.jsx:31
+msgid "Slider Inner"
+msgstr "Slider Innen"
+
+#: resources/scripts/blocks/slider/slider.jsx:87
+msgid "Slider"
+msgstr "Slider"
+
+#: resources/scripts/blocks/slider/slider.jsx:188
+msgid "Prev"
+msgstr "Zurück"
+
+#: resources/scripts/blocks/slider/slider.jsx:196
+msgid "Next"
+msgstr "Weiter"
+
+#: resources/scripts/blocks/slider/slider.jsx:202
+msgid "Loop"
+msgstr "Schleife"
+
+#: resources/scripts/blocks/slider/slider.jsx:203
+msgid "Enable continuous loop mode (does not apply on the editor)"
+msgstr "Endlosschleifenmodus aktivieren (gilt nicht für den Editor)"
+
+#: resources/scripts/blocks/slider/slider.jsx:211
+msgid "Autoplay Seconds"
+msgstr "Autoplay-Sekunden"
+
+#: resources/scripts/blocks/slider/slider.jsx:234
+msgid "Slides per view"
+msgstr "Slides pro Ansicht"
+
+#: resources/scripts/blocks/slider/slider.jsx:246
+msgid "Slider spacing"
+msgstr "Vertikaler Abstand"
+
+#: resources/scripts/blocks/slider/slider.jsx:261
+msgid "Two Slides on Mobile"
+msgstr "Zwei Folien auf dem Handy"
+
+#: resources/scripts/blocks/slider/slider.jsx:262
+msgid ""
+"On activation the slider will show two slides on the second smallest "
+"breakpoint"
+msgstr ""
+"Bei Aktivierung zeigt der Slider zwei Slides auf dem zweitkleinsten "
+"Breakpoint"
+
+#: resources/scripts/blocks/slider/slider.jsx:270
+msgid "Slides Background Color"
+msgstr "Hintergrundfarbe der Slides"
+
+#: resources/scripts/blocks/slider/slider.jsx:281
+msgid "Slider Controls"
+msgstr "Slider Controls"
+
+#: resources/scripts/blocks/slider/slider.jsx:284
+msgid "Show Pagination"
+msgstr "Pagination anzeigen"
+
+#: resources/scripts/blocks/slider/slider.jsx:292
+msgid "Show Arrows"
+msgstr "Pfeile anzeigen"
+
+#: resources/scripts/blocks/slider/slider.jsx:302
+msgid "Controls Size"
+msgstr "Controls Size"
+
+#: resources/scripts/blocks/slider/slider.jsx:311
+msgid "Controls Position"
+msgstr "Controls Position"
+
+#: resources/scripts/blocks/slider/slider.jsx:324
+msgid "Controls Style"
+msgstr "Controls Style"
+
+#: resources/scripts/blocks/spacer/spacer.jsx:11
+msgid "Spacer"
+msgstr "Abstand"
+
+#: resources/scripts/blocks/spacer/spacer.jsx:13
+msgid ""
+"By default the mobile height of spacer block will be half the size of desktop"
+msgstr ""
+"Standardmäßig ist die mobile Höhe des Abstandsblocks halb so groß wie der "
+"Desktop"
+
+#: resources/scripts/blocks/text-image/text-image.jsx:44
+msgid "Text Image"
+msgstr "Text Image"
+
+#: resources/scripts/blocks/text-image/text-image.jsx:126
+msgid "Upload Images"
+msgstr "Bilder hochladen"
+
+#: resources/scripts/blocks/text-image/text-image.jsx:126
+msgid "Change Images"
+msgstr "Bilder ändern"
+
+#: resources/scripts/blocks/text-image/text-image.jsx:169
+msgid "Switch content order"
+msgstr "Inhaltsreihenfolge ändern"
+
+#: resources/scripts/blocks/text-image/text-image.jsx:174
+msgid "Adjust Column Range"
+msgstr "Anpassen der Spaltenbreite"
+
+#: resources/scripts/blocks/text-image/text-image.jsx:185
+msgid "Adjust visible Images"
+msgstr "Sichtbare Bilder anpassen"
+
+#: resources/scripts/blocks/text-image/text-image.jsx:212
+msgid "Has Gallery"
+msgstr "Hat Galerie"
+
+#: resources/scripts/blocks/text-image/text-image.jsx:213
+msgid ""
+"Turn this on if the Gallery should appear when clicking on image elements"
+msgstr ""
+"Schalten Sie dies ein, wenn die Galerie beim Klicken auf Bildelemente "
+"erscheinen soll"
+
+#: resources/scripts/blocks/utility.js:307
+#: resources/scripts/blocks/utility.js:427
+msgid "Clear"
+msgstr ""
+
+#~ msgid " Color"
+#~ msgstr " Farbe"
 
 #, fuzzy
 #~ msgid "Thin"
 #~ msgstr "Dünn"
-
-#, fuzzy
-#~ msgid "Medium"
-#~ msgstr "Mittel"
 
 #~ msgid "Navbar Behavior"
 #~ msgstr "Navbar-Verhalten"
@@ -737,505 +1327,3 @@ msgstr "https://wandeldigital.de"
 #, fuzzy
 #~ msgid "Moving"
 #~ msgstr "Beweglich"
-
-#, fuzzy
-#~ msgid "Custom Template"
-#~ msgstr "Template"
-
-#, fuzzy
-#~ msgid "Styles"
-#~ msgstr "Stile"
-
-#, fuzzy
-#~ msgid "Custom Style"
-#~ msgstr "Benutzerdefinitierter Stil"
-
-#, fuzzy
-#~ msgid "None"
-#~ msgstr "Nichts"
-
-#~ msgid "No List"
-#~ msgstr "Keine Liste"
-
-#, fuzzy
-#~ msgid "Custom Font Size"
-#~ msgstr "Benutzerdefinierte Schriftgröße"
-
-#, fuzzy
-#~ msgid "Large"
-#~ msgstr "Groß"
-
-#, fuzzy
-#~ msgid "Huge"
-#~ msgstr "Riesig"
-
-#, fuzzy
-#~ msgid "Bold Span"
-#~ msgstr "Bold Span"
-
-#, fuzzy
-#~ msgid "Open in new tab"
-#~ msgstr "Öffne in neuem Tab"
-
-#, fuzzy
-#~ msgid "noopener"
-#~ msgstr "noopener"
-
-#, fuzzy
-#~ msgid "noreferrer"
-#~ msgstr "noreferrer"
-
-#, fuzzy
-#~ msgid "nofollow"
-#~ msgstr "nofollow"
-
-#, fuzzy
-#~ msgid "Light Span"
-#~ msgstr "Light Span"
-
-#, fuzzy
-#~ msgid "Non Breaking Space"
-#~ msgstr "Nicht brechendes Leerzeichen"
-
-#, fuzzy
-#~ msgid "Small Span"
-#~ msgstr "Small Span"
-
-#, fuzzy
-#~ msgid "Text Shadow"
-#~ msgstr "Textschatten"
-
-#~ msgid "Accordion Inner"
-#~ msgstr "Akkordeon Innerhalb"
-
-#, fuzzy
-#~ msgid "Accordion"
-#~ msgstr "Akkordeon"
-
-#, fuzzy
-#~ msgid "Show Icon"
-#~ msgstr "Icon zeigen"
-
-#, fuzzy
-#~ msgid "Accordion Spacing"
-#~ msgstr "Akkordeonabstand"
-
-#~ msgid "Tiny (H6)"
-#~ msgstr "Tiny (H6)"
-
-#~ msgid "Small (H5)"
-#~ msgstr "Small (H5)"
-
-#~ msgid "Normal (H4)"
-#~ msgstr "Normal (H4)"
-
-#~ msgid "Medium (H3)"
-#~ msgstr "Medium (H3)"
-
-#~ msgid "Large (H2)"
-#~ msgstr "Large (H2)"
-
-#~ msgid "Huge (H1)"
-#~ msgstr "Huge (H1)"
-
-#, fuzzy
-#~ msgid "Accordion Background Color"
-#~ msgstr "Akkordeon Hintergrundfarbe"
-
-#, fuzzy
-#~ msgid "Button"
-#~ msgstr "Schaltfläche"
-
-#~ msgid "Select a position"
-#~ msgstr "Wählen Sie eine Position"
-
-#~ msgid "Search engines should ignore this link (nofollow)"
-#~ msgstr "Suchmaschinen sollten diesen Link ignorieren (nofollow)"
-
-#, fuzzy
-#~ msgid "Button Style"
-#~ msgstr "Button Stil"
-
-#, fuzzy
-#~ msgid "Button Size"
-#~ msgstr "Button Größe"
-
-#, fuzzy
-#~ msgid "Border Radius"
-#~ msgstr "Rahmen Radius"
-
-#, fuzzy
-#~ msgid "Button Text"
-#~ msgstr "Button Text"
-
-#, fuzzy
-#~ msgid "Divider"
-#~ msgstr "Trenner"
-
-#, fuzzy
-#~ msgid "Change Opacity"
-#~ msgstr "Deckkraft ändern"
-
-#, fuzzy
-#~ msgid "Change Thickness"
-#~ msgstr "Dicke ändern"
-
-#, fuzzy
-#~ msgid "Change Width in %"
-#~ msgstr "Breite in % ändern"
-
-#, fuzzy
-#~ msgid "Change Color"
-#~ msgstr "Farbe ändern"
-
-#~ msgid "Grid List Inner"
-#~ msgstr "Grid List Inner"
-
-#, fuzzy
-#~ msgid "Background Color"
-#~ msgstr "Hintergrundfarbe"
-
-#~ msgid "Section Clip Path"
-#~ msgstr "Section Clip Path"
-
-#~ msgid "Grid List"
-#~ msgstr "Grid List"
-
-#, fuzzy
-#~ msgid "Grid Columns"
-#~ msgstr "Raster (Grid) Spalten"
-
-#~ msgid "Mobile Two Columns"
-#~ msgstr "Mobile zwei Columns"
-
-#~ msgid "Select if you want two columns on the smallest screen resolution"
-#~ msgstr ""
-#~ "Wählen Sie aus, ob Sie zwei Spalten auf der kleinsten Bildschirmauflösung "
-#~ "haben möchten"
-
-#~ msgid "Custom Spacing"
-#~ msgstr "Benutzerdefinierter Abstand"
-
-#~ msgid "Space Between X"
-#~ msgstr "Space Between X"
-
-#~ msgid "Space Between Y"
-#~ msgstr "Space Between Y"
-
-#~ msgid "Has Custom Padding"
-#~ msgstr "Hat benutzerdefiniertes Pudding"
-
-#, fuzzy
-#~ msgid "Custom Padding"
-#~ msgstr "Individueller Abstand nach Innen (Padding)"
-
-#, fuzzy
-#~ msgid "General Background Color"
-#~ msgstr "Allgemeine Hintergrundfarbe"
-
-#, fuzzy
-#~ msgid "Hero"
-#~ msgstr "Hero"
-
-#~ msgid "Hero Properties"
-#~ msgstr "Hero Eigenschaften"
-
-#, fuzzy
-#~ msgid "Full Height"
-#~ msgstr "Volle Höhe"
-
-#, fuzzy
-#~ msgid "Height"
-#~ msgstr "Höhe"
-
-#, fuzzy
-#~ msgid "Background Overlay"
-#~ msgstr "Hintergrund Überlagerung"
-
-#~ msgid "Radial Overlay Position"
-#~ msgstr "Radiale Überlagerungsposition"
-
-#, fuzzy
-#~ msgid "Background Image"
-#~ msgstr "Hintergrundbild"
-
-#, fuzzy
-#~ msgid "Image Blur"
-#~ msgstr "Bildunschärfe"
-
-#, fuzzy
-#~ msgid "Image Opacity"
-#~ msgstr "Bild Transparenz"
-
-#~ msgid "Background Image Alignment"
-#~ msgstr "Ausrichtung des Hintergrundbildes"
-
-#~ msgid "Hero Shape"
-#~ msgstr "Hero Shape"
-
-#~ msgid "Section Shape"
-#~ msgstr "Section Shape"
-
-#~ msgid "Shape Height"
-#~ msgstr "Shape Höhe"
-
-#~ msgid "Top Shape"
-#~ msgstr "Oberer Shape"
-
-#, fuzzy
-#~ msgid "Inverted"
-#~ msgstr "Umgekehrt"
-
-#~ msgid "Top Shape Background Color"
-#~ msgstr "Oberer Shape Hintergrundfarbe"
-
-#~ msgid "Bottom Shape"
-#~ msgstr "Unterer Shape"
-
-#~ msgid "Bottom Shape Background Color"
-#~ msgstr "Hintergrundfarbe des unteren Shakes"
-
-#, fuzzy
-#~ msgid "Text Properties"
-#~ msgstr "Texteigenschaften"
-
-#, fuzzy
-#~ msgid "Text Position"
-#~ msgstr "Textposition"
-
-#~ msgid "Default Position"
-#~ msgstr "Standardposition"
-
-#, fuzzy
-#~ msgid "Change Image"
-#~ msgstr "Bild ändern"
-
-#, fuzzy
-#~ msgid "Upload Image"
-#~ msgstr "Bild hochladen"
-
-#, fuzzy
-#~ msgid "Icon Text"
-#~ msgstr "Symbol Text"
-
-#~ msgid "Choose your Icon"
-#~ msgstr "Wählen Sie Ihr Icon"
-
-#, fuzzy
-#~ msgid "Icon Border Radius"
-#~ msgstr "Icon Rahmen Radius"
-
-#, fuzzy
-#~ msgid "Icon Size"
-#~ msgstr "Icon Größe"
-
-#~ msgid "Bottom Text Margin"
-#~ msgstr "Unterer Textrand"
-
-#~ msgid "Icon top on mobile"
-#~ msgstr "Symbol oben auf dem Handy"
-
-#~ msgid "Lets the icon sit above the text on mobile"
-#~ msgstr "Lässt das Symbol auf dem Handy über dem Text sitzen"
-
-#, fuzzy
-#~ msgid "Image"
-#~ msgstr "Bild"
-
-#~ msgid "Image has Ratio"
-#~ msgstr "Bild hat Seitenverhältnis"
-
-#, fuzzy
-#~ msgid "Images Ratio"
-#~ msgstr "Seitenverhältnis"
-
-#, fuzzy
-#~ msgid "1x1"
-#~ msgstr "1x1"
-
-#, fuzzy
-#~ msgid "4x3"
-#~ msgstr "4x3"
-
-#, fuzzy
-#~ msgid "3x2"
-#~ msgstr "3x2"
-
-#, fuzzy
-#~ msgid "16x9"
-#~ msgstr "16x9"
-
-#, fuzzy
-#~ msgid "21x9"
-#~ msgstr "21x9"
-
-#, fuzzy
-#~ msgid "Size Unit"
-#~ msgstr "Größeneinheit"
-
-#, fuzzy
-#~ msgid "Pixel"
-#~ msgstr "Pixel"
-
-#, fuzzy
-#~ msgid "%"
-#~ msgstr "%"
-
-#, fuzzy
-#~ msgid "Size"
-#~ msgstr "Größe"
-
-#, fuzzy
-#~ msgid "Positioning"
-#~ msgstr "Positionierung"
-
-#, fuzzy
-#~ msgid "Relative"
-#~ msgstr "Relativ"
-
-#, fuzzy
-#~ msgid "Position"
-#~ msgstr "Position"
-
-#, fuzzy
-#~ msgid "Reset"
-#~ msgstr "Zurücksetzen"
-
-#, fuzzy
-#~ msgid "Map"
-#~ msgstr "Karte"
-
-#, fuzzy
-#~ msgid "Upload Map Marker"
-#~ msgstr "Marker hochladen"
-
-#, fuzzy
-#~ msgid "Update Map Marker"
-#~ msgstr "Marker aktualisieren"
-
-#, fuzzy
-#~ msgid "Remove Marker Image"
-#~ msgstr "Marker entfernen"
-
-#, fuzzy
-#~ msgid "Address"
-#~ msgstr "Adresse"
-
-#, fuzzy
-#~ msgid "Google Maps Link"
-#~ msgstr "Google Maps Link"
-
-#, fuzzy
-#~ msgid "Adjust Zoom Level"
-#~ msgstr "Zoomstufe anpassen"
-
-#~ msgid "Slider Inner"
-#~ msgstr "Slider Innen"
-
-#, fuzzy
-#~ msgid "Slider"
-#~ msgstr "Slider"
-
-#, fuzzy
-#~ msgid "Prev"
-#~ msgstr "Zurück"
-
-#, fuzzy
-#~ msgid "Next"
-#~ msgstr "Weiter"
-
-#, fuzzy
-#~ msgid "Loop"
-#~ msgstr "Schleife"
-
-#~ msgid "Enable continuous loop mode (does not apply on the editor)"
-#~ msgstr "Endlosschleifenmodus aktivieren (gilt nicht für den Editor)"
-
-#~ msgid "Autoplay Seconds"
-#~ msgstr "Autoplay-Sekunden"
-
-#, fuzzy
-#~ msgid "Slides per View"
-#~ msgstr "Slides pro Ansicht"
-
-#~ msgid "Two Slides on Mobile"
-#~ msgstr "Zwei Folien auf dem Handy"
-
-#~ msgid ""
-#~ "On activation the slider will show two slides on the second smallest "
-#~ "breakpoint"
-#~ msgstr ""
-#~ "Bei Aktivierung zeigt der Slider zwei Slides auf dem zweitkleinsten "
-#~ "Breakpoint"
-
-#, fuzzy
-#~ msgid "Slides Background Color"
-#~ msgstr "Hintergrundfarbe der Slides"
-
-#, fuzzy
-#~ msgid "Slider Controls"
-#~ msgstr "Slider Controls"
-
-#, fuzzy
-#~ msgid "Show Pagination"
-#~ msgstr "Seitennummerierung anzeigen"
-
-#, fuzzy
-#~ msgid "Show Arrows"
-#~ msgstr "Pfeiltasten anzeigen"
-
-#, fuzzy
-#~ msgid "Controls Size"
-#~ msgstr "Steuerelement-Größe"
-
-#, fuzzy
-#~ msgid "Controls Position"
-#~ msgstr "Steuerelement Position"
-
-#, fuzzy
-#~ msgid "Controls Style"
-#~ msgstr "Steuerelement Stil"
-
-#, fuzzy
-#~ msgid "Spacer"
-#~ msgstr "Abstand"
-
-#~ msgid ""
-#~ "By default the mobile height of spacer block will be half the size of "
-#~ "desktop"
-#~ msgstr ""
-#~ "Standardmäßig ist die mobile Höhe des Abstandsblocks halb so groß wie der "
-#~ "Desktop"
-
-#, fuzzy
-#~ msgid "Text Image"
-#~ msgstr "Text Image"
-
-#, fuzzy
-#~ msgid "Upload Images"
-#~ msgstr "Bilder hochladen"
-
-#, fuzzy
-#~ msgid "Change Images"
-#~ msgstr "Bilder ändern"
-
-#, fuzzy
-#~ msgid "Switch content order"
-#~ msgstr "Inhaltsreihenfolge ändern"
-
-#, fuzzy
-#~ msgid "Adjust Column Range"
-#~ msgstr "Anpassen der Spaltenbreite"
-
-#, fuzzy
-#~ msgid "Adjust visible Images"
-#~ msgstr "Sichtbare Bilder anpassen"
-
-#~ msgid "Has Gallery"
-#~ msgstr "Hat Galerie"
-
-#~ msgid ""
-#~ "Turn this on if the Gallery should appear when clicking on image elements"
-#~ msgstr ""
-#~ "Schalten Sie dies ein, wenn die Galerie beim Klicken auf Bildelemente "
-#~ "erscheinen soll"

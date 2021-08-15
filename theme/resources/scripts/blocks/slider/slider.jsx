@@ -38,7 +38,7 @@ const attributes = {
     },
     sliderSpacing: {
         type: 'number',
-        default: 20,
+        default: false,
     },
 
     /**
@@ -250,6 +250,8 @@ registerBlockType('custom/slider', {
                             initialPosition={20}
                             max={80}
                             step={1}
+                            allowReset={true}
+                            resetFallbackValue={false}
                             onChange={(value) => {
                                 setAttributes({sliderSpacing: value});
                             }}

@@ -59,11 +59,6 @@ $GLOBALS['box_shadows'] = [
 ];
 
 /**
- * Default Messages for Cookie Consent Notice
- */
-$GLOBALS['default_cookie_message'] = __('This website uses essential cookies to ensure its proper operation and tracking cookies to understand how the user interacts with it. The latter will be set only upon approval. <button type="button" data-cc="c-settings" aria-haspopup="dialog">Cookie Settings</button>', 'sage');
-
-/**
  * Check out the Kirki Doc
  * Execute Kirki Functions when plugin is installed
  * @link https://kirki.org/docs/
@@ -996,7 +991,7 @@ if (class_exists('Kirki')) {
                 'settings' => 'custom_cookie_consent_title',
                 'label' => __('Cookie consent title', 'sage'),
                 'section' => 'section_cookie_settings_id',
-                'default' => __('I use cookies', 'sage'),
+                'default' => __('We use cookies', 'sage'),
             ]);
 
             custom_kirki_border('section_cookie_settings_id');
@@ -1007,7 +1002,7 @@ if (class_exists('Kirki')) {
                 'label' => __('Your cookie consent message here', 'sage'),
                 'description' => __('Simply create a button or link with data-cc="c-settings" attribute', 'sage'),
                 'section' => 'section_cookie_settings_id',
-                'default' => $GLOBALS['default_cookie_message'],
+                'default' => __('This website uses essential cookies to ensure its proper  operation. It also uses tracking cookies to understand user interaction. The latter will be set only upon approval. <button type="button" data-cc="c-settings" aria-haspopup="dialog">Cookie Settings</button>', 'sage'),
                 'choices'     => [
                     'language' => 'html',
                 ],

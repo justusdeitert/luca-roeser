@@ -337,23 +337,23 @@ function customizer_theme_styles() {
             languages: {
                 en: {
                     consent_modal: {
-                        title: '<?php echo get_theme_mod('custom_cookie_consent_title', 'I use cookies'); ?>',
-                        description: '<?php echo get_theme_mod('custom_cookie_consent_description', $GLOBALS['default_cookie_message']); ?>',
+                        title: '<?php echo get_theme_mod('custom_cookie_consent_title', __('We use cookies', 'sage')); ?>',
+                        description: '<?php echo get_theme_mod('custom_cookie_consent_description', __('This website uses essential cookies to ensure its proper operation. It also uses tracking cookies to understand user interaction. The latter will be set only upon approval. <button type="button" data-cc="c-settings" aria-haspopup="dialog">Cookie Settings</button>', 'sage')); ?>',
                         primary_btn: {
-                            text: '<?php echo get_theme_mod('custom_cookie_consent_primary_button_text', 'Accept'); ?>',
+                            text: '<?php echo get_theme_mod('custom_cookie_consent_primary_button_text', __('Accept', 'sage')); ?>',
                             role: 'accept_all'  /* 'accept_selected' or 'accept_all' */
                         },
                         secondary_btn: {
-                            text: '<?php echo get_theme_mod('custom_cookie_consent_secondary_button_text', 'Reject'); ?>',
+                            text: '<?php echo get_theme_mod('custom_cookie_consent_secondary_button_text', __('Reject', 'sage')); ?>',
                             role: 'accept_necessary'   /* 'settings' or 'accept_necessary' */
                         }
                     },
                     settings_modal: {
-                        title: '<?php echo get_theme_mod('custom_cookie_settings_title', 'Cookie Settings'); ?>',
-                        save_settings_btn: '<?php echo get_theme_mod('custom_cookie_settings_save_settings_button_text', 'Save settings'); ?>',
-                        accept_all_btn: '<?php echo get_theme_mod('custom_cookie_settings_accept_all_button_text', 'Accept all'); ?>',
-                        reject_all_btn: '<?php echo get_theme_mod('custom_cookie_settings_reject_all_button_text', 'Reject all'); ?>', /* optional, [v.2.5.0 +] */
-                        close_btn_label: '<?php echo get_theme_mod('custom_cookie_settings_close_button_text', 'Close'); ?>',
+                        title: '<?php echo get_theme_mod('custom_cookie_settings_title', __('Cookie Settings', 'sage')); ?>',
+                        save_settings_btn: '<?php echo get_theme_mod('custom_cookie_settings_save_settings_button_text', __('Save settings', 'sage')); ?>',
+                        accept_all_btn: '<?php echo get_theme_mod('custom_cookie_settings_accept_all_button_text', __('Accept all', 'sage')); ?>',
+                        reject_all_btn: '<?php echo get_theme_mod('custom_cookie_settings_reject_all_button_text', __('Reject all', 'sage')); ?>', /* optional, [v.2.5.0 +] */
+                        close_btn_label: '<?php echo get_theme_mod('custom_cookie_settings_close_button_text', __('Close', 'sage')); ?>',
                         cookie_table_headers : [
                             {col1: '<?php _e('Cookie Name', 'sage'); ?>'},
                             {col2: '<?php _e('Provider', 'sage'); ?>'},
