@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Berlin 0.0.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/theme\n"
-"POT-Creation-Date: 2021-12-09T12:45:25+00:00\n"
-"PO-Revision-Date: 2021-12-09 17:28+0100\n"
+"POT-Creation-Date: 2021-12-09T17:34:07+00:00\n"
+"PO-Revision-Date: 2021-12-09 18:39+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -98,8 +98,8 @@ msgstr "Neueste Beiträge"
 
 #. translators: %s is replaced with the search query
 #: app/View/Composers/Post.php:57
-msgid "Search Results for %s"
-msgstr "Suchergebnisse für %s"
+msgid "Search for: %s"
+msgstr "Suche für: %s"
 
 #: app/View/Composers/Post.php:63
 msgid "Not Found"
@@ -117,11 +117,11 @@ msgstr ""
 "Fehler beim Suchen des Autoloaders. Bitte führen Sie <code>composer install</"
 "code> aus."
 
-#: includes/add-customizer-theme-styles.php:340 includes/customizer.php:994
+#: includes/add-customizer-theme-styles.php:346 includes/customizer.php:994
 msgid "We use cookies"
 msgstr "Wir verwenden Cookies"
 
-#: includes/add-customizer-theme-styles.php:341 includes/customizer.php:1005
+#: includes/add-customizer-theme-styles.php:347
 msgid ""
 "This website uses essential cookies to ensure its proper operation. It also "
 "uses tracking cookies to understand user interaction. The latter will be set "
@@ -134,55 +134,55 @@ msgstr ""
 "aktiviert. <button type=\"button\" data-cc=\"c-settings\" aria-haspopup="
 "\"dialog\">Einstellungen</button>"
 
-#: includes/add-customizer-theme-styles.php:343 includes/customizer.php:1018
+#: includes/add-customizer-theme-styles.php:349 includes/customizer.php:1018
 msgid "Accept"
 msgstr "Akzeptieren"
 
-#: includes/add-customizer-theme-styles.php:347
+#: includes/add-customizer-theme-styles.php:353
 msgid "Reject"
 msgstr "Ablehnen"
 
-#: includes/add-customizer-theme-styles.php:352 includes/customizer.php:1133
+#: includes/add-customizer-theme-styles.php:358 includes/customizer.php:1133
 msgid "Cookie Settings"
 msgstr "Cookie Einstellungen"
 
-#: includes/add-customizer-theme-styles.php:353 includes/customizer.php:1143
+#: includes/add-customizer-theme-styles.php:359 includes/customizer.php:1143
 msgid "Save settings"
 msgstr "Einstellungen speichern"
 
-#: includes/add-customizer-theme-styles.php:354 includes/customizer.php:1153
+#: includes/add-customizer-theme-styles.php:360 includes/customizer.php:1153
 msgid "Accept all"
 msgstr "Alle akzeptieren"
 
-#: includes/add-customizer-theme-styles.php:355 includes/customizer.php:1163
+#: includes/add-customizer-theme-styles.php:361 includes/customizer.php:1163
 msgid "Reject all"
 msgstr "Alle ablehnen"
 
-#: includes/add-customizer-theme-styles.php:356 includes/customizer.php:1173
+#: includes/add-customizer-theme-styles.php:362 includes/customizer.php:1173
 msgid "Close"
 msgstr "Schließen"
 
-#: includes/add-customizer-theme-styles.php:358
+#: includes/add-customizer-theme-styles.php:364
 msgid "Cookie Name"
 msgstr "Cookie-Name"
 
-#: includes/add-customizer-theme-styles.php:359
+#: includes/add-customizer-theme-styles.php:365
 msgid "Provider"
 msgstr "Anbieter"
 
-#: includes/add-customizer-theme-styles.php:360
+#: includes/add-customizer-theme-styles.php:366
 msgid "Expiration"
 msgstr "Ablauf"
 
-#: includes/add-customizer-theme-styles.php:361
+#: includes/add-customizer-theme-styles.php:367
 msgid "Type"
 msgstr "Typ"
 
-#: includes/add-customizer-theme-styles.php:393
+#: includes/add-customizer-theme-styles.php:399
 msgid "Cookie usage"
 msgstr "Cookie-Nutzung"
 
-#: includes/add-customizer-theme-styles.php:394
+#: includes/add-customizer-theme-styles.php:400
 msgid ""
 "We use cookies to ensure the basic functionalities of the website and to "
 "enhance your online experience. You can choose for each category to opt-in/"
@@ -192,11 +192,11 @@ msgstr ""
 "und Ihr Online-Erlebnis zu verbessern. Sie können für jede Kategorie wählen, "
 "ob Sie sich an- oder abmelden möchten."
 
-#: includes/add-customizer-theme-styles.php:397
+#: includes/add-customizer-theme-styles.php:403
 msgid "Essential cookies"
 msgstr "Essentielle Cookies"
 
-#: includes/add-customizer-theme-styles.php:398
+#: includes/add-customizer-theme-styles.php:404
 msgid ""
 "Essential cookies enable basic functions and are necessary for the website "
 "to function properly."
@@ -204,7 +204,7 @@ msgstr ""
 "Essentielle Cookies ermöglichen grundlegende Funktionen und sind für die "
 "ordnungsgemäße Funktion der Website erforderlich."
 
-#: includes/add-customizer-theme-styles.php:407
+#: includes/add-customizer-theme-styles.php:413
 msgid ""
 "These cookies collect information about how you use the website, which pages "
 "you visited and which links you clicked on. All of the data is anonymized "
@@ -324,20 +324,28 @@ msgid "Maximum Container width"
 msgstr "Maximale Containerbreite"
 
 #: includes/customizer.php:223
-msgid "Container padding (Mobile)"
-msgstr "Container padding (Mobile)"
-
-#: includes/customizer.php:238
-msgid "Container padding (Desktop)"
+#, fuzzy
+#| msgid "Container padding (Desktop)"
+msgid "Padding (Desktop)"
 msgstr "Container padding (Desktop)"
 
+#: includes/customizer.php:238
+#, fuzzy
+#| msgid "Container padding (Mobile)"
+msgid "Padding (Mobile)"
+msgstr "Container padding (Mobile)"
+
 #: includes/customizer.php:253
-msgid "Gutter size (Mobile)"
-msgstr "Gutter size (Mobile)"
+#, fuzzy
+#| msgid "Gutter size (Desktop)"
+msgid "Gutters (Desktop)"
+msgstr "Gutter size (Desktop)"
 
 #: includes/customizer.php:268
-msgid "Gutter size (Desktop)"
-msgstr "Gutter size (Desktop)"
+#, fuzzy
+#| msgid "Gutter size (Mobile)"
+msgid "Gutters (Mobile)"
+msgstr "Gutter size (Mobile)"
 
 #: includes/customizer.php:283
 msgid "Vertical spacing"
@@ -516,13 +524,13 @@ msgstr "Burger Menü Icon"
 
 #: includes/customizer.php:808 includes/customizer.php:1070
 #: includes/customizer.php:1199 resources/scripts/blocks/image/image.jsx:210
-#: resources/scripts/blocks/slider/slider.jsx:330
+#: resources/scripts/blocks/slider/slider.jsx:331
 msgid "Left"
 msgstr "Links"
 
 #: includes/customizer.php:809 includes/customizer.php:1071
 #: includes/customizer.php:1200 resources/scripts/blocks/image/image.jsx:211
-#: resources/scripts/blocks/slider/slider.jsx:332
+#: resources/scripts/blocks/slider/slider.jsx:333
 msgid "Right"
 msgstr "Rechts"
 
@@ -564,6 +572,25 @@ msgstr ""
 "Erstellen Sie einfach eine Schaltfläche oder einen Link mit dem Attribut "
 "data-cc=“c-settings”"
 
+#: includes/customizer.php:1005
+#, fuzzy
+#| msgid ""
+#| "This website uses essential cookies to ensure its proper operation. It "
+#| "also uses tracking cookies to understand user interaction. The latter "
+#| "will be set only upon approval. <button type=\"button\" data-cc=\"c-"
+#| "settings\" aria-haspopup=\"dialog\">Cookie Settings</button>"
+msgid ""
+"This website uses essential cookies to ensure its proper  operation. It also "
+"uses tracking cookies to understand user interaction. The latter will be set "
+"only upon approval. <button type=\"button\" data-cc=\"c-settings\" aria-"
+"haspopup=\"dialog\">Cookie Settings</button>"
+msgstr ""
+"Diese Website verwendet essentielle Cookies, um den Betrieb zu "
+"gewährleisten. Zusätzlich werden auch Tracking-Cookies verwendet, um die "
+"Benutzerinteraktion zu verstehen. Letztere werden erst nach Genehmigung "
+"aktiviert. <button type=\"button\" data-cc=\"c-settings\" aria-haspopup="
+"\"dialog\">Einstellungen</button>"
+
 #: includes/customizer.php:1016
 msgid "Primary Button"
 msgstr "Primär Button"
@@ -588,11 +615,11 @@ msgstr "Bar"
 msgid "Consent Position Y"
 msgstr "Consent Position Y"
 
-#: includes/customizer.php:1055 resources/scripts/blocks/slider/slider.jsx:320
+#: includes/customizer.php:1055 resources/scripts/blocks/slider/slider.jsx:321
 msgid "Top"
 msgstr "Oben"
 
-#: includes/customizer.php:1056 resources/scripts/blocks/slider/slider.jsx:321
+#: includes/customizer.php:1056 resources/scripts/blocks/slider/slider.jsx:322
 msgid "Bottom"
 msgstr "Unten"
 
@@ -600,7 +627,7 @@ msgstr "Unten"
 msgid "Consent Position X"
 msgstr "Consent Position X"
 
-#: includes/customizer.php:1069 resources/scripts/blocks/slider/slider.jsx:331
+#: includes/customizer.php:1069 resources/scripts/blocks/slider/slider.jsx:332
 msgid "Center"
 msgstr "Zentriert"
 
@@ -652,69 +679,41 @@ msgstr "Animation der Cookie-Einstellungen"
 msgid "Custom Template"
 msgstr "Template"
 
-#: storage/framework/views/06e62138f63c073091bfb1066a1e681bef4eddd9.php:107
-msgid "Business hours"
-msgstr "Öffnungszeiten"
+#: storage/framework/views/06a5f9178143a53652d030dccec0885c9ed03919.php:12
+msgid "Sorry, no results were found."
+msgstr "Sorry, keine Ergebnisse gefunden."
 
-#: storage/framework/views/06e62138f63c073091bfb1066a1e681bef4eddd9.php:112
-msgid "Now open"
-msgstr "Jetzt geöffnet"
+#: storage/framework/views/2fd634ccaad9b3b1fbac7fe405a23b7a07cee0e6.php:13
+msgid "Sorry, but the current page has no content yet."
+msgstr "Sorry, aber die aktuelle Seite hat noch keinen Inhalt."
 
-#: storage/framework/views/06e62138f63c073091bfb1066a1e681bef4eddd9.php:112
-msgid "Now closed"
-msgstr "Jetzt geschlossen"
+#: storage/framework/views/2fd634ccaad9b3b1fbac7fe405a23b7a07cee0e6.php:23
+msgid "Edit"
+msgstr "Bearbeiten"
 
-#: storage/framework/views/1ff0be488eb39453860b8fea2e50bcb926f2257f.php:5
-msgctxt "comments title"
-msgid "One response to &ldquo;%2$s&rdquo;"
-msgid_plural "%1$s responses to &ldquo;%2$s&rdquo;"
-msgstr[0] "Eine Antwort zu &ldquo;%2$s&rdquo;"
-msgstr[1] "%1$s Antworten zu &ldquo;%2$s&rdquo;"
-
-#: storage/framework/views/1ff0be488eb39453860b8fea2e50bcb926f2257f.php:19
-msgid "&larr; Older comments"
-msgstr "&larr; Ältere Kommentare"
-
-#: storage/framework/views/1ff0be488eb39453860b8fea2e50bcb926f2257f.php:26
-msgid "Newer comments &rarr;"
-msgstr "Neuere Kommentare &rarr;"
-
-#: storage/framework/views/1ff0be488eb39453860b8fea2e50bcb926f2257f.php:42
-msgid "Comments are closed."
-msgstr "Kommentare sind geschlossen."
-
-#: storage/framework/views/2ad3a13e99b001cd0a6e3f4d75ba1fd24f780fdf.php:16
-msgid "Pages:"
-msgstr "Seiten:"
-
-#: storage/framework/views/8e657fa7ab0660026fd2a05f4307e80bec79cab6.php:12
+#: storage/framework/views/6f17a0971b4de497a3c30ac0240b0cc8d509a6b1.php:12
 msgid "Sorry, but the page you are trying to view does not exist."
 msgstr ""
 "Entschuldigung, aber die Seite, die Du Dir ansehen willst, existiert nicht."
 
-#: storage/framework/views/561f847e14d9fa1c6338c224f8ea45d646a17d34.php:11
-#: storage/framework/views/a502b95149c354df811793f53e750bde49c3cd0e.php:12
-msgid "Sorry, no results were found."
-msgstr "Sorry, keine Ergebnisse gefunden."
+#: storage/framework/views/ec3c808d69460a513631f7717429c2ae19a3bf1c.php:108
+msgid "Business hours"
+msgstr "Öffnungszeiten"
 
-#: storage/framework/views/603a1a964a0315b7d3d8201bb87f02b5990bd35b.php:13
-msgid "Sorry, but the current page has no content yet."
-msgstr "Sorry, aber die aktuelle Seite hat noch keinen Inhalt."
+#: storage/framework/views/ec3c808d69460a513631f7717429c2ae19a3bf1c.php:113
+msgid "Now open"
+msgstr "Jetzt geöffnet"
 
-#: storage/framework/views/603a1a964a0315b7d3d8201bb87f02b5990bd35b.php:23
-msgid "Edit"
-msgstr "Bearbeiten"
+#: storage/framework/views/ec3c808d69460a513631f7717429c2ae19a3bf1c.php:113
+msgid "Now closed"
+msgstr "Jetzt geschlossen"
 
-#: storage/framework/views/d000596e151103cdad14953753ca75a64cbb7658.php:7
-msgid "By"
-msgstr "Von"
-
-#: storage/framework/views/f9d9845cca0e891d89f66d5d28aadf91fc3a3062.php:6
+#: storage/framework/views/fc2ba2fef3472e4eb133847e41d261e64c57ec7e.php:6
 msgctxt "placeholder"
 msgid "Search &hellip;"
 msgstr "Suche &hellip;"
 
-#: storage/framework/views/f9d9845cca0e891d89f66d5d28aadf91fc3a3062.php:12
+#: storage/framework/views/fc2ba2fef3472e4eb133847e41d261e64c57ec7e.php:12
 msgctxt "submit button"
 msgid "Search"
 msgstr "Suche"
@@ -915,45 +914,36 @@ msgstr "Hintergrundfarbe"
 msgid "Section Clip Path"
 msgstr "Section Clip Path"
 
-#: resources/scripts/blocks/grid-list/grid-list.jsx:51
+#: resources/scripts/blocks/grid-list/grid-list.jsx:43
 msgid "Grid List"
 msgstr "Grid List"
 
-#: resources/scripts/blocks/grid-list/grid-list.jsx:91
+#: resources/scripts/blocks/grid-list/grid-list.jsx:93
 msgid "Grid Columns"
 msgstr "Grid Columns"
 
-#: resources/scripts/blocks/grid-list/grid-list.jsx:101
+#: resources/scripts/blocks/grid-list/grid-list.jsx:102
+#: resources/scripts/blocks/slider/slider.jsx:247
+msgid "Gutter"
+msgstr ""
+
+#: resources/scripts/blocks/grid-list/grid-list.jsx:116
+#, fuzzy
+#| msgid "Custom Padding"
+msgid "Padding"
+msgstr "Individueller Abstand nach Innen (Padding)"
+
+#: resources/scripts/blocks/grid-list/grid-list.jsx:128
 msgid "Mobile Two Columns"
 msgstr "Mobile zwei Columns"
 
-#: resources/scripts/blocks/grid-list/grid-list.jsx:102
+#: resources/scripts/blocks/grid-list/grid-list.jsx:129
 msgid "Select if you want two columns on the smallest screen resolution"
 msgstr ""
 "Wählen Sie aus, ob Sie zwei Spalten auf der kleinsten Bildschirmauflösung "
 "haben möchten"
 
-#: resources/scripts/blocks/grid-list/grid-list.jsx:108
-msgid "Custom Spacing"
-msgstr "Benutzerdefinierter Abstand"
-
-#: resources/scripts/blocks/grid-list/grid-list.jsx:115
-msgid "Space Between X"
-msgstr "Space Between X"
-
-#: resources/scripts/blocks/grid-list/grid-list.jsx:124
-msgid "Space Between Y"
-msgstr "Space Between Y"
-
-#: resources/scripts/blocks/grid-list/grid-list.jsx:136
-msgid "Has Custom Padding"
-msgstr "Hat benutzerdefiniertes Pudding"
-
-#: resources/scripts/blocks/grid-list/grid-list.jsx:143
-msgid "Custom Padding"
-msgstr "Individueller Abstand nach Innen (Padding)"
-
-#: resources/scripts/blocks/grid-list/grid-list.jsx:154
+#: resources/scripts/blocks/grid-list/grid-list.jsx:134
 msgid "General Background Color"
 msgstr "Allgemeine Hintergrundfarbe"
 
@@ -1195,39 +1185,35 @@ msgstr "Slider Innen"
 msgid "Slider"
 msgstr "Slider"
 
-#: resources/scripts/blocks/slider/slider.jsx:188
+#: resources/scripts/blocks/slider/slider.jsx:189
 msgid "Prev"
 msgstr "Zurück"
 
-#: resources/scripts/blocks/slider/slider.jsx:196
+#: resources/scripts/blocks/slider/slider.jsx:197
 msgid "Next"
 msgstr "Weiter"
 
-#: resources/scripts/blocks/slider/slider.jsx:202
+#: resources/scripts/blocks/slider/slider.jsx:203
 msgid "Loop"
 msgstr "Schleife"
 
-#: resources/scripts/blocks/slider/slider.jsx:203
+#: resources/scripts/blocks/slider/slider.jsx:204
 msgid "Enable continuous loop mode (does not apply on the editor)"
 msgstr "Endlosschleifenmodus aktivieren (gilt nicht für den Editor)"
 
-#: resources/scripts/blocks/slider/slider.jsx:211
+#: resources/scripts/blocks/slider/slider.jsx:212
 msgid "Autoplay Seconds"
 msgstr "Autoplay-Sekunden"
 
-#: resources/scripts/blocks/slider/slider.jsx:234
+#: resources/scripts/blocks/slider/slider.jsx:235
 msgid "Slides per view"
 msgstr "Slides pro Ansicht"
 
-#: resources/scripts/blocks/slider/slider.jsx:246
-msgid "Slider spacing"
-msgstr "Vertikaler Abstand"
-
-#: resources/scripts/blocks/slider/slider.jsx:261
+#: resources/scripts/blocks/slider/slider.jsx:262
 msgid "Two Slides on Mobile"
 msgstr "Zwei Folien auf dem Handy"
 
-#: resources/scripts/blocks/slider/slider.jsx:262
+#: resources/scripts/blocks/slider/slider.jsx:263
 msgid ""
 "On activation the slider will show two slides on the second smallest "
 "breakpoint"
@@ -1235,31 +1221,31 @@ msgstr ""
 "Bei Aktivierung zeigt der Slider zwei Slides auf dem zweitkleinsten "
 "Breakpoint"
 
-#: resources/scripts/blocks/slider/slider.jsx:270
+#: resources/scripts/blocks/slider/slider.jsx:271
 msgid "Slides Background Color"
 msgstr "Hintergrundfarbe der Slides"
 
-#: resources/scripts/blocks/slider/slider.jsx:281
+#: resources/scripts/blocks/slider/slider.jsx:282
 msgid "Slider Controls"
 msgstr "Slider Controls"
 
-#: resources/scripts/blocks/slider/slider.jsx:284
+#: resources/scripts/blocks/slider/slider.jsx:285
 msgid "Show Pagination"
 msgstr "Pagination anzeigen"
 
-#: resources/scripts/blocks/slider/slider.jsx:292
+#: resources/scripts/blocks/slider/slider.jsx:293
 msgid "Show Arrows"
 msgstr "Pfeile anzeigen"
 
-#: resources/scripts/blocks/slider/slider.jsx:302
+#: resources/scripts/blocks/slider/slider.jsx:303
 msgid "Controls Size"
 msgstr "Controls Size"
 
-#: resources/scripts/blocks/slider/slider.jsx:311
+#: resources/scripts/blocks/slider/slider.jsx:312
 msgid "Controls Position"
 msgstr "Controls Position"
 
-#: resources/scripts/blocks/slider/slider.jsx:324
+#: resources/scripts/blocks/slider/slider.jsx:325
 msgid "Controls Style"
 msgstr "Controls Style"
 
@@ -1313,6 +1299,42 @@ msgstr ""
 #: resources/scripts/blocks/utility.js:427
 msgid "Clear"
 msgstr ""
+
+#~ msgctxt "comments title"
+#~ msgid "One response to &ldquo;%2$s&rdquo;"
+#~ msgid_plural "%1$s responses to &ldquo;%2$s&rdquo;"
+#~ msgstr[0] "Eine Antwort zu &ldquo;%2$s&rdquo;"
+#~ msgstr[1] "%1$s Antworten zu &ldquo;%2$s&rdquo;"
+
+#~ msgid "&larr; Older comments"
+#~ msgstr "&larr; Ältere Kommentare"
+
+#~ msgid "Newer comments &rarr;"
+#~ msgstr "Neuere Kommentare &rarr;"
+
+#~ msgid "Comments are closed."
+#~ msgstr "Kommentare sind geschlossen."
+
+#~ msgid "Pages:"
+#~ msgstr "Seiten:"
+
+#~ msgid "By"
+#~ msgstr "Von"
+
+#~ msgid "Custom Spacing"
+#~ msgstr "Benutzerdefinierter Abstand"
+
+#~ msgid "Space Between X"
+#~ msgstr "Space Between X"
+
+#~ msgid "Space Between Y"
+#~ msgstr "Space Between Y"
+
+#~ msgid "Has Custom Padding"
+#~ msgstr "Hat benutzerdefiniertes Pudding"
+
+#~ msgid "Slider spacing"
+#~ msgstr "Vertikaler Abstand"
 
 #~ msgid " Color"
 #~ msgstr " Farbe"

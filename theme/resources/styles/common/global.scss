@@ -335,4 +335,8 @@ main {
 
 article {
     margin-top: var(--custom-vertical-spacing, 2rem);
+
+    @include media-breakpoint-down(sm) {
+        margin-top: calc(var(--custom-vertical-spacing, 2rem) / 2)
+    }
 }

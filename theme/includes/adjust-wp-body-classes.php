@@ -16,7 +16,9 @@ add_action('init', function () {
             $is_navbar_top = ($navbar_top_position === 0 || ($navbar_positioning === 'static' || $navbar_positioning === 'sticky'));
 
             // Add navbar settings
-            $classes[] = $is_navbar_top ? 'navbar-is-top' : '';
+            if ($is_navbar_top) {
+                $classes[] = 'navbar-is-top';
+            }
             $classes[] = 'navbar-' . get_theme_mod('custom_navbar_positioning', 'static');
         }
 
