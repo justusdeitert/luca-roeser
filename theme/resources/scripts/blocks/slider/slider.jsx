@@ -133,7 +133,7 @@ registerBlockType('custom/slider', {
 
         const blockProps = useBlockProps({
             className: classNames('slider-block', attributes.twoSlidesOnMobile && 'two-slides-on-mobile'),
-            style: (attributes.sliderGutter !== false) && {
+            style: (attributes.sliderGutter !== false && attributes.sliderGutter !== undefined) && {
                 '--custom-gutter-desktop': `${attributes.sliderGutter / 16}em`,
                 '--custom-gutter-mobile': `${attributes.sliderGutter / 16}em`
             }
@@ -244,7 +244,7 @@ registerBlockType('custom/slider', {
                             }}
                         />
                         <hr/>
-                        <p>{__('Slider gutter', 'sage')}</p>
+                        <p>{__('Gutter', 'sage')}</p>
                         <RangeControl
                             value={attributes.sliderGutter}
                             min={0}
@@ -363,7 +363,7 @@ registerBlockType('custom/slider', {
 
         const blockProps = useBlockProps.save({
             className: classNames(className, 'slider-block', attributes.twoSlidesOnMobile && 'two-slides-on-mobile'),
-            style: (attributes.sliderGutter !== false) && {
+            style: (attributes.sliderGutter !== false && attributes.sliderGutter !== undefined) && {
                 '--custom-gutter-desktop': `${attributes.sliderGutter / 16}em`,
                 '--custom-gutter-mobile': `${attributes.sliderGutter / 16}em`
             }
