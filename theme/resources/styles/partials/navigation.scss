@@ -67,6 +67,26 @@
     }
 }
 
+/**
+ * When navbar sits on top
+ */
+.navbar-is-top {
+    .navbar {
+        background-color: rgb(var(--custom-navbar-background-color));
+        box-shadow: var(--custom-navbar-box-shadow);
+
+        &__inner {
+            box-shadow: none;
+        }
+    }
+}
+
+.navbar-sticky {
+    .navbar {
+        top: 0;
+    }
+}
+
 .navbar {
     z-index: 100;
     width: 100%;
@@ -74,15 +94,6 @@
     top: var(--custom-navbar-top-position);
     font-size: var(--custom-navbar-font-size);
     font-weight: var(--custom-navbar-font-weight);
-
-    &.set-to-top {
-        background-color: rgb(var(--custom-navbar-background-color));
-        box-shadow: var(--custom-navbar-box-shadow);
-
-        .navbar__inner  {
-            box-shadow: none;
-        }
-    }
 
     &__inner {
         height: var(--custom-navbar-height);

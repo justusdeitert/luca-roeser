@@ -285,7 +285,7 @@ if (class_exists('Kirki')) {
                 'default' => 48,
                 'choices' => [
                     'min' => 16,
-                    'max' => 80,
+                    'max' => 140,
                     'step' => 1,
                 ],
             ]);

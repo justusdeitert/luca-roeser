@@ -11,7 +11,7 @@
         'burger_menu_icon'
     ]);
     $navbar_height = get_theme_mod('custom_navbar_height', 60);
-    $navbar_top_position = get_theme_mod('custom_navbar_top_position', 0);
+    // $navbar_top_position = get_theme_mod('custom_navbar_top_position', 0);
     $navbar_logo = get_theme_mod('custom_navbar_logo_image', '');
     $navbar_logo_alt = $navbar_logo ? get_post_meta($navbar_logo['id'], '_wp_attachment_image_alt', true) : '';
     $navbar_has_full_width = get_theme_mod('custom_full_width_navbar');
@@ -21,7 +21,7 @@
      */
     $navbar_classes = [
         'navbar',
-        $navbar_top_position == 0 ? 'set-to-top' : '',
+        // $navbar_top_position == 0 ? 'set-to-top' : '',
     ];
 
     /**
@@ -66,7 +66,8 @@
         ];
     }
 
-    $has_any_menu = has_nav_menu('primary_mobile_menu') || has_nav_menu('primary_desktop_menu') || has_nav_menu('secondary_desktop_menu');
+    // $has_any_menu = has_nav_menu('primary_mobile_menu') || has_nav_menu('primary_desktop_menu') || has_nav_menu('secondary_desktop_menu');
+    // var_dump($GLOBALS['has_any_menu']);
 ?>
 
 <?php if ($menu_item_separator !== 'none') { ?>
@@ -83,7 +84,7 @@
     <?php echo sanitize_output(ob_get_clean()); // Minify HTML Output ?>
 <?php } ?>
 
-@if(class_exists('Kirki') && $has_any_menu)
+@if(class_exists('Kirki') && $GLOBALS['has_any_menu'])
     <nav class="{!! class_names($navbar_classes); !!}">
         <div class="{!! $navbar_has_full_width ? 'container-fluid' : 'container' !!}">
             <div class="navbar__inner">
