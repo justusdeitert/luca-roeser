@@ -217,25 +217,10 @@ if (class_exists('Kirki')) {
 
             custom_kirki_border('section_content_settings_id');
 
-            Kirki::add_field('container_padding_mobile_id', [
-                'type' => 'slider',
-                'settings' => 'container_padding_mobile',
-                'label' => __('Container padding (Mobile)', 'sage'),
-                'section' => 'section_content_settings_id',
-                'default' => 15,
-                'choices' => [
-                    'min' => 5,
-                    'max' => 40,
-                    'step' => 5,
-                ],
-            ]);
-
-            custom_kirki_border('section_content_settings_id');
-
             Kirki::add_field('container_padding_desktop_id', [
                 'type' => 'slider',
                 'settings' => 'container_padding_desktop',
-                'label' => __('Container padding (Desktop)', 'sage'),
+                'label' => __('Padding (Desktop)', 'sage'),
                 'section' => 'section_content_settings_id',
                 'default' => 30,
                 'choices' => [
@@ -247,16 +232,16 @@ if (class_exists('Kirki')) {
 
             custom_kirki_border('section_content_settings_id');
 
-            Kirki::add_field('custom_gutter_size_mobile_id', [
+            Kirki::add_field('container_padding_mobile_id', [
                 'type' => 'slider',
-                'settings' => 'custom_gutter_size_mobile',
-                'label' => __('Gutter size (Mobile)', 'sage'),
+                'settings' => 'container_padding_mobile',
+                'label' => __('Padding (Mobile)', 'sage'),
                 'section' => 'section_content_settings_id',
-                'default' => 20,
+                'default' => 15,
                 'choices' => [
-                    'min' => 10,
+                    'min' => 5,
                     'max' => 40,
-                    'step' => 1,
+                    'step' => 5,
                 ],
             ]);
 
@@ -265,12 +250,27 @@ if (class_exists('Kirki')) {
             Kirki::add_field('custom_gutter_size_desktop_id', [
                 'type' => 'slider',
                 'settings' => 'custom_gutter_size_desktop',
-                'label' => __('Gutter size (Desktop)', 'sage'),
+                'label' => __('Gutters (Desktop)', 'sage'),
                 'section' => 'section_content_settings_id',
                 'default' => 30,
                 'choices' => [
                     'min' => 20,
                     'max' => 60,
+                    'step' => 1,
+                ],
+            ]);
+
+            custom_kirki_border('section_content_settings_id');
+
+            Kirki::add_field('custom_gutter_size_mobile_id', [
+                'type' => 'slider',
+                'settings' => 'custom_gutter_size_mobile',
+                'label' => __('Gutters (Mobile)', 'sage'),
+                'section' => 'section_content_settings_id',
+                'default' => 20,
+                'choices' => [
+                    'min' => 10,
+                    'max' => 40,
                     'step' => 1,
                 ],
             ]);

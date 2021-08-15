@@ -191,6 +191,9 @@ img {
     }
 }
 
+/**
+ * Define container padding
+ */
 .container {
     max-width: calc(var(--max-container-width) + (var(--container-padding-mobile) * 2));
     padding-left: var(--container-padding-mobile);
@@ -219,26 +222,46 @@ img {
     }
 }
 
+/**
+ * Define grid gutter classes
+ */
+.col-padding {
+    padding-right: calc(var(--custom-gutter-desktop) * .5);
+    padding-left: calc(var(--custom-gutter-desktop) * .5);
+
+    @include media-breakpoint-down(md) {
+        padding-right: calc(var(--custom-gutter-mobile) * .5);
+        padding-left: calc(var(--custom-gutter-mobile) * .5);
+    }
+}
+
+.row-margin {
+    margin-right: calc(var(--custom-gutter-desktop) * -.5);
+    margin-left: calc(var(--custom-gutter-desktop) * -.5);
+
+    @include media-breakpoint-down(md) {
+        margin-right: calc(var(--custom-gutter-mobile) * -.5);
+        margin-left: calc(var(--custom-gutter-mobile) * -.5);
+    }
+}
+
+/**
+ * Override bootstrap 5 gutter classes
+ */
 .row {
-    margin-top: calc(var(--custom-gutter-mobile-y) * -1);
-    margin-right: calc(var(--custom-gutter-mobile-x) * -.5);
-    margin-left: calc(var(--custom-gutter-mobile-x) * -.5);
+    margin-top: calc(var(--custom-gutter-desktop) * -1);
+    @extend .row-margin;
 
     > * {
-        padding-right: calc(var(--custom-gutter-mobile-x) * .5);
-        padding-left: calc(var(--custom-gutter-mobile-x) * .5);
-        margin-top: var(--custom-gutter-mobile-y);
+        margin-top: var(--custom-gutter-desktop);
+        @extend .col-padding;
     }
 
-    @include media-breakpoint-up(sm) {
-        margin-top: calc(var(--custom-gutter-desktop-y) * -1);
-        margin-right: calc(var(--custom-gutter-desktop-x) * -.5);
-        margin-left: calc(var(--custom-gutter-desktop-x) * -.5);
+    @include media-breakpoint-down(md) {
+        margin-top: calc(var(--custom-gutter-mobile) * -1);
 
         > * {
-            padding-right: calc(var(--custom-gutter-desktop-x) * .5);
-            padding-left: calc(var(--custom-gutter-desktop-x) * .5);
-            margin-top: var(--custom-gutter-desktop-y);
+            margin-top: var(--custom-gutter-mobile);
         }
     }
 }
@@ -246,7 +269,6 @@ img {
 // Customizer Classes
 .custom-border {
     padding: var(--custom-border-width);
-    // background-color: rgb(var(--custom-elements-background-color));
 }
 
 .custom-border-radius {

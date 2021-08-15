@@ -36,7 +36,7 @@ const attributes = {
         type: 'boolean',
         default: false,
     },
-    sliderSpacing: {
+    sliderGutter: {
         type: 'number',
         default: false,
     },
@@ -133,8 +133,9 @@ registerBlockType('custom/slider', {
 
         const blockProps = useBlockProps({
             className: classNames('slider-block', attributes.twoSlidesOnMobile && 'two-slides-on-mobile'),
-            style: {
-                '--slider-spacing': `${attributes.sliderSpacing}px`
+            style: (attributes.sliderGutter !== false) && {
+                '--custom-gutter-desktop': `${attributes.sliderGutter / 16}em`,
+                '--custom-gutter-mobile': `${attributes.sliderGutter / 16}em`
             }
         });
 
@@ -243,9 +244,9 @@ registerBlockType('custom/slider', {
                             }}
                         />
                         <hr/>
-                        <p>{__('Slider spacing', 'sage')}</p>
+                        <p>{__('Slider gutter', 'sage')}</p>
                         <RangeControl
-                            value={attributes.sliderSpacing}
+                            value={attributes.sliderGutter}
                             min={0}
                             initialPosition={20}
                             max={80}
@@ -253,7 +254,7 @@ registerBlockType('custom/slider', {
                             allowReset={true}
                             resetFallbackValue={false}
                             onChange={(value) => {
-                                setAttributes({sliderSpacing: value});
+                                setAttributes({sliderGutter: value});
                             }}
                         />
                         <hr/>
@@ -362,8 +363,9 @@ registerBlockType('custom/slider', {
 
         const blockProps = useBlockProps.save({
             className: classNames(className, 'slider-block', attributes.twoSlidesOnMobile && 'two-slides-on-mobile'),
-            style: {
-                '--slider-spacing': `${attributes.sliderSpacing}px`
+            style: (attributes.sliderGutter !== false) && {
+                '--custom-gutter-desktop': `${attributes.sliderGutter / 16}em`,
+                '--custom-gutter-mobile': `${attributes.sliderGutter / 16}em`
             }
         });
 

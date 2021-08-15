@@ -160,10 +160,8 @@ function customizer_theme_styles() {
             --max-container-width: <?php echo get_theme_mod('max_container_width', 1280); ?>px;
             --container-padding-mobile: <?php echo get_theme_mod('container_padding_mobile', 15) / 16; ?>rem;
             --container-padding-desktop: <?php echo get_theme_mod('container_padding_desktop', 30) / 16; ?>rem;
-            --custom-gutter-mobile-x: <?php echo get_theme_mod('custom_gutter_size_mobile', 20) / 16; ?>rem;
-            --custom-gutter-mobile-y: <?php echo get_theme_mod('custom_gutter_size_mobile', 20) / 16; ?>rem;
-            --custom-gutter-desktop-x: <?php echo get_theme_mod('custom_gutter_size_desktop', 30) / 16; ?>rem;
-            --custom-gutter-desktop-y: <?php echo get_theme_mod('custom_gutter_size_desktop', 30) / 16; ?>rem;
+            --custom-gutter-desktop: <?php echo get_theme_mod('custom_gutter_size_desktop', 30) / 16; ?>rem;
+            --custom-gutter-mobile: <?php echo get_theme_mod('custom_gutter_size_mobile', 20) / 16; ?>rem;
             --custom-vertical-spacing: <?php echo get_theme_mod('custom_vertical_spacing', 48) / 16; ?>rem;
             --custom-border-width: <?php echo get_theme_mod('custom_border_width', 0) / 16; ?>rem;
             --custom-border-radius: <?php echo get_theme_mod('custom_border_radius', 0); ?>px;
