@@ -3,7 +3,7 @@
     $max-value: var(--fluid-text-size-desktop);
     $min-max-value: var(--fluid-text-desktop-mobile);
     $min-vw: map-get($grid-breakpoints, xs);
-    $max-vw: map-get($grid-breakpoints, xxl);
+    $max-vw: map-get($grid-breakpoints, xl);
 
     font-size: #{$min-value};
 
