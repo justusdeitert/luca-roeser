@@ -15,7 +15,7 @@ registerBlockType('custom/image', {
     icon: imageIcon,
     category: 'custom',
     attributes: {
-        imageAlignment: {
+        horizontalAlign: {
             type: 'string',
             default: 'left'
         },
@@ -78,17 +78,31 @@ registerBlockType('custom/image', {
             className: classnames(
                 className,
                 'image-block',
-                `align-${attributes.imageAlignment}`,
-                attributes.imagePosition === 'right' && 'end-0'
+                (attributes.imagePositioning === 'absolute' && attributes.imagePosition === 'right') && 'end-0'
             ),
             style: {
-                marginTop: 0,
-                marginBottom: 0,
-                width: `${attributes.imageSize + attributes.imageSizeUnit}`,
-                position: attributes.imagePositioning,
-                transform: `translate(${focalPositionInPixel(attributes.imageMove.x, attributes.imagePositionUnit)}, ${focalPositionInPixel(attributes.imageMove.y, attributes.imagePositionUnit)})`,
+                border: '1px dashed var(--wp-admin-theme-color)',
+                ...(attributes.imagePositioning === 'absolute') && {
+                    width: `${attributes.imageSize + attributes.imageSizeUnit}`,
+                    position: attributes.imagePositioning,
+                    transform: `translate(${focalPositionInPixel(attributes.imageMove.x, attributes.imagePositionUnit)}, ${focalPositionInPixel(attributes.imageMove.y, attributes.imagePositionUnit)})`,
+                }
             }
         });
+
+        const innerBlockProps = {
+            className: classnames(
+                'image-block__inner',
+                attributes.imagePositioning === 'relative' && `align-${attributes.horizontalAlign}`,
+            ),
+            style: {
+                ...(attributes.imagePositioning === 'relative') && {
+                    width: `${attributes.imageSize + attributes.imageSizeUnit}`,
+                    position: attributes.imagePositioning,
+                    transform: `translate(${focalPositionInPixel(attributes.imageMove.x, attributes.imagePositionUnit)}, ${focalPositionInPixel(attributes.imageMove.y, attributes.imagePositionUnit)})`,
+                }
+            }
+        }
 
         return (
             <>
@@ -97,23 +111,23 @@ registerBlockType('custom/image', {
                     <BlockControls>
                         <ToolbarGroup>
                             <ToolbarDropdownMenu
-                                icon={`align-${attributes.imageAlignment}`}
+                                icon={`align-${attributes.horizontalAlign}`}
                                 label={__('Select a position', 'sage')}
                                 controls={[
                                     {
                                         title: 'Left',
                                         icon: 'align-left',
-                                        onClick: () => setAttributes({imageAlignment: 'left'}),
+                                        onClick: () => setAttributes({horizontalAlign: 'left'}),
                                     },
                                     {
                                         title: 'Center',
                                         icon: 'align-center',
-                                        onClick: () => setAttributes({imageAlignment: 'center'}),
+                                        onClick: () => setAttributes({horizontalAlign: 'center'}),
                                     },
                                     {
                                         title: 'Right',
                                         icon: 'align-right',
-                                        onClick: () => setAttributes({imageAlignment: 'right'}),
+                                        onClick: () => setAttributes({horizontalAlign: 'right'}),
                                     },
                                 ]}
                             />
@@ -239,47 +253,48 @@ registerBlockType('custom/image', {
                     </div>
                 </InspectorControls>
                 <div {...blockProps}>
-                    {(attributes.imageSize >= 20) &&
-                    <>
-                        <MediaUpload
-                            onSelect={(value) => setAttributes({imageObject: value})}
-                            allowedTypes={['image']}
-                            render={({open}) => (
-                                <Button
-                                    className={'button'}
-                                    onClick={open}
-                                    icon={'format-image'}
-                                    isSmall={true}
-                                    style={{
-                                        position: 'absolute',
-                                        right: '10px',
-                                        top: '10px',
-                                        zIndex: '10'
-                                    }}
-                                />
-                            )}
-                        />
-                    </>
-                    }
-                    <div className={attributes.hasRatio ? `ratio ratio-${attributes.imageRatio}` : ''}>
-                        {attributes.imageObject.mime !== 'image/svg+xml' ?
-                            <img alt={getImage(attributes.imageObject, 'alt')}
-                                 srcSet={`${getImage(attributes.imageObject, 'tiny', 400)} 768w, ${getImage(attributes.imageObject, 'small', 400)} 1360w`}
-                                 src={getImage(attributes.imageObject, 'tiny', 400)}
-                                 style={{width: '100%'}}
-                                 width={getImage(attributes.imageObject, 'width')}
-                                 height={getImage(attributes.imageObject, 'height')}
-                            /> :
-                            <img alt={getImage(attributes.imageObject, 'alt')}
-                                 src={getImage(attributes.imageObject, 'tiny', 400)}
-                                 style={{width: '100%'}}
-                                 width={getImage(attributes.imageObject, 'width')}
-                                 height={getImage(attributes.imageObject, 'height')}
+                    <div {...innerBlockProps}>
+                        {(attributes.imageSize >= 20) &&
+                        <>
+                            <MediaUpload
+                                onSelect={(value) => setAttributes({imageObject: value})}
+                                allowedTypes={['image']}
+                                render={({open}) => (
+                                    <Button
+                                        className={'button'}
+                                        onClick={open}
+                                        icon={'format-image'}
+                                        isSmall={true}
+                                        style={{
+                                            position: 'absolute',
+                                            right: '10px',
+                                            top: '10px',
+                                            zIndex: '10'
+                                        }}
+                                    />
+                                )}
                             />
+                        </>
                         }
+                        <div className={attributes.hasRatio ? `ratio ratio-${attributes.imageRatio}` : ''}>
+                            {attributes.imageObject.mime !== 'image/svg+xml' ?
+                                <img alt={getImage(attributes.imageObject, 'alt')}
+                                     srcSet={`${getImage(attributes.imageObject, 'tiny', 400)} 768w, ${getImage(attributes.imageObject, 'small', 400)} 1360w`}
+                                     src={getImage(attributes.imageObject, 'tiny', 400)}
+                                     style={{width: '100%'}}
+                                     width={getImage(attributes.imageObject, 'width')}
+                                     height={getImage(attributes.imageObject, 'height')}
+                                /> :
+                                <img alt={getImage(attributes.imageObject, 'alt')}
+                                     src={getImage(attributes.imageObject, 'tiny', 400)}
+                                     style={{width: '100%'}}
+                                     width={getImage(attributes.imageObject, 'width')}
+                                     height={getImage(attributes.imageObject, 'height')}
+                                />
+                            }
+                        </div>
                     </div>
                 </div>
-
             </>
         );
     },
@@ -288,7 +303,7 @@ registerBlockType('custom/image', {
         const blockProps = useBlockProps.save({
             className: classnames(
                 'image-block',
-                `align-${attributes.imageAlignment}`,
+                `align-${attributes.horizontalAlign}`,
                 attributes.hasRatio ? `ratio ratio-${attributes.imageRatio}` : '',
                 attributes.imagePosition === 'right' && 'end-0'
             ),

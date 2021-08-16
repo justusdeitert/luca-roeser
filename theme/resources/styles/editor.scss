@@ -160,8 +160,6 @@ h1, h2, h3, h4, h5, h6 {
     height: 0;
 }
 
-
-
 /**
  * Experimental Control, Will be Changed in the Future
  * TODO: Be aware that this will change in future versions...
@@ -227,3 +225,17 @@ h1, h2, h3, h4, h5, h6 {
         margin: 0 5px 5px 0;
     }
 }
+
+/**
+ * Root container max widht elements
+ */
+.is-root-container {
+    > .editor-container {
+        max-width: var(--max-container-width);
+        margin: 0 auto;
+    }
+}
+
+//.editor-container {
+//    display: flex;
+//}

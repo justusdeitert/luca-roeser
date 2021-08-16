@@ -1,6 +1,10 @@
 .image-block {
     img {
         object-fit: cover;
-        height: auto;
+        height: 100%;
+    }
+
+    &__inner {
+
     }
 }

@@ -11,3 +11,4 @@ import './fluid-text';
 import './icon-text';
 import './grid-list';
 import './spacer';
+import './wrapper';

@@ -231,10 +231,11 @@ export const ALLOWEDBLOCKS = [
     'core/list',
     'core/shortcode',
     'core/columns',
+    'core/group',
     'custom/text-image',
     'custom/map',
     'custom/button',
-    'custom/section',
+    // 'custom/section',
     'custom/icon-text',
     'custom/row',
     'custom/divider',
@@ -244,6 +245,7 @@ export const ALLOWEDBLOCKS = [
     'custom/accordion',
     'custom/fluid-text',
     'custom/slider',
+    'custom/wrapper',
 ]
 
 export const parentAttributes = (clientId) => {
@@ -430,4 +432,8 @@ export const SelectSectionShapes = ({sectionShapes, clickFunction, value = 'none
             </div>
         </>
     );
+}
+
+export const isDefined = (value) => {
+    return value !== false && value !== undefined;
 }

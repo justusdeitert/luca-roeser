@@ -296,6 +296,9 @@ $navbar-height: var(--custom-navbar-height, 60);
 $vertical-spacing: var(--custom-vertical-spacing, 48);
 
 main {
+    display: flex;
+    flex-direction: column;
+
     > *:first-child {
         &:not(.hero-block):not(.section-block) {
             margin-top: calc(var(--custom-vertical-spacing, 2rem) * 2);
