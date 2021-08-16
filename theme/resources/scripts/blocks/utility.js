@@ -230,7 +230,7 @@ export const ALLOWEDBLOCKS = [
     'core/heading',
     'core/list',
     'core/shortcode',
-    'core/group',
+    'core/columns',
     'custom/text-image',
     'custom/map',
     'custom/button',

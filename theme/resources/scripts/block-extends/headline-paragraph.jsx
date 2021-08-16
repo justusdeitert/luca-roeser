@@ -110,7 +110,7 @@ const withAdvancedControls = createHigherOrderComponent((BlockEdit) => {
 
         const onChangeCustomFontWeight = (value) => {
             setAttributes({
-                customFontSize: value,
+                customFontWeight: value,
                 className: classnames(
                     fontWeightClass(value),
                     fontSizeClass(attributes.customFontSize),

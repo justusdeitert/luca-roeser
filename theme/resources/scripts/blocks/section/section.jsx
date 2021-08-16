@@ -11,11 +11,20 @@ const attributes = {
 
     /**
      * Default Attributes
+     * @link https://developer.wordpress.org/block-editor/reference-guides/block-api/block-supports/#align
      */
+    align: {
+        type: 'string',
+        default: 'full'
+    },
     clientId: {
         type: 'string',
         default: ''
     },
+
+    /**
+     * Section Properties
+     */
     sectionBackgroundColor: {
         type: 'string',
         default: ''
@@ -328,7 +337,7 @@ registerBlockType('custom/section', {
             </>
         );
     },
-    save: ({attributes, className}) => {
+    save: ({attributes}) => {
 
         let sectionInnerStyles = {};
         if (attributes.innerWidth) {sectionInnerStyles.maxWidth = `${attributes.innerWidth}px`;}

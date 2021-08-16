@@ -297,7 +297,7 @@ $vertical-spacing: var(--custom-vertical-spacing, 48);
 
 main {
     > *:first-child {
-        &:not(.hero-block) {
+        &:not(.hero-block):not(.section-block) {
             margin-top: calc(var(--custom-vertical-spacing, 2rem) * 2);
 
             @include media-breakpoint-down(sm) {

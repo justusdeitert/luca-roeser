@@ -116,18 +116,33 @@ registerBlockType('custom/slider', {
 
         attributes.clientId = clientId;
 
+        // const TEMPLATE = [
+        //     ['custom/slider-inner', {}, [
+        //         ['core/paragraph', {placeholder: loremIpsum, content: loremIpsum}]
+        //     ]],
+        //     ['custom/slider-inner', {}, [
+        //         ['core/paragraph', {placeholder: loremIpsum, content: loremIpsum}]
+        //     ]],
+        //     ['custom/slider-inner', {}, [
+        //         ['core/paragraph', {placeholder: loremIpsum, content: loremIpsum}],
+        //     ]],
+        //     ['custom/slider-inner', {}, [
+        //         ['core/paragraph', {placeholder: loremIpsum, content: loremIpsum}],
+        //     ]],
+        // ];
+
         const TEMPLATE = [
             ['custom/slider-inner', {}, [
-                ['core/paragraph', {placeholder: loremIpsum, content: loremIpsum}]
+                ['core/paragraph']
             ]],
             ['custom/slider-inner', {}, [
-                ['core/paragraph', {placeholder: loremIpsum, content: loremIpsum}]
+                ['core/paragraph']
             ]],
             ['custom/slider-inner', {}, [
-                ['core/paragraph', {placeholder: loremIpsum, content: loremIpsum}],
+                ['core/paragraph'],
             ]],
             ['custom/slider-inner', {}, [
-                ['core/paragraph', {placeholder: loremIpsum, content: loremIpsum}],
+                ['core/paragraph'],
             ]],
         ];
 
