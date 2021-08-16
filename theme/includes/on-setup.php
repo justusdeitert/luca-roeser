@@ -17,6 +17,7 @@ $GLOBALS['standard_plugins'] = [
     '/user-switching/user-switching.php',
     '/duplicate-post/duplicate-post.php',
     '/wordpress-seo/wp-seo.php',
+    'wpcf7-recaptcha/recaptcha-v2.php'
 ];
 
 $GLOBALS['default_theme_options'] = [
