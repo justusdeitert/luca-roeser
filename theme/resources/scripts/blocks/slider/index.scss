@@ -13,7 +13,7 @@
         display: flex;
         flex-wrap: initial;
         cursor: grab;
-        margin: 3px 0; // for box-shadow
+        //margin: 3px 0; // for box-shadow
 
         > .block-list-appender {
             position: relative;
@@ -22,6 +22,7 @@
     }
 
     &__slide {
+        display: flex;
         height: auto;
         @extend .col-padding;
 
@@ -33,8 +34,9 @@
     &__slide-inner {
         position: relative;
         height: 100%;
-        display: flex;
-        flex-direction: column;
+        width: 100%;
+        //display: flex;
+        //flex-direction: column;
         //overflow: hidden;
     }
 
@@ -45,12 +47,12 @@
         position: absolute;
     }
 
-    &__text-wrapper {
-        margin: 1rem 0.75rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
+    //&__text-wrapper {
+    //    margin: 1rem 0.75rem;
+    //    display: flex;
+    //    flex-direction: column;
+    //    justify-content: center;
+    //}
 
     &__text {
        margin: 0;

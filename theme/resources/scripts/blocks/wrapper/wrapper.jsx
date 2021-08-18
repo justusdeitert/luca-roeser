@@ -3,11 +3,9 @@ import {registerBlockType, createBlock} from '@wordpress/blocks';
 import {SelectControl, RangeControl, ToggleControl, ToolbarGroup, ToolbarDropdownMenu, Button, PanelBody, __experimentalRadio as Radio, __experimentalRadioGroup as RadioGroup, __experimentalBoxControl as BoxControl} from '@wordpress/components';
 import {InnerBlocks, InspectorControls, ColorPalette, BlockControls, useBlockProps, __experimentalUseInnerBlocksProps as useInnerBlocksProps} from '@wordpress/block-editor';
 import classnames from 'classnames';
-
 import {sectionIcon} from '../icons';
-
-import {editorThemeColors, getColorObject, ALLOWEDBLOCKS, removeArrayItems, SelectSectionShapes, getCssVariable} from "../utility";
-import classNames from "classnames";
+import {editorThemeColors, getColorObject, ALLOWEDBLOCKS, removeArrayItems, isDefined} from "../utility";
+// import classNames from "classnames";
 // import * as wrapperShapes from "../wrapper-shapes"
 // import {select, dispatch, useSelect} from "@wordpress/data";
 
@@ -24,7 +22,7 @@ const attributes = {
     /**
      * Section Properties
      */
-    wrapperBackgroundColor: {
+    wrapperBgColor: {
         type: 'string',
         default: ''
     },
@@ -36,9 +34,17 @@ const attributes = {
         type: 'number',
         default: false,
     },
+    removeWrapperWidth: {
+        type: 'boolean',
+        default: false,
+    },
     wrapperWidth: {
         type: 'number',
-        default: false,
+        default: 100,
+    },
+    wrapperWidthUnit: {
+        type: 'string',
+        default: '%',
     },
     horizontalAlign: {
         type: 'string',
@@ -108,7 +114,6 @@ registerBlockType('custom/wrapper', {
             className: classnames(
                 className,
                 'wrapper-block',
-                getColorObject(attributes.wrapperBackgroundColor) && `has-${getColorObject(attributes.wrapperBackgroundColor).slug}-background-color has-background`,
             ),
             style: {
                 border: '1px dashed var(--wp-admin-theme-color)'
@@ -150,11 +155,65 @@ registerBlockType('custom/wrapper', {
                 </BlockControls>
                 <InspectorControls>
                     <div className="inspector-controls-container">
-                        <h1>Empty!</h1>
+                        <ToggleControl
+                            label={__('Remove max width', 'sage')}
+                            // help={__('Enable continuous loop mode (does not apply on the editor)', 'sage')}
+                            checked={attributes.removeWrapperWidth}
+                            onChange={(value) => setAttributes({removeWrapperWidth: value})}
+                        />
+                        {!attributes.removeWrapperWidth && <>
+                            <hr/>
+                            <p>{__('Max width', 'sage')}</p>
+                            <RangeControl
+                                value={attributes.wrapperWidth}
+                                min={attributes.wrapperWidthUnit === 'px' ? 60 : 10}
+                                max={attributes.wrapperWidthUnit === 'px' ? 1200 : 100}
+                                step={1}
+                                onChange={(value) => {
+                                    setAttributes({wrapperWidth: value})
+                                }}
+                                // allowReset={true}
+                                // resetFallbackValue={100}
+                            />
+                            <RadioGroup
+                                onChange={(value) => {
+                                    setAttributes({wrapperWidthUnit: value})
+
+                                    if (attributes.wrapperWidthUnit === '%') {
+                                        setAttributes({wrapperWidth: 100})
+                                    }
+                                }}
+                                checked={attributes.wrapperWidthUnit}
+                                defaultChecked={'%'}
+                            >
+                                <Radio value="px">{__('px', 'sage')}</Radio>
+                                <Radio value="%">{__('%', 'sage')}</Radio>
+                            </RadioGroup>
+                        </>}
+                        <hr/>
+                        <p>{__('Background color', 'sage')}</p>
+                        <ColorPalette
+                            colors={editorThemeColors}
+                            value={attributes.wrapperBgColor}
+                            onChange={(value) => setAttributes({wrapperBgColor: value})}
+                            disableCustomColors={true}
+                        />
                     </div>
                 </InspectorControls>
                 <div {...innerBlocksProps}>
-                    <div className={classnames('wrapper-block__inner', `align-${attributes.horizontalAlign}`,)}>
+                    <div
+                        className={classnames(
+                            'wrapper-block__inner',
+                            `align-${attributes.horizontalAlign}`,
+                            getColorObject(attributes.wrapperBgColor) && `has-${getColorObject(attributes.wrapperBgColor).slug}-background-color has-background`,
+                        )}
+                        style={{
+                            ...!attributes.removeWrapperWidth && {
+                                width: '100%',
+                                maxWidth: `${attributes.wrapperWidth}${attributes.wrapperWidthUnit}`
+                            }
+                        }}
+                    >
                         {innerBlocksProps.children}
                     </div>
                 </div>
@@ -167,8 +226,14 @@ registerBlockType('custom/wrapper', {
             className: classnames(
                 'wrapper-block',
                 `align-${attributes.horizontalAlign}`,
-                getColorObject(attributes.wrapperBackgroundColor) && `has-${getColorObject(attributes.wrapperBackgroundColor).slug}-background-color has-background`,
-            )
+                getColorObject(attributes.wrapperBgColor) && `has-${getColorObject(attributes.wrapperBgColor).slug}-background-color has-background`,
+            ),
+            style: {
+                ...!attributes.removeWrapperWidth && {
+                    width: '100%',
+                    maxWidth: `${attributes.wrapperWidth}${attributes.wrapperWidthUnit}`
+                }
+            }
         });
 
         return (

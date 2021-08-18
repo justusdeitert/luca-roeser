@@ -1,6 +1,6 @@
 import {__} from '@wordpress/i18n';
 import {registerBlockType} from '@wordpress/blocks';
-import {InnerBlocks, useBlockProps} from '@wordpress/block-editor';
+import {InnerBlocks, useBlockProps, __experimentalUseInnerBlocksProps as useInnerBlocksProps} from '@wordpress/block-editor';
 import classNames from 'classnames';
 import {useEffect} from '@wordpress/element';
 import {
@@ -79,7 +79,6 @@ registerBlockType('custom/slider-inner', {
                 'slider-block__slide-inner',
                 'custom-border',
                 'custom-border-radius',
-                getColorObject(attributes.parentBackgroundColor) && 'custom-shadow',
                 getColorObject(attributes.parentBackgroundColor) && `has-background has-${getColorObject(attributes.parentBackgroundColor).slug}-background-color`
             ),
             style: {
@@ -89,15 +88,23 @@ registerBlockType('custom/slider-inner', {
             }
         });
 
+        const innerBlocksProps = useInnerBlocksProps(blockProps, {
+            templateLock: false,
+            allowedBlocks: removeArrayItems(ALLOWEDBLOCKS, ['custom/slider']),
+            renderAppender: InnerBlocks.DefaultBlockAppender
+        });
+
+
         return (
             <>
                 <div className={classNames('swiper-slide', 'slider-block__slide')}>
-                    <div {...blockProps}>
-                        <InnerBlocks
+                    <div {...innerBlocksProps}>
+                        {/*<InnerBlocks
                             templateLock={false}
                             allowedBlocks={removeArrayItems(ALLOWEDBLOCKS, ['custom/slider'])}
                             renderAppender={InnerBlocks.DefaultBlockAppender}
-                        />
+                        />*/}
+                        {innerBlocksProps.children}
                     </div>
                 </div>
             </>
@@ -111,7 +118,6 @@ registerBlockType('custom/slider-inner', {
                 'slider-block__slide-inner',
                 'custom-border',
                 'custom-border-radius',
-                getColorObject(attributes.parentBackgroundColor) && 'custom-shadow',
                 getColorObject(attributes.parentBackgroundColor) && `has-background has-${getColorObject(attributes.parentBackgroundColor).slug}-background-color`
             ),
         });
