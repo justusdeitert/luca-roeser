@@ -116,11 +116,15 @@ const attributes = {
      */
     sectionShape: {
         type: 'string',
-        default: 'none',
+        default: false,
     },
-    sectionShapeHeight: {
+    sectionShapeHeightDesktop: {
         type: 'number',
-        default: 60,
+        default: 90,
+    },
+    sectionShapeHeightMobile: {
+        type: 'number',
+        default: 30,
     },
     sectionShapeTopClass: {
         type: 'string',
@@ -229,15 +233,22 @@ registerBlockType('custom/section', {
             style: {
                 border: !attributes.sectionBackgroundColor ? '1 px dashed var(--wp-admin-theme-color)' : 'none',
                 height: attributes.fullHeight ? '100%' : 'initial',
-                ...attributes.sectionBorderRadius && {borderRadius: `${attributes.sectionBorderRadius}px`},
-                ...(attributes.sectionShape !== 'none') && {
-                    paddingTop: `${attributes.sectionShapeHeight + 10}px`,
-                    paddingBottom: `${attributes.sectionShapeHeight + 10}px`,
+                ...(attributes.sectionBorderRadius && !attributes.sectionShape) && {
+                    borderRadius: `${attributes.sectionBorderRadius}px`
                 },
+                // ...!attributes.sectionShape && {
+                //     paddingTop: `${attributes.sectionShapeHeightDesktop + 10}px`,
+                //     paddingBottom: `${attributes.sectionShapeHeightDesktop + 10}px`,
+                // },
                 ...isDefined(attributes.minHeightDesktop) && {
                     '--min-height-desktop': `${attributes.minHeightDesktop}px`,
                     '--min-height-mobile': `${attributes.minHeightMobile}px`,
                     '--min-height-desktop-mobile': `${attributes.minHeightDesktop - attributes.minHeightMobile}`,
+                },
+                ...attributes.sectionShape && {
+                    '--shape-height-desktop': `${attributes.sectionShapeHeightDesktop}px`,
+                    '--shape-height-mobile': `${attributes.sectionShapeHeightMobile}px`,
+                    '--shape-height-desktop-mobile': `${attributes.sectionShapeHeightDesktop - attributes.sectionShapeHeightMobile}`,
                 }
             }
         });
@@ -263,7 +274,7 @@ registerBlockType('custom/section', {
                 </BlockControls>
                 <InspectorControls>
                     <div className="inspector-controls-container">
-                        <div style={{height: '20px'}}/>
+                        {/*<div style={{height: '20px'}}/>*/}
                         <SelectControl
                             label={__('HTML element')}
                             options={[
@@ -287,12 +298,6 @@ registerBlockType('custom/section', {
                             // help={ attributes.switchContent ? 'Image is left' : 'Image is right' }
                             checked={attributes.fullHeight}
                             onChange={(value) => setAttributes({fullHeight: value})}
-                        />
-                        <hr/>
-                        <ToggleControl
-                            label={__('Full inner width', 'sage')}
-                            checked={attributes.fullWidth}
-                            onChange={(value) => setAttributes({fullWidth: value})}
                         />
                         {!attributes.fullHeight &&
                         <>
@@ -337,6 +342,12 @@ registerBlockType('custom/section', {
                             </MobileSwitch>
                         </>
                         }
+                        <hr/>
+                        <ToggleControl
+                            label={__('Full inner width', 'sage')}
+                            checked={attributes.fullWidth}
+                            onChange={(value) => setAttributes({fullWidth: value})}
+                        />
                         {!attributes.fullWidth &&
                         <>
                             <hr/>
@@ -363,33 +374,36 @@ registerBlockType('custom/section', {
                             onChange={(value) => setAttributes({sectionBackgroundColor: value})}
                             disableCustomColors={true}
                         />
-                        <hr/>
-                        <p>{__('Border Radius', 'sage')}</p>
-                        <RangeControl
-                            value={attributes.sectionBorderRadius}
-                            min={0}
-                            max={180}
-                            step={1}
-                            onChange={(value) => setAttributes({sectionBorderRadius: value})}
-                            allowReset={true}
-                            resetFallbackValue={false}
-                        />
+                        {!attributes.sectionShape &&
                         <>
                             <hr/>
-                            <p>{__('Vertical Padding', 'sage')}</p>
+                            <p>{__('Border Radius', 'sage')}</p>
                             <RangeControl
-                                value={attributes.verticalPadding}
+                                value={attributes.sectionBorderRadius}
                                 min={0}
-                                max={200}
+                                max={180}
                                 step={1}
-                                onChange={(value) => setAttributes({verticalPadding: value})}
+                                onChange={(value) => setAttributes({sectionBorderRadius: value})}
                                 allowReset={true}
                                 resetFallbackValue={false}
                             />
                         </>
+                        }
+                        <hr/>
+                        <p>{__('Vertical Padding', 'sage')}</p>
+                        <RangeControl
+                            value={attributes.verticalPadding}
+                            min={0}
+                            max={200}
+                            step={1}
+                            onChange={(value) => setAttributes({verticalPadding: value})}
+                            allowReset={true}
+                            resetFallbackValue={false}
+                        />
                     </div>
-                    <PanelBody title={__('Section Shape', 'sage')}>
-                        <div style={{height: '20px'}}/>
+                    <PanelBody title={__('Shape', 'sage')}>
+                        {/*<div style={{height: '20px'}}/>*/}
+                        {/*<hr/>*/}
                         <p>{__('Section Shape', 'sage')}</p>
                         <SelectSectionShapes
                             sectionShapes={sectionShapes}
@@ -397,24 +411,44 @@ registerBlockType('custom/section', {
                                 if (value !== attributes.sectionShape) {
                                     setAttributes({sectionShape: value});
                                 } else {
-                                    setAttributes({sectionShape: 'none'});
+                                    setAttributes({sectionShape: false});
                                 }
                             }}
                             value={attributes.sectionShape}
                         />
-                        {(attributes.sectionShape !== 'none') &&
+                        {attributes.sectionShape &&
                         <>
                             <hr/>
-                            <p>{__('Shape Height', 'sage')}</p>
-                            <RangeControl
-                                value={attributes.sectionShapeHeight}
-                                min={20}
-                                max={300}
-                                step={1}
-                                onChange={(value) => setAttributes({sectionShapeHeight: value})}
-                                allowReset={true}
-                                resetFallbackValue={100}
-                            />
+                            <MobileSwitch headline={__('Shape Height', 'sage')}>
+                                <MobileSwitchInner type={'desktop'}>
+                                    <RangeControl
+                                        value={attributes.sectionShapeHeightDesktop}
+                                        min={20}
+                                        max={300}
+                                        step={1}
+                                        onChange={(value) => {
+                                            setAttributes({sectionShapeHeightDesktop: value});
+
+                                            if (attributes.sectionShapeHeightMobile* 2 === attributes.sectionShapeHeightDesktop) {
+                                                setAttributes({sectionShapeHeightMobile: value / 3});
+                                            }
+                                        }}
+                                        allowReset={true}
+                                        resetFallbackValue={100}
+                                    />
+                                </MobileSwitchInner>
+                                <MobileSwitchInner type={'mobile'}>
+                                    <RangeControl
+                                        value={attributes.sectionShapeHeightMobile}
+                                        min={20}
+                                        max={attributes.sectionShapeHeightDesktop}
+                                        step={1}
+                                        onChange={(value) => setAttributes({sectionShapeHeightMobile: value})}
+                                        allowReset={true}
+                                        resetFallbackValue={attributes.sectionShapeHeightDesktop / 3}
+                                    />
+                                </MobileSwitchInner>
+                            </MobileSwitch>
                             <hr/>
                             <p>{__('Top Shape', 'sage')}</p>
                             <RadioGroup
@@ -476,24 +510,22 @@ registerBlockType('custom/section', {
                             paddingTop: `${attributes.verticalPadding}px`,
                             paddingBottom: `${attributes.verticalPadding}px`
                         },
-                        ...(attributes.sectionShape !== 'none') && {
-                            paddingTop: 0,
-                            paddingBottom: 0,
-                        }
+                        // ...!attributes.sectionShape && {
+                        //     paddingTop: 0,
+                        //     paddingBottom: 0,
+                        // }
                     }}>
                         {innerBlocksProps.children}
                     </div>
 
                     {(sectionShapes[attributes.sectionShape] && attributes.sectionShapeTopClass !== 'none') && sectionShapes[attributes.sectionShape](
                         'top',
-                        `${attributes.sectionShapeHeight}px`,
                         classnames(attributes.sectionShapeTopClass),
                         getColorObject(attributes.sectionTopShapeBgColor) ? `rgb(var(--custom-${getColorObject(attributes.sectionTopShapeBgColor).slug}-color))` : 'rgb(var(--custom-body-background-color))'
                     )}
 
                     {(sectionShapes[attributes.sectionShape] && attributes.sectionShapeBottomClass !== 'none') && sectionShapes[attributes.sectionShape](
                         'bottom',
-                        `${attributes.sectionShapeHeight}px`,
                         classnames(attributes.sectionShapeBottomClass),
                         getColorObject(attributes.sectionBottomShapeBgColor) ? `rgb(var(--custom-${getColorObject(attributes.sectionBottomShapeBgColor).slug}-color))` : 'rgb(var(--custom-body-background-color))'
                     )}
@@ -511,15 +543,22 @@ registerBlockType('custom/section', {
                 `align-items-${attributes.verticalAlign}`
             ),
             style: {
-                ...attributes.sectionBorderRadius && {borderRadius: `${attributes.sectionBorderRadius}px`},
-                ...(attributes.sectionShape !== 'none') && {
-                    paddingTop: `${attributes.sectionShapeHeight + 10}px`,
-                    paddingBottom: `${attributes.sectionShapeHeight + 10}px`,
+                ...(attributes.sectionBorderRadius && !attributes.sectionShape) && {
+                    borderRadius: `${attributes.sectionBorderRadius}px`
                 },
+                // ...!attributes.sectionShape && {
+                //     paddingTop: `${attributes.sectionShapeHeightDesktop + 10}px`,
+                //     paddingBottom: `${attributes.sectionShapeHeightDesktop + 10}px`,
+                // },
                 ...isDefined(attributes.minHeightDesktop) && {
                     '--min-height-desktop': `${attributes.minHeightDesktop}px`,
                     '--min-height-mobile': `${attributes.minHeightMobile}px`,
                     '--min-height-desktop-mobile': `${attributes.minHeightDesktop - attributes.minHeightMobile}`,
+                },
+                ...attributes.sectionShape && {
+                    '--shape-height-desktop': `${attributes.sectionShapeHeightDesktop}px`,
+                    '--shape-height-mobile': `${attributes.sectionShapeHeightMobile}px`,
+                    '--shape-height-desktop-mobile': `${attributes.sectionShapeHeightDesktop - attributes.sectionShapeHeightMobile}`,
                 }
             }
         });
@@ -534,24 +573,22 @@ registerBlockType('custom/section', {
                         paddingTop: `${attributes.verticalPadding}px`,
                         paddingBottom: `${attributes.verticalPadding}px`
                     },
-                    ...(attributes.sectionShape !== 'none') && {
-                        paddingTop: 0,
-                        paddingBottom: 0,
-                    }
+                    // ...!attributes.sectionShape && {
+                    //     paddingTop: 0,
+                    //     paddingBottom: 0,
+                    // }
                 }}>
                     <InnerBlocks.Content/>
                 </div>
 
                 {(sectionShapes[attributes.sectionShape] && attributes.sectionShapeTopClass !== 'none') && sectionShapes[attributes.sectionShape](
                     'top',
-                    `${attributes.sectionShapeHeight}px`,
                     classnames(attributes.sectionShapeTopClass),
                     getColorObject(attributes.sectionTopShapeBgColor) ? `rgb(var(--custom-${getColorObject(attributes.sectionTopShapeBgColor).slug}-color))` : 'rgb(var(--custom-body-background-color))'
                 )}
 
                 {(sectionShapes[attributes.sectionShape] && attributes.sectionShapeBottomClass !== 'none') && sectionShapes[attributes.sectionShape](
                     'bottom',
-                    `${attributes.sectionShapeHeight}px`,
                     classnames(attributes.sectionShapeBottomClass),
                     getColorObject(attributes.sectionBottomShapeBgColor) ? `rgb(var(--custom-${getColorObject(attributes.sectionBottomShapeBgColor).slug}-color))` : 'rgb(var(--custom-body-background-color))'
                 )}

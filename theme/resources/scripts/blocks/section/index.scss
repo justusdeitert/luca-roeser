@@ -11,8 +11,8 @@
 }
 
 .section-block {
-    //display: flex;
-
+    display: flex;
+    position: relative;
 
     &__inner {
         @extend .container;
@@ -50,6 +50,25 @@
             min-height: #{$max-value};
         }
     }
+
+    $min-value: var(--shape-height-mobile, '30px');
+    $max-value: var(--shape-height-desktop, '90px');
+    $min-max-value: var(--shape-height-desktop-mobile);
+    $min-vw: map-get($grid-breakpoints, xs);
+    $max-vw: map-get($grid-breakpoints, xl);
+
+    padding-top: #{$min-value};
+    padding-bottom: #{$min-value};
+
+    @media screen and (min-width: $min-vw) {
+        padding-top: calc(#{$min-value} + #{$min-max-value} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
+        padding-bottom: calc(#{$min-value} + #{$min-max-value} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
+    }
+
+    @media screen and (min-width: $max-vw) {
+        padding-top: #{$max-value};
+        padding-bottom: #{$max-value};
+    }
 }
 
 main > .section-block {
@@ -67,7 +86,6 @@ main > .section-block {
 }
 
 .section-shape {
-    height: 100px;
     width: 100%;
     position: absolute;
 
@@ -90,5 +108,21 @@ main > .section-block {
         &.shape-bottom {
             transform: rotateX(180deg) rotateY(-360deg);
         }
+    }
+
+    $min-value: var(--shape-height-mobile, '30px');
+    $max-value: var(--shape-height-desktop, '90px');
+    $min-max-value: var(--shape-height-desktop-mobile);
+    $min-vw: map-get($grid-breakpoints, xs);
+    $max-vw: map-get($grid-breakpoints, xl);
+
+    height: #{$min-value};
+
+    @media screen and (min-width: $min-vw) {
+        height: calc(#{$min-value} + #{$min-max-value} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
+    }
+
+    @media screen and (min-width: $max-vw) {
+        height: #{$max-value};
     }
 }
