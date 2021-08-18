@@ -64,11 +64,14 @@ registerBlockType('custom/grid-list-inner', {
             }
         });
 
-        console.log(removeArrayItems(ALLOWEDBLOCKS, ['custom/grid-list']));
+        // console.log(removeArrayItems(ALLOWEDBLOCKS, ['custom/grid-list']));
+        // console.log(typeof removeArrayItems(ALLOWEDBLOCKS, ['custom/grid-list']));
+        // console.log(['core/paragraph', 'core/group']);
+        // console.log(typeof ['core/paragraph', 'core/group']);
 
         const innerBlocksProps = useInnerBlocksProps(blockProps, {
             // allowedBlocks: [removeArrayItems(ALLOWEDBLOCKS, ['custom/grid-list'])],
-            allowedBlocks: ['core/paragraph'],
+            // allowedBlocks: ['core/paragraph'], // TODO: Dont Allow grid-list itself
             // templateLock: false,
             // renderAppender: InnerBlocks.DefaultBlockAppender,
         });

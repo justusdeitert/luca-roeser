@@ -4,7 +4,7 @@ import {RangeControl, ToggleControl, Dashicon, __experimentalRadio as Radio, __e
 import {InnerBlocks, InspectorControls, ColorPalette, useBlockProps, __experimentalUseInnerBlocksProps as useInnerBlocksProps} from '@wordpress/block-editor';
 import classNames from 'classnames';
 import {gridListIcon} from '../icons';
-import {editorThemeColors, updateInnerBlocks, isDefined} from "../utility";
+import {editorThemeColors, updateInnerBlocks, isDefined, MobileSwitch, MobileSwitchInner} from "../utility";
 // import * as clipPaths from "../clip-paths"
 
 const attributes = {
@@ -56,6 +56,7 @@ registerBlockType('custom/grid-list', {
         anchor: true,
         html: false,
         align: ['wide', 'full'],
+        // color: true // Enables background and text
     },
     edit: ({setAttributes, attributes, className, clientId}) => {
 
@@ -95,38 +96,78 @@ registerBlockType('custom/grid-list', {
             template: TEMPLATE,
         });
 
+        // TODO: Manage columns via bootstrap grid classes
+        // -------------->
+        // const returnColumns = () => {
+        //     return (
+        //
+        //     )
+        // };
+
         return (
             <>
                 <InspectorControls>
                     <div className="inspector-controls-container">
-                        {/*<hr/>
-                        <p>{__('Grid Columns', 'sage')}</p>
-                        <RangeControl
-                            value={attributes.columns}
-                            min={1}
-                            max={6}
-                            step={1}
-                            onChange={(value) => setAttributes({columns: value})}
-                        />*/}
                         <hr/>
-                        <p>{__('Grid Columns', 'sage')}</p>
-                        <RadioGroup
-                            onChange={(value) => {
-                                setAttributes({columns: value});
-                            }}
-                            checked={attributes.columns}
-                            defaultChecked={3}
-                        >
-                            <Radio value={1}>1</Radio>
-                            <Radio value={2}>2</Radio>
-                            <Radio value={3}>3</Radio>
-                            <Radio value={4}>4</Radio>
+                        <MobileSwitch headline={__('Grid Columns', 'sage')}>
+                            <MobileSwitchInner type={'desktop'}>
+                                <RadioGroup
+                                    onChange={(value) => {
+                                        setAttributes({columns: value});
+                                    }}
+                                    checked={attributes.columns}
+                                    defaultChecked={3}
+                                >
+                                    <Radio value={1}>1</Radio>
+                                    <Radio value={2}>2</Radio>
+                                    <Radio value={3}>3</Radio>
+                                    <Radio value={4}>4</Radio>
 
-                            {(attributes.align === 'full') && <>
-                                <Radio value={5}>5</Radio>
-                                <Radio value={6}>6</Radio>
-                            </>}
-                        </RadioGroup>
+                                    {(attributes.align === 'full') && <>
+                                        <Radio value={5}>5</Radio>
+                                        <Radio value={6}>6</Radio>
+                                    </>}
+                                </RadioGroup>
+                            </MobileSwitchInner>
+                            <MobileSwitchInner type={'tablet'}>
+                                <RadioGroup
+                                    onChange={(value) => {
+                                        setAttributes({columns: value});
+                                    }}
+                                    checked={attributes.columns}
+                                    defaultChecked={3}
+                                >
+                                    <Radio value={1}>1</Radio>
+                                    <Radio value={2}>2</Radio>
+                                    <Radio value={3}>3</Radio>
+                                    <Radio value={4}>4</Radio>
+
+                                    {(attributes.align === 'full') && <>
+                                        <Radio value={5}>5</Radio>
+                                        <Radio value={6}>6</Radio>
+                                    </>}
+                                </RadioGroup>
+                            </MobileSwitchInner>
+                            <MobileSwitchInner type={'mobile'}>
+                                <RadioGroup
+                                    onChange={(value) => {
+                                        setAttributes({columns: value});
+                                    }}
+                                    checked={attributes.columns}
+                                    defaultChecked={3}
+                                >
+                                    <Radio value={1}>1</Radio>
+                                    <Radio value={2}>2</Radio>
+                                    <Radio value={3}>3</Radio>
+                                    <Radio value={4}>4</Radio>
+
+                                    {(attributes.align === 'full') && <>
+                                        <Radio value={5}>5</Radio>
+                                        <Radio value={6}>6</Radio>
+                                    </>}
+                                </RadioGroup>
+                            </MobileSwitchInner>
+                        </MobileSwitch>
                         <hr/>
                         <div style={{display:'flex'}}>
                             <p>{__('Gutter', 'sage')}</p>

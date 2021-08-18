@@ -291,10 +291,10 @@ if (class_exists('Kirki')) {
                 'settings' => 'custom_vertical_spacing_mobile',
                 'label' => __('Vertical spacing (Mobile)', 'sage'),
                 'section' => 'section_content_settings_id',
-                'default' => 32,
+                'default' => 24,
                 'choices' => [
                     'min' => 16,
-                    'max' => 140,
+                    'max' => 80,
                     'step' => 1,
                 ],
             ]);

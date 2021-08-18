@@ -16,9 +16,14 @@
 
     &__inner {
         @extend .container;
-        padding-top: var(--custom-vertical-spacing-desktop, 2rem);
-        padding-bottom: var(--custom-vertical-spacing-desktop, 2rem);
+        padding-top: var(--custom-vertical-spacing-desktop, 3rem);
+        padding-bottom: var(--custom-vertical-spacing-desktop, 3rem);
         position: relative;
+
+        @include media-breakpoint-down(sm) {
+            padding-top: var(--custom-vertical-spacing-mobile, 1.5rem);
+            padding-bottom: var(--custom-vertical-spacing-mobile, 1.5rem);
+        }
 
         .wp-block {
             max-width: initial;
