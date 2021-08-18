@@ -3,7 +3,7 @@ import {registerBlockType} from '@wordpress/blocks';
 import {ToggleControl, Button, RangeControl, FocalPointPicker, SelectControl, ToolbarGroup, ToolbarDropdownMenu, __experimentalRadio as Radio, __experimentalRadioGroup as RadioGroup} from '@wordpress/components';
 import {MediaUpload, InspectorControls, BlockControls, useBlockProps} from '@wordpress/block-editor';
 import classnames from 'classnames';
-import {getImage, focalPositionInPixel} from '../utility';
+import {getImage, focalPositionInPixel, MobileSwitch, MobileSwitchInner} from '../utility';
 import {imageIcon} from '../icons';
 
 // For not firing update to often
@@ -23,19 +23,19 @@ registerBlockType('custom/image', {
             type: 'object',
             default: ''
         },
-        hasRatio: {
-            type: 'boolean',
-            default: false,
-        },
         imageRatio: {
             type: 'string',
-            default: '3x2',
+            default: false,
         },
         imageSizeUnit: {
             type: 'string',
             default: '%'
         },
-        imageSize: {
+        imageSizeDesktop: {
+            type: 'number',
+            default: 100
+        },
+        imageSizeMobile: {
             type: 'number',
             default: 100
         },
@@ -83,14 +83,23 @@ registerBlockType('custom/image', {
                 className,
                 'image-block',
                 (attributes.imagePositioning === 'absolute' && attributes.horizontalImagePosition === 'right') && 'end-0',
-                (attributes.imagePositioning === 'absolute' && attributes.verticalImagePosition === 'bottom') && 'bottom-0'
+                (attributes.imagePositioning === 'absolute' && attributes.verticalImagePosition === 'bottom') && 'bottom-0',
+                (attributes.imagePositioning === 'absolute' && attributes.imageSizeUnit === 'px') && `unit-size-px`
             ),
             style: {
                 border: '1px dashed var(--wp-admin-theme-color)',
                 ...(attributes.imagePositioning === 'absolute') && {
-                    width: `${attributes.imageSize + attributes.imageSizeUnit}`,
+                    // width: `${attributes.imageSizeDesktop + attributes.imageSizeUnit}`,
                     position: attributes.imagePositioning,
                     transform: `translate(${focalPositionInPixel(attributes.imageMove.x, attributes.imagePositionUnit)}, ${focalPositionInPixel(attributes.imageMove.y, attributes.imagePositionUnit)})`,
+                },
+                ...(attributes.imageSizeUnit === 'px') && {
+                    '--desktop-size': `${attributes.imageSizeDesktop}px`,
+                    '--mobile-size': `${attributes.imageSizeMobile}px`,
+                    '--size-difference': `${attributes.imageSizeDesktop - attributes.imageSizeMobile}`,
+                },
+                ...(attributes.imageSizeUnit === '%') && {
+                    '--size': `${attributes.imageSizeDesktop}%`,
                 }
             }
         });
@@ -99,10 +108,11 @@ registerBlockType('custom/image', {
             className: classnames(
                 'image-block__inner',
                 attributes.imagePositioning === 'relative' && `align-${attributes.horizontalAlign}`,
+                (attributes.imagePositioning === 'relative' && attributes.imageSizeUnit === 'px') && `unit-size-px`
             ),
             style: {
                 ...(attributes.imagePositioning === 'relative') && {
-                    width: `${attributes.imageSize + attributes.imageSizeUnit}`,
+                    // width: `${attributes.imageSizeDesktop + attributes.imageSizeUnit}`,
                     position: attributes.imagePositioning,
                     transform: `translate(${focalPositionInPixel(attributes.imageMove.x, attributes.imagePositionUnit)}, ${focalPositionInPixel(attributes.imageMove.y, attributes.imagePositionUnit)})`,
                 }
@@ -142,8 +152,7 @@ registerBlockType('custom/image', {
                 }
                 <InspectorControls>
                     <div className="inspector-controls-container">
-                        {(attributes.imageSize < 20) &&
-                        <>
+                        {(attributes.imageSize < 20) && <>
                             <MediaUpload
                                 onSelect={(value) => setAttributes({imageObject: value})}
                                 allowedTypes={['image']}
@@ -157,37 +166,71 @@ registerBlockType('custom/image', {
                                     />
                                 )}
                             />
-                        </>
-                        }
+                        </>}
                         <hr/>
-                        <ToggleControl
-                            label={__('Image has Ratio', 'sage')}
-                            checked={attributes.hasRatio}
-                            onChange={(value) => setAttributes({hasRatio: value})}
-                        />
-                        {attributes.hasRatio &&
-                        <>
-                            <hr/>
-                            <p>{__('Images Ratio', 'sage')}</p>
-                            <RadioGroup
-                                onChange={(value) => setAttributes({imageRatio: value})}
-                                checked={attributes.imageRatio}
-                                defaultChecked={'3x2'}
-                            >
-                                <Radio value="1x1">{__('1x1', 'sage')}</Radio>
-                                <Radio value="4x3">{__('4x3', 'sage')}</Radio>
-                                <Radio value="3x2">{__('3x2', 'sage')}</Radio>
-                                <Radio value="16x9">{__('16x9', 'sage')}</Radio>
-                                <Radio value="21x9">{__('21x9', 'sage')}</Radio>
-                            </RadioGroup>
-                        </>
-                        }
+                        <p>{__('Images Ratio', 'sage')}</p>
+                        <RadioGroup
+                            onChange={(value) => setAttributes({imageRatio: value})}
+                            checked={attributes.imageRatio}
+                            defaultChecked={'3x2'}
+                        >
+                            <Radio value={false}>{__('None', 'sage')}</Radio>
+                            <Radio value="1x1">{__('1x1', 'sage')}</Radio>
+                            <Radio value="4x3">{__('4x3', 'sage')}</Radio>
+                            <Radio value="3x2">{__('3x2', 'sage')}</Radio>
+                            <Radio value="16x9">{__('16x9', 'sage')}</Radio>
+                            <Radio value="21x9">{__('21x9', 'sage')}</Radio>
+                        </RadioGroup>
                         <hr/>
-                        <p>{__('Size Unit', 'sage')}</p>
+                        {attributes.imageSizeUnit === 'px' ? <>
+                            <MobileSwitch headline={__('Size', 'sage')}>
+                                <MobileSwitchInner type={'desktop'}>
+                                    <RangeControl
+                                        value={attributes.imageSizeDesktop}
+                                        min={5}
+                                        max={1000}
+                                        step={1}
+                                        onChange={(value) => {
+                                            if(attributes.imageSizeMobile === attributes.imageSizeDesktop) {
+                                                setAttributes({imageSizeMobile: value})
+                                            }
+
+                                            setAttributes({imageSizeDesktop: value})
+                                        }}
+                                        allowReset={true}
+                                        resetFallbackValue={100}
+                                    />
+                                </MobileSwitchInner>
+                                <MobileSwitchInner type={'mobile'}>
+                                    <RangeControl
+                                        value={attributes.imageSizeMobile}
+                                        min={5}
+                                        max={attributes.imageSizeDesktop}
+                                        step={1}
+                                        onChange={(value) => {
+                                            setAttributes({imageSizeMobile: value})
+                                        }}
+                                        allowReset={true}
+                                        resetFallbackValue={attributes.imageSizeDesktop}
+                                    />
+                                </MobileSwitchInner>
+                            </MobileSwitch>
+                            </> : <>
+                            <p>{__('Size', 'sage')}</p>
+                                <RangeControl
+                                value={attributes.imageSizeDesktop}
+                                min={5}
+                                max={100}
+                                step={1}
+                                onChange={(value) => setAttributes({imageSizeDesktop: value})}
+                                allowReset={true}
+                                resetFallbackValue={100}
+                            />
+                        </>}
                         <RadioGroup
                             onChange={(value) => {
-                                if (value === '%' && attributes.imageSize > 100) {
-                                    setAttributes({imageSize: 100});
+                                if (value === '%' && attributes.imageSizeDesktop > 100) {
+                                    setAttributes({imageSizeDesktop: 100});
                                 }
 
                                 setAttributes({imageSizeUnit: value});
@@ -198,15 +241,6 @@ registerBlockType('custom/image', {
                             <Radio value="px">{__('Pixel', 'sage')}</Radio>
                             <Radio value="%">{__('%', 'sage')}</Radio>
                         </RadioGroup>
-                        <hr/>
-                        <p>{__('Size', 'sage')}</p>
-                        <RangeControl
-                            value={attributes.imageSize}
-                            min={5}
-                            max={attributes.imageSizeUnit === '%' ? 100 : 1000}
-                            step={1}
-                            onChange={(value) => setAttributes({imageSize: value})}
-                        />
                         <hr/>
                         <p>{__('Positioning', 'sage')}</p>
                         <RadioGroup
@@ -268,7 +302,7 @@ registerBlockType('custom/image', {
                 </InspectorControls>
                 <div {...blockProps}>
                     <div {...innerBlockProps}>
-                        {(attributes.imageSize >= 20) &&
+                        {(attributes.imageSizeDesktop >= 20) &&
                         <>
                             <MediaUpload
                                 onSelect={(value) => setAttributes({imageObject: value})}
@@ -290,7 +324,7 @@ registerBlockType('custom/image', {
                             />
                         </>
                         }
-                        <div className={attributes.hasRatio ? `ratio ratio-${attributes.imageRatio}` : ''}>
+                        <div className={attributes.imageRatio ? `ratio ratio-${attributes.imageRatio}` : ''}>
                             {attributes.imageObject.mime !== 'image/svg+xml' ?
                                 <img alt={getImage(attributes.imageObject, 'alt')}
                                      srcSet={`${getImage(attributes.imageObject, 'tiny', 400)} 768w, ${getImage(attributes.imageObject, 'small', 400)} 1360w`}
@@ -318,14 +352,23 @@ registerBlockType('custom/image', {
             className: classnames(
                 'image-block',
                 `align-${attributes.horizontalAlign}`,
-                attributes.hasRatio ? `ratio ratio-${attributes.imageRatio}` : '',
+                attributes.imageRatio ? `ratio ratio-${attributes.imageRatio}` : '',
                 (attributes.imagePositioning === 'absolute' && attributes.horizontalImagePosition === 'right') && 'end-0',
-                (attributes.imagePositioning === 'absolute' && attributes.verticalImagePosition === 'bottom') && 'bottom-0'
+                (attributes.imagePositioning === 'absolute' && attributes.verticalImagePosition === 'bottom') && 'bottom-0',
+                (attributes.imageSizeUnit === 'px') && `unit-size-px`
             ),
             style: {
-                width: `${attributes.imageSize + attributes.imageSizeUnit}`,
+                // width: `${attributes.imageSizeDesktop + attributes.imageSizeUnit}`,
                 position: attributes.imagePositioning,
                 transform: `translate(${focalPositionInPixel(attributes.imageMove.x, attributes.imagePositionUnit)}, ${focalPositionInPixel(attributes.imageMove.y, attributes.imagePositionUnit)})`,
+                ...(attributes.imageSizeUnit === 'px') && {
+                    '--desktop-size': `${attributes.imageSizeDesktop}px`,
+                    '--mobile-size': `${attributes.imageSizeMobile}px`,
+                    '--size-difference': `${attributes.imageSizeDesktop - attributes.imageSizeMobile}`,
+                },
+                ...(attributes.imageSizeUnit === '%') && {
+                    '--size': `${attributes.imageSizeDesktop}%`,
+                }
             }
         });
 
