@@ -3,8 +3,8 @@
  */
 import {__} from '@wordpress/i18n';
 import {registerBlockType, createBlock} from '@wordpress/blocks';
-import {SelectControl, RangeControl, ToggleControl, Button, PanelBody, __experimentalRadio as Radio, __experimentalRadioGroup as RadioGroup, __experimentalBoxControl as BoxControl, ToolbarGroup} from '@wordpress/components';
-import {InnerBlocks, InspectorControls, ColorPalette, useBlockProps, __experimentalUseInnerBlocksProps as useInnerBlocksProps, BlockControls, BlockVerticalAlignmentToolbar} from '@wordpress/block-editor';
+import {SelectControl, RangeControl, ToggleControl, Button, PanelBody, __experimentalRadio as Radio, __experimentalRadioGroup as RadioGroup, __experimentalBoxControl as BoxControl, ToolbarGroup, __experimentalAlignmentMatrixControl as AlignmentMatrixControl} from '@wordpress/components';
+import {InnerBlocks, InspectorControls, MediaUpload, ColorPalette, useBlockProps, __experimentalUseInnerBlocksProps as useInnerBlocksProps, BlockControls, BlockVerticalAlignmentToolbar, __experimentalGradientPicker as GradientPicker} from '@wordpress/block-editor';
 
 /**
  * Block dependencies
@@ -45,8 +45,9 @@ import {
     getCssVariable,
     MobileSwitch,
     MobileSwitchInner,
-    isDefined
+    isDefined, getImage
 } from '../utility';
+import classNames from "classnames";
 
 const attributes = {
 
@@ -69,6 +70,10 @@ const attributes = {
     tagName: {
         type: 'string',
         default: 'div'
+    },
+    overflowHidden: {
+        type: 'boolean',
+        default: true,
     },
     fullHeight: {
         type: 'boolean',
@@ -106,10 +111,46 @@ const attributes = {
         type: 'string',
         default: 'center'
     },
-    // horizontalPadding: {
-    //     type: 'number',
-    //     default: false,
-    // },
+
+    /**
+     * Image Settings
+     */
+    backgroundImage: {
+        type: 'object',
+        default: false
+    },
+    patternSize: {
+        type: 'number',
+        default: false
+    },
+    backgroundImageBlur: {
+        type: 'number',
+        default: false,
+    },
+    backgroundImageOpacity: {
+        type: 'number',
+        default: 1,
+    },
+    backgroundImageAlignment: {
+        type: 'string',
+        default: 'center center'
+    },
+
+    /**
+     * Overlay Settings
+     */
+    hasOverlay: {
+        type: 'boolean',
+        default: false,
+    },
+    overlayGradient: {
+        type: 'string',
+        default: 'radial-gradient(rgba(0,0,0,0.3) 0%,rgba(0,0,0,0) 100%)'
+    },
+    overlayGradientPosition: {
+        type: 'string',
+        default: 'center center'
+    },
 
     /**
      * Shape Settings
@@ -142,6 +183,20 @@ const attributes = {
         type: 'string',
         default: '',
     },
+};
+
+/**
+ * Adds Position to Radial Gradient String
+ * @param value
+ * @param position
+ * @param defaultGradient
+ * @returns {*}
+ */
+const adjustOverlayPosition = (value, position) => {
+    if (value.includes('radial-gradient')) {
+        return value.replace('radial-gradient(', `radial-gradient(at ${position},`)
+    }
+    return value;
 };
 
 registerBlockType('custom/section', {
@@ -236,10 +291,6 @@ registerBlockType('custom/section', {
                 ...(attributes.sectionBorderRadius && !attributes.sectionShape) && {
                     borderRadius: `${attributes.sectionBorderRadius}px`
                 },
-                // ...!attributes.sectionShape && {
-                //     paddingTop: `${attributes.sectionShapeHeightDesktop + 10}px`,
-                //     paddingBottom: `${attributes.sectionShapeHeightDesktop + 10}px`,
-                // },
                 ...isDefined(attributes.minHeightDesktop) && {
                     '--min-height-desktop': `${attributes.minHeightDesktop}px`,
                     '--min-height-mobile': `${attributes.minHeightMobile}px`,
@@ -249,6 +300,9 @@ registerBlockType('custom/section', {
                     '--shape-height-desktop': `${attributes.sectionShapeHeightDesktop}px`,
                     '--shape-height-mobile': `${attributes.sectionShapeHeightMobile}px`,
                     '--shape-height-desktop-mobile': `${attributes.sectionShapeHeightDesktop - attributes.sectionShapeHeightMobile}`,
+                },
+                ...attributes.overflowHidden && {
+                    overflow: 'hidden'
                 }
             }
         });
@@ -294,8 +348,15 @@ registerBlockType('custom/section', {
                         />
                         <hr/>
                         <ToggleControl
+                            label={__('Overflow hidden', 'sage')}
+                            checked={attributes.overflowHidden}
+                            onChange={(value) => {
+                                setAttributes({overflowHidden: value})
+                            }}
+                        />
+                        <hr/>
+                        <ToggleControl
                             label={__('Set to window height', 'sage')}
-                            // help={ attributes.switchContent ? 'Image is left' : 'Image is right' }
                             checked={attributes.fullHeight}
                             onChange={(value) => setAttributes({fullHeight: value})}
                         />
@@ -366,14 +427,6 @@ registerBlockType('custom/section', {
                             />
                         </>
                         }
-                        <hr/>
-                        <p>{__('Background color', 'sage')}</p>
-                        <ColorPalette
-                            colors={editorThemeColors}
-                            value={attributes.sectionBackgroundColor}
-                            onChange={(value) => setAttributes({sectionBackgroundColor: value})}
-                            disableCustomColors={true}
-                        />
                         {!attributes.sectionShape &&
                         <>
                             <hr/>
@@ -400,10 +453,120 @@ registerBlockType('custom/section', {
                             allowReset={true}
                             resetFallbackValue={false}
                         />
+                        <hr/>
+                        <p>{__('Background color', 'sage')}</p>
+                        <ColorPalette
+                            colors={editorThemeColors}
+                            value={attributes.sectionBackgroundColor}
+                            onChange={(value) => setAttributes({sectionBackgroundColor: value})}
+                            disableCustomColors={true}
+                        />
                     </div>
+                    {attributes.backgroundImage &&
+                    <>
+                        <PanelBody title={__('Image', 'sage')}>
+                            {/*<ToggleControl
+                                label={__('Pattern size', 'sage')}
+                                checked={attributes.patternSize}
+                                // help={__('Select if image is a pattern', 'sage')}
+                                onChange={(value) => setAttributes({patternSize: value})}
+                            />*/}
+                            <p>{__('Pattern size', 'sage')}</p>
+                            <RangeControl
+                                value={attributes.patternSize}
+                                min={20}
+                                max={800}
+                                onChange={(value) => {
+                                    setAttributes({patternSize: value})
+                                }}
+                                allowReset={true}
+                                resetFallbackValue={false}
+                            />
+                            <hr/>
+                            <p>{__('Blur', 'sage')}</p>
+                            <RangeControl
+                                value={attributes.backgroundImageBlur}
+                                min={0}
+                                max={16}
+                                onChange={(value) => {
+                                    setAttributes({backgroundImageBlur: value})
+
+                                    if(!attributes.overflowHidden) {
+                                        setAttributes({overflowHidden: true})
+                                    }
+                                }}
+                                allowReset={true}
+                                resetFallbackValue={false}
+                            />
+                            <hr/>
+                            <p>{__('Opacity', 'sage')}</p>
+                            <RangeControl
+                                value={attributes.backgroundImageOpacity}
+                                min={0}
+                                max={1}
+                                step={0.05}
+                                onChange={(value) => setAttributes({backgroundImageOpacity: value})}
+                                allowReset={true}
+                                resetFallbackValue={1}
+                            />
+                            <hr/>
+                            <p>{__('Background alignment', 'sage')}</p>
+                            <AlignmentMatrixControl
+                                value={attributes.backgroundImageAlignment}
+                                onChange={(value) => setAttributes({backgroundImageAlignment: value})}
+                            />
+                        </PanelBody>
+                    </>
+                    }
+                    <PanelBody title={__('Overlay', 'sage')}>
+                        <ToggleControl
+                            label={__('Background Overlay', 'sage')}
+                            checked={attributes.hasOverlay}
+                            onChange={(value) => setAttributes({hasOverlay: value})}
+                        />
+                        {attributes.hasOverlay &&
+                        <>
+                            <hr/>
+                            <GradientPicker
+                                value={attributes.overlayGradient}
+                                onChange={(value) => value && setAttributes({overlayGradient: value})}
+                                // disableCustomGradients={true}
+                                gradients={[
+                                    {
+                                        name: 'Dark Radial',
+                                        gradient: 'radial-gradient(rgba(0,0,0,0.3) 0%,rgba(0,0,0,0) 100%)',
+                                        slug: 'dark-radial',
+                                    },
+                                    {
+                                        name: 'Dark Linear',
+                                        gradient: 'linear-gradient(0deg,rgba(0,0,0,0.3) 0%,rgba(0,0,0,0) 100%)',
+                                        slug: 'dark-linear',
+                                    },
+                                    {
+                                        name: 'Light Radial',
+                                        gradient: 'radial-gradient(rgba(255,255,255,0.3) 0%,rgba(255,255,255,0) 100%)',
+                                        slug: 'dark-radial',
+                                    },
+                                    {
+                                        name: 'Light Linear',
+                                        gradient: 'linear-gradient(0deg,rgba(255,255,255,0.5) 0%,rgba(255,255,255,0) 100%)',
+                                        slug: 'dark-radial',
+                                    },
+                                ]}
+                            />
+                            {attributes.overlayGradient.includes('radial-gradient') &&
+                            <>
+                                <p>{__('Radial Overlay Position', 'sage')}</p>
+                                <AlignmentMatrixControl
+                                    value={attributes.overlayGradientPosition}
+                                    onChange={(value) => setAttributes({overlayGradientPosition: value})}
+                                />
+                            </>
+                            }
+                        </>
+                        }
+                    </PanelBody>
                     <PanelBody title={__('Shape', 'sage')}>
-                        {/*<div style={{height: '20px'}}/>*/}
-                        {/*<hr/>*/}
                         <p>{__('Section Shape', 'sage')}</p>
                         <SelectSectionShapes
                             sectionShapes={sectionShapes}
@@ -502,6 +665,46 @@ registerBlockType('custom/section', {
                     </PanelBody>
                 </InspectorControls>
                 <attributes.tagName {...innerBlocksProps}>
+
+                    {attributes.backgroundImage && <>
+                        {isDefined(attributes.patternSize) ?
+                            <>
+                                <div className={classNames('section-block__image', attributes.backgroundImageBlur > 0 ? 'is-blurred' : '')}
+                                     style={{
+                                         ...isDefined(attributes.backgroundImageBlur) && {filter: `blur(${attributes.backgroundImageBlur}px)`},
+                                         backgroundImage: `url(${getImage(attributes.backgroundImage, 'x_large')})`,
+                                         backgroundPosition: `${attributes.backgroundImageAlignment}`,
+                                         backgroundSize: `${attributes.patternSize}px`,
+                                         opacity: attributes.backgroundImageOpacity,
+                                     }}
+                                />
+                            </>
+                            :
+                            <>
+                                <img
+                                    className={classNames('section-block__image', attributes.backgroundImageBlur > 0 ? 'is-blurred' : '')}
+                                    style={{
+                                        ...isDefined(attributes.backgroundImageBlur) && {filter: `blur(${attributes.backgroundImageBlur}px)`},
+                                        objectPosition: `${attributes.backgroundImageAlignment}`,
+                                        opacity: attributes.backgroundImageOpacity,
+                                    }}
+                                    srcSet={`${getImage(attributes.backgroundImage, 'tiny')} 480w, ${getImage(attributes.backgroundImage, 'small')} 768w, ${getImage(attributes.backgroundImage, 'medium')} 1024w, ${getImage(attributes.backgroundImage, 'x_large')} 1360w`}
+                                    sizes="100w"
+                                    src={getImage(attributes.backgroundImage, 'medium')}
+                                    alt={getImage(attributes.backgroundImage, 'alt')}
+                                />
+                            </>
+                        }
+                    </>}
+
+                    {attributes.hasOverlay && <>
+                        <div className="section-block__overlay"
+                             style={{
+                                 backgroundImage: adjustOverlayPosition(attributes.overlayGradient, attributes.overlayGradientPosition)
+                             }}
+                        />
+                    </>}
+
                     <div className={classnames("section-block__inner", attributes.fullWidth && 'full-width')} style={{
                         ...(!attributes.fullWidth && attributes.innerWidth) && {
                             maxWidth: `${attributes.innerWidth}px`
@@ -510,10 +713,6 @@ registerBlockType('custom/section', {
                             paddingTop: `${attributes.verticalPadding}px`,
                             paddingBottom: `${attributes.verticalPadding}px`
                         },
-                        // ...!attributes.sectionShape && {
-                        //     paddingTop: 0,
-                        //     paddingBottom: 0,
-                        // }
                     }}>
                         {innerBlocksProps.children}
                     </div>
@@ -529,6 +728,43 @@ registerBlockType('custom/section', {
                         classnames(attributes.sectionShapeBottomClass),
                         getColorObject(attributes.sectionBottomShapeBgColor) ? `rgb(var(--custom-${getColorObject(attributes.sectionBottomShapeBgColor).slug}-color))` : 'rgb(var(--custom-body-background-color))'
                     )}
+
+                    <MediaUpload
+                        onSelect={(value) => setAttributes({backgroundImage: value})}
+                        allowedTypes={[
+                            'image/jpeg',
+                            'image/jpg',
+                            'image/png',
+                            'image/gif'
+                        ]}
+                        // value={attributes.mediaID}
+                        render={({open}) => (
+                            <>
+                                <div style={{
+                                    position: `absolute`,
+                                    right: `10px`,
+                                    bottom: `10px`
+                                }}>
+                                    <Button
+                                        className={'button'}
+                                        onClick={open}
+                                        icon={'format-image'}
+                                        // text={attributes.backgroundImage ? __('Change Image', 'sage') : __('Upload Image', 'sage')}
+                                    />
+                                    {attributes.backgroundImage &&
+                                    <>
+                                        <Button
+                                            className={'button'}
+                                            onClick={() => setAttributes({backgroundImage: false})}
+                                            icon={'trash'}
+                                            style={{marginLeft: '10px'}}
+                                        />
+                                    </>
+                                    }
+                                </div>
+                            </>
+                        )}
+                    />
                 </attributes.tagName>
             </>
         );
@@ -546,10 +782,6 @@ registerBlockType('custom/section', {
                 ...(attributes.sectionBorderRadius && !attributes.sectionShape) && {
                     borderRadius: `${attributes.sectionBorderRadius}px`
                 },
-                // ...!attributes.sectionShape && {
-                //     paddingTop: `${attributes.sectionShapeHeightDesktop + 10}px`,
-                //     paddingBottom: `${attributes.sectionShapeHeightDesktop + 10}px`,
-                // },
                 ...isDefined(attributes.minHeightDesktop) && {
                     '--min-height-desktop': `${attributes.minHeightDesktop}px`,
                     '--min-height-mobile': `${attributes.minHeightMobile}px`,
@@ -559,12 +791,55 @@ registerBlockType('custom/section', {
                     '--shape-height-desktop': `${attributes.sectionShapeHeightDesktop}px`,
                     '--shape-height-mobile': `${attributes.sectionShapeHeightMobile}px`,
                     '--shape-height-desktop-mobile': `${attributes.sectionShapeHeightDesktop - attributes.sectionShapeHeightMobile}`,
+                },
+                ...attributes.overflowHidden && {
+                    overflow: 'hidden'
                 }
             }
         });
 
         return (
             <attributes.tagName {...blockProps}>
+
+                {attributes.backgroundImage && <>
+                    {isDefined(attributes.patternSize) ?
+                        <>
+                            <div className={classNames('section-block__image', attributes.backgroundImageBlur > 0 ? 'is-blurred' : '')}
+                                 style={{
+                                     ...isDefined(attributes.backgroundImageBlur) && {filter: `blur(${attributes.backgroundImageBlur}px)`},
+                                     backgroundImage: `url(${getImage(attributes.backgroundImage, 'x_large')})`,
+                                     backgroundPosition: `${attributes.backgroundImageAlignment}`,
+                                     backgroundSize: `${attributes.patternSize}px`,
+                                     opacity: attributes.backgroundImageOpacity,
+                                 }}
+                            />
+                        </>
+                        :
+                        <>
+                            <img
+                                className={classNames('section-block__image', attributes.backgroundImageBlur > 0 ? 'is-blurred' : '')}
+                                style={{
+                                    ...isDefined(attributes.backgroundImageBlur) && {filter: `blur(${attributes.backgroundImageBlur}px)`},
+                                    objectPosition: `${attributes.backgroundImageAlignment}`,
+                                    opacity: attributes.backgroundImageOpacity,
+                                }}
+                                srcSet={`${getImage(attributes.backgroundImage, 'tiny')} 480w, ${getImage(attributes.backgroundImage, 'small')} 768w, ${getImage(attributes.backgroundImage, 'medium')} 1024w, ${getImage(attributes.backgroundImage, 'x_large')} 1360w`}
+                                sizes="100w"
+                                src={getImage(attributes.backgroundImage, 'medium')}
+                                alt={getImage(attributes.backgroundImage, 'alt')}
+                            />
+                        </>
+                    }
+                </>}
+
+                {attributes.hasOverlay && <>
+                    <div className="section-block__overlay"
+                         style={{
+                             backgroundImage: adjustOverlayPosition(attributes.overlayGradient, attributes.overlayGradientPosition)
+                         }}
+                    />
+                </>}
+
                 <div className={classnames("section-block__inner", attributes.fullWidth && 'full-width')} style={{
                     ...(!attributes.fullWidth && attributes.innerWidth) && {
                         maxWidth: `${attributes.innerWidth}px`
@@ -573,10 +848,6 @@ registerBlockType('custom/section', {
                         paddingTop: `${attributes.verticalPadding}px`,
                         paddingBottom: `${attributes.verticalPadding}px`
                     },
-                    // ...!attributes.sectionShape && {
-                    //     paddingTop: 0,
-                    //     paddingBottom: 0,
-                    // }
                 }}>
                     <InnerBlocks.Content/>
                 </div>
@@ -592,6 +863,7 @@ registerBlockType('custom/section', {
                     classnames(attributes.sectionShapeBottomClass),
                     getColorObject(attributes.sectionBottomShapeBgColor) ? `rgb(var(--custom-${getColorObject(attributes.sectionBottomShapeBgColor).slug}-color))` : 'rgb(var(--custom-body-background-color))'
                 )}
+
             </attributes.tagName>
         );
     },

@@ -60,8 +60,8 @@ registerBlockType('custom/accordion', {
             className: classNames(
                 className,
                 'accordion-block',
-                'custom-shadow',
-                'custom-border-radius',
+                // 'custom-shadow',
+                // 'custom-border-radius',
                 getColorObject(attributes.accordionBackgroundColor) && `has-${getColorObject(attributes.accordionBackgroundColor).slug}-background-color`,
                 attributes.showIcon && 'has-icon'
             ),
@@ -148,8 +148,8 @@ registerBlockType('custom/accordion', {
         const blockProps = useBlockProps.save({
             className: classNames(
                 'accordion-block',
-                'custom-shadow',
-                'custom-border-radius',
+                // 'custom-shadow',
+                // 'custom-border-radius',
                 getColorObject(attributes.accordionBackgroundColor) && `has-${getColorObject(attributes.accordionBackgroundColor).slug}-background-color`,
                 attributes.showIcon && 'has-icon'
             ),

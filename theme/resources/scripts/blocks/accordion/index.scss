@@ -1,7 +1,8 @@
 .accordion-block {
+    width: 100%;
 
     &__item {
-        border-bottom: 1px solid $gray-300;
+        border-bottom: 1px solid rgb(var(--custom-font-color));
 
         &:last-child {
             border-bottom: none;
