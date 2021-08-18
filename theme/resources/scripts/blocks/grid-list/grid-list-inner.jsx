@@ -14,6 +14,14 @@ import {
 } from '../utility';
 import * as clipPaths from "../clip-paths";
 
+const returnColClass = (columns, size = false) => {
+    let colNumber = Math.floor(12 / columns);
+    if (!size) {
+        return `col-${colNumber}`;
+    }
+    return `col-${size}-${colNumber}`;
+}
+
 const attributes = {
     clientId: {
         type: 'string',
@@ -35,6 +43,18 @@ const attributes = {
         type: 'string',
         default: 'center'
     },
+    columnsDesktop: {
+        type: 'number',
+        default: 3
+    },
+    columnsTablet: {
+        type: 'number',
+        default: 2
+    },
+    columnsMobile: {
+        type: 'number',
+        default: 1
+    },
 };
 
 registerBlockType('custom/grid-list-inner', {
@@ -53,6 +73,9 @@ registerBlockType('custom/grid-list-inner', {
 
         attributes.clientId = clientId;
         attributes.parentBackgroundColor = parentAttributes(attributes.clientId).generalBackgroundColor;
+        attributes.columnsDesktop = parentAttributes(attributes.clientId).columnsDesktop;
+        attributes.columnsTablet = parentAttributes(attributes.clientId).columnsTablet;
+        attributes.columnsMobile = parentAttributes(attributes.clientId).columnsMobile;
 
         const blockProps = useBlockProps({
             style: {
@@ -117,7 +140,12 @@ registerBlockType('custom/grid-list-inner', {
                         />
                     </div>
                 </InspectorControls>
-                <div className={classNames('grid-list-block__col')}>
+                <div className={classNames(
+                    'grid-list-block__col',
+                    returnColClass(attributes.columnsMobile),
+                    returnColClass(attributes.columnsTablet, 'sm'),
+                    returnColClass(attributes.columnsDesktop, 'lg')
+                )}>
                     {clipPaths[attributes.clipPath] &&
                         clipPaths[attributes.clipPath](`clip-path-${attributes.clientId}`)
                     }
@@ -146,7 +174,12 @@ registerBlockType('custom/grid-list-inner', {
 
         // Need to use for passing classes to save function
         const blockProps = useBlockProps.save({
-            className: classNames(`grid-list-block__col`)
+            className: classNames(
+                `grid-list-block__col`,
+                returnColClass(attributes.columnsMobile),
+                returnColClass(attributes.columnsTablet, 'sm'),
+                returnColClass(attributes.columnsDesktop, 'lg')
+            )
         });
 
         return (

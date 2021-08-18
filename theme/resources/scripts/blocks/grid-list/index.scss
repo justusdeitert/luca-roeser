@@ -31,66 +31,66 @@
     }
 }
 
-[data-columns="1"] {
-    @include row-cols(1);
-}
+//[data-columns="1"] {
+//    @include row-cols(1);
+//}
+//
+//[data-columns="2"] {
+//    @include row-cols(2);
+//}
+//
+//[data-columns="3"] {
+//    @include row-cols(3);
+//}
+//
+//[data-columns="4"] {
+//    @include row-cols(4);
+//}
+//
+//[data-columns="5"] {
+//    @include row-cols(5);
+//}
+//
+//[data-columns="6"] {
+//    @include row-cols(6);
+//}
+//
+//[data-columns="5"],
+//[data-columns="6"] {
+//    @include media-breakpoint-down(xxl) {
+//        @include row-cols(4);
+//    }
+//}
+//
+//[data-columns="4"],
+//[data-columns="5"],
+//[data-columns="6"] {
+//    @include media-breakpoint-down(xl) {
+//        @include row-cols(3);
+//    }
+//}
+//
+//[data-columns="3"],
+//[data-columns="4"],
+//[data-columns="5"],
+//[data-columns="6"] {
+//    @include media-breakpoint-down(lg) {
+//        @include row-cols(2);
+//    }
+//}
 
-[data-columns="2"] {
-    @include row-cols(2);
-}
 
-[data-columns="3"] {
-    @include row-cols(3);
-}
-
-[data-columns="4"] {
-    @include row-cols(4);
-}
-
-[data-columns="5"] {
-    @include row-cols(5);
-}
-
-[data-columns="6"] {
-    @include row-cols(6);
-}
-
-[data-columns="5"],
-[data-columns="6"] {
-    @include media-breakpoint-down(xxl) {
-        @include row-cols(4);
-    }
-}
-
-[data-columns="4"],
-[data-columns="5"],
-[data-columns="6"] {
-    @include media-breakpoint-down(xl) {
-        @include row-cols(3);
-    }
-}
-
-[data-columns="3"],
-[data-columns="4"],
-[data-columns="5"],
-[data-columns="6"] {
-    @include media-breakpoint-down(lg) {
-        @include row-cols(2);
-    }
-}
-
-
-[data-columns="2"],
-[data-columns="3"],
-[data-columns="4"],
-[data-columns="5"],
-[data-columns="6"] {
-    &:not(.two-columns-mobile) {
-        @include media-breakpoint-down(md) {
-            @include row-cols(1);
-        }
-    }
-}
+//[data-columns="2"],
+//[data-columns="3"],
+//[data-columns="4"],
+//[data-columns="5"],
+//[data-columns="6"] {
+//    &:not(.two-columns-mobile) {
+//        @include media-breakpoint-down(md) {
+//            @include row-cols(1);
+//        }
+//    }
+//}
 
 /**
  * Editor Styles Only

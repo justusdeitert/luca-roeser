@@ -2,9 +2,6 @@
     display: flex;
 
     &__inner {
-        display: flex;
-        flex-direction: column;
-        position: relative;
         max-width: 100%;
         padding: 1rem;
 
@@ -25,10 +22,24 @@
 }
 
 /**
- * Editor Only
+ * App Only
  */
-.wrapper-block {
-    .wp-block, .block-list-appender {
-        width: 100%;
+#app {
+    .wrapper-block {
+        &__inner {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
     }
 }
+
+
+/**
+ * Editor Only
+ */
+//.wrapper-block {
+//    .wp-block, .block-list-appender {
+//        width: 100%;
+//    }
+//}
