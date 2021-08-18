@@ -14,7 +14,7 @@ window.sliderBlockInstances = {};
 window.initSliderBlockInstances = () => {
     document.querySelectorAll('.slider-block').forEach(sliderBlock => {
 
-        let sliderContainer = sliderBlock.querySelector('.slider-block__container')
+        let sliderContainer = sliderBlock.querySelector('.slider-block__container');
         let breakpoints = {};
         let initialSlidesPerView = 1;
 
@@ -113,7 +113,7 @@ window.initSliderBlockInstances = () => {
              * Pagination
              */
             pagination: {
-                el: ".swiper-pagination",
+                el: sliderBlock.querySelector('.swiper-pagination'),
                 dynamicBullets: true,
             },
 
@@ -121,9 +121,18 @@ window.initSliderBlockInstances = () => {
              * Navigation arrows
              */
             navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
+                nextEl: sliderBlock.querySelector('.swiper-button-next'),
+                prevEl: sliderBlock.querySelector('.swiper-button-prev'),
             },
+
+            /**
+             * Scrollbar
+             * TODO: Implement scrollbar control type for slider block
+             */
+            // scrollbar: {
+            //     el: sliderBlock.querySelector('.swiper-scrollbar'),
+            //     draggable: true,
+            // },
 
             noSwiping: false,
             allowTouchMove: !document.body.classList.contains('block-editor-page'),

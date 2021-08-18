@@ -359,6 +359,12 @@ registerBlockType('custom/section', {
                             checked={attributes.fullHeight}
                             onChange={(value) => setAttributes({fullHeight: value})}
                         />
+                        <hr/>
+                        <ToggleControl
+                            label={__('Full width', 'sage')}
+                            checked={attributes.fullWidth}
+                            onChange={(value) => setAttributes({fullWidth: value})}
+                        />
                         {!attributes.fullHeight && <>
                             <hr/>
                             <MobileSwitch headline={__('Min height', 'sage')}>
@@ -400,12 +406,6 @@ registerBlockType('custom/section', {
                                 </MobileSwitchInner>
                             </MobileSwitch>
                         </>}
-                        <hr/>
-                        <ToggleControl
-                            label={__('Full inner width', 'sage')}
-                            checked={attributes.fullWidth}
-                            onChange={(value) => setAttributes({fullWidth: value})}
-                        />
                         {!attributes.fullWidth && <>
                             <hr/>
                             <p>{__('Max width', 'sage')}</p>

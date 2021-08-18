@@ -1,13 +1,23 @@
 import {__} from '@wordpress/i18n';
 import {registerBlockType, createBlock} from '@wordpress/blocks';
-import {SelectControl, RangeControl, ToggleControl, ToolbarGroup, ToolbarDropdownMenu, Button, PanelBody, __experimentalRadio as Radio, __experimentalRadioGroup as RadioGroup, __experimentalBoxControl as BoxControl, Dashicon} from '@wordpress/components';
-import {InnerBlocks, InspectorControls, ColorPalette, BlockControls, useBlockProps, __experimentalUseInnerBlocksProps as useInnerBlocksProps} from '@wordpress/block-editor';
+import {SelectControl, RangeControl, ToggleControl, ToolbarGroup, ToolbarDropdownMenu, Button, PanelBody, __experimentalRadio as Radio, __experimentalRadioGroup as RadioGroup, __experimentalBoxControl as BoxControl, Dashicon, FocalPointPicker} from '@wordpress/components';
+import {InnerBlocks, InspectorControls, ColorPalette, BlockControls, useBlockProps, __experimentalUseInnerBlocksProps as useInnerBlocksProps, BlockVerticalAlignmentToolbar} from '@wordpress/block-editor';
 import classnames from 'classnames';
 import {sectionIcon} from '../icons';
-import {editorThemeColors, getColorObject, ALLOWEDBLOCKS, removeArrayItems, isDefined} from "../utility";
+import {
+    editorThemeColors,
+    getColorObject,
+    ALLOWEDBLOCKS,
+    removeArrayItems,
+    isDefined,
+    focalPositionInPixel
+} from "../utility";
 // import classNames from "classnames";
 // import * as wrapperShapes from "../wrapper-shapes"
 // import {select, dispatch, useSelect} from "@wordpress/data";
+
+// For not firing update to often
+let onChangePositionTimeout = true;
 
 const attributes = {
 
@@ -54,9 +64,25 @@ const attributes = {
         type: 'number',
         default: false,
     },
+    verticalAlign: {
+        type: 'string',
+        default: 'center'
+    },
     verticalPadding: {
         type: 'number',
         default: false,
+    },
+
+    /**
+     * Translate
+     */
+    positionUnit: {
+        type: 'string',
+        default: 'px'
+    },
+    wrapperMove: {
+        type: 'object',
+        default: {x: 0.5, y: 0.5}
     },
 };
 
@@ -134,6 +160,23 @@ registerBlockType('custom/wrapper', {
             renderAppender: InnerBlocks.DefaultBlockAppender
         });
 
+        const onChangeWrapperPosition = (value) => {
+
+            /**
+             * Timeout for Image Position On Change
+             */
+            if (onChangePositionTimeout) {
+                setAttributes({wrapperMove: value});
+
+                onChangePositionTimeout = false;
+
+                setTimeout(function () {
+                    onChangePositionTimeout = true;
+                }, 30);
+            }
+        };
+
+
         return (
             <>
                 <BlockControls>
@@ -158,6 +201,14 @@ registerBlockType('custom/wrapper', {
                                     onClick: () => setAttributes({horizontalAlign: 'right'}),
                                 },
                             ]}
+                        />
+                        <BlockVerticalAlignmentToolbar
+                            value={attributes.verticalAlign}
+                            onChange={(value) => {
+                                if (value === 'top') {value = 'start';}
+                                if (value === 'bottom') {value = 'end';}
+                                setAttributes({verticalAlign: value});
+                            }}
                         />
                     </ToolbarGroup>
                 </BlockControls>
@@ -253,13 +304,38 @@ registerBlockType('custom/wrapper', {
                             onChange={(value) => setAttributes({wrapperBgColor: value})}
                             disableCustomColors={true}
                         />
+                        <hr/>
+                        <p>{__('Movement', 'sage')}</p>
+                        <div style={{display: 'flex', marginBottom: '20px'}}>
+                            <RadioGroup
+                                onChange={(value) => setAttributes({positionUnit: value})}
+                                checked={attributes.positionUnit}
+                                defaultChecked={"px"}
+                            >
+                                <Radio value="px">{__('Pixel', 'sage')}</Radio>
+                                <Radio value="%">{__('%', 'sage')}</Radio>
+                            </RadioGroup>
+                            <Button
+                                className={'is-secondary'}
+                                onClick={() => setAttributes({wrapperMove: {x: 0.5, y: 0.5}})}
+                                text={__('Reset', 'sage')}
+                                style={{marginLeft: '10px'}}
+                            />
+                        </div>
+                        <FocalPointPicker
+                            className={'no-picker-controls'}
+                            value={attributes.wrapperMove}
+                            onChange={onChangeWrapperPosition}
+                            onDrag={onChangeWrapperPosition}
+                        />
                     </div>
                 </InspectorControls>
                 <div {...innerBlocksProps}>
                     <div
                         className={classnames(
                             'wrapper-block__inner',
-                            `align-${attributes.horizontalAlign}`,
+                            attributes.horizontalAlign && `align-${attributes.horizontalAlign}`,
+                            attributes.verticalAlign && `justify-content-${attributes.verticalAlign}`,
                             getColorObject(attributes.wrapperBgColor) && `has-${getColorObject(attributes.wrapperBgColor).slug}-background-color has-background`,
                         )}
                         style={{
@@ -277,7 +353,8 @@ registerBlockType('custom/wrapper', {
                             },
                             ...isDefined(attributes.wrapperHeight) && {
                                 minHeight: `${attributes.wrapperHeight}px`
-                            }
+                            },
+                            transform: `translate(${focalPositionInPixel(attributes.wrapperMove.x, attributes.positionUnit)}, ${focalPositionInPixel(attributes.wrapperMove.y, attributes.positionUnit)})`
                         }}
                     >
                         {innerBlocksProps.children}
@@ -300,7 +377,8 @@ registerBlockType('custom/wrapper', {
                 <div
                     className={classnames(
                         'wrapper-block__inner',
-                        `align-${attributes.horizontalAlign}`,
+                        attributes.horizontalAlign && `align-${attributes.horizontalAlign}`,
+                        attributes.verticalAlign && `justify-content-${attributes.verticalAlign}`,
                         getColorObject(attributes.wrapperBgColor) && `has-${getColorObject(attributes.wrapperBgColor).slug}-background-color has-background`,
                     )}
                     style={{
@@ -318,7 +396,8 @@ registerBlockType('custom/wrapper', {
                         },
                         ...isDefined(attributes.wrapperHeight) && {
                             minHeight: `${attributes.wrapperHeight}px`
-                        }
+                        },
+                        transform: `translate(${focalPositionInPixel(attributes.wrapperMove.x, attributes.positionUnit)}, ${focalPositionInPixel(attributes.wrapperMove.y, attributes.positionUnit)})`
                     }}
                 >
                     <InnerBlocks.Content/>

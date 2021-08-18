@@ -1,11 +1,11 @@
 import {__} from '@wordpress/i18n';
 import {registerBlockType,} from '@wordpress/blocks';
 import {Button} from '@wordpress/components';
-import {ToggleControl, RangeControl, SelectControl, PanelBody, ColorPalette, __experimentalRadio as Radio, __experimentalRadioGroup as RadioGroup} from '@wordpress/components';
+import {ToggleControl, RangeControl, SelectControl, PanelBody, ColorPalette, __experimentalRadio as Radio, __experimentalRadioGroup as RadioGroup, __experimentalAlignmentMatrixControl as AlignmentMatrixControl} from '@wordpress/components';
 import {createElement, Component, useEffect} from '@wordpress/element';
 import {InnerBlocks, RichText, MediaUpload, InspectorControls, getColorObjectByColorValue, useBlockProps, __experimentalUseInnerBlocksProps as useInnerBlocksProps} from '@wordpress/block-editor';
 import classNames from 'classnames';
-import {cloneArray, editorThemeColors, getColorObject, getImage, loremIpsum, updateInnerBlocks} from "../utility";
+import {cloneArray, editorThemeColors, getColorObject, getImage, loremIpsum, updateInnerBlocks, isDefined} from "../utility";
 import {sliderIcon} from "../icons";
 
 const attributes = {
@@ -44,10 +44,10 @@ const attributes = {
     /**
      * Slider Controls
      */
-    controlsPosition: {
-        type: 'string',
-        default: 'bottom',
-    },
+    // controlsPosition: {
+    //     type: 'string',
+    //     default: 'bottom',
+    // },
     controlsStyle: {
         type: 'string',
         default: 'center',
@@ -56,13 +56,25 @@ const attributes = {
         type: 'boolean',
         default: true,
     },
+    paginationPosition: {
+        type: 'string',
+        default: 'bottom right',
+    },
     showArrows: {
         type: 'boolean',
         default: true,
     },
+    arrowsPosition: {
+        type: 'string',
+        default: 'bottom left',
+    },
+    arrowsWidth: {
+        type: 'number',
+        default: false,
+    },
     controlsSize: {
         type: 'number',
-        default: 16,
+        default: 12,
     },
     paginationSize: {
         type: 'number',
@@ -79,6 +91,43 @@ const updateSlider = () => {
         window.updateSliderBlockInstances();
     }, 300);
 }
+
+
+const getPosition = (matrix) => {
+    let splitMatrix = matrix.split(' ');
+
+    return {
+        y: splitMatrix[0],
+        x: splitMatrix[1],
+    }
+}
+
+const returnStylesY = (positionString) => {
+    switch (positionString) {
+        case 'top':
+            return {top: 0, transform: 'translateY(-100%)'};
+        case 'center':
+            return {top: '50%', transform: 'translateY(-50%)'};
+        case 'bottom':
+            return {bottom: 0, transform: 'translateY(100%)'};
+        default:
+            return {top: 0, transform: 'translateY(100%)'};
+    }
+};
+
+const returnStylesX = (positionString) => {
+    switch (positionString) {
+        case 'left':
+            return {marginRight: 'auto'};
+        case 'center':
+            return {marginLeft: 'auto', marginRight: 'auto'};
+        case 'right':
+            return {marginLeft: 'auto'};
+        default:
+            return {marginRight: 'auto'};
+    }
+};
+
 
 let autoplayTreshold = true;
 
@@ -133,9 +182,12 @@ registerBlockType('custom/slider', {
 
         const blockProps = useBlockProps({
             className: classNames('slider-block', attributes.twoSlidesOnMobile && 'two-slides-on-mobile'),
-            style: (attributes.sliderGutter !== false && attributes.sliderGutter !== undefined) && {
-                '--custom-gutter-desktop': `${attributes.sliderGutter / 16}em`,
-                '--custom-gutter-mobile': `${attributes.sliderGutter / 16}em`
+            style: {
+                ...(attributes.sliderGutter !== false && attributes.sliderGutter !== undefined) && {
+                    '--custom-gutter-desktop': `${attributes.sliderGutter / 16}em`,
+                    '--custom-gutter-mobile': `${attributes.sliderGutter / 16}em`
+                },
+                '--slider-controls-size': `${attributes.controlsSize}px`
             }
         });
 
@@ -150,30 +202,8 @@ registerBlockType('custom/slider', {
             // )
         });
 
-        const slideControls = () => {
-            if ((attributes.showPagination || attributes.showArrows)) {
-                return (
-                    <div className={classNames("swiper-controls", `${attributes.controlsStyle}-position`)}
-                         style={{'--slider-controls-size': `${attributes.controlsSize / 16}rem`}}
-                    >
-                        {attributes.showArrows && <>
-                            <div className="swiper-button-prev">
-                                <i className="icon-arrow-left"/>
-                            </div>
-                        </>}
-                        {attributes.showPagination && <>
-                            <div className="swiper-pagination" />
-                        </>}
-                        {attributes.showArrows && <>
-                            <div className="swiper-button-next">
-                                <i className="icon-arrow-right"/>
-                            </div>
-                        </>
-                        }
-                    </div>
-                )
-            }
-        }
+        // console.log(attributes.paginationPosition);
+        // console.log(getPosition(attributes.paginationPosition));
 
         return (
             <>
@@ -205,6 +235,21 @@ registerBlockType('custom/slider', {
                             }}
                         />
                         <hr/>
+                        <p>{__('Slides per view', 'sage')}</p>
+                        <RadioGroup
+                            onChange={(value) => {
+                                setAttributes({slidesPerView: value});
+                                updateSlider();
+                            }}
+                            checked={attributes.slidesPerView}
+                            defaultChecked={3}
+                        >
+                            <Radio value={1}>1</Radio>
+                            <Radio value={2}>2</Radio>
+                            <Radio value={3}>3</Radio>
+                            <Radio value={4}>4</Radio>
+                        </RadioGroup>
+                        <hr/>
                         <p>{__('Autoplay Seconds', 'sage')}</p>
                         <RangeControl
                             value={attributes.sliderAutoplaySeconds}
@@ -226,19 +271,6 @@ registerBlockType('custom/slider', {
                             }}
                             allowReset={true}
                             resetFallbackValue={false}
-                        />
-                        <hr/>
-                        <p>{__('Slides per view', 'sage')}</p>
-                        <RangeControl
-                            value={attributes.slidesPerView}
-                            onChange={(value) => {
-                                setAttributes({slidesPerView: value});
-                                updateSlider();
-                            }}
-                            min={1}
-                            max={4}
-                            allowReset={true}
-                            resetFallbackValue={3}
                         />
                         <hr/>
                         <p>{__('Gutter', 'sage')}</p>
@@ -275,16 +307,23 @@ registerBlockType('custom/slider', {
                             }}
                         />
                     </div>
-                    <PanelBody title={__('Slider Controls', 'sage')} initialOpen={false}>
+                    <PanelBody title={__('Controls', 'sage')} initialOpen={false}>
                         <div style={{height: '20px'}}/>
                         <ToggleControl
-                            label={__('Show Pagination', 'sage')}
+                            label={__('Show pagination', 'sage')}
                             checked={attributes.showPagination}
                             onChange={(value) => {
                                 setAttributes({showPagination: value});
                                 updateSlider();
                             }}
                         />
+                        {attributes.showPagination && <>
+                            <AlignmentMatrixControl
+                                value={attributes.paginationPosition}
+                                onChange={(value) => setAttributes({paginationPosition: value})}
+                            />
+                        </>}
+                        <hr/>
                         <ToggleControl
                             label={__('Show Arrows', 'sage')}
                             checked={attributes.showArrows}
@@ -293,42 +332,40 @@ registerBlockType('custom/slider', {
                                 updateSlider();
                             }}
                         />
-                        {(attributes.showPagination || attributes.showArrows) && <>
-                            <hr/>
-                            <p>{__('Controls Size', 'sage')}</p>
+                        {attributes.showArrows && <>
+                            {/*<p>{__('Arrows width', 'sage')}</p>
                             <RangeControl
-                                value={attributes.controlsSize}
-                                min={8}
-                                initialPosition={16}
-                                max={36}
-                                onChange={(value) => setAttributes({controlsSize: value})}
-                            />
-                            <hr/>
-                            <p>{__('Controls Position', 'sage')}</p>
-                            <RadioGroup
-                                checked={attributes.controlsPosition}
+                                value={attributes.arrowsWidth}
                                 onChange={(value) => {
-                                    setAttributes({controlsPosition: value});
-                                    updateSlider();
+                                    setAttributes({arrowsWidth: value});
                                 }}
-                                defaultChecked={'bottom'}
-                            >
-                                <Radio value="top">{__('Top')}</Radio>
-                                <Radio value="bottom">{__('Bottom')}</Radio>
-                            </RadioGroup>
-                            <hr/>
-                            <p>{__('Controls Style', 'sage')}</p>
-                            <RadioGroup
-                                checked={attributes.controlsStyle}
-                                onChange={(value) => setAttributes({controlsStyle: value})}
-                                defaultChecked={'center'}
-                            >
-                                <Radio value="left">{__('Left')}</Radio>
-                                <Radio value="center">{__('Center')}</Radio>
-                                <Radio value="right">{__('Right')}</Radio>
-                            </RadioGroup>
+                                min={20}
+                                max={100}
+                                step={1}
+                                allowReset={true}
+                                resetFallbackValue={false}
+                            />*/}
+                            <ToggleControl
+                                label={__('100%', 'sage')}
+                                checked={attributes.arrowsWidth}
+                                onChange={(value) => {
+                                    setAttributes({arrowsWidth: value});
+                                }}
+                            />
+                            <AlignmentMatrixControl
+                                value={attributes.arrowsPosition}
+                                onChange={(value) => setAttributes({arrowsPosition: value})}
+                            />
                         </>}
-
+                        <hr/>
+                        <p>{__('Size', 'sage')}</p>
+                        <RangeControl
+                            value={attributes.controlsSize}
+                            min={8}
+                            initialPosition={16}
+                            max={36}
+                            onChange={(value) => setAttributes({controlsSize: value})}
+                        />
                     </PanelBody>
                 </InspectorControls>
                 <div {...innerBlocksProps}
@@ -337,17 +374,45 @@ registerBlockType('custom/slider', {
                      data-slider-loop={false}
                      data-slider-autoplay={attributes.sliderAutoplaySeconds ? attributes.sliderAutoplaySeconds * 1000 : false}
                 >
-                    {attributes.controlsPosition === 'top' && <>
-                        {slideControls()}
+
+                    {attributes.showPagination && <>
+                        <div className="swiper-pagination__wrapper" style={{
+                            ...returnStylesY(getPosition(attributes.paginationPosition).y),
+                            pointerEvents: 'none'
+                        }}>
+                            <div className="swiper-pagination" style={{
+                                ...returnStylesX(getPosition(attributes.paginationPosition).x)
+                            }}/>
+                        </div>
                     </>}
+
+                    {attributes.showArrows && <>
+                        <div className="swiper-arrows__wrapper" style={{
+                            ...returnStylesY(getPosition(attributes.arrowsPosition).y),
+                            pointerEvents: 'none'
+                        }}>
+                            <div className="swiper-arrows" style={{
+                                ...returnStylesX(getPosition(attributes.arrowsPosition).x),
+                                ...attributes.arrowsWidth && {
+                                    width: '100%'
+                                }
+                            }}>
+                                <div className="swiper-button-prev">
+                                    <i className="icon-arrow-left"/>
+                                </div>
+                                <div className="swiper-button-next">
+                                    <i className="icon-arrow-right"/>
+                                </div>
+                            </div>
+                        </div>
+                    </>}
+
                     <div className="swiper-container slider-block__container">
                         <div className="swiper-wrapper slider-block__slides-wrapper">
                             {innerBlocksProps.children}
                         </div>
                     </div>
-                    {attributes.controlsPosition === 'bottom' && <>
-                        {slideControls()}
-                    </>}
+
                 </div>
             </>
         )
@@ -357,35 +422,14 @@ registerBlockType('custom/slider', {
 
         const blockProps = useBlockProps.save({
             className: classNames(className, 'slider-block', attributes.twoSlidesOnMobile && 'two-slides-on-mobile'),
-            style: (attributes.sliderGutter !== false && attributes.sliderGutter !== undefined) && {
-                '--custom-gutter-desktop': `${attributes.sliderGutter / 16}em`,
-                '--custom-gutter-mobile': `${attributes.sliderGutter / 16}em`
+            style: {
+                ...isDefined(attributes.sliderGutter) && {
+                    '--custom-gutter-desktop': `${attributes.sliderGutter / 16}em`,
+                    '--custom-gutter-mobile': `${attributes.sliderGutter / 16}em`
+                },
+                '--slider-controls-size': `${attributes.controlsSize}px`
             }
         });
-
-        const slideControls = () => {
-            if ((attributes.showPagination || attributes.showArrows)) {
-                return (
-                    <div className={classNames("swiper-controls", `${attributes.controlsStyle}-position`)}
-                         style={{'--slider-controls-size': `${attributes.controlsSize / 16}rem`}}
-                    >
-                        {attributes.showArrows && <>
-                            <div className="swiper-button-prev">
-                                <i className="icon-arrow-left"/>
-                            </div>
-                        </>}
-                        {attributes.showPagination && <>
-                            <div className="swiper-pagination" />
-                        </>}
-                        {attributes.showArrows && <>
-                            <div className="swiper-button-next">
-                                <i className="icon-arrow-right"/>
-                            </div>
-                        </>}
-                    </div>
-                )
-            }
-        }
 
         return (
             <div {...blockProps}
@@ -394,17 +438,43 @@ registerBlockType('custom/slider', {
                  data-slider-loop={attributes.sliderLoop}
                  data-slider-autoplay={attributes.sliderAutoplaySeconds ? attributes.sliderAutoplaySeconds * 1000 : false}
             >
-                {attributes.controlsPosition === 'top' && <>
-                    {slideControls()}
+
+                {attributes.showPagination && <>
+                    <div className="swiper-pagination__wrapper" style={{
+                        ...returnStylesY(getPosition(attributes.paginationPosition).y),
+                    }}>
+                        <div className="swiper-pagination" style={{
+                            ...returnStylesX(getPosition(attributes.paginationPosition).x)
+                        }}/>
+                    </div>
                 </>}
+
+                {attributes.showArrows && <>
+                    <div className="swiper-arrows__wrapper" style={{
+                        ...returnStylesY(getPosition(attributes.arrowsPosition).y),
+                    }}>
+                        <div className="swiper-arrows" style={{
+                            ...returnStylesX(getPosition(attributes.arrowsPosition).x),
+                            ...attributes.arrowsWidth && {
+                                width: '100%'
+                            }
+                        }}>
+                            <div className="swiper-button-prev">
+                                <i className="icon-arrow-left"/>
+                            </div>
+                            <div className="swiper-button-next">
+                                <i className="icon-arrow-right"/>
+                            </div>
+                        </div>
+                    </div>
+                </>}
+
                 <div className="swiper-container slider-block__container">
                     <div className="swiper-wrapper slider-block__slides-wrapper">
                         <InnerBlocks.Content/>
                     </div>
                 </div>
-                {attributes.controlsPosition === 'bottom' && <>
-                    {slideControls()}
-                </>}
+
             </div>
         )
     },
