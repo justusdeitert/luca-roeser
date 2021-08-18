@@ -1,6 +1,10 @@
 .slider-block {
     position: relative;
 
+    &__inner {
+        position: relative;
+    }
+
     &__container {
         @extend .row-margin;
     }
@@ -26,6 +30,26 @@
         position: relative;
         height: 100%;
         width: 100%;
+    }
+
+    &.controls-offset {
+        &.arrows-top,
+        &.pagination-top {
+            padding-top: calc(var(--slider-controls-size, 42px) + 10px);
+        }
+
+        &.arrows-bottom,
+        &.pagination-bottom {
+            padding-bottom: calc(var(--slider-controls-size, 42px) + 10px);
+        }
+
+        /**
+         * Editor Styles
+         * TODO: Declare Editor Styles
+         */
+        .swiper-pagination {
+            pointer-events: initial;
+        }
     }
 
     &.two-slides-on-mobile {
@@ -120,6 +144,7 @@
             width: 100%;
             display: flex;
             z-index: 10;
+            height: calc(var(--slider-controls-size, 42px) + 10px);
         }
 
         &:not(.swiper-pagination-bullets-dynamic) {
@@ -157,10 +182,10 @@
         }
 
         .swiper-pagination-bullet {
-            width: var(--slider-controls-size, 12px);
-            min-width: var(--slider-controls-size, 12px);
-            height: var(--slider-controls-size, 12px);
-            margin: 5px;
+            width: calc(var(--slider-controls-size, 42px) / 3);
+            min-width: calc(var(--slider-controls-size, 42px) / 3);
+            height: calc(var(--slider-controls-size, 42px) / 3);
+            margin: calc(var(--slider-controls-size, 42px) / 6);
             border-radius: 50%;
             background-color: rgba(var(--custom-controls-color), 0.3);
             position: relative;
@@ -173,11 +198,10 @@
 
     .swiper-arrows {
         display: flex;
-        padding: 3px 0;
 
         i {
             color: rgb(var(--custom-controls-color));
-            font-size: calc(var(--slider-controls-size, 12px) * 3);
+            font-size: var(--slider-controls-size, 42px);
         }
 
         &__wrapper {
@@ -185,10 +209,11 @@
             width: 100%;
             display: flex;
             z-index: 10;
+            height: calc(var(--slider-controls-size, 42px) + 10px);
         }
 
         .swiper-button-prev {
-            margin-right: var(--slider-controls-size, 12px);
+            margin-right: calc(var(--slider-controls-size, 42px) / 2) ;
         }
 
         .swiper-button-next {
@@ -200,7 +225,8 @@
             opacity: 1;
             visibility: visible;
             transition: opacity .2s ease-in-out, visibility .2s ease-in-out;
-            //pointer-events: initial;
+            display: flex;
+            align-items: center;
 
             &.swiper-button-disabled {
                 opacity: 0.3;
@@ -208,66 +234,4 @@
             }
         }
     }
-
-    //// Swiper Controls
-    //.swiper-controls {
-    //    display: flex;
-    //    margin-top: 0.75rem;
-    //    margin-bottom: 0.75rem;
-    //    //padding-right: calc(var(--slider-spacing) / 2);
-    //    //padding-left: calc(var(--slider-spacing) / 2);
-    //    //@extend .col-padding;
-    //
-    //
-    //
-
-    //
-    //    &.right-position {
-    //        justify-content: flex-end;
-    //
-    //        .swiper-pagination {
-    //            order: 1;
-    //            margin-right: auto;
-    //        }
-    //        .swiper-button-prev {
-    //            order: 2;
-    //            margin: 0 0 0 auto;
-    //        }
-    //        .swiper-button-next {
-    //            order: 3;
-    //            margin: 0 0 0 10px;
-    //        }
-    //    }
-    //
-    //    &.left-position {
-    //        justify-content: flex-start;
-    //
-    //        .swiper-pagination {
-    //            order: 3;
-    //            margin-left: auto;
-    //        }
-    //        .swiper-button-prev {
-    //            order: 1;
-    //            margin: 0;
-    //        }
-    //        .swiper-button-next {
-    //            order: 2;
-    //            margin: 0 auto 0 10px;
-    //        }
-    //    }
-    //
-    //    &.center-position {
-    //        justify-content: center;
-    //    }
-    //
-    //
-    //
-    //    .swiper-button-prev {
-    //        margin: 0 auto 0 0;
-    //    }
-    //
-    //    .swiper-button-next {
-    //        margin: 0 0 0 auto;
-    //    }
-    //}
 }

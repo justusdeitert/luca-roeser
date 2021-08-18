@@ -48,9 +48,13 @@ const attributes = {
     //     type: 'string',
     //     default: 'bottom',
     // },
-    controlsStyle: {
-        type: 'string',
-        default: 'center',
+    controlsSize: {
+        type: 'number',
+        default: 42,
+    },
+    controlsOffset: {
+        type: 'boolean',
+        default: true,
     },
     showPagination: {
         type: 'boolean',
@@ -67,22 +71,6 @@ const attributes = {
     arrowsPosition: {
         type: 'string',
         default: 'bottom left',
-    },
-    arrowsWidth: {
-        type: 'number',
-        default: false,
-    },
-    controlsSize: {
-        type: 'number',
-        default: 12,
-    },
-    paginationSize: {
-        type: 'number',
-        default: 10,
-    },
-    arrowSize: {
-        type: 'number',
-        default: 32,
     },
 }
 
@@ -128,6 +116,13 @@ const returnStylesX = (positionString) => {
     }
 };
 
+let returnOffsetClass = (name, isShown, position) => {
+    let verticalPosition = getPosition(position).y
+    if (name && isShown && position) {
+        return `${name}-${verticalPosition}`
+    }
+    return '';
+}
 
 let autoplayTreshold = true;
 
@@ -181,7 +176,13 @@ registerBlockType('custom/slider', {
         ];
 
         const blockProps = useBlockProps({
-            className: classNames('slider-block', attributes.twoSlidesOnMobile && 'two-slides-on-mobile'),
+            className: classNames(
+                'slider-block',
+                attributes.twoSlidesOnMobile && 'two-slides-on-mobile',
+                returnOffsetClass('arrows', attributes.showArrows, attributes.arrowsPosition),
+                returnOffsetClass('pagination', attributes.showPagination, attributes.paginationPosition),
+                attributes.controlsOffset && 'controls-offset',
+            ),
             style: {
                 ...(attributes.sliderGutter !== false && attributes.sliderGutter !== undefined) && {
                     '--custom-gutter-desktop': `${attributes.sliderGutter / 16}em`,
@@ -201,9 +202,6 @@ registerBlockType('custom/slider', {
             //     <ButtonBlockAppender rootClientId={clientId} className={'lol'} />
             // )
         });
-
-        // console.log(attributes.paginationPosition);
-        // console.log(getPosition(attributes.paginationPosition));
 
         return (
             <>
@@ -308,7 +306,24 @@ registerBlockType('custom/slider', {
                         />
                     </div>
                     <PanelBody title={__('Controls', 'sage')} initialOpen={false}>
-                        <div style={{height: '20px'}}/>
+                        <p>{__('Controls size', 'sage')}</p>
+                        <RangeControl
+                            value={attributes.controlsSize}
+                            min={8}
+                            max={86}
+                            onChange={(value) => setAttributes({controlsSize: value})}
+                            allowReset={true}
+                            resetFallbackValue={42}
+                        />
+                        <hr/>
+                        <ToggleControl
+                            label={__('Has offset', 'sage')}
+                            checked={attributes.controlsOffset}
+                            onChange={(value) => {
+                                setAttributes({controlsOffset: value});
+                            }}
+                        />
+                        <hr/>
                         <ToggleControl
                             label={__('Show pagination', 'sage')}
                             checked={attributes.showPagination}
@@ -333,18 +348,6 @@ registerBlockType('custom/slider', {
                             }}
                         />
                         {attributes.showArrows && <>
-                            {/*<p>{__('Arrows width', 'sage')}</p>
-                            <RangeControl
-                                value={attributes.arrowsWidth}
-                                onChange={(value) => {
-                                    setAttributes({arrowsWidth: value});
-                                }}
-                                min={20}
-                                max={100}
-                                step={1}
-                                allowReset={true}
-                                resetFallbackValue={false}
-                            />*/}
                             <ToggleControl
                                 label={__('100%', 'sage')}
                                 checked={attributes.arrowsWidth}
@@ -357,15 +360,6 @@ registerBlockType('custom/slider', {
                                 onChange={(value) => setAttributes({arrowsPosition: value})}
                             />
                         </>}
-                        <hr/>
-                        <p>{__('Size', 'sage')}</p>
-                        <RangeControl
-                            value={attributes.controlsSize}
-                            min={8}
-                            initialPosition={16}
-                            max={36}
-                            onChange={(value) => setAttributes({controlsSize: value})}
-                        />
                     </PanelBody>
                 </InspectorControls>
                 <div {...innerBlocksProps}
@@ -374,11 +368,80 @@ registerBlockType('custom/slider', {
                      data-slider-loop={false}
                      data-slider-autoplay={attributes.sliderAutoplaySeconds ? attributes.sliderAutoplaySeconds * 1000 : false}
                 >
+                    <div className="slider-block__inner">
+                        {attributes.showPagination && <>
+                            <div className="swiper-pagination__wrapper" style={{
+                                ...returnStylesY(getPosition(attributes.paginationPosition).y),
+                                pointerEvents: 'none'
+                            }}>
+                                <div className="swiper-pagination" style={{
+                                    ...returnStylesX(getPosition(attributes.paginationPosition).x)
+                                }}/>
+                            </div>
+                        </>}
 
+                        {attributes.showArrows && <>
+                            <div className="swiper-arrows__wrapper" style={{
+                                ...returnStylesY(getPosition(attributes.arrowsPosition).y),
+                                pointerEvents: 'none'
+                            }}>
+                                <div className="swiper-arrows" style={{
+                                    ...returnStylesX(getPosition(attributes.arrowsPosition).x),
+                                    ...attributes.arrowsWidth && {
+                                        width: '100%'
+                                    }
+                                }}>
+                                    <div className="swiper-button-prev">
+                                        <i className="icon-arrow-left"/>
+                                    </div>
+                                    <div className="swiper-button-next">
+                                        <i className="icon-arrow-right"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </>}
+
+                        <div className="swiper-container slider-block__container">
+                            <div className="swiper-wrapper slider-block__slides-wrapper">
+                                {innerBlocksProps.children}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </>
+        )
+    },
+
+    save: ({attributes}) => {
+
+        const blockProps = useBlockProps.save({
+            className: classNames(
+                'slider-block',
+                attributes.twoSlidesOnMobile && 'two-slides-on-mobile',
+                returnOffsetClass('arrows', attributes.showArrows, attributes.arrowsPosition),
+                returnOffsetClass('pagination', attributes.showPagination, attributes.paginationPosition),
+                attributes.controlsOffset && 'controls-offset',
+            ),
+            style: {
+                ...isDefined(attributes.sliderGutter) && {
+                    '--custom-gutter-desktop': `${attributes.sliderGutter / 16}em`,
+                    '--custom-gutter-mobile': `${attributes.sliderGutter / 16}em`
+                },
+                '--slider-controls-size': `${attributes.controlsSize}px`
+            }
+        });
+
+        return (
+            <div {...blockProps}
+                 data-slides-per-view={attributes.slidesPerView}
+                 data-slider-id={attributes.clientId}
+                 data-slider-loop={attributes.sliderLoop}
+                 data-slider-autoplay={attributes.sliderAutoplaySeconds ? attributes.sliderAutoplaySeconds * 1000 : false}
+            >
+                <div className="slider-block__inner">
                     {attributes.showPagination && <>
                         <div className="swiper-pagination__wrapper" style={{
                             ...returnStylesY(getPosition(attributes.paginationPosition).y),
-                            pointerEvents: 'none'
                         }}>
                             <div className="swiper-pagination" style={{
                                 ...returnStylesX(getPosition(attributes.paginationPosition).x)
@@ -389,7 +452,6 @@ registerBlockType('custom/slider', {
                     {attributes.showArrows && <>
                         <div className="swiper-arrows__wrapper" style={{
                             ...returnStylesY(getPosition(attributes.arrowsPosition).y),
-                            pointerEvents: 'none'
                         }}>
                             <div className="swiper-arrows" style={{
                                 ...returnStylesX(getPosition(attributes.arrowsPosition).x),
@@ -409,72 +471,10 @@ registerBlockType('custom/slider', {
 
                     <div className="swiper-container slider-block__container">
                         <div className="swiper-wrapper slider-block__slides-wrapper">
-                            {innerBlocksProps.children}
+                            <InnerBlocks.Content/>
                         </div>
                     </div>
-
                 </div>
-            </>
-        )
-    },
-
-    save: ({className, attributes}) => {
-
-        const blockProps = useBlockProps.save({
-            className: classNames(className, 'slider-block', attributes.twoSlidesOnMobile && 'two-slides-on-mobile'),
-            style: {
-                ...isDefined(attributes.sliderGutter) && {
-                    '--custom-gutter-desktop': `${attributes.sliderGutter / 16}em`,
-                    '--custom-gutter-mobile': `${attributes.sliderGutter / 16}em`
-                },
-                '--slider-controls-size': `${attributes.controlsSize}px`
-            }
-        });
-
-        return (
-            <div {...blockProps}
-                 data-slides-per-view={attributes.slidesPerView}
-                 data-slider-id={attributes.clientId}
-                 data-slider-loop={attributes.sliderLoop}
-                 data-slider-autoplay={attributes.sliderAutoplaySeconds ? attributes.sliderAutoplaySeconds * 1000 : false}
-            >
-
-                {attributes.showPagination && <>
-                    <div className="swiper-pagination__wrapper" style={{
-                        ...returnStylesY(getPosition(attributes.paginationPosition).y),
-                    }}>
-                        <div className="swiper-pagination" style={{
-                            ...returnStylesX(getPosition(attributes.paginationPosition).x)
-                        }}/>
-                    </div>
-                </>}
-
-                {attributes.showArrows && <>
-                    <div className="swiper-arrows__wrapper" style={{
-                        ...returnStylesY(getPosition(attributes.arrowsPosition).y),
-                    }}>
-                        <div className="swiper-arrows" style={{
-                            ...returnStylesX(getPosition(attributes.arrowsPosition).x),
-                            ...attributes.arrowsWidth && {
-                                width: '100%'
-                            }
-                        }}>
-                            <div className="swiper-button-prev">
-                                <i className="icon-arrow-left"/>
-                            </div>
-                            <div className="swiper-button-next">
-                                <i className="icon-arrow-right"/>
-                            </div>
-                        </div>
-                    </div>
-                </>}
-
-                <div className="swiper-container slider-block__container">
-                    <div className="swiper-wrapper slider-block__slides-wrapper">
-                        <InnerBlocks.Content/>
-                    </div>
-                </div>
-
             </div>
         )
     },

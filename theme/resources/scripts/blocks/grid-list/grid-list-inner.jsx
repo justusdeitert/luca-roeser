@@ -65,7 +65,7 @@ registerBlockType('custom/grid-list-inner', {
     attributes,
     parent: ['custom/grid-list'],
     // supports: {
-    //     // inserter: false,
+    //     inserter: false,
     //     reusable: false,
     //     html: false,
     // },
@@ -87,19 +87,9 @@ registerBlockType('custom/grid-list-inner', {
             }
         });
 
-        // console.log(removeArrayItems(ALLOWEDBLOCKS, ['custom/grid-list']));
-        // console.log(typeof removeArrayItems(ALLOWEDBLOCKS, ['custom/grid-list']));
-        // console.log(['core/paragraph', 'core/group']);
-        // console.log(typeof ['core/paragraph', 'core/group']);
-
         const innerBlocksProps = useInnerBlocksProps(blockProps, {
-            // allowedBlocks: [removeArrayItems(ALLOWEDBLOCKS, ['custom/grid-list'])],
-            // allowedBlocks: ['core/paragraph'], // TODO: Dont Allow grid-list itself
-            // templateLock: false,
-            // renderAppender: InnerBlocks.DefaultBlockAppender,
+            allowedBlocks: [removeArrayItems(ALLOWEDBLOCKS, ['custom/grid-list'])],
         });
-
-        // <InnerBlocks templateLock={false} allowedBlocks={removeArrayItems(ALLOWEDBLOCKS, ['custom/grid-list'])} renderAppender={InnerBlocks.DefaultBlockAppender} />
 
         return (
             <>
@@ -161,7 +151,6 @@ registerBlockType('custom/grid-list-inner', {
                              }}
                         >
                             <div className="grid-list-block__wrapper">
-                                {/*<InnerBlocks templateLock={false} allowedBlocks={removeArrayItems(ALLOWEDBLOCKS, ['custom/grid-list'])} renderAppender={InnerBlocks.DefaultBlockAppender} />*/}
                                 {innerBlocksProps.children}
                             </div>
                         </div>
