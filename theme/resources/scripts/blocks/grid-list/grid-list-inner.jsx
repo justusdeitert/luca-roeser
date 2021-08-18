@@ -88,7 +88,7 @@ registerBlockType('custom/grid-list-inner', {
         });
 
         const innerBlocksProps = useInnerBlocksProps(blockProps, {
-            allowedBlocks: [removeArrayItems(ALLOWEDBLOCKS, ['custom/grid-list'])],
+            // allowedBlocks: [removeArrayItems(ALLOWEDBLOCKS, ['custom/grid-list'])], // TODO: Somehow this method causes an error..
         });
 
         return (
