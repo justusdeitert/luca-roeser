@@ -89,3 +89,15 @@ export const spacerIcon = createElement('svg', {width: 20, height: 20},
         d: 'M17 9.22222222 17 3 10.7777778 3 13.3366667 5.55888889 5.55888889 13.3366667 3 10.7777778 3 17 9.22222222 17 6.66333333 14.4411111 14.4411111 6.66333333z'
     })
 );
+
+export const columnsIcon = createElement('svg', {width: 24, height: 24},
+    createElement('path', {
+        d: 'M19 6H6c-1.1 0-2 .9-2 2v9c0 1.1.9 2 2 2h13c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-4.1 1.5v10H10v-10h4.9zM5.5 17V8c0-.3.2-.5.5-.5h2.5v10H6c-.3 0-.5-.2-.5-.5zm14 0c0 .3-.2.5-.5.5h-2.6v-10H19c.3 0 .5.2.5.5v9z'
+    })
+);
+
+export const columnIcon = createElement('svg', {width: 24, height: 24},
+    createElement('path', {
+        d: 'M19 6H6c-1.1 0-2 .9-2 2v9c0 1.1.9 2 2 2h13c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zM6 17.5c-.3 0-.5-.2-.5-.5V8c0-.3.2-.5.5-.5h3v10H6zm13.5-.5c0 .3-.2.5-.5.5h-3v-10h3c.3 0 .5.2.5.5v9z'
+    })
+);

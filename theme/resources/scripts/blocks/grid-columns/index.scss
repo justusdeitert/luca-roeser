@@ -1,7 +1,7 @@
 /**
  * Frontend & Editor
  */
-.grid-list-block {
+.grid-columns-block {
 
     &__row {
         display: flex;
@@ -35,9 +35,9 @@
 /**
  * Editor Styles Only
  */
-[data-type="custom/grid-list"] {
+[data-type="custom/grid-columns"] {
     &.is-selected {
-        .grid-list-block__row {
+        .grid-columns-block__row {
             margin-top: initial;
         }
     }

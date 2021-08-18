@@ -22,7 +22,7 @@ import {ToolbarGroup} from '@wordpress/components';
 /**
  * Internal dependencies
  */
-import {gridListInnerIcon} from '../icons';
+import {columnIcon} from '../icons';
 import {
     ALLOWEDBLOCKS,
     editorThemeColors,
@@ -85,13 +85,13 @@ const attributes = {
     },
 };
 
-registerBlockType('custom/grid-list-inner', {
+registerBlockType('custom/grid-columns-inner', {
     apiVersion: 2,
-    title: __('Grid List Inner', 'sage'),
+    title: __('Grid Columns Inner', 'sage'),
     category: 'custom',
-    icon: gridListInnerIcon,
+    icon: columnIcon,
     attributes,
-    parent: ['custom/grid-list'],
+    parent: ['custom/grid-columns'],
     // supports: {
     //     inserter: false,
     //     reusable: false,
@@ -120,7 +120,7 @@ registerBlockType('custom/grid-list-inner', {
         });
 
         const innerBlocksProps = useInnerBlocksProps(blockProps, {
-            allowedBlocks: removeArrayItems(ALLOWEDBLOCKS, ['custom/grid-list']),
+            allowedBlocks: removeArrayItems(ALLOWEDBLOCKS, ['custom/grid-columns']),
         });
 
         return (
@@ -167,7 +167,7 @@ registerBlockType('custom/grid-list-inner', {
                     </div>
                 </InspectorControls>
                 <div className={classNames(
-                    'grid-list-block__col',
+                    'grid-columns-block__col',
                     returnColClass(attributes.columnsMobile),
                     returnColClass(attributes.columnsTablet, 'sm'),
                     returnColClass(attributes.columnsDesktop, 'lg')
@@ -178,7 +178,7 @@ registerBlockType('custom/grid-list-inner', {
                     <div {...innerBlocksProps}>
                         <div className={classNames(
                             className,
-                            'grid-list-block__inner',
+                            'grid-columns-block__inner',
                             getColorObject(attributes.parentBackgroundColor) && `has-background has-${getColorObject(attributes.parentBackgroundColor).slug}-background-color`,
                             `align-items-${attributes.verticalAlign}`
                         )}
@@ -186,7 +186,7 @@ registerBlockType('custom/grid-list-inner', {
                                  clipPath: clipPaths[attributes.clipPath] ? `url(#clip-path-${attributes.clientId})` : 'none',
                              }}
                         >
-                            <div className="grid-list-block__wrapper">
+                            <div className="grid-columns-block__wrapper">
                                 {innerBlocksProps.children}
                             </div>
                         </div>
@@ -200,7 +200,7 @@ registerBlockType('custom/grid-list-inner', {
         // Need to use for passing classes to save function
         const blockProps = useBlockProps.save({
             className: classNames(
-                `grid-list-block__col`,
+                `grid-columns-block__col`,
                 returnColClass(attributes.columnsMobile),
                 returnColClass(attributes.columnsTablet, 'sm'),
                 returnColClass(attributes.columnsDesktop, 'lg')
@@ -213,7 +213,7 @@ registerBlockType('custom/grid-list-inner', {
                     clipPaths[attributes.clipPath](`clip-path-${attributes.clientId}`)
                 </>}
                 <div className={classNames(
-                    'grid-list-block__inner',
+                    'grid-columns-block__inner',
                     getColorObject(attributes.parentBackgroundColor) && `has-background has-${getColorObject(attributes.parentBackgroundColor).slug}-background-color`,
                     `align-items-${attributes.verticalAlign}`
                 )}
@@ -221,7 +221,7 @@ registerBlockType('custom/grid-list-inner', {
                          clipPath: clipPaths[attributes.clipPath] ? `url(#clip-path-${attributes.clientId})` : 'none',
                      }}
                 >
-                    <div className="grid-list-block__wrapper">
+                    <div className="grid-columns-block__wrapper">
                         <InnerBlocks.Content/>
                     </div>
                 </div>
