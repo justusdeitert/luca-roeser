@@ -170,7 +170,8 @@ function customizer_theme_styles() {
             --container-padding-desktop: <?php echo get_theme_mod('container_padding_desktop', 30) / 16; ?>rem;
             --custom-gutter-desktop: <?php echo get_theme_mod('custom_gutter_size_desktop', 30) / 16; ?>rem;
             --custom-gutter-mobile: <?php echo get_theme_mod('custom_gutter_size_mobile', 20) / 16; ?>rem;
-            --custom-vertical-spacing: <?php echo get_theme_mod('custom_vertical_spacing', 48) / 16; ?>rem;
+            --custom-vertical-spacing-desktop: <?php echo get_theme_mod('custom_vertical_spacing_desktop', 48) / 16; ?>rem;
+            --custom-vertical-spacing-mobile: <?php echo get_theme_mod('custom_vertical_spacing_mobile', 32) / 16; ?>rem;
             --custom-border-width: <?php echo get_theme_mod('custom_border_width', 0) / 16; ?>rem;
             --custom-border-radius: <?php echo get_theme_mod('custom_border_radius', 0); ?>px;
             --custom-box-shadow: <?php echo $custom_shadows[get_theme_mod('custom_shadow', 'no-shadow')]; ?>;

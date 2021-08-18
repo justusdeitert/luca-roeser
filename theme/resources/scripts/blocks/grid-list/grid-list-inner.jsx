@@ -64,11 +64,16 @@ registerBlockType('custom/grid-list-inner', {
             }
         });
 
+        console.log(removeArrayItems(ALLOWEDBLOCKS, ['custom/grid-list']));
+
         const innerBlocksProps = useInnerBlocksProps(blockProps, {
-            allowedBlocks: [ALLOWEDBLOCKS],
-            templateLock: false,
-            renderAppender: InnerBlocks.DefaultBlockAppender,
+            // allowedBlocks: [removeArrayItems(ALLOWEDBLOCKS, ['custom/grid-list'])],
+            allowedBlocks: ['core/paragraph'],
+            // templateLock: false,
+            // renderAppender: InnerBlocks.DefaultBlockAppender,
         });
+
+        // <InnerBlocks templateLock={false} allowedBlocks={removeArrayItems(ALLOWEDBLOCKS, ['custom/grid-list'])} renderAppender={InnerBlocks.DefaultBlockAppender} />
 
         return (
             <>
@@ -113,7 +118,7 @@ registerBlockType('custom/grid-list-inner', {
                     {clipPaths[attributes.clipPath] &&
                         clipPaths[attributes.clipPath](`clip-path-${attributes.clientId}`)
                     }
-                    <div { ...innerBlocksProps }>
+                    <div {...innerBlocksProps}>
                         <div className={classNames(
                                 className,
                                 'grid-list-block__inner',
@@ -125,7 +130,8 @@ registerBlockType('custom/grid-list-inner', {
                              }}
                         >
                             <div className="grid-list-block__wrapper">
-                                <InnerBlocks templateLock={false} allowedBlocks={removeArrayItems(ALLOWEDBLOCKS, ['custom/grid-list'])} renderAppender={InnerBlocks.DefaultBlockAppender} />
+                                {/*<InnerBlocks templateLock={false} allowedBlocks={removeArrayItems(ALLOWEDBLOCKS, ['custom/grid-list'])} renderAppender={InnerBlocks.DefaultBlockAppender} />*/}
+                                {innerBlocksProps.children}
                             </div>
                         </div>
                     </div>

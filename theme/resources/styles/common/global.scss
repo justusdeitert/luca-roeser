@@ -293,7 +293,7 @@ img {
 
 $navbar-top-position: var(--custom-navbar-top-position, 0);
 $navbar-height: var(--custom-navbar-height, 60);
-$vertical-spacing: var(--custom-vertical-spacing, 48);
+$vertical-spacing: var(--custom-vertical-spacing-desktop, 48);
 
 main {
     display: flex;
@@ -301,10 +301,10 @@ main {
 
     > *:first-child {
         &:not(.hero-block):not(.section-block) {
-            margin-top: calc(var(--custom-vertical-spacing, 2rem) * 2);
+            margin-top: calc(var(--custom-vertical-spacing-desktop, 2rem) * 2);
 
             @include media-breakpoint-down(sm) {
-                margin-top: calc(var(--custom-vertical-spacing, 2rem));
+                margin-top: calc(var(--custom-vertical-spacing-desktop, 2rem));
             }
         }
     }
@@ -314,10 +314,10 @@ main {
     main {
         > *:first-child {
             &:not(.hero-block) {
-                margin-top: calc(var(--custom-navbar-top-position) + var(--custom-navbar-height) + (var(--custom-vertical-spacing, 2rem) * 2));
+                margin-top: calc(var(--custom-navbar-top-position) + var(--custom-navbar-height) + (var(--custom-vertical-spacing-desktop, 2rem) * 2));
 
                 @include media-breakpoint-down(sm) {
-                    margin-top: calc(var(--custom-navbar-top-position) + var(--custom-navbar-height) + var(--custom-vertical-spacing, 2rem));
+                    margin-top: calc(var(--custom-navbar-top-position) + var(--custom-navbar-height) + var(--custom-vertical-spacing-desktop, 2rem));
                 }
             }
         }
@@ -325,21 +325,21 @@ main {
 }
 
 .page-header {
-    margin-bottom: calc(var(--custom-vertical-spacing, 2rem) / 2)
+    margin-bottom: calc(var(--custom-vertical-spacing-desktop, 2rem) / 2)
 }
 
 .page-wrapper {
-    margin-bottom: calc(var(--custom-vertical-spacing, 2rem) * 2);
+    margin-bottom: calc(var(--custom-vertical-spacing-desktop, 2rem) * 2);
 
     @include media-breakpoint-down(sm) {
-        margin-bottom: var(--custom-vertical-spacing, 2rem);
+        margin-bottom: var(--custom-vertical-spacing-desktop, 2rem);
     }
 }
 
 article {
-    margin-top: var(--custom-vertical-spacing, 2rem);
+    margin-top: var(--custom-vertical-spacing-desktop, 2rem);
 
     @include media-breakpoint-down(sm) {
-        margin-top: calc(var(--custom-vertical-spacing, 2rem) / 2)
+        margin-top: calc(var(--custom-vertical-spacing-desktop, 2rem) / 2)
     }
 }

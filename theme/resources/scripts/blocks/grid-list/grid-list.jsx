@@ -1,10 +1,10 @@
 import {__} from '@wordpress/i18n';
 import {registerBlockType} from '@wordpress/blocks';
-import {RangeControl, ToggleControl} from '@wordpress/components';
+import {RangeControl, ToggleControl, Dashicon, __experimentalRadio as Radio, __experimentalRadioGroup as RadioGroup} from '@wordpress/components';
 import {InnerBlocks, InspectorControls, ColorPalette, useBlockProps, __experimentalUseInnerBlocksProps as useInnerBlocksProps} from '@wordpress/block-editor';
 import classNames from 'classnames';
 import {gridListIcon} from '../icons';
-import {editorThemeColors, updateInnerBlocks} from "../utility";
+import {editorThemeColors, updateInnerBlocks, isDefined} from "../utility";
 // import * as clipPaths from "../clip-paths"
 
 const attributes = {
@@ -28,9 +28,17 @@ const attributes = {
         type: 'boolean',
         default: false,
     },
-    customPadding: {
+    // customPadding: {
+    //     type: 'number',
+    //     default: 0
+    // },
+    horizontalPadding: {
         type: 'number',
-        default: 0
+        default: false,
+    },
+    verticalPadding: {
+        type: 'number',
+        default: false,
     },
     customGutter: {
         type: 'number',
@@ -65,18 +73,20 @@ registerBlockType('custom/grid-list', {
             ]],
         ];
 
-        let blockStyles = {
-            '--grid-list-inner-spacing' : `${attributes.customPadding / 16}em`
-        };
-
-        if(attributes.customGutter !== false && attributes.customGutter !== undefined) {
-            blockStyles['--custom-gutter-desktop'] = `${attributes.customGutter / 16}em`
-            blockStyles['--custom-gutter-mobile'] = `${attributes.customGutter / 16}em`
-        }
-
         const blockProps = useBlockProps({
-            className: classNames(className, 'grid-list-block', `grid-list-${attributes.clientId}`),
-            style: blockStyles
+            className: classNames(className, 'grid-list-block'),
+            style: {
+                ...isDefined(attributes.customGutter) && {
+                    '--custom-gutter-desktop': `${attributes.customGutter / 16}em`,
+                    '--custom-gutter-mobile':  `${attributes.customGutter / 16}em`
+                },
+                ...isDefined(attributes.verticalPadding) && {
+                    '--inner-vertical-padding' : `${attributes.verticalPadding / 16}em`,
+                },
+                ...isDefined(attributes.horizontalPadding) && {
+                    '--inner-horizontal-padding' : `${attributes.horizontalPadding / 16}em`,
+                },
+            }
         });
 
         const innerBlocksProps = useInnerBlocksProps(blockProps, {
@@ -89,7 +99,7 @@ registerBlockType('custom/grid-list', {
             <>
                 <InspectorControls>
                     <div className="inspector-controls-container">
-                        <hr/>
+                        {/*<hr/>
                         <p>{__('Grid Columns', 'sage')}</p>
                         <RangeControl
                             value={attributes.columns}
@@ -97,9 +107,31 @@ registerBlockType('custom/grid-list', {
                             max={6}
                             step={1}
                             onChange={(value) => setAttributes({columns: value})}
-                        />
+                        />*/}
                         <hr/>
-                        <p>{__('Gutter', 'sage')}</p>
+                        <p>{__('Grid Columns', 'sage')}</p>
+                        <RadioGroup
+                            onChange={(value) => {
+                                setAttributes({columns: value});
+                            }}
+                            checked={attributes.columns}
+                            defaultChecked={3}
+                        >
+                            <Radio value={1}>1</Radio>
+                            <Radio value={2}>2</Radio>
+                            <Radio value={3}>3</Radio>
+                            <Radio value={4}>4</Radio>
+
+                            {(attributes.align === 'full') && <>
+                                <Radio value={5}>5</Radio>
+                                <Radio value={6}>6</Radio>
+                            </>}
+                        </RadioGroup>
+                        <hr/>
+                        <div style={{display:'flex'}}>
+                            <p>{__('Gutter', 'sage')}</p>
+                            <Dashicon icon="grid-view" style={{marginLeft: 'auto'}}/>
+                        </div>
                         <RangeControl
                             value={attributes.customGutter}
                             min={0}
@@ -113,15 +145,36 @@ registerBlockType('custom/grid-list', {
                             }}
                         />
                         <hr/>
-                        <p>{__('Padding', 'sage')}</p>
+                        <div style={{display:'flex'}}>
+                            <p>{__('Horizontal padding', 'sage')}</p>
+                            <Dashicon icon="image-flip-horizontal" style={{marginLeft: 'auto'}}/>
+                        </div>
                         <RangeControl
-                            value={attributes.customPadding}
+                            value={attributes.horizontalPadding}
                             min={0}
                             max={100}
                             step={1}
+                            onChange={(value) => {
+                                setAttributes({horizontalPadding: value})
+                            }}
                             allowReset={true}
-                            resetFallbackValue={0}
-                            onChange={(value) => setAttributes({customPadding: value})}
+                            resetFallbackValue={false}
+                        />
+                        <hr/>
+                        <div style={{display:'flex'}}>
+                            <p>{__('Vertical padding', 'sage')}</p>
+                            <Dashicon icon="image-flip-vertical" style={{marginLeft: 'auto'}}/>
+                        </div>
+                        <RangeControl
+                            value={attributes.verticalPadding}
+                            min={0}
+                            max={100}
+                            step={1}
+                            onChange={(value) => {
+                                setAttributes({verticalPadding: value})
+                            }}
+                            allowReset={true}
+                            resetFallbackValue={false}
                         />
                         <hr/>
                         <ToggleControl
@@ -144,7 +197,11 @@ registerBlockType('custom/grid-list', {
                     </div>
                 </InspectorControls>
                 <div {...innerBlocksProps}>
-                    <div className={classNames('grid-list-block__row', 'row', attributes.twoColumnsMobile && 'two-columns-mobile')} data-columns={attributes.columns}>
+                    <div className={classNames('' +
+                        'grid-list-block__row',
+                        'row',
+                        attributes.twoColumnsMobile && 'two-columns-mobile'
+                    )} data-columns={attributes.columns}>
                         {innerBlocksProps.children}
                     </div>
                 </div>
@@ -153,24 +210,29 @@ registerBlockType('custom/grid-list', {
     },
     save: ({attributes}) => {
 
-        let blockStyles = {
-            '--grid-list-inner-spacing' : `${attributes.customPadding / 16}em`
-        };
-
-        if(attributes.customGutter !== false && attributes.customGutter !== undefined) {
-            blockStyles['--custom-gutter-desktop'] = `${attributes.customGutter / 16}em`
-            blockStyles['--custom-gutter-mobile'] = `${attributes.customGutter / 16}em`
-        }
-
-        // Need to use for passing classes to save function
         const blockProps = useBlockProps.save({
-            className: `grid-list-${attributes.clientId}`,
-            style: blockStyles
+            className: classNames('grid-list-block'),
+            style: {
+                ...isDefined(attributes.customGutter) && {
+                    '--custom-gutter-desktop': `${attributes.customGutter / 16}em`,
+                    '--custom-gutter-mobile':  `${attributes.customGutter / 16}em`
+                },
+                ...isDefined(attributes.verticalPadding) && {
+                    '--inner-vertical-padding' : `${attributes.verticalPadding / 16}em`,
+                },
+                ...isDefined(attributes.horizontalPadding) && {
+                    '--inner-horizontal-padding' : `${attributes.horizontalPadding / 16}em`,
+                },
+            }
         });
 
         return (
             <div {...blockProps}>
-                <div className={classNames('grid-list-block__row', 'row', attributes.twoColumnsMobile && 'two-columns-mobile')} data-columns={attributes.columns}>
+                <div className={classNames(
+                    'grid-list-block__row',
+                    'row',
+                    attributes.twoColumnsMobile && 'two-columns-mobile'
+                )} data-columns={attributes.columns}>
                     <InnerBlocks.Content />
                 </div>
             </div>

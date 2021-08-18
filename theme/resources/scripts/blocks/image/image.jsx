@@ -47,9 +47,13 @@ registerBlockType('custom/image', {
             type: 'string',
             default: 'px'
         },
-        imagePosition: {
+        horizontalImagePosition: {
             type: 'string',
             default: 'left'
+        },
+        verticalImagePosition: {
+            type: 'string',
+            default: 'top'
         },
         imageMove: {
             type: 'object',
@@ -78,7 +82,8 @@ registerBlockType('custom/image', {
             className: classnames(
                 className,
                 'image-block',
-                (attributes.imagePositioning === 'absolute' && attributes.imagePosition === 'right') && 'end-0'
+                (attributes.imagePositioning === 'absolute' && attributes.horizontalImagePosition === 'right') && 'end-0',
+                (attributes.imagePositioning === 'absolute' && attributes.verticalImagePosition === 'bottom') && 'bottom-0'
             ),
             style: {
                 border: '1px dashed var(--wp-admin-theme-color)',
@@ -217,12 +222,21 @@ registerBlockType('custom/image', {
                             <hr/>
                             <p>{__('Position', 'sage')}</p>
                             <RadioGroup
-                                onChange={(value) => setAttributes({imagePosition: value})}
-                                checked={attributes.imagePosition}
+                                onChange={(value) => setAttributes({horizontalImagePosition: value})}
+                                checked={attributes.horizontalImagePosition}
                                 defaultChecked={'left'}
                             >
                                 <Radio value="left">{__('Left', 'sage')}</Radio>
                                 <Radio value="right">{__('Right', 'sage')}</Radio>
+                            </RadioGroup>
+                            <br/>
+                            <RadioGroup
+                                onChange={(value) => setAttributes({verticalImagePosition: value})}
+                                checked={attributes.verticalImagePosition}
+                                defaultChecked={'top'}
+                            >
+                                <Radio value="top">{__('Top', 'sage')}</Radio>
+                                <Radio value="bottom">{__('Bottom', 'sage')}</Radio>
                             </RadioGroup>
                         </>
                         }
@@ -305,7 +319,8 @@ registerBlockType('custom/image', {
                 'image-block',
                 `align-${attributes.horizontalAlign}`,
                 attributes.hasRatio ? `ratio ratio-${attributes.imageRatio}` : '',
-                attributes.imagePosition === 'right' && 'end-0'
+                (attributes.imagePositioning === 'absolute' && attributes.horizontalImagePosition === 'right') && 'end-0',
+                (attributes.imagePositioning === 'absolute' && attributes.verticalImagePosition === 'bottom') && 'bottom-0'
             ),
             style: {
                 width: `${attributes.imageSize + attributes.imageSizeUnit}`,

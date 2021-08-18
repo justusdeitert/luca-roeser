@@ -18,7 +18,7 @@
         width: 100%;
         display: flex;
         margin: 0;
-        padding: var(--grid-list-inner-spacing);
+        padding: var(--inner-vertical-padding, 0em) var(--inner-horizontal-padding, 0em);
         position: relative;
     }
 
@@ -101,4 +101,10 @@
             margin-top: initial;
         }
     }
+
+    //.block-editor-block-list {
+    //    &__layout {
+    //        position: initial;
+    //    }
+    //}
 }

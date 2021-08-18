@@ -230,8 +230,6 @@ if (class_exists('Kirki')) {
                 ],
             ]);
 
-            custom_kirki_border('section_content_settings_id');
-
             Kirki::add_field('container_padding_mobile_id', [
                 'type' => 'slider',
                 'settings' => 'container_padding_mobile',
@@ -260,8 +258,6 @@ if (class_exists('Kirki')) {
                 ],
             ]);
 
-            custom_kirki_border('section_content_settings_id');
-
             Kirki::add_field('custom_gutter_size_mobile_id', [
                 'type' => 'slider',
                 'settings' => 'custom_gutter_size_mobile',
@@ -277,12 +273,25 @@ if (class_exists('Kirki')) {
 
             custom_kirki_border('section_content_settings_id');
 
-            Kirki::add_field('custom_vertical_spacing_id', [
+            Kirki::add_field('custom_vertical_spacing_desktop_id', [
                 'type' => 'slider',
-                'settings' => 'custom_vertical_spacing',
-                'label' => __('Vertical spacing', 'sage'),
+                'settings' => 'custom_vertical_spacing_desktop',
+                'label' => __('Vertical spacing (Desktop)', 'sage'),
                 'section' => 'section_content_settings_id',
                 'default' => 48,
+                'choices' => [
+                    'min' => 16,
+                    'max' => 140,
+                    'step' => 1,
+                ],
+            ]);
+
+            Kirki::add_field('custom_vertical_spacing_mobile_id', [
+                'type' => 'slider',
+                'settings' => 'custom_vertical_spacing_mobile',
+                'label' => __('Vertical spacing (Mobile)', 'sage'),
+                'section' => 'section_content_settings_id',
+                'default' => 32,
                 'choices' => [
                     'min' => 16,
                     'max' => 140,
