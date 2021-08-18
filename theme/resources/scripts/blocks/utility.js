@@ -246,6 +246,7 @@ export const ALLOWEDBLOCKS = [
     'custom/fluid-text',
     'custom/slider',
     'custom/wrapper',
+    'custom/grid-columns',
 ]
 
 export const parentAttributes = (clientId) => {

@@ -78,6 +78,21 @@ registerBlockType('custom/image', {
             }
         };
 
+        const showImageUploader = () => {
+
+            if (attributes.imageSizeUnit === 'px') {
+                if (attributes.imageSizeDesktop < 120) {
+                    return false;
+                }
+            } else {
+                if (attributes.imageSizeDesktop < 40) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         const blockProps = useBlockProps({
             className: classnames(
                 className,
@@ -152,7 +167,7 @@ registerBlockType('custom/image', {
                 }
                 <InspectorControls>
                     <div className="inspector-controls-container">
-                        {(attributes.imageSize < 20) && <>
+                        {!showImageUploader() && <>
                             <MediaUpload
                                 onSelect={(value) => setAttributes({imageObject: value})}
                                 allowedTypes={['image']}
@@ -302,8 +317,7 @@ registerBlockType('custom/image', {
                 </InspectorControls>
                 <div {...blockProps}>
                     <div {...innerBlockProps}>
-                        {(attributes.imageSizeDesktop >= 20) &&
-                        <>
+                        {showImageUploader() && <>
                             <MediaUpload
                                 onSelect={(value) => setAttributes({imageObject: value})}
                                 allowedTypes={['image']}
@@ -322,8 +336,7 @@ registerBlockType('custom/image', {
                                     />
                                 )}
                             />
-                        </>
-                        }
+                        </>}
                         <div className={attributes.imageRatio ? `ratio ratio-${attributes.imageRatio}` : ''}>
                             {attributes.imageObject.mime !== 'image/svg+xml' ?
                                 <img alt={getImage(attributes.imageObject, 'alt')}
