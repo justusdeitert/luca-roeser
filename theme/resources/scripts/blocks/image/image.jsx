@@ -33,11 +33,11 @@ registerBlockType('custom/image', {
         },
         imageSizeUnit: {
             type: 'string',
-            default: 'px'
+            default: '%'
         },
         imageSize: {
             type: 'number',
-            default: 200
+            default: 100
         },
         imagePositioning: {
             type: 'string',

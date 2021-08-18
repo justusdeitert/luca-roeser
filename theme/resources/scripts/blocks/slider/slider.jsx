@@ -94,7 +94,7 @@ registerBlockType('custom/slider', {
     // Access React Lifecycle Methods within gutenberg block
     // https://wordpress.org/gutenberg/handbook/block-api/block-edit-save/
     // https://dev.to/martinkr/create-a-wordpress-s-gutenberg-block-with-all-react-lifecycle-methods-in-5-minutes-213p
-    edit: ({setAttributes, attributes, className, clientId}) => {
+    edit: ({setAttributes, attributes, clientId}) => {
 
         /**
          * Init Slider only once when block loads!
@@ -115,21 +115,6 @@ registerBlockType('custom/slider', {
         };
 
         attributes.clientId = clientId;
-
-        // const TEMPLATE = [
-        //     ['custom/slider-inner', {}, [
-        //         ['core/paragraph', {placeholder: loremIpsum, content: loremIpsum}]
-        //     ]],
-        //     ['custom/slider-inner', {}, [
-        //         ['core/paragraph', {placeholder: loremIpsum, content: loremIpsum}]
-        //     ]],
-        //     ['custom/slider-inner', {}, [
-        //         ['core/paragraph', {placeholder: loremIpsum, content: loremIpsum}],
-        //     ]],
-        //     ['custom/slider-inner', {}, [
-        //         ['core/paragraph', {placeholder: loremIpsum, content: loremIpsum}],
-        //     ]],
-        // ];
 
         const TEMPLATE = [
             ['custom/slider-inner', {}, [
@@ -154,6 +139,7 @@ registerBlockType('custom/slider', {
             }
         });
 
+        // TODO: AppenderButton is not shown anymore
         const innerBlocksProps = useInnerBlocksProps(blockProps, {
             allowedBlocks: ['custom/slider-inner'],
             orientation: 'horizontal', // default: 'vertical'
@@ -170,20 +156,15 @@ registerBlockType('custom/slider', {
                     <div className={classNames("swiper-controls", `${attributes.controlsStyle}-position`)}
                          style={{'--slider-controls-size': `${attributes.controlsSize / 16}rem`}}
                     >
-                        {attributes.showArrows &&
-                        <>
+                        {attributes.showArrows && <>
                             <div className="swiper-button-prev">
                                 <i className="icon-arrow-left"/>
                             </div>
-                        </>
-                        }
-                        {attributes.showPagination &&
-                        <>
+                        </>}
+                        {attributes.showPagination && <>
                             <div className="swiper-pagination" />
-                        </>
-                        }
-                        {attributes.showArrows &&
-                        <>
+                        </>}
+                        {attributes.showArrows && <>
                             <div className="swiper-button-next">
                                 <i className="icon-arrow-right"/>
                             </div>
@@ -250,27 +231,27 @@ registerBlockType('custom/slider', {
                         <p>{__('Slides per view', 'sage')}</p>
                         <RangeControl
                             value={attributes.slidesPerView}
-                            min={1}
-                            initialPosition={3}
-                            max={4}
                             onChange={(value) => {
                                 setAttributes({slidesPerView: value});
                                 updateSlider();
                             }}
+                            min={1}
+                            max={4}
+                            allowReset={true}
+                            resetFallbackValue={3}
                         />
                         <hr/>
                         <p>{__('Gutter', 'sage')}</p>
                         <RangeControl
                             value={attributes.sliderGutter}
+                            onChange={(value) => {
+                                setAttributes({sliderGutter: value});
+                            }}
                             min={0}
-                            initialPosition={20}
                             max={80}
                             step={1}
                             allowReset={true}
                             resetFallbackValue={false}
-                            onChange={(value) => {
-                                setAttributes({sliderGutter: value});
-                            }}
                         />
                         <hr/>
                         <ToggleControl
@@ -312,8 +293,7 @@ registerBlockType('custom/slider', {
                                 updateSlider();
                             }}
                         />
-                        {(attributes.showPagination || attributes.showArrows) &&
-                        <>
+                        {(attributes.showPagination || attributes.showArrows) && <>
                             <hr/>
                             <p>{__('Controls Size', 'sage')}</p>
                             <RangeControl
@@ -347,8 +327,7 @@ registerBlockType('custom/slider', {
                                 <Radio value="center">{__('Center')}</Radio>
                                 <Radio value="right">{__('Right')}</Radio>
                             </RadioGroup>
-                        </>
-                        }
+                        </>}
 
                     </PanelBody>
                 </InspectorControls>
@@ -358,17 +337,17 @@ registerBlockType('custom/slider', {
                      data-slider-loop={false}
                      data-slider-autoplay={attributes.sliderAutoplaySeconds ? attributes.sliderAutoplaySeconds * 1000 : false}
                 >
+                    {attributes.controlsPosition === 'top' && <>
+                        {slideControls()}
+                    </>}
                     <div className="swiper-container slider-block__container">
-                        {attributes.controlsPosition === 'top' &&
-                        slideControls()
-                        }
                         <div className="swiper-wrapper slider-block__slides-wrapper">
                             {innerBlocksProps.children}
                         </div>
-                        {attributes.controlsPosition === 'bottom' &&
-                        slideControls()
-                        }
                     </div>
+                    {attributes.controlsPosition === 'bottom' && <>
+                        {slideControls()}
+                    </>}
                 </div>
             </>
         )
@@ -390,25 +369,19 @@ registerBlockType('custom/slider', {
                     <div className={classNames("swiper-controls", `${attributes.controlsStyle}-position`)}
                          style={{'--slider-controls-size': `${attributes.controlsSize / 16}rem`}}
                     >
-                        {attributes.showArrows &&
-                        <>
+                        {attributes.showArrows && <>
                             <div className="swiper-button-prev">
                                 <i className="icon-arrow-left"/>
                             </div>
-                        </>
-                        }
-                        {attributes.showPagination &&
-                        <>
+                        </>}
+                        {attributes.showPagination && <>
                             <div className="swiper-pagination" />
-                        </>
-                        }
-                        {attributes.showArrows &&
-                        <>
+                        </>}
+                        {attributes.showArrows && <>
                             <div className="swiper-button-next">
                                 <i className="icon-arrow-right"/>
                             </div>
-                        </>
-                        }
+                        </>}
                     </div>
                 )
             }
@@ -421,17 +394,17 @@ registerBlockType('custom/slider', {
                  data-slider-loop={attributes.sliderLoop}
                  data-slider-autoplay={attributes.sliderAutoplaySeconds ? attributes.sliderAutoplaySeconds * 1000 : false}
             >
+                {attributes.controlsPosition === 'top' && <>
+                    {slideControls()}
+                </>}
                 <div className="swiper-container slider-block__container">
-                    {attributes.controlsPosition === 'top' &&
-                    slideControls()
-                    }
                     <div className="swiper-wrapper slider-block__slides-wrapper">
                         <InnerBlocks.Content/>
                     </div>
-                    {attributes.controlsPosition === 'bottom' &&
-                    slideControls()
-                    }
                 </div>
+                {attributes.controlsPosition === 'bottom' && <>
+                    {slideControls()}
+                </>}
             </div>
         )
     },

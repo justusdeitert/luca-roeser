@@ -19,10 +19,7 @@
         display: flex;
         margin: 0;
         padding: var(--grid-list-inner-spacing);
-
-        //&.has-background {
-        //    padding: var(--grid-list-inner-spacing);
-        //}
+        position: relative;
     }
 
     &__wrapper {

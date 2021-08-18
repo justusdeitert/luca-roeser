@@ -3,7 +3,7 @@
  */
 import {__} from '@wordpress/i18n';
 import {registerBlockType, createBlock} from '@wordpress/blocks';
-import {SelectControl, RangeControl, ToggleControl, Button, PanelBody, __experimentalRadio as Radio, __experimentalRadioGroup as RadioGroup, __experimentalBoxControl as BoxControl, ToolbarGroup, __experimentalAlignmentMatrixControl as AlignmentMatrixControl} from '@wordpress/components';
+import {SelectControl, RangeControl, ToggleControl, Button, PanelBody, __experimentalRadio as Radio, __experimentalRadioGroup as RadioGroup, __experimentalBoxControl as BoxControl, ToolbarGroup, __experimentalAlignmentMatrixControl as AlignmentMatrixControl, Dashicon} from '@wordpress/components';
 import {InnerBlocks, InspectorControls, MediaUpload, ColorPalette, useBlockProps, __experimentalUseInnerBlocksProps as useInnerBlocksProps, BlockControls, BlockVerticalAlignmentToolbar, __experimentalGradientPicker as GradientPicker} from '@wordpress/block-editor';
 
 /**
@@ -328,7 +328,6 @@ registerBlockType('custom/section', {
                 </BlockControls>
                 <InspectorControls>
                     <div className="inspector-controls-container">
-                        {/*<div style={{height: '20px'}}/>*/}
                         <SelectControl
                             label={__('HTML element')}
                             options={[
@@ -356,12 +355,11 @@ registerBlockType('custom/section', {
                         />
                         <hr/>
                         <ToggleControl
-                            label={__('Set to window height', 'sage')}
+                            label={__('Full height', 'sage')}
                             checked={attributes.fullHeight}
                             onChange={(value) => setAttributes({fullHeight: value})}
                         />
-                        {!attributes.fullHeight &&
-                        <>
+                        {!attributes.fullHeight && <>
                             <hr/>
                             <MobileSwitch headline={__('Min height', 'sage')}>
                                 <MobileSwitchInner type={'desktop'}>
@@ -401,16 +399,14 @@ registerBlockType('custom/section', {
                                     />
                                 </MobileSwitchInner>
                             </MobileSwitch>
-                        </>
-                        }
+                        </>}
                         <hr/>
                         <ToggleControl
                             label={__('Full inner width', 'sage')}
                             checked={attributes.fullWidth}
                             onChange={(value) => setAttributes({fullWidth: value})}
                         />
-                        {!attributes.fullWidth &&
-                        <>
+                        {!attributes.fullWidth && <>
                             <hr/>
                             <p>{__('Max width', 'sage')}</p>
                             <RangeControl
@@ -425,10 +421,8 @@ registerBlockType('custom/section', {
                                     marginBottom: '10px'
                                 }}
                             />
-                        </>
-                        }
-                        {!attributes.sectionShape &&
-                        <>
+                        </>}
+                        {!attributes.sectionShape && <>
                             <hr/>
                             <p>{__('Border Radius', 'sage')}</p>
                             <RangeControl
@@ -440,10 +434,12 @@ registerBlockType('custom/section', {
                                 allowReset={true}
                                 resetFallbackValue={false}
                             />
-                        </>
-                        }
+                        </>}
                         <hr/>
-                        <p>{__('Vertical Padding', 'sage')}</p>
+                        <div style={{display:'flex'}}>
+                            <p>{__('Vertical padding', 'sage')}</p>
+                            <Dashicon icon="image-flip-vertical" style={{marginLeft: 'auto'}}/>
+                        </div>
                         <RangeControl
                             value={attributes.verticalPadding}
                             min={0}
@@ -462,15 +458,8 @@ registerBlockType('custom/section', {
                             disableCustomColors={true}
                         />
                     </div>
-                    {attributes.backgroundImage &&
-                    <>
+                    {attributes.backgroundImage && <>
                         <PanelBody title={__('Image', 'sage')}>
-                            {/*<ToggleControl
-                                label={__('Pattern size', 'sage')}
-                                checked={attributes.patternSize}
-                                // help={__('Select if image is a pattern', 'sage')}
-                                onChange={(value) => setAttributes({patternSize: value})}
-                            />*/}
                             <p>{__('Pattern size', 'sage')}</p>
                             <RangeControl
                                 value={attributes.patternSize}
@@ -516,16 +505,14 @@ registerBlockType('custom/section', {
                                 onChange={(value) => setAttributes({backgroundImageAlignment: value})}
                             />
                         </PanelBody>
-                    </>
-                    }
+                    </>}
                     <PanelBody title={__('Overlay', 'sage')}>
                         <ToggleControl
                             label={__('Background Overlay', 'sage')}
                             checked={attributes.hasOverlay}
                             onChange={(value) => setAttributes({hasOverlay: value})}
                         />
-                        {attributes.hasOverlay &&
-                        <>
+                        {attributes.hasOverlay && <>
                             <hr/>
                             <GradientPicker
                                 value={attributes.overlayGradient}
@@ -554,17 +541,14 @@ registerBlockType('custom/section', {
                                     },
                                 ]}
                             />
-                            {attributes.overlayGradient.includes('radial-gradient') &&
-                            <>
+                            {attributes.overlayGradient.includes('radial-gradient') && <>
                                 <p>{__('Radial Overlay Position', 'sage')}</p>
                                 <AlignmentMatrixControl
                                     value={attributes.overlayGradientPosition}
                                     onChange={(value) => setAttributes({overlayGradientPosition: value})}
                                 />
-                            </>
-                            }
-                        </>
-                        }
+                            </>}
+                        </>}
                     </PanelBody>
                     <PanelBody title={__('Shape', 'sage')}>
                         <p>{__('Section Shape', 'sage')}</p>
@@ -579,8 +563,7 @@ registerBlockType('custom/section', {
                             }}
                             value={attributes.sectionShape}
                         />
-                        {attributes.sectionShape &&
-                        <>
+                        {attributes.sectionShape && <>
                             <hr/>
                             <MobileSwitch headline={__('Shape Height', 'sage')}>
                                 <MobileSwitchInner type={'desktop'}>
@@ -623,8 +606,7 @@ registerBlockType('custom/section', {
                                 <Radio value="normal">{__('Normal', 'sage')}</Radio>
                                 <Radio value="inverted">{__('Inverted', 'sage')}</Radio>
                             </RadioGroup>
-                            {attributes.sectionShapeTopClass !== 'none' &&
-                            <>
+                            {attributes.sectionShapeTopClass !== 'none' && <>
                                 <hr/>
                                 <p>{__('Top Shape Background Color', 'sage')}</p>
                                 <ColorPalette
@@ -634,8 +616,7 @@ registerBlockType('custom/section', {
                                     disableCustomColors={true}
                                     defaultValue={`rgb(${getCssVariable('--custom-body-background-color')})`}
                                 />
-                            </>
-                            }
+                            </>}
                             <hr/>
                             <p>{__('Bottom Shape', 'sage')}</p>
                             <RadioGroup
@@ -647,8 +628,7 @@ registerBlockType('custom/section', {
                                 <Radio value="normal">{__('Normal', 'sage')}</Radio>
                                 <Radio value="inverted">{__('Inverted', 'sage')}</Radio>
                             </RadioGroup>
-                            {attributes.sectionShapeBottomClass !== 'none' &&
-                            <>
+                            {attributes.sectionShapeBottomClass !== 'none' && <>
                                 <hr/>
                                 <p>{__('Bottom Shape Background Color', 'sage')}</p>
                                 <ColorPalette
@@ -658,10 +638,8 @@ registerBlockType('custom/section', {
                                     disableCustomColors={true}
                                     defaultValue={`rgb(${getCssVariable('--custom-body-background-color')})`}
                                 />
-                            </>
-                            }
-                        </>
-                        }
+                            </>}
+                        </>}
                     </PanelBody>
                 </InspectorControls>
                 <attributes.tagName {...innerBlocksProps}>

@@ -1,6 +1,6 @@
 import {__} from '@wordpress/i18n';
 import {registerBlockType, createBlock} from '@wordpress/blocks';
-import {SelectControl, RangeControl, ToggleControl, ToolbarGroup, ToolbarDropdownMenu, Button, PanelBody, __experimentalRadio as Radio, __experimentalRadioGroup as RadioGroup, __experimentalBoxControl as BoxControl} from '@wordpress/components';
+import {SelectControl, RangeControl, ToggleControl, ToolbarGroup, ToolbarDropdownMenu, Button, PanelBody, __experimentalRadio as Radio, __experimentalRadioGroup as RadioGroup, __experimentalBoxControl as BoxControl, Dashicon} from '@wordpress/components';
 import {InnerBlocks, InspectorControls, ColorPalette, BlockControls, useBlockProps, __experimentalUseInnerBlocksProps as useInnerBlocksProps} from '@wordpress/block-editor';
 import classnames from 'classnames';
 import {sectionIcon} from '../icons';
@@ -30,11 +30,7 @@ const attributes = {
         type: 'number',
         default: false,
     },
-    wrapperHeight: {
-        type: 'number',
-        default: false,
-    },
-    removeWrapperWidth: {
+    autoWidth: {
         type: 'boolean',
         default: false,
     },
@@ -46,9 +42,21 @@ const attributes = {
         type: 'string',
         default: '%',
     },
+    wrapperHeight: {
+        type: 'number',
+        default: false,
+    },
     horizontalAlign: {
         type: 'string',
         default: 'left'
+    },
+    horizontalPadding: {
+        type: 'number',
+        default: false,
+    },
+    verticalPadding: {
+        type: 'number',
+        default: false,
     },
 };
 
@@ -156,14 +164,14 @@ registerBlockType('custom/wrapper', {
                 <InspectorControls>
                     <div className="inspector-controls-container">
                         <ToggleControl
-                            label={__('Remove max width', 'sage')}
+                            label={__('Auto width', 'sage')}
                             // help={__('Enable continuous loop mode (does not apply on the editor)', 'sage')}
-                            checked={attributes.removeWrapperWidth}
-                            onChange={(value) => setAttributes({removeWrapperWidth: value})}
+                            checked={attributes.autoWidth}
+                            onChange={(value) => setAttributes({autoWidth: value})}
                         />
-                        {!attributes.removeWrapperWidth && <>
+                        {!attributes.autoWidth && <>
                             <hr/>
-                            <p>{__('Max width', 'sage')}</p>
+                            <p>{__('Width', 'sage')}</p>
                             <RangeControl
                                 value={attributes.wrapperWidth}
                                 min={attributes.wrapperWidthUnit === 'px' ? 60 : 10}
@@ -181,6 +189,8 @@ registerBlockType('custom/wrapper', {
 
                                     if (attributes.wrapperWidthUnit === '%') {
                                         setAttributes({wrapperWidth: 100})
+                                    } else {
+                                        setAttributes({wrapperWidth: 400})
                                     }
                                 }}
                                 checked={attributes.wrapperWidthUnit}
@@ -190,6 +200,51 @@ registerBlockType('custom/wrapper', {
                                 <Radio value="%">{__('%', 'sage')}</Radio>
                             </RadioGroup>
                         </>}
+                        <hr/>
+                        <p>{__('Height', 'sage')}</p>
+                        <RangeControl
+                            value={attributes.wrapperHeight}
+                            min={60}
+                            max={800}
+                            step={1}
+                            onChange={(value) => {
+                                setAttributes({wrapperHeight: value})
+                            }}
+                            allowReset={true}
+                            resetFallbackValue={false}
+                        />
+                        <hr/>
+                        <div style={{display:'flex'}}>
+                            <p>{__('Horizontal padding', 'sage')}</p>
+                            <Dashicon icon="image-flip-horizontal" style={{marginLeft: 'auto'}}/>
+                        </div>
+                        <RangeControl
+                            value={attributes.horizontalPadding}
+                            min={0}
+                            max={100}
+                            step={1}
+                            onChange={(value) => {
+                                setAttributes({horizontalPadding: value})
+                            }}
+                            allowReset={true}
+                            resetFallbackValue={false}
+                        />
+                        <hr/>
+                        <div style={{display:'flex'}}>
+                            <p>{__('Vertical padding', 'sage')}</p>
+                            <Dashicon icon="image-flip-vertical" style={{marginLeft: 'auto'}}/>
+                        </div>
+                        <RangeControl
+                            value={attributes.verticalPadding}
+                            min={0}
+                            max={100}
+                            step={1}
+                            onChange={(value) => {
+                                setAttributes({verticalPadding: value})
+                            }}
+                            allowReset={true}
+                            resetFallbackValue={false}
+                        />
                         <hr/>
                         <p>{__('Background color', 'sage')}</p>
                         <ColorPalette
@@ -208,9 +263,20 @@ registerBlockType('custom/wrapper', {
                             getColorObject(attributes.wrapperBgColor) && `has-${getColorObject(attributes.wrapperBgColor).slug}-background-color has-background`,
                         )}
                         style={{
-                            ...!attributes.removeWrapperWidth && {
+                            ...!attributes.autoWidth && {
                                 width: '100%',
                                 maxWidth: `${attributes.wrapperWidth}${attributes.wrapperWidthUnit}`
+                            },
+                            ...isDefined(attributes.horizontalPadding) && {
+                                paddingLeft: `${attributes.horizontalPadding}px`,
+                                paddingRight: `${attributes.horizontalPadding}px`,
+                            },
+                            ...isDefined(attributes.verticalPadding) && {
+                                paddingTop: `${attributes.verticalPadding}px`,
+                                paddingBottom: `${attributes.verticalPadding}px`,
+                            },
+                            ...isDefined(attributes.wrapperHeight) && {
+                                minHeight: `${attributes.wrapperHeight}px`
                             }
                         }}
                     >
@@ -219,26 +285,44 @@ registerBlockType('custom/wrapper', {
                 </div>
             </>
         );
+
     },
     save: ({attributes}) => {
 
         const blockProps = useBlockProps.save({
             className: classnames(
                 'wrapper-block',
-                `align-${attributes.horizontalAlign}`,
-                getColorObject(attributes.wrapperBgColor) && `has-${getColorObject(attributes.wrapperBgColor).slug}-background-color has-background`,
-            ),
-            style: {
-                ...!attributes.removeWrapperWidth && {
-                    width: '100%',
-                    maxWidth: `${attributes.wrapperWidth}${attributes.wrapperWidthUnit}`
-                }
-            }
+            )
         });
 
         return (
             <div {...blockProps}>
-                <InnerBlocks.Content/>
+                <div
+                    className={classnames(
+                        'wrapper-block__inner',
+                        `align-${attributes.horizontalAlign}`,
+                        getColorObject(attributes.wrapperBgColor) && `has-${getColorObject(attributes.wrapperBgColor).slug}-background-color has-background`,
+                    )}
+                    style={{
+                        ...!attributes.autoWidth && {
+                            width: '100%',
+                            maxWidth: `${attributes.wrapperWidth}${attributes.wrapperWidthUnit}`
+                        },
+                        ...isDefined(attributes.horizontalPadding) && {
+                            paddingLeft: `${attributes.horizontalPadding}px`,
+                            paddingRight: `${attributes.horizontalPadding}px`,
+                        },
+                        ...isDefined(attributes.verticalPadding) && {
+                            paddingTop: `${attributes.verticalPadding}px`,
+                            paddingBottom: `${attributes.verticalPadding}px`,
+                        },
+                        ...isDefined(attributes.wrapperHeight) && {
+                            minHeight: `${attributes.wrapperHeight}px`
+                        }
+                    }}
+                >
+                    <InnerBlocks.Content/>
+                </div>
             </div>
         );
     },
