@@ -327,6 +327,12 @@ export const removeBlock = (clientId) => {
     dispatch('core/block-editor').removeBlock(clientId);
 }
 
+/**
+ * Local storage for mobile switch
+ */
+if (!localStorage.getItem('activeSwitch')) {
+    localStorage.setItem('activeSwitch', 'desktop');
+}
 
 /**
  * Implements Mobile Switch & Children
@@ -338,7 +344,7 @@ export const MobileSwitch = (props) => {
 
     let {showItem} = props;
 
-    const [activeTab, setActiveTab] = useState(showItem ? showItem : 'desktop');
+    let [activeTab, setActiveTab] = useState(showItem ? showItem : localStorage.getItem('activeSwitch'));
 
     let Buttons = props.children.map((element, index) => {
 
@@ -348,7 +354,10 @@ export const MobileSwitch = (props) => {
             style: {
                 marginLeft: '5px'
             },
-            onClick: () => setActiveTab(element.props.type),
+            onClick: () => {
+                setActiveTab(element.props.type)
+                localStorage.setItem('activeSwitch', element.props.type);
+            },
             isPressed: activeTab === element.props.type
         }
 

@@ -121,7 +121,6 @@ registerBlockType('custom/grid-list', {
             <>
                 <InspectorControls>
                     <div className="inspector-controls-container">
-                        <hr/>
                         <MobileSwitch headline={__('Columns', 'sage')}>
                             <MobileSwitchInner type={'desktop'}>
                                 { /*Trying to new way of passing props to RadioGroup*/ }

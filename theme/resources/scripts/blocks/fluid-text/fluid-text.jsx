@@ -1,11 +1,129 @@
-import {__} from '@wordpress/i18n';
-import {registerBlockType} from '@wordpress/blocks';
-import {InspectorControls, RichText, AlignmentToolbar, BlockControls, ColorPalette} from '@wordpress/block-editor';
-import {SelectControl, ToolbarGroup, RangeControl, __experimentalUnitControl as UnitControl, __experimentalRadio as Radio, __experimentalRadioGroup as RadioGroup} from '@wordpress/components';
+/**
+ * External dependencies
+ */
 import classNames from 'classnames';
+
+/**
+ * WordPress dependencies
+ */
+import {__} from '@wordpress/i18n';
+import {createBlock, getBlockAttributes, registerBlockType} from '@wordpress/blocks';
+import {InspectorControls, RichText, AlignmentToolbar, BlockControls, ColorPalette} from '@wordpress/block-editor';
+import {
+    SelectControl,
+    ToolbarGroup,
+    RangeControl,
+    __experimentalRadio as Radio,
+    __experimentalRadioGroup as RadioGroup
+} from '@wordpress/components';
+
+/**
+ * Internal dependencies
+ */
 import {fluidTextIcon} from '../icons';
-import {removeBlock, MobileSwitch, MobileSwitchInner, editorThemeColors, getColorObject} from "../utility";
-import { createBlock, getDefaultBlockName } from '@wordpress/blocks';
+import {
+    removeBlock,
+    MobileSwitch,
+    MobileSwitchInner,
+    editorThemeColors,
+    getColorObject,
+    getColorObjectFromSlug,
+    parentAttributes
+} from "../utility";
+
+/**
+ * Given a node name string for a heading node, returns its numeric level.
+ * @param {string} nodeName Heading node name.
+ * @return {number} Heading level.
+ */
+const getLevelFromHeadingNodeName = (nodeName) => {
+    return Number(nodeName.substr(1));
+}
+
+const transforms = {
+    from: [
+        {
+            type: 'block',
+            isMultiBlock: true,
+            blocks: ['core/paragraph'],
+            transform: (attributes) =>
+                attributes.map(({content, anchor}) =>
+                    createBlock(name, {
+                        content,
+                        anchor,
+                    })
+                ),
+        },
+        {
+            type: 'raw',
+            selector: 'h1,h2,h3,h4,h5,h6',
+            schema: ({phrasingContentSchema, isPaste}) => {
+                const schema = {
+                    children: phrasingContentSchema,
+                    attributes: isPaste ? [] : ['style', 'id'],
+                };
+                return {
+                    h1: schema,
+                    h2: schema,
+                    h3: schema,
+                    h4: schema,
+                    h5: schema,
+                    h6: schema,
+                };
+            },
+            transform(node) {
+                const attributes = getBlockAttributes(name, node.outerHTML);
+                const {textAlign} = node.style || {};
+
+                attributes.level = getLevelFromHeadingNodeName(node.nodeName);
+
+                if (
+                    textAlign === 'left' ||
+                    textAlign === 'center' ||
+                    textAlign === 'right'
+                ) {
+                    attributes.align = textAlign;
+                }
+
+                return createBlock(name, attributes);
+            },
+        },
+        ...[1, 2, 3, 4, 5, 6].map((level) => ({
+            type: 'prefix',
+            prefix: Array(level + 1).join('#'),
+            transform(content) {
+                return createBlock(name, {
+                    level,
+                    content,
+                });
+            },
+        })),
+        ...[1, 2, 3, 4, 5, 6].map((level) => ({
+            type: 'enter',
+            regExp: new RegExp(`^/(h|H)${ level }$`),
+            transform(content) {
+                return createBlock(name, {
+                    level,
+                    content,
+                });
+            },
+        })),
+    ],
+    to: [
+        {
+            type: 'block',
+            isMultiBlock: true,
+            blocks: ['core/paragraph'],
+            transform: (attributes) =>
+                attributes.map(({content, anchor}) =>
+                    createBlock('core/paragraph', {
+                        content,
+                        anchor,
+                    })
+                ),
+        },
+    ],
+};
 
 const attributes = {
     clientId: {
@@ -22,7 +140,7 @@ const attributes = {
     },
     fluidText: {
         type: 'string',
-        default: 'Lorem Ipsum'
+        // default: 'Lorem Ipsum'
     },
     fluidTextElement: {
         type: 'string',
@@ -67,7 +185,66 @@ registerBlockType('custom/fluid-text', {
     category: 'custom',
     icon: fluidTextIcon,
     attributes,
-    edit: ({setAttributes, attributes, className, clientId}) => {
+    // TODO: Refactor attributes for fluid-text block transformation
+    transforms: {
+        from: [
+            {
+                type: 'block',
+                blocks: ['core/paragraph'],
+                transform: (attributes) => {
+                    let {content, textColor} = attributes;
+                    let colorObject = getColorObjectFromSlug(editorThemeColors, textColor)
+
+                    return createBlock('custom/fluid-text', {
+                        fluidText: content,
+                        fluidTextElement: `p`,
+                        fluidTextColor: colorObject ? colorObject.color: ''
+                    });
+                },
+            },
+            {
+                type: 'block',
+                blocks: ['core/heading'],
+                transform: (attributes) => {
+                    let {content, level, textColor} = attributes;
+                    let colorObject = getColorObjectFromSlug(editorThemeColors, textColor)
+
+                    return createBlock('custom/fluid-text', {
+                        fluidText: content,
+                        fluidTextElement: `h${level}`,
+                        fluidTextColor: colorObject ? colorObject.color: ''
+                    });
+                },
+            },
+        ],
+        to: [
+            {
+                type: 'block',
+                blocks: ['core/paragraph'],
+                transform: (attributes) => {
+                    let {fluidText} = attributes;
+                    return (
+                        createBlock('core/paragraph', {
+                            content: fluidText
+                        })
+                    )
+                },
+            },
+            {
+                type: 'block',
+                blocks: ['core/heading'],
+                transform: (attributes) => {
+                    let {fluidText} = attributes;
+                    return (
+                        createBlock('core/heading', {
+                            content: fluidText
+                        })
+                    )
+                },
+            }
+        ]
+    },
+    edit: ({setAttributes, attributes, clientId}) => {
 
         attributes.clientId = clientId;
 
@@ -75,6 +252,8 @@ registerBlockType('custom/fluid-text', {
         if (attributes.fluidTextLineHeight) {
             additionalStyles.lineHeight = attributes.fluidTextLineHeight
         }
+
+        console.log(attributes.fluidTextColor);
 
         return (
             <>
@@ -88,22 +267,6 @@ registerBlockType('custom/fluid-text', {
                 </BlockControls>
                 <InspectorControls>
                     <div className="inspector-controls-container">
-                        {/*<UnitControl value={'10px'} units={units}/>*/}
-                        {/*<SelectControl
-                            label={__('Select Text Type', 'sage')}
-                            value={attributes.fluidTextElement}
-                            options={[
-                                {label: __('P', 'sage'), value: 'p'},
-                                {label: __('H1', 'sage'), value: 'h1'},
-                                {label: __('H2', 'sage'), value: 'h2'},
-                                {label: __('H3', 'sage'), value: 'h3'},
-                                {label: __('H4', 'sage'), value: 'h4'},
-                                {label: __('H5', 'sage'), value: 'h5'},
-                                {label: __('H6', 'sage'), value: 'h6'},
-                            ]}
-                            onChange={(value) => setAttributes({fluidTextElement: value})}
-                        />*/}
-                        {/*<hr/>*/}
                         <p>{__('Select Text Type', 'sage')}</p>
                         <RadioGroup
                             checked={attributes.fluidTextElement}
@@ -131,7 +294,6 @@ registerBlockType('custom/fluid-text', {
                         <hr/>
                         <MobileSwitch headline={__('Font Size', 'sage')}>
                             <MobileSwitchInner type={'desktop'}>
-                                {/*<p>{__('Max Font Size', 'sage')}</p>*/}
                                 <RangeControl
                                     value={attributes.fontSizeDesktop}
                                     min={attributes.fontSizeMobile}
@@ -139,17 +301,8 @@ registerBlockType('custom/fluid-text', {
                                     step={1}
                                     onChange={(value) => setAttributes({fontSizeDesktop: value})}
                                 />
-                                {/*<p>{__('Max Window Size', 'sage')}</p>
-                                <RangeControl
-                                    value={attributes.maxWindowSize}
-                                    min={attributes.minWindowSize}
-                                    max={1400}
-                                    step={10}
-                                    onChange={onChangeMaxWindowSize}
-                                />*/}
                             </MobileSwitchInner>
                             <MobileSwitchInner type={'mobile'}>
-                                {/*<p>{__('Min Font Size', 'sage')}</p>*/}
                                 <RangeControl
                                     value={attributes.fontSizeMobile}
                                     min={12}
@@ -157,14 +310,6 @@ registerBlockType('custom/fluid-text', {
                                     step={1}
                                     onChange={(value) => setAttributes({fontSizeMobile: value})}
                                 />
-                                {/*<p>{__('Min Window Size', 'sage')}</p>
-                                <RangeControl
-                                    value={attributes.minWindowSize}
-                                    min={320}
-                                    max={1400}
-                                    step={10}
-                                    onChange={onChangeMinWindowSize}
-                                />*/}
                             </MobileSwitchInner>
                         </MobileSwitch>
                         <hr/>
@@ -222,11 +367,21 @@ registerBlockType('custom/fluid-text', {
                     // allowedFormats={['core/bold', 'core/italic']}
                     onChange={(value) => setAttributes({fluidText: value})}
                     onReplace={() => {
-                        // TODO: Set up new Paragraph Block and Line Break!!
-                        // console.log('onReplace');
+                        let insertedBlock = createBlock('core/paragraph');
+                        const parentClientIds = wp.data.select('core/block-editor').getBlockParents(clientId, true);
+                        const block  = wp.data.select('core/block-editor').getBlock(parentClientIds[0])
+                        let blockPosition = block.innerBlocks.length;
+
+                        block.innerBlocks.forEach((block, index) => {
+                            if (block.clientId === clientId) {
+                                blockPosition = index + 1;
+                            }
+                        });
+
+                        wp.data.dispatch('core/editor').insertBlock(insertedBlock, blockPosition, parentClientIds[0]);
                     }}
                     onSplit={() => {
-                        // console.log('onSplit')
+                        // empty ->
                     }}
                 />
             </>

@@ -74,7 +74,7 @@ const attributes = {
     },
     verticalAlign: {
         type: 'string',
-        default: 'center'
+        default: 'top'
     },
     customSize: {
         type: 'boolean',
@@ -166,7 +166,7 @@ registerBlockType('custom/grid-list-inner', {
                     <div className="inspector-controls-container">
                         <ToggleControl
                             label={__('Custom Size', 'sage')}
-                            help={__('Define a custom column size','sage')}
+                            // help={__('Define a custom column size','sage')}
                             checked={attributes.customSize}
                             onChange={(value) => {
                                 setAttributes({customSize: value})

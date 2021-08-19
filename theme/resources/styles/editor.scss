@@ -57,6 +57,8 @@ html {
 .wp-block {
     margin-left: auto;
     margin-right: auto;
+    margin-top: initial;
+    margin-bottom: initial;
     max-width: var(--max-container-width);
 
     @media (min-width: 720px) {
