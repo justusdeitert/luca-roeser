@@ -17,7 +17,13 @@ import {
     BlockControls,
     BlockVerticalAlignmentToolbar
 } from '@wordpress/block-editor';
-import {ToolbarGroup} from '@wordpress/components';
+import {
+    ToolbarGroup,
+    RangeControl,
+    ToggleControl,
+    __experimentalRadio as Radio,
+    __experimentalRadioGroup as RadioGroup
+} from '@wordpress/components';
 
 /**
  * Internal dependencies
@@ -26,7 +32,7 @@ import {gridListInnerIcon} from '../icons';
 import {
     ALLOWEDBLOCKS,
     editorThemeColors,
-    getColorObject,
+    getColorObject, MobileSwitch, MobileSwitchInner,
     parentAttributes,
     removeArrayItems,
     SelectClipPath
@@ -40,11 +46,10 @@ import * as clipPaths from "../clip-paths";
  * @returns {string}
  */
 const returnColClass = (columns, size = false) => {
-    let colNumber = Math.floor(12 / columns);
     if (!size) {
-        return `col-${colNumber}`;
+        return `col-${columns}`;
     }
-    return `col-${size}-${colNumber}`;
+    return `col-${size}-${columns}`;
 }
 
 /**
@@ -71,17 +76,21 @@ const attributes = {
         type: 'string',
         default: 'center'
     },
-    columnsDesktop: {
-        type: 'number',
-        default: 3
+    customSize: {
+        type: 'boolean',
+        default: false,
     },
-    columnsTablet: {
+    columnSizeDesktop: {
         type: 'number',
-        default: 2
+        default: 4
     },
-    columnsMobile: {
+    columnSizeTablet: {
         type: 'number',
-        default: 1
+        default: 6
+    },
+    columnSizeMobile: {
+        type: 'number',
+        default: 12
     },
 };
 
@@ -105,9 +114,21 @@ registerBlockType('custom/grid-list-inner', {
          * Get attributes from parent block
          */
         attributes.parentBackgroundColor = parentAttributes(attributes.clientId).generalBackgroundColor;
-        attributes.columnsDesktop = parentAttributes(attributes.clientId).columnsDesktop;
-        attributes.columnsTablet = parentAttributes(attributes.clientId).columnsTablet;
-        attributes.columnsMobile = parentAttributes(attributes.clientId).columnsMobile;
+
+        /**
+         * Number of columns
+         */
+        let parent = {
+            columnSizeDesktop: Math.floor(12 / parentAttributes(attributes.clientId).columnsDesktop),
+            columnSizeTablet: Math.floor(12 / parentAttributes(attributes.clientId).columnsTablet),
+            columnSizeMobile: Math.floor(12 / parentAttributes(attributes.clientId).columnsMobile),
+        }
+
+        if(!attributes.customSize) {
+            attributes.columnSizeDesktop = parent.columnSizeDesktop;
+            attributes.columnSizeTablet = parent.columnSizeTablet;
+            attributes.columnSizeMobile = parent.columnSizeMobile;
+        }
 
         const blockProps = useBlockProps({
             style: {
@@ -143,6 +164,59 @@ registerBlockType('custom/grid-list-inner', {
                 </BlockControls>
                 <InspectorControls>
                     <div className="inspector-controls-container">
+                        <ToggleControl
+                            label={__('Custom Size', 'sage')}
+                            help={__('Define a custom column size','sage')}
+                            checked={attributes.customSize}
+                            onChange={(value) => {
+                                setAttributes({customSize: value})
+                            }}
+                        />
+                        <hr/>
+                        <MobileSwitch headline={__('Column Size', 'sage')}>
+                            <MobileSwitchInner type={'desktop'}>
+                                <RangeControl
+                                    value={attributes.columnSizeDesktop}
+                                    min={1}
+                                    max={12}
+                                    step={1}
+                                    onChange={(value) => {
+                                        setAttributes({customSize: true})
+                                        setAttributes({columnSizeDesktop: value})
+                                    }}
+                                    allowReset={true}
+                                    resetFallbackValue={parent.columnSizeDesktop}
+                                />
+                            </MobileSwitchInner>
+                            <MobileSwitchInner type={'tablet'}>
+                                <RangeControl
+                                    value={attributes.columnSizeTablet}
+                                    min={1}
+                                    max={12}
+                                    step={1}
+                                    onChange={(value) => {
+                                        setAttributes({customSize: true})
+                                        setAttributes({columnSizeTablet: value})
+                                    }}
+                                    allowReset={true}
+                                    resetFallbackValue={parent.columnSizeTablet}
+                                />
+                            </MobileSwitchInner>
+                            <MobileSwitchInner type={'mobile'}>
+                                <RangeControl
+                                    value={attributes.columnSizeMobile}
+                                    min={1}
+                                    max={12}
+                                    step={1}
+                                    onChange={(value) => {
+                                        setAttributes({customSize: true})
+                                        setAttributes({columnSizeMobile: value})
+                                    }}
+                                    allowReset={true}
+                                    resetFallbackValue={parent.columnSizeMobile}
+                                />
+                            </MobileSwitchInner>
+                        </MobileSwitch>
                         <hr/>
                         <p>{__('Background Color', 'sage')}</p>
                         <ColorPalette
@@ -168,9 +242,9 @@ registerBlockType('custom/grid-list-inner', {
                 </InspectorControls>
                 <div className={classNames(
                     'grid-list-block__col',
-                    returnColClass(attributes.columnsMobile),
-                    returnColClass(attributes.columnsTablet, 'sm'),
-                    returnColClass(attributes.columnsDesktop, 'lg')
+                    returnColClass(attributes.columnSizeMobile),
+                    returnColClass(attributes.columnSizeTablet, 'sm'),
+                    returnColClass(attributes.columnSizeDesktop, 'lg')
                 )}>
                     {clipPaths[attributes.clipPath] && <>
                         clipPaths[attributes.clipPath](`clip-path-${attributes.clientId}`)
@@ -201,9 +275,9 @@ registerBlockType('custom/grid-list-inner', {
         const blockProps = useBlockProps.save({
             className: classNames(
                 `grid-list-block__col`,
-                returnColClass(attributes.columnsMobile),
-                returnColClass(attributes.columnsTablet, 'sm'),
-                returnColClass(attributes.columnsDesktop, 'lg')
+                returnColClass(attributes.columnSizeMobile),
+                returnColClass(attributes.columnSizeTablet, 'sm'),
+                returnColClass(attributes.columnSizeDesktop, 'lg')
             )
         });
 

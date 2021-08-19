@@ -42,9 +42,17 @@ const attributes = {
         type: 'string',
         default: ''
     },
-    columnsDesktop: {
+    columnSizeDesktop: {
         type: 'number',
         default: 2
+    },
+    columnSizeTablet: {
+        type: 'number',
+        default: 2
+    },
+    columnSizeMobile: {
+        type: 'number',
+        default: 1
     },
     columnsTablet: {
         type: 'number',
@@ -128,39 +136,17 @@ registerBlockType('custom/grid-columns', {
             <>
                 <InspectorControls>
                     <div className="inspector-controls-container">
-                        <hr/>
-                        <MobileSwitch headline={__('Columns', 'sage')}>
-                            <MobileSwitchInner type={'desktop'}>
-                                <RadioGroup
-                                    onChange={(value) => {
-                                        setAttributes({columnsDesktop: value});
-                                    }}
-                                    checked={attributes.columnsDesktop}
-                                    defaultChecked={3}
-                                >
-                                    <Radio value={1}>1</Radio>
-                                    <Radio value={2}>2</Radio>
-                                    <Radio value={3}>3</Radio>
-                                    <Radio value={4}>4</Radio>
-
-                                    {(attributes.align === 'full') && <>
-                                        {/*<Radio value={5}>5</Radio>*/}
-                                        <Radio value={6}>6</Radio>
-                                    </>}
-                                </RadioGroup>
-                            </MobileSwitchInner>
+                        <MobileSwitch headline={__('Columns', 'sage')} showItem={'tablet'}>
                             <MobileSwitchInner type={'tablet'}>
                                 <RadioGroup
                                     onChange={(value) => {
                                         setAttributes({columnsTablet: value});
                                     }}
                                     checked={attributes.columnsTablet}
-                                    defaultChecked={3}
+                                    defaultChecked={2}
                                 >
                                     <Radio value={1}>1</Radio>
                                     <Radio value={2}>2</Radio>
-                                    <Radio value={3}>3</Radio>
-                                    <Radio value={4}>4</Radio>
                                 </RadioGroup>
                             </MobileSwitchInner>
                             <MobileSwitchInner type={'mobile'}>
@@ -169,12 +155,58 @@ registerBlockType('custom/grid-columns', {
                                         setAttributes({columnsMobile: value});
                                     }}
                                     checked={attributes.columnsMobile}
-                                    defaultChecked={3}
+                                    defaultChecked={1}
                                 >
                                     <Radio value={1}>1</Radio>
                                     <Radio value={2}>2</Radio>
+                                </RadioGroup>
+                            </MobileSwitchInner>
+                        </MobileSwitch>
+                        <hr/>
+                        <MobileSwitch headline={__('Column Size', 'sage')}>
+                            <MobileSwitchInner type={'desktop'}>
+                                <RadioGroup
+                                    onChange={(value) => {
+                                        setAttributes({columnSizeDesktop: value});
+                                    }}
+                                    checked={attributes.columnSizeDesktop}
+                                    defaultChecked={6}
+                                >
                                     <Radio value={3}>3</Radio>
                                     <Radio value={4}>4</Radio>
+                                    <Radio value={6}>6</Radio>
+                                    <Radio value={8}>6</Radio>
+                                    <Radio value={9}>9</Radio>
+                                </RadioGroup>
+                            </MobileSwitchInner>
+                            <MobileSwitchInner type={'tablet'}>
+                                <RadioGroup
+                                    onChange={(value) => {
+                                        setAttributes({columnSizeTablet: value});
+                                    }}
+                                    checked={attributes.columnSizeTablet}
+                                    defaultChecked={6}
+                                >
+                                    <Radio value={3}>3</Radio>
+                                    <Radio value={4}>4</Radio>
+                                    <Radio value={6}>6</Radio>
+                                    <Radio value={8}>6</Radio>
+                                    <Radio value={9}>9</Radio>
+                                </RadioGroup>
+                            </MobileSwitchInner>
+                            <MobileSwitchInner type={'mobile'}>
+                                <RadioGroup
+                                    onChange={(value) => {
+                                        setAttributes({columnSizeMobile: value});
+                                    }}
+                                    checked={attributes.columnSizeMobile}
+                                    defaultChecked={6}
+                                >
+                                    <Radio value={3}>3</Radio>
+                                    <Radio value={4}>4</Radio>
+                                    <Radio value={6}>6</Radio>
+                                    <Radio value={8}>6</Radio>
+                                    <Radio value={9}>9</Radio>
                                 </RadioGroup>
                             </MobileSwitchInner>
                         </MobileSwitch>
@@ -243,7 +275,7 @@ registerBlockType('custom/grid-columns', {
                 <div {...innerBlocksProps}>
                     <div
                         className={classNames('grid-columns-block__row', 'row')}
-                        data-columns={attributes.columnsDesktop}
+                        data-columns={attributes.columnSizeDesktop}
                     >
                         {innerBlocksProps.children}
                     </div>
@@ -273,7 +305,7 @@ registerBlockType('custom/grid-columns', {
             <div {...blockProps}>
                 <div
                     className={classNames('grid-columns-block__row', 'row')}
-                    data-columns={attributes.columnsDesktop}
+                    data-columns={attributes.columnSizeDesktop}
                 >
                     <InnerBlocks.Content/>
                 </div>

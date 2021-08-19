@@ -1,11 +1,32 @@
+/**
+ * External dependencies
+ */
+import classNames from 'classnames';
+
+/**
+ * Wordpress dependencies
+ */
 import {__} from '@wordpress/i18n';
 import {registerBlockType} from '@wordpress/blocks';
-import {RangeControl, ToggleControl, Dashicon, __experimentalRadio as Radio, __experimentalRadioGroup as RadioGroup} from '@wordpress/components';
-import {InnerBlocks, InspectorControls, ColorPalette, useBlockProps, __experimentalUseInnerBlocksProps as useInnerBlocksProps} from '@wordpress/block-editor';
-import classNames from 'classnames';
+import {
+    RangeControl,
+    Dashicon,
+    __experimentalRadio as Radio,
+    __experimentalRadioGroup as RadioGroup
+} from '@wordpress/components';
+import {
+    InnerBlocks,
+    InspectorControls,
+    ColorPalette,
+    useBlockProps,
+    __experimentalUseInnerBlocksProps as useInnerBlocksProps
+} from '@wordpress/block-editor';
+
+/**
+ * Internal dependencies
+ */
 import {gridListIcon} from '../icons';
 import {editorThemeColors, updateInnerBlocks, isDefined, MobileSwitch, MobileSwitchInner} from "../utility";
-// import * as clipPaths from "../clip-paths"
 
 const attributes = {
     clientId: {
@@ -24,10 +45,6 @@ const attributes = {
         type: 'number',
         default: 1
     },
-    // twoColumnsMobile: {
-    //     type: 'boolean',
-    //     default: false,
-    // },
     generalBackgroundColor: {
         type: 'string',
         default: ''
@@ -36,10 +53,6 @@ const attributes = {
         type: 'boolean',
         default: false,
     },
-    // customPadding: {
-    //     type: 'number',
-    //     default: 0
-    // },
     horizontalPadding: {
         type: 'number',
         default: false,
@@ -104,21 +117,6 @@ registerBlockType('custom/grid-list', {
             template: TEMPLATE,
         });
 
-        // TODO: Manage columns via bootstrap grid classes
-        // -------------->
-        // const returnColumns = () => {
-        //     return (
-        //
-        //     )
-        // };
-        // innerBlocksProps.children.props.desktopColumns = attributes.columns;
-
-        // console.log(innerBlocksProps.children);
-        // innerBlocksProps.children = innerBlocksProps.children.map((child) => {
-        //     child.test = 'lol.'
-        //     return child
-        // })
-
         return (
             <>
                 <InspectorControls>
@@ -126,32 +124,28 @@ registerBlockType('custom/grid-list', {
                         <hr/>
                         <MobileSwitch headline={__('Columns', 'sage')}>
                             <MobileSwitchInner type={'desktop'}>
-                                <RadioGroup
-                                    onChange={(value) => {
-                                        setAttributes({columnsDesktop: value});
-                                    }}
-                                    checked={attributes.columnsDesktop}
-                                    defaultChecked={3}
-                                >
+                                { /*Trying to new way of passing props to RadioGroup*/ }
+                                <RadioGroup {...{
+                                    onChange: (value) => setAttributes({columnsDesktop: value}),
+                                    checked: attributes.columnsDesktop,
+                                    defaultChecked: 3
+                                }}>
                                     <Radio value={1}>1</Radio>
                                     <Radio value={2}>2</Radio>
                                     <Radio value={3}>3</Radio>
                                     <Radio value={4}>4</Radio>
 
                                     {(attributes.align === 'full') && <>
-                                        {/*<Radio value={5}>5</Radio>*/}
                                         <Radio value={6}>6</Radio>
                                     </>}
                                 </RadioGroup>
                             </MobileSwitchInner>
                             <MobileSwitchInner type={'tablet'}>
-                                <RadioGroup
-                                    onChange={(value) => {
-                                        setAttributes({columnsTablet: value});
-                                    }}
-                                    checked={attributes.columnsTablet}
-                                    defaultChecked={3}
-                                >
+                                <RadioGroup {...{
+                                    onChange: (value) => setAttributes({columnsTablet: value}),
+                                    checked: attributes.columnsTablet,
+                                    defaultChecked: 2
+                                }}>
                                     <Radio value={1}>1</Radio>
                                     <Radio value={2}>2</Radio>
                                     <Radio value={3}>3</Radio>
@@ -159,13 +153,11 @@ registerBlockType('custom/grid-list', {
                                 </RadioGroup>
                             </MobileSwitchInner>
                             <MobileSwitchInner type={'mobile'}>
-                                <RadioGroup
-                                    onChange={(value) => {
-                                        setAttributes({columnsMobile: value});
-                                    }}
-                                    checked={attributes.columnsMobile}
-                                    defaultChecked={3}
-                                >
+                                <RadioGroup {...{
+                                    onChange: (value) => setAttributes({columnsMobile: value}),
+                                    checked: attributes.columnsMobile,
+                                    defaultChecked: 1
+                                }}>
                                     <Radio value={1}>1</Radio>
                                     <Radio value={2}>2</Radio>
                                     <Radio value={3}>3</Radio>
@@ -222,13 +214,6 @@ registerBlockType('custom/grid-list', {
                             allowReset={true}
                             resetFallbackValue={false}
                         />
-                        {/*<hr/>
-                        <ToggleControl
-                            label={__('Mobile Two Columns', 'sage')}
-                            help={__('Select if you want two columns on the smallest screen resolution', 'sage')}
-                            checked={attributes.twoColumnsMobile}
-                            onChange={(value) => setAttributes({twoColumnsMobile: value})}
-                        />*/}
                         <hr/>
                         <p>{__('General Background Color', 'sage')}</p>
                         <ColorPalette

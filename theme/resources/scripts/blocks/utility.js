@@ -336,7 +336,9 @@ export const removeBlock = (clientId) => {
  */
 export const MobileSwitch = (props) => {
 
-    const [activeTab, setActiveTab] = useState('desktop');
+    let {showItem} = props;
+
+    const [activeTab, setActiveTab] = useState(showItem ? showItem : 'desktop');
 
     let Buttons = props.children.map((element, index) => {
 
@@ -374,9 +376,9 @@ export const MobileSwitch = (props) => {
     return (
         <div className={'mobile-switch'}>
             <div className="mobile-switch__headline-wrapper" style={{display: 'flex', marginBottom: '5px'}}>
-                {props.headline &&
+                {props.headline && <>
                     <p className={'mobile-switch__headline'}>{props.headline}</p>
-                }
+                </>}
                 <div className="mobile-switch__buttons-wrapper" style={{marginLeft: 'auto', display: 'flex'}}>
                     {Buttons}
                 </div>

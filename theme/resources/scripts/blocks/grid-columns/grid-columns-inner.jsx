@@ -71,9 +71,17 @@ const attributes = {
         type: 'string',
         default: 'center'
     },
-    columnsDesktop: {
+    columnSizeDesktop: {
         type: 'number',
-        default: 3
+        default: 2
+    },
+    columnSizeTablet: {
+        type: 'number',
+        default: 2
+    },
+    columnSizeMobile: {
+        type: 'number',
+        default: 1
     },
     columnsTablet: {
         type: 'number',
@@ -105,9 +113,19 @@ registerBlockType('custom/grid-columns-inner', {
          * Get attributes from parent block
          */
         attributes.parentBackgroundColor = parentAttributes(attributes.clientId).generalBackgroundColor;
-        attributes.columnsDesktop = parentAttributes(attributes.clientId).columnsDesktop;
+
+        /**
+         * Number of columns
+         */
         attributes.columnsTablet = parentAttributes(attributes.clientId).columnsTablet;
         attributes.columnsMobile = parentAttributes(attributes.clientId).columnsMobile;
+
+        /**
+         * Columns Size
+         */
+        attributes.columnSizeDesktop = parentAttributes(attributes.clientId).columnSizeDesktop;
+        attributes.columnSizeTablet = parentAttributes(attributes.clientId).columnSizeTablet;
+        attributes.columnSizeMobile = parentAttributes(attributes.clientId).columnSizeMobile;
 
         const blockProps = useBlockProps({
             style: {
@@ -121,6 +139,7 @@ registerBlockType('custom/grid-columns-inner', {
 
         const innerBlocksProps = useInnerBlocksProps(blockProps, {
             allowedBlocks: removeArrayItems(ALLOWEDBLOCKS, ['custom/grid-columns']),
+            templateLock: false
         });
 
         return (
@@ -170,7 +189,7 @@ registerBlockType('custom/grid-columns-inner', {
                     'grid-columns-block__col',
                     returnColClass(attributes.columnsMobile),
                     returnColClass(attributes.columnsTablet, 'sm'),
-                    returnColClass(attributes.columnsDesktop, 'lg')
+                    returnColClass(2, 'lg')
                 )}>
                     {clipPaths[attributes.clipPath] && <>
                         clipPaths[attributes.clipPath](`clip-path-${attributes.clientId}`)
@@ -203,7 +222,7 @@ registerBlockType('custom/grid-columns-inner', {
                 `grid-columns-block__col`,
                 returnColClass(attributes.columnsMobile),
                 returnColClass(attributes.columnsTablet, 'sm'),
-                returnColClass(attributes.columnsDesktop, 'lg')
+                returnColClass(2, 'lg')
             )
         });
 

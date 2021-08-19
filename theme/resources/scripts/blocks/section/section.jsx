@@ -361,7 +361,7 @@ registerBlockType('custom/section', {
                         />
                         <hr/>
                         <ToggleControl
-                            label={__('Full width', 'sage')}
+                            label={__('Inner width 100%', 'sage')}
                             checked={attributes.fullWidth}
                             onChange={(value) => setAttributes({fullWidth: value})}
                         />
@@ -408,7 +408,7 @@ registerBlockType('custom/section', {
                         </>}
                         {!attributes.fullWidth && <>
                             <hr/>
-                            <p>{__('Max width', 'sage')}</p>
+                            <p>{__('Inner width', 'sage')}</p>
                             <RangeControl
                                 value={attributes.innerWidth}
                                 min={320}
