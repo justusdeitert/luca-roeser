@@ -343,10 +343,26 @@ if (!localStorage.getItem('activeSwitch')) {
 export const MobileSwitch = (props) => {
 
     let {showItem} = props;
-
     let [activeTab, setActiveTab] = useState(showItem ? showItem : localStorage.getItem('activeSwitch'));
+    let [switchAvailable, setSwitchAvailable] = useState(false);
+    let availableSwitchOptions = [];
+
+    /**
+     * Check for switchState & add available switch options
+     */
+    props.children.forEach(element => {
+        if (!switchAvailable) {
+            if (activeTab === element.props.type) {
+                setSwitchAvailable(true);
+            }
+        }
+        availableSwitchOptions.push(element.props.type)
+    });
 
     let Buttons = props.children.map((element, index) => {
+
+        // if switch is not available
+        !switchAvailable && (activeTab = availableSwitchOptions[0]);
 
         let buttonProps = {
             key: index,
@@ -371,16 +387,23 @@ export const MobileSwitch = (props) => {
             default:
                 return false
         }
+
     });
 
-    let Children = props.children.map((child, index) => {
-        if (child.type.name === 'MobileSwitchInner') {
-            return cloneElement(child, {
+    let Children = props.children.map((element, index) => {
+
+        // if switch is not available
+        !switchAvailable && (activeTab = availableSwitchOptions[0]);
+
+        if (element.type.name === 'MobileSwitchInner') {
+            return cloneElement(element, {
                 key: index,
-                isActive: (activeTab === child.props.type)
+                isActive: (activeTab === element.props.type)
             });
         }
     });
+
+
 
     return (
         <div className={'mobile-switch'}>
@@ -398,6 +421,7 @@ export const MobileSwitch = (props) => {
 }
 
 export const MobileSwitchInner = (props) => {
+
     return (
         <div className={classnames('mobile-switch__inner')} style={{display: props.isActive ? 'block' : 'none'}}>
             {props.children}

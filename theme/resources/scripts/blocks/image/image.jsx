@@ -1,71 +1,144 @@
+/**
+ * External dependencies
+ */
+import classnames from 'classnames';
+
+/**
+ * Wordpress dependencies
+ */
 import {__} from '@wordpress/i18n';
 import {registerBlockType} from '@wordpress/blocks';
-import {ToggleControl, Button, RangeControl, FocalPointPicker, SelectControl, ToolbarGroup, ToolbarDropdownMenu, __experimentalRadio as Radio, __experimentalRadioGroup as RadioGroup} from '@wordpress/components';
+import {
+    ToggleControl,
+    Button,
+    RangeControl,
+    FocalPointPicker,
+    PanelBody,
+    SelectControl,
+    ToolbarGroup,
+    ToolbarDropdownMenu,
+    __experimentalRadio as Radio,
+    __experimentalRadioGroup as RadioGroup,
+    __experimentalAlignmentMatrixControl as AlignmentMatrixControl,
+} from '@wordpress/components';
 import {MediaUpload, InspectorControls, BlockControls, useBlockProps} from '@wordpress/block-editor';
-import classnames from 'classnames';
+
+/**
+ * Internal dependencies
+ */
 import {getImage, focalPositionInPixel, MobileSwitch, MobileSwitchInner} from '../utility';
 import {imageIcon} from '../icons';
 
 // For not firing update to often
 let onChangeImagePositionTimeout = true;
 
+/**
+ * Returning Bootstrap absolute positioning class
+ * @param position
+ */
+const returnPositioningClasses = (position) => {
+    const positionArray = position.split(' ');
+    let positionY = positionArray[0]
+    let positionX = positionArray[1]
+
+    let returnPositionYClass = () => {
+        switch (positionY) {
+            case 'top':
+                return 'top-0';
+            case 'bottom':
+                return 'bottom-0';
+        }
+    }
+
+    let returnPositionXClass = () => {
+        switch (positionX) {
+            case 'left':
+                return 'start-0';
+            case 'right':
+                return 'end-0';
+        }
+    }
+
+    return [
+        returnPositionYClass(),
+        returnPositionXClass()
+    ].join(' ');
+};
+
+/**
+ * Block attributes
+ */
+const attributes = {
+    horizontalAlign: {
+        type: 'string',
+        default: 'left'
+    },
+    imageObject: {
+        type: 'object',
+        default: ''
+    },
+    imageRatio: {
+        type: 'string',
+        default: false,
+    },
+    imageSizeUnit: {
+        type: 'string',
+        default: '%'
+    },
+    imageSizePixelDesktop: {
+        type: 'number',
+        default: 300
+    },
+    imageSizePixelMobile: {
+        type: 'number',
+        default: 300
+    },
+    imageSizePercent: {
+        type: 'number',
+        default: 100
+    },
+    imagePositioning: {
+        type: 'string',
+        default: 'relative'
+    },
+    imagePositionUnit: {
+        type: 'string',
+        default: 'px'
+    },
+    absolutePosition: {
+        type: 'string',
+        default: 'top left'
+    },
+    horizontalImagePosition: {
+        type: 'string',
+        default: 'left'
+    },
+    verticalImagePosition: {
+        type: 'string',
+        default: 'top'
+    },
+    imageMove: {
+        type: 'object',
+        default: {x: 0.5, y: 0.5}
+    },
+};
+
 registerBlockType('custom/image', {
     apiVersion: 2,
     title: __('Image', 'sage'),
     icon: imageIcon,
     category: 'custom',
-    attributes: {
-        horizontalAlign: {
-            type: 'string',
-            default: 'left'
-        },
-        imageObject: {
-            type: 'object',
-            default: ''
-        },
-        imageRatio: {
-            type: 'string',
-            default: false,
-        },
-        imageSizeUnit: {
-            type: 'string',
-            default: '%'
-        },
-        imageSizeDesktop: {
-            type: 'number',
-            default: 100
-        },
-        imageSizeMobile: {
-            type: 'number',
-            default: 100
-        },
-        imagePositioning: {
-            type: 'string',
-            default: 'relative'
-        },
-        imagePositionUnit: {
-            type: 'string',
-            default: 'px'
-        },
-        horizontalImagePosition: {
-            type: 'string',
-            default: 'left'
-        },
-        verticalImagePosition: {
-            type: 'string',
-            default: 'top'
-        },
-        imageMove: {
-            type: 'object',
-            default: {x: 0.5, y: 0.5}
-        },
-    },
+    attributes,
     edit: ({className, attributes, setAttributes}) => {
 
-        const onChangeImagePosition = (value) => {
+        const isPixel = attributes.imageSizeUnit === 'px';
+        const isFluid = attributes.imageSizePixelDesktop !== attributes.imageSizePixelMobile
+        const isAbsolute = attributes.imagePositioning === 'absolute';
 
+        const onChangeImagePosition = (value) => {
             /**
              * Timeout for Image Position On Change
+             * TODO: Better timout implementation
              */
             if (onChangeImagePositionTimeout) {
                 setAttributes({imageMove: value});
@@ -78,43 +151,40 @@ registerBlockType('custom/image', {
             }
         };
 
-        const showImageUploader = () => {
-
-            if (attributes.imageSizeUnit === 'px') {
-                if (attributes.imageSizeDesktop < 120) {
-                    return false;
-                }
-            } else {
-                if (attributes.imageSizeDesktop < 40) {
-                    return false;
-                }
+        const imageIsSmall = () => {
+            if (isPixel) {
+                return attributes.imageSizePixelDesktop < 100;
             }
 
-            return true;
-        }
+            return attributes.imageSizePercent < 100;
+        };
 
         const blockProps = useBlockProps({
             className: classnames(
                 className,
                 'image-block',
-                (attributes.imagePositioning === 'absolute' && attributes.horizontalImagePosition === 'right') && 'end-0',
-                (attributes.imagePositioning === 'absolute' && attributes.verticalImagePosition === 'bottom') && 'bottom-0',
-                (attributes.imagePositioning === 'absolute' && attributes.imageSizeUnit === 'px') && `unit-size-px`
+                isAbsolute && 'image-wrapper',
+                isAbsolute && returnPositioningClasses(attributes.absolutePosition),
+                isAbsolute && {
+                    'has-fluid-width': isPixel && isFluid
+                }
             ),
             style: {
                 border: '1px dashed var(--wp-admin-theme-color)',
-                ...(attributes.imagePositioning === 'absolute') && {
-                    // width: `${attributes.imageSizeDesktop + attributes.imageSizeUnit}`,
+                ...(isAbsolute) && {
                     position: attributes.imagePositioning,
                     transform: `translate(${focalPositionInPixel(attributes.imageMove.x, attributes.imagePositionUnit)}, ${focalPositionInPixel(attributes.imageMove.y, attributes.imagePositionUnit)})`,
-                },
-                ...(attributes.imageSizeUnit === 'px') && {
-                    '--desktop-size': `${attributes.imageSizeDesktop}px`,
-                    '--mobile-size': `${attributes.imageSizeMobile}px`,
-                    '--size-difference': `${attributes.imageSizeDesktop - attributes.imageSizeMobile}`,
-                },
-                ...(attributes.imageSizeUnit === '%') && {
-                    '--size': `${attributes.imageSizeDesktop}%`,
+                    ...(isPixel) ? {
+                        ...(isFluid) ? {
+                            '--desktop-size': `${attributes.imageSizePixelDesktop}px`,
+                            '--mobile-size': `${attributes.imageSizePixelMobile}px`,
+                            '--size-difference': `${attributes.imageSizePixelDesktop - attributes.imageSizePixelMobile}`,
+                        } : {
+                            '--size': `${attributes.imageSizePixelDesktop}px`,
+                        }
+                    } : {
+                        '--size': `${attributes.imageSizePercent}%`,
+                    }
                 }
             }
         });
@@ -122,22 +192,34 @@ registerBlockType('custom/image', {
         const innerBlockProps = {
             className: classnames(
                 'image-block__inner',
-                attributes.imagePositioning === 'relative' && `align-${attributes.horizontalAlign}`,
-                (attributes.imagePositioning === 'relative' && attributes.imageSizeUnit === 'px') && `unit-size-px`
+                !isAbsolute && `align-${attributes.horizontalAlign}`,
+                !isAbsolute && 'image-wrapper',
+                isAbsolute && {
+                    'has-fluid-width': isPixel && isFluid
+                }
             ),
             style: {
-                ...(attributes.imagePositioning === 'relative') && {
-                    // width: `${attributes.imageSizeDesktop + attributes.imageSizeUnit}`,
+                ...(!isAbsolute) && {
                     position: attributes.imagePositioning,
                     transform: `translate(${focalPositionInPixel(attributes.imageMove.x, attributes.imagePositionUnit)}, ${focalPositionInPixel(attributes.imageMove.y, attributes.imagePositionUnit)})`,
+                    ...(isPixel) ? {
+                        ...(isFluid) ? {
+                            '--desktop-size': `${attributes.imageSizePixelDesktop}px`,
+                            '--mobile-size': `${attributes.imageSizePixelMobile}px`,
+                            '--size-difference': `${attributes.imageSizePixelDesktop - attributes.imageSizePixelMobile}`,
+                        } : {
+                            '--size': `${attributes.imageSizePixelDesktop}px`,
+                        }
+                    } : {
+                        '--size': `${attributes.imageSizePercent}%`,
+                    }
                 }
             }
         }
 
         return (
             <>
-                {(attributes.imagePositioning !== 'absolute') &&
-                <>
+                {!isAbsolute && <>
                     <BlockControls>
                         <ToolbarGroup>
                             <ToolbarDropdownMenu
@@ -163,32 +245,28 @@ registerBlockType('custom/image', {
                             />
                         </ToolbarGroup>
                     </BlockControls>
-                </>
-                }
+                </>}
                 <InspectorControls>
                     <div className="inspector-controls-container">
-                        {!showImageUploader() && <>
-                            <MediaUpload
-                                onSelect={(value) => setAttributes({imageObject: value})}
-                                allowedTypes={['image']}
-                                render={({open}) => (
-                                    <Button
-                                        className={'button'}
-                                        onClick={open}
-                                        icon={'format-image'}
-                                        // isSmall={true}
-                                        text={attributes.imageObject ? __('Change Image', 'sage') : __('Upload Image', 'sage')}
-                                    />
-                                )}
-                            />
-                        </>}
+                        <MediaUpload
+                            onSelect={(value) => setAttributes({imageObject: value})}
+                            allowedTypes={['image']}
+                            render={({open}) => (
+                                <Button
+                                    className={'button'}
+                                    onClick={open}
+                                    icon={'format-image'}
+                                    text={attributes.imageObject ? __('Change Image', 'sage') : __('Upload Image', 'sage')}
+                                />
+                            )}
+                        />
                         <hr/>
-                        <p>{__('Images Ratio', 'sage')}</p>
-                        <RadioGroup
-                            onChange={(value) => setAttributes({imageRatio: value})}
-                            checked={attributes.imageRatio}
-                            defaultChecked={'3x2'}
-                        >
+                        <p>{__('Ratio', 'sage')}</p>
+                        <RadioGroup {...{
+                            onChange: (value) => setAttributes({imageRatio: value}),
+                            checked: attributes.imageRatio,
+                            defaultChecked: '3x2'
+                        }}>
                             <Radio value={false}>{__('None', 'sage')}</Radio>
                             <Radio value="1x1">{__('1x1', 'sage')}</Radio>
                             <Radio value="4x3">{__('4x3', 'sage')}</Radio>
@@ -201,96 +279,58 @@ registerBlockType('custom/image', {
                             <MobileSwitch headline={__('Size', 'sage')}>
                                 <MobileSwitchInner type={'desktop'}>
                                     <RangeControl
-                                        value={attributes.imageSizeDesktop}
-                                        min={5}
+                                        value={attributes.imageSizePixelDesktop}
+                                        min={20}
                                         max={1000}
                                         step={1}
                                         onChange={(value) => {
-                                            if(attributes.imageSizeMobile === attributes.imageSizeDesktop) {
-                                                setAttributes({imageSizeMobile: value})
+                                            if(attributes.imageSizePixelMobile === attributes.imageSizePixelDesktop) {
+                                                setAttributes({imageSizePixelMobile: value})
                                             }
 
-                                            setAttributes({imageSizeDesktop: value})
+                                            setAttributes({imageSizePixelDesktop: value})
                                         }}
                                         allowReset={true}
-                                        resetFallbackValue={100}
+                                        resetFallbackValue={300}
                                     />
                                 </MobileSwitchInner>
                                 <MobileSwitchInner type={'mobile'}>
                                     <RangeControl
-                                        value={attributes.imageSizeMobile}
+                                        value={attributes.imageSizePixelMobile}
                                         min={5}
-                                        max={attributes.imageSizeDesktop}
+                                        max={attributes.imageSizePixelDesktop}
                                         step={1}
                                         onChange={(value) => {
-                                            setAttributes({imageSizeMobile: value})
+                                            setAttributes({imageSizePixelMobile: value})
                                         }}
                                         allowReset={true}
-                                        resetFallbackValue={attributes.imageSizeDesktop}
+                                        resetFallbackValue={attributes.imageSizePixelDesktop}
                                     />
                                 </MobileSwitchInner>
                             </MobileSwitch>
-                            </> : <>
+                        </> : <>
                             <p>{__('Size', 'sage')}</p>
-                                <RangeControl
-                                value={attributes.imageSizeDesktop}
+                            <RangeControl
+                                value={attributes.imageSizePercent}
                                 min={5}
                                 max={100}
                                 step={1}
-                                onChange={(value) => setAttributes({imageSizeDesktop: value})}
+                                onChange={(value) => setAttributes({imageSizePercent: value})}
                                 allowReset={true}
                                 resetFallbackValue={100}
                             />
                         </>}
-                        <RadioGroup
-                            onChange={(value) => {
-                                if (value === '%' && attributes.imageSizeDesktop > 100) {
-                                    setAttributes({imageSizeDesktop: 100});
-                                }
-
-                                setAttributes({imageSizeUnit: value});
-                            }}
-                            checked={attributes.imageSizeUnit}
-                            defaultChecked={"px"}
-                        >
+                        <RadioGroup {...{
+                            onChange: (value) => setAttributes({imageSizeUnit: value}),
+                            checked: attributes.imageSizeUnit,
+                            defaultChecked: 'px'
+                        }}>
                             <Radio value="px">{__('Pixel', 'sage')}</Radio>
                             <Radio value="%">{__('%', 'sage')}</Radio>
                         </RadioGroup>
-                        <hr/>
-                        <p>{__('Positioning', 'sage')}</p>
-                        <RadioGroup
-                            onChange={(value) => setAttributes({imagePositioning: value})}
-                            checked={attributes.imagePositioning}
-                            defaultChecked={'relative'}
-                        >
-                            <Radio value="relative">{__('Relative', 'sage')}</Radio>
-                            <Radio value="absolute">{__('Absolute', 'sage')}</Radio>
-                        </RadioGroup>
-                        {(attributes.imagePositioning === 'absolute') &&
-                        <>
-                            <hr/>
-                            <p>{__('Position', 'sage')}</p>
-                            <RadioGroup
-                                onChange={(value) => setAttributes({horizontalImagePosition: value})}
-                                checked={attributes.horizontalImagePosition}
-                                defaultChecked={'left'}
-                            >
-                                <Radio value="left">{__('Left', 'sage')}</Radio>
-                                <Radio value="right">{__('Right', 'sage')}</Radio>
-                            </RadioGroup>
-                            <br/>
-                            <RadioGroup
-                                onChange={(value) => setAttributes({verticalImagePosition: value})}
-                                checked={attributes.verticalImagePosition}
-                                defaultChecked={'top'}
-                            >
-                                <Radio value="top">{__('Top', 'sage')}</Radio>
-                                <Radio value="bottom">{__('Bottom', 'sage')}</Radio>
-                            </RadioGroup>
-                        </>
-                        }
-                        <hr/>
-                        <p>{__('Movement', 'sage')}</p>
+                    </div>
+                    <PanelBody title={__('Positioning', 'sage')} initialOpen={false}>
+                        <p>{__('Move', 'sage')}</p>
                         <div style={{display: 'flex', marginBottom: '20px'}}>
                             <RadioGroup
                                 onChange={(value) => setAttributes({imagePositionUnit: value})}
@@ -304,7 +344,6 @@ registerBlockType('custom/image', {
                                 className={'is-secondary'}
                                 onClick={() => setAttributes({imageMove: {x: 0.5, y: 0.5}})}
                                 text={__('Reset', 'sage')}
-                                style={{marginLeft: '10px'}}
                             />
                         </div>
                         <FocalPointPicker
@@ -313,11 +352,31 @@ registerBlockType('custom/image', {
                             onChange={onChangeImagePosition}
                             onDrag={onChangeImagePosition}
                         />
-                    </div>
+                        <hr/>
+                        <p>{__('Position', 'sage')}</p>
+                        <RadioGroup {...{
+                            onChange: (value) => setAttributes({imagePositioning: value}),
+                            checked: attributes.imagePositioning,
+                            defaultChecked: 'relative'
+                        }}>
+                            <Radio value="relative">{__('Relative', 'sage')}</Radio>
+                            <Radio value="absolute">{__('Absolute', 'sage')}</Radio>
+                        </RadioGroup>
+                        {isAbsolute && <>
+                            <div style={{height: '10px'}}/>
+                            <div className="no-center-cells">
+                                <AlignmentMatrixControl
+                                    classNames={'no-center-cells'}
+                                    value={attributes.absolutePosition}
+                                    onChange={(value) => setAttributes({absolutePosition: value})}
+                                />
+                            </div>
+                        </>}
+                    </PanelBody>
                 </InspectorControls>
                 <div {...blockProps}>
                     <div {...innerBlockProps}>
-                        {showImageUploader() && <>
+                        {!imageIsSmall() && <>
                             <MediaUpload
                                 onSelect={(value) => setAttributes({imageObject: value})}
                                 allowedTypes={['image']}
@@ -361,26 +420,32 @@ registerBlockType('custom/image', {
     },
     save: ({attributes}) => {
 
+        const isPixel = attributes.imageSizeUnit === 'px';
+        const isFluid = attributes.imageSizePixelDesktop !== attributes.imageSizePixelMobile
+        const isAbsolute = attributes.imagePositioning === 'absolute';
+
         const blockProps = useBlockProps.save({
             className: classnames(
                 'image-block',
+                'image-wrapper',
+                isAbsolute && returnPositioningClasses(attributes.absolutePosition),
+                (isPixel && isFluid) && 'has-fluid-width',
                 `align-${attributes.horizontalAlign}`,
                 attributes.imageRatio ? `ratio ratio-${attributes.imageRatio}` : '',
-                (attributes.imagePositioning === 'absolute' && attributes.horizontalImagePosition === 'right') && 'end-0',
-                (attributes.imagePositioning === 'absolute' && attributes.verticalImagePosition === 'bottom') && 'bottom-0',
-                (attributes.imageSizeUnit === 'px') && `unit-size-px`
             ),
             style: {
-                // width: `${attributes.imageSizeDesktop + attributes.imageSizeUnit}`,
                 position: attributes.imagePositioning,
                 transform: `translate(${focalPositionInPixel(attributes.imageMove.x, attributes.imagePositionUnit)}, ${focalPositionInPixel(attributes.imageMove.y, attributes.imagePositionUnit)})`,
-                ...(attributes.imageSizeUnit === 'px') && {
-                    '--desktop-size': `${attributes.imageSizeDesktop}px`,
-                    '--mobile-size': `${attributes.imageSizeMobile}px`,
-                    '--size-difference': `${attributes.imageSizeDesktop - attributes.imageSizeMobile}`,
-                },
-                ...(attributes.imageSizeUnit === '%') && {
-                    '--size': `${attributes.imageSizeDesktop}%`,
+                ...(isPixel) ? {
+                    ...(isFluid) ? {
+                        '--desktop-size': `${attributes.imageSizePixelDesktop}px`,
+                        '--mobile-size': `${attributes.imageSizePixelMobile}px`,
+                        '--size-difference': `${attributes.imageSizePixelDesktop - attributes.imageSizePixelMobile}`,
+                    } : {
+                        '--size': `${attributes.imageSizePixelDesktop}px`,
+                    }
+                } : {
+                    '--size': `${attributes.imageSizePercent}%`,
                 }
             }
         });

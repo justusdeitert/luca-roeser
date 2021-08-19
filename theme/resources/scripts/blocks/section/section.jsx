@@ -3,8 +3,30 @@
  */
 import {__} from '@wordpress/i18n';
 import {registerBlockType, createBlock} from '@wordpress/blocks';
-import {SelectControl, RangeControl, ToggleControl, Button, PanelBody, __experimentalRadio as Radio, __experimentalRadioGroup as RadioGroup, __experimentalBoxControl as BoxControl, ToolbarGroup, __experimentalAlignmentMatrixControl as AlignmentMatrixControl, Dashicon} from '@wordpress/components';
-import {InnerBlocks, InspectorControls, MediaUpload, ColorPalette, useBlockProps, __experimentalUseInnerBlocksProps as useInnerBlocksProps, BlockControls, BlockVerticalAlignmentToolbar, __experimentalGradientPicker as GradientPicker} from '@wordpress/block-editor';
+import {
+    SelectControl,
+    RangeControl,
+    ToggleControl,
+    Button,
+    PanelBody,
+    __experimentalRadio as Radio,
+    __experimentalRadioGroup as RadioGroup,
+    __experimentalBoxControl as BoxControl,
+    ToolbarGroup,
+    __experimentalAlignmentMatrixControl as AlignmentMatrixControl,
+    Dashicon
+} from '@wordpress/components';
+import {
+    InnerBlocks,
+    InspectorControls,
+    MediaUpload,
+    ColorPalette,
+    useBlockProps,
+    __experimentalUseInnerBlocksProps as useInnerBlocksProps,
+    BlockControls,
+    BlockVerticalAlignmentToolbar,
+    __experimentalGradientPicker as GradientPicker
+} from '@wordpress/block-editor';
 
 /**
  * Block dependencies

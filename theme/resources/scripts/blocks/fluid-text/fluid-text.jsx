@@ -159,8 +159,6 @@ registerBlockType('custom/fluid-text', {
             additionalStyles.lineHeight = attributes.fluidTextLineHeight
         }
 
-        console.log(attributes.fluidTextColor);
-
         return (
             <>
                 <BlockControls>

@@ -1,4 +1,4 @@
-.image-block {
+.image-wrapper {
     width: var(--size, 100%);
 
     img {
@@ -7,7 +7,7 @@
     }
 }
 
-.unit-size-px {
+.has-fluid-width {
     $min-value: var(--mobile-size);
     $max-value: var(--desktop-size);
     $min-max-value: var(--size-difference);
@@ -24,3 +24,21 @@
         width: #{$max-value};
     }
 }
+
+//.unit-size-px {
+//    $min-value: var(--mobile-size);
+//    $max-value: var(--desktop-size);
+//    $min-max-value: var(--size-difference);
+//    $min-vw: map-get($grid-breakpoints, xs);
+//    $max-vw: map-get($grid-breakpoints, xl);
+//
+//    width: #{$min-value};
+//
+//    @media screen and (min-width: $min-vw) {
+//        width: calc(#{$min-value} + #{$min-max-value} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
+//    }
+//
+//    @media screen and (min-width: $max-vw) {
+//        width: #{$max-value};
+//    }
+//}

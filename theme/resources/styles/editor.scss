@@ -55,10 +55,14 @@ html {
 }
 
 .wp-block {
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: initial;
-    margin-bottom: initial;
+    //margin-left: auto;
+    //margin-right: auto;
+    //margin-top: initial;
+    //margin-bottom: initial;
+
+
+    margin-top: 10px;
+    margin-bottom: 10px;
     max-width: var(--max-container-width);
 
     @media (min-width: 720px) {
@@ -225,6 +229,10 @@ h1, h2, h3, h4, h5, h6 {
     .components-button {
         border-radius: 2px;
         margin: 0 5px 5px 0;
+
+        &:first-child {
+            border-radius: 2px;
+        }
     }
 }
 
@@ -238,6 +246,26 @@ h1, h2, h3, h4, h5, h6 {
     }
 }
 
-//.editor-container {
-//    display: flex;
-//}
+/**
+ * AlignmentMatricControl without center cells
+ */
+.no-center-cells {
+    .component-alignment-matrix-control {
+        > *:nth-child(2) {
+            display: none;
+        }
+
+        > *:first-child {
+            > *:nth-child(2) {
+                display: none;
+            }
+        }
+
+        > *:last-child {
+            > *:nth-child(2) {
+                display: none;
+            }
+        }
+
+    }
+}
