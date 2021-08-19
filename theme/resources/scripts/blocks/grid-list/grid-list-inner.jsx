@@ -52,6 +52,14 @@ const returnColClass = (columns, size = false) => {
     return `col-${size}-${columns}`;
 }
 
+let returnBackgroundColorClass = (backgroundColor, parentBackgroundColor) => {
+    if (getColorObject(backgroundColor)) {
+        return `has-background has-${getColorObject(backgroundColor).slug}-background-color`
+    } else if (getColorObject(parentBackgroundColor)) {
+        return `has-background has-${getColorObject(parentBackgroundColor).slug}-background-color`
+    }
+}
+
 /**
  * Block attributes
  */
@@ -253,7 +261,7 @@ registerBlockType('custom/grid-list-inner', {
                         <div className={classNames(
                             className,
                             'grid-list-block__inner',
-                            getColorObject(attributes.parentBackgroundColor) && `has-background has-${getColorObject(attributes.parentBackgroundColor).slug}-background-color`,
+                            returnBackgroundColorClass(attributes.backgroundColor, attributes.parentBackgroundColor),
                             `align-items-${attributes.verticalAlign}`
                         )}
                              style={{
@@ -288,7 +296,7 @@ registerBlockType('custom/grid-list-inner', {
                 </>}
                 <div className={classNames(
                     'grid-list-block__inner',
-                    getColorObject(attributes.parentBackgroundColor) && `has-background has-${getColorObject(attributes.parentBackgroundColor).slug}-background-color`,
+                    returnBackgroundColorClass(attributes.backgroundColor, attributes.parentBackgroundColor),
                     `align-items-${attributes.verticalAlign}`
                 )}
                      style={{

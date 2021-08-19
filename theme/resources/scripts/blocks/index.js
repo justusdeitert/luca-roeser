@@ -12,4 +12,3 @@ import './icon-text';
 import './grid-list';
 import './spacer';
 import './wrapper';
-import './grid-columns';
