@@ -255,7 +255,7 @@ registerBlockType('custom/grid-list-inner', {
                     returnColClass(attributes.columnSizeDesktop, 'lg')
                 )}>
                     {clipPaths[attributes.clipPath] && <>
-                        clipPaths[attributes.clipPath](`clip-path-${attributes.clientId}`)
+                        {clipPaths[attributes.clipPath](`clip-path-${attributes.clientId}`)}
                     </>}
                     <div {...innerBlocksProps}>
                         <div className={classNames(
@@ -292,7 +292,7 @@ registerBlockType('custom/grid-list-inner', {
         return (
             <div {...blockProps}>
                 {clipPaths[attributes.clipPath] && <>
-                    clipPaths[attributes.clipPath](`clip-path-${attributes.clientId}`)
+                    {clipPaths[attributes.clipPath](`clip-path-${attributes.clientId}`)}
                 </>}
                 <div className={classNames(
                     'grid-list-block__inner',
