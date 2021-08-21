@@ -87,15 +87,15 @@ registerBlockType('custom/divider', {
                 <InspectorControls>
                     <div className="inspector-controls-container">
                         <hr style={{marginTop: 0}}/>
-                        <p>{__('Change Opacity', 'sage')}</p>
+                        <p>{__('Opacity', 'sage')}</p>
                         <RangeControl
                             value={attributes.opacity}
                             min={0}
                             max={1}
                             step={0.05}
                             onChange={(value) => setAttributes({opacity: value})}
-                            allowReset={true}
-                            resetFallbackValue={1}
+                            // allowReset={true}
+                            // resetFallbackValue={1}
                         />
                         <hr/>
                         <MobileSwitch headline={__('Spacing', 'sage')}>

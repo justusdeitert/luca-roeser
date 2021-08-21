@@ -6,7 +6,7 @@ import {createElement, Component, useEffect} from '@wordpress/element';
 import {InnerBlocks, RichText, MediaUpload, InspectorControls, getColorObjectByColorValue, useBlockProps, __experimentalUseInnerBlocksProps as useInnerBlocksProps} from '@wordpress/block-editor';
 import classNames from 'classnames';
 import {cloneArray, editorThemeColors, getColorObject, getImage, loremIpsum, updateInnerBlocks, isDefined} from "../utility";
-import {sliderIcon} from "../custom-icons";
+import {slider as sliderIcon} from "../custom-icons";
 
 const attributes = {
     clientId: {
