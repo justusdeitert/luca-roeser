@@ -10,9 +10,11 @@ import {__} from '@wordpress/i18n';
 import {registerBlockType} from '@wordpress/blocks';
 import {
     RangeControl,
+    Button,
     Dashicon,
     __experimentalRadio as Radio,
-    __experimentalRadioGroup as RadioGroup
+    __experimentalRadioGroup as RadioGroup,
+    __experimentalUnitControl as UnitControl
 } from '@wordpress/components';
 import {
     InnerBlocks,
@@ -57,7 +59,11 @@ const attributes = {
         type: 'number',
         default: false,
     },
-    verticalPadding: {
+    verticalPaddingDesktop: {
+        type: 'number',
+        default: false,
+    },
+    verticalPaddingMobile: {
         type: 'number',
         default: false,
     },
@@ -65,6 +71,10 @@ const attributes = {
         type: 'number',
         default: false,
     },
+    gridUnit: {
+        type: 'string',
+        default: 'px'
+    }
 };
 
 registerBlockType('custom/grid-list', {
@@ -72,6 +82,7 @@ registerBlockType('custom/grid-list', {
     title: __('Grid List', 'sage'),
     category: 'custom',
     icon: gridListIcon,
+    description: __('Add a block that displays content in multiple columns, then add whatever content blocks you’d like.', 'sage'),
     attributes,
     supports: {
         anchor: true,
@@ -82,6 +93,10 @@ registerBlockType('custom/grid-list', {
     edit: ({setAttributes, attributes, className, clientId}) => {
 
         attributes.clientId = clientId;
+
+        let hasPaddingY =
+            isDefined(attributes.verticalPaddingDesktop) &&
+            isDefined(attributes.verticalPaddingMobile);
 
         const TEMPLATE = [
             ['custom/grid-list-inner', {}, [
@@ -100,13 +115,15 @@ registerBlockType('custom/grid-list', {
             style: {
                 ...isDefined(attributes.customGutter) && {
                     '--custom-gutter-desktop': `${attributes.customGutter / 16}em`,
-                    '--custom-gutter-mobile':  `${attributes.customGutter / 16}em`
+                    '--custom-gutter-mobile': `${attributes.customGutter / 16}em`
                 },
-                ...isDefined(attributes.verticalPadding) && {
-                    '--inner-vertical-padding' : `${attributes.verticalPadding / 16}em`,
+                ...hasPaddingY && {
+                    '--mobile-padding-y': `${attributes.verticalPaddingMobile}px`,
+                    '--desktop-padding-y': `${attributes.verticalPaddingDesktop}px`,
+                    '--padding-y-difference': `${attributes.verticalPaddingDesktop - attributes.verticalPaddingMobile}`,
                 },
                 ...isDefined(attributes.horizontalPadding) && {
-                    '--inner-horizontal-padding' : `${attributes.horizontalPadding / 16}em`,
+                    '--padding-x': `${attributes.horizontalPadding}px`,
                 },
             }
         });
@@ -121,9 +138,10 @@ registerBlockType('custom/grid-list', {
             <>
                 <InspectorControls>
                     <div className="inspector-controls-container">
-                        <MobileSwitch headline={__('Columns', 'sage')}>
+                        <hr style={{marginTop: 0}}/>
+                        <MobileSwitch headline={__('Columns', 'sage')} icon={'columns'}>
                             <MobileSwitchInner type={'desktop'}>
-                                { /*Trying to new way of passing props to RadioGroup*/ }
+                                { /*Trying to new way of passing props to RadioGroup*/}
                                 <RadioGroup {...{
                                     onChange: (value) => setAttributes({columnsDesktop: value}),
                                     checked: attributes.columnsDesktop,
@@ -165,14 +183,13 @@ registerBlockType('custom/grid-list', {
                             </MobileSwitchInner>
                         </MobileSwitch>
                         <hr/>
-                        <div style={{display:'flex'}}>
-                            <p>{__('Gutter', 'sage')}</p>
-                            <Dashicon icon="grid-view" style={{marginLeft: 'auto'}}/>
+                        <div style={{display: 'flex'}}>
+                            <Dashicon icon="grid-view" style={{marginRight: '5px'}}/>
+                            <p style={{marginTop: '1px'}}>{__('Gutter', 'sage')}</p>
                         </div>
                         <RangeControl
                             value={attributes.customGutter}
                             min={0}
-                            // initialPosition={false}
                             max={80}
                             step={1}
                             allowReset={true}
@@ -182,9 +199,9 @@ registerBlockType('custom/grid-list', {
                             }}
                         />
                         <hr/>
-                        <div style={{display:'flex'}}>
-                            <p>{__('Horizontal padding', 'sage')}</p>
-                            <Dashicon icon="image-flip-horizontal" style={{marginLeft: 'auto'}}/>
+                        <div style={{display: 'flex'}}>
+                            <Dashicon icon="image-flip-horizontal" style={{marginRight: '5px'}}/>
+                            <p style={{marginTop: '1px'}}>{__('Horizontal padding', 'sage')}</p>
                         </div>
                         <RangeControl
                             value={attributes.horizontalPadding}
@@ -198,21 +215,77 @@ registerBlockType('custom/grid-list', {
                             resetFallbackValue={false}
                         />
                         <hr/>
-                        <div style={{display:'flex'}}>
-                            <p>{__('Vertical padding', 'sage')}</p>
-                            <Dashicon icon="image-flip-vertical" style={{marginLeft: 'auto'}}/>
-                        </div>
-                        <RangeControl
-                            value={attributes.verticalPadding}
-                            min={0}
-                            max={100}
-                            step={1}
-                            onChange={(value) => {
-                                setAttributes({verticalPadding: value})
-                            }}
-                            allowReset={true}
-                            resetFallbackValue={false}
-                        />
+                        <MobileSwitch headline={__('Vertical padding', 'sage')} icon={'image-flip-vertical'}>
+                            <MobileSwitchInner type={'desktop'}>
+                                <div style={{
+                                    width: '100%',
+                                    paddingRight: '45px',
+                                    position: 'relative'
+                                }}>
+                                    <RangeControl
+                                        value={attributes.verticalPaddingDesktop}
+                                        min={0}
+                                        max={100}
+                                        step={1}
+                                        onChange={(value) => {
+                                            if (attributes.verticalPaddingMobile === attributes.verticalPaddingDesktop) {
+                                                setAttributes({verticalPaddingMobile: value})
+                                            }
+                                            setAttributes({verticalPaddingDesktop: value})
+                                        }}
+                                        className={'pixel-unit'}
+                                    />
+                                    <Button
+                                        icon={'undo'}
+                                        isSmall={true}
+                                        label={__('Reset', 'sage')}
+                                        style={{
+                                            height: '30px',
+                                            position: 'absolute',
+                                            right: 0,
+                                            top: 0
+                                        }}
+                                        onClick={() => {
+                                            setAttributes({verticalPaddingMobile: false})
+                                            setAttributes({verticalPaddingDesktop: false})
+                                        }}
+                                    />
+                                </div>
+                            </MobileSwitchInner>
+                            <MobileSwitchInner type={'mobile'}>
+                                <div style={{
+                                    width: '100%',
+                                    paddingRight: '45px',
+                                    position: 'relative'
+                                }}>
+                                    <RangeControl
+                                        value={attributes.verticalPaddingMobile}
+                                        min={0}
+                                        max={attributes.verticalPaddingDesktop}
+                                        step={1}
+                                        onChange={(value) => {
+                                            setAttributes({verticalPaddingMobile: value})
+                                        }}
+                                        className={'pixel-unit'}
+                                    />
+                                    <Button
+                                        icon={'undo'}
+                                        isSmall={true}
+                                        label={__('Reset', 'sage')}
+                                        style={{
+                                            height: '30px',
+                                            position: 'absolute',
+                                            right: 0,
+                                            top: 0
+                                        }}
+                                        onClick={() => {
+                                            setAttributes({verticalPaddingMobile: false})
+                                            setAttributes({verticalPaddingDesktop: false})
+                                        }}
+                                    />
+                                </div>
+                            </MobileSwitchInner>
+                        </MobileSwitch>
                         <hr/>
                         <p>{__('General Background Color', 'sage')}</p>
                         <ColorPalette
@@ -229,7 +302,7 @@ registerBlockType('custom/grid-list', {
                 <div {...innerBlocksProps}>
                     <div className={classNames(
                         'grid-list-block__row',
-                        'row'
+                        'row',
                     )} data-columns={attributes.columnsDesktop}>
                         {innerBlocksProps.children}
                     </div>
@@ -239,18 +312,24 @@ registerBlockType('custom/grid-list', {
     },
     save: ({attributes}) => {
 
+        let hasPaddingY =
+            isDefined(attributes.verticalPaddingDesktop) &&
+            isDefined(attributes.verticalPaddingMobile);
+
         const blockProps = useBlockProps.save({
             className: classNames('grid-list-block'),
             style: {
                 ...isDefined(attributes.customGutter) && {
                     '--custom-gutter-desktop': `${attributes.customGutter / 16}em`,
-                    '--custom-gutter-mobile':  `${attributes.customGutter / 16}em`
+                    '--custom-gutter-mobile': `${attributes.customGutter / 16}em`
                 },
-                ...isDefined(attributes.verticalPadding) && {
-                    '--inner-vertical-padding' : `${attributes.verticalPadding / 16}em`,
+                ...hasPaddingY && {
+                    '--mobile-padding-y': `${attributes.verticalPaddingMobile}px`,
+                    '--desktop-padding-y': `${attributes.verticalPaddingDesktop}px`,
+                    '--padding-y-difference': `${attributes.verticalPaddingDesktop - attributes.verticalPaddingMobile}`,
                 },
                 ...isDefined(attributes.horizontalPadding) && {
-                    '--inner-horizontal-padding' : `${attributes.horizontalPadding / 16}em`,
+                    '--padding-x': `${attributes.horizontalPadding}px`,
                 },
             }
         });
@@ -261,7 +340,7 @@ registerBlockType('custom/grid-list', {
                     'grid-list-block__row',
                     'row',
                 )} data-columns={attributes.columnsDesktop}>
-                    <InnerBlocks.Content />
+                    <InnerBlocks.Content/>
                 </div>
             </div>
         );

@@ -176,8 +176,8 @@ registerBlockType('custom/image', {
                     transform: `translate(${focalPositionInPixel(attributes.imageMove.x, attributes.imagePositionUnit)}, ${focalPositionInPixel(attributes.imageMove.y, attributes.imagePositionUnit)})`,
                     ...(isPixel) ? {
                         ...(isFluid) ? {
-                            '--desktop-width': `${attributes.imageSizePixelDesktop}px`,
-                            '--mobile-width': `${attributes.imageSizePixelMobile}px`,
+                            '--width-desktop': `${attributes.imageSizePixelDesktop}px`,
+                            '--width-mobile': `${attributes.imageSizePixelMobile}px`,
                             '--width-difference': `${attributes.imageSizePixelDesktop - attributes.imageSizePixelMobile}`,
                         } : {
                             '--width': `${attributes.imageSizePixelDesktop}px`,
@@ -204,8 +204,8 @@ registerBlockType('custom/image', {
                     transform: `translate(${focalPositionInPixel(attributes.imageMove.x, attributes.imagePositionUnit)}, ${focalPositionInPixel(attributes.imageMove.y, attributes.imagePositionUnit)})`,
                     ...(isPixel) ? {
                         ...(isFluid) ? {
-                            '--desktop-width': `${attributes.imageSizePixelDesktop}px`,
-                            '--mobile-width': `${attributes.imageSizePixelMobile}px`,
+                            '--width-desktop': `${attributes.imageSizePixelDesktop}px`,
+                            '--width-mobile': `${attributes.imageSizePixelMobile}px`,
                             '--width-difference': `${attributes.imageSizePixelDesktop - attributes.imageSizePixelMobile}`,
                         } : {
                             '--width': `${attributes.imageSizePixelDesktop}px`,
@@ -438,8 +438,8 @@ registerBlockType('custom/image', {
                 transform: `translate(${focalPositionInPixel(attributes.imageMove.x, attributes.imagePositionUnit)}, ${focalPositionInPixel(attributes.imageMove.y, attributes.imagePositionUnit)})`,
                 ...(isPixel) ? {
                     ...(isFluid) ? {
-                        '--desktop-width': `${attributes.imageSizePixelDesktop}px`,
-                        '--mobile-width': `${attributes.imageSizePixelMobile}px`,
+                        '--width-desktop': `${attributes.imageSizePixelDesktop}px`,
+                        '--width-mobile': `${attributes.imageSizePixelMobile}px`,
                         '--width-difference': `${attributes.imageSizePixelDesktop - attributes.imageSizePixelMobile}`,
                     } : {
                         '--width': `${attributes.imageSizePixelDesktop}px`,

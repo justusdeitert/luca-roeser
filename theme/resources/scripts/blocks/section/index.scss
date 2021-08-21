@@ -10,6 +10,24 @@
     }
 }
 
+.fluid-min-height {
+    $min-value: var(--min-height-mobile);
+    $max-value: var(--min-height-desktop);
+    $min-max-value: var(--min-height-difference);
+    $min-vw: map-get($grid-breakpoints, xs);
+    $max-vw: map-get($grid-breakpoints, xl);
+
+    min-height: #{$min-value};
+
+    @media screen and (min-width: $min-vw) {
+        min-height: calc(#{$min-value} + #{$min-max-value} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
+    }
+
+    @media screen and (min-width: $max-vw) {
+        min-height: #{$max-value};
+    }
+}
+
 .section-block {
     display: flex;
     position: relative;
@@ -36,24 +54,6 @@
 
     &.full-height {
         min-height: 100vh;
-    }
-
-    &.min-height {
-        $min-value: var(--min-height-mobile);
-        $max-value: var(--min-height-desktop);
-        $min-max-value: var(--min-height-desktop-mobile);
-        $min-vw: map-get($grid-breakpoints, xs);
-        $max-vw: map-get($grid-breakpoints, xl);
-
-        min-height: #{$min-value};
-
-        @media screen and (min-width: $min-vw) {
-            min-height: calc(#{$min-value} + #{$min-max-value} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
-        }
-
-        @media screen and (min-width: $max-vw) {
-            min-height: #{$max-value};
-        }
     }
 
     $min-value: var(--shape-height-mobile, '30px');

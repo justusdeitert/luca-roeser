@@ -304,7 +304,7 @@ registerBlockType('custom/section', {
                 getColorObject(attributes.sectionBackgroundColor) && (
                     `has-${getColorObject(attributes.sectionBackgroundColor).slug}-background-color has-background`
                 ),
-                attributes.fullHeight ? 'full-height' : isDefined(attributes.minHeightDesktop) && 'min-height',
+                attributes.fullHeight ? 'full-height' : isDefined(attributes.minHeightDesktop) && 'fluid-min-height',
                 `align-items-${attributes.verticalAlign}`
             ),
             style: {
@@ -316,7 +316,7 @@ registerBlockType('custom/section', {
                 ...isDefined(attributes.minHeightDesktop) && {
                     '--min-height-desktop': `${attributes.minHeightDesktop}px`,
                     '--min-height-mobile': `${attributes.minHeightMobile}px`,
-                    '--min-height-desktop-mobile': `${attributes.minHeightDesktop - attributes.minHeightMobile}`,
+                    '--min-height-difference': `${attributes.minHeightDesktop - attributes.minHeightMobile}`,
                 },
                 ...attributes.sectionShape && {
                     '--shape-height-desktop': `${attributes.sectionShapeHeightDesktop}px`,
@@ -389,7 +389,7 @@ registerBlockType('custom/section', {
                         />
                         {!attributes.fullHeight && <>
                             <hr/>
-                            <MobileSwitch headline={__('Min height', 'sage')}>
+                            <MobileSwitch headline={__('Height', 'sage')}>
                                 <MobileSwitchInner type={'desktop'}>
                                     <RangeControl
                                         value={attributes.minHeightDesktop}
@@ -775,7 +775,7 @@ registerBlockType('custom/section', {
             className: classnames(
                 'section-block',
                 getColorObject(attributes.sectionBackgroundColor) && `has-${getColorObject(attributes.sectionBackgroundColor).slug}-background-color has-background`,
-                attributes.fullHeight ? 'full-height' : isDefined(attributes.minHeightDesktop) && 'min-height',
+                attributes.fullHeight ? 'full-height' : isDefined(attributes.minHeightDesktop) && 'fluid-min-height',
                 `align-items-${attributes.verticalAlign}`
             ),
             style: {
@@ -785,7 +785,7 @@ registerBlockType('custom/section', {
                 ...isDefined(attributes.minHeightDesktop) && {
                     '--min-height-desktop': `${attributes.minHeightDesktop}px`,
                     '--min-height-mobile': `${attributes.minHeightMobile}px`,
-                    '--min-height-desktop-mobile': `${attributes.minHeightDesktop - attributes.minHeightMobile}`,
+                    '--min-height-difference': `${attributes.minHeightDesktop - attributes.minHeightMobile}`,
                 },
                 ...attributes.sectionShape && {
                     '--shape-height-desktop': `${attributes.sectionShapeHeightDesktop}px`,

@@ -2,7 +2,7 @@ import {__} from '@wordpress/i18n';
 import {getColorObjectByColorValue} from '@wordpress/block-editor';
 import {select, dispatch, useSelect} from "@wordpress/data";
 import {useState, cloneElement} from "@wordpress/element";
-import {Button} from '@wordpress/components';
+import {Button, Dashicon} from '@wordpress/components';
 import classnames from 'classnames';
 
 /**
@@ -373,17 +373,31 @@ export const MobileSwitch = (props) => {
             onClick: () => {
                 setActiveTab(element.props.type)
                 localStorage.setItem('activeSwitch', element.props.type);
+
+                /**
+                 * TODO: Finish adding active classes to current screen size for buttons
+                 * Set mobile switch for all element on page / DOES ONLY WORK FOR CONTENT YET
+                 * @type {NodeListOf<Element>}
+                 */
+                // let mobileSwitchInner = document.querySelectorAll('.mobile-switch__inner');
+                // mobileSwitchInner.forEach(mobileSwitch => {
+                //     if(mobileSwitch.dataset.switchType === element.props.type) {
+                //         mobileSwitch.classList.add('is-active');
+                //     } else {
+                //         mobileSwitch.classList.remove('is-active');
+                //     }
+                // });
             },
             isPressed: activeTab === element.props.type
         }
 
         switch (element.props.type) {
             case 'desktop':
-                return <Button {...buttonProps} icon={'laptop'} />
+                return <Button {...buttonProps} className={'mobile-switch__button'} icon={'laptop'} />
             case 'tablet':
-                return <Button {...buttonProps} icon={'tablet'} />
+                return <Button {...buttonProps} className={'mobile-switch__button'} icon={'tablet'} />
             case 'mobile':
-                return <Button {...buttonProps} icon={'smartphone'} />
+                return <Button {...buttonProps} className={'mobile-switch__button'} icon={'smartphone'} />
             default:
                 return false
         }
@@ -408,8 +422,11 @@ export const MobileSwitch = (props) => {
     return (
         <div className={'mobile-switch'}>
             <div className="mobile-switch__headline-wrapper" style={{display: 'flex', marginBottom: '5px'}}>
+                {props.icon && <>
+                    <Dashicon icon={props.icon} style={{marginRight: '5px'}}/>
+                </>}
                 {props.headline && <>
-                    <p className={'mobile-switch__headline'}>{props.headline}</p>
+                    <p style={{marginTop: '1px'}} className={'mobile-switch__headline'}>{props.headline}</p>
                 </>}
                 <div className="mobile-switch__buttons-wrapper" style={{marginLeft: 'auto', display: 'flex'}}>
                     {Buttons}
@@ -423,7 +440,7 @@ export const MobileSwitch = (props) => {
 export const MobileSwitchInner = (props) => {
 
     return (
-        <div className={classnames('mobile-switch__inner')} style={{display: props.isActive ? 'block' : 'none'}}>
+        <div className={classnames('mobile-switch__inner', props.isActive && 'is-active')} data-switch-type={props.type}>
             {props.children}
         </div>
     )

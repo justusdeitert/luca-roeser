@@ -55,12 +55,6 @@ html {
 }
 
 .wp-block {
-    //margin-left: auto;
-    //margin-right: auto;
-    //margin-top: initial;
-    //margin-bottom: initial;
-
-
     margin-top: 10px;
     margin-bottom: 10px;
     max-width: var(--max-container-width);
@@ -267,5 +261,24 @@ h1, h2, h3, h4, h5, h6 {
             }
         }
 
+    }
+}
+
+/**
+ * Mobile switch styles
+ */
+.mobile-switch {
+    &__inner {
+        display: none;
+
+        &.is-active {
+            display: block;
+        }
+    }
+
+    &__button {
+        padding: 0 4px;
+        width: 26px;
+        min-width: 26px;
     }
 }

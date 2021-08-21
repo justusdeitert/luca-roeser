@@ -32,7 +32,7 @@ import {gridListInnerIcon} from '../icons';
 import {
     ALLOWEDBLOCKS,
     editorThemeColors,
-    getColorObject, MobileSwitch, MobileSwitchInner,
+    getColorObject, isDefined, MobileSwitch, MobileSwitchInner,
     parentAttributes,
     removeArrayItems,
     SelectClipPath
@@ -100,6 +100,14 @@ const attributes = {
         type: 'number',
         default: 12
     },
+    verticalPaddingDesktop: {
+        type: 'number',
+        default: false,
+    },
+    verticalPaddingMobile: {
+        type: 'number',
+        default: false,
+    },
 };
 
 registerBlockType('custom/grid-list-inner', {
@@ -122,6 +130,8 @@ registerBlockType('custom/grid-list-inner', {
          * Get attributes from parent block
          */
         attributes.parentBackgroundColor = parentAttributes(attributes.clientId).generalBackgroundColor;
+        attributes.verticalPaddingDesktop = parentAttributes(attributes.clientId).verticalPaddingDesktop;
+        attributes.verticalPaddingMobile = parentAttributes(attributes.clientId).verticalPaddingMobile;
 
         /**
          * Number of columns
@@ -137,6 +147,10 @@ registerBlockType('custom/grid-list-inner', {
             attributes.columnSizeTablet = parent.columnSizeTablet;
             attributes.columnSizeMobile = parent.columnSizeMobile;
         }
+
+        let hasPaddingY =
+            isDefined(attributes.verticalPaddingDesktop) &&
+            isDefined(attributes.verticalPaddingMobile);
 
         const blockProps = useBlockProps({
             style: {
@@ -262,7 +276,8 @@ registerBlockType('custom/grid-list-inner', {
                             className,
                             'grid-list-block__inner',
                             returnBackgroundColorClass(attributes.backgroundColor, attributes.parentBackgroundColor),
-                            `align-items-${attributes.verticalAlign}`
+                            `align-items-${attributes.verticalAlign}`,
+                            hasPaddingY && 'has-fluid-padding-y'
                         )}
                              style={{
                                  clipPath: clipPaths[attributes.clipPath] ? `url(#clip-path-${attributes.clientId})` : 'none',
@@ -278,6 +293,10 @@ registerBlockType('custom/grid-list-inner', {
         );
     },
     save: ({attributes}) => {
+
+        let hasPaddingY =
+            isDefined(attributes.verticalPaddingDesktop) &&
+            isDefined(attributes.verticalPaddingMobile);
 
         // Need to use for passing classes to save function
         const blockProps = useBlockProps.save({
@@ -297,7 +316,8 @@ registerBlockType('custom/grid-list-inner', {
                 <div className={classNames(
                     'grid-list-block__inner',
                     returnBackgroundColorClass(attributes.backgroundColor, attributes.parentBackgroundColor),
-                    `align-items-${attributes.verticalAlign}`
+                    `align-items-${attributes.verticalAlign}`,
+                    hasPaddingY && 'has-fluid-padding-y'
                 )}
                      style={{
                          clipPath: clipPaths[attributes.clipPath] ? `url(#clip-path-${attributes.clientId})` : 'none',

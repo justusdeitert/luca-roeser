@@ -8,9 +8,10 @@
 }
 
 .has-fluid-width {
-    $min-value: var(--mobile-width);
-    $max-value: var(--desktop-width);
+    $min-value: var(--width-mobile);
+    $max-value: var(--width-desktop);
     $min-max-value: var(--width-difference);
+
     $min-vw: map-get($grid-breakpoints, xs);
     $max-vw: map-get($grid-breakpoints, xl);
 

@@ -42,7 +42,3 @@ foreach (new DirectoryIterator(locate_template('includes/')) as $file_info) {
         include $file_info->getPathname();
     }
 }
-
-
-
-$max_container_width = get_theme_mod('max_container_width', '1260');
