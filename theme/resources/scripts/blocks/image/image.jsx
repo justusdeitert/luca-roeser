@@ -176,14 +176,14 @@ registerBlockType('custom/image', {
                     transform: `translate(${focalPositionInPixel(attributes.imageMove.x, attributes.imagePositionUnit)}, ${focalPositionInPixel(attributes.imageMove.y, attributes.imagePositionUnit)})`,
                     ...(isPixel) ? {
                         ...(isFluid) ? {
-                            '--desktop-size': `${attributes.imageSizePixelDesktop}px`,
-                            '--mobile-size': `${attributes.imageSizePixelMobile}px`,
-                            '--size-difference': `${attributes.imageSizePixelDesktop - attributes.imageSizePixelMobile}`,
+                            '--desktop-width': `${attributes.imageSizePixelDesktop}px`,
+                            '--mobile-width': `${attributes.imageSizePixelMobile}px`,
+                            '--width-difference': `${attributes.imageSizePixelDesktop - attributes.imageSizePixelMobile}`,
                         } : {
-                            '--size': `${attributes.imageSizePixelDesktop}px`,
+                            '--width': `${attributes.imageSizePixelDesktop}px`,
                         }
                     } : {
-                        '--size': `${attributes.imageSizePercent}%`,
+                        '--width': `${attributes.imageSizePercent}%`,
                     }
                 }
             }
@@ -204,14 +204,14 @@ registerBlockType('custom/image', {
                     transform: `translate(${focalPositionInPixel(attributes.imageMove.x, attributes.imagePositionUnit)}, ${focalPositionInPixel(attributes.imageMove.y, attributes.imagePositionUnit)})`,
                     ...(isPixel) ? {
                         ...(isFluid) ? {
-                            '--desktop-size': `${attributes.imageSizePixelDesktop}px`,
-                            '--mobile-size': `${attributes.imageSizePixelMobile}px`,
-                            '--size-difference': `${attributes.imageSizePixelDesktop - attributes.imageSizePixelMobile}`,
+                            '--desktop-width': `${attributes.imageSizePixelDesktop}px`,
+                            '--mobile-width': `${attributes.imageSizePixelMobile}px`,
+                            '--width-difference': `${attributes.imageSizePixelDesktop - attributes.imageSizePixelMobile}`,
                         } : {
-                            '--size': `${attributes.imageSizePixelDesktop}px`,
+                            '--width': `${attributes.imageSizePixelDesktop}px`,
                         }
                     } : {
-                        '--size': `${attributes.imageSizePercent}%`,
+                        '--width': `${attributes.imageSizePercent}%`,
                     }
                 }
             }
@@ -438,14 +438,14 @@ registerBlockType('custom/image', {
                 transform: `translate(${focalPositionInPixel(attributes.imageMove.x, attributes.imagePositionUnit)}, ${focalPositionInPixel(attributes.imageMove.y, attributes.imagePositionUnit)})`,
                 ...(isPixel) ? {
                     ...(isFluid) ? {
-                        '--desktop-size': `${attributes.imageSizePixelDesktop}px`,
-                        '--mobile-size': `${attributes.imageSizePixelMobile}px`,
-                        '--size-difference': `${attributes.imageSizePixelDesktop - attributes.imageSizePixelMobile}`,
+                        '--desktop-width': `${attributes.imageSizePixelDesktop}px`,
+                        '--mobile-width': `${attributes.imageSizePixelMobile}px`,
+                        '--width-difference': `${attributes.imageSizePixelDesktop - attributes.imageSizePixelMobile}`,
                     } : {
-                        '--size': `${attributes.imageSizePixelDesktop}px`,
+                        '--width': `${attributes.imageSizePixelDesktop}px`,
                     }
                 } : {
-                    '--size': `${attributes.imageSizePercent}%`,
+                    '--width': `${attributes.imageSizePercent}%`,
                 }
             }
         });
