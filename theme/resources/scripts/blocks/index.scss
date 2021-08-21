@@ -1,12 +1,9 @@
-/**
- * Gutenberg Blocks
- */
-
 /* purgecss start ignore */
 
+/**
+ * Custom blocks
+ */
 @import 'map';
-@import 'hero';
-//@import 'text-image';
 @import 'accordion';
 @import 'divider';
 @import 'slider';
@@ -18,5 +15,13 @@
 @import 'grid-list';
 @import 'spacer';
 @import 'wrapper';
+@import 'grid';
+
+/**
+ * Deprecated blocks
+ */
+@import '_text-image';
+@import '_hero';
+@import '_grid-list';
 
 /* purgecss end ignore */

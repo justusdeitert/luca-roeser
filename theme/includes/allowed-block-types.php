@@ -138,6 +138,8 @@ $custom_blocks_normal_editor = [
     'custom/grid-list-inner', // grid-list as parent
     'custom/spacer',
     'custom/wrapper',
+    'custom/grid',
+    'custom/grid-column',
 ];
 
 $custom_blocks_widget_editor = [
@@ -154,6 +156,8 @@ $custom_blocks_widget_editor = [
     'custom/grid-list-inner', // grid-list as parent
     'custom/spacer',
     'custom/wrapper',
+    'custom/grid',
+    'custom/grid-column',
 ];
 
 add_filter('allowed_block_types_all', function ($allowed_block_types, $editor_context) {

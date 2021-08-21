@@ -226,27 +226,36 @@ export const focalPositionInPixel = (value, unit = 'px') => {
 }
 
 export const ALLOWEDBLOCKS = [
+
+    /**
+     * Core blocks
+     */
     'core/paragraph',
     'core/heading',
     'core/list',
     'core/shortcode',
     'core/columns',
     'core/group',
-    'custom/text-image',
+
+    /**
+     * Custom blocks
+     */
     'custom/map',
     'custom/button',
-    // 'custom/section',
     'custom/icon-text',
     'custom/row',
     'custom/divider',
     'custom/image',
-    'custom/grid-list',
     'custom/spacer',
     'custom/accordion',
     'custom/fluid-text',
     'custom/slider',
     'custom/wrapper',
-    'custom/grid-columns',
+    'custom/grid',
+
+    // Deprecated blocks
+    'custom/text-image',
+    'custom/grid-list',
 ]
 
 export const parentAttributes = (clientId) => {

@@ -2,11 +2,18 @@ import {__} from '@wordpress/i18n';
 import {registerBlockType,} from '@wordpress/blocks';
 import {Button} from '@wordpress/components';
 import {Component} from '@wordpress/element';
-import {ToggleControl, ColorPalette, RangeControl, SelectControl, __experimentalRadio as Radio, __experimentalRadioGroup as RadioGroup} from '@wordpress/components';
+import {
+    ToggleControl,
+    ColorPalette,
+    RangeControl,
+    SelectControl,
+    __experimentalRadio as Radio,
+    __experimentalRadioGroup as RadioGroup
+} from '@wordpress/components';
 import {MediaUpload, InspectorControls, InnerBlocks, getColorObjectByColorValue} from '@wordpress/block-editor';
 import classNames from 'classnames';
 import {editorThemeColors, getImage, ALLOWEDBLOCKS, removeArrayItems, getColorObject} from '../utility';
-import {textImageIcon} from '../icons';
+import {textImageIcon} from '../custom-icons';
 import {loremIpsum} from "lorem-ipsum";
 
 const attributes = {
@@ -85,7 +92,7 @@ registerBlockType('custom/text-image', {
 
         render() {
 
-            let {attributes, className, setAttributes } = this.props;
+            let {attributes, className, setAttributes} = this.props;
 
             const TEMPLATE = [
                 ['core/heading', {content: 'The Title...'}],
@@ -93,7 +100,7 @@ registerBlockType('custom/text-image', {
             ];
 
             let maxImagesCount = () => {
-                if(attributes.contentImages.length <= 4) {
+                if (attributes.contentImages.length <= 4) {
                     return attributes.contentImages.length;
                 } else {
                     return 4;
@@ -101,7 +108,8 @@ registerBlockType('custom/text-image', {
             }
 
             const imageColumn = (
-                <div className={classNames('text-image-block__image-column', `col-12 col-md-6 col-xl-${attributes.columnRange}`)}>
+                <div
+                    className={classNames('text-image-block__image-column', `col-12 col-md-6 col-xl-${attributes.columnRange}`)}>
                     <div style={{position: 'relative', display: 'inline-block', width: '100%'}}>
                         <MediaUpload
                             onSelect={(value) => setAttributes({contentImages: value})}
@@ -127,13 +135,15 @@ registerBlockType('custom/text-image', {
                                 />
                             )}
                         />
-                        <div className={classNames('text-image-block__images-wrapper')} data-image-count={attributes.imageCount}>
+                        <div className={classNames('text-image-block__images-wrapper')}
+                             data-image-count={attributes.imageCount}>
                             {
                                 attributes.contentImages.map((contentImage, index) => {
                                     if (index < attributes.imageCount) {
                                         return (
                                             <div key={index} className={'text-image-block__image-wrapper'}>
-                                                <div className={classNames("custom-border custom-border-radius custom-shadow", getColorObject(attributes.imagesBackgroundColor) && `has-${getColorObject(attributes.imagesBackgroundColor).slug}-background-color`)}>
+                                                <div
+                                                    className={classNames("custom-border custom-border-radius custom-shadow", getColorObject(attributes.imagesBackgroundColor) && `has-${getColorObject(attributes.imagesBackgroundColor).slug}-background-color`)}>
                                                     <div className={`ratio ratio-${attributes.imagesRatio}`}>
                                                         <img className={classNames('custom-border-radius')}
                                                              alt={getImage(contentImage, 'alt')}
@@ -153,9 +163,11 @@ registerBlockType('custom/text-image', {
             );
 
             const textColumn = (
-                <div className={classNames(`text-image-block__text-column`, `col-12 col-md-6 col-xl-${12 - attributes.columnRange}`)}>
+                <div
+                    className={classNames(`text-image-block__text-column`, `col-12 col-md-6 col-xl-${12 - attributes.columnRange}`)}>
                     <div className={classNames("text-image-block__text-column-inner")}>
-                        <InnerBlocks template={TEMPLATE} allowedBlocks={removeArrayItems(ALLOWEDBLOCKS, ['custom/text-image'])}/>
+                        <InnerBlocks template={TEMPLATE}
+                                     allowedBlocks={removeArrayItems(ALLOWEDBLOCKS, ['custom/text-image'])}/>
                     </div>
                 </div>
             );
@@ -237,8 +249,10 @@ registerBlockType('custom/text-image', {
         // const imagesBackgroundColor = getColorObjectByColorValue(editorThemeColors, attributes.imagesBackgroundColor);
 
         const imageColumn = (
-            <div className={classNames(`text-image-block__images-column`, `col-12 col-md-6 col-xl-${attributes.columnRange}`)}>
-                <div className={classNames('text-image-block__images-wrapper')} data-image-count={attributes.imageCount}>
+            <div
+                className={classNames(`text-image-block__images-column`, `col-12 col-md-6 col-xl-${attributes.columnRange}`)}>
+                <div className={classNames('text-image-block__images-wrapper')}
+                     data-image-count={attributes.imageCount}>
                     {
                         attributes.contentImages.map((contentImage, index) => {
                             if (attributes.hasGallery) {
@@ -246,7 +260,8 @@ registerBlockType('custom/text-image', {
                                     <a key={index} href={getImage(contentImage, 'x_large')}
                                        data-lg-size={`${getImage(contentImage, 'width-large')}-${getImage(contentImage, 'height-large')}`}
                                     >
-                                        <div className={classNames("custom-border custom-border-radius custom-shadow", getColorObject(attributes.imagesBackgroundColor) && `has-${getColorObject(attributes.imagesBackgroundColor).slug}-background-color`)}>
+                                        <div
+                                            className={classNames("custom-border custom-border-radius custom-shadow", getColorObject(attributes.imagesBackgroundColor) && `has-${getColorObject(attributes.imagesBackgroundColor).slug}-background-color`)}>
                                             <div className={`ratio ratio-${attributes.imagesRatio}`}>
                                                 <img className={classNames('custom-border-radius')}
                                                      alt={getImage(contentImage, 'alt')}
@@ -261,7 +276,8 @@ registerBlockType('custom/text-image', {
                                 if (index < attributes.imageCount) {
                                     return (
                                         <div key={index} className={'text-image-block__image-wrapper'}>
-                                            <div className={classNames("custom-border custom-border-radius custom-shadow", getColorObject(attributes.imagesBackgroundColor) && `has-${getColorObject(attributes.imagesBackgroundColor).slug}-background-color`)}>
+                                            <div
+                                                className={classNames("custom-border custom-border-radius custom-shadow", getColorObject(attributes.imagesBackgroundColor) && `has-${getColorObject(attributes.imagesBackgroundColor).slug}-background-color`)}>
                                                 <div className={`ratio ratio-${attributes.imagesRatio}`}>
                                                     <img className={classNames('custom-border-radius')}
                                                          alt={getImage(contentImage, 'alt')}
@@ -281,7 +297,8 @@ registerBlockType('custom/text-image', {
         );
 
         const textColumn = (
-            <div className={classNames(`text-image-block__text-column`, `col-12 col-md-6 col-xl-${12 - attributes.columnRange}`)}>
+            <div
+                className={classNames(`text-image-block__text-column`, `col-12 col-md-6 col-xl-${12 - attributes.columnRange}`)}>
                 <div className={classNames("text-image-block__text-column-inner")}>
                     <InnerBlocks.Content/>
                 </div>

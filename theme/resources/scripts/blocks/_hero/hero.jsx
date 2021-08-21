@@ -1,11 +1,41 @@
 import {__} from '@wordpress/i18n';
 import {registerBlockType} from '@wordpress/blocks';
-import {RangeControl, Button, ToggleControl, SelectControl, PanelBody, ColorPalette, FocalPointPicker, __experimentalAlignmentMatrixControl as AlignmentMatrixControl, __experimentalRadio as Radio, __experimentalRadioGroup as RadioGroup} from '@wordpress/components';
-import {MediaUpload, InspectorControls, InnerBlocks, useBlockProps, __experimentalColorGradientControl as ColorGradientControl, __experimentalGradientPicker as GradientPicker} from '@wordpress/block-editor';
+import {
+    RangeControl,
+    Button,
+    ToggleControl,
+    SelectControl,
+    PanelBody,
+    ColorPalette,
+    FocalPointPicker,
+    __experimentalAlignmentMatrixControl as AlignmentMatrixControl,
+    __experimentalRadio as Radio,
+    __experimentalRadioGroup as RadioGroup
+} from '@wordpress/components';
+import {
+    MediaUpload,
+    InspectorControls,
+    InnerBlocks,
+    useBlockProps,
+    __experimentalColorGradientControl as ColorGradientControl,
+    __experimentalGradientPicker as GradientPicker
+} from '@wordpress/block-editor';
 import classNames from 'classnames';
-import {editorThemeColors, getImage, focalPositionInPixel, getColorObject, ALLOWEDBLOCKS, removeArrayItems, SelectClipPath, MobileSwitch, MobileSwitchInner, SelectSectionShapes, getCssVariable} from "../utility";
+import {
+    editorThemeColors,
+    getImage,
+    focalPositionInPixel,
+    getColorObject,
+    ALLOWEDBLOCKS,
+    removeArrayItems,
+    SelectClipPath,
+    MobileSwitch,
+    MobileSwitchInner,
+    SelectSectionShapes,
+    getCssVariable
+} from "../utility";
 // import * as clipPaths from "../clip-paths"
-import {heroIcon} from "../icons";
+import {heroIcon} from "../custom-icons";
 import * as sectionShapes from "../section-shapes";
 import classnames from "classnames";
 
@@ -198,29 +228,29 @@ registerBlockType('custom/hero', {
                             onChange={(value) => setAttributes({isFullHeight: value})}
                         />
                         {!attributes.isFullHeight &&
-                            <>
-                                <hr/>
-                                <MobileSwitch headline={__('Height', 'sage')}>
-                                    <MobileSwitchInner type={'desktop'}>
-                                        <RangeControl
-                                            value={attributes.desktopHeight}
-                                            min={attributes.mobileHeight}
-                                            max={1000}
-                                            step={10}
-                                            onChange={(value) => setAttributes({desktopHeight: value})}
-                                        />
-                                    </MobileSwitchInner>
-                                    <MobileSwitchInner type={'mobile'}>
-                                        <RangeControl
-                                            value={attributes.mobileHeight}
-                                            min={200}
-                                            max={700}
-                                            step={10}
-                                            onChange={(value) => setAttributes({mobileHeight: value})}
-                                        />
-                                    </MobileSwitchInner>
-                                </MobileSwitch>
-                            </>
+                        <>
+                            <hr/>
+                            <MobileSwitch headline={__('Height', 'sage')}>
+                                <MobileSwitchInner type={'desktop'}>
+                                    <RangeControl
+                                        value={attributes.desktopHeight}
+                                        min={attributes.mobileHeight}
+                                        max={1000}
+                                        step={10}
+                                        onChange={(value) => setAttributes({desktopHeight: value})}
+                                    />
+                                </MobileSwitchInner>
+                                <MobileSwitchInner type={'mobile'}>
+                                    <RangeControl
+                                        value={attributes.mobileHeight}
+                                        min={200}
+                                        max={700}
+                                        step={10}
+                                        onChange={(value) => setAttributes({mobileHeight: value})}
+                                    />
+                                </MobileSwitchInner>
+                            </MobileSwitch>
+                        </>
                         }
                         <hr/>
                         <p>{__('Background Color', 'sage')}</p>
@@ -275,43 +305,43 @@ registerBlockType('custom/hero', {
                                 ]}
                             />
                             {attributes.overlayGradient.includes('radial-gradient') &&
-                                <>
-                                    <p>{__('Radial Overlay Position', 'sage')}</p>
-                                    <AlignmentMatrixControl
-                                        value={attributes.overlayGradientPosition}
-                                        onChange={(value) => setAttributes({overlayGradientPosition: value})}
-                                    />
-                                </>
+                            <>
+                                <p>{__('Radial Overlay Position', 'sage')}</p>
+                                <AlignmentMatrixControl
+                                    value={attributes.overlayGradientPosition}
+                                    onChange={(value) => setAttributes({overlayGradientPosition: value})}
+                                />
+                            </>
                             }
                         </>
                         }
                     </PanelBody>
                     {attributes.backgroundImage &&
-                        <PanelBody title={__('Background Image', 'sage')} initialOpen={false}>
-                            <div style={{height: '20px'}}/>
-                            <p>{__('Image Blur', 'sage')}</p>
-                            <RangeControl
-                                value={attributes.backgroundImageBlur}
-                                min={0}
-                                max={10}
-                                onChange={(value) => setAttributes({backgroundImageBlur: value})}
-                            />
-                            <hr/>
-                            <p>{__('Image Opacity', 'sage')}</p>
-                            <RangeControl
-                                value={attributes.backgroundImageOpacity}
-                                min={0}
-                                max={1}
-                                step={0.05}
-                                onChange={(value) => setAttributes({backgroundImageOpacity: value})}
-                            />
-                            <hr/>
-                            <p>{__('Background Image Alignment', 'sage')}</p>
-                            <AlignmentMatrixControl
-                                value={attributes.backgroundImageAlignment}
-                                onChange={(value) => setAttributes({backgroundImageAlignment: value})}
-                            />
-                        </PanelBody>
+                    <PanelBody title={__('Background Image', 'sage')} initialOpen={false}>
+                        <div style={{height: '20px'}}/>
+                        <p>{__('Image Blur', 'sage')}</p>
+                        <RangeControl
+                            value={attributes.backgroundImageBlur}
+                            min={0}
+                            max={10}
+                            onChange={(value) => setAttributes({backgroundImageBlur: value})}
+                        />
+                        <hr/>
+                        <p>{__('Image Opacity', 'sage')}</p>
+                        <RangeControl
+                            value={attributes.backgroundImageOpacity}
+                            min={0}
+                            max={1}
+                            step={0.05}
+                            onChange={(value) => setAttributes({backgroundImageOpacity: value})}
+                        />
+                        <hr/>
+                        <p>{__('Background Image Alignment', 'sage')}</p>
+                        <AlignmentMatrixControl
+                            value={attributes.backgroundImageAlignment}
+                            onChange={(value) => setAttributes({backgroundImageAlignment: value})}
+                        />
+                    </PanelBody>
                     }
                     <PanelBody title={__('Hero Shape', 'sage')}>
                         <div style={{height: '20px'}}/>
@@ -421,27 +451,27 @@ registerBlockType('custom/hero', {
                     >
 
                         {attributes.backgroundImage &&
-                            <img
-                                className={classNames('hero-block__image', attributes.backgroundImageBlur > 0 ? 'is-blurred' : '')}
-                                style={{
-                                    filter: `blur(${attributes.backgroundImageBlur}px)`,
-                                    objectPosition: `${attributes.backgroundImageAlignment}`,
-                                    opacity: attributes.backgroundImageOpacity,
-                                }}
-                                src={getImage(attributes.backgroundImage, 'x_large')}
-                                alt={getImage(attributes.backgroundImage, 'alt')}
-                                width={getImage(attributes.backgroundImage, 'width')}
-                                height={getImage(attributes.backgroundImage, 'height')}
-                            />
+                        <img
+                            className={classNames('hero-block__image', attributes.backgroundImageBlur > 0 ? 'is-blurred' : '')}
+                            style={{
+                                filter: `blur(${attributes.backgroundImageBlur}px)`,
+                                objectPosition: `${attributes.backgroundImageAlignment}`,
+                                opacity: attributes.backgroundImageOpacity,
+                            }}
+                            src={getImage(attributes.backgroundImage, 'x_large')}
+                            alt={getImage(attributes.backgroundImage, 'alt')}
+                            width={getImage(attributes.backgroundImage, 'width')}
+                            height={getImage(attributes.backgroundImage, 'height')}
+                        />
                         }
 
                         {attributes.hasOverlay &&
-                            <div className="hero-block__overlay"
-                                 style={{
-                                     // backgroundImage: getOverlayColor(attributes.heroBackgroundOverlayColor)
-                                     backgroundImage: adjustOverlayPosition(attributes.overlayGradient, attributes.overlayGradientPosition)
-                                 }}
-                            />
+                        <div className="hero-block__overlay"
+                             style={{
+                                 // backgroundImage: getOverlayColor(attributes.heroBackgroundOverlayColor)
+                                 backgroundImage: adjustOverlayPosition(attributes.overlayGradient, attributes.overlayGradientPosition)
+                             }}
+                        />
                         }
 
                         <div className="container hero-block__container">
@@ -450,7 +480,8 @@ registerBlockType('custom/hero', {
                                      transform: `translate(${focalPositionInPixel(attributes.textPosition.x)}, ${focalPositionInPixel(attributes.textPosition.y)})`,
                                  }}
                             >
-                                <InnerBlocks template={TEMPLATE} allowedBlocks={removeArrayItems(ALLOWEDBLOCKS, ['custom/hero'])}/>
+                                <InnerBlocks template={TEMPLATE}
+                                             allowedBlocks={removeArrayItems(ALLOWEDBLOCKS, ['custom/hero'])}/>
                             </div>
                         </div>
 
@@ -529,26 +560,26 @@ registerBlockType('custom/hero', {
             >
 
                 {attributes.backgroundImage &&
-                    <img className={classNames('hero-block__image', attributes.backgroundImageBlur > 0 ? 'is-blurred' : '')}
-                         style={{
-                             filter: `blur(${attributes.backgroundImageBlur}px)`,
-                             objectPosition: `${attributes.backgroundImageAlignment}`,
-                             opacity: attributes.backgroundImageOpacity,
-                         }}
-                         srcSet={`${getImage(attributes.backgroundImage, 'tiny')} 480w, ${getImage(attributes.backgroundImage, 'small')} 768w, ${getImage(attributes.backgroundImage, 'medium')} 1024w, ${getImage(attributes.backgroundImage, 'x_large')} 1360w`}
-                         sizes="100w"
-                         src={getImage(attributes.backgroundImage, 'medium')}
-                         alt={getImage(attributes.backgroundImage, 'alt')}
-                    />
+                <img className={classNames('hero-block__image', attributes.backgroundImageBlur > 0 ? 'is-blurred' : '')}
+                     style={{
+                         filter: `blur(${attributes.backgroundImageBlur}px)`,
+                         objectPosition: `${attributes.backgroundImageAlignment}`,
+                         opacity: attributes.backgroundImageOpacity,
+                     }}
+                     srcSet={`${getImage(attributes.backgroundImage, 'tiny')} 480w, ${getImage(attributes.backgroundImage, 'small')} 768w, ${getImage(attributes.backgroundImage, 'medium')} 1024w, ${getImage(attributes.backgroundImage, 'x_large')} 1360w`}
+                     sizes="100w"
+                     src={getImage(attributes.backgroundImage, 'medium')}
+                     alt={getImage(attributes.backgroundImage, 'alt')}
+                />
                 }
 
                 {attributes.hasOverlay &&
-                    <div className="hero-block__overlay"
-                         style={{
-                             // backgroundImage: getOverlayColor(attributes.heroBackgroundOverlayColor),
-                             backgroundImage: adjustOverlayPosition(attributes.overlayGradient, attributes.overlayGradientPosition)
-                         }}
-                    />
+                <div className="hero-block__overlay"
+                     style={{
+                         // backgroundImage: getOverlayColor(attributes.heroBackgroundOverlayColor),
+                         backgroundImage: adjustOverlayPosition(attributes.overlayGradient, attributes.overlayGradientPosition)
+                     }}
+                />
                 }
 
                 <div className="container hero-block__container">
