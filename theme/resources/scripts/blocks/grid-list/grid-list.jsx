@@ -23,12 +23,19 @@ import {
     useBlockProps,
     __experimentalUseInnerBlocksProps as useInnerBlocksProps
 } from '@wordpress/block-editor';
+// import {grid as gridListIcon} from '@wordpress/icons';
 
 /**
  * Internal dependencies
  */
-import {gridListIcon} from '../icons';
-import {editorThemeColors, updateInnerBlocks, isDefined, MobileSwitch, MobileSwitchInner} from "../utility";
+import {
+    editorThemeColors,
+    updateInnerBlocks,
+    isDefined,
+    MobileSwitch,
+    MobileSwitchInner
+} from "../utility";
+import {grid as gridListIcon} from '../custom-icons';
 
 const attributes = {
     clientId: {
@@ -100,13 +107,14 @@ registerBlockType('custom/grid-list', {
 
         const TEMPLATE = [
             ['custom/grid-list-inner', {}, [
-                ['core/paragraph', {placeholder: 'Lorem Ipsum...'}]
+                // ['core/paragraph', {placeholder: 'Lorem Ipsum...'}]
+                ['core/paragraph']
             ]],
             ['custom/grid-list-inner', {}, [
-                ['core/paragraph', {placeholder: 'Lorem Ipsum...'}]
+                ['core/paragraph']
             ]],
             ['custom/grid-list-inner', {}, [
-                ['core/paragraph', {placeholder: 'Lorem Ipsum...'}]
+                ['core/paragraph']
             ]],
         ];
 

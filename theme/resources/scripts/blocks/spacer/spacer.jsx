@@ -1,16 +1,36 @@
+/**
+ * External dependencies
+ */
+import classNames from 'classnames';
+
+/**
+ * Wordpress dependencies
+ */
 import {__} from '@wordpress/i18n';
 import {registerBlockType} from '@wordpress/blocks';
-import {Button, RangeControl, FocalPointPicker, SelectControl, ToolbarGroup, ToolbarDropdownMenu, ResizableBox, ToggleControl} from '@wordpress/components';
+import {
+    Button,
+    RangeControl,
+    FocalPointPicker,
+    SelectControl,
+    ToolbarGroup,
+    ToolbarDropdownMenu,
+    ResizableBox,
+    ToggleControl
+} from '@wordpress/components';
 import {MediaUpload, InspectorControls, BlockControls, useBlockProps} from '@wordpress/block-editor';
-import { useState, useEffect } from '@wordpress/element';
-import classNames from 'classnames';
+import {useState, useEffect} from '@wordpress/element';
+import {resizeCornerNE as spacerIcon} from '@wordpress/icons';
+
+/**
+ * Internal dependencies
+ */
 import {MobileSwitch, MobileSwitchInner} from '../utility';
-import {spacerIcon} from '../icons';
 
 registerBlockType('custom/spacer', {
     title: __('Spacer', 'sage'),
     icon: spacerIcon,
-    description: __('By default the mobile height of spacer block will be half the size of desktop', 'sage'),
+    description: __('Add white space between blocks and customize its height.', 'sage'),
     category: 'custom',
     attributes: {
         desktopHeight: {
@@ -22,7 +42,7 @@ registerBlockType('custom/spacer', {
             default: 25
         },
     },
-    edit: ({className, attributes, setAttributes}) => {
+    edit: ({attributes, setAttributes}) => {
 
         const [isResizing, setIsResizing] = useState(false);
         let minSpacerHeight = 20;
@@ -47,7 +67,7 @@ registerBlockType('custom/spacer', {
             <>
                 <InspectorControls>
                     <div className="inspector-controls-container">
-                        <hr/>
+                        <hr style={{marginTop: 0}}/>
                         <MobileSwitch headline={__('Height', 'sage')}>
                             <MobileSwitchInner type={'desktop'}>
                                 <RangeControl
@@ -98,28 +118,25 @@ registerBlockType('custom/spacer', {
                     }}
                     onResizeStart={handleOnResizeStart}
                     onResizeStop={handleOnResizeStop}
-                    __experimentalShowTooltip={ true }
-                    __experimentalTooltipProps={ {
+                    __experimentalShowTooltip={true}
+                    __experimentalTooltipProps={{
                         axis: 'y',
                         position: 'bottom',
                         isVisible: isResizing,
-                    } }
+                    }}
                 />
             </>
         );
     },
     save: ({attributes}) => {
-
-        const blockProps = useBlockProps.save();
-
         return (
             <>
-                <div className={classNames(blockProps.className, 'spacer-block')}
+                <div className={classNames('spacer-block')}
                      style={{
                          '--spacer-height-desktop': `${attributes.desktopHeight}px`,
                          '--spacer-height-mobile': `${attributes.mobileHeight}px`,
                          '--spacer-min-max-height': `${attributes.desktopHeight - attributes.mobileHeight}`,
-                    }}
+                     }}
                 />
             </>
         );

@@ -18,7 +18,6 @@
         width: 100%;
         display: flex;
         margin: 0;
-        //padding: var(--inner-vertical-padding, 0em) var(--inner-horizontal-padding, 0em);
         padding-right: var(--padding-x, 0em);
         padding-left: var(--padding-x, 0em);
         position: relative;
@@ -26,7 +25,7 @@
 
     &__wrapper {
         width: 100%;
-        min-height: 50px;
+        min-height: 20px;
     }
 
     .block-list-appender {

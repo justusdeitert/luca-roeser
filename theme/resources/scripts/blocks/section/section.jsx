@@ -56,7 +56,7 @@ const htmlElementMessages = {
  * Internal dependencies
  */
 import * as sectionShapes from '../section-shapes'
-import {sectionIcon} from '../icons';
+import {sectionIcon} from '../custom-icons';
 import classnames from 'classnames';
 import {
     editorThemeColors,

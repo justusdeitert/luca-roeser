@@ -1,9 +1,41 @@
+/**
+ * External dependencies
+ */
+import classnames from 'classnames';
+
+/**
+ * Wordpress dependencies
+ */
 import {__} from '@wordpress/i18n';
 import {registerBlockType, createBlock} from '@wordpress/blocks';
-import {SelectControl, RangeControl, ToggleControl, ToolbarGroup, ToolbarDropdownMenu, Button, PanelBody, __experimentalRadio as Radio, __experimentalRadioGroup as RadioGroup, __experimentalBoxControl as BoxControl, Dashicon, FocalPointPicker} from '@wordpress/components';
-import {InnerBlocks, InspectorControls, ColorPalette, BlockControls, useBlockProps, __experimentalUseInnerBlocksProps as useInnerBlocksProps, BlockVerticalAlignmentToolbar} from '@wordpress/block-editor';
-import classnames from 'classnames';
-import {sectionIcon} from '../icons';
+import {
+    SelectControl,
+    RangeControl,
+    ToggleControl,
+    ToolbarGroup,
+    ToolbarDropdownMenu,
+    Button,
+    PanelBody,
+    __experimentalRadio as Radio,
+    __experimentalRadioGroup as RadioGroup,
+    __experimentalBoxControl as BoxControl,
+    Dashicon,
+    FocalPointPicker
+} from '@wordpress/components';
+import {
+    InnerBlocks,
+    InspectorControls,
+    ColorPalette,
+    BlockControls,
+    useBlockProps,
+    __experimentalUseInnerBlocksProps as useInnerBlocksProps,
+    BlockVerticalAlignmentToolbar
+} from '@wordpress/block-editor';
+import {group as sectionIcon} from '@wordpress/icons';
+
+/**
+ * Internal dependencies
+ */
 import {
     editorThemeColors,
     getColorObject,
@@ -12,13 +44,10 @@ import {
     isDefined,
     focalPositionInPixel
 } from "../utility";
-// import classNames from "classnames";
-// import * as wrapperShapes from "../wrapper-shapes"
-// import {select, dispatch, useSelect} from "@wordpress/data";
 
-// For not firing update to often
-let onChangePositionTimeout = true;
-
+/**
+ * Block attributes
+ */
 const attributes = {
 
     /**
@@ -86,6 +115,12 @@ const attributes = {
     },
 };
 
+// For not firing update to often
+let onChangePositionTimeout = true;
+
+/**
+ * Register block
+ */
 registerBlockType('custom/wrapper', {
     apiVersion: 2,
     title: __('Wrapper', 'sage'),
@@ -156,8 +191,8 @@ registerBlockType('custom/wrapper', {
 
         const innerBlocksProps = useInnerBlocksProps(blockProps, {
             allowedBlocks: removeArrayItems(ALLOWEDBLOCKS, ['custom/section']),
-            templateLock: false,
-            renderAppender: InnerBlocks.DefaultBlockAppender
+            // templateLock: false,
+            // renderAppender: InnerBlocks.DefaultBlockAppender
         });
 
         const onChangeWrapperPosition = (value) => {
@@ -205,8 +240,12 @@ registerBlockType('custom/wrapper', {
                         <BlockVerticalAlignmentToolbar
                             value={attributes.verticalAlign}
                             onChange={(value) => {
-                                if (value === 'top') {value = 'start';}
-                                if (value === 'bottom') {value = 'end';}
+                                if (value === 'top') {
+                                    value = 'start';
+                                }
+                                if (value === 'bottom') {
+                                    value = 'end';
+                                }
                                 setAttributes({verticalAlign: value});
                             }}
                         />
@@ -265,7 +304,7 @@ registerBlockType('custom/wrapper', {
                             resetFallbackValue={false}
                         />
                         <hr/>
-                        <div style={{display:'flex'}}>
+                        <div style={{display: 'flex'}}>
                             <p>{__('Horizontal padding', 'sage')}</p>
                             <Dashicon icon="image-flip-horizontal" style={{marginLeft: 'auto'}}/>
                         </div>
@@ -281,7 +320,7 @@ registerBlockType('custom/wrapper', {
                             resetFallbackValue={false}
                         />
                         <hr/>
-                        <div style={{display:'flex'}}>
+                        <div style={{display: 'flex'}}>
                             <p>{__('Vertical padding', 'sage')}</p>
                             <Dashicon icon="image-flip-vertical" style={{marginLeft: 'auto'}}/>
                         </div>

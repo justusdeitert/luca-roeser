@@ -1,6 +1,10 @@
 .slider-block {
     position: relative;
 
+    .swiper-container {
+        padding-bottom: 1px;
+    }
+
     &__inner {
         position: relative;
     }
@@ -24,6 +28,7 @@
         @extend .col-padding;
         height: auto;
         display: flex;
+        min-height: 20px;
     }
 
     &__slide-inner {

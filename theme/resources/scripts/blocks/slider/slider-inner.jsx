@@ -9,7 +9,7 @@ import {
     parentAttributes,
     removeArrayItems,
 } from '../utility';
-import {accordionInnerIcon} from '../icons';
+import {accordionInnerIcon} from '../custom-icons';
 
 const attributes = {
     clientId: {

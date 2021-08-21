@@ -1,9 +1,38 @@
+/**
+ * External dependencies
+ */
+import classNames from 'classnames';
+
+/**
+ * WordPress dependencies
+ */
 import {__} from '@wordpress/i18n';
 import {registerBlockType} from '@wordpress/blocks';
-import {SelectControl, ToolbarGroup, ToolbarDropdownMenu, ToolbarButton, Popover, Dropdown, __experimentalRadio as Radio, __experimentalRadioGroup as RadioGroup, RangeControl} from '@wordpress/components';
-import {BlockControls, InspectorControls, RichText, __experimentalLinkControl as LinkControl, useBlockProps, ColorPalette} from '@wordpress/block-editor';
-import classNames from 'classnames';
-import {buttonIcon} from '../icons';
+import {
+    SelectControl,
+    ToolbarGroup,
+    ToolbarDropdownMenu,
+    ToolbarButton,
+    Popover,
+    Dropdown,
+    __experimentalRadio as Radio,
+    __experimentalRadioGroup as RadioGroup,
+    RangeControl
+} from '@wordpress/components';
+import {
+    BlockControls,
+    InspectorControls,
+    RichText,
+    __experimentalLinkControl as LinkControl,
+    useBlockProps,
+    ColorPalette
+} from '@wordpress/block-editor';
+import {button as buttonIcon} from '@wordpress/icons';
+
+/**
+ * Internal dependencies
+ */
+// import {buttonIcon} from '../custom-icons';
 import {editorStandardColors, getColorObjectFromSlug, getColorObject, removeBlock} from "../utility";
 
 const attributes = {
@@ -64,8 +93,8 @@ registerBlockType('custom/button', {
         });
 
         let iconClass = (icon) => {
-            if(icon === 'start') return 'left';
-            if(icon === 'end') return 'right';
+            if (icon === 'start') return 'left';
+            if (icon === 'end') return 'right';
             return icon;
         }
 

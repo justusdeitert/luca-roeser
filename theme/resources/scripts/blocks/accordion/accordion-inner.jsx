@@ -3,7 +3,7 @@ import {registerBlockType} from '@wordpress/blocks';
 import {InnerBlocks, RichText, InspectorControls, ColorPalette, useBlockProps, __experimentalUseInnerBlocksProps as useInnerBlocksProps} from '@wordpress/block-editor';
 import classNames from 'classnames';
 import {ALLOWEDBLOCKS, editorThemeColors, getColorObject, parentAttributes, SelectClipPath, removeArrayItems, getBlockIndex} from '../utility';
-import {accordionInnerIcon} from '../icons';
+import {accordionInnerIcon} from '../custom-icons';
 
 const attributes = {
     clientId: {
@@ -16,7 +16,7 @@ const attributes = {
     },
     headerText: {
         type: 'string',
-        default: 'Lorem Ipsum',
+        // default: '',
     },
     headerTextSize: {
         type: 'string',
@@ -65,6 +65,7 @@ registerBlockType('custom/accordion-inner', {
                         <div className="accordion-block__item-header-inner">
                             <RichText
                                 tagName="p"
+                                placeholder={'Lorem Ipsum ...'}
                                 className={`has-font-size-${attributes.headerTextSize}`}
                                 value={attributes.headerText}
                                 allowedFormats={['core/bold', 'core/italic']}

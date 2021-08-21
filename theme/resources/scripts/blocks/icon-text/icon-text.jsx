@@ -3,7 +3,7 @@ import {registerBlockType   } from '@wordpress/blocks';
 import {InspectorControls, RichText, BlockControls, MediaUpload, BlockVerticalAlignmentToolbar, InnerBlocks} from '@wordpress/block-editor';
 import {SelectControl, ToolbarGroup, RangeControl, Button, ToolbarDropdownMenu, ToggleControl, __experimentalRadio as Radio, __experimentalRadioGroup as RadioGroup} from '@wordpress/components';
 import classNames from 'classnames';
-import {iconTextIcon} from '../icons';
+import {iconTextIcon} from '../custom-icons';
 import {getImage, MobileSwitch, MobileSwitchInner} from "../utility";
 
 const attributes = {

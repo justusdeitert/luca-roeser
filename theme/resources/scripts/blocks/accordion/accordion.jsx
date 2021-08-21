@@ -4,7 +4,7 @@ import {RangeControl, ToggleControl, ColorPalette, SelectControl} from '@wordpre
 import {InnerBlocks, InspectorControls, useBlockProps, __experimentalUseInnerBlocksProps as useInnerBlocksProps} from '@wordpress/block-editor';
 import classNames from 'classnames';
 import {editorThemeColors, getColorObject, updateInnerBlocks, loremIpsum, parentAttributes} from "../utility";
-import {accordionIcon} from "../icons";
+import {accordionIcon} from "../custom-icons";
 
 const attributes = {
     clientId: {
@@ -46,13 +46,14 @@ registerBlockType('custom/accordion', {
 
         const TEMPLATE = [
             ['custom/accordion-inner', {}, [
-                ['core/paragraph', {placeholder: loremIpsum, content: loremIpsum}]
+                // ['core/paragraph', {placeholder: loremIpsum, content: loremIpsum}]
+                ['core/paragraph']
             ]],
             ['custom/accordion-inner', {}, [
-                ['core/paragraph', {placeholder: loremIpsum, content: loremIpsum}]
+                ['core/paragraph']
             ]],
             ['custom/accordion-inner', {}, [
-                ['core/paragraph', {placeholder: loremIpsum, content: loremIpsum}],
+                ['core/paragraph'],
             ]],
         ];
 

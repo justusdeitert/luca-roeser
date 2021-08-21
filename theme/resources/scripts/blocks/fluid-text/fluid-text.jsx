@@ -16,11 +16,12 @@ import {
     __experimentalRadio as Radio,
     __experimentalRadioGroup as RadioGroup
 } from '@wordpress/components';
+import {select, dispatch} from '@wordpress/data';
 
 /**
  * Internal dependencies
  */
-import {fluidTextIcon} from '../icons';
+import {fluidTextIcon} from '../custom-icons';
 import {
     removeBlock,
     MobileSwitch,
@@ -31,6 +32,9 @@ import {
     parentAttributes
 } from "../utility";
 
+/**
+ * Block attributes
+ */
 const attributes = {
     clientId: {
         type: 'string',
@@ -265,27 +269,35 @@ registerBlockType('custom/fluid-text', {
                         '--fluid-text-desktop-mobile': `${attributes.fontSizeDesktop - attributes.fontSizeMobile}`,
                         ...additionalStyles
                     }}
-                    placeholder={'Lorem Ipsum'}
+                    placeholder={'Lorem Ipsum ...'}
                     onRemove={() => removeBlock(clientId)}
                     value={attributes.fluidText}
                     // allowedFormats={['core/bold', 'core/italic']}
                     onChange={(value) => setAttributes({fluidText: value})}
                     onReplace={() => {
                         let insertedBlock = createBlock('core/paragraph');
-                        const parentClientIds = wp.data.select('core/block-editor').getBlockParents(clientId, true);
-                        const block  = wp.data.select('core/block-editor').getBlock(parentClientIds[0])
-                        let blockPosition = block.innerBlocks.length;
+                        const parentClientIds = select('core/block-editor').getBlockParents(clientId, true);
+                        const block  = select('core/block-editor').getBlock(parentClientIds[0])
 
-                        block.innerBlocks.forEach((block, index) => {
-                            if (block.clientId === clientId) {
-                                blockPosition = index + 1;
-                            }
-                        });
+                        if (block) {
+                            let blockPosition = block.innerBlocks.length;
 
-                        wp.data.dispatch('core/editor').insertBlock(insertedBlock, blockPosition, parentClientIds[0]);
+                            block.innerBlocks.forEach((block, index) => {
+                                if (block.clientId === clientId) {
+                                    blockPosition = index + 1;
+                                }
+                            });
+
+                            dispatch('core/editor').insertBlock(insertedBlock, blockPosition, parentClientIds[0]);
+                        } else {
+                            // If has no parent container..
+                            dispatch('core/block-editor').insertAfterBlock(clientId);
+                        }
+
                     }}
                     onSplit={() => {
                         // empty ->
+                        // needs to be included or onReplace function will not fire
                     }}
                 />
             </>

@@ -22,12 +22,12 @@ import {
     __experimentalAlignmentMatrixControl as AlignmentMatrixControl,
 } from '@wordpress/components';
 import {MediaUpload, InspectorControls, BlockControls, useBlockProps} from '@wordpress/block-editor';
+import {image as imageIcon} from '@wordpress/icons';
 
 /**
  * Internal dependencies
  */
 import {getImage, focalPositionInPixel, MobileSwitch, MobileSwitchInner} from '../utility';
-import {imageIcon} from '../icons';
 
 // For not firing update to often
 let onChangeImagePositionTimeout = true;

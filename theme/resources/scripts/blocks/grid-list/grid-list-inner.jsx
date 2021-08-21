@@ -24,26 +24,27 @@ import {
     __experimentalRadio as Radio,
     __experimentalRadioGroup as RadioGroup
 } from '@wordpress/components';
+// import {column as gridListInnerIcon} from '@wordpress/icons';
 
 /**
  * Internal dependencies
  */
-import {gridListInnerIcon} from '../icons';
 import {
     ALLOWEDBLOCKS,
     editorThemeColors,
-    getColorObject, isDefined, MobileSwitch, MobileSwitchInner,
+    getColorObject,
+    isDefined,
+    MobileSwitch,
+    MobileSwitchInner,
     parentAttributes,
     removeArrayItems,
     SelectClipPath
 } from '../utility';
 import * as clipPaths from "../clip-paths";
+import {gridColumn as gridListInnerIcon} from '../custom-icons';
 
 /**
  * Return col class for bootstrap 5
- * @param columns
- * @param size
- * @returns {string}
  */
 const returnColClass = (columns, size = false) => {
     if (!size) {

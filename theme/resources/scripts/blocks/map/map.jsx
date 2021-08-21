@@ -1,3 +1,11 @@
+/**
+ * External dependencies
+ */
+import classNames from "classnames";
+
+/**
+ * Wordpress dependencies
+ */
 import {__} from '@wordpress/i18n';
 import {registerBlockType,} from '@wordpress/blocks';
 import {Button} from '@wordpress/components';
@@ -5,10 +13,20 @@ import {createElement, Component} from '@wordpress/element';
 import {TextControl, RangeControl, ColorPalette} from '@wordpress/components';
 import {Icon, Tooltip} from '@wordpress/components';
 import {MediaUpload, InspectorControls} from '@wordpress/block-editor';
-import classNames from "classnames";
-import {editorThemeColors, getColorObject, getImage} from '../utility';
-import {mapIcon} from '../icons';
+import {mapMarker as mapIcon} from '@wordpress/icons';
 
+/**
+ * Internal dependencies
+ */
+import {
+    editorThemeColors,
+    getColorObject,
+    getImage
+} from '../utility';
+
+/**
+ * Block attributes
+ */
 const attributes = {
     markerImageURL: {
         type: 'string',
@@ -163,15 +181,15 @@ registerBlockType('custom/map', {
                             />
                         </div>
                     </InspectorControls>
-                    <div className={classNames(className, 'map-block', 'custom-border custom-border-radius custom-shadow custom-spacing', getColorObject(attributes.backgroundColor) && `has-${getColorObject(attributes.backgroundColor).slug}-background-color`)}>
+                    <div
+                        className={classNames(className, 'map-block', 'custom-border custom-border-radius custom-shadow custom-spacing', getColorObject(attributes.backgroundColor) && `has-${getColorObject(attributes.backgroundColor).slug}-background-color`)}>
                         <div className="map-block__wrapper">
                             <div className="map-block__map"
                                  data-marker-url={attributes.markerImage ? getImage(attributes.markerImage, 'original') : ''}
                                  data-marker-address={attributes.address}
                                  data-zoom-level={attributes.zoom}
                             />
-                            {attributes.googleMapsLink &&
-                            <>
+                            {attributes.googleMapsLink && <>
                                 <a
                                     href={attributes.googleMapsLink}
                                     className={classNames("map-block__route-link")}
@@ -182,8 +200,7 @@ registerBlockType('custom/map', {
                                     <span>Zu Google Maps</span>
                                     <i className={'icon-arrow-right-circle'}></i>
                                 </a>
-                            </>
-                            }
+                            </>}
                         </div>
                     </div>
                 </div>
@@ -199,8 +216,7 @@ registerBlockType('custom/map', {
                          data-marker-address={attributes.address}
                          data-zoom-level={attributes.zoom}
                     />
-                    {attributes.googleMapsLink &&
-                    <>
+                    {attributes.googleMapsLink && <>
                         <a
                             href={attributes.googleMapsLink}
                             className={classNames("map-block__route-link")}
@@ -211,8 +227,7 @@ registerBlockType('custom/map', {
                             <span>Zu Google Maps</span>
                             <i className={'icon-arrow-right-circle'}></i>
                         </a>
-                    </>
-                    }
+                    </>}
                 </div>
             </div>
         );

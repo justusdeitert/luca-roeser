@@ -1,7 +1,7 @@
 import './divider';
 import './accordion';
 import './map';
-import './hero';
+// import './hero';
 // import './text-image';
 import './slider';
 import './image';
