@@ -116,6 +116,7 @@ registerBlockType('custom/grid-column', {
     title: __('Grid Column', 'sage'),
     category: 'custom',
     icon: gridListInnerIcon,
+    description: __('A single column within a columns block.', 'sage'),
     attributes,
     parent: ['custom/grid'],
     // supports: {

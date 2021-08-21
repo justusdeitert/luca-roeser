@@ -1,9 +1,35 @@
+/**
+ * External dependencies
+ */
+import classNames from 'classnames';
+
+/**
+ * Wordpress dependencies
+ */
 import {__} from '@wordpress/i18n';
 import {registerBlockType} from '@wordpress/blocks';
-import {InnerBlocks, RichText, InspectorControls, ColorPalette, useBlockProps, __experimentalUseInnerBlocksProps as useInnerBlocksProps} from '@wordpress/block-editor';
-import classNames from 'classnames';
-import {ALLOWED_BLOCKS, editorThemeColors, getColorObject, parentAttributes, SelectClipPath, removeArrayItems, getBlockIndex} from '../utility';
-import {accordionInnerIcon} from '../custom-icons';
+import {
+    InnerBlocks,
+    RichText,
+    InspectorControls,
+    ColorPalette,
+    useBlockProps,
+    __experimentalUseInnerBlocksProps as useInnerBlocksProps
+} from '@wordpress/block-editor';
+
+/**
+ * Internal dependencies
+ */
+import {
+    ALLOWED_BLOCKS,
+    editorThemeColors,
+    getColorObject,
+    parentAttributes,
+    SelectClipPath,
+    removeArrayItems,
+    getBlockIndex
+} from '../utility';
+import {accordionItem as accordionInnerIcon} from '../custom-icons';
 
 const attributes = {
     clientId: {
@@ -54,13 +80,14 @@ registerBlockType('custom/accordion-inner', {
 
         return (
             <>
-                <div { ...blockProps }>
-                    <div className={classNames("accordion-block__item-header custom-border", !attributes.isOpen && 'collapsed')}
-                         id={`heading-${attributes.clientId}`}
-                         aria-expanded="false"
-                         data-bs-toggle="collapse"
-                         aria-controls={`collapse-${attributes.clientId}`}
-                         data-bs-target={`#collapse-${attributes.clientId}`}
+                <div {...blockProps}>
+                    <div
+                        className={classNames("accordion-block__item-header custom-border", !attributes.isOpen && 'collapsed')}
+                        id={`heading-${attributes.clientId}`}
+                        aria-expanded="false"
+                        data-bs-toggle="collapse"
+                        aria-controls={`collapse-${attributes.clientId}`}
+                        data-bs-target={`#collapse-${attributes.clientId}`}
                     >
                         <div className="accordion-block__item-header-inner">
                             <RichText
@@ -79,7 +106,9 @@ registerBlockType('custom/accordion-inner', {
                          data-bs-parent={`#block-${attributes.parentId}`}
                     >
                         <div className="accordion-block__item-body custom-border">
-                            <InnerBlocks templateLock={false} allowedBlocks={removeArrayItems(ALLOWED_BLOCKS, ['custom/accordion'])} renderAppender={InnerBlocks.DefaultBlockAppender} />
+                            <InnerBlocks templateLock={false}
+                                         allowedBlocks={removeArrayItems(ALLOWED_BLOCKS, ['custom/accordion'])}
+                                         renderAppender={InnerBlocks.DefaultBlockAppender}/>
                         </div>
                     </div>
                 </div>
@@ -95,12 +124,13 @@ registerBlockType('custom/accordion-inner', {
 
         return (
             <div {...blockProps}>
-                <div className={classNames("accordion-block__item-header custom-border", !attributes.isOpen && 'collapsed')}
-                     id={`heading-${attributes.clientId}`}
-                     aria-expanded="false"
-                     data-bs-toggle="collapse"
-                     aria-controls={`collapse-${attributes.clientId}`}
-                     data-bs-target={`#collapse-${attributes.clientId}`}
+                <div
+                    className={classNames("accordion-block__item-header custom-border", !attributes.isOpen && 'collapsed')}
+                    id={`heading-${attributes.clientId}`}
+                    aria-expanded="false"
+                    data-bs-toggle="collapse"
+                    aria-controls={`collapse-${attributes.clientId}`}
+                    data-bs-target={`#collapse-${attributes.clientId}`}
                 >
                     <div className="accordion-block__item-header-inner">
                         <RichText.Content

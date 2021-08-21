@@ -1,11 +1,30 @@
+/**
+ * External dependencies
+ */
+import classNames from 'classnames';
+
+/**
+ * Wordpress dependencies
+ */
 import {__} from '@wordpress/i18n';
 import {registerBlockType} from '@wordpress/blocks';
 import {RangeControl, ToggleControl, ColorPalette, SelectControl} from '@wordpress/components';
-import {InnerBlocks, InspectorControls, useBlockProps, __experimentalUseInnerBlocksProps as useInnerBlocksProps} from '@wordpress/block-editor';
-import classNames from 'classnames';
-import {editorThemeColors, getColorObject, updateInnerBlocks, loremIpsum, parentAttributes} from "../utility";
-import {accordionIcon} from "../custom-icons";
+import {
+    InnerBlocks,
+    InspectorControls,
+    useBlockProps,
+    __experimentalUseInnerBlocksProps as useInnerBlocksProps
+} from '@wordpress/block-editor';
 
+/**
+ * Internal dependencies
+ */
+import {editorThemeColors, getColorObject, updateInnerBlocks, loremIpsum, parentAttributes} from "../utility";
+import {accordion as accordionIcon} from "../custom-icons";
+
+/**
+ * Block attributes
+ */
 const attributes = {
     clientId: {
         type: 'string',
@@ -161,7 +180,7 @@ registerBlockType('custom/accordion', {
         return (
             <>
                 <div {...blockProps}>
-                    <InnerBlocks.Content />
+                    <InnerBlocks.Content/>
                 </div>
             </>
         );
