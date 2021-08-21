@@ -2,8 +2,17 @@ import {__} from '@wordpress/i18n';
 import {getColorObjectByColorValue} from '@wordpress/block-editor';
 import {select, dispatch, useSelect} from "@wordpress/data";
 import {useState, cloneElement} from "@wordpress/element";
-import {Button, Dashicon} from '@wordpress/components';
+import {Button, Dashicon, Icon} from '@wordpress/components';
 import classnames from 'classnames';
+import {
+    // resizeCornerNE as sizeIcon,
+    mobile as mobileIcon,
+    tablet as tabletIcon,
+    desktop as desktopIcon,
+} from "@wordpress/icons";
+import {
+    undo as undoIcon
+} from "./custom-icons";
 
 /**
  * @param array
@@ -341,6 +350,15 @@ export const removeBlock = (clientId) => {
     dispatch('core/block-editor').removeBlock(clientId);
 }
 
+export const SettingsHeading = ({headline, icon}) => {
+    return (
+        <div style={{display: 'flex', marginBottom: '10px', alignItems: 'center'}}>
+            <Icon icon={icon} size={24} style={{marginRight: '5px'}}/>
+            <p style={{margin: 0}}>{__(headline, 'sage')}</p>
+        </div>
+    )
+}
+
 /**
  * Local storage for mobile switch
  */
@@ -407,11 +425,11 @@ export const MobileSwitch = (props) => {
 
         switch (element.props.type) {
             case 'desktop':
-                return <Button {...buttonProps} className={'mobile-switch__button'} icon={'laptop'} />
+                return <Button {...buttonProps} className={'mobile-switch__button'} icon={desktopIcon} />
             case 'tablet':
-                return <Button {...buttonProps} className={'mobile-switch__button'} icon={'tablet'} />
+                return <Button {...buttonProps} className={'mobile-switch__button'} icon={tabletIcon} />
             case 'mobile':
-                return <Button {...buttonProps} className={'mobile-switch__button'} icon={'smartphone'} />
+                return <Button {...buttonProps} className={'mobile-switch__button'} icon={mobileIcon} />
             default:
                 return false
         }
@@ -431,16 +449,14 @@ export const MobileSwitch = (props) => {
         }
     });
 
-
-
     return (
         <div className={'mobile-switch'}>
-            <div className="mobile-switch__headline-wrapper" style={{display: 'flex', marginBottom: '5px'}}>
+            <div className="mobile-switch__headline-wrapper" style={{display: 'flex', alignItems: 'center', marginBottom: '10px'}}>
                 {props.icon && <>
-                    <Dashicon icon={props.icon} style={{marginRight: '5px'}}/>
+                    <Icon icon={props.icon} size={24} style={{marginRight: '5px'}}/>
                 </>}
                 {props.headline && <>
-                    <p style={{marginTop: '1px'}} className={'mobile-switch__headline'}>{props.headline}</p>
+                    <p style={{margin: 0}} className={'mobile-switch__headline'}>{props.headline}</p>
                 </>}
                 <div className="mobile-switch__buttons-wrapper" style={{marginLeft: 'auto', display: 'flex'}}>
                     {Buttons}

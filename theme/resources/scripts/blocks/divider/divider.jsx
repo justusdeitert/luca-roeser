@@ -10,18 +10,33 @@ import {__} from '@wordpress/i18n';
 import {registerBlockType} from '@wordpress/blocks';
 import {ToggleControl} from '@wordpress/components';
 import {Component} from '@wordpress/element';
-import {RangeControl, ColorPalette, Dashicon} from '@wordpress/components';
+import {RangeControl, ColorPalette, Dashicon, Icon} from '@wordpress/components';
 import {
     InspectorControls,
     useBlockProps,
     __experimentalUseInnerBlocksProps as useInnerBlocksProps
 } from '@wordpress/block-editor';
-import {separator as dividerIcon} from '@wordpress/icons';
+import {
+    aspectRatio as aspectRatioIcon,
+    separator as dividerIcon,
+    color as colorIcon,
+    resizeCornerNE as resizeIcon
+} from '@wordpress/icons';
 
 /**
  * Internal dependencies
  */
-import {editorThemeColors, getColorObject, MobileSwitch, MobileSwitchInner} from "../utility";
+import {
+    editorThemeColors,
+    getColorObject,
+    MobileSwitch,
+    MobileSwitchInner,
+    SettingsHeading
+} from "../utility";
+import {
+    height as heightIcon,
+    width as widthicon
+} from '../custom-icons'
 
 /**
  * Block attributes
@@ -87,7 +102,8 @@ registerBlockType('custom/divider', {
                 <InspectorControls>
                     <div className="inspector-controls-container">
                         <hr style={{marginTop: 0}}/>
-                        <p>{__('Opacity', 'sage')}</p>
+                        {/*<p>{__('Opacity', 'sage')}</p>*/}
+                        <SettingsHeading headline={'Opacity'} icon={'visibility'}/>
                         <RangeControl
                             value={attributes.opacity}
                             min={0}
@@ -98,7 +114,7 @@ registerBlockType('custom/divider', {
                             // resetFallbackValue={1}
                         />
                         <hr/>
-                        <MobileSwitch headline={__('Spacing', 'sage')}>
+                        <MobileSwitch headline={__('Spacing', 'sage')} icon={heightIcon}>
                             <MobileSwitchInner type={'desktop'}>
                                 <RangeControl
                                     value={attributes.spacingDesktop}
@@ -127,7 +143,8 @@ registerBlockType('custom/divider', {
                             </MobileSwitchInner>
                         </MobileSwitch>
                         <hr/>
-                        <p>{__('Change Thickness', 'sage')}</p>
+                        {/*<p>{__('Change Thickness', 'sage')}</p>*/}
+                        <SettingsHeading headline={'Thickness'} icon={resizeIcon}/>
                         <RangeControl
                             value={attributes.thickness}
                             min={1}
@@ -138,7 +155,8 @@ registerBlockType('custom/divider', {
                             resetFallbackValue={1}
                         />
                         <hr/>
-                        <p>{__('Change Width in %', 'sage')}</p>
+                        {/*<p>{__('Change Width in %', 'sage')}</p>*/}
+                        <SettingsHeading headline={'Width'} icon={widthicon}/>
                         <RangeControl
                             value={attributes.width}
                             min={10}
@@ -149,7 +167,8 @@ registerBlockType('custom/divider', {
                             resetFallbackValue={100}
                         />
                         <hr/>
-                        <p>{__('Change Color', 'sage')}</p>
+                        {/*<p>{__('Color', 'sage')}</p>*/}
+                        <SettingsHeading headline={'Color'} icon={colorIcon}/>
                         <ColorPalette
                             colors={editorThemeColors}
                             value={attributes.color}

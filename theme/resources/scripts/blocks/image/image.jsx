@@ -20,14 +20,21 @@ import {
     __experimentalRadio as Radio,
     __experimentalRadioGroup as RadioGroup,
     __experimentalAlignmentMatrixControl as AlignmentMatrixControl,
+    Icon
 } from '@wordpress/components';
 import {MediaUpload, InspectorControls, BlockControls, useBlockProps} from '@wordpress/block-editor';
-import {image as imageIcon} from '@wordpress/icons';
+import {
+    image as imageIcon,
+    aspectRatio as aspectRatioIcon,
+    resizeCornerNE as sizeIcon,
+    moveTo as moveIcon,
+    styles as positionIcon,
+} from '@wordpress/icons';
 
 /**
  * Internal dependencies
  */
-import {getImage, focalPositionInPixel, MobileSwitch, MobileSwitchInner} from '../utility';
+import {getImage, focalPositionInPixel, MobileSwitch, MobileSwitchInner, SettingsHeading} from '../utility';
 
 // For not firing update to often
 let onChangeImagePositionTimeout = true;
@@ -255,13 +262,13 @@ registerBlockType('custom/image', {
                                 <Button
                                     className={'button'}
                                     onClick={open}
-                                    icon={'format-image'}
+                                    icon={imageIcon}
                                     text={attributes.imageObject ? __('Change Image', 'sage') : __('Upload Image', 'sage')}
                                 />
                             )}
                         />
                         <hr/>
-                        <p>{__('Ratio', 'sage')}</p>
+                        <SettingsHeading headline={'Ratio'} icon={aspectRatioIcon}/>
                         <RadioGroup {...{
                             onChange: (value) => setAttributes({imageRatio: value}),
                             checked: attributes.imageRatio,
@@ -276,7 +283,7 @@ registerBlockType('custom/image', {
                         </RadioGroup>
                         <hr/>
                         {attributes.imageSizeUnit === 'px' ? <>
-                            <MobileSwitch headline={__('Size', 'sage')}>
+                            <MobileSwitch headline={__('Size', 'sage')} icon={sizeIcon}>
                                 <MobileSwitchInner type={'desktop'}>
                                     <RangeControl
                                         value={attributes.imageSizePixelDesktop}
@@ -309,7 +316,7 @@ registerBlockType('custom/image', {
                                 </MobileSwitchInner>
                             </MobileSwitch>
                         </> : <>
-                            <p>{__('Size', 'sage')}</p>
+                            <SettingsHeading headline={'Size'} icon={sizeIcon}/>
                             <RangeControl
                                 value={attributes.imageSizePercent}
                                 min={5}
@@ -330,7 +337,7 @@ registerBlockType('custom/image', {
                         </RadioGroup>
                     </div>
                     <PanelBody title={__('Positioning', 'sage')} initialOpen={false}>
-                        <p>{__('Move', 'sage')}</p>
+                        <SettingsHeading headline={'Move'} icon={moveIcon}/>
                         <div style={{display: 'flex', marginBottom: '20px'}}>
                             <RadioGroup
                                 onChange={(value) => setAttributes({imagePositionUnit: value})}
@@ -353,7 +360,11 @@ registerBlockType('custom/image', {
                             onDrag={onChangeImagePosition}
                         />
                         <hr/>
-                        <p>{__('Position', 'sage')}</p>
+                        {/*<p>{__('Position', 'sage')}</p>*/}
+                        <div style={{display: 'flex', alignItems: 'center', marginBottom: '10px'}}>
+                            <Icon icon={positionIcon} style={{marginRight: '5px'}}/>
+                            <p style={{margin: 0}}>{__('Position', 'sage')}</p>
+                        </div>
                         <RadioGroup {...{
                             onChange: (value) => setAttributes({imagePositioning: value}),
                             checked: attributes.imagePositioning,
@@ -384,8 +395,8 @@ registerBlockType('custom/image', {
                                     <Button
                                         className={'button'}
                                         onClick={open}
-                                        icon={'format-image'}
-                                        isSmall={true}
+                                        icon={imageIcon}
+                                        // isSmall={true}
                                         style={{
                                             position: 'absolute',
                                             right: '10px',

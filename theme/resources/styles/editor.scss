@@ -49,10 +49,19 @@ html {
     }
 }
 
-// edit-sidebar controls wrapper
-.inspector-controls-container {
-    padding: 0 16px 16px 16px;
+/**
+ * Editor sidebar
+ */
+.components-panel {
+    hr {
+        border-color: #e0e0e0;
+    }
+
+    .inspector-controls-container {
+        padding: 0 16px 16px 16px;
+    }
 }
+
 
 .wp-block {
     margin-top: 10px;
@@ -265,7 +274,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /**
- * Mobile switch styles
+ * Mobile switch is a custom component for the mobile representation of blocks
  */
 .mobile-switch {
     &__inner {

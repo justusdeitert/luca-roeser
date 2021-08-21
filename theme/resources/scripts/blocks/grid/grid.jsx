@@ -14,7 +14,8 @@ import {
     Dashicon,
     __experimentalRadio as Radio,
     __experimentalRadioGroup as RadioGroup,
-    __experimentalUnitControl as UnitControl
+    __experimentalUnitControl as UnitControl,
+    // ColorPicker
 } from '@wordpress/components';
 import {
     InnerBlocks,
@@ -23,7 +24,11 @@ import {
     useBlockProps,
     __experimentalUseInnerBlocksProps as useInnerBlocksProps
 } from '@wordpress/block-editor';
-// import {grid as gridListIcon} from '@wordpress/icons';
+import {
+    grid as gridIcon,
+    columns as columnsIcon,
+    color as colorIcon,
+} from '@wordpress/icons';
 
 /**
  * Internal dependencies
@@ -33,9 +38,13 @@ import {
     updateInnerBlocks,
     isDefined,
     MobileSwitch,
-    MobileSwitchInner
+    MobileSwitchInner, SettingsHeading
 } from "../utility";
-import {grid as gridListIcon} from '../custom-icons';
+import {
+    horizontalPadding as horizontalPaddingIcon,
+    verticalPadding as verticalPaddingIcon,
+    undo as undoIcon
+} from '../custom-icons';
 
 const attributes = {
     clientId: {
@@ -88,7 +97,7 @@ registerBlockType('custom/grid', {
     apiVersion: 2,
     title: __('Grid', 'sage'),
     category: 'custom',
-    icon: gridListIcon,
+    icon: gridIcon,
     description: __('Add a block that displays content in multiple columns, then add whatever content blocks you’d like.', 'sage'),
     attributes,
     supports: {
@@ -147,7 +156,7 @@ registerBlockType('custom/grid', {
                 <InspectorControls>
                     <div className="inspector-controls-container">
                         <hr style={{marginTop: 0}}/>
-                        <MobileSwitch headline={__('Columns', 'sage')} icon={'columns'}>
+                        <MobileSwitch headline={__('Columns', 'sage')} icon={columnsIcon}>
                             <MobileSwitchInner type={'desktop'}>
                                 { /*Trying to new way of passing props to RadioGroup*/}
                                 <RadioGroup {...{
@@ -191,10 +200,11 @@ registerBlockType('custom/grid', {
                             </MobileSwitchInner>
                         </MobileSwitch>
                         <hr/>
-                        <div style={{display: 'flex'}}>
+                        {/*<div style={{display: 'flex'}}>
                             <Dashicon icon="grid-view" style={{marginRight: '5px'}}/>
                             <p style={{marginTop: '1px'}}>{__('Gutter', 'sage')}</p>
-                        </div>
+                        </div>*/}
+                        <SettingsHeading headline={'Gutter'} icon={gridIcon}/>
                         <RangeControl
                             value={attributes.customGutter}
                             min={0}
@@ -207,29 +217,36 @@ registerBlockType('custom/grid', {
                             }}
                         />
                         <hr/>
-                        <div style={{display: 'flex'}}>
+                        {/*<div style={{display: 'flex'}}>
                             <Dashicon icon="image-flip-horizontal" style={{marginRight: '5px'}}/>
                             <p style={{marginTop: '1px'}}>{__('Horizontal padding', 'sage')}</p>
+                        </div>*/}
+                        <SettingsHeading headline={'Horizontal padding'} icon={horizontalPaddingIcon}/>
+                        <div style={{width: '100%', paddingRight: '45px', position: 'relative'}}>
+                            <RangeControl
+                                value={attributes.horizontalPadding}
+                                min={0}
+                                max={100}
+                                step={1}
+                                onChange={(value) => {
+                                    setAttributes({horizontalPadding: value})
+                                }}
+                                allowReset={true}
+                                resetFallbackValue={false}
+                            />
+                            <Button
+                                icon={undoIcon}
+                                label={__('Reset', 'sage')}
+                                style={{height: '30px', position: 'absolute', right: 0, top: 0}}
+                                onClick={() => {
+                                    setAttributes({horizontalPadding: false})
+                                }}
+                            />
                         </div>
-                        <RangeControl
-                            value={attributes.horizontalPadding}
-                            min={0}
-                            max={100}
-                            step={1}
-                            onChange={(value) => {
-                                setAttributes({horizontalPadding: value})
-                            }}
-                            allowReset={true}
-                            resetFallbackValue={false}
-                        />
                         <hr/>
-                        <MobileSwitch headline={__('Vertical padding', 'sage')} icon={'image-flip-vertical'}>
+                        <MobileSwitch headline={__('Vertical padding', 'sage')} icon={verticalPaddingIcon}>
                             <MobileSwitchInner type={'desktop'}>
-                                <div style={{
-                                    width: '100%',
-                                    paddingRight: '45px',
-                                    position: 'relative'
-                                }}>
+                                <div style={{width: '100%', paddingRight: '45px', position: 'relative'}}>
                                     <RangeControl
                                         value={attributes.verticalPaddingDesktop}
                                         min={0}
@@ -244,15 +261,9 @@ registerBlockType('custom/grid', {
                                         className={'pixel-unit'}
                                     />
                                     <Button
-                                        icon={'undo'}
-                                        isSmall={true}
+                                        icon={undoIcon}
                                         label={__('Reset', 'sage')}
-                                        style={{
-                                            height: '30px',
-                                            position: 'absolute',
-                                            right: 0,
-                                            top: 0
-                                        }}
+                                        style={{height: '30px', position: 'absolute', right: 0, top: 0}}
                                         onClick={() => {
                                             setAttributes({verticalPaddingMobile: false})
                                             setAttributes({verticalPaddingDesktop: false})
@@ -261,11 +272,7 @@ registerBlockType('custom/grid', {
                                 </div>
                             </MobileSwitchInner>
                             <MobileSwitchInner type={'mobile'}>
-                                <div style={{
-                                    width: '100%',
-                                    paddingRight: '45px',
-                                    position: 'relative'
-                                }}>
+                                <div style={{width: '100%', paddingRight: '45px', position: 'relative'}}>
                                     <RangeControl
                                         value={attributes.verticalPaddingMobile}
                                         min={0}
@@ -277,15 +284,9 @@ registerBlockType('custom/grid', {
                                         className={'pixel-unit'}
                                     />
                                     <Button
-                                        icon={'undo'}
-                                        isSmall={true}
+                                        icon={undoIcon}
                                         label={__('Reset', 'sage')}
-                                        style={{
-                                            height: '30px',
-                                            position: 'absolute',
-                                            right: 0,
-                                            top: 0
-                                        }}
+                                        style={{height: '30px', position: 'absolute', right: 0, top: 0}}
                                         onClick={() => {
                                             setAttributes({verticalPaddingMobile: false})
                                             setAttributes({verticalPaddingDesktop: false})
@@ -295,7 +296,8 @@ registerBlockType('custom/grid', {
                             </MobileSwitchInner>
                         </MobileSwitch>
                         <hr/>
-                        <p>{__('General Background Color', 'sage')}</p>
+                        {/*<p>{__('General Background Color', 'sage')}</p>*/}
+                        <SettingsHeading headline={'Background Color'} icon={colorIcon}/>
                         <ColorPalette
                             colors={editorThemeColors}
                             value={attributes.generalBackgroundColor}

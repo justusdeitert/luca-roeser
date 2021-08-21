@@ -24,7 +24,10 @@ import {
     __experimentalRadio as Radio,
     __experimentalRadioGroup as RadioGroup
 } from '@wordpress/components';
-// import {column as gridListInnerIcon} from '@wordpress/icons';
+import {
+    color as colorIcon,
+    box as boxIcon
+} from '@wordpress/icons';
 
 /**
  * Internal dependencies
@@ -38,10 +41,14 @@ import {
     MobileSwitchInner,
     parentAttributes,
     removeArrayItems,
-    SelectClipPath
+    SelectClipPath,
+    SettingsHeading
 } from '../utility';
 import * as clipPaths from "../clip-paths";
-import {gridColumn as gridListInnerIcon} from '../custom-icons';
+import {
+    gridColumn as gridListInnerIcon,
+    width as widthIcon
+} from '../custom-icons';
 
 /**
  * Return col class for bootstrap 5
@@ -188,6 +195,7 @@ registerBlockType('custom/grid-column', {
                 </BlockControls>
                 <InspectorControls>
                     <div className="inspector-controls-container">
+                        <hr style={{marginTop: 0}}/>
                         <ToggleControl
                             label={__('Custom Size', 'sage')}
                             // help={__('Define a custom column size','sage')}
@@ -197,7 +205,7 @@ registerBlockType('custom/grid-column', {
                             }}
                         />
                         <hr/>
-                        <MobileSwitch headline={__('Column Size', 'sage')}>
+                        <MobileSwitch headline={__('Column Size', 'sage')} icon={widthIcon}>
                             <MobileSwitchInner type={'desktop'}>
                                 <RangeControl
                                     value={attributes.columnSizeDesktop}
@@ -242,7 +250,8 @@ registerBlockType('custom/grid-column', {
                             </MobileSwitchInner>
                         </MobileSwitch>
                         <hr/>
-                        <p>{__('Background Color', 'sage')}</p>
+                        {/*<p>{__('Background Color', 'sage')}</p>*/}
+                        <SettingsHeading headline={'Background Color'} icon={colorIcon}/>
                         <ColorPalette
                             colors={[...editorThemeColors]}
                             value={attributes.backgroundColor}
@@ -250,7 +259,8 @@ registerBlockType('custom/grid-column', {
                             disableCustomColors={true}
                         />
                         <hr/>
-                        <p>{__('Section Clip Path', 'sage')}</p>
+                        {/*<p>{__('Section Clip Path', 'sage')}</p>*/}
+                        <SettingsHeading headline={'Clip Path'} icon={boxIcon}/>
                         <SelectClipPath
                             clipPathsModules={clipPaths}
                             clickFunction={(value) => {

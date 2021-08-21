@@ -1,4 +1,9 @@
 /**
+ * External dependencies
+ */
+import classNames from "classnames";
+
+/**
  * WordPress dependencies
  */
 import {__} from '@wordpress/i18n';
@@ -14,7 +19,8 @@ import {
     __experimentalBoxControl as BoxControl,
     ToolbarGroup,
     __experimentalAlignmentMatrixControl as AlignmentMatrixControl,
-    Dashicon
+    Dashicon,
+    Icon
 } from '@wordpress/components';
 import {
     InnerBlocks,
@@ -27,6 +33,14 @@ import {
     BlockVerticalAlignmentToolbar,
     __experimentalGradientPicker as GradientPicker
 } from '@wordpress/block-editor';
+import {
+    flipVertical as flipVerticalIcon,
+    html as htmlIcon,
+    image as imageIcon,
+    trash as trashIcon,
+    color as colorIcon,
+    stretchWide as fullWidthIcon
+} from '@wordpress/icons';
 
 /**
  * Block dependencies
@@ -67,9 +81,10 @@ import {
     getCssVariable,
     MobileSwitch,
     MobileSwitchInner,
-    isDefined, getImage
+    isDefined,
+    getImage,
+    SettingsHeading
 } from '../utility';
-import classNames from "classnames";
 
 const attributes = {
 
@@ -352,8 +367,9 @@ registerBlockType('custom/section', {
                 </BlockControls>
                 <InspectorControls>
                     <div className="inspector-controls-container">
+                        <SettingsHeading headline={'HTML element'} icon={htmlIcon}/>
                         <SelectControl
-                            label={__('HTML element')}
+                            // label={__('HTML element')}
                             options={[
                                 {label: __('Default (<section>)'), value: 'section'},
                                 {label: '<header>', value: 'header'},
@@ -460,10 +476,15 @@ registerBlockType('custom/section', {
                             />
                         </>}
                         <hr/>
-                        <div style={{display:'flex'}}>
-                            <p>{__('Vertical padding', 'sage')}</p>
-                            <Dashicon icon="image-flip-vertical" style={{marginLeft: 'auto'}}/>
+                        <div style={{display: 'flex'}}>
+                            <Dashicon icon="image-flip-vertical" style={{marginRight: '5px'}}/>
+                            <p style={{marginTop: '1px'}}>{__('Vertical padding', 'sage')}</p>
                         </div>
+                        <div style={{display: 'flex'}}>
+                            <Icon icon={flipVerticalIcon} style={{marginRight: '5px'}}/>
+                            <p style={{marginTop: '1px'}}>{__('Vertical padding', 'sage')}</p>
+                        </div>
+                        <SettingsHeading headline={'Vertical padding'} icon={fullWidthIcon}/>
                         <RangeControl
                             value={attributes.verticalPadding}
                             min={0}
@@ -474,7 +495,8 @@ registerBlockType('custom/section', {
                             resetFallbackValue={false}
                         />
                         <hr/>
-                        <p>{__('Background color', 'sage')}</p>
+                        {/*<p>{__('Background color', 'sage')}</p>*/}
+                        <SettingsHeading headline={'Background color'} icon={colorIcon}/>
                         <ColorPalette
                             colors={editorThemeColors}
                             value={attributes.sectionBackgroundColor}
@@ -749,7 +771,7 @@ registerBlockType('custom/section', {
                                     <Button
                                         className={'button'}
                                         onClick={open}
-                                        icon={'format-image'}
+                                        icon={imageIcon}
                                         // text={attributes.backgroundImage ? __('Change Image', 'sage') : __('Upload Image', 'sage')}
                                     />
                                     {attributes.backgroundImage &&
@@ -757,7 +779,7 @@ registerBlockType('custom/section', {
                                         <Button
                                             className={'button'}
                                             onClick={() => setAttributes({backgroundImage: false})}
-                                            icon={'trash'}
+                                            icon={trashIcon}
                                             style={{marginLeft: '10px'}}
                                         />
                                     </>
