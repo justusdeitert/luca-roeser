@@ -238,6 +238,11 @@ export const ALLOWED_BLOCKS = [
     'core/group',
 
     /**
+     * Needs some work
+     */
+    'core/video',
+
+    /**
      * Custom blocks
      */
     'custom/map',

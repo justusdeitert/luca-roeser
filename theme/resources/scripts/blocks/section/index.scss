@@ -102,6 +102,7 @@
     }
 }
 
+/*
 main > .section-block {
     &:not(.has-background) {
         .section-block__inner {
@@ -111,6 +112,7 @@ main > .section-block {
         }
     }
 }
+*/
 
 .clip-path-svg {
     position: absolute;
@@ -157,3 +159,12 @@ main > .section-block {
         height: #{$max-value};
     }
 }
+
+//
+//main {
+//    scroll-snap-type: y mandatory;
+//}
+//
+//.section-block {
+//    scroll-snap-align: start;
+//}
