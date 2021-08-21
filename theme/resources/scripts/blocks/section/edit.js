@@ -10,7 +10,7 @@ import {InnerBlocks, InspectorControls, ColorPalette, useBlockProps, __experimen
  * Internal dependencies
  */
 // import {
-//     ALLOWEDBLOCKS,
+//     ALLOWED_BLOCKS,
 //     editorThemeColors,
 //     getColorObject,
 //     getCssVariable,
@@ -27,7 +27,7 @@ import {InnerBlocks, InspectorControls, ColorPalette, useBlockProps, __experimen
 
 import classnames from 'classnames';
 import {sectionIcon} from '../icons';
-import {editorThemeColors, getColorObject, ALLOWEDBLOCKS, removeArrayItems, SelectSectionShapes, getCssVariable, MobileSwitch, MobileSwitchInner, isDefined} from "../utility";
+import {editorThemeColors, getColorObject, ALLOWED_BLOCKS, removeArrayItems, SelectSectionShapes, getCssVariable, MobileSwitch, MobileSwitchInner, isDefined} from "../utility";
 import * as sectionShapes from "../section-shapes"
 
 
@@ -65,7 +65,7 @@ export default function edit({setAttributes, attributes, className, clientId}) {
     });
 
     const innerBlocksProps = useInnerBlocksProps(blockProps, {
-        allowedBlocks: removeArrayItems(ALLOWEDBLOCKS, ['custom/section']),
+        allowedBlocks: removeArrayItems(ALLOWED_BLOCKS, ['custom/section']),
         templateLock: false,
     });
 

@@ -61,7 +61,7 @@ import classnames from 'classnames';
 import {
     editorThemeColors,
     getColorObject,
-    ALLOWEDBLOCKS,
+    ALLOWED_BLOCKS,
     removeArrayItems,
     SelectSectionShapes,
     getCssVariable,
@@ -332,7 +332,7 @@ registerBlockType('custom/section', {
         });
 
         const innerBlocksProps = useInnerBlocksProps(blockProps, {
-            allowedBlocks: removeArrayItems(ALLOWEDBLOCKS, ['custom/section']),
+            allowedBlocks: removeArrayItems(ALLOWED_BLOCKS, ['custom/section']),
             templateLock: false,
         });
 

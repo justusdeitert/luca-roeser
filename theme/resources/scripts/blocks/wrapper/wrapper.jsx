@@ -39,7 +39,7 @@ import {group as sectionIcon} from '@wordpress/icons';
 import {
     editorThemeColors,
     getColorObject,
-    ALLOWEDBLOCKS,
+    ALLOWED_BLOCKS,
     removeArrayItems,
     isDefined,
     focalPositionInPixel
@@ -190,7 +190,7 @@ registerBlockType('custom/wrapper', {
         });
 
         const innerBlocksProps = useInnerBlocksProps(blockProps, {
-            allowedBlocks: removeArrayItems(ALLOWEDBLOCKS, ['custom/section']),
+            allowedBlocks: removeArrayItems(ALLOWED_BLOCKS, ['custom/section']),
             // templateLock: false,
             // renderAppender: InnerBlocks.DefaultBlockAppender
         });

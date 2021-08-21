@@ -12,7 +12,7 @@ import {
 } from '@wordpress/components';
 import {MediaUpload, InspectorControls, InnerBlocks, getColorObjectByColorValue} from '@wordpress/block-editor';
 import classNames from 'classnames';
-import {editorThemeColors, getImage, ALLOWEDBLOCKS, removeArrayItems, getColorObject} from '../utility';
+import {editorThemeColors, getImage, ALLOWED_BLOCKS, removeArrayItems, getColorObject} from '../utility';
 import {textImageIcon} from '../custom-icons';
 import {loremIpsum} from "lorem-ipsum";
 
@@ -167,7 +167,7 @@ registerBlockType('custom/text-image', {
                     className={classNames(`text-image-block__text-column`, `col-12 col-md-6 col-xl-${12 - attributes.columnRange}`)}>
                     <div className={classNames("text-image-block__text-column-inner")}>
                         <InnerBlocks template={TEMPLATE}
-                                     allowedBlocks={removeArrayItems(ALLOWEDBLOCKS, ['custom/text-image'])}/>
+                                     allowedBlocks={removeArrayItems(ALLOWED_BLOCKS, ['custom/text-image'])}/>
                     </div>
                 </div>
             );

@@ -1,0 +1,69 @@
+/**
+ * Frontend & Editor
+ */
+.grid-block {
+
+    &__row {
+        display: flex;
+        flex-wrap: wrap;
+        @extend .row;
+    }
+
+    &__col {
+        display: flex;
+    }
+
+    &__inner {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        margin: 0;
+        padding-right: var(--padding-x, 0em);
+        padding-left: var(--padding-x, 0em);
+        position: relative;
+    }
+
+    &__wrapper {
+        width: 100%;
+        min-height: 20px;
+    }
+
+    .block-list-appender {
+        width: initial;
+    }
+}
+
+/**
+ * Editor styles only
+ */
+[data-type="custom/grid"] {
+    &.is-selected {
+        .grid-block__row {
+            margin-top: initial;
+        }
+    }
+}
+
+/**
+ * New fluid classes
+ */
+.has-fluid-padding-y {
+    $min-value: var(--mobile-padding-y);
+    $max-value: var(--desktop-padding-y);
+    $min-max-value: var(--padding-y-difference);
+    $min-vw: map-get($grid-breakpoints, xs);
+    $max-vw: map-get($grid-breakpoints, xl);
+
+    padding-top: #{$min-value};
+    padding-bottom: #{$min-value};
+
+    @media screen and (min-width: $min-vw) {
+        padding-top: calc(#{$min-value} + #{$min-max-value} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
+        padding-bottom: calc(#{$min-value} + #{$min-max-value} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
+    }
+
+    @media screen and (min-width: $max-vw) {
+        padding-top: #{$max-value};
+        padding-bottom: #{$max-value};
+    }
+}

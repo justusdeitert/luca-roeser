@@ -4,7 +4,7 @@ import {InnerBlocks, useBlockProps, __experimentalUseInnerBlocksProps as useInne
 import classNames from 'classnames';
 import {useEffect} from '@wordpress/element';
 import {
-    ALLOWEDBLOCKS,
+    ALLOWED_BLOCKS,
     getColorObject,
     parentAttributes,
     removeArrayItems,
@@ -90,7 +90,7 @@ registerBlockType('custom/slider-inner', {
 
         const innerBlocksProps = useInnerBlocksProps(blockProps, {
             templateLock: false,
-            allowedBlocks: removeArrayItems(ALLOWEDBLOCKS, ['custom/slider']),
+            allowedBlocks: removeArrayItems(ALLOWED_BLOCKS, ['custom/slider']),
             renderAppender: InnerBlocks.DefaultBlockAppender
         });
 
@@ -101,7 +101,7 @@ registerBlockType('custom/slider-inner', {
                     <div {...innerBlocksProps}>
                         {/*<InnerBlocks
                             templateLock={false}
-                            allowedBlocks={removeArrayItems(ALLOWEDBLOCKS, ['custom/slider'])}
+                            allowedBlocks={removeArrayItems(ALLOWED_BLOCKS, ['custom/slider'])}
                             renderAppender={InnerBlocks.DefaultBlockAppender}
                         />*/}
                         {innerBlocksProps.children}

@@ -111,13 +111,13 @@ const attributes = {
     },
 };
 
-registerBlockType('custom/grid-list-inner', {
+registerBlockType('custom/grid-column', {
     apiVersion: 2,
-    title: __('Grid List Inner', 'sage'),
+    title: __('Grid Column', 'sage'),
     category: 'custom',
     icon: gridListInnerIcon,
     attributes,
-    parent: ['custom/grid-list'],
+    parent: ['custom/grid'],
     // supports: {
     //     inserter: false,
     //     reusable: false,
@@ -164,7 +164,7 @@ registerBlockType('custom/grid-list-inner', {
         });
 
         const innerBlocksProps = useInnerBlocksProps(blockProps, {
-            allowedBlocks: removeArrayItems(ALLOWED_BLOCKS, ['custom/grid-list']),
+            allowedBlocks: removeArrayItems(ALLOWED_BLOCKS, ['custom/grid']),
         });
 
         return (
@@ -264,7 +264,7 @@ registerBlockType('custom/grid-list-inner', {
                     </div>
                 </InspectorControls>
                 <div className={classNames(
-                    'grid-list-block__col',
+                    'grid-block__col',
                     returnColClass(attributes.columnSizeMobile),
                     returnColClass(attributes.columnSizeTablet, 'sm'),
                     returnColClass(attributes.columnSizeDesktop, 'lg')
@@ -275,7 +275,7 @@ registerBlockType('custom/grid-list-inner', {
                     <div {...innerBlocksProps}>
                         <div className={classNames(
                             className,
-                            'grid-list-block__inner',
+                            'grid-block__inner',
                             returnBackgroundColorClass(attributes.backgroundColor, attributes.parentBackgroundColor),
                             `align-items-${attributes.verticalAlign}`,
                             hasPaddingY && 'has-fluid-padding-y'
@@ -284,7 +284,7 @@ registerBlockType('custom/grid-list-inner', {
                                  clipPath: clipPaths[attributes.clipPath] ? `url(#clip-path-${attributes.clientId})` : 'none',
                              }}
                         >
-                            <div className="grid-list-block__wrapper">
+                            <div className="grid-block__wrapper">
                                 {innerBlocksProps.children}
                             </div>
                         </div>
@@ -302,7 +302,7 @@ registerBlockType('custom/grid-list-inner', {
         // Need to use for passing classes to save function
         const blockProps = useBlockProps.save({
             className: classNames(
-                `grid-list-block__col`,
+                `grid-block__col`,
                 returnColClass(attributes.columnSizeMobile),
                 returnColClass(attributes.columnSizeTablet, 'sm'),
                 returnColClass(attributes.columnSizeDesktop, 'lg')
@@ -315,7 +315,7 @@ registerBlockType('custom/grid-list-inner', {
                     {clipPaths[attributes.clipPath](`clip-path-${attributes.clientId}`)}
                 </>}
                 <div className={classNames(
-                    'grid-list-block__inner',
+                    'grid-block__inner',
                     returnBackgroundColorClass(attributes.backgroundColor, attributes.parentBackgroundColor),
                     `align-items-${attributes.verticalAlign}`,
                     hasPaddingY && 'has-fluid-padding-y'
@@ -324,7 +324,7 @@ registerBlockType('custom/grid-list-inner', {
                          clipPath: clipPaths[attributes.clipPath] ? `url(#clip-path-${attributes.clientId})` : 'none',
                      }}
                 >
-                    <div className="grid-list-block__wrapper">
+                    <div className="grid-block__wrapper">
                         <InnerBlocks.Content/>
                     </div>
                 </div>

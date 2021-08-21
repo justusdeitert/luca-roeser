@@ -57,7 +57,7 @@ const attributes = {
     }
 }
 
-const ALLOWEDBLOCKS = [
+const ALLOWED_BLOCKS = [
     'core/paragraph',
     'core/heading',
 ];
@@ -203,7 +203,7 @@ registerBlockType('custom/icon-text', {
                             alt={getImage(attributes.iconObject, 'alt')}
                         />
                         <div className="icon-text-block__text">
-                            <InnerBlocks templateLock={false} allowedBlocks={ALLOWEDBLOCKS}/>
+                            <InnerBlocks templateLock={false} allowedBlocks={ALLOWED_BLOCKS}/>
                         </div>
                     </div>
                 </div>

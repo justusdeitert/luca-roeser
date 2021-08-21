@@ -26,7 +26,7 @@ import {
     getImage,
     focalPositionInPixel,
     getColorObject,
-    ALLOWEDBLOCKS,
+    ALLOWED_BLOCKS,
     removeArrayItems,
     SelectClipPath,
     MobileSwitch,
@@ -481,7 +481,7 @@ registerBlockType('custom/hero', {
                                  }}
                             >
                                 <InnerBlocks template={TEMPLATE}
-                                             allowedBlocks={removeArrayItems(ALLOWEDBLOCKS, ['custom/hero'])}/>
+                                             allowedBlocks={removeArrayItems(ALLOWED_BLOCKS, ['custom/hero'])}/>
                             </div>
                         </div>
 

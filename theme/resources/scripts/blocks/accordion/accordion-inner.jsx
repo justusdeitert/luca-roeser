@@ -2,7 +2,7 @@ import {__} from '@wordpress/i18n';
 import {registerBlockType} from '@wordpress/blocks';
 import {InnerBlocks, RichText, InspectorControls, ColorPalette, useBlockProps, __experimentalUseInnerBlocksProps as useInnerBlocksProps} from '@wordpress/block-editor';
 import classNames from 'classnames';
-import {ALLOWEDBLOCKS, editorThemeColors, getColorObject, parentAttributes, SelectClipPath, removeArrayItems, getBlockIndex} from '../utility';
+import {ALLOWED_BLOCKS, editorThemeColors, getColorObject, parentAttributes, SelectClipPath, removeArrayItems, getBlockIndex} from '../utility';
 import {accordionInnerIcon} from '../custom-icons';
 
 const attributes = {
@@ -79,7 +79,7 @@ registerBlockType('custom/accordion-inner', {
                          data-bs-parent={`#block-${attributes.parentId}`}
                     >
                         <div className="accordion-block__item-body custom-border">
-                            <InnerBlocks templateLock={false} allowedBlocks={removeArrayItems(ALLOWEDBLOCKS, ['custom/accordion'])} renderAppender={InnerBlocks.DefaultBlockAppender} />
+                            <InnerBlocks templateLock={false} allowedBlocks={removeArrayItems(ALLOWED_BLOCKS, ['custom/accordion'])} renderAppender={InnerBlocks.DefaultBlockAppender} />
                         </div>
                     </div>
                 </div>

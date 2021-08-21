@@ -225,7 +225,7 @@ export const focalPositionInPixel = (value, unit = 'px') => {
     return `${value + unit}`;
 }
 
-export const ALLOWEDBLOCKS = [
+export const ALLOWED_BLOCKS = [
 
     /**
      * Core blocks
