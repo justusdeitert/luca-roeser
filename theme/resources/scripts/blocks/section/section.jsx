@@ -308,7 +308,9 @@ registerBlockType('custom/section', {
                 `align-items-${attributes.verticalAlign}`
             ),
             style: {
-                border: !attributes.sectionBackgroundColor ? '1 px dashed var(--wp-admin-theme-color)' : 'none',
+                ...!getColorObject(attributes.sectionBackgroundColor) && {
+                    border: '1px dashed var(--wp-admin-theme-color)'
+                },
                 height: attributes.fullHeight ? '100%' : 'initial',
                 ...(attributes.sectionBorderRadius && !attributes.sectionShape) && {
                     borderRadius: `${attributes.sectionBorderRadius}px`
@@ -353,10 +355,10 @@ registerBlockType('custom/section', {
                         <SelectControl
                             label={__('HTML element')}
                             options={[
-                                {label: __('Default (<div>)'), value: 'div'},
+                                {label: __('Default (<section>)'), value: 'section'},
                                 {label: '<header>', value: 'header'},
                                 {label: '<main>', value: 'main'},
-                                {label: '<section>', value: 'section'},
+                                {label: '<div>', value: 'div'},
                                 {label: '<article>', value: 'article'},
                                 {label: '<aside>', value: 'aside'},
                                 {label: '<footer>', value: 'footer'},
@@ -609,7 +611,7 @@ registerBlockType('custom/section', {
                                     <RangeControl
                                         value={attributes.sectionShapeHeightMobile}
                                         min={20}
-                                        max={attributes.sectionShapeHeightDesktop}
+                                        max={attributes.sectionShapeHeightDesktop.toString()}
                                         step={1}
                                         onChange={(value) => setAttributes({sectionShapeHeightMobile: value})}
                                         allowReset={true}
@@ -665,7 +667,6 @@ registerBlockType('custom/section', {
                     </PanelBody>
                 </InspectorControls>
                 <attributes.tagName {...innerBlocksProps}>
-
                     {attributes.backgroundImage && <>
                         {isDefined(attributes.patternSize) ?
                             <>
