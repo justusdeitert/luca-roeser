@@ -261,7 +261,7 @@ registerBlockType('custom/grid-list', {
                                     <RangeControl
                                         value={attributes.verticalPaddingMobile}
                                         min={0}
-                                        max={attributes.verticalPaddingDesktop}
+                                        max={attributes.verticalPaddingDesktop.toString()}
                                         step={1}
                                         onChange={(value) => {
                                             setAttributes({verticalPaddingMobile: value})
