@@ -125,8 +125,6 @@ $custom_blocks_normal_editor = [
     'custom/accordion',
     'custom/accordion-inner',
     get_theme_mod('custom_google_maps_api_key', false) ? 'custom/map' : '', // Check if google Maps Key is Set
-    // 'custom/hero',
-    // 'custom/text-image',
     'custom/slider',
     'custom/slider-inner',
     'custom/image',
@@ -134,8 +132,6 @@ $custom_blocks_normal_editor = [
     'custom/section',
     'custom/fluid-text',
     'custom/icon-text',
-    'custom/grid-list',
-    'custom/grid-list-inner', // grid-list as parent
     'custom/spacer',
     'custom/wrapper',
     'custom/grid',
@@ -144,7 +140,6 @@ $custom_blocks_normal_editor = [
 
 $custom_blocks_widget_editor = [
     'custom/divider',
-    // 'custom/text-image',
     'custom/slider',
     'custom/slider-inner',
     'custom/image',
@@ -152,8 +147,6 @@ $custom_blocks_widget_editor = [
     'custom/section',
     'custom/fluid-text',
     'custom/icon-text',
-    'custom/grid-list',
-    'custom/grid-list-inner', // grid-list as parent
     'custom/spacer',
     'custom/wrapper',
     'custom/grid',
