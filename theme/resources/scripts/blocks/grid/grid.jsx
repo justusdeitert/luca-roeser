@@ -38,7 +38,7 @@ import {
     updateInnerBlocks,
     isDefined,
     MobileSwitch,
-    MobileSwitchInner, SettingsHeading
+    MobileSwitchInner, SettingsHeading, ResetWrapperControl
 } from "../utility";
 import {
     horizontalPadding as horizontalPaddingIcon,
@@ -205,24 +205,24 @@ registerBlockType('custom/grid', {
                             <p style={{marginTop: '1px'}}>{__('Gutter', 'sage')}</p>
                         </div>*/}
                         <SettingsHeading headline={'Gutter'} icon={gridIcon}/>
-                        <RangeControl
-                            value={attributes.customGutter}
-                            min={0}
-                            max={80}
-                            step={1}
-                            allowReset={true}
-                            resetFallbackValue={false}
-                            onChange={(value) => {
-                                setAttributes({customGutter: value});
-                            }}
-                        />
+                        <ResetWrapperControl onClick={() => setAttributes({customGutter: false})}>
+                            <RangeControl
+                                value={attributes.customGutter}
+                                min={0}
+                                max={80}
+                                step={1}
+                                onChange={(value) => {
+                                    setAttributes({customGutter: value});
+                                }}
+                            />
+                        </ResetWrapperControl>
                         <hr/>
                         {/*<div style={{display: 'flex'}}>
                             <Dashicon icon="image-flip-horizontal" style={{marginRight: '5px'}}/>
                             <p style={{marginTop: '1px'}}>{__('Horizontal padding', 'sage')}</p>
                         </div>*/}
                         <SettingsHeading headline={'Horizontal padding'} icon={horizontalPaddingIcon}/>
-                        <div style={{width: '100%', paddingRight: '45px', position: 'relative'}}>
+                        <ResetWrapperControl onClick={() => setAttributes({horizontalPadding: false})}>
                             <RangeControl
                                 value={attributes.horizontalPadding}
                                 min={0}
@@ -231,22 +231,15 @@ registerBlockType('custom/grid', {
                                 onChange={(value) => {
                                     setAttributes({horizontalPadding: value})
                                 }}
-                                allowReset={true}
-                                resetFallbackValue={false}
                             />
-                            <Button
-                                icon={undoIcon}
-                                label={__('Reset', 'sage')}
-                                style={{height: '30px', position: 'absolute', right: 0, top: 0}}
-                                onClick={() => {
-                                    setAttributes({horizontalPadding: false})
-                                }}
-                            />
-                        </div>
+                        </ResetWrapperControl>
                         <hr/>
                         <MobileSwitch headline={__('Vertical padding', 'sage')} icon={verticalPaddingIcon}>
                             <MobileSwitchInner type={'desktop'}>
-                                <div style={{width: '100%', paddingRight: '45px', position: 'relative'}}>
+                                <ResetWrapperControl onClick={() => {
+                                    setAttributes({verticalPaddingMobile: false})
+                                    setAttributes({verticalPaddingDesktop: false})
+                                }}>
                                     <RangeControl
                                         value={attributes.verticalPaddingDesktop}
                                         min={0}
@@ -260,19 +253,13 @@ registerBlockType('custom/grid', {
                                         }}
                                         className={'pixel-unit'}
                                     />
-                                    <Button
-                                        icon={undoIcon}
-                                        label={__('Reset', 'sage')}
-                                        style={{height: '30px', position: 'absolute', right: 0, top: 0}}
-                                        onClick={() => {
-                                            setAttributes({verticalPaddingMobile: false})
-                                            setAttributes({verticalPaddingDesktop: false})
-                                        }}
-                                    />
-                                </div>
+                                </ResetWrapperControl>
                             </MobileSwitchInner>
                             <MobileSwitchInner type={'mobile'}>
-                                <div style={{width: '100%', paddingRight: '45px', position: 'relative'}}>
+                                <ResetWrapperControl onClick={() => {
+                                    setAttributes({verticalPaddingMobile: false})
+                                    setAttributes({verticalPaddingDesktop: false})
+                                }}>
                                     <RangeControl
                                         value={attributes.verticalPaddingMobile}
                                         min={0}
@@ -283,16 +270,7 @@ registerBlockType('custom/grid', {
                                         }}
                                         className={'pixel-unit'}
                                     />
-                                    <Button
-                                        icon={undoIcon}
-                                        label={__('Reset', 'sage')}
-                                        style={{height: '30px', position: 'absolute', right: 0, top: 0}}
-                                        onClick={() => {
-                                            setAttributes({verticalPaddingMobile: false})
-                                            setAttributes({verticalPaddingDesktop: false})
-                                        }}
-                                    />
-                                </div>
+                                </ResetWrapperControl>
                             </MobileSwitchInner>
                         </MobileSwitch>
                         <hr/>

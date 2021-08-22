@@ -31,7 +31,8 @@ import {
     getColorObject,
     MobileSwitch,
     MobileSwitchInner,
-    SettingsHeading
+    SettingsHeading,
+    ResetWrapperControl
 } from "../utility";
 import {
     height as heightIcon,
@@ -104,68 +105,79 @@ registerBlockType('custom/divider', {
                         <hr style={{marginTop: 0}}/>
                         {/*<p>{__('Opacity', 'sage')}</p>*/}
                         <SettingsHeading headline={'Opacity'} icon={'visibility'}/>
-                        <RangeControl
-                            value={attributes.opacity}
-                            min={0}
-                            max={1}
-                            step={0.05}
-                            onChange={(value) => setAttributes({opacity: value})}
-                            // allowReset={true}
-                            // resetFallbackValue={1}
-                        />
+                        <ResetWrapperControl onClick={() => setAttributes({opacity: 1})}>
+                            <RangeControl
+                                value={attributes.opacity}
+                                min={0}
+                                max={1}
+                                step={0.05}
+                                onChange={(value) => setAttributes({opacity: value})}
+                                // allowReset={true}
+                                // resetFallbackValue={1}
+                            />
+                        </ResetWrapperControl>
                         <hr/>
                         <MobileSwitch headline={__('Spacing', 'sage')} icon={heightIcon}>
                             <MobileSwitchInner type={'desktop'}>
-                                <RangeControl
-                                    value={attributes.spacingDesktop}
-                                    min={0}
-                                    max={140}
-                                    step={10}
-                                    onChange={(value) => {
-                                        setAttributes({spacingDesktop: value});
+                                <ResetWrapperControl onClick={() => {
+                                    setAttributes({spacingDesktop: 40});
+                                    setAttributes({spacingMobile: 20});
+                                }}>
+                                    <RangeControl
+                                        value={attributes.spacingDesktop}
+                                        min={0}
+                                        max={140}
+                                        step={10}
+                                        onChange={(value) => {
+                                            setAttributes({spacingDesktop: value});
 
-                                        if (attributes.spacingMobile * 2 === attributes.spacingDesktop) {
-                                            setAttributes({spacingMobile: value / 2});
-                                        }
-                                    }}
-                                />
+                                            // Set mobile spacing as well
+                                            if (attributes.spacingMobile * 2 === attributes.spacingDesktop) {
+                                                setAttributes({spacingMobile: value / 2});
+                                            }
+                                        }}
+                                    />
+                                </ResetWrapperControl>
                             </MobileSwitchInner>
                             <MobileSwitchInner type={'mobile'}>
-                                <RangeControl
-                                    value={attributes.spacingMobile}
-                                    min={0}
-                                    max={attributes.spacingDesktop}
-                                    step={10}
-                                    onChange={(value) => setAttributes({spacingMobile: value})}
-                                    allowReset={true}
-                                    resetFallbackValue={attributes.spacingDesktop / 2}
-                                />
+                                <ResetWrapperControl onClick={() => {
+                                    setAttributes({spacingDesktop: 40});
+                                    setAttributes({spacingMobile: 20});
+                                }}>
+                                    <RangeControl
+                                        value={attributes.spacingMobile}
+                                        min={0}
+                                        max={attributes.spacingDesktop}
+                                        step={10}
+                                        onChange={(value) => setAttributes({spacingMobile: value})}
+                                    />
+                                </ResetWrapperControl>
                             </MobileSwitchInner>
                         </MobileSwitch>
                         <hr/>
                         {/*<p>{__('Change Thickness', 'sage')}</p>*/}
                         <SettingsHeading headline={'Thickness'} icon={resizeIcon}/>
-                        <RangeControl
-                            value={attributes.thickness}
-                            min={1}
-                            max={3}
-                            step={1}
-                            onChange={(value) => setAttributes({thickness: value})}
-                            allowReset={true}
-                            resetFallbackValue={1}
-                        />
+                        <ResetWrapperControl onClick={() => setAttributes({thickness: 1})}>
+                            <RangeControl
+                                value={attributes.thickness}
+                                min={1}
+                                max={10}
+                                step={1}
+                                onChange={(value) => setAttributes({thickness: value})}
+                            />
+                        </ResetWrapperControl>
                         <hr/>
                         {/*<p>{__('Change Width in %', 'sage')}</p>*/}
                         <SettingsHeading headline={'Width'} icon={widthicon}/>
-                        <RangeControl
-                            value={attributes.width}
-                            min={10}
-                            max={100}
-                            step={1}
-                            onChange={(value) => setAttributes({width: value})}
-                            allowReset={true}
-                            resetFallbackValue={100}
-                        />
+                        <ResetWrapperControl onClick={() => setAttributes({width: 100})}>
+                            <RangeControl
+                                value={attributes.width}
+                                min={10}
+                                max={100}
+                                step={1}
+                                onChange={(value) => setAttributes({width: value})}
+                            />
+                        </ResetWrapperControl>
                         <hr/>
                         {/*<p>{__('Color', 'sage')}</p>*/}
                         <SettingsHeading headline={'Color'} icon={colorIcon}/>

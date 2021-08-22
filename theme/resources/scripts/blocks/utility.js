@@ -350,11 +350,32 @@ export const removeBlock = (clientId) => {
     dispatch('core/block-editor').removeBlock(clientId);
 }
 
+/**
+ * Settings headline layout with custom icon
+ * @param headline
+ * @param icon
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export const SettingsHeading = ({headline, icon}) => {
     return (
         <div style={{display: 'flex', marginBottom: '10px', alignItems: 'center'}}>
             <Icon icon={icon} size={24} style={{marginRight: '5px'}}/>
             <p style={{margin: 0}}>{__(headline, 'sage')}</p>
+        </div>
+    )
+}
+
+export const ResetWrapperControl = ({children, onClick}) => {
+    return (
+        <div style={{width: '100%', paddingRight: '45px', position: 'relative'}}>
+            {children}
+            <Button
+                icon={undoIcon}
+                label={__('Reset', 'sage')}
+                style={{height: '30px', position: 'absolute', right: 0, top: 0}}
+                onClick={onClick}
+            />
         </div>
     )
 }
