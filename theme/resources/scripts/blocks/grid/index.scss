@@ -43,27 +43,3 @@
         }
     }
 }
-
-/**
- * New fluid classes
- */
-.has-fluid-padding-y {
-    $min-value: var(--mobile-padding-y);
-    $max-value: var(--desktop-padding-y);
-    $min-max-value: var(--padding-y-difference);
-    $min-vw: map-get($grid-breakpoints, xs);
-    $max-vw: map-get($grid-breakpoints, xl);
-
-    padding-top: #{$min-value};
-    padding-bottom: #{$min-value};
-
-    @media screen and (min-width: $min-vw) {
-        padding-top: calc(#{$min-value} + #{$min-max-value} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
-        padding-bottom: calc(#{$min-value} + #{$min-max-value} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
-    }
-
-    @media screen and (min-width: $max-vw) {
-        padding-top: #{$max-value};
-        padding-bottom: #{$max-value};
-    }
-}

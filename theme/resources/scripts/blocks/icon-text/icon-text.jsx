@@ -193,12 +193,13 @@ registerBlockType('custom/icon-text', {
                     >
                         <img
                             src={getImage(attributes.iconObject)}
+                            className={'fluid-min-height'}
                             style={{
                                 // height: `${attributes.iconSizeDesktop}px`,
                                 borderRadius: `${attributes.iconBorderRadius}px`,
-                                '--icon-text-height-desktop': `${attributes.iconSizeDesktop}px`,
-                                '--icon-text-height-mobile': `${attributes.iconSizeMobile}px`,
-                                '--icon-text-min-max-height': `${attributes.iconSizeDesktop - attributes.iconSizeMobile}`,
+                                '--min-height-desktop': `${attributes.iconSizeDesktop}px`,
+                                '--min-height-mobile': `${attributes.iconSizeMobile}px`,
+                                '--min-height-difference': `${attributes.iconSizeDesktop - attributes.iconSizeMobile}`,
                             }}
                             alt={getImage(attributes.iconObject, 'alt')}
                         />
@@ -220,12 +221,13 @@ registerBlockType('custom/icon-text', {
                         {attributes.iconObject &&
                             <img
                                 src={getImage(attributes.iconObject)}
+                                className={'fluid-min-height'}
                                 style={{
                                     // height: `${attributes.iconSizeDesktop}px`,
                                     borderRadius: `${attributes.iconBorderRadius}px`,
-                                    '--icon-text-height-desktop': `${attributes.iconSizeDesktop}px`,
-                                    '--icon-text-height-mobile': `${attributes.iconSizeMobile}px`,
-                                    '--icon-text-min-max-height': `${attributes.iconSizeDesktop - attributes.iconSizeMobile}`,
+                                    '--min-height-desktop': `${attributes.iconSizeDesktop}px`,
+                                    '--min-height-mobile': `${attributes.iconSizeMobile}px`,
+                                    '--min-height-difference': `${attributes.iconSizeDesktop - attributes.iconSizeMobile}`,
                                 }}
                                 alt={getImage(attributes.iconObject, 'alt')}
                             />

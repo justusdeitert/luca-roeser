@@ -320,7 +320,8 @@ registerBlockType('custom/section', {
                     `has-${getColorObject(attributes.sectionBackgroundColor).slug}-background-color has-background`
                 ),
                 attributes.fullHeight ? 'full-height' : isDefined(attributes.minHeightDesktop) && 'fluid-min-height',
-                `align-items-${attributes.verticalAlign}`
+                `align-items-${attributes.verticalAlign}`,
+                attributes.sectionShape && 'fluid-padding-y'
             ),
             style: {
                 ...!getColorObject(attributes.sectionBackgroundColor) && {
@@ -336,9 +337,9 @@ registerBlockType('custom/section', {
                     '--min-height-difference': `${attributes.minHeightDesktop - attributes.minHeightMobile}`,
                 },
                 ...attributes.sectionShape && {
-                    '--shape-height-desktop': `${attributes.sectionShapeHeightDesktop}px`,
-                    '--shape-height-mobile': `${attributes.sectionShapeHeightMobile}px`,
-                    '--shape-height-desktop-mobile': `${attributes.sectionShapeHeightDesktop - attributes.sectionShapeHeightMobile}`,
+                    '--padding-y-desktop': `${attributes.sectionShapeHeightDesktop}px`,
+                    '--padding-y-mobile': `${attributes.sectionShapeHeightMobile}px`,
+                    '--padding-y-difference': `${attributes.sectionShapeHeightDesktop - attributes.sectionShapeHeightMobile}`,
                 },
                 ...attributes.overflowHidden && {
                     overflow: 'hidden'
@@ -799,7 +800,8 @@ registerBlockType('custom/section', {
                 'section-block',
                 getColorObject(attributes.sectionBackgroundColor) && `has-${getColorObject(attributes.sectionBackgroundColor).slug}-background-color has-background`,
                 attributes.fullHeight ? 'full-height' : isDefined(attributes.minHeightDesktop) && 'fluid-min-height',
-                `align-items-${attributes.verticalAlign}`
+                `align-items-${attributes.verticalAlign}`,
+                attributes.sectionShape && 'fluid-padding-y'
             ),
             style: {
                 ...(attributes.sectionBorderRadius && !attributes.sectionShape) && {
@@ -811,9 +813,9 @@ registerBlockType('custom/section', {
                     '--min-height-difference': `${attributes.minHeightDesktop - attributes.minHeightMobile}`,
                 },
                 ...attributes.sectionShape && {
-                    '--shape-height-desktop': `${attributes.sectionShapeHeightDesktop}px`,
-                    '--shape-height-mobile': `${attributes.sectionShapeHeightMobile}px`,
-                    '--shape-height-desktop-mobile': `${attributes.sectionShapeHeightDesktop - attributes.sectionShapeHeightMobile}`,
+                    '--padding-y-desktop': `${attributes.sectionShapeHeightDesktop}px`,
+                    '--padding-y-mobile': `${attributes.sectionShapeHeightMobile}px`,
+                    '--padding-y-difference': `${attributes.sectionShapeHeightDesktop - attributes.sectionShapeHeightMobile}`,
                 },
                 ...attributes.overflowHidden && {
                     overflow: 'hidden'

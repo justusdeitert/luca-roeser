@@ -135,8 +135,8 @@ registerBlockType('custom/grid', {
                     '--custom-gutter-mobile': `${attributes.customGutter / 16}em`
                 },
                 ...hasPaddingY && {
-                    '--mobile-padding-y': `${attributes.verticalPaddingMobile}px`,
-                    '--desktop-padding-y': `${attributes.verticalPaddingDesktop}px`,
+                    '--padding-y-mobile': `${attributes.verticalPaddingMobile}px`,
+                    '--padding-y-desktop': `${attributes.verticalPaddingDesktop}px`,
                     '--padding-y-difference': `${attributes.verticalPaddingDesktop - attributes.verticalPaddingMobile}`,
                 },
                 ...isDefined(attributes.horizontalPadding) && {
@@ -312,8 +312,8 @@ registerBlockType('custom/grid', {
                     '--custom-gutter-mobile': `${attributes.customGutter / 16}em`
                 },
                 ...hasPaddingY && {
-                    '--mobile-padding-y': `${attributes.verticalPaddingMobile}px`,
-                    '--desktop-padding-y': `${attributes.verticalPaddingDesktop}px`,
+                    '--padding-y-mobile': `${attributes.verticalPaddingMobile}px`,
+                    '--padding-y-desktop': `${attributes.verticalPaddingDesktop}px`,
                     '--padding-y-difference': `${attributes.verticalPaddingDesktop - attributes.verticalPaddingMobile}`,
                 },
                 ...isDefined(attributes.horizontalPadding) && {

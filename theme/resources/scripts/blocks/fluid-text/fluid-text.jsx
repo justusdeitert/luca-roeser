@@ -58,7 +58,7 @@ const attributes = {
     },
     fontSizeMobile: {
         type: 'number',
-        default: 16
+        default: 18
     },
     fontSizeDesktop: {
         type: 'number',
@@ -257,6 +257,7 @@ registerBlockType('custom/fluid-text', {
                     tagName={attributes.fluidTextElement}
                     className={classNames(
                         'fluid-text-block',
+                        'fluid-font-size',
                         `has-text-align-${attributes.textAlign}`,
                         `fluid-text-${attributes.clientId}`,
                         getColorObject(attributes.fluidTextColor) && `has-${getColorObject(attributes.fluidTextColor).slug}-color`,
@@ -264,9 +265,9 @@ registerBlockType('custom/fluid-text', {
                         attributes.fluidTextFontWeight && `fw-${attributes.fluidTextFontWeight}`,
                     )}
                     style={{
-                        '--fluid-text-size-desktop': `${attributes.fontSizeDesktop}px`,
-                        '--fluid-text-size-mobile': `${attributes.fontSizeMobile}px`,
-                        '--fluid-text-desktop-mobile': `${attributes.fontSizeDesktop - attributes.fontSizeMobile}`,
+                        '--font-size-desktop': `${attributes.fontSizeDesktop}px`,
+                        '--font-size-mobile': `${attributes.fontSizeMobile}px`,
+                        '--font-size-difference': `${attributes.fontSizeDesktop - attributes.fontSizeMobile}`,
                         ...additionalStyles
                     }}
                     placeholder={'Lorem Ipsum ...'}
@@ -317,6 +318,7 @@ registerBlockType('custom/fluid-text', {
                     tagName={attributes.fluidTextElement}
                     className={classNames(
                         'fluid-text-block',
+                        'fluid-font-size',
                         `has-text-align-${attributes.textAlign}`,
                         `fluid-text-${attributes.clientId}`,
                         getColorObject(attributes.fluidTextColor) && `has-${getColorObject(attributes.fluidTextColor).slug}-color`,
@@ -325,9 +327,9 @@ registerBlockType('custom/fluid-text', {
                     )}
                     value={attributes.fluidText}
                     style={{
-                        '--fluid-text-size-desktop': `${attributes.fontSizeDesktop}px`,
-                        '--fluid-text-size-mobile': `${attributes.fontSizeMobile}px`,
-                        '--fluid-text-desktop-mobile': `${attributes.fontSizeDesktop - attributes.fontSizeMobile}`,
+                        '--font-size-desktop': `${attributes.fontSizeDesktop}px`,
+                        '--font-size-mobile': `${attributes.fontSizeMobile}px`,
+                        '--font-size-difference': `${attributes.fontSizeDesktop - attributes.fontSizeMobile}`,
                         ...additionalStyles
                     }}
                 />

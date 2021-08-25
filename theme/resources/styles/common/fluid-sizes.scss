@@ -1,0 +1,104 @@
+/**
+ * Fluid height
+ */
+.fluid-min-height {
+    $min-value: var(--min-height-mobile);
+    $max-value: var(--min-height-desktop);
+    $min-max-value: var(--min-height-difference);
+    $min-vw: map-get($grid-breakpoints, xs);
+    $max-vw: map-get($grid-breakpoints, xl);
+
+    min-height: #{$min-value};
+
+    @media screen and (min-width: $min-vw) {
+        min-height: calc(#{$min-value} + #{$min-max-value} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
+    }
+
+    @media screen and (min-width: $max-vw) {
+        min-height: #{$max-value};
+    }
+}
+
+/**
+ * Fluid padding y
+ */
+.fluid-padding-y {
+    $min-value: var(--padding-y-mobile);
+    $max-value: var(--padding-y-desktop);
+    $min-max-value: var(--padding-y-difference);
+    $min-vw: map-get($grid-breakpoints, xs);
+    $max-vw: map-get($grid-breakpoints, xl);
+
+    padding-top: #{$min-value};
+    padding-bottom: #{$min-value};
+
+    @media screen and (min-width: $min-vw) {
+        padding-top: calc(#{$min-value} + #{$min-max-value} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
+        padding-bottom: calc(#{$min-value} + #{$min-max-value} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
+    }
+
+    @media screen and (min-width: $max-vw) {
+        padding-top: #{$max-value};
+        padding-bottom: #{$max-value};
+    }
+}
+
+/**
+ * Fluid width
+ */
+.fluid-width {
+    $min-value: var(--width-mobile);
+    $max-value: var(--width-desktop);
+    $min-max-value: var(--width-difference);
+    $min-vw: map-get($grid-breakpoints, xs);
+    $max-vw: map-get($grid-breakpoints, xl);
+
+    width: #{$min-value};
+
+    @media screen and (min-width: $min-vw) {
+        width: calc(#{$min-value} + #{$min-max-value} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
+    }
+
+    @media screen and (min-width: $max-vw) {
+        width: #{$max-value};
+    }
+}
+
+.fluid-margin-y  {
+    $min-value: var(--margin-y-mobile);
+    $max-value: var(--margin-y-desktop);
+    $min-max-value: var(--margin-y-difference);
+    $min-vw: map-get($grid-breakpoints, xs);
+    $max-vw: map-get($grid-breakpoints, xl);
+
+    margin-top: #{$min-value};
+    margin-bottom: #{$min-value};
+
+    @media screen and (min-width: $min-vw) {
+        margin-top: calc(#{$min-value} + #{$min-max-value} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
+        margin-bottom: calc(#{$min-value} + #{$min-max-value} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
+    }
+
+    @media screen and (min-width: $max-vw) {
+        margin-top: #{$max-value};
+        margin-bottom: #{$max-value};
+    }
+}
+
+.fluid-font-size {
+    $min-value: var(--font-size-mobile);
+    $max-value: var(--font-size-desktop);
+    $min-max-value: var(--font-size-difference);
+    $min-vw: map-get($grid-breakpoints, xs);
+    $max-vw: map-get($grid-breakpoints, xl);
+
+    font-size: #{$min-value};
+
+    @media screen and (min-width: $min-vw) {
+        font-size: calc(#{$min-value} + #{$min-max-value} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
+    }
+
+    @media screen and (min-width: $max-vw) {
+        font-size: #{$max-value};
+    }
+}

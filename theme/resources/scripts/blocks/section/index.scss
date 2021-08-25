@@ -10,24 +10,6 @@
     }
 }
 
-.fluid-min-height {
-    $min-value: var(--min-height-mobile);
-    $max-value: var(--min-height-desktop);
-    $min-max-value: var(--min-height-difference);
-    $min-vw: map-get($grid-breakpoints, xs);
-    $max-vw: map-get($grid-breakpoints, xl);
-
-    min-height: #{$min-value};
-
-    @media screen and (min-width: $min-vw) {
-        min-height: calc(#{$min-value} + #{$min-max-value} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
-    }
-
-    @media screen and (min-width: $max-vw) {
-        min-height: #{$max-value};
-    }
-}
-
 .section-block {
     display: flex;
     position: relative;
@@ -56,25 +38,6 @@
         min-height: 100vh;
     }
 
-    $min-value: var(--shape-height-mobile, '30px');
-    $max-value: var(--shape-height-desktop, '90px');
-    $min-max-value: var(--shape-height-desktop-mobile);
-    $min-vw: map-get($grid-breakpoints, xs);
-    $max-vw: map-get($grid-breakpoints, xl);
-
-    padding-top: #{$min-value};
-    padding-bottom: #{$min-value};
-
-    @media screen and (min-width: $min-vw) {
-        padding-top: calc(#{$min-value} + #{$min-max-value} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
-        padding-bottom: calc(#{$min-value} + #{$min-max-value} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
-    }
-
-    @media screen and (min-width: $max-vw) {
-        padding-top: #{$max-value};
-        padding-bottom: #{$max-value};
-    }
-
     &__overlay {
         position: absolute;
         top: 0;
@@ -101,18 +64,6 @@
         }
     }
 }
-
-/*
-main > .section-block {
-    &:not(.has-background) {
-        .section-block__inner {
-            padding: 0;
-            margin-top: var(--custom-vertical-spacing-desktop, 2rem);
-            margin-bottom: var(--custom-vertical-spacing-desktop, 2rem);
-        }
-    }
-}
-*/
 
 .clip-path-svg {
     position: absolute;
@@ -143,9 +94,9 @@ main > .section-block {
         }
     }
 
-    $min-value: var(--shape-height-mobile, '30px');
-    $max-value: var(--shape-height-desktop, '90px');
-    $min-max-value: var(--shape-height-desktop-mobile);
+    $min-value: var(--padding-y-mobile, '30px');
+    $max-value: var(--padding-y-desktop, '90px');
+    $min-max-value: var(--padding-y-difference);
     $min-vw: map-get($grid-breakpoints, xs);
     $max-vw: map-get($grid-breakpoints, xl);
 
@@ -159,12 +110,3 @@ main > .section-block {
         height: #{$max-value};
     }
 }
-
-//
-//main {
-//    scroll-snap-type: y mandatory;
-//}
-//
-//.section-block {
-//    scroll-snap-align: start;
-//}

@@ -32,22 +32,4 @@
             }
         }
     }
-
-    img {
-        $min-value: var(--icon-text-height-mobile);
-        $max-value: var(--icon-text-height-desktop);
-        $min-max-value: var(--icon-text-min-max-height);
-        $min-vw: map-get($grid-breakpoints, xs);
-        $max-vw: map-get($grid-breakpoints, xxl);
-
-        height: #{$min-value};
-
-        @media screen and (min-width: $min-vw) {
-            height: calc(#{$min-value} + #{$min-max-value} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
-        }
-
-        @media screen and (min-width: $max-vw) {
-            height: #{$max-value};
-        }
-    }
 }

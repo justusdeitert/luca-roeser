@@ -173,7 +173,7 @@ registerBlockType('custom/image', {
                 isAbsolute && 'image-wrapper',
                 isAbsolute && returnPositioningClasses(attributes.absolutePosition),
                 isAbsolute && {
-                    'has-fluid-width': isPixel && isFluid
+                    'fluid-width': isPixel && isFluid
                 }
             ),
             style: {
@@ -202,7 +202,7 @@ registerBlockType('custom/image', {
                 !isAbsolute && `align-${attributes.horizontalAlign}`,
                 !isAbsolute && 'image-wrapper',
                 isAbsolute && {
-                    'has-fluid-width': isPixel && isFluid
+                    'fluid-width': isPixel && isFluid
                 }
             ),
             style: {
@@ -440,7 +440,7 @@ registerBlockType('custom/image', {
                 'image-block',
                 'image-wrapper',
                 isAbsolute && returnPositioningClasses(attributes.absolutePosition),
-                (isPixel && isFluid) && 'has-fluid-width',
+                (isPixel && isFluid) && 'fluid-width',
                 `align-${attributes.horizontalAlign}`,
                 attributes.imageRatio ? `ratio ratio-${attributes.imageRatio}` : '',
             ),

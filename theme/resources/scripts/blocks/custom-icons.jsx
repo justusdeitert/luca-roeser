@@ -1,10 +1,16 @@
 import {createElement} from '@wordpress/element';
+// import { SVG, Path } from '@wordpress/primitives';
 
 export const gridColumn = createElement('svg', {width: 24, height: 24, viewBox: '0 0 24 24'},
     createElement('path', {
         d: 'M19,3 L5,3 C3.9,3 3,3.9 3,5 L3,19 C3,20.1 3.9,21 5,21 L19,21 C20.1,21 21,20.1 21,19 L21,5 C21,3.9 20.1,3 19,3 Z M11.2,19.5 L5,19.5 C4.7,19.5 4.5,19.3 4.5,19 L4.5,12.8 L11.3,12.8 L11.3,19.5 L11.2,19.5 Z M11.2,11.2 L4.5,11.2 L4.5,5 C4.5,4.7 4.7,4.5 5,4.5 L11.2,4.5 L11.2,11.2 Z M19.5,19 C19.5,19.3 19.3,19.5 19,19.5 L12.8,19.5 L12.8,12.7 L19.6,12.7 L19.6,19 L19.5,19 Z'
     })
 );
+
+// export const exampleGridColumn =
+//     <SVG xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+//         <Path d="M19,3 L5,3 C3.9,3 3,3.9 3,5 L3,19 C3,20.1 3.9,21 5,21 L19,21 C20.1,21 21,20.1 21,19 L21,5 C21,3.9 20.1,3 19,3 Z M11.2,19.5 L5,19.5 C4.7,19.5 4.5,19.3 4.5,19 L4.5,12.8 L11.3,12.8 L11.3,19.5 L11.2,19.5 Z M11.2,11.2 L4.5,11.2 L4.5,5 C4.5,4.7 4.7,4.5 5,4.5 L11.2,4.5 L11.2,11.2 Z M19.5,19 C19.5,19.3 19.3,19.5 19,19.5 L12.8,19.5 L12.8,12.7 L19.6,12.7 L19.6,19 L19.5,19 Z"/>
+//     </SVG>
 
 export const slider = createElement('svg', {width: 24, height: 24, viewBox: '0 0 24 24'},
     createElement('path', {

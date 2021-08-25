@@ -131,11 +131,11 @@ registerBlockType('custom/spacer', {
     save: ({attributes}) => {
         return (
             <>
-                <div className={classNames('spacer-block')}
+                <div className={classNames('spacer-block', 'fluid-min-height')}
                      style={{
-                         '--spacer-height-desktop': `${attributes.desktopHeight}px`,
-                         '--spacer-height-mobile': `${attributes.mobileHeight}px`,
-                         '--spacer-min-max-height': `${attributes.desktopHeight - attributes.mobileHeight}`,
+                         '--min-height-desktop': `${attributes.desktopHeight}px`,
+                         '--min-height-mobile': `${attributes.mobileHeight}px`,
+                         '--min-height-difference': `${attributes.desktopHeight - attributes.mobileHeight}`,
                      }}
                 />
             </>

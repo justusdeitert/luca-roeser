@@ -1,18 +1,2 @@
-.fluid-text-block {
-    $min-value: var(--fluid-text-size-mobile);
-    $max-value: var(--fluid-text-size-desktop);
-    $min-max-value: var(--fluid-text-desktop-mobile);
-    $min-vw: map-get($grid-breakpoints, xs);
-    $max-vw: map-get($grid-breakpoints, xl);
-
-    font-size: #{$min-value};
-
-    @media screen and (min-width: $min-vw) {
-        font-size: calc(#{$min-value} + #{$min-max-value} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
-    }
-
-    @media screen and (min-width: $max-vw) {
-        font-size: #{$max-value};
-    }
-}
-
+// Empty
+// --------->

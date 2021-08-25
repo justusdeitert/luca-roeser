@@ -289,7 +289,7 @@ registerBlockType('custom/grid-column', {
                             'grid-block__inner',
                             returnBackgroundColorClass(attributes.backgroundColor, attributes.parentBackgroundColor),
                             `align-items-${attributes.verticalAlign}`,
-                            hasPaddingY && 'has-fluid-padding-y'
+                            hasPaddingY && 'fluid-padding-y'
                         )}
                              style={{
                                  clipPath: clipPaths[attributes.clipPath] ? `url(#clip-path-${attributes.clientId})` : 'none',
@@ -329,7 +329,7 @@ registerBlockType('custom/grid-column', {
                     'grid-block__inner',
                     returnBackgroundColorClass(attributes.backgroundColor, attributes.parentBackgroundColor),
                     `align-items-${attributes.verticalAlign}`,
-                    hasPaddingY && 'has-fluid-padding-y'
+                    hasPaddingY && 'fluid-padding-y'
                 )}
                      style={{
                          clipPath: clipPaths[attributes.clipPath] ? `url(#clip-path-${attributes.clientId})` : 'none',
