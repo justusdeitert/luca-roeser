@@ -33,9 +33,9 @@ add_action('wp_enqueue_scripts', function () {
     if (!isMode('production')) {
         wp_enqueue_style('sage/app', asset('styles/app.css')->uri(), false, null);
     } else {
-        wp_register_style( 'sage/app', false );
-        wp_enqueue_style( 'sage/app', false );
-        wp_add_inline_style( 'sage/app', asset('styles/app.css')->contents());
+        wp_register_style('sage/app', false);
+        wp_enqueue_style('sage/app', false);
+        wp_add_inline_style('sage/app', asset('styles/app.css')->contents());
     }
 }, 100);
 
@@ -69,7 +69,7 @@ add_action('enqueue_block_editor_assets', function () {
  *
  * @return void
  */
-add_action('admin_enqueue_scripts', function() {
+add_action('admin_enqueue_scripts', function () {
 
     // wp_enqueue_script('sage/manifest', asset('scripts/manifest.js')->uri(), null, null, true);
     // wp_enqueue_script('sage/vendor', asset('scripts/vendor.js')->uri(), ['sage/manifest'], null, true);
@@ -127,6 +127,33 @@ add_action('after_setup_theme', function () {
      * @link https://developer.wordpress.org/block-editor/developers/themes/theme-support/#block-gradient-presets
      */
     // add_theme_support('editor-gradient-presets', []);
+    add_theme_support('editor-gradient-presets', [
+        [
+            'name' => __('Vivid cyan blue to vivid purple', 'sage'),
+            'gradient' => 'linear-gradient(135deg,rgba(6,147,227,1) 0%, rgb(155,81,224) 100%)',
+            'slug' => 'vivid-cyan-blue-to-vivid-purple'
+        ],
+        [
+            'name' => __('Vivid green cyan to vivid cyan blue', 'sage'),
+            'gradient' => 'linear-gradient(135deg,rgba(0,208,132,1) 0%, rgba(6,147,227,1) 100%)',
+            'slug' => 'vivid-green-cyan-to-vivid-cyan-blue',
+        ],
+        [
+            'name' => __('Light green cyan to vivid green cyan', 'sage'),
+            'gradient' => 'linear-gradient(135deg,rgb(122,220,180) 0%, rgb(0,208,130) 100%)',
+            'slug' => 'light-green-cyan-to-vivid-green-cyan',
+        ],
+        [
+            'name' => __('Luminous vivid amber to luminous vivid orange', 'sage'),
+            'gradient' => 'linear-gradient(135deg,rgba(252,185,0,1) 0%, rgba(255,105,0,1) 100%)',
+            'slug' => 'luminous-vivid-amber-to-luminous-vivid-orange',
+        ],
+        [
+            'name' => __('Luminous vivid orange to vivid red', 'sage'),
+            'gradient' => 'linear-gradient(135deg,rgba(255,105,0,1) 0%, rgb(207,46,46) 100%)',
+            'slug' => 'luminous-vivid-orange-to-vivid-red',
+        ],
+    ]);
 
     /**
      * Register the editor font sizes.
@@ -156,7 +183,7 @@ add_action('after_setup_theme', function () {
      * Disable custom colors in the editor.
      * @link https://developer.wordpress.org/block-editor/developers/themes/theme-support/#disabling-custom-colors-in-block-color-palettes
      */
-    add_theme_support('disable-custom-colors');
+    // add_theme_support('disable-custom-colors');
 
     /**
      * Disable custom color gradients in the editor.
@@ -227,8 +254,8 @@ add_action('after_setup_theme', function () {
     $light_color = get_theme_mod('custom_light_color', '#f8f9fa');
     foreach (range(1, 3) as $number) {
         array_push($light_colors, [
-            'name'  => __('Light ' . $number * 100, 'sage'),
-            'slug'  => 'light-' . $number * 100,
+            'name' => __('Light ' . $number * 100, 'sage'),
+            'slug' => 'light-' . $number * 100,
             'color' => adjustBrightness($light_color, -($number * 0.04)),
         ]);
     }
@@ -237,8 +264,8 @@ add_action('after_setup_theme', function () {
     $dark_color = get_theme_mod('custom_dark_color', '#212529');
     foreach (range(1, 3) as $number) {
         array_push($dark_colors, [
-            'name'  => __('Dark ' . $number * 100, 'sage'),
-            'slug'  => 'dark-' . $number * 100,
+            'name' => __('Dark ' . $number * 100, 'sage'),
+            'slug' => 'dark-' . $number * 100,
             'color' => adjustBrightness($dark_color, ($number * 0.04)),
         ]);
     }
@@ -246,8 +273,8 @@ add_action('after_setup_theme', function () {
     $dark_light_colors = [];
     foreach (range(1, 4) as $number) {
         array_push($dark_light_colors, [
-            'name'  => __('Dark/Light ' . $number * 100, 'sage'),
-            'slug'  => 'dark-light-' . $number * 100,
+            'name' => __('Dark/Light ' . $number * 100, 'sage'),
+            'slug' => 'dark-light-' . $number * 100,
             'color' => adjustBrightness($dark_color, (1 - $number * 0.04)),
         ]);
     }
@@ -258,29 +285,29 @@ add_action('after_setup_theme', function () {
      */
     add_theme_support('editor-color-palette', [
         [
-            'name'  => __('Primary', 'sage'),
-            'slug'  => 'primary',
+            'name' => __('Primary', 'sage'),
+            'slug' => 'primary',
             'color' => get_theme_mod('custom_primary_color', '#0d6efd'),
         ],
         [
-            'name'  => __('Secondary', 'sage'),
-            'slug'  => 'secondary',
+            'name' => __('Secondary', 'sage'),
+            'slug' => 'secondary',
             'color' => get_theme_mod('custom_secondary_color', '#6c757d'),
         ],
         [
-            'name'  => __('Tertiary', 'sage'),
-            'slug'  => 'tertiary',
+            'name' => __('Tertiary', 'sage'),
+            'slug' => 'tertiary',
             'color' => get_theme_mod('custom_tertiary_color', '#6c757d'),
         ],
         [
-            'name'  => __('Light', 'sage'),
-            'slug'  => 'light',
+            'name' => __('Light', 'sage'),
+            'slug' => 'light',
             'color' => get_theme_mod('custom_light_color', '#f8f9fa'),
         ],
         ...$light_colors,
         [
-            'name'  => __('Dark', 'sage'),
-            'slug'  => 'dark',
+            'name' => __('Dark', 'sage'),
+            'slug' => 'dark',
             'color' => get_theme_mod('custom_dark_color', '#212529'),
         ],
         ...$dark_colors,
