@@ -42,7 +42,10 @@ import {
     parentAttributes,
     removeArrayItems,
     SelectClipPath,
-    SettingsHeading
+    SettingsHeading,
+    returnBackgroundColorClass,
+    returnBackgroundColorStyle,
+    ResetWrapperControl
 } from '../utility';
 import * as clipPaths from "../clip-paths";
 import {
@@ -60,13 +63,15 @@ const returnColClass = (columns, size = false) => {
     return `col-${size}-${columns}`;
 }
 
-let returnBackgroundColorClass = (backgroundColor, parentBackgroundColor) => {
-    if (getColorObject(backgroundColor)) {
-        return `has-background has-${getColorObject(backgroundColor).slug}-background-color`
-    } else if (getColorObject(parentBackgroundColor)) {
-        return `has-background has-${getColorObject(parentBackgroundColor).slug}-background-color`
-    }
-}
+// let returnBackgroundColorClass = (backgroundColor, parentBackgroundColor) => {
+//     if (getColorObject(backgroundColor)) {
+//         return `has-background has-${getColorObject(backgroundColor).slug}-background-color`
+//     }
+//
+//     if(getColorObject(parentBackgroundColor)) {
+//         return `has-background has-${getColorObject(parentBackgroundColor).slug}-background-color`
+//     }
+// }
 
 /**
  * Block attributes
@@ -207,56 +212,71 @@ registerBlockType('custom/grid-column', {
                         <hr/>
                         <MobileSwitch headline={__('Column Size', 'sage')} icon={widthIcon}>
                             <MobileSwitchInner type={'desktop'}>
-                                <RangeControl
-                                    value={attributes.columnSizeDesktop}
-                                    min={1}
-                                    max={12}
-                                    step={1}
-                                    onChange={(value) => {
-                                        setAttributes({customSize: true})
-                                        setAttributes({columnSizeDesktop: value})
-                                    }}
-                                    allowReset={true}
-                                    resetFallbackValue={parent.columnSizeDesktop}
-                                />
+                                <ResetWrapperControl onClick={() => {
+                                    setAttributes({customSize: false})
+                                    setAttributes({columnSizeDesktop: parent.columnSizeDesktop})
+                                    setAttributes({columnSizeTablet: parent.columnSizeTablet})
+                                    setAttributes({columnSizeMobile: parent.columnSizeMobile})
+                                }}>
+                                    <RangeControl
+                                        value={attributes.columnSizeDesktop}
+                                        min={1}
+                                        max={12}
+                                        step={1}
+                                        onChange={(value) => {
+                                            setAttributes({customSize: true})
+                                            setAttributes({columnSizeDesktop: value})
+                                        }}
+                                    />
+                                </ResetWrapperControl>(
                             </MobileSwitchInner>
                             <MobileSwitchInner type={'tablet'}>
-                                <RangeControl
-                                    value={attributes.columnSizeTablet}
-                                    min={1}
-                                    max={12}
-                                    step={1}
-                                    onChange={(value) => {
-                                        setAttributes({customSize: true})
-                                        setAttributes({columnSizeTablet: value})
-                                    }}
-                                    allowReset={true}
-                                    resetFallbackValue={parent.columnSizeTablet}
-                                />
+                                <ResetWrapperControl onClick={() => {
+                                    setAttributes({customSize: false})
+                                    setAttributes({columnSizeDesktop: parent.columnSizeDesktop})
+                                    setAttributes({columnSizeTablet: parent.columnSizeTablet})
+                                    setAttributes({columnSizeMobile: parent.columnSizeMobile})
+                                }}>
+                                    <RangeControl
+                                        value={attributes.columnSizeTablet}
+                                        min={1}
+                                        max={12}
+                                        step={1}
+                                        onChange={(value) => {
+                                            setAttributes({customSize: true})
+                                            setAttributes({columnSizeTablet: value})
+                                        }}
+                                    />
+                                </ResetWrapperControl>
                             </MobileSwitchInner>
                             <MobileSwitchInner type={'mobile'}>
-                                <RangeControl
-                                    value={attributes.columnSizeMobile}
-                                    min={1}
-                                    max={12}
-                                    step={1}
-                                    onChange={(value) => {
-                                        setAttributes({customSize: true})
-                                        setAttributes({columnSizeMobile: value})
-                                    }}
-                                    allowReset={true}
-                                    resetFallbackValue={parent.columnSizeMobile}
-                                />
+                                <ResetWrapperControl onClick={() => {
+                                    setAttributes({customSize: false})
+                                    setAttributes({columnSizeDesktop: parent.columnSizeDesktop})
+                                    setAttributes({columnSizeTablet: parent.columnSizeTablet})
+                                    setAttributes({columnSizeMobile: parent.columnSizeMobile})
+                                }}>
+                                    <RangeControl
+                                        value={attributes.columnSizeMobile}
+                                        min={1}
+                                        max={12}
+                                        step={1}
+                                        onChange={(value) => {
+                                            setAttributes({customSize: true})
+                                            setAttributes({columnSizeMobile: value})
+                                        }}
+                                    />
+                                </ResetWrapperControl>
                             </MobileSwitchInner>
                         </MobileSwitch>
                         <hr/>
                         {/*<p>{__('Background Color', 'sage')}</p>*/}
                         <SettingsHeading headline={'Background Color'} icon={colorIcon}/>
                         <ColorPalette
-                            colors={[...editorThemeColors]}
+                            colors={editorThemeColors}
                             value={attributes.backgroundColor}
                             onChange={(value) => setAttributes({backgroundColor: value})}
-                            disableCustomColors={true}
+                            // disableCustomColors={true}
                         />
                         <hr/>
                         {/*<p>{__('Section Clip Path', 'sage')}</p>*/}
@@ -287,12 +307,17 @@ registerBlockType('custom/grid-column', {
                         <div className={classNames(
                             className,
                             'grid-block__inner',
-                            returnBackgroundColorClass(attributes.backgroundColor, attributes.parentBackgroundColor),
                             `align-items-${attributes.verticalAlign}`,
-                            hasPaddingY && 'fluid-padding-y'
+                            hasPaddingY && 'fluid-padding-y',
+                            attributes.backgroundColor ?
+                                returnBackgroundColorClass(attributes.backgroundColor) :
+                                returnBackgroundColorClass(attributes.parentBackgroundColor),
                         )}
                              style={{
                                  clipPath: clipPaths[attributes.clipPath] ? `url(#clip-path-${attributes.clientId})` : 'none',
+                                 ...attributes.backgroundColor ?
+                                     returnBackgroundColorStyle(attributes.backgroundColor) :
+                                     returnBackgroundColorStyle(attributes.parentBackgroundColor),
                              }}
                         >
                             <div className="grid-block__wrapper">
@@ -327,12 +352,17 @@ registerBlockType('custom/grid-column', {
                 </>}
                 <div className={classNames(
                     'grid-block__inner',
-                    returnBackgroundColorClass(attributes.backgroundColor, attributes.parentBackgroundColor),
                     `align-items-${attributes.verticalAlign}`,
-                    hasPaddingY && 'fluid-padding-y'
+                    hasPaddingY && 'fluid-padding-y',
+                    attributes.backgroundColor ?
+                        returnBackgroundColorClass(attributes.backgroundColor) :
+                        returnBackgroundColorClass(attributes.parentBackgroundColor),
                 )}
                      style={{
                          clipPath: clipPaths[attributes.clipPath] ? `url(#clip-path-${attributes.clientId})` : 'none',
+                         ...attributes.backgroundColor ?
+                             returnBackgroundColorStyle(attributes.backgroundColor) :
+                             returnBackgroundColorStyle(attributes.parentBackgroundColor),
                      }}
                 >
                     <div className="grid-block__wrapper">

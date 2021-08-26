@@ -556,6 +556,8 @@ export const returnBackgroundColorClass = (color) => {
     if (getColorObject(color)) {
         return `has-${getColorObject(color).slug}-background-color has-background`;
     }
+
+
 }
 
 /**

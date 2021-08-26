@@ -65,6 +65,7 @@ const ALLOWED_BLOCKS = [
 registerBlockType('custom/icon-text', {
     title: __('Icon Text', 'sage'),
     category: 'custom',
+    description: __('Displays an icon and text combination.', 'sage'),
     icon: iconTextIcon,
     attributes,
     edit: ({setAttributes, attributes, className, clientId}) => {
@@ -108,6 +109,7 @@ registerBlockType('custom/icon-text', {
                 </BlockControls>
                 <InspectorControls>
                     <div className="inspector-controls-container">
+                        <hr style={{marginTop: 0}}/>
                         <p>{__('Choose your Icon', 'sage')}</p>
                         <MediaUpload
                             onSelect={(value) => setAttributes({iconObject: value})}
