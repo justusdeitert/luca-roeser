@@ -58,6 +58,7 @@ registerBlockType('custom/accordion-inner', {
     apiVersion: 2,
     title: __('Accordion Inner', 'sage'),
     category: 'custom',
+    description: __('Single accordion item. Place any content you like.', 'sage'),
     icon: accordionInnerIcon,
     attributes,
     parent: ['custom/accordion'],
@@ -106,9 +107,11 @@ registerBlockType('custom/accordion-inner', {
                          data-bs-parent={`#block-${attributes.parentId}`}
                     >
                         <div className="accordion-block__item-body custom-border">
-                            <InnerBlocks templateLock={false}
-                                         allowedBlocks={removeArrayItems(ALLOWED_BLOCKS, ['custom/accordion'])}
-                                         renderAppender={InnerBlocks.DefaultBlockAppender}/>
+                            <InnerBlocks
+                                templateLock={false}
+                                allowedBlocks={removeArrayItems(ALLOWED_BLOCKS, ['custom/accordion'])}
+                                renderAppender={InnerBlocks.DefaultBlockAppender}
+                            />
                         </div>
                     </div>
                 </div>

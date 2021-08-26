@@ -9,10 +9,11 @@ import {
     mobile as mobileIcon,
     tablet as tabletIcon,
     desktop as desktopIcon,
-} from "@wordpress/icons";
-import {
     undo as undoIcon
-} from "./custom-icons";
+} from "@wordpress/icons";
+// import {
+//     undo as undoIcon
+// } from "./custom-icons";
 
 /**
  * @param array

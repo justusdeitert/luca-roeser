@@ -8,18 +8,41 @@ import classNames from 'classnames';
  */
 import {__} from '@wordpress/i18n';
 import {registerBlockType} from '@wordpress/blocks';
-import {RangeControl, ToggleControl, ColorPalette, SelectControl} from '@wordpress/components';
+import {
+    RangeControl,
+    ToggleControl,
+    ColorPalette,
+    SelectControl,
+    __experimentalRadio as Radio,
+    __experimentalRadioGroup as RadioGroup
+} from '@wordpress/components';
 import {
     InnerBlocks,
     InspectorControls,
     useBlockProps,
     __experimentalUseInnerBlocksProps as useInnerBlocksProps
 } from '@wordpress/block-editor';
+import {
+    color as colorIcon,
+    resizeCornerNE as resizeIcon,
+    box as boxIcon,
+    formatCapitalize as fontSizeIcon
+} from "@wordpress/icons";
 
 /**
  * Internal dependencies
  */
-import {editorThemeColors, getColorObject, updateInnerBlocks, loremIpsum, parentAttributes} from "../utility";
+import {
+    editorThemeColors,
+    getColorObject,
+    updateInnerBlocks,
+    loremIpsum,
+    parentAttributes,
+    SettingsHeading,
+    ResetWrapperControl,
+    returnBackgroundColorClass,
+    returnBackgroundColorStyle
+} from "../utility";
 import {accordion as accordionIcon} from "../custom-icons";
 
 /**
@@ -57,6 +80,7 @@ registerBlockType('custom/accordion', {
     title: __('Accordion', 'sage'),
     icon: accordionIcon,
     category: 'custom',
+    description: __('Accordions are useful when you want to toggle between hiding and showing large amount of content.', 'sage'),
     attributes,
     // multiple: false,
     edit: ({setAttributes, attributes, className, clientId}) => {
@@ -80,12 +104,13 @@ registerBlockType('custom/accordion', {
             className: classNames(
                 className,
                 'accordion-block',
-                // 'custom-shadow',
-                // 'custom-border-radius',
-                getColorObject(attributes.accordionBackgroundColor) && `has-${getColorObject(attributes.accordionBackgroundColor).slug}-background-color`,
+                returnBackgroundColorClass(attributes.accordionBackgroundColor),
                 attributes.showIcon && 'has-icon'
             ),
-            style: {'--accordion-spacing': `${attributes.accordionSpacing / 16}rem`}
+            style: {
+                '--accordion-spacing': `${attributes.accordionSpacing / 16}rem`,
+                ...returnBackgroundColorStyle(attributes.accordionBackgroundColor),
+            }
         });
 
         const innerBlocksProps = useInnerBlocksProps(blockProps, {
@@ -103,7 +128,7 @@ registerBlockType('custom/accordion', {
         // let accordionItems = accordionElement.querySelector('.accordion-block__item');
         // accordionItems.forEach((item) => {
         //     item.addEventListener('click', () => {
-        //
+        //        // ------->
         //     });
         // });
 
@@ -111,48 +136,48 @@ registerBlockType('custom/accordion', {
             <>
                 <InspectorControls>
                     <div className="inspector-controls-container">
-                        <hr/>
+                        <hr style={{marginTop: 0}}/>
                         <ToggleControl
                             label={__('Show Icon', 'sage')}
                             checked={attributes.showIcon}
                             onChange={(value) => setAttributes({showIcon: value})}
                         />
                         <hr/>
-                        <p>{__('Accordion Spacing', 'sage')}</p>
-                        <RangeControl
-                            value={attributes.accordionSpacing}
-                            min={8}
-                            initialPosition={16}
-                            max={32}
-                            onChange={(value) => setAttributes({accordionSpacing: value})}
-                            allowReset={true}
-                            resetFallbackValue={16}
-                        />
+                        <SettingsHeading headline={'Spacing'} icon={resizeIcon}/>
+                        <ResetWrapperControl onClick={() => setAttributes({accordionSpacing: 16})}>
+                            <RangeControl
+                                value={attributes.accordionSpacing}
+                                min={8}
+                                initialPosition={16}
+                                max={32}
+                                onChange={(value) => setAttributes({accordionSpacing: value})}
+                            />
+                        </ResetWrapperControl>
                         <hr/>
-                        <SelectControl
-                            label={__('Custom Font Size', 'sage')}
-                            value={attributes.accordionHeadlineSize}
-                            options={[
-                                {label: __('None', 'sage'), value: ''},
-                                {label: __('Tiny (H6)', 'sage'), value: 'tiny'},
-                                {label: __('Small (H5)', 'sage'), value: 'small'},
-                                {label: __('Normal (H4)', 'sage'), value: 'normal'},
-                                {label: __('Medium (H3)', 'sage'), value: 'medium'},
-                                {label: __('Large (H2)', 'sage'), value: 'large'},
-                                {label: __('Huge (H1)', 'sage'), value: 'huge'},
-                            ]}
-                            onChange={(value) => {
+                        <SettingsHeading headline={'Headline size'} icon={fontSizeIcon}/>
+                        <RadioGroup {...{
+                            onChange: (value) => {
                                 setAttributes({accordionHeadlineSize: value});
                                 updateInnerBlocks(clientId);
-                            }}
-                        />
+                            },
+                            checked: attributes.accordionHeadlineSize,
+                            // defaultChecked: 'small'
+                        }}>
+                            <Radio value={false} isSmall={true}>{__('None', 'sage')}</Radio>
+                            <Radio value="tiny" isSmall={true}>{__('Tiny', 'sage')}</Radio>
+                            <Radio value="small" isSmall={true}>{__('Small', 'sage')}</Radio>
+                            <Radio value="normal" isSmall={true}>{__('Normal', 'sage')}</Radio>
+                            <Radio value="medium" isSmall={true}>{__('Medium', 'sage')}</Radio>
+                            <Radio value="large" isSmall={true}>{__('Large', 'sage')}</Radio>
+                            <Radio value="huge" isSmall={true}>{__('Huge', 'sage')}</Radio>
+                        </RadioGroup>
                         <hr/>
-                        <p>{__('Accordion Background Color', 'sage')}</p>
+                        <SettingsHeading headline={'Background Color'} icon={colorIcon}/>
                         <ColorPalette
-                            colors={[...editorThemeColors]}
+                            colors={editorThemeColors}
                             value={attributes.accordionBackgroundColor}
                             onChange={(value) => setAttributes({accordionBackgroundColor: value})}
-                            disableCustomColors={true}
+                            // disableCustomColors={true}
                         />
                     </div>
                 </InspectorControls>
@@ -168,13 +193,14 @@ registerBlockType('custom/accordion', {
         const blockProps = useBlockProps.save({
             className: classNames(
                 'accordion-block',
-                // 'custom-shadow',
-                // 'custom-border-radius',
-                getColorObject(attributes.accordionBackgroundColor) && `has-${getColorObject(attributes.accordionBackgroundColor).slug}-background-color`,
+                returnBackgroundColorClass(attributes.accordionBackgroundColor),
                 attributes.showIcon && 'has-icon'
             ),
             id: `block-${attributes.clientId}`,
-            style: {'--accordion-spacing': `${attributes.accordionSpacing / 16}rem`}
+            style: {
+                '--accordion-spacing': `${attributes.accordionSpacing / 16}rem`,
+                ...returnBackgroundColorStyle(attributes.accordionBackgroundColor),
+            }
         });
 
         return (
