@@ -1,16 +1,34 @@
+/**
+ * External dependencies
+ */
+import classNames from 'classnames';
+
+/**
+ * Wordpress dependencies
+ */
 import {__} from '@wordpress/i18n';
 import {registerBlockType} from '@wordpress/blocks';
-import {InnerBlocks, useBlockProps, __experimentalUseInnerBlocksProps as useInnerBlocksProps} from '@wordpress/block-editor';
-import classNames from 'classnames';
+import {
+    InnerBlocks,
+    useBlockProps,
+    __experimentalUseInnerBlocksProps as useInnerBlocksProps
+} from '@wordpress/block-editor';
 import {useEffect} from '@wordpress/element';
+
+/**
+ * Internal dependencies
+ */
 import {
     ALLOWED_BLOCKS,
     getColorObject,
     parentAttributes,
-    removeArrayItems,
+    removeArrayItems, returnBackgroundColorClass, returnBackgroundColorStyle,
 } from '../utility';
 import {sliderItem as accordionInnerIcon} from '../custom-icons';
 
+/**
+ * Block attributes
+ */
 const attributes = {
     clientId: {
         type: 'string',
@@ -29,6 +47,7 @@ const attributes = {
 registerBlockType('custom/slider-inner', {
     apiVersion: 2,
     title: __('Slider Inner', 'sage'),
+    description: __('Touch slider item. Place any content.', 'sage'),
     category: 'custom',
     icon: accordionInnerIcon,
     attributes,
@@ -39,7 +58,7 @@ registerBlockType('custom/slider-inner', {
     //     reusable: false,
     //     html: false,
     // },
-    edit: ({setAttributes, attributes, className, clientId}) => {
+    edit: ({setAttributes, attributes, clientId}) => {
 
         attributes.clientId = clientId;
         attributes.parentId = parentAttributes(attributes.clientId).clientId;
@@ -68,7 +87,8 @@ registerBlockType('custom/slider-inner', {
                 if (slideInstance) {
                     let sliderActiveIndex = slideInstance.activeIndex - 1;
                     window.updateSliderBlockInstances();
-                    // New query because slider has ben reinitialized
+
+                    // New query because slider has been reinitialized
                     window.sliderBlockInstances[attributes.parentId].slideTo(sliderActiveIndex, 0)
                 }
             };
@@ -79,12 +99,13 @@ registerBlockType('custom/slider-inner', {
                 'slider-block__slide-inner',
                 'custom-border',
                 'custom-border-radius',
-                getColorObject(attributes.parentBackgroundColor) && `has-background has-${getColorObject(attributes.parentBackgroundColor).slug}-background-color`
+                returnBackgroundColorClass(attributes.parentBackgroundColor)
             ),
             style: {
                 marginTop: 0,
                 marginBottom: 0,
                 border: !attributes.parentBackgroundColor && '1px dashed var(--wp-admin-theme-color)',
+                ...returnBackgroundColorStyle(attributes.parentBackgroundColor)
             }
         });
 
@@ -99,11 +120,6 @@ registerBlockType('custom/slider-inner', {
             <>
                 <div className={classNames('swiper-slide', 'slider-block__slide')}>
                     <div {...innerBlocksProps}>
-                        {/*<InnerBlocks
-                            templateLock={false}
-                            allowedBlocks={removeArrayItems(ALLOWED_BLOCKS, ['custom/slider'])}
-                            renderAppender={InnerBlocks.DefaultBlockAppender}
-                        />*/}
                         {innerBlocksProps.children}
                     </div>
                 </div>
@@ -118,8 +134,11 @@ registerBlockType('custom/slider-inner', {
                 'slider-block__slide-inner',
                 'custom-border',
                 'custom-border-radius',
-                getColorObject(attributes.parentBackgroundColor) && `has-background has-${getColorObject(attributes.parentBackgroundColor).slug}-background-color`
+                returnBackgroundColorClass(attributes.parentBackgroundColor)
             ),
+            style: {
+                ...returnBackgroundColorStyle(attributes.parentBackgroundColor)
+            }
         });
 
         return (

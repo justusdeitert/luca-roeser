@@ -10,6 +10,7 @@ import {__} from '@wordpress/i18n';
 import {registerBlockType,} from '@wordpress/blocks';
 import {
     Button,
+    Icon,
     ToggleControl,
     RangeControl,
     SelectControl,
@@ -29,6 +30,13 @@ import {
     useBlockProps,
     __experimentalUseInnerBlocksProps as useInnerBlocksProps
 } from '@wordpress/block-editor';
+import {
+    grid as gutterIcon,
+    color as colorIcon,
+    loop as loopIcon,
+    columns as columnsIcon,
+    resizeCornerNE as sizeIcon
+} from "@wordpress/icons";
 
 /**
  * Internal dependencies
@@ -40,7 +48,9 @@ import {
     getImage,
     loremIpsum,
     updateInnerBlocks,
-    isDefined
+    isDefined,
+    SettingsHeading,
+    ResetWrapperControl
 } from "../utility";
 import {
     slider as sliderIcon
@@ -166,11 +176,12 @@ let returnOffsetClass = (name, isShown, position) => {
     return '';
 }
 
-let autoplayTreshold = true;
+let autoplayTimeout = true;
 
 registerBlockType('custom/slider', {
     apiVersion: 2,
     title: __('Slider', 'sage'),
+    description: __('Touch slider with hardware accelerated transitions and amazing native behavior.', 'sage'),
     icon: sliderIcon,
     category: 'custom',
     supports: {
@@ -246,22 +257,24 @@ registerBlockType('custom/slider', {
             <>
                 <InspectorControls>
                     <div className="inspector-controls-container">
-                        <Button icon={'arrow-left'}
-                                className={'is-secondary'}
-                                onClick={slidePrev}
-                                text={__('Prev', 'sage')}
-                                iconPosition={'left'}
-                                style={{float: 'left', width: 'initial', padding: 6}}
-
+                        <Button
+                            icon={'arrow-left'}
+                            className={'is-secondary'}
+                            onClick={slidePrev}
+                            text={__('Prev', 'sage')}
+                            iconPosition={'left'}
+                            style={{float: 'left', width: 'initial', padding: 6}}
                         />
-                        <Button icon={'arrow-right'}
-                                className={'is-secondary'}
-                                onClick={slideNext}
-                                text={__('Next', 'sage')}
-                                iconPosition={'right'}
-                                style={{marginLeft: '10px', width: 'initial', padding: 6}}
+                        <Button
+                            icon={'arrow-right'}
+                            className={'is-secondary'}
+                            onClick={slideNext}
+                            text={__('Next', 'sage')}
+                            iconPosition={'right'}
+                            style={{marginLeft: '10px', width: 'initial', padding: 6}}
                         />
                         <hr/>
+                        {/*<Icon icon={loopIcon} />*/}
                         <ToggleControl
                             label={__('Loop', 'sage')}
                             help={__('Enable continuous loop mode (does not apply on the editor)', 'sage')}
@@ -272,7 +285,8 @@ registerBlockType('custom/slider', {
                             }}
                         />
                         <hr/>
-                        <p>{__('Slides per view', 'sage')}</p>
+                        {/*<p>{__('Slides per view', 'sage')}</p>*/}
+                        <SettingsHeading headline={'Slides per view'} icon={columnsIcon}/>
                         <RadioGroup
                             onChange={(value) => {
                                 setAttributes({slidesPerView: value});
@@ -287,41 +301,43 @@ registerBlockType('custom/slider', {
                             <Radio value={4}>4</Radio>
                         </RadioGroup>
                         <hr/>
-                        <p>{__('Autoplay Seconds', 'sage')}</p>
-                        <RangeControl
-                            value={attributes.sliderAutoplaySeconds}
-                            min={1}
-                            // initialPosition={false}
-                            step={0.1}
-                            max={15}
-                            onChange={(value) => {
-                                setAttributes({sliderAutoplaySeconds: value});
+                        {/*<p>{__('Autoplay Seconds', 'sage')}</p>*/}
+                        <SettingsHeading headline={'Autoplay seconds'} icon={loopIcon}/>
+                        <ResetWrapperControl onClick={() => setAttributes({sliderAutoplaySeconds: false})}>
+                            <RangeControl
+                                value={attributes.sliderAutoplaySeconds}
+                                min={1}
+                                // initialPosition={false}
+                                step={0.1}
+                                max={15}
+                                onChange={(value) => {
+                                    setAttributes({sliderAutoplaySeconds: value});
 
-                                if (autoplayTreshold) {
-                                    updateSlider();
-                                    autoplayTreshold = false;
+                                    if (autoplayTimeout) {
+                                        updateSlider();
+                                        autoplayTimeout = false;
 
-                                    setTimeout(() => {
-                                        autoplayTreshold = true;
-                                    }, 500);
-                                }
-                            }}
-                            allowReset={true}
-                            resetFallbackValue={false}
-                        />
+                                        setTimeout(() => {
+                                            autoplayTimeout = true;
+                                        }, 500);
+                                    }
+                                }}
+                            />
+                        </ResetWrapperControl>
                         <hr/>
-                        <p>{__('Gutter', 'sage')}</p>
-                        <RangeControl
-                            value={attributes.sliderGutter}
-                            onChange={(value) => {
-                                setAttributes({sliderGutter: value});
-                            }}
-                            min={0}
-                            max={80}
-                            step={1}
-                            allowReset={true}
-                            resetFallbackValue={false}
-                        />
+                        {/*<p>{__('Gutter', 'sage')}</p>*/}
+                        <SettingsHeading headline={'Gutter'} icon={gutterIcon}/>
+                        <ResetWrapperControl onClick={() => setAttributes({sliderGutter: false})}>
+                            <RangeControl
+                                value={attributes.sliderGutter}
+                                onChange={(value) => {
+                                    setAttributes({sliderGutter: value});
+                                }}
+                                min={0}
+                                max={80}
+                                step={1}
+                            />
+                        </ResetWrapperControl>
                         <hr/>
                         <ToggleControl
                             label={__('Two Slides on Mobile', 'sage')}
@@ -333,10 +349,11 @@ registerBlockType('custom/slider', {
                             }}
                         />
                         <hr/>
-                        <p>{__('Slides Background Color', 'sage')}</p>
+                        {/*<p>{__('Slides Background Color', 'sage')}</p>*/}
+                        <SettingsHeading headline={'Slides Background Color'} icon={colorIcon}/>
                         <ColorPalette
                             colors={[...editorThemeColors]}
-                            disableCustomColors={true}
+                            // disableCustomColors={true}
                             value={attributes.slidesBackgroundColor}
                             onChange={(value) => {
                                 setAttributes({slidesBackgroundColor: value});
@@ -345,15 +362,16 @@ registerBlockType('custom/slider', {
                         />
                     </div>
                     <PanelBody title={__('Controls', 'sage')} initialOpen={false}>
-                        <p>{__('Controls size', 'sage')}</p>
-                        <RangeControl
-                            value={attributes.controlsSize}
-                            min={8}
-                            max={86}
-                            onChange={(value) => setAttributes({controlsSize: value})}
-                            allowReset={true}
-                            resetFallbackValue={42}
-                        />
+                        {/*<p>{__('Controls size', 'sage')}</p>*/}
+                        <SettingsHeading headline={'Controls size'} icon={sizeIcon}/>
+                        <ResetWrapperControl onClick={() => setAttributes({controlsSize: 42})}>
+                            <RangeControl
+                                value={attributes.controlsSize}
+                                min={8}
+                                max={86}
+                                onChange={(value) => setAttributes({controlsSize: value})}
+                            />
+                        </ResetWrapperControl>
                         <hr/>
                         <ToggleControl
                             label={__('Has offset', 'sage')}
