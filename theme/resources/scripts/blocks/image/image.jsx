@@ -34,7 +34,14 @@ import {
 /**
  * Internal dependencies
  */
-import {getImage, focalPositionInPixel, MobileSwitch, MobileSwitchInner, SettingsHeading} from '../utility';
+import {
+    getImage,
+    focalPositionInPixel,
+    MobileSwitch,
+    MobileSwitchInner,
+    SettingsHeading,
+    ResetWrapperControl
+} from '../utility';
 
 // For not firing update to often
 let onChangeImagePositionTimeout = true;
@@ -134,6 +141,7 @@ registerBlockType('custom/image', {
     apiVersion: 2,
     title: __('Image', 'sage'),
     icon: imageIcon,
+    description: __('Insert an image to make a visual statement.', 'sage'),
     category: 'custom',
     attributes,
     edit: ({className, attributes, setAttributes}) => {
@@ -285,54 +293,60 @@ registerBlockType('custom/image', {
                         {attributes.imageSizeUnit === 'px' ? <>
                             <MobileSwitch headline={__('Size', 'sage')} icon={sizeIcon}>
                                 <MobileSwitchInner type={'desktop'}>
-                                    <RangeControl
-                                        value={attributes.imageSizePixelDesktop}
-                                        min={20}
-                                        max={1000}
-                                        step={1}
-                                        onChange={(value) => {
-                                            if(attributes.imageSizePixelMobile === attributes.imageSizePixelDesktop) {
-                                                setAttributes({imageSizePixelMobile: value})
-                                            }
+                                    <ResetWrapperControl onClick={() => {
+                                        setAttributes({imageSizePixelDesktop: 300})
+                                        setAttributes({imageSizePixelMobile: 300})
+                                    }}>
+                                        <RangeControl
+                                            value={attributes.imageSizePixelDesktop}
+                                            min={20}
+                                            max={1000}
+                                            step={1}
+                                            onChange={(value) => {
+                                                if(attributes.imageSizePixelMobile === attributes.imageSizePixelDesktop) {
+                                                    setAttributes({imageSizePixelMobile: value})
+                                                }
 
-                                            setAttributes({imageSizePixelDesktop: value})
-                                        }}
-                                        allowReset={true}
-                                        resetFallbackValue={300}
-                                    />
+                                                setAttributes({imageSizePixelDesktop: value})
+                                            }}
+                                        />
+                                    </ResetWrapperControl>
                                 </MobileSwitchInner>
                                 <MobileSwitchInner type={'mobile'}>
-                                    <RangeControl
-                                        value={attributes.imageSizePixelMobile}
-                                        min={5}
-                                        max={attributes.imageSizePixelDesktop}
-                                        step={1}
-                                        onChange={(value) => {
-                                            setAttributes({imageSizePixelMobile: value})
-                                        }}
-                                        allowReset={true}
-                                        resetFallbackValue={attributes.imageSizePixelDesktop}
-                                    />
+                                    <ResetWrapperControl onClick={() => {
+                                        setAttributes({imageSizePixelDesktop: 300})
+                                        setAttributes({imageSizePixelMobile: 300})
+                                    }}>
+                                        <RangeControl
+                                            value={attributes.imageSizePixelMobile}
+                                            min={5}
+                                            max={attributes.imageSizePixelDesktop}
+                                            step={1}
+                                            onChange={(value) => {
+                                                setAttributes({imageSizePixelMobile: value})
+                                            }}
+                                        />
+                                    </ResetWrapperControl>
                                 </MobileSwitchInner>
                             </MobileSwitch>
                         </> : <>
                             <SettingsHeading headline={'Size'} icon={sizeIcon}/>
-                            <RangeControl
-                                value={attributes.imageSizePercent}
-                                min={5}
-                                max={100}
-                                step={1}
-                                onChange={(value) => setAttributes({imageSizePercent: value})}
-                                allowReset={true}
-                                resetFallbackValue={100}
-                            />
+                            <ResetWrapperControl onClick={() => setAttributes({imageSizePercent: 100})}>
+                                <RangeControl
+                                    value={attributes.imageSizePercent}
+                                    min={5}
+                                    max={100}
+                                    step={1}
+                                    onChange={(value) => setAttributes({imageSizePercent: value})}
+                                />
+                            </ResetWrapperControl>
                         </>}
                         <RadioGroup {...{
                             onChange: (value) => setAttributes({imageSizeUnit: value}),
                             checked: attributes.imageSizeUnit,
                             defaultChecked: 'px'
                         }}>
-                            <Radio value="px">{__('Pixel', 'sage')}</Radio>
+                            <Radio value="px">{__('px', 'sage')}</Radio>
                             <Radio value="%">{__('%', 'sage')}</Radio>
                         </RadioGroup>
                     </div>

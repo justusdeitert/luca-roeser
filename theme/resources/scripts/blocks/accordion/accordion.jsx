@@ -163,13 +163,13 @@ registerBlockType('custom/accordion', {
                             checked: attributes.accordionHeadlineSize,
                             // defaultChecked: 'small'
                         }}>
-                            <Radio value={false} isSmall={true}>{__('None', 'sage')}</Radio>
-                            <Radio value="tiny" isSmall={true}>{__('Tiny', 'sage')}</Radio>
-                            <Radio value="small" isSmall={true}>{__('Small', 'sage')}</Radio>
-                            <Radio value="normal" isSmall={true}>{__('Normal', 'sage')}</Radio>
-                            <Radio value="medium" isSmall={true}>{__('Medium', 'sage')}</Radio>
-                            <Radio value="large" isSmall={true}>{__('Large', 'sage')}</Radio>
-                            <Radio value="huge" isSmall={true}>{__('Huge', 'sage')}</Radio>
+                            <Radio value={false}>{__('None', 'sage')}</Radio>
+                            <Radio value="tiny">{__('Tiny', 'sage')}</Radio>
+                            <Radio value="small">{__('Small', 'sage')}</Radio>
+                            <Radio value="normal">{__('Normal', 'sage')}</Radio>
+                            <Radio value="medium">{__('Medium', 'sage')}</Radio>
+                            <Radio value="large">{__('Large', 'sage')}</Radio>
+                            <Radio value="huge">{__('Huge', 'sage')}</Radio>
                         </RadioGroup>
                         <hr/>
                         <SettingsHeading headline={'Background Color'} icon={colorIcon}/>

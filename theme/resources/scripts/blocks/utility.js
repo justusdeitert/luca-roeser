@@ -369,7 +369,11 @@ export const SettingsHeading = ({headline, icon}) => {
 
 export const ResetWrapperControl = ({children, onClick}) => {
     return (
-        <div style={{width: '100%', paddingRight: '45px', position: 'relative'}}>
+        <div style={{
+            width: '100%',
+            paddingRight: '45px',
+            position: 'relative'
+        }}>
             {children}
             <Button
                 icon={undoIcon}

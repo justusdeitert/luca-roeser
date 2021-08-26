@@ -28,6 +28,8 @@ $theme-dark-colors: (
 
 .btn {
     min-height:  var(--custom-form-height);
+    display: flex;
+    align-items: center;
 
     &-light {
         color: rgb(var(--custom-dark-color));

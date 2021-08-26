@@ -35,7 +35,9 @@ import {
     color as colorIcon,
     loop as loopIcon,
     columns as columnsIcon,
-    resizeCornerNE as sizeIcon
+    resizeCornerNE as sizeIcon,
+    arrowLeft as arrowLeftIcon,
+    arrowRight as arrowRightIcon
 } from "@wordpress/icons";
 
 /**
@@ -258,7 +260,8 @@ registerBlockType('custom/slider', {
                 <InspectorControls>
                     <div className="inspector-controls-container">
                         <Button
-                            icon={'arrow-left'}
+                            icon={arrowLeftIcon}
+                            // isSmall={true}
                             className={'is-secondary'}
                             onClick={slidePrev}
                             text={__('Prev', 'sage')}
@@ -266,7 +269,8 @@ registerBlockType('custom/slider', {
                             style={{float: 'left', width: 'initial', padding: 6}}
                         />
                         <Button
-                            icon={'arrow-right'}
+                            icon={arrowRightIcon}
+                            // isSmall={true}
                             className={'is-secondary'}
                             onClick={slideNext}
                             text={__('Next', 'sage')}
@@ -440,7 +444,7 @@ registerBlockType('custom/slider', {
                         {attributes.showArrows && <>
                             <div className="swiper-arrows__wrapper" style={{
                                 ...returnStylesY(getPosition(attributes.arrowsPosition).y),
-                                pointerEvents: 'none'
+                                // pointerEvents: 'none'
                             }}>
                                 <div className="swiper-arrows" style={{
                                     ...returnStylesX(getPosition(attributes.arrowsPosition).x),

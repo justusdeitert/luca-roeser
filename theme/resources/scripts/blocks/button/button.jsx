@@ -27,13 +27,25 @@ import {
     useBlockProps,
     ColorPalette
 } from '@wordpress/block-editor';
-import {button as buttonIcon} from '@wordpress/icons';
+import {
+    button as buttonIcon,
+    color as colorIcon,
+    resizeCornerNE as resizeIcon,
+    button as borderRadiusIcon
+} from '@wordpress/icons';
 
 /**
  * Internal dependencies
  */
 // import {buttonIcon} from '../custom-icons';
-import {editorStandardColors, getColorObjectFromSlug, getColorObject, removeBlock} from "../utility";
+import {
+    editorStandardColors,
+    getColorObjectFromSlug,
+    getColorObject,
+    removeBlock,
+    SettingsHeading,
+    ResetWrapperControl
+} from "../utility";
 
 const attributes = {
     buttonAlignment: {
@@ -69,6 +81,7 @@ registerBlockType('custom/button', {
     apiVersion: 2,
     title: __('Button', 'sage'),
     icon: buttonIcon,
+    description: __('Prompt visitors to take action with a button.', 'sage'),
     category: 'custom',
     // multiple: false, // Use this block just once per post
     attributes,
@@ -85,11 +98,12 @@ registerBlockType('custom/button', {
 
         const blockProps = useBlockProps({
             className: classNames(
-                'btn',
-                `btn-${attributes.buttonStyle}`,
-                attributes.buttonSize && `btn-${attributes.buttonSize}`
+                `button-block`,
+                `justify-content-${attributes.buttonAlignment}`
             ),
-            style: customStyles
+            style: {
+                border: '1px dashed var(--wp-admin-theme-color)',
+            }
         });
 
         let iconClass = (icon) => {
@@ -157,16 +171,18 @@ registerBlockType('custom/button', {
                 </BlockControls>
                 <InspectorControls>
                     <div className="inspector-controls-container">
-                        <hr/>
-                        <p>{__('Button Style', 'sage')}</p>
+                        <hr style={{marginTop: 0}}/>
+                        <SettingsHeading headline={'Color'} icon={colorIcon}/>
                         <ColorPalette
                             colors={editorStandardColors}
                             value={getColorObjectFromSlug(attributes.buttonStyle).color}
                             onChange={(value) => setAttributes({buttonStyle: getColorObject(value).slug})}
                             clearable={false}
+                            disableCustomColors={true}
                         />
                         <hr/>
-                        <p>{__('Button Size', 'sage')}</p>
+                        {/*<p>{__('Button Size', 'sage')}</p>*/}
+                        <SettingsHeading headline={'Size'} icon={resizeIcon}/>
                         <RadioGroup
                             checked={attributes.buttonSize}
                             onChange={(value) => setAttributes({buttonSize: value})}
@@ -177,21 +193,27 @@ registerBlockType('custom/button', {
                             <Radio value="lg">{__('Large', 'sage')}</Radio>
                         </RadioGroup>
                         <hr/>
-                        <p>{__('Border Radius', 'sage')}</p>
-                        <RangeControl
-                            value={attributes.customBorderRadius}
-                            min={0}
-                            max={50}
-                            step={1}
-                            onChange={(value) => setAttributes({customBorderRadius: value})}
-                            allowReset={true}
-                            resetFallbackValue={false}
-                        />
+                        {/*<p>{__('Border Radius', 'sage')}</p>*/}
+                        <SettingsHeading headline={'Border radius'} icon={borderRadiusIcon}/>
+                        <ResetWrapperControl onClick={() => setAttributes({customBorderRadius: false})}>
+                            <RangeControl
+                                value={attributes.customBorderRadius}
+                                min={0}
+                                max={50}
+                                step={1}
+                                onChange={(value) => setAttributes({customBorderRadius: value})}
+                            />
+                        </ResetWrapperControl>
                     </div>
                 </InspectorControls>
-                <div className={classNames('button-block', `justify-content-${attributes.buttonAlignment}`)}>
+                <div {...blockProps}>
                     <RichText
-                        {...blockProps}
+                        className={classNames(
+                            'btn',
+                            `btn-${attributes.buttonStyle}`,
+                            attributes.buttonSize && `btn-${attributes.buttonSize}`
+                        )}
+                        style={customStyles}
                         tagName="div"
                         role="button"
                         placeholder={__('Button Text', 'sage')}
