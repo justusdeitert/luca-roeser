@@ -17,11 +17,21 @@ import {
     __experimentalRadioGroup as RadioGroup
 } from '@wordpress/components';
 import {select, dispatch} from '@wordpress/data';
+import {
+    formatCapitalize as textTypeIcon,
+    styles as styleIcon,
+    color as colorIcon,
+    resizeCornerNE as fontSizeIcon,
+    formatBold as fontWeightIcon
+} from '@wordpress/icons'
 
 /**
  * Internal dependencies
  */
-import {fluidTextIcon} from '../custom-icons';
+import {
+    fluidTextIcon,
+    height as heightIcon
+} from '../custom-icons';
 import {
     removeBlock,
     MobileSwitch,
@@ -29,7 +39,9 @@ import {
     editorThemeColors,
     getColorObject,
     getColorObjectFromSlug,
-    parentAttributes
+    parentAttributes,
+    SettingsHeading,
+    returnColorStyle
 } from "../utility";
 
 /**
@@ -93,6 +105,7 @@ const attributes = {
 registerBlockType('custom/fluid-text', {
     title: __('Fluid Text', 'sage'),
     category: 'custom',
+    description: __('Fluid text that dynamically changes font size based on viewport size.', 'sage'),
     icon: fluidTextIcon,
     attributes,
     // TODO: Refactor attributes for fluid-text block transformation
@@ -158,11 +171,6 @@ registerBlockType('custom/fluid-text', {
 
         attributes.clientId = clientId;
 
-        let additionalStyles = {};
-        if (attributes.fluidTextLineHeight) {
-            additionalStyles.lineHeight = attributes.fluidTextLineHeight
-        }
-
         return (
             <>
                 <BlockControls>
@@ -175,7 +183,9 @@ registerBlockType('custom/fluid-text', {
                 </BlockControls>
                 <InspectorControls>
                     <div className="inspector-controls-container">
-                        <p>{__('Select Text Type', 'sage')}</p>
+                        {/*<p>{__('Select Text Type', 'sage')}</p>*/}
+                        <hr style={{marginTop: 0}} />
+                        <SettingsHeading headline={'Text Type'} icon={textTypeIcon}/>
                         <RadioGroup
                             checked={attributes.fluidTextElement}
                             onChange={(value) => setAttributes({fluidTextElement: value})}
@@ -190,7 +200,8 @@ registerBlockType('custom/fluid-text', {
                             <Radio value="h6">{__('H6', 'sage')}</Radio>
                         </RadioGroup>
                         <hr/>
-                        <p>{__('Custom Style', 'sage')}</p>
+                        {/*<p>{__('Custom Style', 'sage')}</p>*/}
+                        <SettingsHeading headline={'Custom style'} icon={styleIcon}/>
                         <RadioGroup
                             checked={attributes.fluidTextStyle}
                             onChange={(value) => setAttributes({fluidTextStyle: value})}
@@ -200,7 +211,7 @@ registerBlockType('custom/fluid-text', {
                             <Radio value='shadow'>{__('Shadow', 'sage')}</Radio>
                         </RadioGroup>
                         <hr/>
-                        <MobileSwitch headline={__('Font Size', 'sage')}>
+                        <MobileSwitch headline={__('Font size', 'sage')} icon={fontSizeIcon}>
                             <MobileSwitchInner type={'desktop'}>
                                 <RangeControl
                                     value={attributes.fontSizeDesktop}
@@ -221,7 +232,8 @@ registerBlockType('custom/fluid-text', {
                             </MobileSwitchInner>
                         </MobileSwitch>
                         <hr/>
-                        <p>{__('Line Height', 'sage')}</p>
+                        {/*<p>{__('Line Height', 'sage')}</p>*/}
+                        <SettingsHeading headline={'Line height'} icon={heightIcon}/>
                         <RangeControl
                             value={attributes.fluidTextLineHeight}
                             min={0.7}
@@ -232,7 +244,8 @@ registerBlockType('custom/fluid-text', {
                             onChange={(value) => setAttributes({fluidTextLineHeight: value})}
                         />
                         <hr/>
-                        <p>{__('Font Weight', 'sage')}</p>
+                        {/*<p>{__('Font Weight', 'sage')}</p>*/}
+                        <SettingsHeading headline={'Font weight'} icon={fontWeightIcon}/>
                         <RadioGroup
                             checked={attributes.fluidTextFontWeight}
                             onChange={(value) => setAttributes({fluidTextFontWeight: value})}
@@ -244,12 +257,13 @@ registerBlockType('custom/fluid-text', {
                             <Radio value='bold'>{__('Bold', 'sage')}</Radio>
                         </RadioGroup>
                         <hr/>
-                        <p>{__('Color', 'sage')}</p>
+                        {/*<p>{__('Color', 'sage')}</p>*/}
+                        <SettingsHeading headline={'Color'} icon={colorIcon}/>
                         <ColorPalette
                             colors={editorThemeColors}
                             value={attributes.fluidTextColor}
                             onChange={(value) => setAttributes({fluidTextColor: value})}
-                            disableCustomColors={true}
+                            // disableCustomColors={true}
                         />
                     </div>
                 </InspectorControls>
@@ -260,7 +274,7 @@ registerBlockType('custom/fluid-text', {
                         'fluid-font-size',
                         `has-text-align-${attributes.textAlign}`,
                         `fluid-text-${attributes.clientId}`,
-                        getColorObject(attributes.fluidTextColor) && `has-${getColorObject(attributes.fluidTextColor).slug}-color`,
+                        // getColorObject(attributes.fluidTextColor) && `has-${getColorObject(attributes.fluidTextColor).slug}-color`,
                         attributes.fluidTextStyle && `has-style-${attributes.fluidTextStyle}`,
                         attributes.fluidTextFontWeight && `fw-${attributes.fluidTextFontWeight}`,
                     )}
@@ -268,7 +282,12 @@ registerBlockType('custom/fluid-text', {
                         '--font-size-desktop': `${attributes.fontSizeDesktop}px`,
                         '--font-size-mobile': `${attributes.fontSizeMobile}px`,
                         '--font-size-difference': `${attributes.fontSizeDesktop - attributes.fontSizeMobile}`,
-                        ...additionalStyles
+                        ...attributes.fluidTextLineHeight && {
+                            lineHeight: attributes.fluidTextLineHeight
+                        },
+                        ...attributes.fluidTextColor && {
+                            color: returnColorStyle(attributes.fluidTextColor)
+                        }
                     }}
                     placeholder={'Lorem Ipsum ...'}
                     onRemove={() => removeBlock(clientId)}
@@ -291,7 +310,7 @@ registerBlockType('custom/fluid-text', {
 
                             dispatch('core/editor').insertBlock(insertedBlock, blockPosition, parentClientIds[0]);
                         } else {
-                            // If has no parent container..
+                            // inn case there is no parent container..
                             dispatch('core/block-editor').insertAfterBlock(clientId);
                         }
 
@@ -307,11 +326,6 @@ registerBlockType('custom/fluid-text', {
     },
     save: ({attributes, className}) => {
 
-        let additionalStyles = {};
-        if (attributes.fluidTextLineHeight) {
-            additionalStyles.lineHeight = attributes.fluidTextLineHeight
-        }
-
         return (
             <>
                 <RichText.Content
@@ -321,7 +335,7 @@ registerBlockType('custom/fluid-text', {
                         'fluid-font-size',
                         `has-text-align-${attributes.textAlign}`,
                         `fluid-text-${attributes.clientId}`,
-                        getColorObject(attributes.fluidTextColor) && `has-${getColorObject(attributes.fluidTextColor).slug}-color`,
+                        // getColorObject(attributes.fluidTextColor) && `has-${getColorObject(attributes.fluidTextColor).slug}-color`,
                         attributes.fluidTextStyle && `has-style-${attributes.fluidTextStyle}`,
                         attributes.fluidTextFontWeight && `fw-${attributes.fluidTextFontWeight}`,
                     )}
@@ -330,7 +344,12 @@ registerBlockType('custom/fluid-text', {
                         '--font-size-desktop': `${attributes.fontSizeDesktop}px`,
                         '--font-size-mobile': `${attributes.fontSizeMobile}px`,
                         '--font-size-difference': `${attributes.fontSizeDesktop - attributes.fontSizeMobile}`,
-                        ...additionalStyles
+                        ...attributes.fluidTextLineHeight && {
+                            lineHeight: attributes.fluidTextLineHeight
+                        },
+                        ...attributes.fluidTextColor && {
+                            color: returnColorStyle(attributes.fluidTextColor)
+                        }
                     }}
                 />
             </>
