@@ -1,20 +1,64 @@
+/**
+ * External dependencies
+ */
+import classNames from 'classnames';
+
+/**
+ * Wordpress dependencies
+ */
 import {__} from '@wordpress/i18n';
 import {registerBlockType,} from '@wordpress/blocks';
-import {Button} from '@wordpress/components';
-import {ToggleControl, RangeControl, SelectControl, PanelBody, ColorPalette, __experimentalRadio as Radio, __experimentalRadioGroup as RadioGroup, __experimentalAlignmentMatrixControl as AlignmentMatrixControl} from '@wordpress/components';
+import {
+    Button,
+    ToggleControl,
+    RangeControl,
+    SelectControl,
+    PanelBody,
+    ColorPalette,
+    __experimentalRadio as Radio,
+    __experimentalRadioGroup as RadioGroup,
+    __experimentalAlignmentMatrixControl as AlignmentMatrixControl
+} from '@wordpress/components';
 import {createElement, Component, useEffect} from '@wordpress/element';
-import {InnerBlocks, RichText, MediaUpload, InspectorControls, getColorObjectByColorValue, useBlockProps, __experimentalUseInnerBlocksProps as useInnerBlocksProps} from '@wordpress/block-editor';
-import classNames from 'classnames';
-import {cloneArray, editorThemeColors, getColorObject, getImage, loremIpsum, updateInnerBlocks, isDefined} from "../utility";
-import {slider as sliderIcon} from "../custom-icons";
+import {
+    InnerBlocks,
+    RichText,
+    MediaUpload,
+    InspectorControls,
+    getColorObjectByColorValue,
+    useBlockProps,
+    __experimentalUseInnerBlocksProps as useInnerBlocksProps
+} from '@wordpress/block-editor';
 
+/**
+ * Internal dependencies
+ */
+import {
+    cloneArray,
+    editorThemeColors,
+    getColorObject,
+    getImage,
+    loremIpsum,
+    updateInnerBlocks,
+    isDefined
+} from "../utility";
+import {
+    slider as sliderIcon
+} from "../custom-icons";
+
+/**
+ * Block attributes
+ */
 const attributes = {
+    /**
+     * Core attibutes
+     */
     clientId: {
         type: 'string'
     },
 
     /**
-     * Slider Properties
+     * Slider properties
      */
     sliderLoop: {
         type: 'boolean',
@@ -42,12 +86,8 @@ const attributes = {
     },
 
     /**
-     * Slider Controls
+     * Slider controls
      */
-    // controlsPosition: {
-    //     type: 'string',
-    //     default: 'bottom',
-    // },
     controlsSize: {
         type: 'number',
         default: 42,
@@ -74,12 +114,14 @@ const attributes = {
     },
 }
 
+/**
+ * Custom functions
+ */
 const updateSlider = () => {
     setTimeout(() => {
         window.updateSliderBlockInstances();
     }, 300);
 }
-
 
 const getPosition = (matrix) => {
     let splitMatrix = matrix.split(' ');
@@ -135,13 +177,10 @@ registerBlockType('custom/slider', {
         align: ['wide', 'full'],
     },
     attributes,
-    // Access React Lifecycle Methods within gutenberg block
-    // https://wordpress.org/gutenberg/handbook/block-api/block-edit-save/
-    // https://dev.to/martinkr/create-a-wordpress-s-gutenberg-block-with-all-react-lifecycle-methods-in-5-minutes-213p
     edit: ({setAttributes, attributes, clientId}) => {
 
         /**
-         * Init Slider only once when block loads!
+         * Init slider only once when block loads!
          */
         if (!window.sliderBlockInstances[clientId]) {
             window.initSliderBlockInstances();
@@ -192,7 +231,7 @@ registerBlockType('custom/slider', {
             }
         });
 
-        // TODO: AppenderButton is not shown anymore
+        // TODO: Currently AppenderButton is not shown!!! FIX FIX FIX
         const innerBlocksProps = useInnerBlocksProps(blockProps, {
             allowedBlocks: ['custom/slider-inner'],
             orientation: 'horizontal', // default: 'vertical'

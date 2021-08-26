@@ -9,11 +9,18 @@ import classNames from "classnames";
 import {__} from '@wordpress/i18n';
 import {registerBlockType,} from '@wordpress/blocks';
 import {Button} from '@wordpress/components';
-import {createElement, Component} from '@wordpress/element';
+import {createElement, Component, useEffect, useRef} from '@wordpress/element';
 import {TextControl, RangeControl, ColorPalette} from '@wordpress/components';
 import {Icon, Tooltip} from '@wordpress/components';
 import {MediaUpload, InspectorControls} from '@wordpress/block-editor';
-import {mapMarker as mapIcon} from '@wordpress/icons';
+import {
+    color as colorIcon,
+    mapMarker as mapIcon,
+    plusCircle as plusCircleIcon,
+    link as linkIcon,
+    pin as pinIcon,
+    trash as trashIcon
+} from '@wordpress/icons';
 
 /**
  * Internal dependencies
@@ -21,13 +28,18 @@ import {mapMarker as mapIcon} from '@wordpress/icons';
 import {
     editorThemeColors,
     getColorObject,
-    getImage
+    getImage,
+    SettingsHeading,
+    ResetWrapperControl, returnColorStyle
 } from '../utility';
 
 /**
  * Block attributes
  */
 const attributes = {
+    clientId: {
+        type: 'string'
+    },
     markerImageURL: {
         type: 'string',
         default: ''
@@ -50,7 +62,6 @@ const attributes = {
     },
     backgroundColor: {
         type: 'string',
-        default: ''
     }
 };
 
@@ -58,75 +69,61 @@ registerBlockType('custom/map', {
     title: __('Map', 'sage'),
     icon: mapIcon,
     category: 'custom',
+    description: __('Add a block that displays a google map with custom settings.', 'sage'),
     supports: {
         // align: true,
         align: ['full'],
     },
     attributes,
-    // Access React Lifecycle Methods within gutenberg block
-    // https://wordpress.org/gutenberg/handbook/block-api/block-edit-save/
-    // https://dev.to/martinkr/create-a-wordpress-s-gutenberg-block-with-all-react-lifecycle-methods-in-5-minutes-213p
-    edit: class extends Component {
+    edit: ({setAttributes, attributes, className, clientId}) => {
 
-        //standard constructor for a component
-        constructor() {
-            super(...arguments);
-            // console.log(this.props.name, ": constructor()");
-
-            // example how to bind `this` to the current component for our callbacks
-            this.onChangeContent = this.onChangeContent.bind(this);
-
-            // some place for your state
-            this.state = {};
-        }
-
-        componentDidMount() {
-            // console.log(this.props.name, ": componentDidMount()");
-
-            /**
-             * If Maps API Loaded init Maps on Component Mount
-             */
+        /**
+         * Init map instance
+         */
+        if (!window.googleMapInstances[clientId]) {
             window.initMaps();
         }
 
-        componentDidUpdate() {
-            // console.log(this.props.name, ": componentDidUpdate()");
-            // Dont Use Component Did update for building Glide Instance because it gets fired to often!!...
+        /**
+         * React useEffect hook to update map instance
+         */
+        const isInitialMount = useRef(true);
+        useEffect(() => {
+            if (isInitialMount.current) {
+                isInitialMount.current = false;
+            } else {
+                // Your useEffect code here to be run only on update
+                const timer = setTimeout(() => {
+                    window.initMaps();
+                }, 300);
 
-            /**
-             * Is Updated with refresh Gap to not Call the API to often..
-             */
-            if (window.refreshGap) {
-                window.initMaps();
-                window.refreshGap = false;
+                // only fire every 300 milliseconds
+                return () => clearTimeout(timer);
             }
+        }, [attributes]) // only fire when attributes change
 
-            setTimeout(() => {
-                window.refreshGap = true;
-            }, 600)
-        }
+        attributes.clientId = clientId;
 
-        componentWillUnmount() {
-            // console.log(this.props.name, ": componentWillUnmount()");
-        }
-
-        // update attributes when content is updated
-        onChangeContent(data) {
-            // set attribute the react way
-            this.props.setAttributes({content: data});
-        }
-
-        // edit: function (props) {
-        // Creates a <p class='wp-block-cgb-block-react-lifecycle-block'></p>.
-        render() {
-
-            let {attributes, className, setAttributes} = this.props;
-
-            return (
-                <>
-                    <InspectorControls>
-                        <div className="inspector-controls-container">
-                            <hr/>
+        return (
+            <div
+                className={classNames(
+                    className,
+                    'map-block',
+                    'custom-border',
+                    'custom-border-radius',
+                    'custom-shadow'
+                )}
+                style={{
+                    '--map-background-color': returnColorStyle(
+                        attributes.backgroundColor,
+                        'rgb(var(--custom-light-color))'
+                    )
+                }}
+            >
+                <InspectorControls>
+                    <div className="inspector-controls-container">
+                        <hr style={{marginTop: 0}}/>
+                        <div style={{display: 'flex', alignItems: 'center'}}>
                             <MediaUpload
                                 onSelect={(value) => setAttributes({markerImage: value})}
                                 allowedTypes={[
@@ -135,86 +132,107 @@ registerBlockType('custom/map', {
                                 ]}
                                 render={({open}) => (
                                     <Button className={'button'} onClick={open}>
-                                        {!attributes.markerImage ? __('Upload Map Marker', 'sage') : __('Update Map Marker', 'sage')}
+                                        {!attributes.markerImage ? __('Upload Marker', 'sage') : __('Update Marker', 'sage')}
                                     </Button>
                                 )}
                             />
-                            {attributes.markerImage &&
-                            <>
-                                <Tooltip text={__('Remove Marker Image', 'sage')}>
-                                    <Icon
-                                        icon="trash"
-                                        size={32}
+                            {attributes.markerImage && <>
+                                {/*<Tooltip text={__('Remove Marker Image', 'sage')}>*/}
+                                    <Button
+                                        icon={trashIcon}
+                                        label={__('Remove Marker Image', 'sage')}
+                                        size={24}
                                         onClick={() => setAttributes({markerImage: false})}
                                         style={{marginLeft: '10px', cursor: 'pointer'}}
                                     />
-                                </Tooltip>
-                            </>
-                            }
-                            <hr/>
-                            <TextControl
-                                label={__('Address', 'sage')}
-                                value={attributes.address}
-                                onChange={(value) => setAttributes({address: value})}
-                            />
-                            <hr/>
-                            <TextControl
-                                label={__('Google Maps Link', 'sage')}
-                                value={attributes.googleMapsLink}
-                                onChange={(value) => setAttributes({googleMapsLink: value})}
-                            />
-                            <hr/>
-                            <p>{__('Adjust Zoom Level', 'sage')}</p>
+                                {/*</Tooltip>*/}
+                            </>}
+                        </div>
+                        <hr/>
+                        <SettingsHeading headline={'Address'} icon={pinIcon}/>
+                        <TextControl
+                            value={attributes.address}
+                            onChange={(value) => setAttributes({address: value})}
+                        />
+                        <hr/>
+                        <SettingsHeading headline={'Google Maps Link'} icon={linkIcon}/>
+                        <TextControl
+                            value={attributes.googleMapsLink}
+                            onChange={(value) => setAttributes({googleMapsLink: value})}
+                        />
+                        <hr/>
+                        <SettingsHeading headline={'Zoom level'} icon={plusCircleIcon}/>
+                        <ResetWrapperControl onClick={() => setAttributes({zoom: 16})}>
                             <RangeControl
                                 value={attributes.zoom}
                                 min={6}
                                 max={22}
                                 onChange={(value) => setAttributes({zoom: value})}
                             />
-                            <hr/>
-                            <p>{__('Background Color', 'sage')}</p>
-                            <ColorPalette
-                                colors={editorThemeColors}
-                                value={attributes.backgroundColor}
-                                onChange={(value) => setAttributes({backgroundColor: value})}
-                                disableCustomColors={true}
-                            />
-                        </div>
-                    </InspectorControls>
-                    <div
-                        className={classNames(className, 'map-block', 'custom-border custom-border-radius custom-shadow custom-spacing', getColorObject(attributes.backgroundColor) && `has-${getColorObject(attributes.backgroundColor).slug}-background-color`)}>
-                        <div className="map-block__wrapper">
-                            <div className="map-block__map"
-                                 data-marker-url={attributes.markerImage ? getImage(attributes.markerImage, 'original') : ''}
-                                 data-marker-address={attributes.address}
-                                 data-zoom-level={attributes.zoom}
-                            />
-                            {attributes.googleMapsLink && <>
-                                <a
-                                    href={attributes.googleMapsLink}
-                                    className={classNames("map-block__route-link")}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    style={getColorObject(attributes.backgroundColor) && {backgroundColor: `rgb(var(--custom-${getColorObject(attributes.backgroundColor).slug}-color))`}}
-                                >
-                                    <span>Zu Google Maps</span>
-                                    <i className={'icon-arrow-right-circle'}></i>
-                                </a>
-                            </>}
-                        </div>
+                        </ResetWrapperControl>
+                        <hr/>
+                        <SettingsHeading headline={'Background color'} icon={colorIcon}/>
+                        <ColorPalette
+                            colors={editorThemeColors}
+                            value={attributes.backgroundColor}
+                            onChange={(value) => setAttributes({backgroundColor: value})}
+                            // disableCustomColors={true}
+                        />
+                    </div>
+                </InspectorControls>
+                <div
+                    className={classNames(
+                        className,
+                        'map-block',
+                        'custom-border',
+                        'custom-border-radius',
+                        'custom-shadow',
+                    )}>
+                    <div className="map-block__wrapper">
+                        <div className="map-block__map"
+                             data-marker-url={attributes.markerImage ? getImage(attributes.markerImage, 'original') : ''}
+                             data-marker-address={attributes.address}
+                             data-zoom-level={attributes.zoom}
+                             data-map-id={attributes.clientId}
+                        />
+                        {attributes.googleMapsLink && <>
+                            <a
+                                href={attributes.googleMapsLink}
+                                className={classNames("map-block__route-link")}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <span>Zu Google Maps</span>
+                                <i className={'icon-arrow-right-circle'}/>
+                            </a>
+                        </>}
                     </div>
                 </div>
-            )
-        }
+            </div>
+        )
     },
-    save: ({className, attributes}) => {
+    save: ({attributes}) => {
         return (
-            <div className={classNames(className, 'map-block', 'custom-border custom-border-radius custom-shadow custom-spacing', getColorObject(attributes.backgroundColor) && `has-${getColorObject(attributes.backgroundColor).slug}-background-color`)}>
+            <div
+                className={classNames(
+                    'map-block',
+                    'custom-border',
+                    'custom-border-radius',
+                    'custom-shadow'
+                )}
+                style={{
+                    '--map-background-color': returnColorStyle(
+                        attributes.backgroundColor,
+                        'rgb(var(--custom-light-color))'
+                    )
+                }}
+            >
                 <div className="map-block__wrapper">
                     <div className="map-block__map"
                          data-marker-url={attributes.markerImage ? getImage(attributes.markerImage, 'original') : ''}
                          data-marker-address={attributes.address}
                          data-zoom-level={attributes.zoom}
+                         data-map-id={attributes.clientId}
                     />
                     {attributes.googleMapsLink && <>
                         <a
@@ -222,10 +240,9 @@ registerBlockType('custom/map', {
                             className={classNames("map-block__route-link")}
                             target="_blank"
                             rel="noopener noreferrer"
-                            style={getColorObject(attributes.backgroundColor) && {backgroundColor: `rgb(var(--custom-${getColorObject(attributes.backgroundColor).slug}-color))`}}
                         >
                             <span>Zu Google Maps</span>
-                            <i className={'icon-arrow-right-circle'}></i>
+                            <i className={'icon-arrow-right-circle'}/>
                         </a>
                     </>}
                 </div>

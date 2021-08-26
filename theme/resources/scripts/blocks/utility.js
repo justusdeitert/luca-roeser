@@ -569,3 +569,23 @@ export const returnBackgroundColorStyle = (color, defaultColor = false) => {
         return {backgroundColor: color}
     }
 }
+
+/**
+ * Returns color style
+ * @param color
+ * @param defaultColor
+ * @returns {string|boolean|*}
+ */
+export const returnColorStyle = (color, defaultColor = false) => {
+    if (!color && defaultColor) {
+        return defaultColor;
+    }
+
+    if (getColorObject(color)) {
+        return `rgb(var(--custom-${getColorObject(color).slug}-color))`;
+    }
+
+    if (color) {
+        return color;
+    }
+}

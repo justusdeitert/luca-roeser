@@ -1,12 +1,16 @@
 window.refreshGap = true;
 
+window.googleMapInstances = {};
+
 window.initMaps = () => {
 
     document.querySelectorAll('.map-block__map').forEach(map => {
 
-        let address = map.getAttribute('data-marker-address');
-        let markerURL = map.getAttribute('data-marker-url');
-        let zoomLevel = parseInt(map.getAttribute('data-zoom-level'));
+        let address = map.dataset.markerAddress;
+        let markerURL = map.dataset.markerUrl;
+        let zoomLevel = parseInt(map.dataset.zoomLevel);
+        let mapId = map.dataset.mapId;
+
         let stylesArray = [
             {
                 stylers: [
@@ -27,7 +31,7 @@ window.initMaps = () => {
                     lng: results[0].geometry.location.lng()
                 }
 
-                let mapInstance = new google.maps.Map(map, {
+                window.googleMapInstances[mapId] = new google.maps.Map(map, {
                     center: coordinates,
                     zoom: zoomLevel,
                     styles: stylesArray,
@@ -40,7 +44,7 @@ window.initMaps = () => {
                 // https://developers.google.com/maps/documentation/javascript/markers?hl=de
                 let marker = new google.maps.Marker({
                     position: coordinates,
-                    map: mapInstance,
+                    map: window.googleMapInstances[mapId],
                     title: address,
                     icon: markerURL
                 });

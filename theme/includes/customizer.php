@@ -952,7 +952,7 @@ if (class_exists('Kirki')) {
                 'settings' => 'custom_google_maps_api_key',
                 'label' => __('Google Maps Api Key', 'sage'),
                 'section' => 'section_api_settings_id',
-                // 'description' => __('Set the API Key to enable the Maps Block', 'sage'),
+                'description' => __('Set the API Key to enable the Maps Block. Please create your API key on the <a href="https://console.cloud.google.com/">Google Cloud Console</a>.', 'sage'),
             ]);
         }
 
