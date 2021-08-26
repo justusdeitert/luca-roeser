@@ -25,7 +25,8 @@ import {resizeCornerNE as spacerIcon} from '@wordpress/icons';
 /**
  * Internal dependencies
  */
-import {MobileSwitch, MobileSwitchInner} from '../utility';
+import {MobileSwitch, MobileSwitchInner, ResetWrapperControl} from '../utility';
+import {height as heightIcon} from '../custom-icons';
 
 registerBlockType('custom/spacer', {
     title: __('Spacer', 'sage'),
@@ -68,33 +69,41 @@ registerBlockType('custom/spacer', {
                 <InspectorControls>
                     <div className="inspector-controls-container">
                         <hr style={{marginTop: 0}}/>
-                        <MobileSwitch headline={__('Height', 'sage')}>
+                        <MobileSwitch headline={__('Height', 'sage')} icon={heightIcon}>
                             <MobileSwitchInner type={'desktop'}>
-                                <RangeControl
-                                    value={attributes.desktopHeight}
-                                    min={minSpacerHeight}
-                                    max={maxSpacerHeight}
-                                    step={5}
-                                    onChange={(value) => {
-                                        setAttributes({desktopHeight: value});
+                                <ResetWrapperControl onClick={() => {
+                                    setAttributes({desktopHeight: 50})
+                                    setAttributes({mobileHeight: 25})
+                                }}>
+                                    <RangeControl
+                                        value={attributes.desktopHeight}
+                                        min={minSpacerHeight}
+                                        max={maxSpacerHeight}
+                                        step={5}
+                                        onChange={(value) => {
+                                            setAttributes({desktopHeight: value});
 
-                                        if (attributes.mobileHeight * 2 === attributes.desktopHeight) {
-                                            setAttributes({mobileHeight: value / 2});
-                                        }
-                                    }}
-                                />
+                                            if (attributes.mobileHeight * 2 === attributes.desktopHeight) {
+                                                setAttributes({mobileHeight: value / 2});
+                                            }
+                                        }}
+                                    />
+                                </ResetWrapperControl>
                             </MobileSwitchInner>
                             <MobileSwitchInner type={'mobile'}>
-                                <RangeControl
-                                    // disabled={!attributes.customMobileHeight}
-                                    value={attributes.mobileHeight}
-                                    min={minSpacerHeight}
-                                    max={attributes.desktopHeight}
-                                    step={5}
-                                    onChange={(value) => setAttributes({mobileHeight: value})}
-                                    allowReset={true}
-                                    resetFallbackValue={attributes.desktopHeight / 2}
-                                />
+                                <ResetWrapperControl onClick={() => {
+                                    setAttributes({desktopHeight: 50})
+                                    setAttributes({mobileHeight: 25})
+                                }}>
+                                    <RangeControl
+                                        // disabled={!attributes.customMobileHeight}
+                                        value={attributes.mobileHeight}
+                                        min={minSpacerHeight}
+                                        max={attributes.desktopHeight}
+                                        step={5}
+                                        onChange={(value) => setAttributes({mobileHeight: value})}
+                                    />
+                                </ResetWrapperControl>
                             </MobileSwitchInner>
                         </MobileSwitch>
                     </div>
