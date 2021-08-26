@@ -181,23 +181,23 @@ if (class_exists('Kirki')) {
         ));
 
         /**
-         * Content & Container Sizes
+         * Layout & Container Sizes
          */
-        function content_settings() {
+        function layout_settings() {
 
-            Kirki::add_section('section_content_settings_id', array(
-                'title' => __('Content', 'sage'),
+            Kirki::add_section('section_layout_settings_id', array(
+                'title' => __('Layout', 'sage'),
                 'panel' => 'panel_theme_settings_id',
             ));
 
-            custom_kirki_spacing('section_content_settings_id', 16);
+            custom_kirki_spacing('section_layout_settings_id', 16);
 
             Kirki::add_field('max_container_width_id', [
                 'type' => 'slider',
                 'settings' => 'max_container_width',
                 'label' => __('Maximum Container width', 'sage'),
                 // 'description' => __('Define the maximum content width', 'sage'),
-                'section' => 'section_content_settings_id',
+                'section' => 'section_layout_settings_id',
                 // 'priority' => 10,
                 'default' => 1280,
                 'choices' => [
@@ -207,21 +207,21 @@ if (class_exists('Kirki')) {
                 ],
             ]);
 
-            custom_kirki_border('section_content_settings_id');
+            custom_kirki_border('section_layout_settings_id');
 
-            custom_color_select('body_background', 'light', 'section_content_settings_id');
+            custom_color_select('body_background', 'light', 'section_layout_settings_id');
 
-            custom_kirki_border('section_content_settings_id');
+            custom_kirki_border('section_layout_settings_id');
 
-            custom_color_select('controls', 'dark', 'section_content_settings_id');
+            custom_color_select('controls', 'dark', 'section_layout_settings_id');
 
-            custom_kirki_border('section_content_settings_id');
+            custom_kirki_border('section_layout_settings_id');
 
             Kirki::add_field('container_padding_desktop_id', [
                 'type' => 'slider',
                 'settings' => 'container_padding_desktop',
                 'label' => __('Padding (Desktop)', 'sage'),
-                'section' => 'section_content_settings_id',
+                'section' => 'section_layout_settings_id',
                 'default' => 30,
                 'choices' => [
                     'min' => 10,
@@ -234,7 +234,7 @@ if (class_exists('Kirki')) {
                 'type' => 'slider',
                 'settings' => 'container_padding_mobile',
                 'label' => __('Padding (Mobile)', 'sage'),
-                'section' => 'section_content_settings_id',
+                'section' => 'section_layout_settings_id',
                 'default' => 15,
                 'choices' => [
                     'min' => 5,
@@ -243,13 +243,13 @@ if (class_exists('Kirki')) {
                 ],
             ]);
 
-            custom_kirki_border('section_content_settings_id');
+            custom_kirki_border('section_layout_settings_id');
 
             Kirki::add_field('custom_gutter_size_desktop_id', [
                 'type' => 'slider',
                 'settings' => 'custom_gutter_size_desktop',
                 'label' => __('Gutters (Desktop)', 'sage'),
-                'section' => 'section_content_settings_id',
+                'section' => 'section_layout_settings_id',
                 'default' => 30,
                 'choices' => [
                     'min' => 20,
@@ -262,7 +262,7 @@ if (class_exists('Kirki')) {
                 'type' => 'slider',
                 'settings' => 'custom_gutter_size_mobile',
                 'label' => __('Gutters (Mobile)', 'sage'),
-                'section' => 'section_content_settings_id',
+                'section' => 'section_layout_settings_id',
                 'default' => 20,
                 'choices' => [
                     'min' => 10,
@@ -271,13 +271,13 @@ if (class_exists('Kirki')) {
                 ],
             ]);
 
-            custom_kirki_border('section_content_settings_id');
+            custom_kirki_border('section_layout_settings_id');
 
             Kirki::add_field('custom_vertical_spacing_desktop_id', [
                 'type' => 'slider',
                 'settings' => 'custom_vertical_spacing_desktop',
                 'label' => __('Vertical spacing (Desktop)', 'sage'),
-                'section' => 'section_content_settings_id',
+                'section' => 'section_layout_settings_id',
                 'default' => 48,
                 'choices' => [
                     'min' => 16,
@@ -290,7 +290,7 @@ if (class_exists('Kirki')) {
                 'type' => 'slider',
                 'settings' => 'custom_vertical_spacing_mobile',
                 'label' => __('Vertical spacing (Mobile)', 'sage'),
-                'section' => 'section_content_settings_id',
+                'section' => 'section_layout_settings_id',
                 'default' => 24,
                 'choices' => [
                     'min' => 16,
@@ -299,7 +299,7 @@ if (class_exists('Kirki')) {
                 ],
             ]);
 
-            custom_kirki_border('section_content_settings_id');
+            custom_kirki_border('section_layout_settings_id');
 
             Kirki::add_section('section_box_settings_id', array(
                 'title' => __('Box Settings', 'sage'),
@@ -310,7 +310,7 @@ if (class_exists('Kirki')) {
                 'type' => 'slider',
                 'settings' => 'custom_border_width',
                 'label' => __('Elements Border Width', 'sage'),
-                'section' => 'section_content_settings_id',
+                'section' => 'section_layout_settings_id',
                 'default' => 0,
                 'choices' => [
                     'min' => 0,
@@ -319,17 +319,17 @@ if (class_exists('Kirki')) {
                 ],
             ]);
 
-            // custom_kirki_border('section_content_settings_id');
+            // custom_kirki_border('section_layout_settings_id');
             //
-            // custom_color_select('elements_background', 'light', 'section_content_settings_id');
+            // custom_color_select('elements_background', 'light', 'section_layout_settings_id');
 
-            custom_kirki_border('section_content_settings_id');
+            custom_kirki_border('section_layout_settings_id');
 
             Kirki::add_field('custom_border_radius_id', [
                 'type' => 'slider',
                 'settings' => 'custom_border_radius',
                 'label' => __('Elements Border Radius', 'sage'),
-                'section' => 'section_content_settings_id',
+                'section' => 'section_layout_settings_id',
                 'default' => 0,
                 'choices' => [
                     'min' => 0,
@@ -338,13 +338,13 @@ if (class_exists('Kirki')) {
                 ],
             ]);
 
-            custom_kirki_border('section_content_settings_id');
+            custom_kirki_border('section_layout_settings_id');
 
             Kirki::add_field('custom_shadow_id', [
                 'type' => 'select',
                 'settings' => 'custom_shadow',
                 'label' => __('Shadow', 'sage'),
-                'section' => 'section_content_settings_id',
+                'section' => 'section_layout_settings_id',
                 'default' => 'no-shadow',
                 'placeholder' => __('Select an option...', 'sage'),
                 // 'priority' => 10,
@@ -1265,7 +1265,7 @@ if (class_exists('Kirki')) {
         /**
          * Init Settings
          */
-        content_settings();
+        layout_settings();
         font_settings();
         color_settings();
         navbar_settings();

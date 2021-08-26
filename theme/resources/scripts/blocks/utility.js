@@ -289,10 +289,10 @@ export const parentAttributes = (clientId) => {
 
 export const updateInnerBlocks = (clientId) => {
 
-    let parentBlock = select('core/block-editor').getBlock(clientId)
+    let parentBlock = select('core/block-editor').getBlock(clientId);
     parentBlock.innerBlocks.forEach((innerBlock) => {
         dispatch('core/block-editor').updateBlock(innerBlock.clientId, innerBlock)
-    })
+    });
 }
 
 /**
@@ -540,4 +540,31 @@ export const SelectSectionShapes = ({sectionShapes, clickFunction, value = 'none
 
 export const isDefined = (value) => {
     return value !== false && value !== undefined;
+}
+
+/**
+ * This returns the color class in case color is found
+ * @param color
+ * @returns {string}
+ */
+export const returnBackgroundColorClass = (color) => {
+    if (getColorObject(color)) {
+        return `has-${getColorObject(color).slug}-background-color has-background`;
+    }
+}
+
+/**
+ * Returns background style
+ * @param color
+ * @param defaultColor
+ * @returns {{backgroundColor: boolean}|{backgroundColor}}
+ */
+export const returnBackgroundColorStyle = (color, defaultColor = false) => {
+    if (color === undefined && defaultColor) {
+        return {backgroundColor: defaultColor}
+    }
+
+    if (getColorObject(color) === undefined) {
+        return {backgroundColor: color}
+    }
 }

@@ -33,7 +33,9 @@ import {
     MobileSwitch,
     MobileSwitchInner,
     SettingsHeading,
-    ResetWrapperControl
+    ResetWrapperControl,
+    returnBackgroundColorClass,
+    returnBackgroundColorStyle
 } from "../utility";
 import {
     height as heightIcon,
@@ -103,8 +105,6 @@ registerBlockType('custom/divider', {
                 '--margin-y-difference': `${attributes.spacingDesktop - attributes.spacingMobile}`
             }
         });
-
-        console.log(attributes.color);
 
         return (
             <>
@@ -196,18 +196,20 @@ registerBlockType('custom/divider', {
                             // disableCustomColors={true}
                             // clearable={false}
                         />
+
                     </div>
                 </InspectorControls>
                 <div {...blockProps}>
                     <hr
                         className={classNames(
-                        'divider-block__hr'
+                        'divider-block__hr',
+                            returnBackgroundColorClass(attributes.color)
                         )}
                         style={{
                             height: `${attributes.thickness}px`,
                             maxWidth: `${attributes.width}%`,
                             opacity: attributes.opacity,
-                            backgroundColor: attributes.color,
+                            ...returnBackgroundColorStyle(attributes.color, 'rgb(var(--custom-controls-color))')
                         }}
                     />
                 </div>
@@ -227,12 +229,16 @@ registerBlockType('custom/divider', {
 
         return (
             <div {...blockProps}>
-                <hr className='divider-block__hr'
+                <hr
+                    className={classNames(
+                        'divider-block__hr',
+                        returnBackgroundColorClass(attributes.color)
+                    )}
                     style={{
                         height: `${attributes.thickness}px`,
                         maxWidth: `${attributes.width}%`,
                         opacity: attributes.opacity,
-                        backgroundColor: attributes.color,
+                        ...returnBackgroundColorStyle(attributes.color, 'rgb(var(--custom-controls-color))')
                     }}
                 />
             </div>

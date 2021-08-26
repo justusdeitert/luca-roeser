@@ -62,21 +62,21 @@ function customizer_theme_styles() {
     $custom_theme_colors = [
 
         /**
-         * Font Colors
+         * Font colors
          */
         'font' => get_theme_mod('custom_color_select_font', 'dark'),
         'link' => get_theme_mod('custom_color_select_link', 'primary'),
         'link-hover' => get_theme_mod('custom_color_select_link_hover', 'primary'),
 
         /**
-         * Content Colors
+         * Content colors
          */
         'body-background' => get_theme_mod('custom_color_select_body_background', 'light'),
         'controls' => get_theme_mod('custom_color_select_controls', 'dark'),
         // 'elements-background' => get_theme_mod('custom_color_select_elements_background', 'light'),
 
         /**
-         *  Menu Colors
+         *  Menu colors
          */
         'navbar-background' => get_theme_mod('custom_color_select_navbar_background', 'light'),
         'navbar-font' => get_theme_mod('custom_color_select_navbar_font', 'dark'),
@@ -88,7 +88,7 @@ function customizer_theme_styles() {
         'navbar-submenu-background-active' => get_theme_mod('custom_color_select_navbar_submenu_background_active', 'light'),
 
         /**
-         *  Form Colors
+         *  Form colors
          */
         'form-font' => get_theme_mod('custom_color_select_form_font', 'dark'),
         'form-focus' => get_theme_mod('custom_color_select_form_focus', 'info'),
@@ -96,7 +96,7 @@ function customizer_theme_styles() {
         'form-border' => get_theme_mod('custom_color_select_form_border', 'secondary'),
 
         /**
-         * Footer Colors
+         * Footer colors
          */
         'footer-background' => get_theme_mod('custom_color_select_footer_background', 'light'),
         'footer-font' => get_theme_mod('custom_color_select_footer_font', 'dark'),
@@ -104,7 +104,7 @@ function customizer_theme_styles() {
         'footer-link-hover' => get_theme_mod('custom_color_select_footer_link_hover', 'primary'),
 
         /**
-         * Cookie Colors
+         * Cookie colors
          */
         'consent-modal-background' => get_theme_mod('custom_color_select_consent_modal_background', 'light'),
         'consent-modal-border' => get_theme_mod('custom_color_select_consent_modal_border', 'light'),
@@ -119,7 +119,7 @@ function customizer_theme_styles() {
     ];
 
     /**
-     * Gray/Shade Colors
+     * Gray/Shade colors
      */
     $light_colors = [];
     $light_color = get_theme_mod('custom_light_color', '#f8f9fa');
@@ -139,7 +139,7 @@ function customizer_theme_styles() {
     }
 
     /**
-     * Custom Shadows
+     * Custom shadows
      */
     $custom_shadows = [
         'no-shadow' => 'none',
@@ -157,64 +157,65 @@ function customizer_theme_styles() {
 
     <?php
         /**
-         * Custom Preload Google Font
+         * Custom preload google font
          * Preloading CSS with rel="preload"
          * @link https://metabox.io/load-google-fonts-faster-wordpress/
          */
     ?>
     <style>
         :root {
-            /* Content Settings */
+            /* Content settings */
             --max-container-width: <?php echo get_theme_mod('max_container_width', 1280); ?>px;
             --container-padding-mobile: <?php echo get_theme_mod('container_padding_mobile', 15) / 16; ?>rem;
             --container-padding-desktop: <?php echo get_theme_mod('container_padding_desktop', 30) / 16; ?>rem;
             --custom-gutter-desktop: <?php echo get_theme_mod('custom_gutter_size_desktop', 30) / 16; ?>rem;
             --custom-gutter-mobile: <?php echo get_theme_mod('custom_gutter_size_mobile', 20) / 16; ?>rem;
+            --custom-border-width: <?php echo get_theme_mod('custom_border_width', 0) / 16; ?>rem;
+            --custom-border-radius: <?php echo get_theme_mod('custom_border_radius', 0); ?>px;
+            --custom-box-shadow: <?php echo $custom_shadows[get_theme_mod('custom_shadow', 'no-shadow')]; ?>;
+            /* Content settings - Vertical spacing */
             <?php $desktop_spacing = (get_theme_mod('custom_vertical_spacing_desktop', 48) / 16); ?>
             <?php $mobile_spacing = (get_theme_mod('custom_vertical_spacing_mobile', 24) / 16); ?>
             --custom-vertical-spacing-desktop: <?php echo $desktop_spacing; ?>rem;
             --custom-vertical-spacing-mobile: <?php echo $mobile_spacing; ?>rem;
             --custom-vertical-spacing-difference: <?php echo $desktop_spacing - $mobile_spacing; ?>;
-            --custom-border-width: <?php echo get_theme_mod('custom_border_width', 0) / 16; ?>rem;
-            --custom-border-radius: <?php echo get_theme_mod('custom_border_radius', 0); ?>px;
-            --custom-box-shadow: <?php echo $custom_shadows[get_theme_mod('custom_shadow', 'no-shadow')]; ?>;
 
-            /* Font Settings */
+            /* Font settings */
             --custom-font-size: <?php echo get_theme_mod('custom_font_size', 16); ?>px;
             --custom-font-weight: <?php echo get_theme_mod('custom_font_weight', '400'); ?>;
             --custom-headline-weight: <?php echo get_theme_mod('custom_headline_weight', '400'); ?>;
             --custom-text-font-family: <?php echo css_font_family_string($custom_text_font); ?>;
             --custom-headline-font-family: <?php echo css_font_family_string($custom_headline_font); ?>;
 
-            /* Font Settings */
+            /* Font settings */
             --custom-form-height: <?php echo get_theme_mod('custom_form_height', 40); ?>px;
 
-            /* General Colors */
+            /* General Ccolors */
             <?php foreach ($standard_color_versions as $name => $value) { ?>
                 --custom-<?php echo $name; ?>-color: <?php echo $value; ?>;
             <?php } ?>
 
-            /* Light Color Shades */
+            /* Light color shades */
             <?php foreach ($light_colors as $name => $value) { ?>
                 --custom-light-<?php echo $name; ?>-color: <?php echo $value; ?>;
             <?php } ?>
 
-            /* Dark Color Shades */
+            /* Dark color shades */
             <?php foreach ($dark_colors as $name => $value) { ?>
                 --custom-dark-<?php echo $name; ?>-color: <?php echo $value; ?>;
             <?php } ?>
 
-            /* Dark/Light Color Shades */
+            /* Dark/Light color shades */
             <?php foreach ($dark_light_colors as $name => $value) { ?>
                 --custom-dark-light-<?php echo $name; ?>-color: <?php echo $value; ?>;
             <?php } ?>
 
-            /* Theme Colors */
+            /* Theme colors */
             <?php foreach ($custom_theme_colors as $name => $value) { ?>
                 --custom-<?php echo $name; ?>-color: var(--custom-<?php echo $value; ?>-color);
             <?php } ?>
 
-            /* Navbar Settings */
+            /* Navbar settings */
             --custom-navbar-height: <?php echo get_theme_mod('custom_navbar_height', 60); ?>px;
             --custom-navbar-position:  <?php echo get_theme_mod('custom_navbar_positioning', 'static'); ?>;
             --custom-navbar-top-position:  <?php echo get_theme_mod('custom_navbar_top_position', 0); ?>px;
@@ -227,7 +228,7 @@ function customizer_theme_styles() {
             --custom-navbar-submenu-item-height:  <?php echo get_theme_mod('custom_navbar_submenu_item_height', 40); ?>px;
 
             /*
-             * Custom Cookie Consent Modal/Setting Variables
+             * Custom cookie consent modal/setting variables
              */
             --custom-cookie-consent-padding:  <?php echo get_theme_mod('custom_cookie_consent_padding', 25); ?>px;
             --custom-consent-modal-primary-button-color:  <?php echo get_theme_mod('custom_color_select_consent_modal_primary_button', 'primary'); ?>;
@@ -236,7 +237,7 @@ function customizer_theme_styles() {
             --custom-consent-settings-secondary-button-color:  <?php echo get_theme_mod('custom_color_select_consent_settings_secondary_button', 'secondary'); ?>;
         }
 
-        /* Icon Settings */
+        /* Icon settings */
         @font-face {
             font-family: 'custom-icon-font';
             src: url('<?php echo get_stylesheet_directory_uri(); ?>/resources/fonts/icons/<?php echo get_theme_mod('custom_icons', 'bootstrap-icons')  ?>.woff2') format('woff2');
@@ -253,7 +254,7 @@ function customizer_theme_styles() {
         }
 
         .has-<?php echo $name; ?>-background-color {
-            background-color: rgb(<?php echo $value; ?>);
+            background-color: rgb(<?php echo $value; ?>) !important;
         }
 
         .has-<?php echo $name; ?>-fill-color {
@@ -269,7 +270,7 @@ function customizer_theme_styles() {
         }
 
         .has-light-<?php echo $name; ?>-background-color {
-            background-color: rgb(<?php echo $value; ?>);
+            background-color: rgb(<?php echo $value; ?>) !important;
         }
 
         .has-light-<?php echo $name; ?>-fill-color {
@@ -285,7 +286,7 @@ function customizer_theme_styles() {
         }
 
         .has-dark-<?php echo $name; ?>-background-color {
-            background-color: rgb(<?php echo $value; ?>);
+            background-color: rgb(<?php echo $value; ?>) !important;
         }
 
         .has-dark-<?php echo $name; ?>-fill-color {
@@ -301,7 +302,7 @@ function customizer_theme_styles() {
         }
 
         .has-dark-light-<?php echo $name; ?>-background-color {
-            background-color: rgb(<?php echo $value; ?>);
+            background-color: rgb(<?php echo $value; ?>) !important;
         }
 
         .has-dark-light-<?php echo $name; ?>-fill-color {
