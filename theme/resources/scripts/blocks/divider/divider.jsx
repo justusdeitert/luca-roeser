@@ -39,7 +39,7 @@ import {
 } from "../utility";
 import {
     height as heightIcon,
-    width as widthicon
+    width as widthIcon
 } from '../custom-icons'
 
 /**
@@ -176,7 +176,7 @@ registerBlockType('custom/divider', {
                         </ResetWrapperControl>
                         <hr/>
                         {/*<p>{__('Change Width in %', 'sage')}</p>*/}
-                        <SettingsHeading headline={'Width'} icon={widthicon}/>
+                        <SettingsHeading headline={'Width'} icon={widthIcon}/>
                         <ResetWrapperControl onClick={() => setAttributes({width: 100})}>
                             <RangeControl
                                 value={attributes.width}
