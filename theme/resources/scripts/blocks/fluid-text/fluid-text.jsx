@@ -103,7 +103,7 @@ registerBlockType('custom/fluid-text', {
                 blocks: ['core/paragraph'],
                 transform: (attributes) => {
                     let {content, textColor} = attributes;
-                    let colorObject = getColorObjectFromSlug(editorThemeColors, textColor)
+                    let colorObject = getColorObjectFromSlug(textColor)
 
                     return createBlock('custom/fluid-text', {
                         fluidText: content,
@@ -117,7 +117,7 @@ registerBlockType('custom/fluid-text', {
                 blocks: ['core/heading'],
                 transform: (attributes) => {
                     let {content, level, textColor} = attributes;
-                    let colorObject = getColorObjectFromSlug(editorThemeColors, textColor)
+                    let colorObject = getColorObjectFromSlug(textColor)
 
                     return createBlock('custom/fluid-text', {
                         fluidText: content,

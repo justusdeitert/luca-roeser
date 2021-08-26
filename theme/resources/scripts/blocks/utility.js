@@ -145,8 +145,8 @@ export const bootstrapBreakpoints = {
  * @param slug
  * @returns {*}
  */
-export const getColorObjectFromSlug = (array, slug) => {
-    return array.find(object => object.slug === slug);
+export const getColorObjectFromSlug = (slug,  object = editorThemeColors) => {
+    return object.find(object => object.slug === slug);
 }
 
 /**
@@ -201,16 +201,16 @@ export const editorDarkLightColors = [
 ]
 
 export const editorThemeColors = [
-    getColorObjectFromSlug(editorStandardColors, 'primary'),
-    getColorObjectFromSlug(editorStandardColors, 'secondary'),
-    getColorObjectFromSlug(editorStandardColors, 'tertiary'),
-    getColorObjectFromSlug(editorStandardColors, 'success'),
-    getColorObjectFromSlug(editorStandardColors, 'danger'),
-    getColorObjectFromSlug(editorStandardColors, 'warning'),
-    getColorObjectFromSlug(editorStandardColors, 'info'),
-    getColorObjectFromSlug(editorStandardColors, 'light'),
+    getColorObjectFromSlug('primary', editorStandardColors),
+    getColorObjectFromSlug('secondary', editorStandardColors),
+    getColorObjectFromSlug('tertiary',  editorStandardColors),
+    getColorObjectFromSlug('success', editorStandardColors),
+    getColorObjectFromSlug('danger', editorStandardColors),
+    getColorObjectFromSlug('warning',  editorStandardColors),
+    getColorObjectFromSlug('info', editorStandardColors),
+    getColorObjectFromSlug('light', editorStandardColors),
     ...editorLightColors,
-    getColorObjectFromSlug(editorStandardColors, 'dark'),
+    getColorObjectFromSlug('dark', editorStandardColors),
     ...editorDarkColors,
     ...editorDarkLightColors,
 ];

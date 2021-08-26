@@ -48,10 +48,10 @@ const attributes = {
         type: 'string',
         default: ''
     },
-    gradient: {
-        type: 'string',
-        default: 'linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%)'
-    },
+    // gradient: {
+    //     type: 'string',
+    //     default: 'linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%)'
+    // },
     opacity: {
         type: 'number',
         default: 1
@@ -103,6 +103,8 @@ registerBlockType('custom/divider', {
                 '--margin-y-difference': `${attributes.spacingDesktop - attributes.spacingMobile}`
             }
         });
+
+        console.log(attributes.color);
 
         return (
             <>
@@ -197,7 +199,10 @@ registerBlockType('custom/divider', {
                     </div>
                 </InspectorControls>
                 <div {...blockProps}>
-                    <hr className='divider-block__hr'
+                    <hr
+                        className={classNames(
+                        'divider-block__hr'
+                        )}
                         style={{
                             height: `${attributes.thickness}px`,
                             maxWidth: `${attributes.width}%`,

@@ -161,7 +161,7 @@ registerBlockType('custom/button', {
                         <p>{__('Button Style', 'sage')}</p>
                         <ColorPalette
                             colors={editorStandardColors}
-                            value={getColorObjectFromSlug(editorStandardColors, attributes.buttonStyle).color}
+                            value={getColorObjectFromSlug(attributes.buttonStyle).color}
                             onChange={(value) => setAttributes({buttonStyle: getColorObject(value).slug})}
                             clearable={false}
                         />
