@@ -31,7 +31,10 @@ import {
     __experimentalUseInnerBlocksProps as useInnerBlocksProps,
     BlockVerticalAlignmentToolbar
 } from '@wordpress/block-editor';
-import {group as sectionIcon} from '@wordpress/icons';
+import {
+    group as sectionIcon,
+    color as colorIcon, moveTo as moveIcon
+} from '@wordpress/icons';
 
 /**
  * Internal dependencies
@@ -42,8 +45,18 @@ import {
     ALLOWED_BLOCKS,
     removeArrayItems,
     isDefined,
-    focalPositionInPixel
+    focalPositionInPixel,
+    SettingsHeading,
+    ResetWrapperControl,
+    returnBackgroundColorClass,
+    returnBackgroundColorStyle,
 } from "../utility";
+import {
+    width as widthIcon,
+    height as heightIcon,
+    horizontalPadding as horizontalPaddingIcon,
+    verticalPadding as verticalPaddingIcon,
+} from "../custom-icons";
 
 /**
  * Block attributes
@@ -125,6 +138,7 @@ registerBlockType('custom/wrapper', {
     apiVersion: 2,
     title: __('Wrapper', 'sage'),
     category: 'custom',
+    description: __('Combine blocks into a wrapper to add animations or transformations.', 'sage'),
     icon: sectionIcon,
     attributes,
     supports: {
@@ -253,6 +267,7 @@ registerBlockType('custom/wrapper', {
                 </BlockControls>
                 <InspectorControls>
                     <div className="inspector-controls-container">
+                        <hr style={{marginTop:0}}/>
                         <ToggleControl
                             label={__('Auto width', 'sage')}
                             // help={__('Enable continuous loop mode (does not apply on the editor)', 'sage')}
@@ -261,18 +276,20 @@ registerBlockType('custom/wrapper', {
                         />
                         {!attributes.autoWidth && <>
                             <hr/>
-                            <p>{__('Width', 'sage')}</p>
-                            <RangeControl
-                                value={attributes.wrapperWidth}
-                                min={attributes.wrapperWidthUnit === 'px' ? 60 : 10}
-                                max={attributes.wrapperWidthUnit === 'px' ? 1200 : 100}
-                                step={1}
-                                onChange={(value) => {
-                                    setAttributes({wrapperWidth: value})
-                                }}
-                                // allowReset={true}
-                                // resetFallbackValue={100}
-                            />
+                            {/*<p>{__('Width', 'sage')}</p>*/}
+                            <SettingsHeading headline={'Width'} icon={widthIcon}/>
+                            <ResetWrapperControl onClick={() => setAttributes({wrapperWidth: 100})}>
+                                <RangeControl
+                                    // TODO: Difference attributes for pixel and percent width!
+                                    value={attributes.wrapperWidth}
+                                    min={attributes.wrapperWidthUnit === 'px' ? 60 : 10}
+                                    max={attributes.wrapperWidthUnit === 'px' ? 1200 : 100}
+                                    step={1}
+                                    onChange={(value) => {
+                                        setAttributes({wrapperWidth: value})
+                                    }}
+                                />
+                            </ResetWrapperControl>
                             <RadioGroup
                                 onChange={(value) => {
                                     setAttributes({wrapperWidthUnit: value})
@@ -291,60 +308,57 @@ registerBlockType('custom/wrapper', {
                             </RadioGroup>
                         </>}
                         <hr/>
-                        <p>{__('Height', 'sage')}</p>
-                        <RangeControl
-                            value={attributes.wrapperHeight}
-                            min={60}
-                            max={800}
-                            step={1}
-                            onChange={(value) => {
-                                setAttributes({wrapperHeight: value})
-                            }}
-                            allowReset={true}
-                            resetFallbackValue={false}
-                        />
+                        {/*<p>{__('Height', 'sage')}</p>*/}
+                        <SettingsHeading headline={'Height'} icon={heightIcon}/>
+                        <ResetWrapperControl onClick={() => setAttributes({wrapperHeight: false})}>
+                            <RangeControl
+                                value={attributes.wrapperHeight}
+                                min={60}
+                                max={800}
+                                step={1}
+                                onChange={(value) => {
+                                    setAttributes({wrapperHeight: value})
+                                }}
+                            />
+                        </ResetWrapperControl>
                         <hr/>
-                        <div style={{display: 'flex'}}>
-                            <p>{__('Horizontal padding', 'sage')}</p>
-                            <Dashicon icon="image-flip-horizontal" style={{marginLeft: 'auto'}}/>
-                        </div>
-                        <RangeControl
-                            value={attributes.horizontalPadding}
-                            min={0}
-                            max={100}
-                            step={1}
-                            onChange={(value) => {
-                                setAttributes({horizontalPadding: value})
-                            }}
-                            allowReset={true}
-                            resetFallbackValue={false}
-                        />
+                        <SettingsHeading headline={'Horizontal padding'} icon={horizontalPaddingIcon}/>
+                        <ResetWrapperControl onClick={() => setAttributes({horizontalPadding: false})}>
+                            <RangeControl
+                                value={attributes.horizontalPadding}
+                                min={0}
+                                max={100}
+                                step={1}
+                                onChange={(value) => {
+                                    setAttributes({horizontalPadding: value})
+                                }}
+                            />
+                        </ResetWrapperControl>
                         <hr/>
-                        <div style={{display: 'flex'}}>
-                            <p>{__('Vertical padding', 'sage')}</p>
-                            <Dashicon icon="image-flip-vertical" style={{marginLeft: 'auto'}}/>
-                        </div>
-                        <RangeControl
-                            value={attributes.verticalPadding}
-                            min={0}
-                            max={100}
-                            step={1}
-                            onChange={(value) => {
-                                setAttributes({verticalPadding: value})
-                            }}
-                            allowReset={true}
-                            resetFallbackValue={false}
-                        />
+                        <SettingsHeading headline={'Vertical padding'} icon={verticalPaddingIcon}/>
+                        <ResetWrapperControl onClick={() => setAttributes({verticalPadding: false})}>
+                            <RangeControl
+                                value={attributes.verticalPadding}
+                                min={0}
+                                max={100}
+                                step={1}
+                                onChange={(value) => {
+                                    setAttributes({verticalPadding: value})
+                                }}
+                            />
+                        </ResetWrapperControl>
                         <hr/>
-                        <p>{__('Background color', 'sage')}</p>
+                        {/*<p>{__('Background color', 'sage')}</p>*/}
+                        <SettingsHeading headline={'Background color'} icon={colorIcon}/>
                         <ColorPalette
                             colors={editorThemeColors}
                             value={attributes.wrapperBgColor}
                             onChange={(value) => setAttributes({wrapperBgColor: value})}
-                            disableCustomColors={true}
+                            // disableCustomColors={true}
                         />
                         <hr/>
-                        <p>{__('Movement', 'sage')}</p>
+                        { /*<p>{__('Move', 'sage')}</p>*/ }
+                        <SettingsHeading headline={'Move'} icon={moveIcon}/>
                         <div style={{display: 'flex', marginBottom: '20px'}}>
                             <RadioGroup
                                 onChange={(value) => setAttributes({positionUnit: value})}
@@ -375,7 +389,8 @@ registerBlockType('custom/wrapper', {
                             'wrapper-block__inner',
                             attributes.horizontalAlign && `align-${attributes.horizontalAlign}`,
                             attributes.verticalAlign && `justify-content-${attributes.verticalAlign}`,
-                            getColorObject(attributes.wrapperBgColor) && `has-${getColorObject(attributes.wrapperBgColor).slug}-background-color has-background`,
+                            returnBackgroundColorClass(attributes.wrapperBgColor),
+                            // getColorObject(attributes.wrapperBgColor) && `has-${getColorObject(attributes.wrapperBgColor).slug}-background-color has-background`,
                         )}
                         style={{
                             ...!attributes.autoWidth && {
@@ -393,7 +408,8 @@ registerBlockType('custom/wrapper', {
                             ...isDefined(attributes.wrapperHeight) && {
                                 minHeight: `${attributes.wrapperHeight}px`
                             },
-                            transform: `translate(${focalPositionInPixel(attributes.wrapperMove.x, attributes.positionUnit)}, ${focalPositionInPixel(attributes.wrapperMove.y, attributes.positionUnit)})`
+                            transform: `translate(${focalPositionInPixel(attributes.wrapperMove.x, attributes.positionUnit)}, ${focalPositionInPixel(attributes.wrapperMove.y, attributes.positionUnit)})`,
+                            ...returnBackgroundColorStyle(attributes.wrapperBgColor),
                         }}
                     >
                         {innerBlocksProps.children}
@@ -418,7 +434,8 @@ registerBlockType('custom/wrapper', {
                         'wrapper-block__inner',
                         attributes.horizontalAlign && `align-${attributes.horizontalAlign}`,
                         attributes.verticalAlign && `justify-content-${attributes.verticalAlign}`,
-                        getColorObject(attributes.wrapperBgColor) && `has-${getColorObject(attributes.wrapperBgColor).slug}-background-color has-background`,
+                        // getColorObject(attributes.wrapperBgColor) && `has-${getColorObject(attributes.wrapperBgColor).slug}-background-color has-background`,
+                        returnBackgroundColorClass(attributes.wrapperBgColor),
                     )}
                     style={{
                         ...!attributes.autoWidth && {
@@ -436,7 +453,8 @@ registerBlockType('custom/wrapper', {
                         ...isDefined(attributes.wrapperHeight) && {
                             minHeight: `${attributes.wrapperHeight}px`
                         },
-                        transform: `translate(${focalPositionInPixel(attributes.wrapperMove.x, attributes.positionUnit)}, ${focalPositionInPixel(attributes.wrapperMove.y, attributes.positionUnit)})`
+                        transform: `translate(${focalPositionInPixel(attributes.wrapperMove.x, attributes.positionUnit)}, ${focalPositionInPixel(attributes.wrapperMove.y, attributes.positionUnit)})`,
+                        ...returnBackgroundColorStyle(attributes.wrapperBgColor),
                     }}
                 >
                     <InnerBlocks.Content/>
