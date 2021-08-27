@@ -228,7 +228,7 @@ registerBlockType('custom/grid-column', {
                                             setAttributes({columnSizeDesktop: value})
                                         }}
                                     />
-                                </ResetWrapperControl>(
+                                </ResetWrapperControl>
                             </MobileSwitchInner>
                             <MobileSwitchInner type={'tablet'}>
                                 <ResetWrapperControl onClick={() => {
