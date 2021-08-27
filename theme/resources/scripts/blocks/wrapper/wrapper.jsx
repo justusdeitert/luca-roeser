@@ -199,7 +199,10 @@ registerBlockType('custom/wrapper', {
                 'wrapper-block',
             ),
             style: {
-                border: '1px dashed var(--wp-admin-theme-color)'
+                border: '1px dashed var(--wp-admin-theme-color)',
+                // ...!attributes.wrapperBgColor && {
+                //     backgroundColor: 'repeating-linear-gradient(45deg, #606dbc, #606dbc 10px, #465298 10px)'
+                // }
             }
         });
 
@@ -359,20 +362,19 @@ registerBlockType('custom/wrapper', {
                         <hr/>
                         { /*<p>{__('Move', 'sage')}</p>*/ }
                         <SettingsHeading headline={'Move'} icon={moveIcon}/>
-                        <div style={{display: 'flex', marginBottom: '20px'}}>
+                        <div style={{display: 'flex', marginBottom: '10px'}}>
                             <RadioGroup
                                 onChange={(value) => setAttributes({positionUnit: value})}
                                 checked={attributes.positionUnit}
-                                defaultChecked={"px"}
+                                defaultChecked={'px'}
                             >
-                                <Radio value="px">{__('Pixel', 'sage')}</Radio>
+                                <Radio value="px">{__('px', 'sage')}</Radio>
                                 <Radio value="%">{__('%', 'sage')}</Radio>
                             </RadioGroup>
                             <Button
                                 className={'is-secondary'}
                                 onClick={() => setAttributes({wrapperMove: {x: 0.5, y: 0.5}})}
                                 text={__('Reset', 'sage')}
-                                style={{marginLeft: '10px'}}
                             />
                         </div>
                         <FocalPointPicker

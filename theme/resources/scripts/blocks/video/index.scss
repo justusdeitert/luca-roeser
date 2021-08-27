@@ -1,0 +1,17 @@
+.video-block {
+    position: relative;
+    display: flex;
+
+    &__inner {
+        display: flex;
+
+        &:not(.fluid-width) {
+            width: var(--width, 100%);
+        }
+    }
+
+    &__video {
+        width: 100%;
+    }
+}
+

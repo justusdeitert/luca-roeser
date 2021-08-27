@@ -201,7 +201,7 @@ export const editorDarkLightColors = [
     // {name: 'Dark/Light 600', slug: 'dark-light-600', color: `rgb(${getCssVariable('--custom-dark-light-600-color')})`},
 ]
 
-export const editorThemeColors = [
+let editorThemeColorsUnfiltered = [
     getColorObjectFromSlug('primary', editorStandardColors),
     getColorObjectFromSlug('secondary', editorStandardColors),
     getColorObjectFromSlug('tertiary',  editorStandardColors),
@@ -216,6 +216,23 @@ export const editorThemeColors = [
     ...editorDarkLightColors,
 ];
 
+function removeDuplicates(inputArray, property) {
+    return inputArray.filter((object, position, array) => {
+        return array.map(mapObj => mapObj[property]).indexOf(object[property]) === position;
+    })
+}
+
+/**
+ * Remove duplicat color values from editorThemeColors
+ */
+export const editorThemeColors = removeDuplicates(editorThemeColorsUnfiltered, 'color');
+
+/**
+ * Get the unit of the focalPicker component in pixel or percent
+ * @param value
+ * @param unit
+ * @returns {string}
+ */
 export const focalPositionInPixel = (value, unit = 'px') => {
 
     if (typeof value === 'string') {
@@ -257,7 +274,6 @@ export const ALLOWED_BLOCKS = [
      */
     'custom/map',
     'custom/button',
-    'custom/icon-text',
     'custom/row',
     'custom/divider',
     'custom/image',
@@ -267,10 +283,12 @@ export const ALLOWED_BLOCKS = [
     'custom/slider',
     'custom/wrapper',
     'custom/grid',
+    'custom/video',
 
     // Deprecated blocks
     'custom/text-image',
     'custom/grid-list',
+    'custom/icon-text',
 ]
 
 export const parentAttributes = (clientId) => {
@@ -556,8 +574,6 @@ export const returnBackgroundColorClass = (color) => {
     if (getColorObject(color)) {
         return `has-${getColorObject(color).slug}-background-color has-background`;
     }
-
-
 }
 
 /**
@@ -567,11 +583,11 @@ export const returnBackgroundColorClass = (color) => {
  * @returns {{backgroundColor: boolean}|{backgroundColor}}
  */
 export const returnBackgroundColorStyle = (color, defaultColor = false) => {
-    if (color === undefined && defaultColor) {
+    if (!color && defaultColor) {
         return {backgroundColor: defaultColor}
     }
 
-    if (getColorObject(color) === undefined) {
+    if (!getColorObject(color)) {
         return {backgroundColor: color}
     }
 }

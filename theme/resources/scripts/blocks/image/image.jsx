@@ -28,7 +28,7 @@ import {
     aspectRatio as aspectRatioIcon,
     resizeCornerNE as sizeIcon,
     moveTo as moveIcon,
-    styles as positionIcon,
+    styles as positionIcon, upload as uploadIcon,
 } from '@wordpress/icons';
 
 /**
@@ -263,15 +263,17 @@ registerBlockType('custom/image', {
                 </>}
                 <InspectorControls>
                     <div className="inspector-controls-container">
+                        <hr style={{marginTop: 0}}/>
+                        <SettingsHeading headline={'Upload'} icon={uploadIcon}/>
                         <MediaUpload
                             onSelect={(value) => setAttributes({imageObject: value})}
                             allowedTypes={['image']}
                             render={({open}) => (
                                 <Button
-                                    className={'button'}
+                                    className={'is-secondary'}
                                     onClick={open}
                                     icon={imageIcon}
-                                    text={attributes.imageObject ? __('Change Image', 'sage') : __('Upload Image', 'sage')}
+                                    text={__('Image', 'sage')}
                                 />
                             )}
                         />
@@ -352,13 +354,13 @@ registerBlockType('custom/image', {
                     </div>
                     <PanelBody title={__('Positioning', 'sage')} initialOpen={false}>
                         <SettingsHeading headline={'Move'} icon={moveIcon}/>
-                        <div style={{display: 'flex', marginBottom: '20px'}}>
+                        <div style={{display: 'flex', marginBottom: '10px'}}>
                             <RadioGroup
                                 onChange={(value) => setAttributes({imagePositionUnit: value})}
                                 checked={attributes.imagePositionUnit}
-                                defaultChecked={"px"}
+                                defaultChecked={'px'}
                             >
-                                <Radio value="px">{__('Pixel', 'sage')}</Radio>
+                                <Radio value="px">{__('px', 'sage')}</Radio>
                                 <Radio value="%">{__('%', 'sage')}</Radio>
                             </RadioGroup>
                             <Button

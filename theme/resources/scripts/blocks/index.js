@@ -12,6 +12,7 @@ import './fluid-text';
 import './spacer';
 import './wrapper';
 import './grid';
+import './video';
 
 /**
  * Deprecated blocks
