@@ -13,7 +13,7 @@ videoElements.forEach(videoElement => {
             trigger: videoElement,
             start: 'top 80%',
             end: 'bottom 20%',
-            markers: true,
+            // markers: true,
             onEnter: () => {
                 if (!videoIsClicked && videoElement.paused) {
                     videoElement.play();
