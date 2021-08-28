@@ -7,7 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 /**
- * ScrollTrigger to window
+ * Bind gsap and scrollTrigger to the window object
  */
 window.gsap = gsap;
 window.ScrollTrigger = ScrollTrigger;

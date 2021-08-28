@@ -6,8 +6,8 @@ import classnames from 'classnames';
 /**
  * Wordpress dependencies
  */
-import {__} from '@wordpress/i18n';
-import {registerBlockType} from '@wordpress/blocks';
+import { __ } from '@wordpress/i18n';
+import { registerBlockType } from '@wordpress/blocks';
 import {
     ToggleControl,
     Button,
@@ -29,7 +29,7 @@ import {
     BlockControls,
     useBlockProps,
 } from '@wordpress/block-editor';
-import {useEffect} from "@wordpress/element";
+import { useEffect } from "@wordpress/element";
 import {
     video as videoIcon,
     image as imageIcon,
@@ -114,6 +114,10 @@ const attributes = {
         type: 'string',
         default: 'contain'
     },
+    autoPlayInView: {
+        type: 'boolean',
+        default: false
+    },
 
     /**
      * More settings
@@ -138,6 +142,8 @@ const attributes = {
         type: 'boolean',
         default: false
     },
+
+
 };
 
 /**
@@ -366,6 +372,17 @@ registerBlockType('custom/video', {
                             <Radio value="contain">{__('Contain', 'sage')}</Radio>
                             <Radio value="cover">{__('Cover', 'sage')}</Radio>
                         </RadioGroup>
+                        <hr/>
+                        <ToggleControl
+                            label={__('Autoplay in viewport', 'sage')}
+                            help={__('Autplay video when it comes in viewport. For autoplay to work properly the video must be muted.', 'sage')}
+                            checked={attributes.autoPlayInView}
+                            onChange={(value) => {
+                                setAttributes({autoPlayInView: value});
+                                if (value === true) setAttributes({mute: true});
+                            }}
+                        />
+
                     </div>
                     <PanelBody title={__('More Settings', 'sage')} initialOpen={false} icon={settingsIcon}>
                         <div style={{marginTop: '20px'}}/>
@@ -375,9 +392,7 @@ registerBlockType('custom/video', {
                             help={__('For autoplay to work properly the video must be muted.', 'sage')}
                             onChange={(value) => {
                                 setAttributes({autoPlay: value})
-                                if (value === true) {
-                                    setAttributes({mute: true})
-                                }
+                                if (value === true) setAttributes({mute: true});
                             }}
                         />
                         <hr/>
@@ -415,6 +430,7 @@ registerBlockType('custom/video', {
                                 key: videoId, // used to update video component completely
                                 className: classnames(
                                     'video-block__video',
+                                    attributes.autoPlayInView && 'play-in-view',
                                     returnBackgroundColorClass(attributes.backgroundColor),
                                 ),
                                 playsInline: attributes.playsInline,
@@ -478,6 +494,7 @@ registerBlockType('custom/video', {
                         <video {...{
                             className: classnames(
                                 'video-block__video',
+                                attributes.autoPlayInView && 'play-in-view',
                                 returnBackgroundColorClass(attributes.backgroundColor),
                             ),
                             playsInline: attributes.playsInline,
