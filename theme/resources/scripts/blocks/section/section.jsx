@@ -6,8 +6,8 @@ import classnames from "classnames";
 /**
  * WordPress dependencies
  */
-import {__} from '@wordpress/i18n';
-import {registerBlockType, createBlock} from '@wordpress/blocks';
+import { __ } from '@wordpress/i18n';
+import { registerBlockType, createBlock } from '@wordpress/blocks';
 import {
     SelectControl,
     RangeControl,
@@ -70,7 +70,7 @@ const htmlElementMessages = {
 /**
  * Internal dependencies
  */
-import * as sectionShapes from '../section-shapes'
+import * as sectionShapes from '../section-shapes';
 import {
     verticalPadding as verticalPaddingIcon,
     height as heightIcon,
@@ -262,7 +262,7 @@ const attributes = {
  */
 const adjustOverlayPosition = (value, position) => {
     if (value.includes('radial-gradient')) {
-        return value.replace('radial-gradient(', `radial-gradient(at ${position},`)
+        return value.replace('radial-gradient(', `radial-gradient(at ${position},`);
     }
     return value;
 };
@@ -400,8 +400,12 @@ registerBlockType('custom/section', {
                         <BlockVerticalAlignmentToolbar
                             value={attributes.verticalAlign}
                             onChange={(value) => {
-                                if (value === 'top') {value = 'start';}
-                                if (value === 'bottom') {value = 'end';}
+                                if (value === 'top') {
+                                    value = 'start';
+                                }
+                                if (value === 'bottom') {
+                                    value = 'end';
+                                }
                                 setAttributes({verticalAlign: value});
                             }}
                         />
@@ -433,7 +437,7 @@ registerBlockType('custom/section', {
                             label={__('Overflow hidden', 'sage')}
                             checked={attributes.overflowHidden}
                             onChange={(value) => {
-                                setAttributes({overflowHidden: value})
+                                setAttributes({overflowHidden: value});
                             }}
                         />
                         {/*<hr/>
@@ -451,11 +455,12 @@ registerBlockType('custom/section', {
                         {/*{!attributes.fullHeight && <>*/}
                         <hr/>
                         {attributes.minHeightUnit === 'px' ? <>
-                            <MobileSwitch headline={`${__('Height', 'sage')} (${attributes.minHeightUnit})`} icon={heightIcon}>
+                            <MobileSwitch headline={`${__('Height', 'sage')} (${attributes.minHeightUnit})`}
+                                          icon={heightIcon}>
                                 <MobileSwitchInner type={'desktop'}>
                                     <ResetWrapperControl onClick={() => {
-                                        setAttributes({minHeightPixelDesktop: false})
-                                        setAttributes({minHeightPixelMobile: false})
+                                        setAttributes({minHeightPixelDesktop: false});
+                                        setAttributes({minHeightPixelMobile: false});
                                     }}>
                                         <RangeControl
                                             value={attributes.minHeightPixelDesktop}
@@ -463,19 +468,19 @@ registerBlockType('custom/section', {
                                             max={1200}
                                             step={10}
                                             onChange={(value) => {
-                                                if(attributes.minHeightPixelMobile === attributes.minHeightPixelDesktop) {
-                                                    setAttributes({minHeightPixelMobile: value})
+                                                if (attributes.minHeightPixelMobile === attributes.minHeightPixelDesktop) {
+                                                    setAttributes({minHeightPixelMobile: value});
                                                 }
 
-                                                setAttributes({minHeightPixelDesktop: value})
+                                                setAttributes({minHeightPixelDesktop: value});
                                             }}
                                         />
                                     </ResetWrapperControl>
                                 </MobileSwitchInner>
                                 <MobileSwitchInner type={'mobile'}>
                                     <ResetWrapperControl onClick={() => {
-                                        setAttributes({minHeightPixelDesktop: false})
-                                        setAttributes({minHeightPixelMobile: false})
+                                        setAttributes({minHeightPixelDesktop: false});
+                                        setAttributes({minHeightPixelMobile: false});
                                     }}>
                                         <RangeControl
                                             value={attributes.minHeightPixelMobile}
@@ -483,19 +488,20 @@ registerBlockType('custom/section', {
                                             max={attributes.minHeightPixelDesktop.toString()}
                                             step={10}
                                             onChange={(value) => {
-                                                setAttributes({minHeightPixelMobile: value})
+                                                setAttributes({minHeightPixelMobile: value});
                                             }}
                                         />
                                     </ResetWrapperControl>
                                 </MobileSwitchInner>
                             </MobileSwitch>
                         </> : <>
-                            <MobileSwitch headline={`${__('Height', 'sage')} (${attributes.minHeightUnit})`} icon={heightIcon}>
+                            <MobileSwitch headline={`${__('Height', 'sage')} (${attributes.minHeightUnit})`}
+                                          icon={heightIcon}>
                                 <MobileSwitchInner type={'desktop'}>
                                     <ResetWrapperControl onClick={() => {
-                                        setAttributes({minHeightWindowDesktop: 100})
-                                        setAttributes({minHeightWindowTablet: 100})
-                                        setAttributes({minHeightWindowMobile: 100})
+                                        setAttributes({minHeightWindowDesktop: 100});
+                                        setAttributes({minHeightWindowTablet: 100});
+                                        setAttributes({minHeightWindowMobile: 100});
                                     }}>
                                         <RangeControl
                                             value={attributes.minHeightWindowDesktop}
@@ -503,24 +509,24 @@ registerBlockType('custom/section', {
                                             max={100}
                                             step={1}
                                             onChange={(value) => {
-                                                if(attributes.minHeightWindowMobile === attributes.minHeightWindowDesktop) {
-                                                    setAttributes({minHeightWindowMobile: value})
+                                                if (attributes.minHeightWindowMobile === attributes.minHeightWindowDesktop) {
+                                                    setAttributes({minHeightWindowMobile: value});
                                                 }
 
-                                                if(attributes.minHeightWindowTablet === attributes.minHeightWindowDesktop) {
-                                                    setAttributes({minHeightWindowTablet: value})
+                                                if (attributes.minHeightWindowTablet === attributes.minHeightWindowDesktop) {
+                                                    setAttributes({minHeightWindowTablet: value});
                                                 }
 
-                                                setAttributes({minHeightWindowDesktop: value})
+                                                setAttributes({minHeightWindowDesktop: value});
                                             }}
                                         />
                                     </ResetWrapperControl>
                                 </MobileSwitchInner>
                                 <MobileSwitchInner type={'tablet'}>
                                     <ResetWrapperControl onClick={() => {
-                                        setAttributes({minHeightWindowDesktop: 100})
-                                        setAttributes({minHeightWindowTablet: 100})
-                                        setAttributes({minHeightWindowMobile: 100})
+                                        setAttributes({minHeightWindowDesktop: 100});
+                                        setAttributes({minHeightWindowTablet: 100});
+                                        setAttributes({minHeightWindowMobile: 100});
                                     }}>
                                         <RangeControl
                                             value={attributes.minHeightWindowTablet}
@@ -528,20 +534,20 @@ registerBlockType('custom/section', {
                                             max={attributes.minHeightWindowDesktop.toString()}
                                             step={1}
                                             onChange={(value) => {
-                                                if(attributes.minHeightWindowMobile === attributes.minHeightWindowTablet) {
-                                                    setAttributes({minHeightWindowMobile: value})
+                                                if (attributes.minHeightWindowMobile === attributes.minHeightWindowTablet) {
+                                                    setAttributes({minHeightWindowMobile: value});
                                                 }
 
-                                                setAttributes({minHeightWindowTablet: value})
+                                                setAttributes({minHeightWindowTablet: value});
                                             }}
                                         />
                                     </ResetWrapperControl>
                                 </MobileSwitchInner>
                                 <MobileSwitchInner type={'mobile'}>
                                     <ResetWrapperControl onClick={() => {
-                                        setAttributes({minHeightWindowDesktop: 100})
-                                        setAttributes({minHeightWindowTablet: 100})
-                                        setAttributes({minHeightWindowMobile: 100})
+                                        setAttributes({minHeightWindowDesktop: 100});
+                                        setAttributes({minHeightWindowTablet: 100});
+                                        setAttributes({minHeightWindowMobile: 100});
                                     }}>
                                         <RangeControl
                                             value={attributes.minHeightWindowMobile}
@@ -549,7 +555,7 @@ registerBlockType('custom/section', {
                                             max={attributes.minHeightWindowTablet.toString()}
                                             step={1}
                                             onChange={(value) => {
-                                                setAttributes({minHeightWindowMobile: value})
+                                                setAttributes({minHeightWindowMobile: value});
                                             }}
                                         />
                                     </ResetWrapperControl>
@@ -567,7 +573,8 @@ registerBlockType('custom/section', {
                         {/*</>}*/}
                         {/*{!attributes.fullWidth && <>*/}
                         <hr/>
-                        <SettingsHeading headline={`${__('Inner width', 'sage')} (${attributes.innerWidthUnit})`} icon={widthIcon}/>
+                        <SettingsHeading headline={`${__('Inner width', 'sage')} (${attributes.innerWidthUnit})`}
+                                         icon={widthIcon}/>
                         {(attributes.innerWidthUnit === 'px') ? <>
                             <ResetWrapperControl onClick={() => setAttributes({innerWidthPixel: false})}>
                                 <RangeControl
@@ -642,7 +649,7 @@ registerBlockType('custom/section', {
                                     min={20}
                                     max={800}
                                     onChange={(value) => {
-                                        setAttributes({patternSize: value})
+                                        setAttributes({patternSize: value});
                                     }}
                                 />
                             </ResetWrapperControl>
@@ -654,10 +661,10 @@ registerBlockType('custom/section', {
                                     min={0}
                                     max={16}
                                     onChange={(value) => {
-                                        setAttributes({backgroundImageBlur: value})
+                                        setAttributes({backgroundImageBlur: value});
 
-                                        if(!attributes.overflowHidden) {
-                                            setAttributes({overflowHidden: true})
+                                        if (!attributes.overflowHidden) {
+                                            setAttributes({overflowHidden: true});
                                         }
                                     }}
                                 />
@@ -754,7 +761,7 @@ registerBlockType('custom/section', {
                                             onChange={(value) => {
                                                 setAttributes({sectionShapeHeightDesktop: value});
 
-                                                if (attributes.sectionShapeHeightMobile* 2 === attributes.sectionShapeHeightDesktop) {
+                                                if (attributes.sectionShapeHeightMobile * 2 === attributes.sectionShapeHeightDesktop) {
                                                     setAttributes({sectionShapeHeightMobile: value / 3});
                                                 }
                                             }}
@@ -828,14 +835,15 @@ registerBlockType('custom/section', {
                 <attributes.tagName {...innerBlocksProps}>
                     {attributes.backgroundImage && <>
                         {isDefined(attributes.patternSize) ? <>
-                            <div className={classnames('section-block__image', attributes.backgroundImageBlur > 0 ? 'is-blurred' : '')}
-                                 style={{
-                                     ...isDefined(attributes.backgroundImageBlur) && {filter: `blur(${attributes.backgroundImageBlur}px)`},
-                                     backgroundImage: `url(${getImage(attributes.backgroundImage, 'x_large')})`,
-                                     backgroundPosition: `${attributes.backgroundImageAlignment}`,
-                                     backgroundSize: `${attributes.patternSize}px`,
-                                     opacity: attributes.backgroundImageOpacity,
-                                 }}
+                            <div
+                                className={classnames('section-block__image', attributes.backgroundImageBlur > 0 ? 'is-blurred' : '')}
+                                style={{
+                                    ...isDefined(attributes.backgroundImageBlur) && {filter: `blur(${attributes.backgroundImageBlur}px)`},
+                                    backgroundImage: `url(${getImage(attributes.backgroundImage, 'x_large')})`,
+                                    backgroundPosition: `${attributes.backgroundImageAlignment}`,
+                                    backgroundSize: `${attributes.patternSize}px`,
+                                    opacity: attributes.backgroundImageOpacity,
+                                }}
                             />
                         </> : <>
                             <img
@@ -967,34 +975,31 @@ registerBlockType('custom/section', {
             <attributes.tagName {...blockProps}>
 
                 {attributes.backgroundImage && <>
-                    {isDefined(attributes.patternSize) ?
-                        <>
-                            <div className={classnames('section-block__image', attributes.backgroundImageBlur > 0 ? 'is-blurred' : '')}
-                                 style={{
-                                     ...isDefined(attributes.backgroundImageBlur) && {filter: `blur(${attributes.backgroundImageBlur}px)`},
-                                     backgroundImage: `url(${getImage(attributes.backgroundImage, 'x_large')})`,
-                                     backgroundPosition: `${attributes.backgroundImageAlignment}`,
-                                     backgroundSize: `${attributes.patternSize}px`,
-                                     opacity: attributes.backgroundImageOpacity,
-                                 }}
-                            />
-                        </>
-                        :
-                        <>
-                            <img
-                                className={classnames('section-block__image', attributes.backgroundImageBlur > 0 ? 'is-blurred' : '')}
-                                style={{
-                                    ...isDefined(attributes.backgroundImageBlur) && {filter: `blur(${attributes.backgroundImageBlur}px)`},
-                                    objectPosition: `${attributes.backgroundImageAlignment}`,
-                                    opacity: attributes.backgroundImageOpacity,
-                                }}
-                                srcSet={`${getImage(attributes.backgroundImage, 'tiny')} 480w, ${getImage(attributes.backgroundImage, 'small')} 768w, ${getImage(attributes.backgroundImage, 'medium')} 1024w, ${getImage(attributes.backgroundImage, 'x_large')} 1360w`}
-                                sizes="100w"
-                                src={getImage(attributes.backgroundImage, 'medium')}
-                                alt={getImage(attributes.backgroundImage, 'alt')}
-                            />
-                        </>
-                    }
+                    {isDefined(attributes.patternSize) ? <>
+                        <div
+                            className={classnames('section-block__image', attributes.backgroundImageBlur > 0 ? 'is-blurred' : '')}
+                            style={{
+                                ...isDefined(attributes.backgroundImageBlur) && {filter: `blur(${attributes.backgroundImageBlur}px)`},
+                                backgroundImage: `url(${getImage(attributes.backgroundImage, 'x_large')})`,
+                                backgroundPosition: `${attributes.backgroundImageAlignment}`,
+                                backgroundSize: `${attributes.patternSize}px`,
+                                opacity: attributes.backgroundImageOpacity,
+                            }}
+                        />
+                    </> : <>
+                        <img
+                            className={classnames('section-block__image', attributes.backgroundImageBlur > 0 ? 'is-blurred' : '')}
+                            style={{
+                                ...isDefined(attributes.backgroundImageBlur) && {filter: `blur(${attributes.backgroundImageBlur}px)`},
+                                objectPosition: `${attributes.backgroundImageAlignment}`,
+                                opacity: attributes.backgroundImageOpacity,
+                            }}
+                            srcSet={`${getImage(attributes.backgroundImage, 'tiny')} 480w, ${getImage(attributes.backgroundImage, 'small')} 768w, ${getImage(attributes.backgroundImage, 'medium')} 1024w, ${getImage(attributes.backgroundImage, 'x_large')} 1360w`}
+                            sizes="100w"
+                            src={getImage(attributes.backgroundImage, 'medium')}
+                            alt={getImage(attributes.backgroundImage, 'alt')}
+                        />
+                    </>}
                 </>}
 
                 {attributes.hasOverlay && <>
