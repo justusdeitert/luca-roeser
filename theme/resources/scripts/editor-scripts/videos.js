@@ -11,8 +11,8 @@ videoElements.forEach(videoElement => {
     if (videoElement.classList.contains('play-in-view')) {
         window.ScrollTrigger.create({
             trigger: videoElement,
-            start: 'top 80%',
-            end: 'bottom 20%',
+            start: 'top 70%',
+            end: 'bottom 30%',
             // markers: true,
             onEnter: () => {
                 if (!videoIsClicked && videoElement.paused) {

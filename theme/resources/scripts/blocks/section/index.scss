@@ -10,6 +10,18 @@
     }
 }
 
+.window-min-height {
+    min-height: var(--min-height-mobile, 100vh);
+
+    @include media-breakpoint-up(sm) {
+        min-height: var(--min-height-tablet, 100vh);
+    }
+
+    @include media-breakpoint-up(lg) {
+        min-height: var(--min-height-desktop, 100vh);
+    }
+}
+
 .section-block {
     display: flex;
     position: relative;
@@ -28,14 +40,6 @@
         .wp-block {
             max-width: initial;
         }
-
-        &.full-width {
-            max-width: 100%;
-        }
-    }
-
-    &.full-height {
-        min-height: 100vh;
     }
 
     &__overlay {
