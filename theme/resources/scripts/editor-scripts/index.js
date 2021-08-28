@@ -6,3 +6,4 @@
 // import './slider';
 import './popper';
 import './maps';
+import './videos';

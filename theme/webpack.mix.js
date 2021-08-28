@@ -70,6 +70,7 @@ mix
     .js('resources/scripts/external/lightgallery.js', 'scripts')
     .js('resources/scripts/external/photoswipe.js', 'scripts')
     .js('resources/scripts/external/swiper.js', 'scripts')
+    .js('resources/scripts/external/gsap.js', 'scripts')
 
     /**
      * Editor Script for Blocks

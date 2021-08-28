@@ -45,6 +45,12 @@ function add_single_scripts() {
     if (is_gutenberg_editor() || has_block('custom/accordion', get_the_ID())) {
         wp_enqueue_script('bootstrap', asset('scripts/bootstrap.js')->uri(), [], null, true);
     }
+
+    /**
+     * Include GSAP
+     * @link https://greensock.com/docs/
+     */
+    wp_enqueue_script('gsap', asset('scripts/gsap.js')->uri(), [], null, true);
 }
 
 add_action('wp_enqueue_scripts', 'add_single_scripts', 99);
@@ -66,6 +72,7 @@ add_filter('script_loader_tag', function ($tag, $handle, $src) {
         'swiper',
         'sage/app',
         'google-maps-api',
+        'gsap',
     ];
 
     if (in_array($handle, $defer_scripts)) {

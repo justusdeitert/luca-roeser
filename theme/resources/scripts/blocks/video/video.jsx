@@ -128,7 +128,7 @@ const attributes = {
     },
     mute: {
         type: 'boolean',
-        default: false
+        default: true
     },
     browserControls: {
         type: 'boolean',
