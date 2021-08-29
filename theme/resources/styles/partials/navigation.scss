@@ -1,5 +1,16 @@
 // Custom Styles for Luca Roeser
 #app {
+
+    .navbar {
+        position: initial;
+
+        &__logo-wrapper {
+            img {
+                object-position: left;
+            }
+        }
+    }
+
     @media (min-width: 768px) {
         .navbar {
             position: fixed;
