@@ -779,8 +779,6 @@ registerBlockType('custom/section', {
                                             max={attributes.sectionShapeHeightDesktop.toString()}
                                             step={1}
                                             onChange={(value) => setAttributes({sectionShapeHeightMobile: value})}
-                                            allowReset={true}
-                                            resetFallbackValue={attributes.sectionShapeHeightDesktop / 3}
                                         />
                                     </ResetWrapperControl>
                                 </MobileSwitchInner>
