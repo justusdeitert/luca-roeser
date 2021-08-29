@@ -192,7 +192,7 @@ task('pull', [
 // ------------------------>
 // https://deployer.org/recipes/slack.html
 // -------------------------->
-// set('slack_webhook', 'getenv('SLACK_WEBHOOK_URL')');
+// set('slack_webhook', getenv('SLACK_WEBHOOK_URL'));
 // set('slack_title', '{{application}}'); // the title of application, default {{application}}
 // set('slack_text', '_{{user}}_ deploying `{{branch}}` to *{{application}}.{{target}}*');
 // set('slack_success_text', 'Deploy to *{{target}}* successful'); // 'Successfully Deployed to *{{application}}.{{target}}*'
