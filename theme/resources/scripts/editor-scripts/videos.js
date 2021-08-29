@@ -1,15 +1,6 @@
 const videoElements = document.querySelectorAll('.video-block__video');
-let userInteracted = false;
 
-window.addEventListener('click', () => {
-    userInteracted = true;
-
-    // Unmute all videos once user interacted
-    // TODO: Implement filter for videoblock
-    videoElements.forEach(videoElement => {
-        videoElement.muted = false;
-    })
-});
+let userVideoInteraction = false;
 
 videoElements.forEach(videoElement => {
 
@@ -18,6 +9,9 @@ videoElements.forEach(videoElement => {
     videoElement.addEventListener('click', (event) => {
         if (videoElement.muted) {
             event.preventDefault();
+            userVideoInteraction = true;
+            videoElement.muted = false;
+            videoElement.play();
         }
 
         videoIsClicked = true;
@@ -26,19 +20,19 @@ videoElements.forEach(videoElement => {
     if (videoElement.classList.contains('play-in-view')) {
         window.ScrollTrigger.create({
             trigger: videoElement,
-            start: 'top 65%',
-            end: 'bottom 35%',
+            start: 'top 70%',
+            end: 'bottom 30%',
             // markers: true,
             onEnter: () => {
                 if (!videoIsClicked && videoElement.paused) {
                     videoElement.play();
-                    userInteracted && (videoElement.muted = false);
+                    userVideoInteraction && (videoElement.muted = false);
                 }
             },
             onEnterBack: () => {
                 if (!videoIsClicked && videoElement.paused) {
                     videoElement.play();
-                    userInteracted && (videoElement.muted = false);
+                    userVideoInteraction && (videoElement.muted = false);
                 }
             },
             onLeave: () => {
