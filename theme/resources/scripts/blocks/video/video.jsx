@@ -40,7 +40,7 @@ import {
     upload as uploadIcon,
     settings as settingsIcon,
     color as colorIcon,
-    cover as coverIcon
+    cover as coverIcon, trash as trashIcon
 } from '@wordpress/icons';
 
 /**
@@ -158,6 +158,9 @@ registerBlockType('custom/video', {
     icon: videoIcon,
     description: __('Embed a video from your media library or upload a new one.', 'sage'),
     category: 'custom',
+    supports: {
+        anchor: true,
+    },
     attributes,
     edit: ({className, attributes, setAttributes}) => {
 
@@ -254,6 +257,14 @@ registerBlockType('custom/video', {
                                 />
                             )}
                         />
+                        {attributes.posterImage && <>
+                            <Button
+                                className={'button'}
+                                onClick={() => setAttributes({posterImage: false})}
+                                icon={trashIcon}
+                                style={{marginLeft: '10px'}}
+                            />
+                        </>}
                         <MediaUpload
                             onSelect={(value) => setAttributes({mp4Video: value})}
                             allowedTypes={['video/mp4']}

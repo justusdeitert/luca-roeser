@@ -378,7 +378,7 @@ if (class_exists('Kirki')) {
                 // 'description' => __('The font size influences all other font sizes & spacings within the theme', 'sage'),
                 'default' => 16,
                 'choices' => [
-                    'min' => 14,
+                    'min' => 12,
                     'max' => 22,
                     'step' => 1,
                 ],
@@ -724,7 +724,7 @@ if (class_exists('Kirki')) {
                 'section' => 'section_navbar_settings_id',
                 'default' => 16,
                 'choices' => [
-                    'min' => 14,
+                    'min' => 12,
                     'max' => 24,
                     'step' => 1,
                 ],

@@ -301,28 +301,36 @@ img {
     display: flex;
     flex-direction: column;
 
-    > *:first-child {
-        &:not(.hero-block):not(.section-block) {
-            margin-top: calc(var(--custom-vertical-spacing-desktop, 3rem) * 2);
-
-            @include media-breakpoint-down(sm) {
-                margin-top: calc(var(--custom-vertical-spacing-desktop, 3rem));
-            }
-        }
-    }
+    //> *:first-child {
+    //    &:not(.hero-block):not(.section-block) {
+    //        margin-top: calc(var(--custom-vertical-spacing-desktop, 3rem) * 2);
+    //
+    //        @include media-breakpoint-down(sm) {
+    //            margin-top: calc(var(--custom-vertical-spacing-desktop, 3rem));
+    //        }
+    //    }
+    //}
 }
 
-.navbar-fixed, .navbar-absolute {
-    .main {
-        > *:first-child {
-            &:not(.hero-block) {
-                margin-top: calc(var(--custom-navbar-top-position) + var(--custom-navbar-height) + (var(--custom-vertical-spacing-desktop, 3rem) * 2));
+//.navbar-fixed, .navbar-absolute {
+//    .main {
+//        > *:first-child {
+//            &:not(.hero-block) {
+//                margin-top: calc(var(--custom-navbar-top-position) + var(--custom-navbar-height) + (var(--custom-vertical-spacing-desktop, 3rem) * 2));
+//
+//                @include media-breakpoint-down(sm) {
+//                    margin-top: calc(var(--custom-navbar-top-position) + var(--custom-navbar-height) + var(--custom-vertical-spacing-desktop, 3rem));
+//                }
+//            }
+//        }
+//    }
+//}
 
-                @include media-breakpoint-down(sm) {
-                    margin-top: calc(var(--custom-navbar-top-position) + var(--custom-navbar-height) + var(--custom-vertical-spacing-desktop, 3rem));
-                }
-            }
-        }
+.page-wrapper {
+    margin-top: calc(var(--custom-navbar-top-position) + (var(--custom-vertical-spacing-desktop, 3rem) * 2));
+
+    @include media-breakpoint-down(sm) {
+        margin-top: calc(var(--custom-navbar-top-position) + var(--custom-vertical-spacing-desktop, 3rem));
     }
 }
 

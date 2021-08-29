@@ -1,7 +1,9 @@
 @include('partials.navigation')
 
-<main class="main container">
-    @yield('content')
+<main class="main">
+    <div class="container">
+        @yield('content')
+    </div>
 </main>
 
 @hasSection('sidebar')

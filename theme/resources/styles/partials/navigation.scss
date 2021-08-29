@@ -1,3 +1,61 @@
+// Custom Styles for Luca Roeser
+#app {
+    @media (min-width: 768px) {
+        .navbar {
+            position: fixed;
+            width: 250px;
+            height: 100%;
+
+            &__inner {
+                flex-direction: column;
+                height: 100%;
+            }
+
+            &__logo-wrapper {
+                margin-top: 20px;
+            }
+
+            &__menu {
+                flex-direction: column;
+                margin-top: 60px;
+                margin-left: 0 !important;
+
+                > .menu-item {
+                    justify-content: flex-start;
+
+                    > a {
+                        padding: 0 8px;
+                        //font-size: 12px;
+                        min-height: 20px;
+                    }
+                }
+            }
+        }
+
+        .main {
+            margin-left: 250px;
+        }
+
+        .footer {
+            margin-left: 250px;
+        }
+    }
+
+    .sub-menu__inner {
+        * {
+            color: #FFF;
+        }
+    }
+}
+
+body:not(.home) {
+    #app {
+        #menu-secondary-menu {
+            display: none !important;
+        }
+    }
+}
+
 .popper-wrapper {
     position: fixed;
     visibility: hidden;

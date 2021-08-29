@@ -33,7 +33,13 @@ registerBlockType('custom/spacer', {
     icon: spacerIcon,
     description: __('Add white space between blocks and customize its height.', 'sage'),
     category: 'custom',
+    supports: {
+        anchor: true,
+    },
     attributes: {
+        anchor:  {
+            type: 'string'
+        },
         desktopHeight: {
             type: 'number',
             default: 50
@@ -113,6 +119,7 @@ registerBlockType('custom/spacer', {
                     size={{
                         height: attributes.desktopHeight
                     }}
+                    id={attributes.anchor}
                     minHeight={minSpacerHeight}
                     maxHeight={maxSpacerHeight}
                     enable={{
@@ -140,12 +147,14 @@ registerBlockType('custom/spacer', {
     save: ({attributes}) => {
         return (
             <>
-                <div className={classNames('spacer-block', 'fluid-min-height')}
-                     style={{
-                         '--min-height-desktop': `${attributes.desktopHeight}px`,
-                         '--min-height-mobile': `${attributes.mobileHeight}px`,
-                         '--min-height-difference': `${attributes.desktopHeight - attributes.mobileHeight}`,
-                     }}
+                <div
+                    className={classNames('spacer-block', 'fluid-min-height')}
+                    id={attributes.anchor}
+                    style={{
+                        '--min-height-desktop': `${attributes.desktopHeight}px`,
+                        '--min-height-mobile': `${attributes.mobileHeight}px`,
+                        '--min-height-difference': `${attributes.desktopHeight - attributes.mobileHeight}`,
+                    }}
                 />
             </>
         );
