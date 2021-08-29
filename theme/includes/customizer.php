@@ -1298,7 +1298,7 @@ if (class_exists('Kirki')) {
         layout_settings();
         font_settings();
         color_settings();
-        navbar_settings();
+        // navbar_settings();
         footer_settings();
         form_settings();
         api_settings();

@@ -78,14 +78,14 @@ function customizer_theme_styles() {
         /**
          *  Menu colors
          */
-        'navbar-background' => get_theme_mod('custom_color_select_navbar_background', 'light'),
-        'navbar-font' => get_theme_mod('custom_color_select_navbar_font', 'dark'),
-        'navbar-font-active' => get_theme_mod('custom_color_select_navbar_font_active', 'dark'),
-        'navbar-background-active' => get_theme_mod('custom_color_select_navbar_background_active', 'light'),
-        'navbar-submenu-background' => get_theme_mod('custom_color_select_navbar_submenu_background', 'light'),
-        'navbar-submenu-font' => get_theme_mod('custom_color_select_submenu_font', 'dark'),
-        'navbar-submenu-font-active' => get_theme_mod('custom_color_select_navbar_submenu_font_active', 'dark'),
-        'navbar-submenu-background-active' => get_theme_mod('custom_color_select_navbar_submenu_background_active', 'light'),
+        // 'navbar-background' => get_theme_mod('custom_color_select_navbar_background', 'light'),
+        // 'navbar-font' => get_theme_mod('custom_color_select_navbar_font', 'dark'),
+        // 'navbar-font-active' => get_theme_mod('custom_color_select_navbar_font_active', 'dark'),
+        // 'navbar-background-active' => get_theme_mod('custom_color_select_navbar_background_active', 'light'),
+        // 'navbar-submenu-background' => get_theme_mod('custom_color_select_navbar_submenu_background', 'light'),
+        // 'navbar-submenu-font' => get_theme_mod('custom_color_select_submenu_font', 'dark'),
+        // 'navbar-submenu-font-active' => get_theme_mod('custom_color_select_navbar_submenu_font_active', 'dark'),
+        // 'navbar-submenu-background-active' => get_theme_mod('custom_color_select_navbar_submenu_background_active', 'light'),
 
         /**
          *  Form colors
@@ -216,16 +216,16 @@ function customizer_theme_styles() {
             <?php } ?>
 
             /* Navbar settings */
-            --custom-navbar-height: <?php echo get_theme_mod('custom_navbar_height', 60); ?>px;
-            --custom-navbar-position:  <?php echo get_theme_mod('custom_navbar_positioning', 'static'); ?>;
-            --custom-navbar-top-position:  <?php echo get_theme_mod('custom_navbar_top_position', 0); ?>px;
-            --custom-navbar-box-shadow: <?php echo $custom_shadows[get_theme_mod('custom_navbar_shadow', 'no-shadow')]; ?>;
-            --custom-navbar-logo-height:  <?php echo get_theme_mod('custom_navbar_logo_height', 100); ?>%;
-            --custom-navbar-logo-wrapper-width:  <?php echo get_theme_mod('custom_navbar_logo_wrapper_width', 100); ?>px;
-            --custom-navbar-font-size:  <?php echo get_theme_mod('custom_navbar_font_size', 16) / 16; ?>rem;
-            --custom-navbar-font-weight:  <?php echo get_theme_mod('custom_navbar_font_weight', 400); ?>;
-            --custom-navbar-item-spacing:  <?php echo get_theme_mod('custom_navbar_item_spacing', 5); ?>px;
-            --custom-navbar-submenu-item-height:  <?php echo get_theme_mod('custom_navbar_submenu_item_height', 40); ?>px;
+            /*--custom-navbar-height: */<?php //echo get_theme_mod('custom_navbar_height', 60); ?>/*px;*/
+            /*--custom-navbar-position:  */<?php //echo get_theme_mod('custom_navbar_positioning', 'static'); ?>/*;*/
+            /*--custom-navbar-top-position:  */<?php //echo get_theme_mod('custom_navbar_top_position', 0); ?>/*px;*/
+            /*--custom-navbar-box-shadow: */<?php //echo $custom_shadows[get_theme_mod('custom_navbar_shadow', 'no-shadow')]; ?>/*;*/
+            /*--custom-navbar-logo-height:  */<?php //echo get_theme_mod('custom_navbar_logo_height', 100); ?>/*%;*/
+            /*--custom-navbar-logo-wrapper-width:  */<?php //echo get_theme_mod('custom_navbar_logo_wrapper_width', 100); ?>/*px;*/
+            /*--custom-navbar-font-size:  */<?php //echo get_theme_mod('custom_navbar_font_size', 16) / 16; ?>/*rem;*/
+            /*--custom-navbar-font-weight:  */<?php //echo get_theme_mod('custom_navbar_font_weight', 400); ?>/*;*/
+            /*--custom-navbar-item-spacing:  */<?php //echo get_theme_mod('custom_navbar_item_spacing', 5); ?>/*px;*/
+            /*--custom-navbar-submenu-item-height:  */<?php //echo get_theme_mod('custom_navbar_submenu_item_height', 40); ?>/*px;*/
 
             /*
              * Custom cookie consent modal/setting variables
