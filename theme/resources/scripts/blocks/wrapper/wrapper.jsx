@@ -33,7 +33,10 @@ import {
 } from '@wordpress/block-editor';
 import {
     group as sectionIcon,
-    color as colorIcon, moveTo as moveIcon
+    color as colorIcon,
+    moveTo as moveIcon,
+    brush as animationIcon,
+    cloud as hoverIcon
 } from '@wordpress/icons';
 
 /**
@@ -384,6 +387,26 @@ registerBlockType('custom/wrapper', {
                             onDrag={onChangeWrapperPosition}
                         />
                     </div>
+                    <PanelBody title={__('Animation', 'sage')} icon={animationIcon}>
+                        <div style={{height: '20px'}}/>
+                        {/*
+                        // Animate when in comes in view
+                        // Animation direction -> top, left, right, bottom
+                        // Animation type -> zoom,
+                        // Easing -> different gsap easing types
+                        // Duration
+                        */}
+                    </PanelBody>
+                    <PanelBody title={__('Hover', 'sage')} icon={hoverIcon}>
+                        <div style={{height: '20px'}}/>
+                        {/*
+                        // Animate when hover
+                        // Pinch zoom images
+                        // Change overlay color
+                        // Change text color
+                        // Change background color
+                        */}
+                    </PanelBody>
                 </InspectorControls>
                 <div {...innerBlocksProps}>
                     <div

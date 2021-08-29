@@ -490,8 +490,7 @@ if (class_exists('Kirki')) {
 
             function cleanColorName($color_name) {
                 $new_color_name = str_replace('_', ' ', $color_name);
-                $new_color_name = ucwords($new_color_name);
-                return $new_color_name;
+                return ucwords($new_color_name);
             }
 
             foreach ($GLOBALS['general_colors'] as $color => $value) {
@@ -516,6 +515,37 @@ if (class_exists('Kirki')) {
                 'title' => __('Navbar', 'sage'),
                 'panel' => 'panel_theme_settings_id',
             ));
+
+            Kirki::add_field('custom_navbar_mobile_switch_id', [
+                'type' => 'slider',
+                'settings' => 'custom_navbar_mobile_switch',
+                'label' => __('Navbar mobile switch', 'sage'),
+                'section' => 'section_navbar_settings_id',
+                'default' => 768,
+                'choices' => [
+                    'min' => 360,
+                    'max' => 1280,
+                    'step' => 1,
+                ],
+            ]);
+
+            custom_kirki_headline('section_navbar_settings_id', 'Mobile Navbar', 'h2');
+
+            /*
+             * Mobile Navbar
+             * Type: Sidebar / Topbar
+             * Submenu: Sidebar / Slidedown, Tooltip
+             */
+
+
+            custom_kirki_headline('section_navbar_settings_id', 'Desktop Navbar', 'h2');
+
+            /*
+             * Desktop Navbar
+             * Type: Sidebar / Topbar
+             * Submenu:
+             */
+
 
             custom_kirki_spacing('section_navbar_settings_id', 24);
 
@@ -544,7 +574,7 @@ if (class_exists('Kirki')) {
 
             custom_kirki_border('section_navbar_settings_id');
 
-            Kirki::add_field('custom_navbar_height_id', [
+            Kirki::add_field('custom_navbar_size_id', [
                 'type' => 'slider',
                 'settings' => 'custom_navbar_height',
                 'label' => __('Navbar Height', 'sage'),

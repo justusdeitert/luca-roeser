@@ -374,20 +374,7 @@ registerBlockType('custom/video', {
                         </RadioGroup>
                         <hr/>
                         <ToggleControl
-                            label={__('Autoplay in viewport', 'sage')}
-                            help={__('Autplay video when it comes in viewport. For autoplay to work properly the video must be muted.', 'sage')}
-                            checked={attributes.autoPlayInView}
-                            onChange={(value) => {
-                                setAttributes({autoPlayInView: value});
-                                if (value === true) setAttributes({mute: true});
-                            }}
-                        />
-
-                    </div>
-                    <PanelBody title={__('More Settings', 'sage')} initialOpen={false} icon={settingsIcon}>
-                        <div style={{marginTop: '20px'}}/>
-                        <ToggleControl
-                            label={__('Autoplay', 'sage')}
+                            label={__('Autoplay on page load', 'sage')}
                             checked={attributes.autoPlay}
                             help={__('For autoplay to work properly the video must be muted.', 'sage')}
                             onChange={(value) => {
@@ -397,13 +384,25 @@ registerBlockType('custom/video', {
                         />
                         <hr/>
                         <ToggleControl
+                            label={__('Autoplay when in viewport', 'sage')}
+                            help={__('Autoplay video when it comes in viewport.', 'sage')}
+                            checked={attributes.autoPlayInView}
+                            onChange={(value) => {
+                                setAttributes({autoPlayInView: value});
+                                if (value === true) setAttributes({mute: true});
+                            }}
+                        />
+                        <hr/>
+                        <ToggleControl
                             label={__('Loop', 'sage')}
+                            help={__('Plays the video again when finished.', 'sage')}
                             checked={attributes.loop}
                             onChange={(value) => setAttributes({loop: value})}
                         />
                         <hr/>
                         <ToggleControl
                             label={__('Mute', 'sage')}
+                            help={__('Mute should be enabled when autoplay mode is on.', 'sage')}
                             checked={attributes.mute}
                             onChange={(value) => setAttributes({mute: value})}
                         />
@@ -417,11 +416,13 @@ registerBlockType('custom/video', {
                         <hr/>
                         <ToggleControl
                             label={__('Play inline', 'sage')}
-                            help={__('Mobile browsers, will play the video right where it is instead of the default, which is to open it up fullscreen while it plays.', 'sage')}
+                            help={__('Mobile browsers, will not open  this video in fullscreen by default.', 'sage')}
+                            // help={__('Mobile browsers, will play the video right where it is instead of the default, which is to open it up fullscreen while it plays.', 'sage')}
                             checked={attributes.playsInline}
                             onChange={(value) => setAttributes({playsInline: value})}
                         />
-                    </PanelBody>
+                    </div>
+                    {/*<PanelBody title={__('More Settings', 'sage')} initialOpen={false} icon={settingsIcon}></PanelBody>*/}
                 </InspectorControls>
                 <div {...blockProps}>
                     <div {...innerBlockProps}>

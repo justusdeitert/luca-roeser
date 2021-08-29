@@ -11,7 +11,6 @@
         'burger_menu_icon'
     ]);
     $navbar_height = get_theme_mod('custom_navbar_height', 60);
-    // $navbar_top_position = get_theme_mod('custom_navbar_top_position', 0);
     $navbar_logo = get_theme_mod('custom_navbar_logo_image', '');
     $navbar_logo_alt = $navbar_logo ? get_post_meta($navbar_logo['id'], '_wp_attachment_image_alt', true) : '';
     $navbar_has_full_width = get_theme_mod('custom_full_width_navbar');
