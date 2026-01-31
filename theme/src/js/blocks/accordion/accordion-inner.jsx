@@ -27,7 +27,6 @@ import {
     parentAttributes,
     SelectClipPath,
     removeArrayItems,
-    getBlockIndex
 } from '../utility';
 import {accordionItem as accordionInnerIcon} from '../custom-icons';
 

@@ -240,7 +240,13 @@ function customizer_theme_styles() {
         /* Icon settings */
         @font-face {
             font-family: 'custom-icon-font';
-            src: url('<?php echo get_stylesheet_directory_uri(); ?>/resources/fonts/icons/<?php echo get_theme_mod('custom_icons', 'bootstrap-icons')  ?>.woff2') format('woff2');
+            src: url('<?php 
+                if (function_exists('theme_is_dev_mode') && theme_is_dev_mode()) {
+                    echo 'http://localhost:5173/fonts/icons/' . get_theme_mod('custom_icons', 'bootstrap-icons') . '.woff2';
+                } else {
+                    echo get_stylesheet_directory_uri() . '/assets/fonts/' . get_theme_mod('custom_icons', 'bootstrap-icons') . '.woff2';
+                }
+            ?>') format('woff2');
             font-weight: normal;
             font-style: normal;
             font-display: block;
