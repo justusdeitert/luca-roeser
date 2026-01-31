@@ -1,0 +1,71 @@
+services:
+    nginx:
+        image: nginx:latest
+        ports:
+            - "8080:80"
+        volumes:
+            - ./devops/nginx/conf.d:/etc/nginx/conf.d
+            - ./wordpress:/var/www/html
+            - ./theme:/var/www/html/wp-content/themes/luca-roeser
+            - ./uploads:/var/www/html/wp-content/uploads
+        depends_on:
+            - php
+        networks:
+            - app-network
+
+    php:
+        build:
+            context: .
+            dockerfile: devops/php/Dockerfile
+        volumes:
+            - ./wordpress:/var/www/html
+            - ./devops/php/php.ini:/usr/local/etc/php/php.ini
+            - ./theme:/var/www/html/wp-content/themes/luca-roeser
+            - ./uploads:/var/www/html/wp-content/uploads
+        env_file:
+            - .env
+        depends_on:
+            - mysql
+        networks:
+            - app-network
+
+    mysql:
+        image: mysql:latest
+        env_file:
+            - .env
+        volumes:
+            - mysql-data:/var/lib/mysql
+            - ./devops/mysql/my.cnf:/etc/mysql/conf.d/custom.cnf
+        networks:
+            - app-network
+
+    phpmyadmin:
+        image: phpmyadmin:latest
+        ports:
+            - "8081:80"
+        env_file:
+            - .env
+        depends_on:
+            - mysql
+        networks:
+            - app-network
+
+    node:
+        build:
+            context: .
+            dockerfile: devops/node/Dockerfile
+        volumes:
+            - ./theme:/usr/src/theme
+        ports:
+            - "5173:5173"
+        networks:
+            - app-network
+        depends_on:
+            - php
+
+volumes:
+    mysql-data:
+
+networks:
+    app-network:
+        driver: bridge

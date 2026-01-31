@@ -1,64 +1,23 @@
 {
-  "private": true,
-  "browserslist": [
-    "extends @wordpress/browserslist-config"
-  ],
-  "engines": {
-    "node": ">=12.14.0"
-  },
-  "scripts": {
-    "build": "mix",
-    "build:production": "mix --production",
-    "start": "mix watch",
-    "hot": "mix watch --hot",
-    "clear": "wp acorn optimize:clear",
-    "test": "npm run lint",
-    "lint": "npm run lint:js && npm run lint:css",
-    "lint:js": "eslint resources/scripts",
-    "lint:css": "stylelint \"resources/**/*.{css,scss,vue}\"",
-    "translate": "npm run translate:pot && npm run translate:js",
-    "translate:pot": "wp i18n make-pot . ./resources/lang/sage.pot --ignore-domain --include=\"app,resources,includes\"",
-    "translate:js": "rm ./resources/lang/*.json && wp i18n make-json ./resources/lang --pretty-print && npm run translate:rename",
-    "translate:rename": "rename ./resources/lang/*.json sage-{{f}}"
-  },
-  "devDependencies": {
-    "@tinypixelco/laravel-mix-wp-blocks": "^1.1.0",
-    "@wordpress/babel-preset-default": "^6.1.0",
-    "@wordpress/browserslist-config": "^4.0.0",
-    "@wordpress/dependency-extraction-webpack-plugin": "^3.1.3",
-    "babel-eslint": "^10.1.0",
-    "browser-sync": "^2.26.14",
-    "browser-sync-webpack-plugin": "^2.3.0",
-    "dotenv": "^10.0.0",
-    "eslint": "^7.27.0",
-    "eslint-plugin-import": "^2.23.3",
-    "laravel-mix": "^6.0.19",
-    "laravel-mix-bundle-analyzer": "^1.0.5",
-    "laravel-mix-purgecss": "^6.0.0",
-    "postcss": "^8.3.0",
-    "postcss-purgecss-laravel": "^2.0.0",
-    "rename-cli": "^6.2.1",
-    "sass": "^1.34.0",
-    "sass-loader": "11.1.1",
-    "stylelint": "^13.13.1",
-    "stylelint-config-standard": "^22.0.0"
-  },
-  "peerDependencies": {
-    "jquery": "^3.5.1"
-  },
-  "dependencies": {
-    "@popperjs/core": "^2.9.2",
-    "@wordpress/icons": "^6.1.1",
-    "bootstrap": "^5.1.3",
-    "classnames": "^2.3.1",
-    "codemirror": "^5.63.1",
-    "gsap": "^3.9.1",
-    "lightgallery": "^2.3.0",
-    "lorem-ipsum": "^2.0.4",
-    "photoswipe": "git://github.com/dimsemenov/photoswipe#v5-beta",
-    "popper.js": "^1.16.1",
-    "swiper": "^7.0.8",
-    "tippy.js": "^6.3.2",
-    "vanilla-cookieconsent": "^2.6.0"
-  }
+    "name": "luca-roeser-theme",
+    "private": true,
+    "version": "1.0.0",
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build"
+    },
+    "devDependencies": {
+        "sass": "^1.83.0",
+        "vite": "^6.0.0"
+    },
+    "dependencies": {
+        "@popperjs/core": "^2.11.8",
+        "bootstrap": "^5.3.3",
+        "gsap": "^3.12.5",
+        "lightgallery": "^2.7.2",
+        "swiper": "^11.1.15",
+        "tippy.js": "^6.3.7",
+        "vanilla-cookieconsent": "^3.0.1"
+    }
 }

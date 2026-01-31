@@ -1,0 +1,659 @@
+// Custom Styles for Luca Roeser
+#app {
+
+    .navbar {
+        position: initial;
+
+        &__logo-wrapper {
+            img {
+                object-position: left;
+            }
+        }
+    }
+
+    @media (min-width: 768px) {
+        .navbar {
+            position: fixed;
+            width: 250px;
+            height: 100%;
+
+            &__inner {
+                flex-direction: column;
+                height: 100%;
+            }
+
+            &__logo-wrapper {
+                margin-top: 20px;
+            }
+
+            &__menu {
+                flex-direction: column;
+                margin-top: 60px;
+                margin-left: 0 !important;
+
+                > .menu-item {
+                    justify-content: flex-start;
+
+                    > a {
+                        padding: 0 8px;
+                        //font-size: 12px;
+                        min-height: 20px;
+                    }
+                }
+            }
+        }
+
+        .main {
+            margin-left: 250px;
+        }
+
+        .footer {
+            margin-left: 250px;
+        }
+    }
+
+    .sub-menu__inner {
+        * {
+            color: #FFF;
+        }
+    }
+}
+
+.popper-wrapper {
+    position: fixed;
+    visibility: hidden;
+    padding-top: 20px;
+
+    &.active {
+        visibility: visible;
+
+        .sub-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+
+        }
+    }
+
+    .popper-arrow {
+        top: -10px;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 10px 10px 10px;
+        border-color: transparent transparent rgb(var(--custom-navbar-submenu-background-color)) transparent;
+    }
+}
+
+.sub-menu {
+    list-style: none;
+    background-color: rgb(var(--custom-navbar-submenu-background-color));
+    border-radius: var(--custom-border-radius);
+    box-shadow: var(--custom-navbar-box-shadow);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(40px);
+    transition: opacity .2s ease-in-out, visibility .2s ease-in-out, transform .2s ease-in-out;
+    white-space: nowrap;
+    min-width: 200px;
+
+    &__inner {
+        border-radius: var(--custom-border-radius);
+        list-style: none;
+        overflow: hidden;
+        padding: 0;
+    }
+
+    .menu-item {
+        a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-decoration: none;
+            padding: 5px var(--custom-navbar-item-spacing);
+            color: rgb(var(--custom-navbar-submenu-font-color));
+            min-height: var(--custom-navbar-submenu-item-height);
+
+            &:hover {
+                background-color: rgb(var(--custom-navbar-submenu-background-active-color));
+            }
+        }
+
+        &.current-menu-item {
+            a {
+                background-color: rgb(var(--custom-navbar-submenu-background-active-color));
+            }
+        }
+    }
+}
+
+/**
+ * When navbar sits on top
+ */
+.navbar-is-top {
+    .navbar {
+        background-color: rgb(var(--custom-navbar-background-color));
+        box-shadow: var(--custom-navbar-box-shadow);
+
+        &__inner {
+            box-shadow: none;
+        }
+    }
+}
+
+.navbar-sticky {
+    .navbar {
+        top: 0;
+    }
+}
+
+.navbar {
+    z-index: 100;
+    width: 100%;
+    position: var(--custom-navbar-position);
+    top: var(--custom-navbar-top-position);
+    font-size: var(--custom-navbar-font-size);
+    font-weight: var(--custom-navbar-font-weight);
+
+    &__inner {
+        height: var(--custom-navbar-height);
+        background-color: rgb(var(--custom-navbar-background-color));
+        border-radius: var(--custom-border-radius);
+        display: flex;
+        box-shadow: var(--custom-navbar-box-shadow);
+        position: relative;
+        overflow: hidden;
+    }
+
+    &__logo-wrapper {
+        padding: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: var(--custom-navbar-logo-wrapper-width);
+
+        img {
+            object-fit: contain;
+            height: var(--custom-navbar-logo-height);
+            width: 100%;
+        }
+    }
+
+    &__menu {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: flex;
+        height: 100%;
+
+        > .menu-item {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &:after {
+                position: absolute;
+                right: 0;
+                transform: translateX(50%);
+                z-index: 100;
+                color: rgb(var(--custom-navbar-font-color));
+            }
+
+            > a {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100%;
+                text-decoration: none;
+                padding: 5px var(--custom-navbar-item-spacing);
+                color: rgb(var(--custom-navbar-font-color));
+                min-height: 35px;
+
+                &:hover {
+                    color: rgb(var(--custom-navbar-font-active-color));
+                    background-color: rgb(var(--custom-navbar-background-active-color));
+                }
+            }
+
+            &.current-menu-item {
+                > a {
+                    color: rgb(var(--custom-navbar-font-active-color));
+                    background-color: rgb(var(--custom-navbar-background-active-color));
+                }
+            }
+        }
+    }
+
+    &__burger-menu-icon-wrapper {
+        align-items: center;
+        justify-content: center;
+        padding: 5px var(--custom-navbar-item-spacing);
+        cursor: pointer;
+        position: relative;
+    }
+
+    &__burger-menu-icon {
+        font-size: 2.25rem;
+        color: rgb(var(--custom-navbar-font-color));
+    }
+
+    //&__primary-mobile-menu {
+    //    @extend .sub-menu-class;
+    //}
+}
+
+// Business Hours Template
+.navbar__business-hours {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    cursor: pointer;
+    padding: 5px var(--custom-navbar-item-spacing);
+    //font-weight: var(--custom-menu-font-weight);
+    //position: relative;
+
+
+    &__headline {
+        line-height: 1.25rem;
+        color: rgb(var(--custom-navbar-font-color));
+        //opacity: 0.7;
+    }
+
+    &__wrapper {
+        display: flex;
+        font-weight: 500;
+        align-items: center;
+        line-height: 1.25rem;
+        color: rgb(var(--custom-navbar-font-color));
+
+        i {
+            font-size: 1rem;
+            font-weight: 600;
+            transition: transform .2s ease-in-out;
+        }
+
+        &.is-open {
+            color: rgb(var(--custom-primary-color));
+
+            i {
+                color: rgb(var(--custom-primary-color));
+            }
+        }
+    }
+
+    &:hover {
+        i {
+            transform: rotate(-180deg);
+        }
+    }
+
+    .business-hours-template {
+        //@extend .sub-menu-class;
+        left: 0;
+        padding: 0.5rem 0;
+        color: rgb(var(--custom-navbar-font-color));
+
+        &:after {
+            left: calc(var(--custom-navbar-item-spacing) + 1rem);
+        }
+
+        &__wrapper {
+            display: flex;
+            align-items: center;
+            padding: 3px var(--custom-navbar-item-spacing);
+            min-height: calc(var(--custom-navbar-submenu-item-height) * 0.8);
+        }
+
+        &__day {
+            font-weight: 500;
+            width: 50px;
+            display: inline-block;
+        }
+
+        &__time {
+
+            .active {
+                color: rgb(var(--custom-primary-color));
+            }
+
+            &:last-child {
+                &:after {
+                    content: '';
+                    display: none;
+                }
+            }
+
+            &:after {
+                margin: 0 10px;
+                content: '|';
+            }
+        }
+    }
+}
+
+/**
+ * Sidebar Navigation for Luca Roeser
+ */
+html {
+    scroll-behavior: smooth;
+}
+
+#app {
+    position: relative;
+}
+
+main.main {
+    margin-left: 270px;
+
+    @include media-breakpoint-up(md) {
+        transform: translate(0, 0) !important;
+    }
+
+    @include media-breakpoint-down(md) {
+        margin-left: 0;
+
+        > .container {
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+    }
+}
+
+.sidebar {
+    width: 270px;
+    height: 100%;
+    position: absolute;
+    background-color: transparent;
+    color: rgb(var(--custom-font-color));
+    z-index: 50;
+
+    h1 {
+        font-size: 1.25rem;
+        margin: 0;
+        color: rgb(var(--custom-font-color));
+
+        span {
+            font-weight: 300;
+            opacity: 0.7;
+        }
+    }
+
+    @include media-breakpoint-up(md) {
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+    @include media-breakpoint-down(md) {
+        opacity: 0;
+        visibility: hidden;
+        width: 100%;
+        z-index: 100;
+        position: fixed;
+        top: 0;
+
+        .sidebar__inner {
+            padding-top: 90px;
+        }
+    }
+
+    &__inner {
+        position: sticky;
+        top: 0;
+        padding: 30px;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+
+        @include media-breakpoint-down(md) {
+            padding: 40px 20px 20px;
+        }
+    }
+
+    &__menu {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        margin-top: calc(3vw + 10px);
+
+        @media(max-width: 900px) {
+            margin-top: 2vw;
+        }
+
+        @media(min-width: 1200px) {
+            margin-top: 58px;
+        }
+
+        li {
+            margin-bottom: 0.25rem;
+        }
+
+        a {
+            text-decoration: none;
+            color: rgb(var(--custom-font-color));
+            font-size: 0.875rem;
+            transition: color 0.2s ease;
+
+            &:hover {
+                color: rgb(var(--custom-link-hover-color));
+            }
+        }
+    }
+
+    &__social-media {
+        margin-top: 25px;
+
+        a {
+            text-decoration: none;
+            margin-right: 6px;
+        }
+    }
+
+    &__bottom {
+        position: fixed;
+        bottom: 20px;
+    }
+}
+
+.wrapper-block {
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(0px, 200px);
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+
+    &.is-focused {
+        z-index: 200;
+    }
+
+    @include media-breakpoint-down(md) {
+        margin-left: 0 !important;
+    }
+
+    &__close-button-wrapper {
+        position: absolute;
+        transform: translate(0, -100%);
+        padding: 20px;
+        display: flex;
+        background-color: rgb(var(--custom-body-background-color));
+        right: 0;
+        pointer-events: all;
+        cursor: pointer;
+        opacity: 0;
+        visibility: hidden;
+
+        .hamburger span,
+        .hamburger span:before,
+        .hamburger span:after {
+            background: rgb(var(--custom-font-color));
+        }
+    }
+}
+
+.overlay-background {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(var(--custom-body-background-color));
+    opacity: 0;
+    visibility: hidden;
+}
+
+.video-controls-wrapper {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 100;
+    pointer-events: none;
+
+    &__close {
+        padding: 20px;
+        display: flex;
+        background-color: rgb(var(--custom-body-background-color));
+        position: absolute;
+        right: 0;
+        pointer-events: all;
+        cursor: pointer;
+    }
+
+    .hamburger {
+        right: 20px;
+        top: 20px;
+        pointer-events: all;
+        margin-left: auto;
+    }
+}
+
+.navbar {
+    &--mobile {
+        width: 100%;
+        padding: 20px;
+        align-items: center;
+        display: flex;
+        background-color: rgb(var(--custom-body-background-color));
+        position: sticky;
+        top: 0;
+        z-index: 100;
+
+        h1 {
+            font-size: 1rem;
+            margin: 0;
+            color: rgb(var(--custom-font-color));
+
+            span {
+                font-weight: 300;
+                opacity: 0.7;
+            }
+        }
+
+        a {
+            text-decoration: none;
+            color: rgb(var(--custom-font-color));
+        }
+    }
+}
+
+.hamburger {
+    margin-left: auto;
+    cursor: pointer;
+    padding: 10px 24px 14px 0;
+
+    span {
+        pointer-events: none;
+    }
+}
+
+.hamburger span, .hamburger span:before, .hamburger span:after {
+    cursor: pointer;
+    border-radius: 1px;
+    height: 2px;
+    width: 24px;
+    background: rgb(var(--custom-font-color));
+    position: absolute;
+    display: inline-block;
+    content: '';
+}
+
+.hamburger span:before {
+    top: -7px;
+}
+
+.hamburger span:after {
+    bottom: -7px;
+}
+
+.hamburger span, .hamburger span:before, .hamburger span:after {
+    transition: all 300ms cubic-bezier(0.645, 0.045, 0.355, 1.000);
+}
+
+.hamburger.active span {
+    background-color: transparent;
+}
+
+.hamburger.active span:before, .hamburger.active span:after {
+    top: 0;
+}
+
+.hamburger.active span:before {
+    transform: rotate(45deg);
+}
+
+.hamburger.active span:after {
+    transform: translateY(-10px) rotate(-45deg);
+    top: 10px;
+}
+
+video {
+    cursor: pointer;
+}
+
+// Footer overrides for Luca Roeser layout
+.footer {
+    margin-left: 270px;
+    display: flex;
+    position: sticky !important;
+    bottom: 0;
+    padding: 30px !important;
+
+    @include media-breakpoint-down(md) {
+        margin-left: 0;
+        padding: 20px !important;
+    }
+
+    &__social-media {
+        display: flex;
+        align-items: center;
+        margin-left: auto;
+
+        a {
+            text-decoration: none;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            color: #000 !important;
+            transition: color 0.2s ease;
+
+            &:hover {
+                color: #253b86 !important;
+            }
+
+            svg {
+                width: 20px;
+                height: 20px;
+                fill: currentColor;
+            }
+        }
+    }
+}

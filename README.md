@@ -1,132 +1,138 @@
-# Luca Roeser
+# Luca Roeser - WordPress Theme
 
-A modern WordPress project built with [Bedrock](https://roots.io/bedrock/) and [Sage](https://roots.io/sage/).
+Custom WordPress theme with Docker development environment and Vite for asset bundling.
 
-## 🏗️ Tech Stack
+## Requirements
 
-- **[Bedrock](https://roots.io/bedrock/)** — Modern WordPress boilerplate with improved folder structure, Composer-based dependency management, and environment-specific configuration
-- **[Sage](https://roots.io/sage/)** — WordPress starter theme with Laravel Blade templating, modern build tools, and a clean MVC-like structure
-- **[Laravel Mix](https://laravel-mix.com/)** — Elegant wrapper around Webpack for asset compilation
-- **[Deployer](https://deployer.org/)** — PHP deployment tool for automated deployments
+- Docker & Docker Compose
+- Node.js 22+ (for local development without Docker)
 
-## 📁 Project Structure
+## Quick Start
 
-```
-├── bedrock/              # WordPress installation (Bedrock)
-│   ├── config/           # Environment configuration
-│   └── web/              # Web root
-│       ├── app/          # WordPress content (themes, plugins, uploads)
-│       └── wp/           # WordPress core (managed by Composer)
-├── theme/                # Sage theme
-│   ├── app/              # Theme PHP files
-│   ├── config/           # Theme configuration
-│   ├── resources/        # Assets, views, and language files
-│   │   ├── fonts/
-│   │   ├── images/
-│   │   ├── scripts/
-│   │   ├── styles/
-│   │   └── views/        # Blade templates
-│   └── public/           # Compiled assets
-├── deployer/             # Deployment recipes
-├── hosts/                # Deployment host configurations
-└── backups/              # Database backups
-```
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-- PHP >= 7.4
-- Composer
-- Node.js >= 12.14.0
-- npm or Yarn
-- MySQL or MariaDB
-
-### Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd luca-roeser
-   ```
-
-2. **Install PHP dependencies**
-   ```bash
-   composer install
-   cd bedrock && composer install
-   cd ../theme && composer install
-   ```
-
-3. **Install Node dependencies**
-   ```bash
-   cd theme
-   npm install
-   ```
-
-4. **Configure environment**
-   ```bash
-   cp bedrock/.env.example bedrock/.env
-   ```
-   Edit `bedrock/.env` and configure your database credentials and other settings.
-
-5. **Build assets**
-   ```bash
-   cd theme
-   npm run build
-   ```
-
-## 💻 Development
-
-### Theme Development
-
-Navigate to the theme directory and run:
+### 1. Setup Environment
 
 ```bash
-cd theme
+# Copy environment file
+cp .env.example .env
 
-# Start development server with hot reloading
-npm run start
+# Edit .env with your settings (passwords, etc.)
+```
 
-# Build assets for development
+### 2. Start Docker Containers
+
+```bash
+# Build and start all containers
+docker compose up -d --build
+
+# WordPress will be available at: http://localhost:8080
+# phpMyAdmin at: http://localhost:8081
+```
+
+### 3. Start Vite Dev Server
+
+```bash
+# Enter the node container
+docker compose exec node sh
+
+# Install dependencies
+npm install
+
+# Start Vite dev server
+npm run dev
+```
+
+The Vite dev server runs at `http://localhost:5173` and provides HMR for JavaScript and CSS.
+
+## Development
+
+### Theme Structure
+
+```
+theme/
+├── src/                    # Source files
+│   ├── js/                 # JavaScript files
+│   │   └── main.js         # Main entry point
+│   ├── scss/               # SCSS stylesheets
+│   │   └── main.scss       # Main stylesheet
+│   ├── fonts/              # Font files
+│   └── images/             # Image assets
+├── inc/                    # PHP includes
+├── acf-json/               # ACF field group JSON
+├── assets/                 # Compiled assets (gitignored)
+├── functions.php           # Theme functions
+├── style.css               # Theme metadata
+├── vite.config.js          # Vite configuration
+└── package.json
+```
+
+### NPM Scripts
+
+```bash
+npm run dev      # Start Vite dev server with HMR
+npm run build    # Build production assets
+```
+
+### Docker Commands
+
+```bash
+# Start containers
+docker compose up -d
+
+# Stop containers
+docker compose down
+
+# View logs
+docker compose logs -f
+
+# Enter PHP container (WP-CLI available)
+docker compose exec php zsh
+
+# Enter Node container
+docker compose exec node sh
+
+# Rebuild containers
+docker compose up -d --build
+```
+
+### WP-CLI Commands
+
+```bash
+# Inside the PHP container:
+wp plugin list
+wp theme activate luca-roeser
+wp search-replace 'old-url' 'new-url' --dry-run
+```
+
+## Database Management
+
+### Export Database
+
+```bash
+docker compose exec php search-replace-export-db.sh
+```
+
+### Import Database
+
+```bash
+docker compose exec php search-replace-import-db.sh
+```
+
+## Production Build
+
+```bash
+# Enter node container
+docker compose exec node sh
+
+# Build assets
 npm run build
-
-# Build optimized assets for production
-npm run build:production
 ```
 
-### Available Scripts
+The compiled assets will be in `theme/assets/` and automatically loaded by WordPress.
 
-| Command | Description |
-|---------|-------------|
-| `npm run start` | Start development with file watching |
-| `npm run hot` | Start development with hot module replacement |
-| `npm run build` | Compile assets for development |
-| `npm run build:production` | Compile and minify assets for production |
-| `npm run lint` | Run JavaScript and CSS linting |
-| `npm run translate` | Generate translation files |
+## Ports
 
-## 🚢 Deployment
-
-This project uses [Deployer](https://deployer.org/) for automated deployments. Host configurations are stored in the `hosts/` directory.
-
-### Deploy to a host
-
-```bash
-dep deploy <hostname>
-```
-
-### Sync database
-
-```bash
-dep sync:database <hostname>
-```
-
-### Sync uploads
-
-```bash
-dep sync:dirs <hostname>
-```
-
-## 📝 License
-
-This project is licensed under the MIT License.
+| Service     | Port |
+|-------------|------|
+| WordPress   | 8080 |
+| phpMyAdmin  | 8081 |
+| Vite HMR    | 5173 |

@@ -1,0 +1,66 @@
+// This files contains lightGallery and all plugins
+
+/* purgecss start ignore */
+
+// Import pre-compiled lightgallery CSS to avoid @use/@import conflicts
+@import 'lightgallery/css/lightgallery.css';
+@import 'lightgallery/css/lg-thumbnail.css';
+@import 'lightgallery/css/lg-zoom.css';
+@import 'lightgallery/css/lg-pager.css';
+@import 'lightgallery/css/lg-fullscreen.css';
+@import 'lightgallery/css/lg-comments.css';
+@import 'lightgallery/css/lg-medium-zoom.css';
+@import 'lightgallery/css/lg-relative-caption.css';
+
+// Custom User Styles
+.lg-outer {
+    .lg-item {
+        &:not(.lg-start-end-progress) {
+            // TODO: ADD Loading GIF!
+            background: url('../images/loading.gif') no-repeat scroll center center transparent;
+        }
+    }
+}
+
+.lg-next {
+    @extend .icon-arrow-right;
+
+    &:after {
+        display: none;
+    }
+}
+
+.lg-prev {
+    @extend .icon-arrow-left;
+
+    &:after {
+        display: none;
+    }
+}
+
+.lg-toolbar {
+    .lg-close {
+        @extend .icon-close;
+
+        &:after {
+            display: none;
+        }
+    }
+
+    .lg-download {
+        @extend .icon-download;
+
+        &:after {
+            display: none;
+        }
+    }
+
+    /**
+     * TODO: Implement Zoom Icon / Add Zoom Icon to Icon Sets...
+     */
+    .lg-zoom-in, lg-zoom-out {
+        display: none;
+    }
+}
+
+/* purgecss end ignore */

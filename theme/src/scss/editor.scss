@@ -1,0 +1,297 @@
+// Variables and Roots
+$grid-breakpoints: (
+    xxs: 0,
+    xs: 375px,
+    sm: 576px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px,
+    xxl: 1400px
+);
+
+:root {
+    // Custom variable values only support SassScript inside `#{}`.
+    @each $breakpoint, $value in $grid-breakpoints {
+        --breakpoint-#{$breakpoint}: #{$value};
+    }
+}
+
+html {
+    font-size: var(--custom-font-size);
+}
+
+// Custom Gutenberg block editor styles
+.editor-styles-wrapper {
+    @import 'config';
+    @import 'external';
+    font-weight: var(--custom-font-weight);
+    font-family: var(--custom-text-font-family) !important;
+    font-size: $font-size-base;
+    line-height: $line-height-base;
+    color: rgb(var(--custom-font-color));
+    background-color: rgb(var(--custom-body-background-color));
+    overflow: hidden;
+
+    // wrapper to override gutenberg block library css
+    > * {
+        @import 'common';
+        @import 'components';
+        @import '../js/blocks';
+        @import 'core-blocks';
+    }
+
+    .editor-post-title__input {
+        font-size: 1.625rem;
+    }
+
+    blockquote {
+        // Empty for now...
+    }
+}
+
+/**
+ * Editor sidebar
+ */
+.components-panel {
+    hr {
+        border-color: #e0e0e0;
+    }
+
+    .inspector-controls-container {
+        padding: 0 16px 16px 16px;
+    }
+
+    .components-range-control {
+        margin-bottom: 0;
+    }
+}
+
+
+.wp-block {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    max-width: var(--max-container-width);
+
+    @media (min-width: 720px) {
+        max-width: var(--max-container-width);
+    }
+
+    &[data-type="core/widget-area"] {
+        max-width: var(--max-container-width);
+    }
+
+    &[data-align="wide"] {
+        max-width: calc(var(--max-container-width) + 200px);
+    }
+}
+
+.editor-styles-wrapper, .block-editor-block-inspector {
+    .components-button {
+        display: inline-flex;
+    }
+
+    .block-editor-block-styles {
+        display: none;
+    }
+}
+
+// Widget Area
+.blocks-widgets-container {
+    .editor-styles-wrapper {
+        max-width: var(--max-container-width);
+    }
+
+    // Footer Widget
+    [data-widget-area-id="sidebar-footer"] {
+        background-color: rgb(var(--custom-footer-background-color));
+        color: rgb(var(--custom-footer-font-color));
+
+        a {
+            color: rgb(var(--custom-footer-link-color));
+
+            &:hover {
+                color: rgb(var(--custom-footer-link-color));
+            }
+        }
+    }
+}
+
+.components-focal-point-picker {
+    width: 100%;
+
+    &-control {
+        &.no-picker-controls {
+            .focal-point-picker__controls {
+                // display: none;
+            }
+        }
+    }
+}
+
+h1, h2, h3, h4, h5, h6 {
+    &.has-background {
+        padding: initial;
+    }
+}
+
+/**
+ * Styles Editor Clip Path Component
+ */
+.clip-paths {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -5px;
+
+    &__wrapper {
+        width: calc(100% / 4);
+        height: 60px;
+        padding: 5px;
+    }
+
+    &__element {
+        background-color: #1d2327;
+        width: 100%;
+        height: 100%;
+        opacity: 0.7;
+
+        &.is-active {
+            opacity: 1;
+        }
+    }
+
+    &__remove-button-wrapper {
+        //margin-bottom: 10px;
+        margin-top: 10px;
+        width: 100%;
+        text-align: right;
+    }
+}
+
+.clip-path-svg {
+    position: absolute;
+    width: 0;
+    height: 0;
+}
+
+/**
+ * Experimental Control, Will be Changed in the Future
+ * TODO: Be aware that this will change in future versions...
+ */
+.components-custom-gradient-picker {
+    &__gradient-bar, &__control-point-button {
+        border: 1px dashed var(--wp-admin-theme-color) !important;
+    }
+}
+
+.components-circular-option-picker {
+    &__option-wrapper {
+        &:before {
+            opacity: 0.2;
+        }
+    }
+}
+
+.section-shapes {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -5px;
+
+    &__wrapper {
+        width: calc(100% / 4);
+        margin: 5px;
+        background-color: #0a0a0a;
+        display: flex;
+        flex-direction: column;
+        opacity: 0.7;
+
+        &.is-active {
+            opacity: 1;
+        }
+    }
+
+    &__element {
+        position: relative;
+        width: 100%;
+        height: 40px;
+    }
+
+    &__remove-button-wrapper {
+        margin-top: 10px;
+        width: 100%;
+        text-align: right;
+    }
+
+    .section-shape {
+        width: calc(100% + 2px);
+        transform: translate(0, -1px);
+        height: 10px;
+
+        &.shape-bottom {
+            transform: rotate(180deg);
+        }
+    }
+}
+
+.components-button-group {
+    .components-button {
+        border-radius: 2px;
+        margin: 0 5px 5px 0;
+
+        &:first-child {
+            border-radius: 2px;
+        }
+    }
+}
+
+/**
+ * Root container max widht elements
+ */
+.is-root-container {
+    > .editor-container {
+        max-width: var(--max-container-width);
+        margin: 0 auto;
+    }
+}
+
+/**
+ * AlignmentMatricControl without center cells
+ */
+.no-center-cells {
+    .component-alignment-matrix-control {
+        > *:nth-child(2) {
+            display: none;
+        }
+
+        > *:first-child {
+            > *:nth-child(2) {
+                display: none;
+            }
+        }
+
+        > *:last-child {
+            > *:nth-child(2) {
+                display: none;
+            }
+        }
+
+    }
+}
+
+/**
+ * Mobile switch is a custom component for the mobile representation of blocks
+ */
+.mobile-switch {
+    &__inner {
+        display: none;
+
+        &.is-active {
+            display: block;
+        }
+    }
+
+    &__button {
+        padding: 0 4px;
+        width: 26px;
+        min-width: 26px;
+    }
+}

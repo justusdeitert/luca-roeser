@@ -9,11 +9,31 @@ Thumbs.db
 # IDE
 .idea
 .phpintel
+.vscode/
 
-# Composer
-/vendor
+# Dependencies
+node_modules/
+vendor/
 composer.lock
 
-# Backups
-backups
+# Build output
+theme/assets/
+.vite/
+
+# WordPress core (downloaded via Docker)
+wordpress/
+
+# Environment files
+.env
+
+# Logs
+*.log
+
+# Database exports
 *.sql
+
+# Backups
+backups/
+
+# Uploads (synced separately)
+uploads/
